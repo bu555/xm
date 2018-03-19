@@ -90,8 +90,10 @@ const searchExample = (req,res,next)=>{
     })
 }
 //投票 （注：需要登录）
+//逻辑：1、查询voteLog是否重复投票 2、叠加票数计算type,并判断更新  3、更新成功后，将uid和投票结果加入voteLog 4、查询该example返回
 const goVote = (req,res,next)=>{
-      let eid = req.body.eid;
+      let uid = req.session.user._id;//用户id
+      let eid = req.body.eid; //example Id
       let vote = req.body.vote;
       if(myUtill.testVote(vote)===false){
           return res.json({
@@ -101,13 +103,26 @@ const goVote = (req,res,next)=>{
       }
       Example.findOne({_id:eid}).then(example=>{
           if(example){
+              // 判断用户是否重复投票
+              let isVoted = false;
+              for(let i=0;i<example.voteLog.length;i++){
+                    if(example.voteLog[i].uid === uid){
+                        isVoted = true;
+                        break;
+                    }
+              }
+              if(isVoted){
+                    res.json({
+                        success:false,
+                        message:'不可重复投票'
+                    })
+              }
               // 计算投票后的vote
               let temp = example.vote;
               for(let i=0;i<4;i++){
                   var char = vote.charAt(i);
                   if(char!=='*'){
                     temp[char] = temp[char]+1;
-                    console.log(char);
                   }
               }
               //计算当前每个维度，获取type，判断是否要同时更新type （如果相等时，保持原来的维度）
@@ -148,23 +163,35 @@ const goVote = (req,res,next)=>{
                       message:'数据库更新失败'
                    })
                 }else{
-                  //存储到voteLog
-
-                  //查询更新后的数据返回
-                  Example.findOne({_id:eid}).then(example=>{
-                      if(example){                          
-                          res.json({
-                              success:true,
-                              message:'投票成功',
-                              example:example
-                          })
+                  //将用户uid、vote结果存储到voteLog
+                  Example.update({_id:eid},{$push:{voteLog:{
+                        uid:req.session.user._id,
+                        result:vote, 
+                  }}},(err,data)=>{
+                      if(err){
+                            res.json({
+                                success:false,
+                                message:'type添加到votLog出错'
+                            })
                       }else{
-                          res.json({
-                              success:false,
-                              message:'更新后查询失败',
-                              example:example
-                          })
+                          console.log('chenggong',data);
+                            //查询更新后的数据返回
+                            Example.findOne({_id:eid}).then(example=>{
+                                if(example){                          
+                                    res.json({
+                                        success:true,
+                                        message:'投票成功',
+                                        example:example
+                                    })
+                                }else{
+                                    res.json({
+                                        success:false,
+                                        message:'更新后查询失败',
+                                        example:example
+                                    })
 
+                                }
+                            })
                       }
                   })
 
