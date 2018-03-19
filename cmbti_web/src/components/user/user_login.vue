@@ -1,35 +1,38 @@
 <template>
   <div class="login">
-        <h2 class="title">請登錄</h2>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <h2 class="title">请登录</h2>
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm c-login">
             <el-form-item label="" prop="name">
-                <el-input placeholder="用戶名" v-model="ruleForm.name" class="demo-item">
+                <el-input placeholder="用户名" v-model="ruleForm.name" class="demo-item" spellcheck="false">
                     <template slot="prepend"><i class="fa fa-user fa-fw" style="font-size: 20px;width:14px"></i></template>
                 </el-input>
             </el-form-item>
             <el-form-item label="" prop="password" class="form-item">
-                <el-input type="password" placeholder="密碼" v-model="ruleForm.password" class="demo-item">
+                <el-input type="password" placeholder="密码" v-model="ruleForm.password" class="demo-item" spellcheck="false">
                     <template slot="prepend"><i class="fa fa-lock fa-fw" style="font-size: 20px;width:14px"></i></template>
                 </el-input>
             </el-form-item>
             <el-form-item label="" prop="code">
-                <el-input placeholder="驗證碼" v-model="ruleForm.code" class="demo-item">
-                    <template slot="prepend" style="width:110px"><img src="" alt="驗證碼圖片" style="width:14px"></template>
+                <el-input placeholder="验证码" v-model="ruleForm.code" class="demo-item" spellcheck="false">
+                    <template slot="prepend" style="width:110px"><img src="" alt="验证码图片" style="width:14px"></template>
                 </el-input>
             </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登錄</el-button>
+            <el-form-item v-if="!isSubmit">
+                <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登 录</el-button>
                 <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
+            </el-form-item>
+            <el-form-item v-if="isSubmit">
+                <el-button type="primary" style="width:100%">正在登录<i class="el-icon-loading"></i> </el-button>
             </el-form-item>
             <ul class="link-list">
                     <li>
                         <router-link to="/user/register">
-                            <span>註冊</span>
+                            <span>注册</span>
                         </router-link>
                     </li>
                     <li>
                         <router-link to="/user/reset">
-                            <span>忘記密碼</span>
+                            <span>忘记密码</span>
                         </router-link>
                     </li>
             </ul>
@@ -41,68 +44,89 @@ export default {
   data() {
       return {
         ruleForm: {
-          name: 'admin@Touch-Network.com',
-          password: '123456',
+          name: '',
+          password: 'a55555',
           code: ''
         },
         rules: {
           name: [
-            { required: true, message: '請輸入用戶名', trigger: 'blur' },
-            { type: 'email', message: '請輸入正確的郵箱地址', trigger: 'blur,change' }
+            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+            { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
             // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           password: [
-            { required: true, message: '請輸入密碼', trigger: 'blur' },
+            { required: true, message: '请输入密码', trigger: 'blur' },
             // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           code: [
-            { required: true, message: '請輸入驗證碼', trigger: 'blur' },
+            { required: true, message: '请输入验证码', trigger: 'blur' },
             // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ]
-        }
+        },
+        isSubmit:false
       }
   },
   mounted() {
   },
   methods: {
+        //点击登录
         submitForm(formName) {
-            let _window = window;
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    this.isSubmit = true;
                     // alert('submit!');
-                    if(this.ruleForm.name==='admin@Touch-Network.com'&&this.ruleForm.password==='123456'){
-                        // 登录成功
-                        this.$router.push({name:'4-1'});
-                        window.sessionStorage.setItem('loginName',this.ruleForm.name);
-                        this.$store.commit('setUserName',this.ruleForm.name); //this.$store.state.isLogin设置ok
+                    this.$axios.login({
+                        name:this.ruleForm.name,
+                        password:this.ruleForm.password
+                    }).then(res=>{
+                        this.isSubmit = false;
+                        if(res.data.success){
+                            var beforeLoginPath = sessionStorage.getItem('beforeLoginPath')||'/';
+                            localStorage.setItem('user',JSON.stringify(res.data.user));
+                            this.$store.commit('setUserName',res.data.user.role_name);
+                            this.$router.push({
+                                path:beforeLoginPath
+                            })
+                        }else{
+                            this.$message({
+                                showClose: true,
+                                message: res.data.message,
+                                // type: 'warning',
+                                type: 'error',
+                                duration:5000
+                            });
+                        }
+                    }).catch(res=>{
                         this.$message({
-                            message: '歡迎登錄！',
-                            type: 'success'
+                            showClose: true,
+                            message: '操作失败，请稍后重试！',
+                            type: 'warning',
+                            duration:3700
                         });
-                    }else{
-                        this.$message.error('賬號或密碼錯誤！');
-                    }
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;
                 }
-            });
+            })
         }
     
   },
-  components: {
+  created(){
+      //从注册成功跳转的会带name
+      this.ruleForm.name = this.$route.query.name || 'buzhiguang@163.com';
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
     .login {
-        margin-top:38px;
+        margin-top:30px;
         .title {
             font-size:22px;
         }
-        .demo-ruleForm {
+        .demo-ruleForm.c-login {
             width: 442px;
-            margin:10px auto;
+            margin:20px auto;
             -webkit-transform:translate(-50px);
             -o-transform:translate(-50px);
             -moz-transform:translate(-50px);
@@ -123,6 +147,11 @@ export default {
                     font-size:14px;
                 }
             }
+        }
+        .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus {
+            // border-color: #67c23a;
+            border-color: #dcdfe6;
+
         }
     }
 

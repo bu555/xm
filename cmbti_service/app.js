@@ -5,6 +5,8 @@ var index = require('./router/index');
 var data = require('./router/data');
 var user = require('./router/user');
 var bodyParser = require('body-parser'); 
+var cors = require('cors')
+
 
 const router = express.Router();
 
@@ -18,6 +20,7 @@ db.once('open', function() {
 });
 
 var app = express();
+app.use(cors({credentials: true, origin: 'http://localhost:7075'}));//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //用于获取post传递的参数
 app.use(bodyParser.json()); //解析application/json
 
@@ -29,7 +32,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 10000 // 设置返回的cookie时效为30秒，测试用
+    maxAge: 30000 // 设置返回的cookie时效为30秒，测试用
   }
   // store: new MongoStore({
   //   url: "mongodb://localhost:27017/usersession"

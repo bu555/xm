@@ -1,6 +1,16 @@
 <template>
 <div class="con-nav">
     <div class="main-nav">
+        <div class="logo-a">
+            <a href="www.baidu.com" target="_blank">
+                <img src="../../static/img/logo_a.png" alt="">
+            </a>
+        </div>
+        <div class="logo-b">
+            <a href="www.baidu.com" target="_blank">
+                <img src="../../static/img/logo_b.png" alt="" style="height:38px">
+            </a>
+        </div>
         <ul class="ul-lev1">
             <li class="li-lev1" index='1' @click="clickHandle($event)" >
                 首页
@@ -9,10 +19,16 @@
                 MBTI
             </li>
             <li class="li-lev1" index='3' @click="clickHandle($event)">
-                MBTI
+                测试
             </li>
             <li class="li-lev1" index='4' @click="clickHandle($event)">
-                MBTI
+                名人
+            </li>
+            <li class="li-lev1" index='5' @click="clickHandle($event)">
+                资料库
+            </li>
+            <li class="li-lev1" index='6' @click="clickHandle($event)">
+                讨论区
             </li>
 
         </ul>
@@ -48,34 +64,26 @@
 export default {
   data() {
     return {
-      locale: "ch",
-      judge: true,
       // 当前激活index
       activeIndex:'',
       isLogin:true,
-      //存取路由映射信息
-      routeObj:{},
       //配置存储$t对象的导航信息
-      tObj:{
-          '1':'message.nav_homepage',
-          '2':'message.min_sta',
-          '3':'message.help_center',
-          '4':'message.account',
-      },
       routeObj:{
         '1':'/index',
         '2':'/mbti',
         '3':'/test',
         '4':'/example',
+        '5':'/document',
+        '6':'/discuss',
       },
-      //tab导航切换至的key
-      activeTab:'',
-      //tab导航激活name
-      activeName:'',
-      //路由是否包含/user/
-      isUserPath:false,
-        //   //已登录用户名
-        //   loginName:'',
+    //   //tab导航切换至的key
+    //   activeTab:'',
+    //   //tab导航激活name
+    //   activeName:'',
+    //   //路由是否包含/user/
+    //   isUserPath:false,
+    //     //   //已登录用户名
+    //     //   loginName:'',
     };
   },
   watch: {
@@ -87,7 +95,6 @@ export default {
             //获取第一个//中的字段
             let currentPath = '/' + this.$route.path.split('/')[1];
             let index = '';
-            console.log(currentPath);
             for(let key in this.routeObj){
                 if(this.routeObj[key] === currentPath){
                     index = key;
@@ -117,41 +124,41 @@ export default {
                 }
                 
             })
-            // 切换tab导航条
-            this.activeTab = currentIndex.split("-")[0];
-            //设主导航
-            document.querySelectorAll('.nav-title').forEach((v,i)=>{
-                let _index = v.getAttribute('index'); 
-                if(_index===currentIndex.split('-')[0]){
-                    if(_index === '4'){
-                        //如果进入的是我的账户，需判断是否登录，否则跳到登录页
-                        if(window.sessionStorage.getItem('loginName')){ 
-                            v.classList.add('active');
-                        }else{
-                            this.$router.push({path:'/user/login'});
-                            this.$message({
-                                message: '請先行登錄！',
-                                type: 'warning'
-                            });
-                        }
-                    }else{
-                        v.classList.add('active');
-                    }
-                }else{
-                    v.classList.remove('active');
-                }
-            })
-            //设置下拉导航
-            document.querySelectorAll('.li-lev2').forEach((v,i)=>{
-                let _index = v.getAttribute('index'); 
-                if(_index===currentIndex){
-                    v.classList.add('active');
-                }else{
-                    v.classList.remove('active');
-                }
-            })
-            //设tab子导航
-            this.activeName = currentIndex;
+            // // 切换tab导航条
+            // this.activeTab = currentIndex.split("-")[0];
+            // //设主导航
+            // document.querySelectorAll('.nav-title').forEach((v,i)=>{
+            //     let _index = v.getAttribute('index'); 
+            //     if(_index===currentIndex.split('-')[0]){
+            //         if(_index === '4'){
+            //             //如果进入的是我的账户，需判断是否登录，否则跳到登录页
+            //             if(window.sessionStorage.getItem('loginName')){ 
+            //                 v.classList.add('active');
+            //             }else{
+            //                 this.$router.push({path:'/user/login'});
+            //                 this.$message({
+            //                     message: '請先行登錄！',
+            //                     type: 'warning'
+            //                 });
+            //             }
+            //         }else{
+            //             v.classList.add('active');
+            //         }
+            //     }else{
+            //         v.classList.remove('active');
+            //     }
+            // })
+            // //设置下拉导航
+            // document.querySelectorAll('.li-lev2').forEach((v,i)=>{
+            //     let _index = v.getAttribute('index'); 
+            //     if(_index===currentIndex){
+            //         v.classList.add('active');
+            //     }else{
+            //         v.classList.remove('active');
+            //     }
+            // })
+            // //设tab子导航
+            // this.activeName = currentIndex;
 
         },
         // 用户注销、退出
@@ -160,10 +167,10 @@ export default {
                 this.$router.push({path:'/user/login'});
                 this.$message('你已註銷！');
             }else{ //退出
-                this.$router.push({name:'1-1'});
+                this.$router.push({path:'/'});
                 this.$message('你已退出！');
             }
-            window.sessionStorage.setItem('loginName','');
+            window.localStorage.removeItem('user');
             this.$store.commit('setUserName','');
         },
     },
@@ -172,24 +179,40 @@ export default {
         this.changeRoute();
     },
     created(){
+        var roleName = "";
+        if(localStorage.getItem('user')){
+            var user = JSON.parse(localStorage.getItem('user'));
+            roleName = user.role_name || user.name;
+        }
+        this.$store.commit('setUserName',roleName );
     }
 };
 </script>
 
 <style lang="less">
-@nav-height:40px;
+@nav-height:42px;
 @theme-color:#538dd5;
 @active-color:#3296fa;
 @active-color:#499ca5;
 .con-nav {
     .main-nav {
-        margin-top:50px;
+        margin-top:55px;
         margin-bottom:16px;
         background-color: @theme-color;
         text-align:left;
         position: relative;
         height:@nav-height;
         // display:flex;
+        .logo-a {
+            position: absolute;
+            left:55px;
+            top:-52px;
+        }
+        .logo-b {
+            position: absolute;
+            left:137px;
+            top:-46px;
+        }
         ul.ul-lev1 {
             padding-left:10px;
             margin-left:150px;
@@ -233,8 +256,8 @@ export default {
 
         div.control {
             position: absolute;
-            right:12px;
-            top:-38px;
+            right:15px;
+            top:-42px;
             color:#2992e0;
             font-size:14px;
             div.login-status {

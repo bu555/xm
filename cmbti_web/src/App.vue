@@ -31,8 +31,8 @@ export default {
         }else if(view_width<960){
             initWidth = 960;
         }
-        document.querySelector('#app').style.width = initWidth+'px';
-        document.querySelector('.router-view').style.minHeight = initRouterHeight+'px';
+        // document.querySelector('#app').style.width = initWidth+'px';
+        // document.querySelector('.router-view').style.minHeight = initRouterHeight+'px';
     } 
   },
   mounted(){
@@ -48,10 +48,10 @@ export default {
       -moz-osx-font-smoothing: grayscale;
       text-align: center;
       color: #2c3e50;
-      height: 100%;
-      width:1000px;
+      min-height: 470px;
+      max-width:980px;
       margin:0 auto;
-      background-color: #fff;
+      background:#fcfcfc;
       .router-view {
         //   min-height:255px;
       }

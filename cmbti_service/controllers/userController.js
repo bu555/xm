@@ -8,6 +8,7 @@
 const express = require('express')
 // const router = express.Router()
 const User = require('../models/schema/user')
+const myUtill = require('../models/utill')
 const sha1 = require('sha1')
 //时间处理模块
 const moment = require('moment')
@@ -20,30 +21,24 @@ const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 
 
+      
 
-// 注册
-const Register = (req, res,next) => {
-
-  console.log(req.body);
-  console.log(req.body.password);
-  console.log(req.body.name);
-  User.find({name:req.body.name} ).then(user => {
-    console.log(user);
-      if (user) {
-        res.json({
-          code: '-1',
-          error: '该账户已注册'
-        })
-      } else {}
-
-    })
-    .catch(err => res.json(err))
-  console.log(  );
+// 注册 
+const register = (req, res,next) => {
   // 这里的userRegister为mongoose中的
   // Entity —— 由Model创建的实体，使用save方法保存数据
   let userRegister = new User({
       name: req.body.name,
-      password: sha1(req.body.password) // 将密码加密
+      password: sha1(req.body.password), // 将密码加密
+      role_name: myUtill.getRoleName()
+      // role_name: (()=>{
+      //       let role_name = '',
+      //       for(let i=0;i<4;i++){
+      //           let ranNum = Math.ceil(Math.random() * 25); //生成一个0到25的数字
+      //           role_name+=(String.fromCharCode(97+ranNum)); //65=A
+      //       }
+      //       return role_name;
+      // })()
   })
   // 将 objectId 转换为 用户创建时间
   // objectId即为每一行数据中的_id
@@ -60,46 +55,146 @@ const Register = (req, res,next) => {
     .then(user => {
       if (user) {
         res.json({
-          code: '-1',
-          error: '该账户已注册'
+          success: false,
+          message: '该账户已注册'
         })
       } else {
-          // 邮件激活
-          // sendMail(userRegister.name, "来自cmpool的邮件!", "请点击http://127.0.0.1:7000/user/activation?email="+sha1(userRegister.name)+"激活你的账户！",function(){
-          //     res.json({
-          //         code:0,
-          //         msg:"激活邮件已发送到"+userRegister.name+",请登录邮箱进行激活操作！"
-          //     })
-          // })
           userRegister.save((err, user) => {
             if (err) {
               res.json(err)
             } else {
-              res.json({
-                code:'0',
-                msg:'注册成功！'
-              })
+                let _user = user;
+                User.find().then(user => {
+                    res.json({
+                      success:true,
+                      message:'注册成功',
+                      name:_user.name,
+                      count:user.length
+                    })
+                })
             }
           })
       }
     })
     .catch(err => res.json(err))
 }
-//激活
-const activation = (req,res,next)=>{
-  console.log('1212');
-    console.log(req.query.email)
-    // console.log(req)
+//查询用户名是否被注册
+const searchUser = (req,res)=>{
+    User.findOne({
+
+    })
+}
+//邮箱找回
+const emailRetrieve = (req,res,next)=>{
+    let email = req.body.email;
+    User.findOne({
+       name: email.toLowerCase()
+    }) 
+    .then(user => {
+      if (user) {
+          console.log(user);
+          let url = 'http://localhost:7075/user/reset?'+'uid='+user._id+'&pwd='+user.password;
+          let body = `尊敬的用户：<br/>您通过邮箱方式提交了找回密码的请求，请点击下面的链接重置您的密码 。<br/><a href="${url}" target="_blank">${url}</a>`;
+          // 邮件激活
+          sendMail(email, "来自cmbti的邮件!", body ,function(){
+            console.log('发送邮件成功');
+                  res.json({
+                      success:true,
+                      message:"邮件已发送",
+                      email:email
+                  })
+              })
+          } else {
+            res.json({
+              success:false,
+              message:'此邮箱未注册！'
+            })
+          }
+    })
+    .catch(err => res.json(err))
+}
+//重置密码
+const resetPassword = (req,res,next)=>{
+    console.log(req.body);
+    // res.redirect('http://localhost:7075/user/reset'); //重定向
+    User.findOne({_id:req.body.uid}).then(user=>{
+        if(user && user.password===req.body.pwd){
+          let update_where = {_id: req.body.uid};
+          let update_data = {password:sha1(req.body.password)};
+          User.update(update_where,{$set:update_data},err=>{
+              if(err){
+                res.json({
+                  success:false,
+                  message:'设置失败，请稍后再试！'
+                })
+              }else{
+                res.json({
+                  success:true,
+                  message:'设置成功'
+                })
+              }
+          })
+        }else{
+            res.json({
+              success:false,
+              message:'此链接已失效！'
+            })
+        }
+    })
+    // User.findOne({
+    //    _id: req.body.uid
+    // })
+    // .then(user => {
+    //    if(req.body.pwd === user.password){
+    //       user.password = req.body.password;
+    //    }
+    //   console.log(user);
+      // if (!user) {
+      //   res.json({
+      //     success: false,
+      //     message: "账号不存在"
+      //   })
+      // } else if (userLogin.password === user.password) {
+      //   var name = req.body.name;
+      //   // 用户信息写入 session
+      //   user.password = null;
+      //   req.session.user = user;
+      //   res.json({
+      //     success: true,
+      //     message: "登录成功",
+      //     // session: req.session,
+      //     name: user.name,
+      //     // 账户创建日期
+      //     time: moment(objectIdToTimestamp(user._id))
+      //       .format('YYYY-MM-DD HH:mm:ss')
+      //   })
+      // } else {
+      //   res.json({
+      //     success: false,
+      //     message: "密码错误"
+      //   })
+      // }
+    // })
+    // .catch(err => res.json(err))
+    // res.render('http://localhost:7075/user/reset');
+    // res.location('http://127.0.0.1:7075/user/reset');
+    
 }
 
 const search = (req,res,next)=>{
-    res.json({
-      msg:'okokok'
-    })
+  console.log( moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
+ 
+    // User.find({ })
+    // .then(user => {
+    //   return res.json({
+    //     msg:user,
+    //     code:0
+    //   })
+    // })
 }
 
 // 登录
-const Login = (req, res) => {
+const login = (req, res) => {
   let userLogin = new User({
     name: req.body.name,
     password: sha1(req.body.password)
@@ -112,7 +207,8 @@ const Login = (req, res) => {
       if (!user) {
         res.json({
           success: false,
-          message: "账号不存在"
+          // message: "账号不存在!"
+          message: "账号或密码错误!"
         })
       } else if (userLogin.password === user.password) {
         var name = req.body.name;
@@ -123,7 +219,7 @@ const Login = (req, res) => {
           success: true,
           message: "登录成功",
           // session: req.session,
-          name: user.name,
+          user: user,
           // 账户创建日期
           time: moment(objectIdToTimestamp(user._id))
             .format('YYYY-MM-DD HH:mm:ss')
@@ -131,19 +227,28 @@ const Login = (req, res) => {
       } else {
         res.json({
           success: false,
-          message: "密码错误"
+          // message: "密码错误！"
+          message: "账号或密码错误！"
         })
       }
     })
     .catch(err => res.json(err))
 }
+// 登出 delete user session
+const delSession = (req, res) => {
+  req.session.user = null;
+  res.json({
+    message: '登出成功'
+  })
+}
 
 module.exports = (router) => {
-    router.post('/register',checkNotLogin,Register);
-    router.post('/login',checkNotLogin,Login);
-    router.get('/activation',activation);
-    router.get('/randomCodePng',randomCodePng);
-    router.post('/search',checkLogin,search)
+    router.post('/register',checkNotLogin,register);
+    router.post('/login',checkNotLogin,login);
+    router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
+    router.post('/reset',resetPassword);
+    // router.post('/search',checkLogin,search)
+    router.post('/search',search)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

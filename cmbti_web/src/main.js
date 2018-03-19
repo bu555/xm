@@ -15,25 +15,31 @@ import 'element-ui/lib/theme-chalk/display.css'
 // element-ui
 import ElementUI from 'element-ui'
 Vue.use(ElementUI)
+
+import axiosManager from '../src/assets/axios.manager'
+Vue.prototype.$axios = axiosManager;
+
+// Vue.prototype.url = basePath;
+
 // apollo 
-import {
-  ApolloClient
-} from 'apollo-client'
-import {
-  HttpLink
-} from 'apollo-link-http'
-import {
-  InMemoryCache
-} from 'apollo-cache-inmemory'
-import VueApollo from 'vue-apollo'
+// import {
+//   ApolloClient
+// } from 'apollo-client'
+// import {
+//   HttpLink
+// } from 'apollo-link-http'
+// import {
+//   InMemoryCache
+// } from 'apollo-cache-inmemory'
+// import VueApollo from 'vue-apollo'
 // axios
-import axios from 'axios'
+// import axios from 'axios'
 // axios.defaults.withCredentials = true
-Vue.prototype.$http = axios;
-Vue.prototype.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// Vue.prototype.$http = axios;
+// Vue.prototype.$http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // Vue.prototype.$http.defaults.withCredentials = true;
+
 Vue.config.productionTip = false;
-Vue.prototype.url = basePath;
 // 接口
 
 /* eslint-disable no-new */

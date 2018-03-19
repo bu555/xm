@@ -24,6 +24,12 @@ import test from '@/components/test/test'
 // example
 import example from '@/components/example/example'
 
+// document
+import document from '@/components/document/document'
+
+// discuss
+import discuss from '@/components/discuss/discuss'
+
 
 
 const vueRouter = new Router({
@@ -42,6 +48,13 @@ const vueRouter = new Router({
 
     // example
     {path:'/example',component:example},
+
+    // document
+    {path:'/document',component:document},
+
+    // discuss 交流区
+    {path:'/discuss',component:discuss,  meta:{requireAuth: true }},
+    
 
     //矿池
     // {path:'/pool/system_stts',name:'2-1', component:pool_system_stts },
@@ -71,7 +84,7 @@ const vueRouter = new Router({
     
     // 用户登陆、注册、找回密码
     { path: '/user/login', component: user_login },
-    { path: '/user/register',component: user_register },
+    { path: '/user/register',component: user_register},
     { path: '/user/reset',component: user_reset_password },
 
  
@@ -79,10 +92,50 @@ const vueRouter = new Router({
 });
 
 vueRouter.beforeEach((to, from, next) => {
-  if (to.name === 'accountSet') {
-    
+  var reg = /^\/user\//;
+  // 确保登录后能跳转回到原页面
+  if(!reg.test(from.path) && reg.test(to.path)){
+     sessionStorage.setItem('beforeLoginPath',from.path);
+  } 
+  //需要登录的路由进行拦截
+   if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
+       if (localStorage.getItem('user')) {// 判断是否登录
+          next()
+       } else {// 没登录则跳转到登录界面
+          alert("需要登录！");
+          next({
+            path: '/user/login',
+            query: {redirect: to.fullPath}
+          })
+      }
+  } else {
+     next()
   }
-  next()
+  // next();
+  // if (to.name === 'accountSet') {
+    
+  // }
+  // next()
 })
+// 登录状态管理逻辑：
+// 1.session时间短（如：10分钟）：localStorage存储状态+时间，路由拦截时核对
+// 2.session时间长（如：一个月）：localStorage存储状态，路由拦截时核对
+// 判断是否需要登录权限 以及是否登录
+
+// router.beforeEach((to, from, next) => {
+//  if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限
+//  if (localStorage.getItem('username')) {// 判断是否登录
+//   next()
+//  } else {// 没登录则跳转到登录界面
+//   next({
+//   path: '/Register',
+//   query: {redirect: to.fullPath}
+//   })
+//  }
+//  } else {
+//  next()
+//  }
 
 export default vueRouter;
+
+// https://segmentfault.com/a/1190000011426274 vue的路由懒加载和组件的按需加载
