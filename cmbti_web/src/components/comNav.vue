@@ -1,0 +1,275 @@
+<template>
+<div class="con-nav">
+    <div class="main-nav">
+        <ul class="ul-lev1">
+            <li class="li-lev1" index='1' @click="clickHandle($event)" >
+                首页
+            </li>
+            <li class="li-lev1" index='2' @click="clickHandle($event)">
+                MBTI
+            </li>
+            <li class="li-lev1" index='3' @click="clickHandle($event)">
+                MBTI
+            </li>
+            <li class="li-lev1" index='4' @click="clickHandle($event)">
+                MBTI
+            </li>
+
+        </ul>
+        <div class="control">
+            <div class="login-status">
+                <!--<div v-text="$store.state.isLogin?'已登录':'未登录'"></div>-->
+                <div class="user-control" v-if="!$store.state.userName">
+                    <router-link to="/user/login">
+                        <span>登录</span>
+                    </router-link>
+                    <span  style="margin-left:6px;"></span>
+                    <router-link to="/user/register">
+                        <span>注册</span>
+                    </router-link>
+                </div>
+                <el-dropdown v-if="$store.state.userName"  @command="userControl">
+                    <span class="el-dropdown-link">
+                        {{$store.state.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item  command="cancel">注销</el-dropdown-item>
+                        <el-dropdown-item  command="exit">退出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</template>
+<script>
+// import routeObj from '../router/nav.config.js';
+export default {
+  data() {
+    return {
+      locale: "ch",
+      judge: true,
+      // 当前激活index
+      activeIndex:'',
+      isLogin:true,
+      //存取路由映射信息
+      routeObj:{},
+      //配置存储$t对象的导航信息
+      tObj:{
+          '1':'message.nav_homepage',
+          '2':'message.min_sta',
+          '3':'message.help_center',
+          '4':'message.account',
+      },
+      routeObj:{
+        '1':'/index',
+        '2':'/mbti',
+        '3':'/test',
+        '4':'/example',
+      },
+      //tab导航切换至的key
+      activeTab:'',
+      //tab导航激活name
+      activeName:'',
+      //路由是否包含/user/
+      isUserPath:false,
+        //   //已登录用户名
+        //   loginName:'',
+    };
+  },
+  watch: {
+      '$route':'changeRoute',
+  },
+  methods: {
+        //路由改变处理
+        changeRoute(){
+            //获取第一个//中的字段
+            let currentPath = '/' + this.$route.path.split('/')[1];
+            let index = '';
+            console.log(currentPath);
+            for(let key in this.routeObj){
+                if(this.routeObj[key] === currentPath){
+                    index = key;
+                }
+            }
+            this.setNavStyle(index);
+            this.activeIndex = index;
+        },
+        //导航点击事件处理
+        clickHandle(event){
+            var index = event.currentTarget.getAttribute('index'); 
+            // this.setNavStyle(index);
+            if(this.activeIndex!=index){
+                this.activeIndex = index;
+                this.$router.push({ path:this.routeObj[index] });
+                this.setNavStyle(index);
+            }
+            // console.log(index);       
+        },
+        //设置主导航
+        setNavStyle(currentIndex){
+            document.querySelectorAll('.li-lev1').forEach((v,i)=>{
+                if(v.getAttribute('index')===currentIndex){
+                    v.classList.add('active');
+                }else{
+                    v.classList.remove('active');
+                }
+                
+            })
+            // 切换tab导航条
+            this.activeTab = currentIndex.split("-")[0];
+            //设主导航
+            document.querySelectorAll('.nav-title').forEach((v,i)=>{
+                let _index = v.getAttribute('index'); 
+                if(_index===currentIndex.split('-')[0]){
+                    if(_index === '4'){
+                        //如果进入的是我的账户，需判断是否登录，否则跳到登录页
+                        if(window.sessionStorage.getItem('loginName')){ 
+                            v.classList.add('active');
+                        }else{
+                            this.$router.push({path:'/user/login'});
+                            this.$message({
+                                message: '請先行登錄！',
+                                type: 'warning'
+                            });
+                        }
+                    }else{
+                        v.classList.add('active');
+                    }
+                }else{
+                    v.classList.remove('active');
+                }
+            })
+            //设置下拉导航
+            document.querySelectorAll('.li-lev2').forEach((v,i)=>{
+                let _index = v.getAttribute('index'); 
+                if(_index===currentIndex){
+                    v.classList.add('active');
+                }else{
+                    v.classList.remove('active');
+                }
+            })
+            //设tab子导航
+            this.activeName = currentIndex;
+
+        },
+        // 用户注销、退出
+        userControl(command){
+            if(command==='cancel'){  //注销
+                this.$router.push({path:'/user/login'});
+                this.$message('你已註銷！');
+            }else{ //退出
+                this.$router.push({name:'1-1'});
+                this.$message('你已退出！');
+            }
+            window.sessionStorage.setItem('loginName','');
+            this.$store.commit('setUserName','');
+        },
+    },
+    mounted(){
+        //根据路由，初始化导航样式
+        this.changeRoute();
+    },
+    created(){
+    }
+};
+</script>
+
+<style lang="less">
+@nav-height:40px;
+@theme-color:#538dd5;
+@active-color:#3296fa;
+@active-color:#499ca5;
+.con-nav {
+    .main-nav {
+        margin-top:50px;
+        margin-bottom:16px;
+        background-color: @theme-color;
+        text-align:left;
+        position: relative;
+        height:@nav-height;
+        // display:flex;
+        ul.ul-lev1 {
+            padding-left:10px;
+            margin-left:150px;
+            font-size:15px;
+            display:inline-block;
+            li.li-lev1 {
+                float:left;
+                height:@nav-height;
+                line-height: @nav-height;
+                padding:0 20px;
+                cursor:pointer;
+                position: relative;
+                color:#fff;
+                &:hover {
+                    // background-color: rgba(255,255,255,.2);
+                    background-color: rgba(0,0,0,.1);
+                }
+                &:after {
+                    content:'';
+                    display: none;
+                    width:100%;
+                    height:1px;
+                    background-color: #fff;
+                    position: absolute;
+                    bottom:1px;
+                    left:0px;
+                    // box-shadow:0px -1px 4px orange;
+                }
+            }
+            // 主导航激活样式
+            li.li-lev1.active {
+                color:#fff;
+                background-color: rgba(0,0,0,.22);
+                &:after {
+                    // display: inline-block;
+                }
+            }
+            
+
+        }
+
+        div.control {
+            position: absolute;
+            right:12px;
+            top:-38px;
+            color:#2992e0;
+            font-size:14px;
+            div.login-status {
+                float:left;
+                display:inline-block;
+                height:@nav-height;
+                line-height: @nav-height;
+                margin-right:30px;
+                // margin-right:20px;
+                .user-control {
+                    span {
+                        color:#3296fa;
+                        padding:3px;
+                    }
+                }
+            }
+            div.language {
+                float:left;
+                display:inline-block;
+            }
+
+        };
+
+    }
+    .clear-float:after {
+        // &:after{
+        content:'';
+        height:0;
+        line-height:0;
+        display:block;
+        visibility:
+        hidden;
+        clear:both;
+        // }
+    }
+    
+}
+</style>
