@@ -4,6 +4,7 @@ const session = require('express-session');
 var index = require('./router/index');
 var data = require('./router/data');
 var user = require('./router/user');
+var example = require('./router/example');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
 
@@ -42,6 +43,7 @@ app.use(session({
 app.use('/', index);
 // app.use('/api/data',data);
 app.use('/api/user',user);
+app.use('/api/example',example);
 
 
 

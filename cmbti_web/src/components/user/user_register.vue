@@ -107,8 +107,8 @@ export default {
         showTerms:false,
         ruleForm: {
           name: 'bzg@qq.com',
-          password1: 'a123456',
-          password2: 'a123456',
+          password1: 'a55555',
+          password2: 'a55555',
           code: 'a'
         },
         rules: {
@@ -190,7 +190,7 @@ export default {
             })
         },
         search(){
-
+            
                 this.$axios.search().then(res=>{
                     console.log(res);
                 }).catch(res=>{

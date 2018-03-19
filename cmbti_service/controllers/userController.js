@@ -25,6 +25,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 
 // 注册 
 const register = (req, res,next) => {
+  console.log(req.body);
   // 这里的userRegister为mongoose中的
   // Entity —— 由Model创建的实体，使用save方法保存数据
   let userRegister = new User({
@@ -184,13 +185,13 @@ const resetPassword = (req,res,next)=>{
 const search = (req,res,next)=>{
   console.log( moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
  
-    // User.find({ })
-    // .then(user => {
-    //   return res.json({
-    //     msg:user,
-    //     code:0
-    //   })
-    // })
+    User.find({ })
+    .then(user => {
+      return res.json({
+        msg:user,
+        code:0
+      })
+    })
 }
 
 // 登录
@@ -248,7 +249,7 @@ module.exports = (router) => {
     router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
     router.post('/reset',resetPassword);
     // router.post('/search',checkLogin,search)
-    router.post('/search',search)
+    router.post('/search',checkLogin,search)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

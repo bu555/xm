@@ -1,12 +1,12 @@
 <template>
 <div class="con-nav">
     <div class="main-nav">
-        <div class="logo-a">
+        <div class="logo-a" v-if="false">
             <a href="www.baidu.com" target="_blank">
                 <img src="../../static/img/logo_a.png" alt="">
             </a>
         </div>
-        <div class="logo-b">
+        <div class="logo-b" v-if="false">
             <a href="www.baidu.com" target="_blank">
                 <img src="../../static/img/logo_b.png" alt="" style="height:38px">
             </a>

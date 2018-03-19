@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Loading, Message } from 'element-ui'
-var path = "http://127.0.0.1:7000/api";
+// var path = "http://127.0.0.1:7000/api";
+var path = "http://localhost:7000/api";
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 7000;
@@ -50,5 +51,22 @@ export default {
     //查询用户信息（调试）
     search(){
         return axios.post(path+'/user/search');
-    }
+    },
+
+    //添加example
+    addExample(data){
+        return axios.post(path+'/example/addExample',data);
+    },
+    //获取example
+    getExample(){
+        return axios.post(path+'/example/getExample');
+    },
+    //获取example
+    searchExample(data){
+        return axios.post(path+'/example/searchExample',data);
+    },
+    //投票
+    goVote(data){
+        return axios.post(path+'/example/goVote',data);
+    },
 }

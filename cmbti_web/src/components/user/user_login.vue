@@ -93,7 +93,7 @@ export default {
                                 message: res.data.message,
                                 // type: 'warning',
                                 type: 'error',
-                                duration:5000
+                                duration:3000
                             });
                         }
                     }).catch(res=>{
@@ -101,7 +101,7 @@ export default {
                             showClose: true,
                             message: '操作失败，请稍后重试！',
                             type: 'warning',
-                            duration:3700
+                            duration:3000
                         });
                     })
                 } else {
@@ -114,7 +114,7 @@ export default {
   },
   created(){
       //从注册成功跳转的会带name
-      this.ruleForm.name = this.$route.query.name || 'buzhiguang@163.com';
+      this.ruleForm.name = this.$route.query.name || 'bzg@qq.com';
   }
 };
 </script>

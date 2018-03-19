@@ -8,8 +8,8 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        index: true,
-        unique: true
+        index: true, //提高查询速度
+        unique: true //唯一性
     },
     password: String,
     create_time: Date,
