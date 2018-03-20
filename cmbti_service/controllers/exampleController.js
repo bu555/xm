@@ -211,7 +211,7 @@ module.exports = (router) => {
     router.post('/addExample',addExample);
     router.post('/getExample',getExample);
     router.post('/searchExample',searchExample);
-    router.post('/goVote',goVote);
+    router.post('/goVote',checkLogin,goVote);
     // router.post('/login',checkNotLogin,login);
     // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
     // router.post('/reset',resetPassword);

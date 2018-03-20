@@ -4,59 +4,16 @@
     <el-button type="primary" @click="addExamp()">新增</el-button>
     <el-button type="primary" @click="getExamp()">get</el-button>
     <el-button type="primary" @click="searchExamp()">查询</el-button>
-    <el-button type="primary" @click="goVote()">投票</el-button>
+    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
     <br/>
     <div class="example-list">
-        <div class="item" v-for="(v,i) in exampleList" :key="i">
+        <div class="item" v-for="(v,i) in exampleList" :key="i"  @click="toDetails(v)">
             <div class="item-box">
                 <div class="type">{{v.type}}</div>
                 <div class="photo">照片</div>
                 <div class="name">{{v.name}}</div>
             </div>
         </div>
-        <!--<div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>
-        <div class="item">
-            <div class="item-box">
-                <div class="type">intj</div>
-                <div class="photo">照片</div>
-                <div class="name">name</div>
-            </div>
-        </div>-->
-
     </div>
 </div> 
 </template>
@@ -64,15 +21,17 @@
 export default {
     data(){
         return{
-            exampleList:[]
+            exampleList:[],
+            detailsData:{}, //
+            showDetails:false,
         }
     },
     methods:{
         addExamp(){
                 this.$axios.addExample({
-                    name:'张飞',
+                    name:'丹丹2',
                     // type:'infj'
-                    vote:'esfp'
+                    vote:'infj'
                 }).then(res=>{
                     if(res.data.success){
                         console.log(res.data);
@@ -93,6 +52,11 @@ export default {
                     if(res.data.success){
                         console.log(res.data);
                         this.exampleList = res.data.example;
+                        let data = {
+                            data:res.data.example,
+                            createTime:Date.now()  //添加存储本地时间
+                        }
+                        sessionStorage.setItem('exampleList',JSON.stringify(data)); //保存到本地
                     }else{
                         this.$message({
                             showClose: true,
@@ -118,21 +82,13 @@ export default {
                 }).catch(res=>{})
 
         },
-        goVote(){
-                this.$axios.goVote({
-                    eid:'5aafc014dc48bc3018c74efa',
-                    vote:'***j'
-                    // name:'旭',//.."5aaf4bcf1e658b07c063c14a", name: "张旭5"
-                    // id:'5aaf4bcf1e658b07c063c14a'
-                }).then(res=>{
-                    if(res.data.success){
-                        console.log(res.data);
-                    }else{
-                        console.log(res.data)
-                    }
-                }).catch(res=>{})
 
-        },
+        //详情跳转
+        toDetails(value){
+            this.$router.push({path:'/example/details',query:{eid:value._id}})
+            console.log(value);
+            localStorage.setItem('exampleItemData',JSON.stringify(value));
+        }
     }
     
 };
@@ -163,6 +119,7 @@ export default {
         }
 
     }
+
 }
 
 </style>
