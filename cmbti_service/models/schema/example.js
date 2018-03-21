@@ -9,6 +9,8 @@ const exampleSchema = mongoose.Schema({
     create_time: Date,
     type: String,
     tag: String,
+    birth: String,
+    conste: String, //星座
     vote: Object,
     // vote:{
     //     'i':11,

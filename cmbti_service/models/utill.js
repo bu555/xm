@@ -17,12 +17,20 @@ module.exports =  {
             if(vote.length!==4){ //4位
                 return false;
             }else{
-                for(let i=0;i<4;i++){  //只可是指定的字符
-                    if(/[eisntfjp*]/.test(vote.charAt(i))===false){
-                        return false;
-                    }
+                if(vote === '****'){
+                    return false;
                 }
-                return true;
+                if( /[ei*]/.test(vote[0]) && /[sn*]/.test(vote[1]) && /[tf*]/.test(vote[2]) && /[jp*]/.test(vote[3]) ){
+                    return true;
+                }
+                
+                return false;
+                // for(let i=0;i<4;i++){  //只可是指定的字符
+                //     if(/[eisntfjp*]/.test(vote.charAt(i))===false){
+                //         return false;
+                //     }
+                // }
+                // return true;
             }
       }
 

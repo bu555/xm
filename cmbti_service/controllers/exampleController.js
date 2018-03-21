@@ -1,6 +1,8 @@
 
 const express = require('express')
-const Example = require('../models/schema/example')
+const Example = require('../models/schema/example') //人物实例信息
+const VoteHistory = require('../models/schema/vote.history')  //存储投票记录
+const UserHistory = require('../models/schema/user.history') //用户的投票记录
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
@@ -11,8 +13,9 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 
 // 添加example
 const addExample = (req,res,next)=>{
-    let vote = req.body.vote; //投票结果：类型
-    if(myUtill.testVote(vote)===false){
+    let vote = req.body.vote; //投票结果：如intj类型
+    let name = req.body.name;
+    if( !name || !myUtill.testVote(vote)){
         return res.json({
             success:false,
             message:'参数格式错误'
@@ -25,9 +28,12 @@ const addExample = (req,res,next)=>{
         }
     }
     let exampleAdd = new Example({
-        name:req.body.name,
-        type:req.body.vote,
-        vote:result
+        name:name,
+        type:vote,
+        vote:result,
+        tag: req.body.tag || '',
+        birth: req.body.birth || '',
+        conste: req.body.conste || '', //星座
     })
     exampleAdd.create_time = moment(objectIdToTimestamp(exampleAdd._id)).format('YYYY-MM-DD HH:mm:ss');
     Example.findOne({
@@ -41,7 +47,10 @@ const addExample = (req,res,next)=>{
       }else{
           exampleAdd.save((err, example) => {
             if (err) {
-                res.json(err)
+                res.json({
+                    success:false,
+                    message:'example存储失败'
+                })
             } else {
                 res.json({
                   success:true,
@@ -61,7 +70,7 @@ const getExample = (req,res,next)=>{
         })
     })
 }
-// 查询example
+// 查询example (使用name 或 tag)
 const searchExample = (req,res,next)=>{
     if(req.body.name){
         pro = Example.find({ name:new RegExp(req.body.name,'i') });
@@ -95,7 +104,8 @@ const goVote = (req,res,next)=>{
       let uid = req.session.user._id;//用户id
       let eid = req.body.eid; //example Id
       let vote = req.body.vote;
-      if(myUtill.testVote(vote)===false){
+
+      if(!uid || !eid || !myUtill.testVote(vote)){
           return res.json({
               success:false,
               message:'参数格式错误'
@@ -104,19 +114,21 @@ const goVote = (req,res,next)=>{
       Example.findOne({_id:eid}).then(example=>{
           if(example){
               // 判断用户是否重复投票
-              let isVoted = false;
-              for(let i=0;i<example.voteLog.length;i++){
-                    if(example.voteLog[i].uid === uid){
-                        isVoted = true;
-                        break;
-                    }
-              }
-              if(isVoted){
-                    res.json({
-                        success:false,
-                        message:'不可重复投票'
-                    })
-              }
+              VoteHistory.findOne({_id:uid})
+            //   let isVoted = false;
+            //   for(let i=0;i<example.voteLog.length;i++){
+            //         if(example.voteLog[i].uid === uid){
+            //             isVoted = true;
+            //             break;
+            //         }
+            //   }
+            //   if(isVoted){
+            //         res.json({
+            //             success:false,
+            //             message:'不可重复投票'
+            //         })
+            //   }
+
               // 计算投票后的vote
               let temp = example.vote;
               for(let i=0;i<4;i++){
@@ -147,15 +159,17 @@ const goVote = (req,res,next)=>{
               }else{
                   dim4 = temp['j']>temp['p'] ? 'j':'p';
               }
+              //增加了本次用户投票后的结果
               let nowType = dim1 + dim2 + dim3 + dim4; 
               console.log(nowType);
               console.log(example.type);
               let update_data = {};
               if(example.type!==nowType){
-                  update_data = {vote:temp,type:nowType};  //type和vote同时更新
+                  update_data = {vote:temp,type:nowType};  //type和vote要同时更新
               }else{
                   update_data = {vote:temp}; //只更新vote
               }
+              //更新example中的type
               Example.update({_id:eid},{$set: update_data },err=>{
                 if(err){
                    res.json({
@@ -163,44 +177,191 @@ const goVote = (req,res,next)=>{
                       message:'数据库更新失败'
                    })
                 }else{
-                  //将用户uid、vote结果存储到voteLog
-                  Example.update({_id:eid},{$push:{voteLog:{
-                        uid:req.session.user._id,
-                        result:vote, 
-                  }}},(err,data)=>{
-                      if(err){
-                            res.json({
-                                success:false,
-                                message:'type添加到votLog出错'
-                            })
-                      }else{
-                          console.log('chenggong',data);
-                            //查询更新后的数据返回
-                            Example.findOne({_id:eid}).then(example=>{
-                                if(example){                          
-                                    res.json({
-                                        success:true,
-                                        message:'投票成功',
-                                        example:example
+                // 将投票详细结果加入vote.history表
+                    // let result = {
+                    //     uid:uid,
+                    //     vote:vote,
+                    //     c_time: moment(objectIdToTimestamp(voteAdd._id)).format('YYYY-MM-DD HH:mm:ss'),
+                    // }
+                    // let voteAdd = new VoteHistory({
+                    //     eid:eid,
+                    //     result:result
+                    // })
+
+                    //更新vote.history
+                    let voteHistoryHandle = (err)=>{
+                                            //更新user.historu
+                            VoteHistory.findOne({_id:eid}).then(vote_history=>{
+                                if(vote_history){  //用户id存在
+                                    VoteHistory.update({_id:eid},{$push:{voteList:{
+                                        uid:uid,
+                                        res:vote,
+                                        c_time: moment().format('YYYY-MM-DD HH:mm:ss')
+                                    }}},err=>{
+                                        if(err){
+                                            res.json({
+                                                success:false,
+                                                message:'update数据失败'
+                                            })
+                                        }else{
+
+
+                                        }
                                     })
-                                }else{
+                                }else{  //用户id不存在
+                                    new VoteHistory({
+                                        eid:eid,
+                                        voteList:[{
+                                            uid:uid,
+                                            res:vote,
+                                            c_time: moment().format('YYYY-MM-DD HH:mm:ss')
+                                        }],
+                                        commentList:[]
+                                    }).save(err=>{
+                                        if(err){
+                                            res.json({
+                                                success:false,
+                                                message:'new voteHistory存储失败'
+                                            })
+                                        }else{
+
+
+
+
+
+                                        }
+                                    })
+                                }
+                            })
+                    }
+                    //更新user.history
+                    UserHistory.findOne({_id:uid}).then(user_history=>{
+                        if(user_history){  //用户id存在
+                            UserHistory.update({_id:uid},{$push:{voteList:{
+                                eid:eid,
+                                res:vote,
+                                c_time: moment().format('YYYY-MM-DD HH:mm:ss')
+                            }}},err=>{
+                                if(err){
                                     res.json({
                                         success:false,
-                                        message:'更新后查询失败',
-                                        example:example
+                                        message:'update数据失败'
                                     })
+                                }else{
+
 
                                 }
                             })
-                      }
-                  })
+                        }else{  //用户id不存在
+                            new UserHistory({
+                                uid:uid,
+                                voteList:[{
+                                    eid:eid,
+                                    res:vote,
+                                    c_time: moment().format('YYYY-MM-DD HH:mm:ss')
+                                }],
+                                commentList:[]
+                            }).save(err=>{
+                                if(err){
+                                    res.json({
+                                        success:false,
+                                        message:'new userHistory存储失败'
+                                    })
+                                }else{
+
+
+
+
+
+                                }
+                            })
+                        }
+                    })
+                    // voteAdd.save((err, vote) => {
+                    //     if (err) {
+                    //         res.json({
+                    //             success:false,
+                    //             message:'vote.history存储失败'                               
+                    //         })
+                    //     } else {
+                    //         // 将投票详细结果加入userHistory表
+                    //         let result_user = {
+                    //             eid:eid,
+                    //             vote:vote,
+                    //             c_time: moment(objectIdToTimestamp(voteAdd._id)).format('YYYY-MM-DD HH:mm:ss'),
+                    //         }
+                    //         let userHistoryAdd = new UserHistory({
+                    //             uid:uid,
+                    //             viteList:result_user
+                    //         })
+                    //         //保存这条数据
+                    //         userHistoryAdd.save((err, vote) => {
+                    //             if (err) {
+                    //                 res.json({
+                    //                     success:false,
+                    //                     message:'vote.history存储失败'                               
+                    //                 })
+                    //             } else {
+                    //                 //查询更新后的数据返回
+                    //                 Example.findOne({_id:eid}).then(example=>{
+                    //                     if(example){                          
+                    //                         res.json({
+                    //                             success:true,
+                    //                             message:'投票成功',
+                    //                             example:example
+                    //                         })
+                    //                     }else{
+                    //                         res.json({
+                    //                             success:false,
+                    //                             message:'更新后查询失败',
+                    //                             example:example
+                    //                         })
+
+                    //                     }
+                    //                 }) //查询更新后数据返回
+                    //             }
+                    //         })
+                    //     }
+                    // })
+
+
+                  //将用户uid、vote结果存储到voteLog
+                //   Example.update({_id:eid},{$push:{voteLog:{
+                //         uid:req.session.user._id,
+                //         result:vote, 
+                //   }}},(err,data)=>{
+                //       if(err){
+                //             res.json({
+                //                 success:false,
+                //                 message:'type添加到votLog出错'
+                //             })
+                //       }else{
+                //             //查询更新后的数据返回
+                //             Example.findOne({_id:eid}).then(example=>{
+                //                 if(example){                          
+                //                     res.json({
+                //                         success:true,
+                //                         message:'投票成功',
+                //                         example:example
+                //                     })
+                //                 }else{
+                //                     res.json({
+                //                         success:false,
+                //                         message:'更新后查询失败',
+                //                         example:example
+                //                     })
+
+                //                 }
+                //             })
+                //       }
+                //   })
 
                 }
               })
           }else{
              res.json({
                 success:false,
-                message:'用户不存在'
+                message:'无此名字存在'
              })
           }
       })
