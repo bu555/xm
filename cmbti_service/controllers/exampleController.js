@@ -91,6 +91,7 @@ const searchExample = (req,res,next)=>{
 }
 //投票 （注：需要登录）
 const goVote = (req,res,next)=>{
+  console.log(req.session.user);
       let eid = req.body.eid;
       let vote = req.body.vote;
       if(myUtill.testVote(vote)===false){
@@ -133,8 +134,6 @@ const goVote = (req,res,next)=>{
                   dim4 = temp['j']>temp['p'] ? 'j':'p';
               }
               let nowType = dim1 + dim2 + dim3 + dim4; 
-              console.log(nowType);
-              console.log(example.type);
               let update_data = {};
               if(example.type!==nowType){
                   update_data = {vote:temp,type:nowType};  //type和vote同时更新
