@@ -47,10 +47,14 @@ export default {
                     // id:'5aaf4bcf1e658b07c063c14a'
                 }).then(res=>{
                     if(res.data.success){
-                        console.log("返回的",res.data.example);
                         this.exampleItem = res.data.example;
                     }else{
-                        console.log(res.data)
+                        this.$message({
+                            showClose: true,
+                            message: res.data.message,
+                            type: 'warning',
+                            duration:2500
+                        });
                     }
                 }).catch(res=>{})
 

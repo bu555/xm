@@ -244,7 +244,8 @@ const login = (req, res) => {
 const delSession = (req, res) => {
   req.session.user = null;
   res.json({
-    message: '登出成功'
+      success:true,
+      message: '登出成功'
   })
 }
 
@@ -255,6 +256,7 @@ module.exports = (router) => {
     router.post('/reset',resetPassword);
     // router.post('/search',checkLogin,search)
     router.post('/search',checkLogin,search)
+    router.post('/delSession',checkLogin,delSession)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

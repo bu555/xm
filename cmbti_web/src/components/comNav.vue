@@ -164,11 +164,27 @@ export default {
         // 用户注销、退出
         userControl(command){
             if(command==='cancel'){  //注销
-                this.$router.push({path:'/user/login'});
-                this.$message('你已註銷！');
+                this.$axios.delSession().then(res=>{
+                    if(res.data.success){
+                        this.$router.push({path:'/user/login'});
+                            this.$message({
+                                message: '已注销！',
+                                type: 'info',
+                                duration:1200
+                            });
+                    }
+                })
             }else{ //退出
-                this.$router.push({path:'/'});
-                this.$message('你已退出！');
+                this.$axios.delSession().then(res=>{
+                    if(res.data.success){
+                        this.$router.push({path:'/'});
+                        this.$message({
+                            message: '已退出！',
+                            type: 'info',
+                            duration:1200
+                        });
+                    }
+                })
             }
             window.localStorage.removeItem('user');
             this.$store.commit('setUserName','');

@@ -215,7 +215,6 @@ const checkVote = (uid,eid)=>{
                 })
             }
         })
-        console.log(isVoted);
      })
      return pro;
 }
@@ -279,13 +278,13 @@ const addToExample = (uid,eid,vote,example)=>{
                             Example.findOne({_id:eid}).then(example=>{
                                 if(example){
                                         UserHistory.findOne({uid:uid}).then(user=>{
-                                    resolve({
-                                        success:true,
-                                        message:'记录更新example成功',
-                                        example:example,
-                                        userHistory:user
-                                    });
-                                        })
+                                        resolve({
+                                            success:true,
+                                            message:'记录更新example成功',
+                                            example:example,
+                                            userHistory:user
+                                        });
+                                    })
 
                                 }
                             }) //Example end!

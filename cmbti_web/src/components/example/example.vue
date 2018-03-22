@@ -1,7 +1,7 @@
 <template>
 <div class="example">
     example
-    <el-button type="primary" @click="addExamp()">新增</el-button>
+    <el-button type="primary" @click="openInput">新增</el-button>
     <el-button type="primary" @click="getExamp()">get</el-button>
     <el-button type="primary" @click="searchExamp()">查询</el-button>
     <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
@@ -27,14 +27,21 @@ export default {
         }
     },
     methods:{
-        addExamp(){
+        addExamp(name){
                 this.$axios.addExample({
-                    name:'abs555',
+                    name:name,
                     // type:'infj'
-                    vote:'enfj'
+                    vote:'infj'
                 }).then(res=>{
                     if(res.data.success){
-                        console.log(res.data);
+                        console.log(res.data.message);
+                        this.$message({
+                            showClose: true,
+                            message: res.data.message,
+                            // type: 'warning',
+                            type: 'success',
+                            duration:3000
+                        });
                     }else{
                         console.log(res.data.message);
                         // this.$message({
@@ -88,7 +95,23 @@ export default {
             this.$router.push({path:'/example/details',query:{eid:value._id}})
             console.log(value);
             localStorage.setItem('exampleItemData',JSON.stringify(value));
+        },
+        //打开新增input
+        openInput() {
+            this.$prompt('请输入名字', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+            // inputErrorMessage: '邮箱格式不正确'
+            }).then(({ value }) => {
+                this.addExamp(value);
+            }).catch(() => {
+     
+            });
         }
+    },
+    created(){
+        this.getExamp();
     }
     
 };

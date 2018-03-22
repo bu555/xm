@@ -6,7 +6,7 @@ module.exports = {
     if (!req.session.user) {
       return res.json({
         error: '未登录',
-        session: false
+        session: false,
       });
     }
     next();
