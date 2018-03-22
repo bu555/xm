@@ -8,7 +8,10 @@ const exampleSchema = mongoose.Schema({
     },
     create_time: Date,
     type: String,
+    total: Number, //参与人数
     tag: String,
+    birth: String,
+    conste: String, //星座
     vote: Object,
     // vote:{
     //     'i':11,

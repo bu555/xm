@@ -8,6 +8,7 @@
 const express = require('express')
 // const router = express.Router()
 const User = require('../models/schema/user')
+const UserHistory = require('../models/schema/user.history')
 const myUtill = require('../models/utill')
 const sha1 = require('sha1')
 //时间处理模块
@@ -62,9 +63,13 @@ const register = (req, res,next) => {
       } else {
           userRegister.save((err, user) => {
             if (err) {
-              res.json(err)
+              res.json({
+                success:false,
+                message:'用户信息保存失败'
+              })
             } else {
                 let _user = user;
+                //查询用户总数并返回
                 User.find().then(user => {
                     res.json({
                       success:true,

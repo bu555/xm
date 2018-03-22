@@ -23,6 +23,7 @@ import test from '@/components/test/test'
 
 // example
 import example from '@/components/example/example'
+import example_details from '@/components/example/details'
 
 // document
 import document from '@/components/document/document'
@@ -48,6 +49,7 @@ const vueRouter = new Router({
 
     // example
     {path:'/example',component:example},
+    {path:'/example/details',component:example_details},
 
     // document
     {path:'/document',component:document},
@@ -95,7 +97,7 @@ vueRouter.beforeEach((to, from, next) => {
   var reg = /^\/user\//;
   // 确保登录后能跳转回到原页面
   if(!reg.test(from.path) && reg.test(to.path)){
-     sessionStorage.setItem('beforeLoginPath',from.path);
+     sessionStorage.setItem('beforeLoginPath',from.fullPath);
   } 
   //需要登录的路由进行拦截
    if (to.matched.some(res => res.meta.requireAuth)) {// 判断是否需要登录权限

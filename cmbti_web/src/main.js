@@ -19,6 +19,8 @@ Vue.use(ElementUI)
 import axiosManager from '../src/assets/axios.manager'
 Vue.prototype.$axios = axiosManager;
 
+Vue.prototype.maxAge = 60000;  //本地数据存储期限值
+
 // Vue.prototype.url = basePath;
 
 // apollo 
