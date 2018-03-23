@@ -12,14 +12,15 @@
             </div>
             <div class="right-box">
                 <div class="vote-result" style="height:177px">
-                    e => <span>{{exampleItem.vote.e}}</span><br/>
+                    <!--e => <span>{{exampleItem.vote.e}}</span><br/>
                     i => <span>{{exampleItem.vote.i}}</span><br/>
                     s => <span>{{exampleItem.vote.s}}</span><br/>
                     n => <span>{{exampleItem.vote.n}}</span><br/>
                     t => <span>{{exampleItem.vote.t}}</span><br/>
                     f => <span>{{exampleItem.vote.f}}</span><br/>
                     j => <span>{{exampleItem.vote.j}}</span><br/>
-                    p => <span>{{exampleItem.vote.p}}</span><br/>
+                    p => <span>{{exampleItem.vote.p}}</span><br/>-->
+                    <progressCom :result="exampleItem.vote"></progressCom>
                 </div>
                 <div>
                     <el-button type="primary" @click="goVote()">投票</el-button>
@@ -30,6 +31,7 @@
 </div> 
 </template>
 <script>
+import progressCom from "./progress"
 export default {
     data(){
         return {
@@ -39,10 +41,15 @@ export default {
     methods:{
         //投票
         goVote(){
-            console.log("example" ,this.exampleItem);
+            this.$prompt('请输入名字', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+            // inputErrorMessage: '邮箱格式不正确'
+            }).then(({ value }) => {
                 this.$axios.goVote({
                     eid:this.exampleItem._id,
-                    vote:'intj'
+                    vote:value
                     // name:'旭',//.."5aaf4bcf1e658b07c063c14a", name: "张旭5"
                     // id:'5aaf4bcf1e658b07c063c14a'
                 }).then(res=>{
@@ -57,7 +64,10 @@ export default {
                         });
                     }
                 }).catch(res=>{})
-
+                
+            }).catch(() => {
+     
+            });
         },
     },
     created(){
@@ -85,6 +95,9 @@ export default {
             //请求数据
 
         }
+    },
+    components:{
+        progressCom
     }
     
 };
@@ -108,7 +121,7 @@ export default {
                 }
             
             .vote-result {
-                background-color: #ccc;
+                // background-color: #ccc;
 
             }
     }

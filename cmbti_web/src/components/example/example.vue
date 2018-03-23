@@ -18,6 +18,7 @@
 </div> 
 </template>
 <script>
+
 export default {
     data(){
         return{
@@ -112,7 +113,8 @@ export default {
     },
     created(){
         this.getExamp();
-    }
+    },
+
     
 };
 </script>
