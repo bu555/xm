@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <!--<el-header style="padding:0">-->
-        <com-nav/>
-    <!--</el-header>-->
+  <div class="root-app">
+    <div class="nav-view">
+          <com-nav/>
+    </div>
     <div class="router-view">
         <router-view> </router-view>
     </div>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import comNav from "@/components/comNav";
-import footer from "@/components/footer";
+import comNav from "@/components/common/comNav";
+import footer from "@/components/common/footer";
 export default {
   name: 'App',
   components: {
@@ -42,18 +42,22 @@ export default {
 </script>
 
 <style lang="less">
-    #app {
+    .root-app {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-align: center;
       color: #2c3e50;
       min-height: 470px;
-      max-width:980px;
       margin:0 auto;
       background:#fcfcfc;
+      .nav-view {
+        width:100%;
+        background-color:#538dd5;
+      }
       .router-view {
-        //   min-height:255px;
+        max-width:1055px;
+        min-width:960px;
+        margin:0 auto;
       }
     }
 </style>

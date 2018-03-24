@@ -93,7 +93,7 @@ export default {
                                 message: res.data.message,
                                 // type: 'warning',
                                 type: 'error',
-                                duration:3000
+                                duration:2000
                             });
                         }
                     }).catch(res=>{
@@ -101,7 +101,7 @@ export default {
                             showClose: true,
                             message: '操作失败，请稍后重试！',
                             type: 'warning',
-                            duration:3000
+                            duration:2000
                         });
                     })
                 } else {
@@ -121,6 +121,7 @@ export default {
 <style lang="less">
     .login {
         margin-top:30px;
+        text-align:center;
         .title {
             font-size:22px;
         }

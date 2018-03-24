@@ -1,10 +1,15 @@
 <template>
 <div class="home-index">
-    index
+    <myTab/>
 </div> 
 </template>
 <script>
+import myTab from '../common/tab'
 export default {
+
+    components:{
+        myTab
+    }
 };
 </script>
 <style lang="less">

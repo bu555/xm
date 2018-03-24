@@ -250,6 +250,7 @@ export default {
 <style lang="less">
     .resetPassword {
         margin-top:30px;
+        text-align:center;
         .title {
             font-size:22px;
         }

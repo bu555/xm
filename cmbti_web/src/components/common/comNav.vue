@@ -1,14 +1,14 @@
 <template>
 <div class="con-nav">
     <div class="main-nav">
-        <div class="logo-a" v-if="false">
+        <div class="logo-a" v-if="true">
             <a href="www.baidu.com" target="_blank">
-                <img src="../../static/img/logo_a.png" alt="">
+                <img src="../../../static/img/logo_a.png" alt="">
             </a>
         </div>
-        <div class="logo-b" v-if="false">
+        <div class="logo-b" v-if="true">
             <a href="www.baidu.com" target="_blank">
-                <img src="../../static/img/logo_b.png" alt="" style="height:38px">
+                <img src="../../../static/img/logo_b.png" alt="" style="height:38px">
             </a>
         </div>
         <ul class="ul-lev1">
@@ -211,9 +211,12 @@ export default {
 @active-color:#3296fa;
 @active-color:#499ca5;
 .con-nav {
+    max-width:1055px;
+    min-width:960px;
+    margin:0 auto;
     .main-nav {
         margin-top:55px;
-        margin-bottom:16px;
+        margin-bottom:5px;
         background-color: @theme-color;
         text-align:left;
         position: relative;

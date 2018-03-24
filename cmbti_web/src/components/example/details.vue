@@ -1,11 +1,24 @@
 <template>
 <div class="details">
+    <div class="ctrl">
+        <div style="text-align:left;color:#538dd5;margin:10px 0">
+            <span @click="$router.go(-1)" style="cursor:pointer">
+                <i class="el-icon-back"></i> 返回
+            </span>
+        </div>
+    </div>
+    <div class="main-box">
         <div class="details-info">
             <div class="left-box">
+                <div class="info-txt">
+                    {{exampleItem.info}}
+                </div>
                 <div class="item">
                     <div class="item-box">
-                        <div class="type">{{exampleItem.type}}</div>
-                        <div class="photo">照片</div>
+                        <div class="type">{{exampleItem.type.toUpperCase()}}</div>
+                        <div class="photo">
+                            <img :src="exampleItem.img_url" alt="">
+                        </div>
                         <div class="name">{{exampleItem.name}}</div>
                     </div>
                 </div>
@@ -28,6 +41,12 @@
                 </div>
             </div>
         </div>
+        <div class="right-side">
+            <div class="top-side">
+                top-side
+            </div>
+        </div>
+    </div>
 </div> 
 </template>
 <script>
@@ -69,6 +88,21 @@ export default {
      
             });
         },
+        //精确查询example
+        searchExamp(id){
+                this.$axios.searchExample({
+                    id:id
+                }).then(res=>{
+                    if(res.data.success){
+                        console.log(res.data);
+                        this.exampleItem = res.data.example[0];
+
+                    }else{
+                        console.log(res.data)
+                    }
+                }).catch(res=>{})
+
+        },
     },
     created(){
         console.log(this.$route);
@@ -89,6 +123,7 @@ export default {
                 })
             }else{
                 //请求数据
+                this.searchExamp(this.$route.query.eid);
 
             }
         }else{
@@ -104,26 +139,81 @@ export default {
 </script>
 <style lang="less">
 .details {
-    .details-info {
-            display: flex;
-            display: -webkit-flex;
-            flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-            .left-box,.right-box {
-                flex:0 0 40%;
-                height:250px;
-                border:1px solid #ccc;
-                .photo {
-                    height: 177px;
-                }
+    .ctrl {
+        padding-left:5px;
+    }
+    .main-box {
+        display: flex; display: -webkit-flex;
+        text-align: center;
+        .details-info {
+                width:72%;
+                display: flex;
+                display: -webkit-flex;
+                flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
+                padding:5px;
+                .left-box {
+                    flex:1;
+                    border:1px solid #ccc;
+                    display: flex; display: -webkit-flex;
+                    padding-top:15px;
+                    .info-txt {
+                        width:150px;
+                        padding:15px 28px;
+                        padding-right:0px;
+                        text-align:left;
+                        font-size:13px;
+                    }
+                    .item {
+                        margin:0 auto;
+                    }
+                    .item-box {
+                        flex:1;
+                        margin:7px;
+                        width:200px;
+                        border:1px solid #eee;
+                        border-radius:8px;
+                        // width:157px;
+                        .type,.name {
+                            height:32px;
+                            line-height: 32px;
+                            font-size:15px;
+                        }
+                        .photo {
+                            height:195px;
+                            overflow: hidden;
+                            img {
+                                width:150px;
+                            }
+                        }
+                    }
 
-            }
+                }
+                .right-box {
+                    // flex:1;
+                    width:315px;
+                    border:1px solid #ccc;
+                    .photo {
+                        height: 177px;
+                    }
+                }
                 .item {
                 }
             
-            .vote-result {
-                // background-color: #ccc;
+                .vote-result {
+                    // background-color: #ccc;
 
+                }
+        }
+        .right-side {
+            flex:1;
+            padding:5px;
+            .top-side {
+                height:400px;
+                border:1px solid #ddd;
+                border-radius:4px;
             }
+        }
+
     }
 
     

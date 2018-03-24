@@ -219,6 +219,7 @@ export default {
 <style lang="less">
     .register {
         margin-top:30px;
+        text-align:center;
         .title {
             font-size:22px;
         }

@@ -7,6 +7,8 @@ const exampleSchema = mongoose.Schema({
         unique: true
     },
     create_time: Date,
+    info:String,
+    img_url:String,
     type: String,
     total: Number, //参与人数
     tag: String,

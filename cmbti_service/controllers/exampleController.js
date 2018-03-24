@@ -10,56 +10,60 @@ const myUtill = require('../models/utill')
 //发送邮件功能
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
+const GrabWeb = require('../controllers/grabWeb')
 
 // 添加example
-const addExample = (req,res,next)=>{
-    let vote = req.body.vote; //投票结果：如intj类型
-    let name = req.body.name;
-    if( !name || !myUtill.testVote(vote)){
-        return res.json({
-            success:false,
-            message:'参数格式错误'
+const addExample = (name,res)=>{
+    // let vote = req.body.vote; //投票结果：如intj类型
+    // let name = req.body.name;
+    // if( !name || !myUtill.testVote(vote)){
+    //     return res.json({
+    //         success:false,
+    //         message:'参数格式错误'
+    //     })
+    // }
+    GrabWeb.https(name).then(searchData=>{
+
+        let result = {e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}; //初始化值
+        let exampleAdd = new Example({
+            name: name,
+            type: "****",
+            vote: result,
+            info: searchData.data.info || '',
+            img_url: searchData.data.imgURL || '',
+            total: 0, 
+            tag: searchData.data.tag || '',
+            birth: searchData.data.birth || '',
+            conste: searchData.data.conste || '', //星座
         })
-    }
-    let result = {e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}; //初始化值
-    for(let i=0;i<4;i++){
-        if(vote.charAt(i)!=="*"){
-            result[vote.charAt(i)] = 1;
-        }
-    }
-    let exampleAdd = new Example({
-        name:name,
-        type:vote,
-        vote:result,
-        total:1, 
-        tag: req.body.tag || '',
-        birth: req.body.birth || '',
-        conste: req.body.conste || '', //星座
-    })
-    exampleAdd.create_time = moment(objectIdToTimestamp(exampleAdd._id)).format('YYYY-MM-DD HH:mm:ss');
-    Example.findOne({
-        name:exampleAdd.name
-    }).then(example=>{
-      if(example){
-          res.json({
-            success: false,
-            message: '此名字已存在' 
-          })
-      }else{
-          exampleAdd.save((err, example) => {
-            if (err) {
+        exampleAdd.create_time = moment(objectIdToTimestamp(exampleAdd._id)).format('YYYY-MM-DD HH:mm:ss');
+        Example.findOne({
+            name:exampleAdd.name
+        }).then(example=>{
+            if(example){
                 res.json({
-                    success:false,
-                    message:'example存储失败'
+                    success: false,
+                    message: '此名字已存在' 
                 })
-            } else {
-                res.json({
-                  success:true,
-                  message:'添加成功'
+            }else{
+                exampleAdd.save((err, example) => {
+                    if (err) {
+                        res.json({
+                            success:false,
+                            message:'example存储失败'
+                        })
+                    } else {
+                        res.json({
+                        success:true,
+                        message:'添加成功'
+                        })
+                    }
                 })
             }
-          })
-      }
+        })
+
+    },searchData=>{
+        res.json(searchData);
     })
 }
 
@@ -73,31 +77,50 @@ const getExample = (req,res,next)=>{
 }
 // 查询example (使用name 或 tag)
 const searchExample = (req,res,next)=>{
+    let pro;
     if(req.body.name){
-        pro = Example.find({ name:new RegExp(req.body.name,'i') });
-    }else if(req.body.tag){
-        pro = Example.find({ tag:new RegExp(req.body.tag,'i') });
+        pro = Example.findOne({ name:req.body.name });
+    }else if(req.body.id){
+        pro = Example.findOne({ _id:req.body.id });
     }else{
         return res.json({
             success:false,
-            message:'参数错误'
+            message:'request参数错误'
         })
     }
     pro.then(example=>{
-      if(example){
-          res.json({
-              success:true,
-              message:'ok',
-              result:example
-          })
-      }else{
-          res.json({
-              success:false,
-              message:'未搜索到此名字',
-              result:example
-          }) 
-      }
+        if(example){
+            if(!(example instanceof Array)){
+                example = [example];
+            }
+            res.json({
+                success:true,
+                message:'ok',
+                example:example
+            })
+        }else{
+            //爬取数据
+            addExample(req.body.name,res);
+            // res.json({
+            //     success:false,
+            //     message:'未搜索到此名字',
+            //     result:example
+            // }) 
+        }
+    },example=>{
+        res.json(example);
     })
+
+    // if(req.body.name){
+    //     pro = Example.find({ name:new RegExp(req.body.name,'i') });
+    // }else if(req.body.tag){
+    //     pro = Example.find({ tag:new RegExp(req.body.tag,'i') });
+    // }else{
+    //     return res.json({
+    //         success:false,
+    //         message:'参数错误'
+    //     })
+    // }
 }
 //投票 （注：需要登录）
 //逻辑：1、查询user.history判断是否重复投票 
@@ -364,6 +387,7 @@ module.exports = (router) => {
     router.post('/getExample',getExample);
     router.post('/searchExample',searchExample);
     router.post('/goVote',checkLogin,goVote);
+    router.post('/searchExample',searchExample);
     // router.post('/login',checkNotLogin,login);
     // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
     // router.post('/reset',resetPassword);

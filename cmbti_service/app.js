@@ -7,6 +7,11 @@ var user = require('./router/user');
 var example = require('./router/example');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
+const GrabWeb = require('./controllers/grabWeb')
+
+GrabWeb.https();
+
+
 
 
 const router = express.Router();
@@ -26,6 +31,7 @@ app.use(bodyParser.urlencoded({extended:false})); //用于获取post传递的参
 app.use(bodyParser.json()); //解析application/json
 
 app.use(express.static(path.join(__dirname, 'public'))); //静态文件目录
+app.use(express.static(path.join(__dirname,'upload')));
 // session
 app.use(session({
   secret: 'usersession',

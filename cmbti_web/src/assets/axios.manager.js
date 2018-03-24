@@ -78,12 +78,16 @@ export default {
     getExample(){
         return axios.post(path+'/example/getExample');
     },
-    //获取example
-    searchExample(data){
-        return axios.post(path+'/example/searchExample',data);
-    },
+    // //获取example
+    // searchExample(data){
+    //     return axios.post(path+'/example/searchExample',data);
+    // },
     //投票
     goVote(data){
         return axios.post(path+'/example/goVote',data);
+    },
+    //新增example
+    searchExample(data){
+        return axios.post(path+'/example/searchExample',data);
     },
 }
