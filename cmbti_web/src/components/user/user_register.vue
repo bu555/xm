@@ -1,7 +1,7 @@
 <template>
   <div class="register">
         <div v-if="!showTerms">
-            <h2 class="title" v-if="!success">注册一个账号</h2>
+            <h2 class="title" v-if="!success">注册账号</h2>
             <el-form v-if="!success" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm c-register">
                 <el-form-item label="" prop="name">
                     <el-input placeholder="输入邮箱进行注册" v-model="ruleForm.name" class="demo-item" spellcheck="false">
@@ -29,7 +29,6 @@
                     </div>
                 <el-form-item v-if="!isSubmit">
                     <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">注 册</el-button>
-                    <el-button type="primary" @click="search()" style="width:100%">查询</el-button>
                 </el-form-item>
                 <el-form-item v-if="isSubmit">
                     <el-button type="primary" style="width:100%">注册申请中<i class="el-icon-loading"></i> </el-button>
@@ -189,14 +188,6 @@ export default {
                 hash:''
             })
         },
-        search(){
-            
-                this.$axios.search().then(res=>{
-                    console.log(res);
-                }).catch(res=>{
-                    console.log(res);
-                })
-        },
         serverTerm(){
             this.showTerms = true;
             this.$router.push({
@@ -209,10 +200,12 @@ export default {
       serviceTerms
   },
   created(){
-      console.log(this.$route.hash);
       if(this.$route.hash === '#terms'){
           this.showTerms = true;
       }
+      //从模态登录进入，关闭模态框
+      this.$store.commit('setModalLogin',false); 
+      
   }
 };
 </script>
@@ -224,7 +217,7 @@ export default {
             font-size:22px;
         }
         .demo-ruleForm.c-register {
-            width: 442px;
+            width: 422px;
             margin:20px auto;
             -webkit-transform:translate(-50px);
             -o-transform:translate(-50px);

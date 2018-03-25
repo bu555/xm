@@ -113,10 +113,12 @@ export default {
 <style lang="less">
 @tabHeight:20px;
 .my-tab {
-    padding-top:5px;
+    padding-top:6px;
     display: flex;
     display: -webkit-flex;
     flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
+    background-color: #f7f7f7;
+    border-top: 1px solid #eee;
     
     &>div {
         // flex:0 0 auto;
@@ -130,11 +132,11 @@ export default {
         border-radius: 14px 14px 0 0;
         border:1px solid #d8d9db;
         position: relative;
-        background-color: #e6eef6;
-        color:#5966b7;
+        background-color: #f5f7fa;
+        color:#72748a;
         cursor:pointer;
         margin:0 3px;
-        margin-bottom:10px;
+        // margin-bottom:10px;
         &:after {
             content:'';
             width:5px;
@@ -154,14 +156,14 @@ export default {
 
         }
         &:hover {
-            background-color: transparent;
+            background-color: #fefefe;
             border-bottom:none;
-
         }
     }
     .tabs.active {
-        background-color: transparent;
-        border-bottom:none;
+        background-color: #fdfdfd;
+        border-bottom:1px solid #fdfdfd;
+        color:#1c2633;
     }
     .tabs-blank-start {
         width:5px;

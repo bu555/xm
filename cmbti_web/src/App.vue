@@ -49,12 +49,17 @@ export default {
       color: #2c3e50;
       min-height: 470px;
       margin:0 auto;
-      background:#fcfcfc;
+      background:#f7f7f7;
       .nav-view {
         width:100%;
-        background-color:#538dd5;
+        background-color:#fdfdfd;
+        // padding-top:1px;
+        overflow: hidden;
       }
       .router-view {
+        // background-color:#fefefe;
+        background-color:#fdfdfd;
+        border-radius:5px;
         max-width:1055px;
         min-width:960px;
         margin:0 auto;

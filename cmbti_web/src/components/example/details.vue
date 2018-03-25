@@ -1,12 +1,30 @@
 <template>
 <div class="details">
-    <div class="ctrl">
-        <div style="text-align:left;color:#538dd5;margin:10px 0">
-            <span @click="$router.go(-1)" style="cursor:pointer">
-                <i class="el-icon-back"></i> 返回
-            </span>
+    <div class="tab-nav">
+        <div class="nav-view">
+            <div class="ctrl">
+                <span @click="$router.go(-1)" style="cursor:pointer">
+                    <i class="el-icon-d-arrow-left"></i> 返回名人库
+                </span>
+            </div>
+            <!--<div class="nav-list">
+                <span>名人库</span>
+                <span>刘德华</span>
+            </div>-->
+                <!--搜索框-->
+            <div class="search-box">
+                <el-input placeholder="请输入内容" v-model="searchName" class="input-with-select">
+                    <!--<el-select v-model="select" slot="prepend" placeholder="请选择">
+                    <el-option label="餐厅名" value="1"></el-option>
+                    <el-option label="订单号" value="2"></el-option>
+                    <el-option label="用户电话" value="3"></el-option>
+                    </el-select>-->
+                    <el-button slot="append" icon="el-icon-search" @click="searchExamp"></el-button>
+                </el-input>
+            </div>
         </div>
     </div>
+
     <div class="main-box">
         <div class="details-info">
             <div class="left-box">
@@ -23,22 +41,23 @@
                     </div>
                 </div>
             </div>
-            <div class="right-box">
+            <div class="right-box" v-if="!isVote">
+                <div class="vote-title">投票结果</div>
                 <div class="vote-result" style="height:177px">
-                    <!--e => <span>{{exampleItem.vote.e}}</span><br/>
-                    i => <span>{{exampleItem.vote.i}}</span><br/>
-                    s => <span>{{exampleItem.vote.s}}</span><br/>
-                    n => <span>{{exampleItem.vote.n}}</span><br/>
-                    t => <span>{{exampleItem.vote.t}}</span><br/>
-                    f => <span>{{exampleItem.vote.f}}</span><br/>
-                    j => <span>{{exampleItem.vote.j}}</span><br/>
-                    p => <span>{{exampleItem.vote.p}}</span><br/>-->
-                    <progressCom :result="exampleItem.vote"></progressCom>
+                    <voteResult :result="exampleItem.vote"></voteResult>
                 </div>
                 <div>
-                    <el-button type="primary" @click="goVote()">投票</el-button>
+                    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
+                    <el-button type="primary" @click="isVote=true">投票</el-button>
 
                 </div>
+            </div>
+            <div class="right-box" v-if="isVote">
+                <div class="vote-title">投 票 台</div>
+                <div class="vote-result" style="height:177px">
+                    <voteConsole></voteConsole>
+                </div>
+
             </div>
         </div>
         <div class="right-side">
@@ -50,11 +69,13 @@
 </div> 
 </template>
 <script>
-import progressCom from "./progress"
+import voteResult from "./vote_result"
+import voteConsole from "./vote_console"
 export default {
     data(){
         return {
             exampleItem:null,
+            isVote:false,
         }
     },
     methods:{
@@ -132,15 +153,44 @@ export default {
         }
     },
     components:{
-        progressCom
+        voteResult,
+        voteConsole
     }
     
 };
 </script>
 <style lang="less">
 .details {
-    .ctrl {
-        padding-left:5px;
+    .tab-nav {
+        height:40px;
+        // background-color: #e8ecf5;
+        background-color: #f7f7f7;
+        .nav-view {
+            background-color: transparent;
+            height:40px;
+            line-height: 40px;
+            font-size:13px;
+            color:#72748a;
+            border-bottom: 1px solid #eee;
+            .search-box {
+                float:left;
+                margin-left:25px;
+                text-align:left;
+                .input-with-select {
+                    width:255px;
+                }
+                .el-input__inner {
+                    height:27px;
+                }
+            }
+            .ctrl {
+                float:left;
+                text-align:left;
+                padding-left:5px;
+                height:40px;
+                line-height: 40px;
+            }
+        }
     }
     .main-box {
         display: flex; display: -webkit-flex;
@@ -190,18 +240,18 @@ export default {
                 }
                 .right-box {
                     // flex:1;
-                    width:315px;
+                    width:333px;
                     border:1px solid #ccc;
-                    .photo {
-                        height: 177px;
+                    padding-top:15px;
+                    .vote-title {
+                        // font-weight:700;
+                        font-size:17px;
                     }
-                }
-                .item {
-                }
-            
-                .vote-result {
-                    // background-color: #ccc;
 
+                    .vote-result {
+                        // background-color: #ccc;
+
+                    }
                 }
         }
         .right-side {

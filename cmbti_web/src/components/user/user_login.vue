@@ -82,11 +82,16 @@ export default {
                         this.isSubmit = false;
                         if(res.data.success){
                             var beforeLoginPath = sessionStorage.getItem('beforeLoginPath')||'/';
+                            //用户信息存入本地，并更新vuex
                             localStorage.setItem('user',JSON.stringify(res.data.user));
                             this.$store.commit('setUserName',res.data.user.role_name);
-                            this.$router.push({
-                                path:beforeLoginPath
-                            })
+                            if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面
+                                this.$store.commit('setModalLogin',false); 
+                            }else{  //非模态登录，跳转个人中心
+                                this.$router.push({
+                                    path:beforeLoginPath
+                                })
+                            }
                         }else{
                             this.$message({
                                 showClose: true,
@@ -126,7 +131,7 @@ export default {
             font-size:22px;
         }
         .demo-ruleForm.c-login {
-            width: 442px;
+            max-width: 422px;
             margin:20px auto;
             -webkit-transform:translate(-50px);
             -o-transform:translate(-50px);

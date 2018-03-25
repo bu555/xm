@@ -54,13 +54,14 @@
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
-
         </div>
     </div>
+    <!--模态登录框-->
+    <modalLogin v-if="$store.state.modalLogin"></modalLogin>
   </div>
 </template>
 <script>
-// import routeObj from '../router/nav.config.js';
+import modalLogin from '../../components/user/user_login_modal';
 export default {
   data() {
     return {
@@ -201,6 +202,9 @@ export default {
             roleName = user.role_name || user.name;
         }
         this.$store.commit('setUserName',roleName );
+    },
+    components:{
+        modalLogin
     }
 };
 </script>
@@ -211,13 +215,12 @@ export default {
 @active-color:#3296fa;
 @active-color:#499ca5;
 .con-nav {
-    max-width:1055px;
-    min-width:960px;
-    margin:0 auto;
+    background-color: @theme-color;
     .main-nav {
+        margin:0 auto;
+        max-width:1055px;
+        min-width:960px;
         margin-top:55px;
-        margin-bottom:5px;
-        background-color: @theme-color;
         text-align:left;
         position: relative;
         height:@nav-height;

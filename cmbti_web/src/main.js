@@ -46,7 +46,7 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 
-new Vue({
+Vue.prototype.vueExample = new Vue({
   el: '#app',
   router,
   store,
@@ -57,6 +57,4 @@ new Vue({
   mounted() {
 
   }
-
-
 })

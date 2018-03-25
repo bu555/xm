@@ -1,11 +1,11 @@
 <template>
-<div class="progress-component">
+<div class="vote_result">
     <!--<el-progress :percentage="50" status="success"></el-progress>-->
     <div class="mid">
         <div class="left-count">
-            <div class="count">{{result.e}}</div>
+            <div class="count">{{result.e}}人</div>
         </div>
-        <div class="left-text">
+        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">E</div>
         </div>
         <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
@@ -17,18 +17,18 @@
             <div class="right-prog" :style="'width:'+ result.i/(result.i+result.e)*100 +'%;'+'background-color:'+(result.i>=result.e?bigColor:smallColor)">
             </div>
         </div>
-        <div class="right-text">
+        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">I</div>  
         </div>
         <div class="right-count">
-            <div class="count">{{result.i}}</div>
+            <div class="count">{{result.i}}人</div>
         </div>
     </div>
     <div class="mid">
         <div class="left-count">
-            <div class="count">{{result.s}}</div>
+            <div class="count">{{result.s}}人</div>
         </div>
-        <div class="left-text">
+        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">S</div>
         </div>
         <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
@@ -41,18 +41,18 @@
             <div class="right-prog" :style="'width:'+ result.n/(result.s+result.n)*100 +'%;'+'background-color:'+ (result.n>=result.s?bigColor:smallColor)">
             </div>
         </div>
-        <div class="right-text">
+        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">N</div>
         </div>
         <div class="right-count">
-            <div class="count">{{result.n}}</div>
+            <div class="count">{{result.n}}人</div>
         </div>
     </div>
     <div class="mid">
         <div class="left-count">
-            <div class="count">{{result.t}}</div>
+            <div class="count">{{result.t}}人</div>
         </div>
-        <div class="left-text">
+        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">T</div>
         </div>
         <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
@@ -64,18 +64,19 @@
             <div class="right-prog" :style="'width:'+ result.f/(result.t+result.f)*100 +'%;'+'background-color:'+(result.f>=result.t?bigColor:smallColor)">
             </div>
         </div>
-        <div class="right-text">
+        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">F</div>            
         </div>
         <div class="right-count">
-            <div class="count">{{result.f}}</div>
+            <div class="count">{{result.f}}人</div>
         </div>
     </div>
     <div class="mid">
         <div class="left-count">
-            <div class="count">{{result.j}}</div>
+            <!--<div class="count">{{result.j}}人</div>-->
+            <div class="count">9800000人</div>
         </div>
-        <div class="left-text">
+        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">J</div>
         </div>
         <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
@@ -87,11 +88,12 @@
             <div class="right-prog" :style="'width:'+ result.p/(result.j+result.p)*100 +'%;'+'background-color:'+(result.p>=result.j?bigColor:smallColor)">
             </div>
         </div>
-        <div class="right-text">
+        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
             <div class="type">P</div>            
         </div>
         <div class="right-count">
-            <div class="count">{{result.p}}</div>
+            <!--<div class="count">{{result.p}}人</div>-->
+            <div class="count">1000000人</div>
         </div>
     </div>
 </div> 
@@ -114,20 +116,20 @@ export default {
         hoverHandle(e){
             let activeDOM = e.currentTarget;
             console.log(activeDOM.getAttribute('class'));
-            if(activeDOM.getAttribute('class')=='right'){
+            if(/right/.test(activeDOM.getAttribute('class'))){
                 activeDOM.parentNode.querySelector(".right-count").style.color = "#019a62";
                 activeDOM.parentNode.querySelector(".right-count").style.fontWeight = 700;
-            }else if(activeDOM.getAttribute('class')=='left'){
+            }else if(/left/.test(activeDOM.getAttribute('class'))){
                 activeDOM.parentNode.querySelector(".left-count").style.color = "#019a62";
-                activeDOM.parentNode.querySelector(".left-count").style.fontWeight = 400;
+                activeDOM.parentNode.querySelector(".left-count").style.fontWeight = 700;
             }
         },
         outHandle(e){
             let activeDOM = e.currentTarget;
-            if(activeDOM.getAttribute('class')=='right'){
+            if(/right/.test(activeDOM.getAttribute('class'))){
                     activeDOM.parentNode.querySelector(".right-count").style.color = "#ccc";
-                    activeDOM.parentNode.querySelector(".right-count").style.fontWeight = 700;
-            }else if(activeDOM.getAttribute('class')=='left'){
+                    activeDOM.parentNode.querySelector(".right-count").style.fontWeight = 400;
+            }else if(/left/.test(activeDOM.getAttribute('class'))){
                     activeDOM.parentNode.querySelector(".left-count").style.color = "#ccc";
                     activeDOM.parentNode.querySelector(".left-count").style.fontWeight = 400;
                 }
@@ -139,8 +141,8 @@ export default {
 <style lang="less">
 @progressHeight:15px;
 @progressColor:#6ac342;
-.progress-component {
-    padding-top:32px;
+.vote_result {
+    padding-top:10px;
     // width:300px;
     .mid {
         display: flex;
@@ -195,14 +197,14 @@ export default {
     }
     // 类型
     .left-text,.right-text {
-        width:30px;
+        width:22px;
         flex: 0 1 auto;
         height:@progressHeight*2;
         .type {
             // background-color:pink;
             line-height: @progressHeight*2;
             text-align:center;
-            // padding-right:10px;
+            color:#272822;
             font-weight:700;
             // font-size:12px;
         }
@@ -232,35 +234,11 @@ export default {
         background-color: @progressColor;
         float:right;
         border-radius:@progressHeight/2 0 0 @progressHeight/2;
-        position:relative;
-        .val {
-            position: absolute;
-            left:-1px;
-            top:0;
-            font-size:12px;
-            transform:translateX(-50%);
-            -webkit-transform:translateX(-50%);
-            -moz-transform:translateX(-50%);
-            -ms-transform:translateX(-50%);
-            -o-transform:translateX(-50%);
-        }
     }
     .right-prog {
         float:left;
         background-color: @progressColor;
         border-radius:0 @progressHeight/2 @progressHeight/2 0;
-        position:relative;
-        .val {
-            position: absolute;
-            right:-1px;
-            top:0;
-            font-size:12px;
-            transform:translateX(50%);
-            -webkit-transform:translateX(50%);
-            -moz-transform:translateX(50%);
-            -ms-transform:translateX(50%);
-            -o-transform:translateX(50%);
-        }
     }
 
 }

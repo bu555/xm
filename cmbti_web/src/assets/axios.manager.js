@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Loading, Message,MessageBox } from 'element-ui'
 import router from '../router/index'
+import Vue from 'vue';
 // var path = "http://127.0.0.1:7000/api";
 var path = "http://localhost:7000/api";
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -21,15 +22,31 @@ axios.interceptors.request.use(config => {
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {// 响应成功关闭loading
-    if(data.data.session===false){
-        loadinginstace.close()
-        MessageBox.confirm('此操作需要登录后操作, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-            router.push({path:'/user/login'})
-        })
+    if(data.data.session===false){  //未登录或登录过期
+        loadinginstace.close();
+        if(localStorage.getItem('user')){ //登录过期，重新登录
+            MessageBox.confirm('您需要重新登录, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => { 
+            // 用vuex通知用模态框登录
+            Vue.prototype.vueExample.$store.commit('setModalLogin',true);
+            //用模态登录
+                // router.push({path:'/user/login'})
+            })
+
+        }else{ //首次登录
+            MessageBox.confirm('此操作需要登录后操作, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {
+                // 用vuex通知用模态框登录
+                Vue.prototype.vueExample.$store.commit('setModalLogin',true);
+                // router.push({path:'/user/login'})
+            })
+        }
     }else{
         loadinginstace.close()
         return data

@@ -1,8 +1,12 @@
 <template>
 <div class="example">
-    <myTab></myTab>
-    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
-            <!--搜索框-->
+    <div class="tab-nav">
+        <div class="nav-view">
+            <!--<div class="nav-list">
+                <span>名人库</span>
+                <span>刘德华</span>
+            </div>-->
+                <!--搜索框-->
             <div class="search-box">
                 <el-input placeholder="请输入内容" v-model="searchName" class="input-with-select">
                     <!--<el-select v-model="select" slot="prepend" placeholder="请选择">
@@ -13,10 +17,15 @@
                     <el-button slot="append" icon="el-icon-search" @click="searchExamp"></el-button>
                 </el-input>
             </div>
+        </div>
+    </div>
+    <myTab></myTab>
+    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
+
     <div class="main-box">
         <div class="example-list">
-            <div class="item" v-for="(v,i) in exampleList" :key="i"  @click="toDetails(v)">
-                <div class="item-box">
+            <div class="item" v-for="(v,i) in exampleList" :key="i">
+                <div class="item-box"  @click="toDetails(v)">
                     <div class="type">{{v.type.toUpperCase()}}</div>
                     <div class="photo">
                         <img :src="v.img_url" alt="">
@@ -109,12 +118,29 @@ export default {
 </script>
 <style lang="less">
 .example {
-    .search-box {
-        padding:5px;
-        text-align:left;
-        padding-left:12px;
-        .input-with-select {
-            width:555px;
+    background-color: #fdfdfd;
+    .tab-nav {
+        height:40px;
+        // background-color: #e8ecf5;
+        background-color: #f7f7f7;
+        .nav-view {
+            background-color: transparent;
+            height:40px;
+            line-height: 40px;
+            font-size:13px;
+            color:#72748a;
+            .search-box {
+                float:left;
+                margin-left:6px;
+                text-align:left;
+                padding-top:1px;
+                .input-with-select {
+                    width:255px;
+                }
+                .el-input__inner {
+                    height:27px;
+                }
+            }
         }
     }
     .main-box {
@@ -138,6 +164,7 @@ export default {
                     border-radius:8px;
                     padding-top:3px;
                     padding-bottom:3px;
+                    cursor:pointer;
                     // width:157px;
                 }
                 .type,.name {

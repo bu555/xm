@@ -244,6 +244,8 @@ export default {
           this.resetForm.pwd = this.$route.query.pwd;
           this.isShow = false; //将重设密码输入框显示，同时隐藏邮箱找回输入框
       };
+      //从模态登录进入，关闭模态框
+      this.$store.commit('setModalLogin',false); 
   }
 };
 </script>
@@ -255,7 +257,7 @@ export default {
             font-size:22px;
         }
         .demo-ruleForm.c-reset {
-            width: 440px;
+            width: 420px;
             margin:20px auto;
             -webkit-transform:translate(-50px);
             -o-transform:translate(-50px);

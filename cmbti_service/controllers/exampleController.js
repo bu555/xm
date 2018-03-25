@@ -53,9 +53,23 @@ const addExample = (name,res)=>{
                             message:'example存储失败'
                         })
                     } else {
-                        res.json({
-                        success:true,
-                        message:'添加成功'
+                        Example.findOne({name:name}).then(example=>{
+                            if(example){
+                                if(!(example instanceof Array)){
+                                    example = [example];
+                                }
+                                res.json({
+                                    success:true,
+                                    message:'ok',
+                                    example:example
+                                })
+                            }
+                        },example=>{
+                                res.json({
+                                    success:false,
+                                    message:'存储之后查找失败'
+                                })
+
                         })
                     }
                 })
@@ -89,7 +103,7 @@ const searchExample = (req,res,next)=>{
         })
     }
     pro.then(example=>{
-        if(example){
+        if(example){ //将本地的返回
             if(!(example instanceof Array)){
                 example = [example];
             }
@@ -99,7 +113,7 @@ const searchExample = (req,res,next)=>{
                 example:example
             })
         }else{
-            //爬取数据
+            //爬取数据，添加后返回
             addExample(req.body.name,res);
             // res.json({
             //     success:false,

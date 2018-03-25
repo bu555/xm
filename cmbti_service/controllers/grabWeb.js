@@ -49,6 +49,8 @@ class GrabWeb{
                         if(info.length<150){
                             info += $('body .lemma-summary div').eq(1).text();
                             info = info.substr(0,150)+".....";
+                        }else{
+                            info += "....."
                         }
                     }
                     let imgURL = '';
