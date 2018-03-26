@@ -3,3 +3,11 @@ github地址：https://github.com/mrvautin/adminMongo
 
 https://github.com/Selvin11/login.git
 一个很不错的前后端项目，Vue + Vue-router + Vuex 实现前端页面及逻辑，Express 实现注册登录登出的RestFul API 。
+
+http://www.tceic.com/k3h25ilg04g1h0717lj5jj67.html
+一个mbti文档网站
+
+http://personalitycafe.com/
+http://wiki.mbalib.com/wiki/MBTI%E4%BA%BA%E6%A0%BC%E7%90%86%E8%AE%BA
+https://www.idrlabs.com/tests.php
+https://www.douban.com/group/topic/63745621/
