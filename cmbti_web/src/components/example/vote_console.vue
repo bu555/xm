@@ -32,8 +32,8 @@
         <div class="ch">{{resCH}}</div>   
     </div>
     <div style="margin-top:10px">
-        <el-button type="primary" @click="getResult()">投票</el-button>
-        <el-button type="default" @click="getResult()">取消</el-button>
+        <el-button type="primary" @click="goVote()" style="height:34px;padding:0 22px">投票</el-button>
+        <el-button type="default" @click="exitVote()" style="height:34px;padding:0 22px">取消</el-button>
     </div>
 </div> 
 </template>
@@ -65,16 +65,38 @@ export default {
         }
     },
     methods:{
+        goVote(){
+                this.$axios.goVote({
+                    eid:this.$route.query.eid,
+                    vote:this.resEn
+                }).then(res=>{
+                    if(res.data.success){
+                        //投票成功
+                        this.exitVote(res.data.example);
+                        // this.$message({
+                        //     showClose: true,
+                        //     message: res.data.message,
+                        //     type: 'warning',
+                        //     duration:2500
+                        // });
+                    }
+                }).catch(res=>{})
+                
+        },
+        // 向父组件发送关闭信号
+        exitVote(data){
+            this.$emit('sonSend',data);
+        },
         hoverHandle(e){
             let activeDOM = e.currentTarget;
             if(/right/.test(activeDOM.getAttribute('class'))){
-                activeDOM.parentNode.parentNode.querySelector(".i-r").style.color = "#8cd66b";
-                activeDOM.parentNode.parentNode.querySelector(".right-prog").style.backgroundColor = "#8cd66b";
+                activeDOM.parentNode.parentNode.querySelector(".i-r").style.color = "#bdeca8";
+                activeDOM.parentNode.parentNode.querySelector(".right-prog").style.backgroundColor = "#bdeca8";
                 activeDOM.parentNode.parentNode.querySelector(".right-prog").style.boxShadow = "-1px 0px 5px #478a2a";
                 activeDOM.parentNode.parentNode.querySelector(".right-type").style.color = "#67c23a";
             }else if(/left/.test(activeDOM.getAttribute('class'))){
-                activeDOM.parentNode.parentNode.querySelector(".i-l").style.color = "#8cd66b";
-                activeDOM.parentNode.parentNode.querySelector(".left-prog").style.backgroundColor = "#8cd66b";
+                activeDOM.parentNode.parentNode.querySelector(".i-l").style.color = "#bdeca8";
+                activeDOM.parentNode.parentNode.querySelector(".left-prog").style.backgroundColor = "#bdeca8";
                 activeDOM.parentNode.parentNode.querySelector(".left-prog").style.boxShadow = "1px 0px 5px #478a2a";
                 activeDOM.parentNode.parentNode.querySelector(".left-type").style.color = "#67c23a";
             }
@@ -199,7 +221,6 @@ export default {
         height:@progressHeight;
         flex: 0 1 auto;
         background-color:@progressColor;
-        z-index:1000;
     }
     // 类型
     .left-text,.right-text {

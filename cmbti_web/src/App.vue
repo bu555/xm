@@ -62,6 +62,7 @@ export default {
         border-radius:5px;
         max-width:1055px;
         min-width:960px;
+        min-height:505px;
         margin:0 auto;
       }
     }

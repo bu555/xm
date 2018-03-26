@@ -1,100 +1,32 @@
 <template>
 <div class="vote_result">
     <!--<el-progress :percentage="50" status="success"></el-progress>-->
-    <div class="mid">
+    <div class="mid" v-for="(v,i) in res" :key="i">
         <div class="left-count">
-            <div class="count">{{result.e}}人</div>
+            <div class="count">{{v.l_val}}人</div>
         </div>
-        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">E</div>
+        <div class="left-text">
+            <div class="type">{{v.l}}</div>
         </div>
-        <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="left-prog" :style="'width:'+ result.e/(result.i+result.e)*100 +'%;'+'background-color:'+(result.e>result.i?bigColor:smallColor)">
+        <div class="left">
+            <div class="left-prog" :style="'width:'+ v.l_val/(v.l_val+v.r_val)*100 +'%;'+'background-color:'+(result.e>result.i?bigColor:smallColor)">
             </div>
         </div>
         <div class="middle-line"></div>
-        <div class="right" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="right-prog" :style="'width:'+ result.i/(result.i+result.e)*100 +'%;'+'background-color:'+(result.i>=result.e?bigColor:smallColor)">
+        <div class="right">
+            <div class="right-prog" :style="'width:'+ v.r_val/(v.l_val+v.r_val)*100 +'%;'+'background-color:'+(result.i>=result.e?bigColor:smallColor)">
             </div>
         </div>
-        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">I</div>  
+        <div class="right-text">
+            <div class="type">{{v.r}}</div>  
         </div>
         <div class="right-count">
-            <div class="count">{{result.i}}人</div>
+            <div class="count">{{v.r_val}}人</div>
         </div>
     </div>
-    <div class="mid">
-        <div class="left-count">
-            <div class="count">{{result.s}}人</div>
-        </div>
-        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">S</div>
-        </div>
-        <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="left-prog" :style="'width:'+ result.s/(result.s+result.n)*100 +'%;'+'background-color:'+(result.s>result.n?bigColor:smallColor)">
-            <!--+'proground-color:'+result.s>result.n?''-->
-            </div>
-        </div>
-        <div class="middle-line"></div>
-        <div class="right" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="right-prog" :style="'width:'+ result.n/(result.s+result.n)*100 +'%;'+'background-color:'+ (result.n>=result.s?bigColor:smallColor)">
-            </div>
-        </div>
-        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">N</div>
-        </div>
-        <div class="right-count">
-            <div class="count">{{result.n}}人</div>
-        </div>
-    </div>
-    <div class="mid">
-        <div class="left-count">
-            <div class="count">{{result.t}}人</div>
-        </div>
-        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">T</div>
-        </div>
-        <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="left-prog" :style="'width:'+ result.t/(result.t+result.f)*100 +'%;'+'background-color:'+(result.t>result.f?bigColor:smallColor)">
-            </div>
-        </div>
-        <div class="middle-line"></div>
-        <div class="right" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="right-prog" :style="'width:'+ result.f/(result.t+result.f)*100 +'%;'+'background-color:'+(result.f>=result.t?bigColor:smallColor)">
-            </div>
-        </div>
-        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">F</div>            
-        </div>
-        <div class="right-count">
-            <div class="count">{{result.f}}人</div>
-        </div>
-    </div>
-    <div class="mid">
-        <div class="left-count">
-            <!--<div class="count">{{result.j}}人</div>-->
-            <div class="count">9800000人</div>
-        </div>
-        <div class="left-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">J</div>
-        </div>
-        <div class="left" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="left-prog" :style="'width:'+ result.j/(result.j+result.p)*100 +'%;'+'background-color:'+(result.j>result.p?bigColor:smallColor)">
-            </div>
-        </div>
-        <div class="middle-line"></div>
-        <div class="right" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="right-prog" :style="'width:'+ result.p/(result.j+result.p)*100 +'%;'+'background-color:'+(result.p>=result.j?bigColor:smallColor)">
-            </div>
-        </div>
-        <div class="right-text" @mouseover="hoverHandle($event)"  @mouseout="outHandle($event)">
-            <div class="type">P</div>            
-        </div>
-        <div class="right-count">
-            <!--<div class="count">{{result.p}}人</div>-->
-            <div class="count">1000000人</div>
-        </div>
+   
+    <div class="count-vote" style="padding-top:8px;font-size:13px">
+        共 {{count}} 人参与
     </div>
 </div> 
 </template>
@@ -102,38 +34,49 @@
 export default {
     data(){
         return{
-            // result: {e:434,i:143,s:11929,n:234434,t:3343,f:434,j:43,p:44},
-            // result: {},
-            bigColor:'@progressColor',
-            smallColor:'@progressColor',
-            // smallColor:'#ffaf4b',
+            bigColor:'#6ac342',
+            smallColor:'#6ac342',
+            res:[],
+            count:0
         }
     },
     props:[
         'result'
     ],
-    methods:{
-        hoverHandle(e){
-            let activeDOM = e.currentTarget;
-            console.log(activeDOM.getAttribute('class'));
-            if(/right/.test(activeDOM.getAttribute('class'))){
-                activeDOM.parentNode.querySelector(".right-count").style.color = "#019a62";
-                activeDOM.parentNode.querySelector(".right-count").style.fontWeight = 700;
-            }else if(/left/.test(activeDOM.getAttribute('class'))){
-                activeDOM.parentNode.querySelector(".left-count").style.color = "#019a62";
-                activeDOM.parentNode.querySelector(".left-count").style.fontWeight = 700;
-            }
-        },
-        outHandle(e){
-            let activeDOM = e.currentTarget;
-            if(/right/.test(activeDOM.getAttribute('class'))){
-                    activeDOM.parentNode.querySelector(".right-count").style.color = "#ccc";
-                    activeDOM.parentNode.querySelector(".right-count").style.fontWeight = 400;
-            }else if(/left/.test(activeDOM.getAttribute('class'))){
-                    activeDOM.parentNode.querySelector(".left-count").style.color = "#ccc";
-                    activeDOM.parentNode.querySelector(".left-count").style.fontWeight = 400;
+    created(){
+        this.count = this.result.voteLog.length;
+        this.result = this.result.vote;
+            this.res =  [
+                {
+                    l:'E',
+                    l_val:this.result.e,
+                    r:'I',
+                    r_val:this.result.i
+                },
+                {
+                    l:'S',
+                    l_val:this.result.e,
+                    r:'N',
+                    r_val:this.result.i
+                },
+                {
+                    l:'T',
+                    l_val:this.result.t,
+                    r:'F',
+                    r_val:this.result.f
+                },
+                {
+                    l:'J',
+                    l_val:this.result.j,
+                    r:'P',
+                    r_val:this.result.p
                 }
-        },
+            ]
+            console.log('res',this.res);
+            // let temp1 = (this.result.e + this.result.i)>(this.result.s + this.result.n)?(this.result.e + this.result.i):(this.result.s + this.result.n);
+            // let temp2 = (this.result.t + this.result.j)>(this.result.j + this.result.p)?(this.result.e + this.result.i):(this.result.s + this.result.n);
+    },
+    methods:{
     }
     
 };
@@ -163,28 +106,27 @@ export default {
         background-color: #eeeeee;
         // background-color: #dddddd;
         border-radius:@progressHeight/2 0 0 @progressHeight/2;
-        cursor:pointer;
             
     }
     .right {
         border-radius:0 @progressHeight/2 @progressHeight/2 0;
         &:hover {
             .right-prog {
-                box-shadow:1px 0px 5px #666;
+                // box-shadow:1px 0px 5px #666;
             }
         }
     }
     .left {
         &:hover {
             .left-prog {
-                box-shadow:-1px 0px 5px #478a2a;
+                // box-shadow:-1px 0px 5px #478a2a;
             }
         }
     }
     .left-text {
         &:hover {
             .left-prog {
-                box-shadow:-1px 0px 5px #478a2a;
+                // box-shadow:-1px 0px 5px #478a2a;
             }
         }
     }

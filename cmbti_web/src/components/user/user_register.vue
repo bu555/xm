@@ -211,7 +211,8 @@ export default {
 </script>
 <style lang="less">
     .register {
-        margin-top:30px;
+        padding-top:30px;
+        padding-bottom:30px;
         text-align:center;
         .title {
             font-size:22px;

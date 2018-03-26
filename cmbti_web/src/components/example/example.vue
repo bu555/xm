@@ -36,7 +36,6 @@
         </div>
         <div class="right-side">
             <div class="top-side">
-                top-side
             </div>
         </div>
 
@@ -185,7 +184,8 @@ export default {
         }
         .right-side {
             flex:1;
-            padding:5px;
+            padding:12px;
+
             .top-side {
                 height:400px;
                 border:1px solid #ddd;

@@ -251,7 +251,9 @@ export default {
 </script>
 <style lang="less">
     .resetPassword {
-        margin-top:30px;
+        padding-top:30px;
+        padding-bottom:30px;
+        height:100%;
         text-align:center;
         .title {
             font-size:22px;

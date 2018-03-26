@@ -13,13 +13,13 @@
             </div>-->
                 <!--搜索框-->
             <div class="search-box">
-                <el-input placeholder="请输入内容" v-model="searchName" class="input-with-select">
+                <el-input placeholder="请输入内容"  class="input-with-select">
                     <!--<el-select v-model="select" slot="prepend" placeholder="请选择">
                     <el-option label="餐厅名" value="1"></el-option>
                     <el-option label="订单号" value="2"></el-option>
                     <el-option label="用户电话" value="3"></el-option>
                     </el-select>-->
-                    <el-button slot="append" icon="el-icon-search" @click="searchExamp"></el-button>
+                    <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </div>
         </div>
@@ -30,6 +30,14 @@
             <div class="left-box">
                 <div class="info-txt">
                     {{exampleItem.info}}
+                    <div class="baike">
+                        <a href="" target="_blank">
+                            <img src="../../../static/img/hudongbaike.jpg" alt="前往互动百科">
+                        </a>
+                        <a href="" target="_blank" style="margin-left:10px">
+                            <img src="../../../static/img/baidubaike.jpg" alt="前往百度百科">
+                        </a>
+                    </div>
                 </div>
                 <div class="item">
                     <div class="item-box">
@@ -41,21 +49,21 @@
                     </div>
                 </div>
             </div>
-            <div class="right-box" v-if="!isVote">
+            <div class="right-box" v-if="!isVote&&isGetDate">
                 <div class="vote-title">投票结果</div>
                 <div class="vote-result" style="height:177px">
-                    <voteResult :result="exampleItem.vote"></voteResult>
+                    <voteResult :result="exampleItem"></voteResult>
                 </div>
                 <div>
                     <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
-                    <el-button type="primary" @click="isVote=true">投票</el-button>
+                    <el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>
 
                 </div>
             </div>
             <div class="right-box" v-if="isVote">
                 <div class="vote-title">投 票 台</div>
                 <div class="vote-result" style="height:177px">
-                    <voteConsole></voteConsole>
+                    <voteConsole @sonSend="lestionSon($event)"></voteConsole>
                 </div>
 
             </div>
@@ -74,11 +82,23 @@ import voteConsole from "./vote_console"
 export default {
     data(){
         return {
-            exampleItem:null,
+            exampleItem:{
+                type:'',
+                info:'',
+                vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}
+            },
             isVote:false,
+            isGetDate:true,
         }
     },
     methods:{
+        //监听子组件传话
+        lestionSon(data){
+            this.isVote = false;
+            if(data){
+                this.exampleItem = data;
+            }
+        },
         //投票
         goVote(){
             this.$prompt('请输入名字', '提示', {
@@ -95,6 +115,8 @@ export default {
                 }).then(res=>{
                     if(res.data.success){
                         this.exampleItem = res.data.example;
+                        this.isGetDate = true;
+                        console.log(this.exampleItem);
                     }else{
                         this.$message({
                             showClose: true,
@@ -115,31 +137,26 @@ export default {
                     id:id
                 }).then(res=>{
                     if(res.data.success){
-                        console.log(res.data);
                         this.exampleItem = res.data.example[0];
+                        this.isGetDate = true;
+                        console.log(this.exampleItem);
 
                     }else{
-                        console.log(res.data)
                     }
                 }).catch(res=>{})
 
         },
     },
     created(){
-        console.log(this.$route);
         // 判断list数据是否存在，不存在则通过eid请求，存在则判断时间是否过期，如果过期则重新请求
         let exampleList = sessionStorage.getItem('exampleList') || '';
-        console.log(exampleList);
         if(exampleList){
             exampleList = JSON.parse(exampleList);
-            console.log(typeof exampleList.createTime);
-            console.log(exampleList);
             if( (Date.now()-exampleList.createTime)<this.maxAge){
                 var _this = this;
                 exampleList.data.forEach(v=>{
                     if(v._id === this.$route.query.eid){
                         _this.exampleItem = Object.create(v); //直接使用local的数据
-                        console.log(v);
                     }
                 })
             }else{
@@ -201,6 +218,7 @@ export default {
                 display: -webkit-flex;
                 flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
                 padding:5px;
+                height:305px;
                 .left-box {
                     flex:1;
                     border:1px solid #ccc;
@@ -212,6 +230,19 @@ export default {
                         padding-right:0px;
                         text-align:left;
                         font-size:13px;
+                        position: relative;
+                        .baike {
+                            position: absolute;
+                            left:30px;
+                            bottom:22px;
+                            img {
+                                height:20px;
+                                border:1px solid #ddd;
+                                border-radius:5px;
+                            }
+                            a {
+                            }
+                        }
                     }
                     .item {
                         margin:0 auto;
@@ -236,7 +267,6 @@ export default {
                             }
                         }
                     }
-
                 }
                 .right-box {
                     // flex:1;
@@ -258,7 +288,7 @@ export default {
             flex:1;
             padding:5px;
             .top-side {
-                height:400px;
+                // height:400px;
                 border:1px solid #ddd;
                 border-radius:4px;
             }
