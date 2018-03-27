@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <myTab></myTab>
+    <myTab :tabs="tabs"></myTab>
     <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
 
     <div class="main-box">
@@ -50,7 +50,78 @@ export default {
             exampleList:[],
             detailsData:{}, //
             showDetails:false,
-            searchName:''
+            searchName:'',
+            // tab导航条内容
+            tabs:[
+                {
+                    type:'default',
+                    title:'默認'
+                },
+                {
+                    type:'enfj',
+                    title:'ENFJ'
+                },
+                {
+                    type:'enfp',
+                    title:'ENFP'
+                },
+                {
+                    type:'infj',
+                    title:'INFJ'
+                },
+                {
+                    type:'infp',
+                    title:'INFP'
+                },
+                {
+                    type:'entj',
+                    title:'ENTJ'
+                },
+                {
+                    type:'entp',
+                    title:'ENTP'
+                },
+                {
+                    type:'intj',
+                    title:'INTJ'
+                },
+                {
+                    type:'intp',
+                    title:'INTP'
+                },
+                {
+                    type:'estj',
+                    title:'ESTJ'
+                },
+                {
+                    type:'estp',
+                    title:'ESTP'
+                },
+                {
+                    type:'istj',
+                    title:'ISTJ'
+                },
+                {
+                    type:'istp',
+                    title:'ISTP'
+                },
+                {
+                    type:'esfj',
+                    title:'ESFJ'
+                },
+                {
+                    type:'esfp',
+                    title:'ESFP'
+                },
+                {
+                    type:'isfj',
+                    title:'ISFJ'
+                },
+                {
+                    type:'isfp',
+                    title:'ISFP'
+                }
+            ]
         }
     },
     methods:{
@@ -143,7 +214,7 @@ export default {
         }
     }
     .main-box {
-        display: flex; display: -webkit-flex;
+        display: flex; display: -webkit-flex;display: -ms-flex;
         // padding:10px;
         .example-list {
             width:72%;

@@ -93,11 +93,6 @@ export default {
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
         justify-content:center; //元素水平居中
         align-items:center; //元素垂直居中
-        // 子元素
-        // flex属性默认是0 1 auto 
-        // flex-grow为0，则存在剩余空间也不放大 
-        // flex-shrink为1，则空间不足该项目缩小 
-        // flex-basis为auto，则该项目本来的大小 
     }
     // 进度条
     .left,.right {

@@ -4,7 +4,7 @@
     <div class="tabs" v-for="(v,i) in tabs" :key="i" :data-type="v.type" @click="clickHandle(v.type)">
         {{v.title}}
     </div>
-    <!--<div class="tabs-blank-end"></div>-->
+    <div class="tabs-blank-end"></div>
 </div> 
 </template>
 <script>
@@ -12,84 +12,15 @@ export default {
     data(){
         return {
             // activeIndex:'0',
-            tabs:[
-                {
-                    type:'default',
-                    title:'默認'
-                },
-                {
-                    type:'enfj',
-                    title:'ENFJ'
-                },
-                {
-                    type:'enfp',
-                    title:'ENFP'
-                },
-                {
-                    type:'infj',
-                    title:'INFJ'
-                },
-                {
-                    type:'infp',
-                    title:'INFP'
-                },
-                {
-                    type:'entj',
-                    title:'ENTJ'
-                },
-                {
-                    type:'entp',
-                    title:'ENTP'
-                },
-                {
-                    type:'intj',
-                    title:'INTJ'
-                },
-                {
-                    type:'intp',
-                    title:'INTP'
-                },
-                {
-                    type:'estj',
-                    title:'ESTJ'
-                },
-                {
-                    type:'estp',
-                    title:'ESTP'
-                },
-                {
-                    type:'istj',
-                    title:'ISTJ'
-                },
-                {
-                    type:'istp',
-                    title:'ISTP'
-                },
-                {
-                    type:'esfj',
-                    title:'ESFJ'
-                },
-                {
-                    type:'esfp',
-                    title:'ESFP'
-                },
-                {
-                    type:'isfj',
-                    title:'ISFJ'
-                },
-                {
-                    type:'isfp',
-                    title:'ISFP'
-                }
-            ]
+            
         }
     },
+    props:['tabs'],
     methods:{
         //設置激活样式
         setActiveStyle(type){
             document.querySelectorAll('.tabs').forEach(v=>{
                 if(v.getAttribute('data-type')===type){
-                    console.log("等于");
                     v.classList.add('active');
                 }else{
                     v.classList.remove('active');
@@ -171,8 +102,7 @@ export default {
         border-bottom:1px solid #d8d9db;
     }
     .tabs-blank-end {
-        // flex:1;
-        width:100%;
+        flex-basis:1px;
         height:@tabHeight+1px;
         border-bottom:1px solid #d8d9db;
     }
