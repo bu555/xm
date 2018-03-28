@@ -29,6 +29,7 @@ const addExample = (name,res)=>{
             name: name,
             type: "****",
             vote: result,
+            voteLog:[],
             info: searchData.data.info || '',
             img_url: searchData.data.imgURL || '',
             total: 0, 

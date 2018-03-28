@@ -26,7 +26,7 @@
     </div>
    
     <div class="count-vote" style="padding-top:8px;font-size:13px">
-        共 {{count}} 人参与
+        共 {{count?count:''}} 人参与
     </div>
 </div> 
 </template>
@@ -35,17 +35,17 @@ export default {
     data(){
         return{
             bigColor:'#6ac342',
-            smallColor:'#6ac342',
-            res:[],
-            count:0
+            // smallColor:'#6ac342',
+            res:[]
         }
     },
     props:[
-        'result'
+        'result','count','smallColor'
     ],
     created(){
-        this.count = this.result.voteLog.length;
-        this.result = this.result.vote;
+            this.smallColor?this.smallColor:'#6ac342'
+        // this.count = this.result.voteLog.length;
+        // this.result = this.result.vote;
             this.res =  [
                 {
                     l:'E',
@@ -72,7 +72,6 @@ export default {
                     r_val:this.result.p
                 }
             ]
-            console.log('res',this.res);
             // let temp1 = (this.result.e + this.result.i)>(this.result.s + this.result.n)?(this.result.e + this.result.i):(this.result.s + this.result.n);
             // let temp2 = (this.result.t + this.result.j)>(this.result.j + this.result.p)?(this.result.e + this.result.i):(this.result.s + this.result.n);
     },
@@ -105,6 +104,8 @@ export default {
     }
     .right {
         border-radius:0 @progressHeight/2 @progressHeight/2 0;
+        // background: linear-gradient(#9de87c,#6dc448, #6dc448, #6dc448,#9de87c);
+        background: linear-gradient(aquamarine,orange);
         &:hover {
             .right-prog {
                 // box-shadow:1px 0px 5px #666;

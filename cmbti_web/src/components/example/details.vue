@@ -52,7 +52,7 @@
             <div class="right-box" v-if="!isVote&&isGetDate">
                 <div class="vote-title">投票结果</div>
                 <div class="vote-result" style="height:177px">
-                    <voteResult :result="exampleItem"></voteResult>
+                    <voteResult :result="exampleItem.vote" :count="exampleItem.voteLog.length"></voteResult>
                 </div>
                 <div>
                     <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
@@ -85,7 +85,8 @@ export default {
             exampleItem:{
                 type:'',
                 info:'',
-                vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}
+                vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0},
+                voteLog:[]
             },
             isVote:false,
             isGetDate:true,

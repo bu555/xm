@@ -1,9 +1,23 @@
 <template>
 <div class="test">
-        <myTab :tabs="tabs"></myTab>
+        <!--<myTab :tabs="tabs"></myTab>-->
+        <div class="test-tab clearfix">
+            <!--<div class="tabs-blank-start"></div>-->
+            <div class="tabs" index="1" @click="$router.push({path:'/test/16type'})">
+                16type
+            </div>
+            <div class="tabs" index="2" @click="$router.push({path:'/test/8func'})">
+                8func
+            </div>
+            <div class="tabs">
+                标题3
+            </div>
+            <div class="tabs-blank-end"></div>
+        </div> 
         <div class="main-box">
             <div class="left-box">
-                <div class="test-list">
+                <router-view/>
+                <!--<div class="test-list">
                     <div class="t-items" v-for="(v,i) in questionList" :key="i">
                         <div class="question">
                             {{i+1}}、{{v.question}}{{v.qid}}
@@ -15,21 +29,10 @@
                             </template>
                         </div>
                     </div>
-                    <!--<div class="t-items">
-                        <div class="question">
-                            1、矿池有：
-                        </div>
-                        <div class="answer">
-                            <template>
-                                <el-radio v-model="radio1" label="1">备选项</el-radio><br/>
-                                <el-radio v-model="radio1" label="2">备选项</el-radio>
-                            </template>
-                        </div>
-                    </div>-->
                 </div>
                 <div class="btn">
                     <el-button type="primary" round @click="submitTest()">提 交</el-button>
-                </div>
+                </div>-->
             </div>
             <div class="right-box">
 
@@ -58,22 +61,11 @@ export default {
                     remark:28
                 },
             ],
-            // tab导航条内容
-            tabs:[
-                {
-                    type:'16type',
-                    title:'16Test'
-                },
-                {
-                    type:'rg',
-                    title:'RGTest'
-                },
-                {
-                    type:'functions',
-                    title:'Function'
-                },
-       
-            ],
+            // tab和路由映射
+            tabs:{
+                '/16type':'1',
+                '/8func':'2',
+            },
             result:[
 
             ]
@@ -82,24 +74,55 @@ export default {
     methods:{
         submitTest(){
             console.log(this.result);
+            this.$router.push({
+                path:'/test/result'
+            })
+        },
+        chengeRoute(){
+            let path = this.$route.path;
+            console.log(path);
+            for(let key in this.tabs){
+                if(path.indexOf(key)!=-1){
+                    console.log(this.tabs[key]);
+                    this.setTabStyle(this.tabs[key]);
+                }
+            }
+
+        },
+        //设置tab激活样式
+        setTabStyle(index){
+            let tabs = document.querySelectorAll('.test .tabs');
+            tabs.forEach(v=>{
+                if(v.getAttribute('index')===index){
+                    v.classList.add('active');
+                }else{
+                    v.classList.remove('active');
+                }
+            })
         }
+    },
+    watch:{
+        '$route.path':'chengeRoute'
+    },
+    mounted(){
+
+        this.chengeRoute();
     },
     components:{
         myTab
     },
     created(){
-        let type = this.$route.query.type;
-        if(!type){
-            this.$router.push({query:{type:'16type'}});
-            type = '16type';
-        }
-        //将qid添加到result
-        this.questionList.forEach(v=>{
-            this.result.push({
-                id:v.qid,
-                res:''
-            })
-        })
+        // let type = this.$route.query.type;
+        // if(!type){
+        //     this.$router.push({
+        //         path:'/test/16type',
+        //         query:{type:'16type'}
+        //     });
+        //     type = '16type';
+        // }
+        // this.$router.push({
+        //     path:'/test/16type'
+        // });
 
     },
     
@@ -107,20 +130,61 @@ export default {
 </script>
 <style lang="less">
 .test {
-    //修改tabs组件样式
-    .my-tab .tabs {
-        flex-grow:0;
-        flex-basis:152px; //宽度固定
-        height:30px;
-        line-height: 30px;
-    }
-    .tabs-blank-end {
-        flex-grow:1; //自身占满一行
-    }
-    .tabs-blank-start,.tabs-blank-end {
-        height:31px !important;
-        line-height: 31px !important;
+    .test-tab {
+        padding-top:6px;
+        display: flex; display: -webkit-flex;
+        background-color: #f7f7f7;
+        border-top: 1px solid #eee;
+        .tabs {
+            flex:0 1 157px;
+            text-align: center;
+            font-size:14px;
+            height:25px;
+            line-height: 25px;
+            border-radius: 14px 14px 0 0;
+            border:1px solid #d8d9db;
+            position: relative;
+            background-color: #f5f7fa;
+            color:#72748a;
+            cursor:pointer;
+            margin:0 3px;
+            // margin-bottom:10px;
+            &:after {
+                content:'';
+                width:5px;
+                border-bottom:1px solid #d8d9db;
+                position: absolute;
+                bottom:-1px;
+                left:-5px;
 
+            }
+            &:before {
+                content:'';
+                width:5px;
+                border-bottom:1px solid #d8d9db;
+                position: absolute;
+                bottom:-1px;
+                right:-5px;
+
+            }
+            &:hover {
+                background-color: #fefefe;
+                border-bottom:1px solid #fdfdfd;
+            }
+        }
+        .tabs.active {
+            background-color: #fdfdfd;
+            border-bottom:1px solid #fdfdfd;
+            color:#1c2633;
+        }
+        .tabs-blank-start {
+            width:5px;
+            border-bottom:1px solid #d8d9db;
+        }
+        .tabs-blank-end {
+            flex-grow:1;
+            border-bottom:1px solid #d8d9db;
+        }
     }
 
     .main-box {

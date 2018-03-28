@@ -12,6 +12,22 @@ export default {
     data(){
         return {
             // activeIndex:'0',
+            // tab导航条内容
+            // tabs:[
+            //     {
+            //         type:'16type',
+            //         title:'16Test'
+            //     },
+            //     {
+            //         type:'rg',
+            //         title:'RGTest'
+            //     },
+            //     {
+            //         type:'functions',
+            //         title:'Function'
+            //     },
+       
+            // ],
             
         }
     },

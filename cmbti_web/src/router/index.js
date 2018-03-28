@@ -20,6 +20,8 @@ import mbti from '@/components/mbti/mbti'
 
 // test
 import test from '@/components/test/test'
+import test_16type from '@/components/test/test_16type'
+import test_8function from '@/components/test/test_8function'
 
 // example
 import example from '@/components/example/example'
@@ -45,7 +47,12 @@ const vueRouter = new Router({
     {path:'/mbti',component:mbti},
 
     // test
-    {path:'/test',component:test},
+    {path:'/test',component:test,
+      children:[
+        {path:'16type',component:test_16type},
+        {path:'8func',component:test_8function},
+      ]
+    },
 
     // example
     {path:'/example',component:example},
