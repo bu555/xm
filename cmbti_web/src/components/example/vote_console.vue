@@ -31,9 +31,27 @@
         <div class="en">{{resEn.toUpperCase()}}</div>
         <div class="ch">{{resCH}}</div>   
     </div>
-    <div style="margin-top:10px">
-        <el-button type="primary" @click="goVote()" style="height:34px;padding:0 22px">投票</el-button>
-        <el-button type="default" @click="exitVote()" style="height:34px;padding:0 22px">取消</el-button>
+    <div class="ctrl-box" style="margin-top:10px">
+            <div>
+                <button class="punch default" style="width:70px" @click="exitVote()">取消</button>
+            </div>
+            <div>
+                <button class="punch" @click="goVote()">投 票</button>
+            </div>
+            <div>
+                <button class="punch default" style="width:70px" @click="reset()">重置</button>
+            </div>
+        <!--<el-button type="primary" @click="goVote()" style="height:34px;padding:0 22px">投票</el-button>
+        <el-button type="default" @click="exitVote()" style="height:34px;padding:0 22px">取消</el-button>-->
+    </div>
+    <div class="err-msg" v-if="showError">
+        <!>请至少选择一个维度！
+    </div>
+    <div class="succ-msg" v-if="showSucc">
+        <i class="el-icon-success"></i><br/>
+        <p>投票成功</p>
+        <div>感谢您的参与！ {{showTime}}s后自动返回</div>
+        <button class="clean-gray" style="width:80px" @click="exitVote()">确定</button>
     </div>
 </div> 
 </template>
@@ -62,17 +80,34 @@ export default {
             ],
             resEn:'****',
             resCH:'XX-XX-XX-XX',
+            showError:false,
+            showSucc:false,
+            timeID:'',
+            resData:null,
+            showTime:3,
         }
     },
     methods:{
         goVote(){
+            if(this.resEn ==='****'){
+                this.showError = true;
+                return;
+            }
+            this.showSucc = true;
                 this.$axios.goVote({
                     eid:this.$route.query.eid,
                     vote:this.resEn
                 }).then(res=>{
                     if(res.data.success){
+                        this.resData = res.data.example;
+                        let _this = this;
+                        this.timeID = setInterval(function(){
+                            _this.showTime--;
+                            if(_this.showTime===0){
+                                _this.exitVote();
+                            }
+                        },1000);
                         //投票成功
-                        this.exitVote(res.data.example);
                         // this.$message({
                         //     showClose: true,
                         //     message: res.data.message,
@@ -83,9 +118,10 @@ export default {
                 }).catch(res=>{})
                 
         },
-        // 向父组件发送关闭信号
-        exitVote(data){
-            this.$emit('sonSend',data);
+        // 向父组件发送关闭信号,并传回数据
+        exitVote(){
+            clearInterval(this.timeID);
+            this.$emit('sonSend',this.resData);
         },
         hoverHandle(e){
             let activeDOM = e.currentTarget;
@@ -133,6 +169,25 @@ export default {
                 activeDOM.parentNode.parentNode.querySelector(".right-type").classList.remove('active');
             }
             this.getResult();
+            this.showError = false;
+        },
+        reset(e){
+            // document.querySelector('.vote_console').querySelectorAll('.type').forEach((v,i)=>{
+            //     v.classList.remove('active')
+            // })
+            // document.querySelector('.vote_console').querySelectorAll('.left-prog').forEach((v,i)=>{
+            //     v.classList.remove('active')
+            // })
+            // document.querySelector('.vote_console').querySelectorAll('.right-prog').forEach((v,i)=>{
+            //     v.classList.remove('active')
+            // })
+            document.querySelector('.vote_console').querySelectorAll('i').forEach((v,i)=>{
+                v.classList.remove('active')
+            })
+            document.querySelector('.vote_console').querySelectorAll('.mid div').forEach((v,i)=>{
+                v.classList.remove('active')
+            })
+            this.getResult();
         },
         getResult(){
             let result = '';
@@ -173,8 +228,11 @@ export default {
 <style lang="less">
 @progressHeight:15px;
 @progressColor:#6ac342;
+@bg:#fdfdfd;
 .vote_console {
     padding-top:10px;
+    position: relative;
+    background-color: @bg;
     // width:300px;
     .mid {
         display: flex;
@@ -300,6 +358,53 @@ export default {
             height:20px;
             line-height: 20px;
         }
+    }
+    .ctrl-box {
+        display: flex; display: -webkit-flex;
+        justify-content:center; //垂直居中
+        &>div {
+            margin:0 2px;
+        }
+    }
+    .err-msg {
+        box-sizing: border-box;
+        color:red;
+        position: absolute;
+        bottom:62px;
+        left:0px;
+        background-color: @bg;
+        width:100%;
+        height:42px;
+        padding-top:10px;
+    }
+    .succ-msg {
+        box-sizing: border-box;
+        color:red;
+        position: absolute;
+        top:7px;
+        left:0px;
+        background-color: @bg;
+        width:100%;
+        height:100%;
+        padding-top:10px;
+        i{
+            font-size:55px;
+            color:#67c23a;
+            margin-top:22px;
+        }
+        p{
+            font-size:16px;
+            font-weight:600;
+            color:#67c23a;
+            margin-top:5px;
+        }
+        div{
+            font-size:13px;
+            color:#ccc;
+            margin-top:5px;
+            margin-bottom:15px;
+        }
+
     }
 
 }

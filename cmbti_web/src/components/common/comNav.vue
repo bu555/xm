@@ -12,23 +12,35 @@
             </a>
         </div>
         <ul class="ul-lev1">
-            <li class="li-lev1" index='1' @click="clickHandle($event)" >
-                首页
+            <li class="li-lev1" index='1'>
+                <router-link :to="routeObj[1]">
+                    <div>首页</div>
+                </router-link>
             </li>
             <li class="li-lev1" index='2' @click="clickHandle($event)">
-                MBTI
+                <router-link :to="routeObj[2]">
+                    <div>MBTI</div>
+                </router-link>
             </li>
             <li class="li-lev1" index='3' @click="clickHandle($event)">
-                测试
+                <router-link :to="routeObj[3]">
+                    <div>测试</div>
+                </router-link>
             </li>
             <li class="li-lev1" index='4' @click="clickHandle($event)">
-                名人
+                <router-link :to="routeObj[4]">
+                    <div>名人库</div>
+                </router-link>
             </li>
             <li class="li-lev1" index='5' @click="clickHandle($event)">
-                资料库
+                <router-link :to="routeObj[5]">
+                    <div>资料库</div>
+                </router-link>
             </li>
             <li class="li-lev1" index='6' @click="clickHandle($event)">
-                讨论区
+                <router-link :to="routeObj[6]">
+                    <div>讨论区</div>
+                </router-link>
             </li>
 
         </ul>
@@ -110,7 +122,7 @@ export default {
             // this.setNavStyle(index);
             if(this.activeIndex!=index){
                 this.activeIndex = index;
-                this.$router.push({ path:this.routeObj[index] });
+                // this.$router.push({ path:this.routeObj[index] });
                 this.setNavStyle(index);
             }
             // console.log(index);       
@@ -244,7 +256,6 @@ export default {
                 float:left;
                 height:@nav-height;
                 line-height: @nav-height;
-                padding:0 20px;
                 cursor:pointer;
                 position: relative;
                 color:#fff;
@@ -262,6 +273,10 @@ export default {
                     bottom:1px;
                     left:0px;
                     // box-shadow:0px -1px 4px orange;
+                }
+                div {
+                    padding:0 20px;
+                    color:#fff;
                 }
             }
             // 主导航激活样式

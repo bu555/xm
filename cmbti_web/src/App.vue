@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style lang="less">
+  @import '../static/fonts/iconfont.css';
     .root-app {
       font-family: 'Avenir', Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -50,6 +51,7 @@ export default {
       min-height: 470px;
       margin:0 auto;
       background:#f7f7f7;
+      background:#fdfdfd;
       .nav-view {
         width:100%;
         background-color:#fdfdfd;
@@ -60,8 +62,8 @@ export default {
         // background-color:#fefefe;
         background-color:#fdfdfd;
         border-radius:5px;
-        max-width:1055px;
-        min-width:960px;
+        max-width:1070px;
+        min-width:1055px;
         min-height:505px;
         margin:0 auto;
       }

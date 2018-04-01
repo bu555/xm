@@ -16,7 +16,7 @@ body {
     font-size:15px;
     color:#1a1a1a;
     background:#f9f9f9;
-    box-sizing:border-box;
+    /*box-sizing:border-box;*/
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -33,8 +33,11 @@ body {
 .clearfix{
     *zoom:1;/*IE/7/6*/
 }
-a {color:#666; text-decoration:none; }
-a:hover{color:#C81623;}
+a {text-decoration:none; }
+a:active {color:#538dd5}  /*点击时状态 。*/
+a:link {color: #1a1a1a}   /*未访问时的状态 。*/
+a:visited {color: #1a1a1a} /* 已访问过的状态 。*/
+/*a:hover {color: #FF00FF} /* 鼠标移动到链接上时的状态。*/
 h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:100%;}  /*设置h标签的大小，设置跟父亲一样大的字体font-size:100%;*/
 s,i,em{font-style:normal;text-decoration:none;}
 .col-red{color: #C81623!important;}
@@ -47,3 +50,110 @@ s,i,em{font-style:normal;text-decoration:none;}
 .el-loading-mask {
     background-color: rgba(255,255,255,0.5) !important;
 }
+
+/*按钮公共样式*/
+/* cupid green (inspired by okcupid.com)
+*******************************************************************************/
+button.cupid-green {
+  background-color: #7fbf4d;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7fbf4d), color-stop(100%, #63a62f));
+  background-image: -webkit-linear-gradient(top, #7fbf4d, #63a62f);
+  background-image: -moz-linear-gradient(top, #7fbf4d, #63a62f);
+  background-image: -ms-linear-gradient(top, #7fbf4d, #63a62f);
+  background-image: -o-linear-gradient(top, #7fbf4d, #63a62f);
+  /*background-image: linear-gradient(top, #7fbf4d, #63a62f);*/
+  border: 1px solid #63a62f;
+  border-bottom: 1px solid #5b992b;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 0 #96ca6d;
+  box-shadow: inset 0 1px 0 0 #96ca6d;
+  color: #fff;
+  font: bold 15px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  padding: 7px 0 8px 0;
+  text-align: center;
+  text-shadow: 0 -1px 0 #4c9021;
+  width: 122px; }
+  button.cupid-green:hover {
+    background-color: #76b347;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #76b347), color-stop(100%, #5e9e2e));
+    background-image: -webkit-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -moz-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -ms-linear-gradient(top, #76b347, #5e9e2e);
+    background-image: -o-linear-gradient(top, #76b347, #5e9e2e);
+    /*background-image: linear-gradient(top, #76b347, #5e9e2e);*/
+    -webkit-box-shadow: inset 0 1px 0 0 #8dbf67;
+    box-shadow: inset 0 1px 0 0 #8dbf67;
+    cursor: pointer; }
+  button.cupid-green:active {
+    border: 1px solid #5b992b;
+    border-bottom: 1px solid #538c27;
+    -webkit-box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee;
+    box-shadow: inset 0 0 8px 4px #548c29, 0 1px 0 0 #eeeeee; }
+
+    /* clean gray
+*******************************************************************************/
+button.clean-gray,.clean-gray-nohover{
+  background-color: #eeeeee;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  /*background-image: linear-gradient(top, #eeeeee, #cccccc);*/
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  border-radius: 3px;
+  color: #333;
+  font: bold 15px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  padding: 8px 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  width: 122px; }
+  button.clean-gray:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
+    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+    /*background-image: linear-gradient(top, #dddddd, #bbbbbb);*/
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd; }
+  button.clean-gray:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee; }
+
+    /* punch
+*******************************************************************************/
+button.punch {
+  background: #3257a7;
+  border-top: 1px solid #38538c;
+  border-right: 1px solid #1f2d4d;
+  border-bottom: 1px solid #151e33;
+  border-left: 1px solid #1f2d4d;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 6px 0 #1f3053, 0 8px 4px 1px #111111;
+  box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 6px 0 #1f3053, 0 8px 4px 1px #111111;
+  color: #fff;
+  font: bold 15px/1 "helvetica neue", helvetica, arial, sans-serif;
+  margin-bottom: 10px;
+  padding: 10px 0 12px 0;
+  text-align: center;
+  text-shadow: 0 -1px 1px #1e2d4d;
+  width: 150px;
+  -webkit-background-clip: padding-box; }
+  button.punch:hover {
+    -webkit-box-shadow: inset 0 0 20px 1px #87adff, 0 1px 0 #1d2c4d, 0 6px 0 #1f3053, 0 8px 4px 1px #111111;
+    box-shadow: inset 0 0 20px 1px #87adff, 0 1px 0 #1d2c4d, 0 6px 0 #1f3053, 0 8px 4px 1px #111111;
+    cursor: pointer; }
+  button.punch:active {
+    -webkit-box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
+    box-shadow: inset 0 1px 10px 1px #5c8bee, 0 1px 0 #1d2c4d, 0 2px 0 #1f3053, 0 4px 3px 0 #111111;
+    margin-top: 3px; }
+  button.punch.default {
+    background:#688fde
+     }
