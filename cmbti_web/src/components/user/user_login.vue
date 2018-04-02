@@ -85,11 +85,13 @@ export default {
                             //用户信息存入本地，并更新vuex
                             localStorage.setItem('user',JSON.stringify(res.data.user));
                             this.$store.commit('setUserName',res.data.user.role_name);
-                            if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面
+                            if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
+                                this.$router.go();
                                 this.$store.commit('setModalLogin',false); 
                             }else{  //非模态登录，跳转个人中心
                                 this.$router.push({
-                                    path:beforeLoginPath
+                                    // path:beforeLoginPath
+                                    path:'/'
                                 })
                             }
                         }else{

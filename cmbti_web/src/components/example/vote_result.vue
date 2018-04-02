@@ -25,8 +25,11 @@
         </div>
     </div>
    
-    <div class="count-vote" style="padding-top:8px;font-size:13px">
-        共 {{count?count:''}} 人参与
+    <div v-if="count" class="count-vote" style="padding-top:8px;font-size:13px;color:#aaa">
+        {{count}} 人参与
+    </div>
+    <div v-if="!count" class="count-vote" style="padding-top:8px;font-size:13px;color:#ccc">
+        暂无人参与投票哦！
     </div>
 </div> 
 </template>
@@ -35,17 +38,17 @@ export default {
     data(){
         return{
             bigColor:'#6ac342',
-            // smallColor:'#6ac342',
-            res:[]
+            smallColor:'#6ac342',
+            res:[],
+            count:0
         }
     },
     props:[
-        'result','count','smallColor'
+        'example'
     ],
     created(){
-            this.smallColor?this.smallColor:'#6ac342'
-        // this.count = this.result.voteLog.length;
-        // this.result = this.result.vote;
+            this.count = this.example.voteLog.length;
+            this.result = this.example.vote;
             this.res =  [
                 {
                     l:'E',
@@ -55,9 +58,9 @@ export default {
                 },
                 {
                     l:'S',
-                    l_val:this.result.e,
+                    l_val:this.result.s,
                     r:'N',
-                    r_val:this.result.i
+                    r_val:this.result.n
                 },
                 {
                     l:'T',
@@ -105,7 +108,7 @@ export default {
     .right {
         border-radius:0 @progressHeight/2 @progressHeight/2 0;
         // background: linear-gradient(#9de87c,#6dc448, #6dc448, #6dc448,#9de87c);
-        background: linear-gradient(aquamarine,orange);
+        // background: linear-gradient(aquamarine,orange);
         &:hover {
             .right-prog {
                 // box-shadow:1px 0px 5px #666;

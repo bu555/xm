@@ -39,7 +39,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 600000 // 设置返回的cookie时效为30秒，测试用
+    maxAge: 120000 // 设置返回的cookie时效为30秒，测试用
   }
   // store: new MongoStore({
   //   url: "mongodb://localhost:27017/usersession"

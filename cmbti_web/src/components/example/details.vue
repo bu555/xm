@@ -26,10 +26,21 @@
     </div>
 
     <div class="main-box">
-        <div class="details-info">
-            <div class="left-box">
-                <div class="info-txt">
-                    {{exampleItem.info}}
+        <div class="left-side">
+            <div class="vote">
+                <div v-if="exampleItem" class="left-box">
+                    <div class="info-txt">
+                        {{exampleItem.info}}
+                    </div>
+                    <div class="item">
+                        <div class="item-box">
+                            <div class="type">{{exampleItem.type.toUpperCase()}}</div>
+                            <div class="photo">
+                                <img :src="exampleItem.img_url" alt="">
+                            </div>
+                            <div class="name">{{exampleItem.name}}</div>
+                        </div>
+                    </div>
                     <div class="baike">
                         <a href="" target="_blank">
                             <img src="../../../static/img/hudongbaike.jpg" alt="前往互动百科">
@@ -39,33 +50,29 @@
                         </a>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="item-box">
-                        <div class="type">{{exampleItem.type.toUpperCase()}}</div>
-                        <div class="photo">
-                            <img :src="exampleItem.img_url" alt="">
-                        </div>
-                        <div class="name">{{exampleItem.name}}</div>
+                <div class="right-box" v-if="!isVote">
+                    <div class="vote-title">投票结果</div>
+                    <div class="vote-result" style="height:177px">
+                        <voteResult v-if="exampleItem" :example="exampleItem"></voteResult>
+                    </div>
+                    <div>
+                        <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
+                        <!--<el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>-->
+                        <button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>
+                        <button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>
+
                     </div>
                 </div>
-            </div>
-            <div class="right-box" v-if="!isVote&&isGetDate">
-                <div class="vote-title">投票结果</div>
-                <div class="vote-result" style="height:177px">
-                    <voteResult :result="exampleItem.vote" :count="exampleItem.voteLog.length"></voteResult>
-                </div>
-                <div>
-                    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
-                    <el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>
+                <div class="right-box" v-if="isVote">
+                    <div class="vote-title">投 票 台</div>
+                    <div class="vote-result" style="height:177px">
+                        <voteConsole @sonSend="lestionSon($event)"></voteConsole>
+                    </div>
 
                 </div>
             </div>
-            <div class="right-box" v-if="isVote">
-                <div class="vote-title">投 票 台</div>
-                <div class="vote-result" style="height:177px">
-                    <voteConsole @sonSend="lestionSon($event)"></voteConsole>
-                </div>
-
+            <div class="comment">
+                
             </div>
         </div>
         <div class="right-side">
@@ -82,14 +89,16 @@ import voteConsole from "./vote_console"
 export default {
     data(){
         return {
-            exampleItem:{
-                type:'',
-                info:'',
-                vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0},
-                voteLog:[]
-            },
+            exampleItem:'',
+            // exampleItem:{
+            //     type:'',
+            //     info:'',
+            //     vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0},
+            //     voteLog:[]
+            // },
             isVote:false,
             isGetDate:true,
+            isRepeat:false,
         }
     },
     methods:{
@@ -97,49 +106,31 @@ export default {
         lestionSon(data){
             this.isVote = false;
             if(data){
+                // 子组件传递过来的更新后数据
+                this.exampleItem = '';
                 this.exampleItem = data;
             }
         },
-        //投票
+        //投票按钮
         goVote(){
-            this.$prompt('请输入名字', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            // inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-            // inputErrorMessage: '邮箱格式不正确'
-            }).then(({ value }) => {
-                this.$axios.goVote({
-                    eid:this.exampleItem._id,
-                    vote:value
-                    // name:'旭',//.."5aaf4bcf1e658b07c063c14a", name: "张旭5"
-                    // id:'5aaf4bcf1e658b07c063c14a'
-                }).then(res=>{
-                    if(res.data.success){
-                        this.exampleItem = res.data.example;
-                        this.isGetDate = true;
-                        console.log(this.exampleItem);
-                    }else{
-                        this.$message({
-                            showClose: true,
-                            message: res.data.message,
-                            type: 'warning',
-                            duration:2500
-                        });
-                    }
-                }).catch(res=>{})
-                
-            }).catch(() => {
-     
-            });
+            // if(localStorage.getItem('user'))
+            //先确认登录是否有效
+            this.$axios.isLogin().then(res=>{
+                if(res.data.success===true){
+                    this.isVote = true; //如果登录有效则进入投票界面
+                }
+            })
+            
         },
         //精确查询example
         searchExamp(id){
+                this.exampleItem = '';
                 this.$axios.searchExample({
                     id:id
                 }).then(res=>{
                     if(res.data.success){
                         this.exampleItem = res.data.example[0];
-                        this.isGetDate = true;
+                        // this.isGetDate = true;
                         console.log(this.exampleItem);
 
                     }else{
@@ -147,6 +138,20 @@ export default {
                 }).catch(res=>{})
 
         },
+        //检查重复投票
+        checkRepeat(){
+            if(localStorage.getItem('user')){
+                let uid = JSON.parse(localStorage.getItem('user'))._id;
+                this.exampleItem.voteLog.forEach(v=>{
+                    if(v.uid===uid){
+                        this.isRepeat = true;
+                    }
+                })
+            }
+        }
+    },
+    watch:{
+        exampleItem:'checkRepeat'
     },
     created(){
         // 判断list数据是否存在，不存在则通过eid请求，存在则判断时间是否过期，如果过期则重新请求
@@ -161,14 +166,15 @@ export default {
                     }
                 })
             }else{
-                //请求数据
+                //重新请求数据
                 this.searchExamp(this.$route.query.eid);
-
             }
         }else{
-            //请求数据
+            //重新请求数据
+            this.searchExamp(this.$route.query.eid);
 
         }
+
     },
     components:{
         voteResult,
@@ -213,29 +219,38 @@ export default {
     .main-box {
         display: flex; display: -webkit-flex;
         text-align: center;
-        .details-info {
-                width:72%;
-                display: flex;
-                display: -webkit-flex;
-                flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-                padding:5px;
-                height:305px;
-                .left-box {
-                    flex:1;
-                    border:1px solid #ccc;
-                    display: flex; display: -webkit-flex;
-                    padding-top:15px;
-                    .info-txt {
-                        width:150px;
-                        padding:15px 28px;
-                        padding-right:0px;
-                        text-align:left;
-                        font-size:13px;
+        .left-side {
+                flex-basis:72%;
+            .vote {
+                    display: flex;
+                    display: -webkit-flex;
+                    // flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
+                    padding:5px;
+                    height:310px;
+                    
+                    .left-box {
+                        flex:1;
+                        // border:1px solid #ccc;
+                        display: flex; display: -webkit-flex;
+                        padding-top:15px;
                         position: relative;
+                        border:1px solid #ddd;
+                        border-right:none;
+                        border-radius:5px 0 0 5px;
+                        .info-txt {
+                            width:150px;
+                            height:206px;
+                            padding:15px 28px;
+                            padding-right:0px;
+                            text-align:left;
+                            font-size:13px;
+                            position: relative;
+                            overflow:hidden;
+                        }
                         .baike {
                             position: absolute;
-                            left:30px;
-                            bottom:22px;
+                            left:28px;
+                            bottom:28px;
                             img {
                                 height:20px;
                                 border:1px solid #ddd;
@@ -244,49 +259,59 @@ export default {
                             a {
                             }
                         }
-                    }
-                    .item {
-                        margin:0 auto;
-                    }
-                    .item-box {
-                        flex:1;
-                        margin:7px;
-                        width:200px;
-                        border:1px solid #eee;
-                        border-radius:8px;
-                        // width:157px;
-                        .type,.name {
-                            height:32px;
-                            line-height: 32px;
-                            font-size:15px;
+                        .item {
+                            margin:0 auto;
                         }
-                        .photo {
-                            height:195px;
-                            overflow: hidden;
-                            img {
-                                width:150px;
+                        .item-box {
+                            flex:1;
+                            margin:7px;
+                            width:200px;
+                            border:1px solid #eee;
+                            border-radius:8px;
+                            // width:157px;
+                            .type,.name {
+                                height:32px;
+                                line-height: 32px;
+                                font-size:15px;
+                            }
+                            .photo {
+                                height:195px;
+                                overflow: hidden;
+                                img {
+                                    width:150px;
+                                }
                             }
                         }
                     }
-                }
-                .right-box {
-                    // flex:1;
-                    width:333px;
-                    border:1px solid #ccc;
-                    padding-top:15px;
-                    .vote-title {
-                        // font-weight:700;
-                        font-size:17px;
-                    }
+                    // 投票结果
+                    .right-box {
+                        // flex:1;
+                        flex-basis:328px;
+                        border:1px solid #ddd;
+                        border-radius:0 5px 5px 0;
+                        padding-top:15px;
+                        .vote-title {
+                            // font-weight:700;
+                            margin:0 28px;
+                            font-size:17px;
+                            height:30px;
+                            // background-color: #eee;
+                            border-bottom:1px solid #eee;
+                            // box-shadow: 1px 0 3px #ccc;
+                        }
 
-                    .vote-result {
-                        // background-color: #ccc;
+                        .vote-result {
+                            // background-color: #ccc;
 
+                        }
                     }
-                }
+            }
+            .comment {
+
+            }
         }
         .right-side {
-            flex:1;
+            flex-basis:28%;
             padding:5px;
             .top-side {
                 // height:400px;

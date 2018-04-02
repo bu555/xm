@@ -12,16 +12,15 @@ const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const GrabWeb = require('../controllers/grabWeb')
 
-// 添加example
-const addExample = (name,res)=>{
-    // let vote = req.body.vote; //投票结果：如intj类型
-    // let name = req.body.name;
-    // if( !name || !myUtill.testVote(vote)){
-    //     return res.json({
-    //         success:false,
-    //         message:'参数格式错误'
-    //     })
-    // }
+// // 爬数据添,添加example
+const addExample = (req,res)=>{
+    let name = req.body.name || '';
+    if(!name){
+        return json({
+            success: false,
+            message: 'name为必需参数' 
+        })
+    }
     GrabWeb.https(name).then(searchData=>{
 
         let result = {e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}; //初始化值
@@ -90,18 +89,21 @@ const getExample = (req,res,next)=>{
         })
     })
 }
-// 查询example (使用name 或 tag)
+// 模糊查询(接受name 和type)
 const searchExample = (req,res,next)=>{
     let pro;
     if(req.body.name){
-        pro = Example.findOne({ name:req.body.name });
+        pro = Example.find({ name:new RegExp(req.body.name,'i') });
+    }else if(req.body.type){
+        pro = Example.find({ type:new RegExp(req.body.type,'i') });
     }else if(req.body.id){
         pro = Example.findOne({ _id:req.body.id });
     }else{
-        return res.json({
-            success:false,
-            message:'request参数错误'
-        })
+        pro = Example.find();
+        // return res.json({
+        //     success:false,
+        //     message:'request参数错误'
+        // })
     }
     pro.then(example=>{
         if(example){ //将本地的返回
@@ -114,28 +116,15 @@ const searchExample = (req,res,next)=>{
                 example:example
             })
         }else{
-            //爬取数据，添加后返回
-            addExample(req.body.name,res);
-            // res.json({
-            //     success:false,
-            //     message:'未搜索到此名字',
-            //     result:example
-            // }) 
+            res.json({
+                success:false,
+                message:'无数据',
+                result:example
+            }) 
         }
     },example=>{
         res.json(example);
     })
-
-    // if(req.body.name){
-    //     pro = Example.find({ name:new RegExp(req.body.name,'i') });
-    // }else if(req.body.tag){
-    //     pro = Example.find({ tag:new RegExp(req.body.tag,'i') });
-    // }else{
-    //     return res.json({
-    //         success:false,
-    //         message:'参数错误'
-    //     })
-    // }
 }
 //投票 （注：需要登录）
 //逻辑：1、查询user.history判断是否重复投票 
@@ -403,6 +392,7 @@ module.exports = (router) => {
     router.post('/searchExample',searchExample);
     router.post('/goVote',checkLogin,goVote);
     router.post('/searchExample',searchExample);
+    // router.post('/fuzzyExample',fuzzyExample);
     // router.post('/login',checkNotLogin,login);
     // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
     // router.post('/reset',resetPassword);

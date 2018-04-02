@@ -248,6 +248,12 @@ const delSession = (req, res) => {
       message: '登出成功'
   })
 }
+const isLogin = (req,res)=>{
+    res.json({
+      success:true,
+      message:'已登录'
+    })
+}
 
 module.exports = (router) => {
     router.post('/register',checkNotLogin,register);
@@ -257,6 +263,7 @@ module.exports = (router) => {
     // router.post('/search',checkLogin,search)
     router.post('/search',checkLogin,search)
     router.post('/delSession',checkLogin,delSession)
+    router.post('/isLogin',checkLogin,isLogin) //检查是否登录
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

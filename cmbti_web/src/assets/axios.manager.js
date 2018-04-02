@@ -86,8 +86,12 @@ export default {
     search(){
         return axios.post(path+'/user/search');
     },
+    //是否登录已失效
+    isLogin(){
+        return axios.post(path+'/user/isLogin');
+    },
 
-    //添加example
+    //爬取数据添加example  （）
     addExample(data){
         return axios.post(path+'/example/addExample',data);
     },
@@ -103,8 +107,12 @@ export default {
     goVote(data){
         return axios.post(path+'/example/goVote',data);
     },
-    //新增example
+    //精确查询或新增example
     searchExample(data){
         return axios.post(path+'/example/searchExample',data);
     },
+    // //模糊查询 name或type
+    // fuzzyExample(data){
+    //     return axios.post(path+'/example/fuzzyExample',data);
+    // },
 }

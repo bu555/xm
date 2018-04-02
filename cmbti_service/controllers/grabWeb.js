@@ -4,7 +4,7 @@ var cheerio = require('cheerio');  //使用cheerio，相当于使用jQuery操作
 var request=require('request');  //针对https页面
 var fs = require('fs');  
 var path=require('path'); 
-var url = 'https://baike.baidu.com/item/%E6%AF%9B%E6%B3%BD%E4%B8%9C/113835' ;
+// var url = 'https://baike.baidu.com/item/%E6%AF%9B%E6%B3%BD%E4%B8%9C/113835' ;
 // var url = 'https://baike.baidu.com/item/%E5%88%98%E5%BE%B7%E5%8D%8E/114923' ;
 
 class GrabWeb{

@@ -5,10 +5,12 @@ import App from './App'
 import router from '@/router/index.js'
 // 公共样式
 import '../static/css/base.css'
+//css3动画库
+import '../static/css/ec-css-animate.css'
 // vuex
 import store from '@/store/store'
 // 字体样式
-import 'font-awesome/css/font-awesome.css'
+// import 'font-awesome/css/font-awesome.css'
 // element样式
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
@@ -19,7 +21,7 @@ Vue.use(ElementUI)
 import axiosManager from '../src/assets/axios.manager'
 Vue.prototype.$axios = axiosManager;
 
-Vue.prototype.maxAge = 60000;  //本地数据存储期限值
+Vue.prototype.maxAge = 5000;  //本地数据存储期限值
 
 // Vue.prototype.url = basePath;
 

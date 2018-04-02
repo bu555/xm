@@ -1,22 +1,10 @@
 <template>
 <div class="test">
-        <!--<myTab :tabs="tabs"></myTab>-->
-        <div class="test-tab clearfix">
-            <!--<div class="tabs-blank-start"></div>-->
-            <div class="tabs" index="1" @click="$router.push({path:'/test/16type'})">
-                16type
-            </div>
-            <div class="tabs" index="2" @click="$router.push({path:'/test/8func'})">
-                8func
-            </div>
-            <div class="tabs">
-                标题3
-            </div>
-            <div class="tabs-blank-end"></div>
-        </div> 
+        <myTab :tabs="tabs"></myTab>
         <div class="main-box">
             <div class="left-box">
-                <router-view/>
+                <myType16 v-if="this.currentType==='type16'"></myType16>
+                <myMid8 v-if="this.currentType==='mid8'"></myMid8>
                 <!--<div class="test-list">
                     <div class="t-items" v-for="(v,i) in questionList" :key="i">
                         <div class="question">
@@ -42,6 +30,8 @@
 </template>
 <script>
 import myTab from '../common/tab'
+import myMid8 from './mid8'
+import myType16 from './type16'
 export default {
     data(){
         return {
@@ -60,12 +50,24 @@ export default {
                     r:'B．需要迅速和即时做出反应，没有过多约束的。',
                     remark:28
                 },
-            ],
+            ],  
             // tab和路由映射
-            tabs:{
-                '/16type':'1',
-                '/8func':'2',
-            },
+            // tabs:{
+            //     '/16type':'1',
+            //     '/8func':'2',
+            // },
+            // tab导航条内容
+            currentType:'',
+            tabs:[
+                {
+                    type:'type16',
+                    title:'16型'
+                },
+                {
+                    type:'mid8',
+                    title:'八维功能'
+                }
+            ],
             result:[
 
             ]
@@ -79,14 +81,7 @@ export default {
             })
         },
         chengeRoute(){
-            let path = this.$route.path;
-            console.log(path);
-            for(let key in this.tabs){
-                if(path.indexOf(key)!=-1){
-                    console.log(this.tabs[key]);
-                    this.setTabStyle(this.tabs[key]);
-                }
-            }
+            this.currentType = this.$route.query.type;
 
         },
         //设置tab激活样式
@@ -102,91 +97,44 @@ export default {
         }
     },
     watch:{
-        '$route.path':'chengeRoute'
+        '$route.query':'chengeRoute'
     },
     mounted(){
 
         this.chengeRoute();
     },
     components:{
-        myTab
+        myTab,
+        myMid8,
+        myType16
+
     },
     created(){
-        // let type = this.$route.query.type;
-        // if(!type){
-        //     this.$router.push({
-        //         path:'/test/16type',
-        //         query:{type:'16type'}
-        //     });
-        //     type = '16type';
-        // }
-        // this.$router.push({
-        //     path:'/test/16type'
-        // });
-
+        this.currentType = this.$route.query.type;
+        if(!this.currentType){
+            this.$router.push({
+                query:{type:'type16'}
+            });
+            this.currentType = 'type16';
+        }
     },
     
 };
 </script>
 <style lang="less">
 .test {
-    .test-tab {
-        padding-top:6px;
-        display: flex; display: -webkit-flex;
-        background-color: #f7f7f7;
-        border-top: 1px solid #eee;
-        .tabs {
-            flex:0 1 157px;
-            text-align: center;
-            font-size:14px;
-            height:25px;
-            line-height: 25px;
-            border-radius: 14px 14px 0 0;
-            border:1px solid #d8d9db;
-            position: relative;
-            background-color: #f5f7fa;
-            color:#72748a;
-            cursor:pointer;
-            margin:0 3px;
-            // margin-bottom:10px;
-            &:after {
-                content:'';
-                width:5px;
-                border-bottom:1px solid #d8d9db;
-                position: absolute;
-                bottom:-1px;
-                left:-5px;
-
-            }
-            &:before {
-                content:'';
-                width:5px;
-                border-bottom:1px solid #d8d9db;
-                position: absolute;
-                bottom:-1px;
-                right:-5px;
-
-            }
-            &:hover {
-                background-color: #fefefe;
-                border-bottom:1px solid #fdfdfd;
-            }
-        }
-        .tabs.active {
-            background-color: #fdfdfd;
-            border-bottom:1px solid #fdfdfd;
-            color:#1c2633;
-        }
-        .tabs-blank-start {
-            width:5px;
-            border-bottom:1px solid #d8d9db;
-        }
-        .tabs-blank-end {
-            flex-grow:1;
-            border-bottom:1px solid #d8d9db;
-        }
+    .my-tab .tabs {
+        flex:0 1 150px;
+        height:28px;
+        line-height: 28px;
     }
-
+    .my-tab .tabs-blank-start {
+        height:29px
+    }
+    .my-tab .tabs-blank-end {
+        flex:1;
+        height:29px;
+    }
     .main-box {
         display: flex; display: -webkit-flex;display: -ms-flex;
         padding-top:12px;
