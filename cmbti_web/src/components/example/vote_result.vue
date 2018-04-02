@@ -25,7 +25,7 @@
         </div>
     </div>
    
-    <div v-if="count" class="count-vote" style="padding-top:8px;font-size:13px;color:#aaa">
+    <div v-if="count" class="count-vote" style="padding-top:8px;font-size:12px;color:#aaa">
         {{count}} 人参与
     </div>
     <div v-if="!count" class="count-vote" style="padding-top:8px;font-size:13px;color:#ccc">

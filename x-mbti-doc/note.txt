@@ -14,7 +14,7 @@ https://www.douban.com/group/topic/63745621/
 
 /*
 flex-grow:
-    默认为0--有空间也不会铺开；
+    默认为0--有空间也不会铺开(可以设置flex-basis定宽)；
     1--元素平均宽度铺开，占满一行；
     2--某一元素设2，自身宽度则是其余2倍；
 flex-shrink:
@@ -25,5 +25,17 @@ flex-basis:
     设置宽，即元素实际宽度
     0--按自身宽度占住空间，不会缩小让出空间；（元素定宽时使用）
     */
+.parent{
+    display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+    flex-direction: column ; //从上往下纵向
+    flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
+    justify-content:center; //元素水平居中
+    align-items:center; //元素垂直居中
+}
+img {  //图片自动大小
+    display:block;
+    width:auto;
+    height:auto;
+}
 
 https://github.com/minirefresh/minirefresh   优雅的H5 下拉刷新。零依赖，高性能，多主题，易拓展

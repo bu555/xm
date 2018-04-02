@@ -282,10 +282,6 @@ export default {
             text-align: center;
             .item {
                 flex:0 0 25%; 
-                //flex属性： 默认参数 0 1 auto
-                //第一个参数：flex-grow:0 剩余空间分配比例 （如设为3，则此元素宽是其他的三倍）
-                //第二个参数：flex-shrink: 默认1，空间不足时等比例缩小（非1时不缩小）
-                //第三个参数：flex-basis 在分配多余空间之前，元素占据主轴空间
                 .item-box {
                     margin:7px;
                     border:1px solid #eee;

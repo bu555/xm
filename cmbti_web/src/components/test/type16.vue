@@ -137,6 +137,9 @@ export default {
             border:1px solid #eee;
 
         }
+        .el-radio__label {
+            font-size: 13px;
+        }
         
 }
 

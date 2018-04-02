@@ -33,13 +33,13 @@
     </div>
     <div class="ctrl-box" style="margin-top:10px">
             <div>
-                <button class="punch default" style="width:70px" @click="exitVote()">取消</button>
+                <button class="punch default" style="width:60px" @click="exitVote()">取消</button>
             </div>
             <div>
                 <button class="punch" @click="goVote()">投 票</button>
             </div>
             <div>
-                <button class="punch default" style="width:70px" @click="reset()">重置</button>
+                <button class="punch default" style="width:60px" @click="reset()">重置</button>
             </div>
         <!--<el-button type="primary" @click="goVote()" style="height:34px;padding:0 22px">投票</el-button>
         <el-button type="default" @click="exitVote()" style="height:34px;padding:0 22px">取消</el-button>-->

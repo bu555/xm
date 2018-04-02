@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="comment">
-                
+                <myComment></myComment>
             </div>
         </div>
         <div class="right-side">
@@ -86,6 +86,7 @@
 <script>
 import voteResult from "./vote_result"
 import voteConsole from "./vote_console"
+import myComment from './comment'
 export default {
     data(){
         return {
@@ -178,7 +179,8 @@ export default {
     },
     components:{
         voteResult,
-        voteConsole
+        voteConsole,
+        myComment
     }
     
 };
@@ -243,7 +245,7 @@ export default {
                             padding:15px 28px;
                             padding-right:0px;
                             text-align:left;
-                            font-size:13px;
+                            font-size:12px;
                             position: relative;
                             overflow:hidden;
                         }
