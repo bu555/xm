@@ -2,7 +2,7 @@
 [
     {
         eid:'e001',
-        name:'克林顿',
+        name:'kelinl',
         sex:'',
         type:'intj',
         img:'',
@@ -28,6 +28,9 @@
         //         agreeList:['uid001','uid002']
         //     }
         // ]
+        /*
+
+        */ 
     }
 ]
 // comment评论
