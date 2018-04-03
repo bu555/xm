@@ -7,16 +7,19 @@
         <router-view> </router-view>
     </div>
     <!--<v-footer/>-->
+    <!--<myMsg></myMsg>-->
   </div>
 </template>
 
 <script>
 import comNav from "@/components/common/comNav";
 import footer from "@/components/common/footer";
+import myMsg from './components/common/message';
 export default {
   name: 'App',
   components: {
     comNav,
+    myMsg,
     "v-footer":footer
   },
   methods:{

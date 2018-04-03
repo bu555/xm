@@ -216,7 +216,8 @@ export default {
         this.$store.commit('setUserName',roleName );
     },
     components:{
-        modalLogin
+        modalLogin,
+        
     }
 };
 </script>

@@ -1,101 +1,103 @@
 <template>
 <div class="test-result">
-        <myTab :tabs="tabs"></myTab>
-        <div class="main-box">
-            <div class="left-box">
-                <div class="test-list">
-                    <div class="t-items" v-for="(v,i) in questionList" :key="i">
-                        <div class="question">
-                            {{i+1}}、{{v.question}}{{v.qid}}
-                        </div>
-                        <div class="answer">
-                            <template>
-                                <el-radio v-model="result[i].res" label="a">{{v.l}}</el-radio><br/>
-                                <el-radio v-model="result[i].res" label="b">{{v.r}}</el-radio>
-                            </template>
-                        </div>
-                    </div>
-                    <!--<div class="t-items">
-                        <div class="question">
-                            1、矿池有：
-                        </div>
-                        <div class="answer">
-                            <template>
-                                <el-radio v-model="radio1" label="1">备选项</el-radio><br/>
-                                <el-radio v-model="radio1" label="2">备选项</el-radio>
-                            </template>
-                        </div>
-                    </div>-->
-                </div>
-                <div class="btn">
-                    <el-button type="primary" round @click="submitTest()">提 交</el-button>
+    <div class="chart">
+        <div class="mid">
+            <div class="type">E 外倾</div>
+            <div class="prog">
+                <div class="e">
+                    <div class="val">73%</div>
                 </div>
             </div>
+            <div class="prog">
+                <div class="i">
+                    <div class="val">44%</div>
+                </div>
+            </div>
+            <div class="type">I 内倾</div>
         </div>
+        <div class="mid">
+            <div class="type">S 感觉</div>
+            <div class="prog">
+                <div class="s">
+                    <div class="val">73%</div>
+                </div>
+            </div>
+            <div class="prog">
+                <div class="n">
+                    <div class="val">44%</div>
+                </div>
+            </div>
+            <div class="type">N 直觉</div>
+        </div>
+        <div class="mid">
+            <div class="type">T 思考</div>
+            <div class="prog">
+                <div class="t">
+                    <div class="val">73%</div>
+                </div>
+            </div>
+            <div class="prog">
+                <div class="f">
+                    <div class="val">44%</div>
+                </div>
+            </div>
+            <div class="type">F 情感</div>
+        </div>
+        <div class="mid">
+            <div class="type">J 判断</div>
+            <div class="prog">
+                <div class="j">
+                    <div class="val">73%</div>
+                </div>
+            </div>
+            <div class="prog">
+                <div class="p">
+                    <div class="val">44%</div>
+                </div>
+            </div>
+            <div class="type">P 感知</div>
+        </div>
+        <!--<div class="e">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="i">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="s">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="n">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="t">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="f">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="j">
+            <div class="type"></div><div class="prog"></div>
+        </div>
+        <div class="p">
+            <div class="type"></div><div class="prog"></div>
+        </div>-->
+    </div>
 </div> 
 </template>
 <script>
 export default {
     data(){
         return {
-            questionList:[
-                {
-                    qid:'jp5',
-                    question:'你习惯于：',
-                    l:'A．及时处理不愉快的事情，务求把它们抛诸脑后。',
-                    r:'B．暂时放下不愉快的事情，直至有心情时才处理。',
-                    remark:28
-                },
-                {
-                    qid:'jp6',
-                    question:'你喜欢的工作是：',
-                    l:'A．需要定出目标，然后逐步实现，井井有条的。',
-                    r:'B．需要迅速和即时做出反应，没有过多约束的。',
-                    remark:28
-                },
-            ],
-            // tab导航条内容
-            tabs:[
-                {
-                    type:'16type',
-                    title:'16Test'
-                },
-                {
-                    type:'rg',
-                    title:'RGTest'
-                },
-                {
-                    type:'functions',
-                    title:'Function'
-                },
-       
-            ],
-            result:[
 
-            ]
         }
     },
     methods:{
-        submitTest(){
-            console.log(this.result);
-        }
+
     },
     components:{
-        myTab
+
     },
     created(){
-        let type = this.$route.query.type;
-        if(!type){
-            this.$router.push({query:{type:'16type'}});
-            type = '16type';
-        }
-        //将qid添加到result
-        this.questionList.forEach(v=>{
-            this.result.push({
-                id:v.qid,
-                res:''
-            })
-        })
 
     },
     
@@ -103,7 +105,65 @@ export default {
 </script>
 <style lang="less">
 .test-result {
+    .chart {
+        margin:0 auto;
+        width:300px;
+        .mid {
+            box-sizing: border-box;
+            display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+            flex-wrap:wrap;
+            margin:5px 0;
+            .type {
+                flex:1.2;
+                text-align: center;
+                // background-color: pink;
+            }
+            .prog {
+                flex:2;
+                border:1px solid #80c342;
+                &>div {
+                    height:14px;
+                    margin:1px;
+                    background-color: #80c342;
+                    width:33%;
+                    .val {
+                        font-size:12px;
+                    }
+                }
+                .e,.s,.t,.j {
+                    float:right;
+                }
+                .i,.n,.f,.p {
+                    .val {
+                        float:right;
+                    }
+                }
+            }
+        }
 
+        // &>div {
+        //     margin:3px 0px;
+        //     border:1px solid #80c342;
+        //     flex-basis:48%;
+        //     flex-shrink:0;
+        //     display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+        //     .type {
+        //         flex-basis:20%;
+        //     }
+        //     .prog {
+        //         flex-basis:80%;
+        //         height:14px;
+        //         margin:1px;
+        //         width:33%;
+        //         background-color: #80c342;
+        //     }
+        // }
+        // .e,.s,.t,.j {
+        //     .prog {
+        //         float:right;
+        //     }
+        // }
+    }
 
 }
 

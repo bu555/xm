@@ -34,7 +34,7 @@
                             {{v.voteLog.length}}人参与
                         </div>
                         <!--投票提示-->
-                        <div v-if="v.type==='****'" class="redirect-flag ec-shake-time ec-infinite" data-class="ec-rotate-in">
+                        <div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">
                             <span>投个票去！</span><i class="icon iconfont icon-new"></i>
                             
                         </div>

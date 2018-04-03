@@ -7,6 +7,7 @@ import router from '@/router/index.js'
 import '../static/css/base.css'
 //css3动画库
 import '../static/css/ec-css-animate.css'
+import '../static/css/ec-css-hover.css'
 // vuex
 import store from '@/store/store'
 // 字体样式

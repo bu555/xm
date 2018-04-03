@@ -20,12 +20,13 @@
                     <el-button type="primary" round @click="submitTest()">提 交</el-button>
                 </div>
             </div>
-            <voteResult :result="calcRes" :smallColor="'#f1df2c'" v-if="showRes"></voteResult>
+            <Result ></Result>
+
 </div> 
 </template>
 <script>
 import questionType16 from './subject/type16.js'
-import voteResult from '../example/vote_result'
+import Result from './result'
 export default {
     data(){
         return {
@@ -90,7 +91,7 @@ export default {
 
     },
     components:{
-        voteResult
+        Result
     }
     
 };

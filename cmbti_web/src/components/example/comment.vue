@@ -27,6 +27,44 @@
                 </div>
             </div>
         </div>
+        <div class="items">
+            <div class="com-header"> 
+                <div class="photo">像</div>
+                <div class="role-name">角色名55</div> 
+                <div class="date">2002-6-6</div>
+            </div>
+            <div class="com-content">XXXXXXXXXXXXXXXXXXXXXXXXXX</br>XXXXXXXXXXXXXX</div>
+            <div class="handle">
+                <div class="zan">
+                    ↑ 1234
+                </div>
+                <div class="reply">
+                    O 1234
+                </div>
+                <div class="share">
+                    →
+                </div>
+            </div>
+        </div>
+        <div class="items">
+            <div class="com-header"> 
+                <div class="photo">像</div>
+                <div class="role-name">角色名55</div> 
+                <div class="date">2002-6-6</div>
+            </div>
+            <div class="com-content">XXXXXXXXXXXXXXXXXXXXXXXXXX</br>XXXXXXXXXXXXXX</div>
+            <div class="handle">
+                <div class="zan">
+                    ↑ 1234
+                </div>
+                <div class="reply">
+                    O 1234
+                </div>
+                <div class="share">
+                    →
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </template>
