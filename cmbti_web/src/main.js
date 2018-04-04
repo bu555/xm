@@ -24,6 +24,10 @@ Vue.prototype.$axios = axiosManager;
 
 Vue.prototype.maxAge = 5000;  //本地数据存储期限值
 
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+
 // Vue.prototype.url = basePath;
 
 // apollo 

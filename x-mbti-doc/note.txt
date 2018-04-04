@@ -12,6 +12,13 @@ http://wiki.mbalib.com/wiki/MBTI%E4%BA%BA%E6%A0%BC%E7%90%86%E8%AE%BA
 https://www.idrlabs.com/tests.php
 https://www.douban.com/group/topic/63745621/
 
+https://blog.csdn.net/crackwei/article/details/78908024   Windows系统 门罗币CPU挖矿详细教程 
+https://blog.csdn.net/jiangjianjun716/article/details/79535232 精品！！
+http://www.freebuf.com/column/151316.html  前端挖矿
+http://www.freebuf.com/author/evil7    evil7专栏
+https://www.youbbs.org/t/2176
+https://wk588.com/list/wkjs/wkjc 挖币普及
+
 /*
 flex-grow:
     默认为0--有空间也不会铺开(可以设置flex-basis定宽)；
@@ -38,9 +45,8 @@ img {  //图片自动大小
     height:auto;
 }
 
-https://github.com/minirefresh/minirefresh   优雅的H5 下拉刷新。零依赖，高性能，多主题，易拓展
 
-
+https://getmonero.org 参考
 
 ---vue ui库---
 Vonic 移动端库
@@ -50,6 +56,7 @@ docs：https://wangdahoo.github.io/vonic-documents/#/
 github：https://github.com/wangdahoo/vonic
 
 mintUi http://mint-ui.github.io/#!/zh-cn
+https://github.com/minirefresh/minirefresh   优雅的H5 下拉刷新。零依赖，高性能，多主题，易拓展
 
 
 ---git---

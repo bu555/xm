@@ -50,6 +50,10 @@ s,i,em{font-style:normal;text-decoration:none;}
 .el-loading-mask {
     background-color: rgba(255,255,255,0.5) !important;
 }
+.bx {
+  max-width:1150px;
+  margin:0 auto;
+}
 
 /*按钮公共样式*/
 /* cupid green (inspired by okcupid.com)
