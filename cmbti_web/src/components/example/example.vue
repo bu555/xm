@@ -14,13 +14,13 @@
             <div class="types-box">
                 <div class="types-box1">
                     <router-link to="/example?type=all">
-                    <div class="all">全</br>部</div>
+                    <div class="all">默</br>认</div>
                     </router-link>
                 </div>
                 <div class="types-box2">
                         <div v-for="(v,i) in types" :key="i">
                             <router-link :to="'/example?type='+v.type">
-                            <div class="type" :style="'background:'+v.color">{{v.type.toUpperCase()}}</div>
+                            <div class="type ech-big" :style="'background:'+color[v.type]">{{v.type.toUpperCase()}}</div>
                             </router-link>
                         </div>
                 </div>
@@ -39,11 +39,12 @@
                     </div>
                 </div>
                 <!--有数据-->
-                <div  class="item"  v-for="(v,i) in exampleList" :key="i">
+                <div  class="item" v-for="(v,i) in exampleList" :key="i">
                     <router-link :to="{path:'/example/details',query:{eid:v._id}}">
-                    <div class="item-box">
+                    <!--<div class="item-box" :style="'border-color:'+color[v.type]+';color:'+color[v.type] ">-->
+                    <div class="item-box" :style="'border-color:'+(typeof rgba[v.type]=='string'?rgba[v.type].substr(0,rgba[v.type].length-1)+',.4)':'')+';color:'+color[v.type] ">
                         <div class="type">{{v.type.toUpperCase()}}</div>
-                        <div class="photo">
+                        <div class="photo" :style="'box-shadow: 0 0 5px '+color[v.type]+';'">
                             <img :src="v.img_url" alt="">
                             <div class="info">
                                 {{v.voteLog.length}}人参与
@@ -90,93 +91,123 @@ export default {
             showDetails:false,
             searchName:'',
             // tab导航条内容
+            color:{
+                'entp':'#2270d7',
+                'intp':'#2270d7',
+                'entj':'#2270d7',
+                'intj':'#2270d7',
+
+                'enfp':'#b225d5',
+                'infp':'#b225d5',
+                'enfj':'#b225d5',
+                'infj':'#b225d5',
+
+                'estj':'#f33370',
+                'istj':'#f33370',
+                'esfj':'#f33370',
+                'isfj':'#f33370',
+
+                'estp':'#9ea2a2',
+                'istp':'#9ea2a2',
+                'esfp':'#9ea2a2',
+                'isfp':'#9ea2a2',
+
+            },
+            rgba:{},
             types:[
                 {
                     type:'entp',
-                    title:'ENTP',
-                    color:'#008cd0'
+                    title:'ENTP'
                 },
                 {
                     type:'intp',
-                    title:'INTP',
-                    color:'#008cd0'
+                    title:'INTP'
                 },
                 {
                     type:'entj',
-                    title:'ENTJ',
-                    color:'#008cd0'
+                    title:'ENTJ'
                 },
                 {
                     type:'intj',
-                    title:'INTJ',
-                    color:'#008cd0'
+                    title:'INTJ'
                 },
                 {
                     type:'enfp',
-                    title:'ENFP',
-                    color:'#149d30'
+                    title:'ENFP'
                 },
                 {
                     type:'infp',
-                    title:'INFP',
-                    color:'#149d30'
+                    title:'INFP'
                 },
                 {
                     type:'enfj',
-                    title:'ENFJ',
-                    color:'#149d30'
+                    title:'ENFJ'
                 },
                 {
                     type:'infj',
-                    title:'INFJ',
-                    color:'#149d30'
+                    title:'INFJ'
                 },
 
                 {
                     type:'estj',
-                    title:'ESTJ',
-                    color:'#ffbb34'
+                    title:'ESTJ'
                 },
                 {
                     type:'istj',
-                    title:'ISTJ',
-                    color:'#ffbb34'
+                    title:'ISTJ'
                 },
                 {
                     type:'esfj',
-                    title:'ESFJ',
-                    color:'#ffbb34'
+                    title:'ESFJ'
                 },
                 {
                     type:'isfj',
-                    title:'ISFJ',
-                    color:'#ffbb34'
+                    title:'ISFJ'
                 },
                 {
                     type:'estp',
-                    title:'ESTP',
-                    color:'#ff2414'
+                    title:'ESTP'
                 },
                 {
                     type:'istp',
-                    title:'ISTP',
-                    color:'#ff2414'
+                    title:'ISTP'
                 },
                 {
                     type:'esfp',
-                    title:'ESFP',
-                    color:'#ff2414'
+                    title:'ESFP'
                 },
                 {
                     type:'isfp',
-                    title:'ISFP',
-                    color:'#ff2414'
+                    title:'ISFP'
                 }
             ],
             currentType:'',
         }
     },
     methods:{
+        // 设置types激活样式
+        setTypesStyle(type){
+                if(!document.querySelector('.types-box .all')) return;
+                document.querySelector('.types-box .all').classList.remove('t-active');
+                document.querySelectorAll('.types-box .type').forEach(v=>{
+                    v.classList.add('ech-big');
+                    v.classList.remove('t-active');
+                })
+                if(type==='all'){
+                    document.querySelector('.types-box .all').classList.add('t-active');
+                }else{
+                    document.querySelectorAll('.types-box .type').forEach(v=>{
+                        if(v.innerHTML.toLowerCase()===type){
+                            v.classList.add('t-active');
+                            v.classList.remove('ech-big');
+                        }
+                    })
+                }
+                // let target = event.currentTarget;
+                // target.classList.remove('ech-big');
+                // target.classList.add('t-active');
+            
+        },
         getExamp(name,type){
             //模糊搜索原则：优先name查询
             if(name){ //搜索框输入
@@ -237,6 +268,7 @@ export default {
             this.$router.push({path:'/example/details',query:{eid:value._id}})
             // localStorage.setItem('exampleItemData',JSON.stringify(value));
         },
+        //改变query.type，调用函数获取对应数据
         changeQuery(){
             let type = this.$route.query.type;
             if(!type || this.currentType === type) return;
@@ -249,6 +281,8 @@ export default {
             }
             this.currentType = type;
             this.searchName = '';
+            // 设置types样式
+            this.setTypesStyle(type);
         }
     },
     watch:{
@@ -263,17 +297,28 @@ export default {
     },
     created(){
         let type = this.$route.query.type;
-        if(!type){
+        if(!type){ //赋予默认type
             this.$router.push({query:{type:'all'}});
             type = 'all';
         }
         if(this.$route.query.search){
-            // 输入框有内容
+            // 如果带有search输入框内容，按内容搜索数据
             this.searchName = this.$route.query.search;
             this.getExamp(this.$route.query.search,'')
         }else{
-            // 输入框无内容
+            // 输入框无内容，调函数按type获取数据
             this.changeQuery();
+        }
+        // hex转rgba
+        for(var key in this.color){
+            this.rgba[key] = this.colorFormat.hex2rgb(this.color[key]);
+        }
+        console.log(this.rgba);
+    },
+    mounted(){
+        // 加载完后，设置types激活样式
+        if(this.$route.query.type){
+            this.setTypesStyle(this.$route.query.type);
         }
     },
     components:{
@@ -302,14 +347,14 @@ export default {
                 width:0.25rem;
                 height:100%;
                 vertical-align:middle;
-                font-size:0.05rem;
+                font-size:0.045rem;
                 margin-left:.02rem;
-                background-color: #4c4ce4;
+                background-color: #7e77c7;
                 color:#fff;
                 margin-right:1px;
                 border-radius:3px;
                 text-align: center;
-                padding-top:.02rem;
+                padding-top:.03rem;
             }
         }
         .types-box2 {
@@ -332,7 +377,14 @@ export default {
                     margin-bottom:2px;
                     padding:0.02rem 0.01rem;
                     color:#fff;
+                    // box-shadow: 0 0 18px #fff inset;
+                    // -moz-box-shadow: 0 0 18px #fff inset;
+                    // -webkit-box-shadow: 0 0 18px #fff inset;
+                    // text-shadow: 1px -1px 2px #222;
+                    // -moz-text-shadow: 1px -1px 2px #222;
+                    // -webkit-text-shadow: 1px -1px 2px #222;
                 }
+
             }
             @media screen and (min-width:992px){
                 padding:0 .05rem 0 0;
@@ -341,6 +393,22 @@ export default {
                 }
 
             }
+        }
+        .types-box .type,.types-box .all {
+                    box-shadow: 0 0 18px #fff inset;
+                    -moz-box-shadow: 0 0 18px #fff inset;
+                    -webkit-box-shadow: 0 0 18px #fff inset;
+                    text-shadow: 1px -1px 2px #222;
+                    -moz-text-shadow: 1px -1px 2px #222;
+                    -webkit-text-shadow: 1px -1px 2px #222;
+        }
+        .types-box .all.t-active {
+            font-weight:700;
+            // text-decoration: underline;
+        }
+        .types-box .type.t-active {
+            font-weight:700;
+            text-decoration: underline;
         }
     }
     //名人列表

@@ -3,9 +3,9 @@
     <div class="tab-nav">
         <div class="nav-view bx ">
             <div class="ctrl">
-                <span style="cursor:pointer">首页</span>
-                <i class="glyphicon glyphicon-menu-right"></i> 
-                <span @click="$router.go(-1)" style="cursor:pointer">名人库</span>
+                <!--<span style="cursor:pointer">首页</span>-->
+                
+                <span @click="$router.go(-1)" style="cursor:pointer"><i class="glyphicon glyphicon-th"></i> 名人库</span>
                 <i class="glyphicon glyphicon-menu-right"></i> 
                 <span style="">{{exampleItem.name}}</span>
             </div>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="vote-title">
                                 <p class="tit">{{exampleItem.name}}</p>
-                                <p>( {{exampleItem.type.toUpperCase()}} )</p>
+                                <p>( {{exampleItem.type?exampleItem.type.toUpperCase():''}} )</p>
                                 
                             </div>
                             <div class="vote-result">
@@ -69,14 +69,14 @@
                         </div>
                     </div>
                     <!--评论区-->
-                    <div class="comment" style="padding-top:22px;">
+                    <div class="comment">
                         <myComment></myComment>
                     </div>
                 </div>
                 <!--右侧栏-->
                 <div class="right-side hidden-xs hidden-sm col-md-4 col-lg-4">
                 <!--<div class="right-side .visible-lg-*">-->
-                    <div class="top-side">
+                    <div class="r-content">
                         right-side
                     </div>
                 </div>
@@ -401,12 +401,16 @@ export default {
             }
         }
 
-        .right-side {
-            background-color: #eee;
+        .comment {
+            padding-top:20px;
         }
     }    
-    .comment {
-        padding-top:10px;
+    .right-side {
+        padding:8px;
+        .r-content {
+            border:1px solid #f2f2f2;
+            min-height: 322px;
+        }
     }
 
     

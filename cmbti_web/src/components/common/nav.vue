@@ -63,7 +63,7 @@
               </li>
               <li index='2'>
                 <router-link :to="'/test?type='+$route.query.type">
-                    测 试
+                    测试
                 </router-link>
               </li>
               <li index='3'>
@@ -199,8 +199,7 @@ export default {
         .logo-a {
             position: absolute;
             top:-48px;
-            left:70px;
-            left:.25rem;
+            left:.2rem;
             .logo-b {
                 position: absolute;
                 top:5px;
@@ -214,7 +213,7 @@ export default {
       }
       .navbar-nav {
           // padding-left: 170px;
-          padding-left: .55rem;
+          padding-left: .47rem;
       }
   }
   .navbar.navbar-default {
@@ -258,5 +257,11 @@ export default {
   a:link {color: #1a1a1a}   /*未访问时的状态 。*/
   a:visited {color: #1a1a1a;text-decoration:none} /* 已访问过的状态 。*/
   a:hover {color: #1a1a1a;text-decoration:none} 
+
+
+  .nav-list>li>a {
+    padding-left:20px;
+    padding-right:20px;
+  } 
 }
 </style>

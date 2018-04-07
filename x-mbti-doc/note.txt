@@ -19,6 +19,10 @@ http://www.freebuf.com/author/evil7    evil7专栏
 https://www.youbbs.org/t/2176
 https://wk588.com/list/wkjs/wkjc 挖币普及
 
+
+---mbti---
+www.16personalities.com
+
 /*
 flex-grow:
     默认为0--有空间也不会铺开(可以设置flex-basis定宽)；
