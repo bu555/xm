@@ -20,6 +20,8 @@ import mbti from '@/components/mbti/mbti'
 
 // test
 import test from '@/components/test/test'
+import test_type16 from '@/components/test/test_type16'
+import test_mid8 from '@/components/test/test_mid8'
 
 // example
 import example from '@/components/example/example'
@@ -46,6 +48,8 @@ const vueRouter = new Router({
 
     // test
     {path:'/test',component:test},
+    {path:'/test/type16',component:test_type16},
+    {path:'/test/mid8',component:test_mid8},
 
     // example
     {path:'/example',component:example},

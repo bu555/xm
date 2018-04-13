@@ -1,8 +1,11 @@
 <template>
-<div class="test-8function">
-    8function
+<div class="test">
+        <myTab :tabs="tabs"></myTab>
+        <div class="main-box">
             <div class="left-box">
-                <div class="test-list">
+                <myType16 v-if="this.currentType==='type16'"></myType16>
+                <myMid8 v-if="this.currentType==='mid8'"></myMid8>
+                <!--<div class="test-list">
                     <div class="t-items" v-for="(v,i) in questionList" :key="i">
                         <div class="question">
                             {{i+1}}、{{v.question}}{{v.qid}}
@@ -14,16 +17,21 @@
                             </template>
                         </div>
                     </div>
-
-                
                 </div>
                 <div class="btn">
                     <el-button type="primary" round @click="submitTest()">提 交</el-button>
-                </div>
+                </div>-->
             </div>
+            <div class="right-box">
+
+            </div>
+        </div>
 </div> 
 </template>
 <script>
+import myTab from '../common/tab'
+import myMid8 from './mid8'
+import myType16 from './type16'
 export default {
     data(){
         return {
@@ -42,6 +50,23 @@ export default {
                     r:'B．需要迅速和即时做出反应，没有过多约束的。',
                     remark:28
                 },
+            ],  
+            // tab和路由映射
+            // tabs:{
+            //     '/16type':'1',
+            //     '/8func':'2',
+            // },
+            // tab导航条内容
+            currentType:'',
+            tabs:[
+                {
+                    type:'type16',
+                    title:'16型'
+                },
+                {
+                    type:'mid8',
+                    title:'八维功能'
+                }
             ],
             result:[
 
@@ -51,23 +76,68 @@ export default {
     methods:{
         submitTest(){
             console.log(this.result);
+            this.$router.push({
+                path:'/test/result'
+            })
+        },
+        chengeRoute(){
+            this.currentType = this.$route.query.type;
+
+        },
+        //设置tab激活样式
+        setTabStyle(index){
+            let tabs = document.querySelectorAll('.test .tabs');
+            tabs.forEach(v=>{
+                if(v.getAttribute('index')===index){
+                    v.classList.add('active');
+                }else{
+                    v.classList.remove('active');
+                }
+            })
         }
     },
-    created(){
-        //将qid添加到result,和res映射，统计时使用
-        this.questionList.forEach(v=>{
-            this.result.push({
-                id:v.qid,
-                res:''
-            })
-        })
+    watch:{
+        '$route.query':'chengeRoute'
+    },
+    mounted(){
 
+        this.chengeRoute();
+    },
+    components:{
+        myTab,
+        myMid8,
+        myType16
+
+    },
+    created(){
+        this.currentType = this.$route.query.type;
+        if(!this.currentType){
+            this.$router.push({
+                query:{type:'type16'}
+            });
+            this.currentType = 'type16';
+        }
     },
     
 };
 </script>
 <style lang="less">
-.test-8function {
+.test {
+    .my-tab .tabs {
+        flex:0 1 150px;
+        height:28px;
+        line-height: 28px;
+    }
+    .my-tab .tabs-blank-start {
+        height:29px
+    }
+    .my-tab .tabs-blank-end {
+        flex:1;
+        height:29px;
+    }
+    .main-box {
+        display: flex; display: -webkit-flex;display: -ms-flex;
+        padding-top:12px;
         .left-box {
             flex-grow:1;
             flex-basis:70%;
@@ -85,12 +155,12 @@ export default {
                 .t-items {
                     padding:6px 0;
                 }
-                // .el-radio__input.is-checked+.el-radio__label {
-                //     color: #538dd5;
-                // }
-                // .el-radio__input.is-checked .el-radio__inner {
-                //     background: #538dd5;
-                // }
+                .el-radio__input.is-checked+.el-radio__label {
+                    color: #538dd5;
+                }
+                .el-radio__input.is-checked .el-radio__inner {
+                    background: #538dd5;
+                }
             }
             .btn {
                 text-align:center;
@@ -109,6 +179,8 @@ export default {
 
         }
         
+    }
+
 }
 
 </style>

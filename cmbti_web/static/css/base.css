@@ -1,8 +1,8 @@
 
 @charset "UTF-8";
 /*css 初始化 */
-* { margin:0; padding:0; }
-fieldset, img,input,button { border:none; padding:0;margin:0;outline-style:none; }   /*去掉input等聚焦时的蓝色边框*/
+* { margin:0; padding:0; } 
+p {margin:0} 
 ul, ol { list-style:none; }
 select, input { vertical-align:middle;}
 select, input, textarea { font-size:12px; margin:0; }
@@ -163,3 +163,4 @@ button.punch {
   button.punch.default {
     background:#688fde
      }
+     

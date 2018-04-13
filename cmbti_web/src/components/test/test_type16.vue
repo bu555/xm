@@ -98,6 +98,8 @@ export default {
 </script>
 <style lang="less">
 .test-16type {
+        max-width:960px;
+        margin:0 auto;
         .left-box {
             flex-grow:1;
             flex-basis:70%;
