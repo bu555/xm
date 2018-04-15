@@ -1,8 +1,8 @@
 <template>
 <div class="select">
-    <div class="answer-item">
-        <div class="answer">
-            <p>{{answer}}</p>
+    <div class="question-item">
+        <div class="question">
+            <p>{{question}}</p>
         </div>
         <input type="text" v-model="res" v-if="false"> 
         <div class="select-ctrl">
@@ -14,10 +14,10 @@
             <div class="item r-big2 right"><i class="glyphicon glyphicon-thumbs-down" @click="clickHandle($event,-2)"></i><span>反对</span></div>
             <div class="item r-big3 right"><i class="glyphicon glyphicon-thumbs-down" @click="clickHandle($event,-3)"></i><span>反对</span></div>
         </div>
-        <div class="txt">
-            <!--<div class="vote">同 意</div>
-            <div class="not-vote">反 对</div>-->
-        </div>
+        <!--<div class="txt">
+            <div class="vote">同 意</div>
+            <div class="not-vote">反 对</div>
+        </div>-->
     </div>
 </div> 
 </template>
@@ -29,13 +29,11 @@ export default {
         }
     },
     props:[
-        'answer'
+        'question'
     ],
     methods:{
         clickHandle(event,val){
             let target = event.currentTarget;
-            console.log(target);
-            console.log(val);
             this.$emit('getRes',val,function(value){return value});
             target.parentNode.parentNode.querySelectorAll('.item').forEach(function(v,i){
                 v.classList.remove('active');
@@ -51,22 +49,23 @@ export default {
 </script>
 <style lang="less">
 .select {
-    max-width:400px;
+    max-width:700px;
     margin:0 auto;
     padding:4px 10px;
-    border-bottom:1px solid #f5f5f5;
-    .answer-item {
-        .answer {
-            margin:0 auto;
+    border-bottom:1px solid #f9f9f9;
+    .question-item {
+        .question {
+            // margin:0 auto;
             padding:6px 0;
             p {
                 margin:0;
+                font-size:15px;
             }
         }
         .select-ctrl {
-            margin:0 auto;
+            // margin:0 auto;
             max-width:370px;
-            padding:5px 0;
+            padding:5px 0 20px;
             display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
             .item {
                 // border:1px solid #ccc;
@@ -83,9 +82,10 @@ export default {
             }
             .big0 {
                 flex:2;
+                color:#eee;
                 span {
                     position: absolute;
-                    bottom:-16px;
+                    bottom:-14px;
                     left:0;
                     width:100%;
                     height:16px;
@@ -98,7 +98,7 @@ export default {
                 font-size:21px;
                 span {
                     position: absolute;
-                    bottom:-16px;
+                    bottom:-14px;
                     left:0;
                     width:100%;
                     height:16px;
@@ -111,7 +111,7 @@ export default {
                 font-size:26px;
                 span {
                     position: absolute;
-                    bottom:-18px;
+                    bottom:-14px;
                     left:0;
                     width:100%;
                     height:16px;
@@ -124,7 +124,7 @@ export default {
                 font-size:32px;
                 span {
                     position: absolute;
-                    bottom:-22px;
+                    bottom:-18px;
                     left:0;
                     width:100%;
                     height:16px;
@@ -133,15 +133,15 @@ export default {
                 }
             }
             .big0.active i {
-                color:#777;
+                color:#456ea5;
                 font-weight:400;
-                text-shadow:1px 1px 4px #555;
+                // text-shadow:1px 1px 4px #555;
             }
             .left i {
-                color:rgba(30, 138, 54,.3);
+                color:rgba(30, 138, 54,.15);
             }
             .right i {
-                color:rgba(233, 66, 66,.3);
+                color:rgba(233, 66, 66,.15);
             }
             .left.active i{
                 color:#1e8a36;
@@ -152,7 +152,7 @@ export default {
                 color:#1e8a36;
             }
             .big0.active span {
-                color:#aaa
+                color:#456ea5;
             }
             .right.active span {
                 color:#e94242;
@@ -197,33 +197,13 @@ export default {
             //     padding:5px;
             // }
         }
-        .txt {
-            margin:0 auto;
-            max-width:370px;
-            padding:0px 6px 22px;
-            margin-bottom:6px;
-            font-size:13px;
-            display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-            .vote {
-                flex:1;
-                color:rgba(30, 138, 54,.7);
-                padding-left:2px;
-                // text-shadow: 0 0 2px #bbb;
-            }
-            .not-vote {
-                flex:1;
-                color:rgba(233, 66, 66,.7);
-                text-align: right;
-                // text-shadow: 0 0 1px #bbb;
-            }
-        }
         @media screen and (max-width:414px){
-            .txt,.select-ctrl {
+            .select-ctrl {
                 max-width:300px;
             }
         }
         @media screen and (max-width:320px){
-            .txt,.select-ctrl {
+            .select-ctrl {
                 max-width:260px;
             }
         }

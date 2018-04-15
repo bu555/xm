@@ -1,9 +1,9 @@
 <template>
 <div class="test-mid8">
-    <!--<mySelect @getRes="myRes = sendRes($event)" answer = "1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  -->
-    <mySelect @getRes="myRes=((val)=>val)($event)" answer="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
-    <mySelect @getRes="myRes=((val)=>val)($event)" answer="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
-    <mySelect @getRes="myRes=((val)=>val)($event)" answer="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
+    <!--<mySelect @getRes="myRes = sendRes($event)" question = "1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  -->
+    <mySelect @getRes="myRes=((val)=>val)($event)" question="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
+    <mySelect @getRes="myRes=((val)=>val)($event)" question="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
+    <mySelect @getRes="myRes=((val)=>val)($event)" question="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
 </div> 
 </template>
 <script>

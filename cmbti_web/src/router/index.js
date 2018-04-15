@@ -21,6 +21,7 @@ import mbti from '@/components/mbti/mbti'
 // test
 import test from '@/components/test/test'
 import test_type16 from '@/components/test/test_type16'
+import type16_report from '@/components/test/type16_report'
 import test_mid8 from '@/components/test/test_mid8'
 
 // example
@@ -49,6 +50,7 @@ const vueRouter = new Router({
     // test
     {path:'/test',component:test},
     {path:'/test/type16',component:test_type16},
+    {path:'/test/type16/report',component:type16_report},
     {path:'/test/mid8',component:test_mid8},
 
     // example

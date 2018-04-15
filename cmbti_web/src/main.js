@@ -10,6 +10,8 @@ import '../static/css/ec-css-animate.css'
 import '../static/css/ec-css-hover.css'
 // vuex
 import store from '@/store/store'
+import moment from 'moment'
+Vue.prototype.$moment = moment;
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式
