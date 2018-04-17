@@ -43,6 +43,18 @@ h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:inherit;mar
 s,i,em{font-style:normal;text-decoration:none;}
 .col-red{color: #C81623!important;}
 
+/*自设样式*/
+.my-tit {
+  font-size:15px;
+  text-align: center;
+  line-height: 32px;
+}
+@media screen and (max-width:768px){
+  .my-tit {
+    font-size:16px;
+  }
+    
+}
 
 /*elementUI 样式*/
 .el-message {
