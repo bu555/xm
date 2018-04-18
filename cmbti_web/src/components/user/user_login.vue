@@ -81,9 +81,9 @@ export default {
     max-width: 400px;
     .box {
         background-color: #fefefe;
-        border:1px solid #f5f5f5;
+        border:1px solid #eee;
         border-radius:3px;
-        margin:4px;
+        margin:42px 4px;
         form {
             padding:10px .13rem 32px;;
             // background-color: rgba(89,142,210,.2);

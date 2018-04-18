@@ -10,7 +10,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">验证码</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="验证码">
                     </div>
                     <!--<div class="form-group">
                         <label for="exampleInputFile">File input</label>
@@ -143,9 +143,9 @@ export default {
     max-width: 400px;
     .email-box,.reset-box {
         background-color: #fefefe;
-        border:1px solid #f5f5f5;
+        border:1px solid #eee;
         border-radius:3px;
-        margin:4px;
+        margin:42px 4px;
         form {
             padding:10px .13rem 32px;;
             // background-color: rgba(89,142,210,.2);
