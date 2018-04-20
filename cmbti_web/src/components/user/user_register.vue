@@ -6,14 +6,17 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">邮箱地址</label>
                 <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
+                <div class="error-msg">请输入正确的邮箱</div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">密码</label>
                 <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                <div class="error-msg">6位以上，包含大写、小写、半角符号至少两种</div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">确认密码</label>
-                <input v-model="password1" type="password" class="form-control" id="exampleInputPassword1" placeholder="确认密码">
+                <input v-model="_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="确认密码">
+                <div class="error-msg">两次输入的密码不一致</div>
             </div>
             <!--<div class="form-group">
                 <label for="exampleInputFile">File input</label>
@@ -36,22 +39,34 @@
   </div>
 </template>
 <script>
+import verify from "../../assets/verify"
 export default {
   data() {
       return {
         name:'',
         password:'',
-        password1:'',
+        _password:'',
         isSubmit:false,
         count:0,
+        nameVerify:true,
+        passwordVerify:true,
+        _passwordVerify:true,
       }
   },
-  mounted() {
-  },
   methods: {
+        //   验证账号、密码
+        verify(){
+            let res1 = verify.userName(this.name);
+            let res2 = verify.password(this.password);
+            let res3 = this.password===this._password;
+        },
         //注册提交
         register() {
-            if(this.isSubmit) return;
+            this.verify()
+            console.log(this.name);
+            return;
+            if(!this.isSubmit) return;
+            
             this.isSubmit = true;
             this.$axios.register({
                 name:this.name,
@@ -82,7 +97,9 @@ export default {
                 }else{
                     console.log('error!',res.data.message);
                 }
-            }).catch(res=>{})
+            }).catch(res=>{
+                this.isSubmit = false;
+            })
         },
     
   },
@@ -120,6 +137,17 @@ export default {
                 }
             }
             
+        }
+        .form-group {
+            position: relative;
+            .error-msg {
+                color:#ff0000;
+                position:absolute;
+                line-height:15px;
+                bottom:-17px;
+                left:0;
+                font-size:12px;
+            }
         }
         
     }

@@ -14,7 +14,7 @@ type
 vote:{res:intj,date:''}
 
 vote:
-{id，eid,res}
+{id，eid,res,uid}
 
 comment:
 {id,eid,res}
