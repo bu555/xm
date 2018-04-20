@@ -2,7 +2,7 @@
 <div class="test-16type">
             <div class="left-box">
                 <div class="test-list">
-                    <div class="t-items" v-for="(v,i) in questionList" :key="i">
+                    <!--<div class="t-items" v-for="(v,i) in questionList" :key="i">
                         <div class="question">
                             {{i+1}}、{{v.question}}{{v.qid}}
                         </div>
@@ -12,7 +12,8 @@
                                 <el-radio v-model="result[i].res" label="b">{{v.r}}</el-radio>
                             </template>
                         </div>
-                    </div>
+                    </div>-->
+
 
                 
                 </div>
@@ -27,6 +28,7 @@
 <script>
 import questionType16 from './subject/type16.js'
 import Result from './result'
+import mySelect from "./select"
 export default {
     data(){
         return {
@@ -98,6 +100,8 @@ export default {
 </script>
 <style lang="less">
 .test-16type {
+        max-width:960px;
+        margin:0 auto;
         .left-box {
             flex-grow:1;
             flex-basis:70%;

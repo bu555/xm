@@ -146,45 +146,7 @@ const resetPassword = (req,res,next)=>{
               message:'此链接已失效！'
             })
         }
-    })
-    // User.findOne({
-    //    _id: req.body.uid
-    // })
-    // .then(user => {
-    //    if(req.body.pwd === user.password){
-    //       user.password = req.body.password;
-    //    }
-    //   console.log(user);
-      // if (!user) {
-      //   res.json({
-      //     success: false,
-      //     message: "账号不存在"
-      //   })
-      // } else if (userLogin.password === user.password) {
-      //   var name = req.body.name;
-      //   // 用户信息写入 session
-      //   user.password = null;
-      //   req.session.user = user;
-      //   res.json({
-      //     success: true,
-      //     message: "登录成功",
-      //     // session: req.session,
-      //     name: user.name,
-      //     // 账户创建日期
-      //     time: moment(objectIdToTimestamp(user._id))
-      //       .format('YYYY-MM-DD HH:mm:ss')
-      //   })
-      // } else {
-      //   res.json({
-      //     success: false,
-      //     message: "密码错误"
-      //   })
-      // }
-    // })
-    // .catch(err => res.json(err))
-    // res.render('http://localhost:7075/user/reset');
-    // res.location('http://127.0.0.1:7075/user/reset');
-    
+    })   
 }
 
 const search = (req,res,next)=>{

@@ -45,7 +45,7 @@
         <el-button type="default" @click="exitVote()" style="height:34px;padding:0 22px">取消</el-button>-->
     </div>
     <div class="err-msg" v-if="showError">
-        <!>请至少选择一个维度！
+        <i class="glyphicon glyphicon-info-sign"></i> 请至少选择一个维度！
     </div>
     <div class="succ-msg" v-if="showSucc">
         <i class="el-icon-success"></i><br/>
@@ -368,7 +368,7 @@ export default {
     }
     .err-msg {
         box-sizing: border-box;
-        color:red;
+        color:#d9534f;
         position: absolute;
         bottom:62px;
         left:0px;

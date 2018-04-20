@@ -10,6 +10,8 @@ import '../static/css/ec-css-animate.css'
 import '../static/css/ec-css-hover.css'
 // vuex
 import store from '@/store/store'
+import moment from 'moment'
+Vue.prototype.$moment = moment;
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式
@@ -27,6 +29,10 @@ Vue.prototype.maxAge = 5000;  //本地数据存储期限值
 import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+
+import colorFormat from './assets/colorFormat'
+Vue.prototype.colorFormat = colorFormat;
+// import 'lib-flexible/flexible.js'
 
 // Vue.prototype.url = basePath;
 

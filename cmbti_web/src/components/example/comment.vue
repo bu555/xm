@@ -1,5 +1,5 @@
 <template>
-<div class="comment">
+<div class="my-comment">
     <div class="title">评论区</div>
     <div class="category">
         <span>分类：</span>
@@ -74,7 +74,7 @@ export default {
 }
 </script>
 <style lang='less'>
-.comment {
+.my-comment {
     text-align: left;
     padding:8px;
     .title {

@@ -26,7 +26,7 @@
     </div>
    
     <div v-if="count" class="count-vote" style="padding-top:8px;font-size:12px;color:#aaa">
-        {{count}} 人参与
+        {{count}} 人参与投票
     </div>
     <div v-if="!count" class="count-vote" style="padding-top:8px;font-size:13px;color:#ccc">
         暂无人参与投票哦！

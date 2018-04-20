@@ -1,8 +1,8 @@
 
 @charset "UTF-8";
 /*css 初始化 */
-html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img { margin:0; padding:0; }
-fieldset, img,input,button { border:none; padding:0;margin:0;outline-style:none; }   /*去掉input等聚焦时的蓝色边框*/
+* { margin:0; padding:0; } 
+p {margin:0} 
 ul, ol { list-style:none; }
 select, input { vertical-align:middle;}
 select, input, textarea { font-size:12px; margin:0; }
@@ -36,11 +36,25 @@ body {
 a {text-decoration:none; }
 a:active {color:#538dd5}  /*点击时状态 。*/
 a:link {color: #1a1a1a}   /*未访问时的状态 。*/
-a:visited {color: #1a1a1a} /* 已访问过的状态 。*/
+a:visited {color: #1a1a1a;text-decoration:none} /* 已访问过的状态 。*/
+a:hover {color: #1a1a1a;text-decoration:none} 
 /*a:hover {color: #FF00FF} /* 鼠标移动到链接上时的状态。*/
-h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:100%;}  /*设置h标签的大小，设置跟父亲一样大的字体font-size:100%;*/
+h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;font-size:inherit;margin:0;padding:0}  /*设置h标签的大小，设置跟父亲一样大的字体font-size:100%;*/
 s,i,em{font-style:normal;text-decoration:none;}
 .col-red{color: #C81623!important;}
+
+/*自设样式*/
+.my-tit {
+  font-size:15px;
+  text-align: center;
+  line-height: 32px;
+}
+@media screen and (max-width:768px){
+  .my-tit {
+    font-size:16px;
+  }
+    
+}
 
 /*elementUI 样式*/
 .el-message {
@@ -51,7 +65,7 @@ s,i,em{font-style:normal;text-decoration:none;}
     background-color: rgba(255,255,255,0.5) !important;
 }
 .bx {
-  max-width:1150px;
+  max-width:1100px;
   margin:0 auto;
 }
 
@@ -161,3 +175,4 @@ button.punch {
   button.punch.default {
     background:#688fde
      }
+     

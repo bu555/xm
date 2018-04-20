@@ -1,68 +1,38 @@
 <template>
   <div class="login">
-        <h2 class="title">请登录</h2>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm c-login">
-            <el-form-item label="" prop="name">
-                <el-input placeholder="用户名" v-model="ruleForm.name" class="demo-item" spellcheck="false">
-                    <template slot="prepend"><i class="fa fa-user fa-fw" style="font-size: 20px;width:14px"></i></template>
-                </el-input>
-            </el-form-item>
-            <el-form-item label="" prop="password" class="form-item">
-                <el-input type="password" placeholder="密码" v-model="ruleForm.password" class="demo-item" spellcheck="false">
-                    <template slot="prepend"><i class="fa fa-lock fa-fw" style="font-size: 20px;width:14px"></i></template>
-                </el-input>
-            </el-form-item>
-            <el-form-item label="" prop="code">
-                <el-input placeholder="验证码" v-model="ruleForm.code" class="demo-item" spellcheck="false">
-                    <template slot="prepend" style="width:110px"><img src="" alt="验证码图片" style="width:14px"></template>
-                </el-input>
-            </el-form-item>
-            <el-form-item v-if="!isSubmit">
-                <el-button type="primary" @click="submitForm('ruleForm')" style="width:100%">登 录</el-button>
-                <!--<el-button @click="resetForm('ruleForm')">重置</el-button>-->
-            </el-form-item>
-            <el-form-item v-if="isSubmit">
-                <el-button type="primary" style="width:100%">正在登录<i class="el-icon-loading"></i> </el-button>
-            </el-form-item>
-            <ul class="link-list">
-                    <li>
-                        <router-link to="/user/register">
-                            <span>注册</span>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/user/reset">
-                            <span>忘记密码</span>
-                        </router-link>
-                    </li>
-            </ul>
-        </el-form>
+      <div class="box">
+            <div class="title">登 录</div>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">邮箱地址</label>
+                    <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                </div>
+                <!--<div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <input type="file" id="exampleInputFile">
+                    <p class="help-block">Example block-level help text here.</p>
+                </div>-->
+                <button @click="login()" type="button" class="btn btn-primary" style="width:100%">登 录</button>
+                <div style="text-align:center;padding-top:16px">
+                    <div>
+                        <router-link to="/user/register"><a>注册账号</a></router-link>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <router-link to="/user/reset"><a>找回密码</a></router-link>
+                    </div>
+                </div>
+            </form>
+        </div>
   </div>
 </template>
 <script>
 export default {
   data() {
       return {
-        ruleForm: {
-          name: '',
-          password: 'a55555',
-          code: ''
-        },
-        rules: {
-          name: [
-            { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-            { type: 'email', message: '邮箱格式错误', trigger: 'blur' }
-            // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-            // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          code: [
-            { required: true, message: '请输入验证码', trigger: 'blur' },
-            // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ]
-        },
+        name:'',
+        password:'',
         isSubmit:false
       }
   },
@@ -70,100 +40,71 @@ export default {
   },
   methods: {
         //点击登录
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    this.isSubmit = true;
-                    // alert('submit!');
-                    this.$axios.login({
-                        name:this.ruleForm.name,
-                        password:this.ruleForm.password
-                    }).then(res=>{
-                        this.isSubmit = false;
-                        if(res.data.success){
-                            var beforeLoginPath = sessionStorage.getItem('beforeLoginPath')||'/';
-                            //用户信息存入本地，并更新vuex
-                            localStorage.setItem('user',JSON.stringify(res.data.user));
-                            this.$store.commit('setUserName',res.data.user.role_name);
-                            if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
-                                this.$router.go();
-                                this.$store.commit('setModalLogin',false); 
-                            }else{  //非模态登录，跳转个人中心
-                                this.$router.push({
-                                    // path:beforeLoginPath
-                                    path:'/'
-                                })
-                            }
-                        }else{
-                            this.$message({
-                                showClose: true,
-                                message: res.data.message,
-                                // type: 'warning',
-                                type: 'error',
-                                duration:2000
-                            });
-                        }
-                    }).catch(res=>{
-                        this.$message({
-                            showClose: true,
-                            message: '操作失败，请稍后重试！',
-                            type: 'warning',
-                            duration:2000
-                        });
-                    })
-                } else {
-                    console.log('error submit!!');
-                    return false;
+        login() {
+            if(this.isSubmit) return;
+            this.isSubmit = true;
+            this.$axios.login({
+                name:this.name,
+                password:this.password
+            }).then(res=>{
+                this.isSubmit = false;
+                if(res.data.success){
+                    //用户信息存入本地，并更新vuex
+                    localStorage.setItem('user',JSON.stringify(res.data.user));
+                    this.$store.commit('setUserName',res.data.user.role_name);
+                    console.log('888',this.$store.state);
+                    // if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
+                    //     this.$router.go();
+                    //     this.$store.commit('setModalLogin',false); 
+                    // }else{  //非模态登录，跳转个人中心
+                    //     this.$router.push({
+                    //         // path:beforeLoginPath
+                    //         path:'/'
+                    //     })
+                    // }
+                }else{
+
                 }
-            })
+            }).catch(res=>{ })
         }
     
   },
   created(){
       //从注册成功跳转的会带name
-      this.ruleForm.name = this.$route.query.name || 'bzg@qq.com';
+      this.name = this.$route.query.name || '';
   }
 };
 </script>
 <style lang="less">
-    .login {
-        padding-top:30px;
-        padding-bottom:30px;
-        text-align:center;
+.login {
+    margin:0 auto;
+    max-width: 400px;
+    .box {
+        background-color: #fefefe;
+        border:1px solid #eee;
+        border-radius:3px;
+        margin:42px 4px;
+        form {
+            padding:10px .13rem 32px;;
+            // background-color: rgba(89,142,210,.2);
+        }
         .title {
-            font-size:22px;
-        }
-        .demo-ruleForm.c-login {
-            max-width: 422px;
-            margin:20px auto;
-            -webkit-transform:translate(-50px);
-            -o-transform:translate(-50px);
-            -moz-transform:translate(-50px);
-            .demo-item {
-                // margin-top:8px;
+            text-align: center;
+            font-weight: 700;
+            border-bottom:1px solid #f5f5f5;
+            // background-color: #fdfdfd;
+            padding: .04rem 0 .04rem;
+            font-size:.07rem;
+            @media screen and (max-width:992px){
+                font-size:.09rem;
+            }
+            @media screen and (max-width:767px){
+                font-size:.18rem;
             }
         }
-        .link-list {
-            margin:0 auto;
-            padding-left:50px;
-            text-align:center;
-            li {
-                // float:left;
-                display:inline-block;
-                margin-left:50px;
-                span {
-                    color:#3b7ab5;
-                    font-size:14px;
-                }
-            }
-        }
-        .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus {
-            // border-color: #67c23a;
-            border-color: #dcdfe6;
-
-        }
+        
     }
-
+}
 </style>
 
 
