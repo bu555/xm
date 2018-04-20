@@ -5,29 +5,31 @@
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">邮箱地址</label>
-                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
-                <div class="error-msg">请输入正确的邮箱</div>
+                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @input="verifyName()" spellcheck="false">
+                <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">密码</label>
-                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
-                <div class="error-msg">6位以上，包含大写、小写、半角符号至少两种</div>
+                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @input="verifyPassword()">
+                <div v-if="!passwordVerify" class="error-msg">请输入正确密码</div>
+                <!--<div v-if="!passwordVerify" class="error-msg">请输入正确密码 <span></span>规则(6位以上,包含大小写、数字、半角符号至少两种)</div>-->
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">确认密码</label>
-                <input v-model="_password" type="password" class="form-control" id="exampleInputPassword1" placeholder="确认密码">
-                <div class="error-msg">两次输入的密码不一致</div>
+                <label for="exampleInputPassword2">确认密码</label>
+                <input v-model="password_" type="password" class="form-control" id="exampleInputPassword2" placeholder="确认密码" @input="verifyPassword_()">
+                <div class="error-msg" v-if="!password_Verify">两次输入的密码不一致</div>
             </div>
             <!--<div class="form-group">
                 <label for="exampleInputFile">File input</label>
                 <input type="file" id="exampleInputFile">
                 <p class="help-block">Example block-level help text here.</p>
             </div>-->
-            <div class="checkbox">
+            <div class="check-box">
                 <label>
-                <input type="checkbox"> 我同意
-                </label>
-                    <a style="cursor:pointer">《XX协议》</a>
+                <input type="checkbox" v-model="isVoted" style="margin-top:-2px"> 我同意
+                </label>&nbsp;&nbsp;
+                <a style="cursor:pointer"> xmbti协议</a> 
+                <div class="agree-msg" v-if="!agreeVerify" @change="verifyAgree()">请阅读并同意协议！</div>
             </div>
             <button type="button" class="btn btn-primary" style="width:100%"  @click="register()">注 册</button>
             <div style="text-align:center;padding-top:16px">
@@ -45,28 +47,54 @@ export default {
       return {
         name:'',
         password:'',
-        _password:'',
+        password_:'',
         isSubmit:false,
+        isVoted:'',
         count:0,
         nameVerify:true,
         passwordVerify:true,
-        _passwordVerify:true,
+        password_Verify:true,
+        agreeVerify:true,
       }
   },
+  watch:{
+        "isVoted":"verifyAgree"
+  },
   methods: {
-        //   验证账号、密码
-        verify(){
-            let res1 = verify.userName(this.name);
-            let res2 = verify.password(this.password);
-            let res3 = this.password===this._password;
+        //   验证账号
+        verifyName(){
+            this.nameVerify = verify.email(this.name)
         },
+        //   验证密码
+        verifyPassword(){
+            this.passwordVerify = verify.password(this.password)
+        },
+        //   验证再次输入的密码
+        verifyPassword_(){
+            if(verify.password(this.password)){
+                this.password_Verify = this.password===this.password_ ? true:false
+            }else{
+                this.password_Verify =  false
+            }
+        },
+        // //   验证同意协议
+        verifyAgree(){
+            if(this.isVoted){
+                this.agreeVerify = true
+            }else{
+                this.agreeVerify = false
+            }
+        },
+        
         //注册提交
         register() {
-            this.verify()
-            console.log(this.name);
-            return;
-            if(!this.isSubmit) return;
-            
+            if(this.isSubmit) return;
+            this.verifyName();
+            this.verifyPassword();
+            this.verifyPassword_();
+            this.verifyAgree();
+            if(!this.nameVerify || !this.passwordVerify || !this.password_Verify || !this.agreeVerify ) return;
+            console.log('submin!');
             this.isSubmit = true;
             this.$axios.register({
                 name:this.name,
@@ -74,7 +102,10 @@ export default {
             }).then(res=>{
                 this.isSubmit = false;
                 if(res.data.success){
-                    console.log(res.data);
+                    this.$message({
+                        message: '注册成功！',
+                        type: 'success'
+                    });
                     //带上用户名，跳转到login
                     this.$router.push({
                                 path:'/user/login',
@@ -95,13 +126,15 @@ export default {
                     //     }
                     // },1000);
                 }else{
-                    console.log('error!',res.data.message);
+                    this.$message.error('注册失败！'+ res.data.message?res.data.message:'');
                 }
             }).catch(res=>{
                 this.isSubmit = false;
             })
         },
     
+  },
+  mounted(){
   },
   created(){
       //从注册成功跳转的会带name
@@ -140,14 +173,35 @@ export default {
         }
         .form-group {
             position: relative;
+            margin-bottom:19px;
             .error-msg {
-                color:#ff0000;
+                // padding-left:80px;
+                color:#d55152;
                 position:absolute;
+                height:30px;
                 line-height:15px;
-                bottom:-17px;
+                bottom:-32px;
                 left:0;
-                font-size:12px;
+                font-size:11px;
+                padding-left:90px;
+                text-indent:-90px; //换行后缩进
+                i {
+                    color:#d62921;
+                }
             }
+        }
+        .check-box {
+             margin-bottom:18px;
+             position: relative;
+            .agree-msg {
+                position: absolute;
+                bottom:-9px;
+                left:0;
+                font-size:11px;
+                line-height:15px;
+                color:#d55152;
+            }
+
         }
         
     }

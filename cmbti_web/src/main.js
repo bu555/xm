@@ -15,11 +15,22 @@ Vue.prototype.$moment = moment;
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式
+// import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/display.css'
+// element-ui
+// import ElementUI from 'element-ui'
+// Vue.use(ElementUI)
+
+
+import {Message} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
-// element-ui
-import ElementUI from 'element-ui'
-Vue.use(ElementUI)
+
+Vue.use(Message)
+Vue.prototype.$message = Message
+
+
+
 
 import axiosManager from '../src/assets/axios.manager'
 Vue.prototype.$axios = axiosManager;
