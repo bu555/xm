@@ -30,7 +30,6 @@ flex-shrink:
 flex-basis:
     默认为auto--即元素本身该占多少是多少；
     设置宽，即元素实际宽度
-    0--按自身宽度占住空间，不会缩小让出空间；（元素定宽时使用）
     */
 .parent{
     display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
@@ -39,10 +38,21 @@ flex-basis:
     justify-content:center; //元素水平居中
     align-items:center; //元素垂直居中
 }
+justify-content: flex-start | flex-end | center | space-between | space-around;
+-----------------靠左排     | 靠右排    | 中心    | 紧靠两侧排    | 均匀排
+
 img {  //图片自动大小
     display:block;
     width:auto;
     height:auto;
+
+    vertical-align:middle; //与文字水平对齐
+}
+.txt { //文本溢出显示省略号
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+
 }
 
 

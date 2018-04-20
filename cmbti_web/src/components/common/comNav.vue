@@ -119,13 +119,10 @@ export default {
         //导航点击事件处理
         clickHandle(event){
             var index = event.currentTarget.getAttribute('index'); 
-            // this.setNavStyle(index);
             if(this.activeIndex!=index){
                 this.activeIndex = index;
-                // this.$router.push({ path:this.routeObj[index] });
                 this.setNavStyle(index);
-            }
-            // console.log(index);       
+            }      
         },
         //设置主导航
         setNavStyle(currentIndex){
