@@ -1,92 +1,95 @@
 <template>
-<div class="example ">
+<div class="example " v-loading="loading">
     <div class="my-tab  container-fluid">
         <div class="bx clearfix">
             <div class="col-md-4">
                 <div class="input-group">
                 <input v-model="searchName" type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
-                    <button @click="getExamp(searchName,'')" class="btn btn-default" type="button">Go!</button>
+                    <button @click="search()" class="btn btn-default" type="button">Go!</button>
                 </span>
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
             <!--types导航-->
             <div class="types-box">
-                <div class="types-box1">
+                <!--<div class="types-box1">
                     <router-link to="/example?type=all">
-                    <div class="all">默</br>认</div>
+                    <div class="all">默认</div>
+                    </router-link>
+                </div>-->
+                <div>
+                    <router-link to="/example?type=all">
+                    <!--<div class="all type ech-big" style="background:#666" data-type="all">所有</div>-->
+                    <div class="all type" style="background:#666" data-type="all">所有</div>
                     </router-link>
                 </div>
-                <div class="types-box2">
-                        <div v-for="(v,i) in types" :key="i">
-                            <router-link :to="'/example?type='+v.type">
-                            <div class="type ech-big" :style="'background:'+color[v.type]">{{v.type.toUpperCase()}}</div>
-                            </router-link>
-                        </div>
+                <div v-for="(v,i) in types" :key="i">
+                    <router-link :to="'/example?type='+v.type">
+                    <div class="type" :style="'background:'+color[v.type]" :data-type="v.type">{{v.type.toUpperCase()}}</div>
+                    </router-link>
                 </div>
             </div><!--types导航-->
         </div>
     </div>
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
     <div class="bx">
-        <div class="row">
         <div class="example-list"> 
                 <!--无数据--><!--无数据-->
-                <div v-if="(exampleList.length===0)" style="padding-top:70px;text-align:center;width:100%">
+                <div v-if="exampleList&&exampleList.length===0" style="padding-top:70px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
                     <div v-if="$route.query.search">
-                        点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.search)">添加</button>{{$route.query.search}}到名人库
+                        你可以点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.search)">添加</button>{{$route.query.search}}到名人库
                     </div>
                 </div>
                 <!--有数据-->
-                <div  class="item" v-for="(v,i) in exampleList" :key="i">
+                <div class="item" v-for="(v,i) in exampleList" :key="i">
                     <router-link :to="{path:'/example/details',query:{eid:v._id}}">
                     <!--<div class="item-box" :style="'border-color:'+color[v.type]+';color:'+color[v.type] ">-->
                     <div class="item-box" :style="'border-color:'+(typeof rgba[v.type]=='string'?rgba[v.type].substr(0,rgba[v.type].length-1)+',.4)':'')+';color:'+color[v.type] ">
                         <div class="type">{{v.type.toUpperCase()}}</div>
                         <div class="photo" :style="'box-shadow: 0 0 5px '+color[v.type]+';'">
                             <img :src="v.img_url" alt="">
-                            <div class="info">
-                                {{v.voteLog.length}}人参与
-                            </div>
                             <!--投票提示-->
-                            <div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">
+                            <!--<div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">
                                 <span>投个票去！</span><i class="icon iconfont icon-new"></i>
                                 
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="name">{{v.name==='王石'?'奥斯特路夫斯基芭芭':v.name}}</div>
+                        <div class="name">{{v.name==='王石'?'奥斯特路夫斯基芭芭凯特尔恩斯':v.name}}</div>
                         <!--左上角new标-->
                         <!--<div  v-if="v.type==='****'" class="new-flag" data-class="ec-rotate-in"><i class="icon iconfont icon-iconfontzhizuobiaozhun023113"></i></div>-->
-                        <i v-if="v.type==='****'" class="new-flag icon iconfont icon-iconfontzhizuobiaozhun023113"></i>
+                        <!--<i v-if="v.type==='****'" class="new-flag icon iconfont icon-iconfontzhizuobiaozhun023113"></i>-->
+
+                        <!--<div class="new-flag">New</div>-->
                     </div>
                     </router-link>
                 </div>
         </div>
+        <!--分页-->
+        <div class="m-auto t-center" style="padding:20px 0">
+            <el-pagination
+            background
+            :page-size="size"
+            :pager-count="count"
+            :total="total"
+            :current-page="currentPage"
+            @current-change="changePage($event)"
+            layout="prev, pager, next"
+            >
+            </el-pagination>
+        </div> 
+
         <div class="r-side col-xs-0 col-sm-0 col-md-3 col-lg-3">
 
         </div>
-        </div>
     </div>
-    <!--<div class="tab-nav">
-        <div class="nav-view">
-            <div class="search-box">
-                <el-input placeholder="输入名字" v-model="searchName" class="input-with-select" @change="getExamp(searchName)">
-                    <el-button slot="append" icon="el-icon-search" @click="getExamp(searchName)"></el-button>
-                </el-input>
-            </div>
-        </div>
-    </div>
-    <myTab :tabs="tabs"></myTab>-->
-    <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
 </div> 
 </template>
 <script>
-import myTab from '../common/tab'
 export default {
     data(){
         return{
-            exampleList:[],
+            exampleList:null,
             detailsData:{}, //
             showDetails:false,
             searchName:'',
@@ -181,86 +184,85 @@ export default {
                     title:'ISFP'
                 }
             ],
-            currentType:'',
+            size:8, //每页条数
+            count:0,//总页数
+            total:0,//总条数
+            loading:false,
+            currentPage:1
         }
     },
     methods:{
+        search(){
+            if(this.searchName){
+                this.$router.push({query:{search:this.searchName}})
+            }
+        },
+        changePage(e){
+            let query = JSON.parse(JSON.stringify(this.$route.query))
+            query.page = e
+            this.$router.push({query:query})
+        },
         // 设置types激活样式
-        setTypesStyle(type){
-                if(!document.querySelector('.types-box .all')) return;
-                document.querySelector('.types-box .all').classList.remove('t-active');
-                document.querySelectorAll('.types-box .type').forEach(v=>{
-                    v.classList.add('ech-big');
-                    v.classList.remove('t-active');
-                })
-                if(type==='all'){
-                    document.querySelector('.types-box .all').classList.add('t-active');
-                }else{
+        setTypesStyle(){
+                if(this.$route.query.type){
+                    let type = this.$route.query.type
                     document.querySelectorAll('.types-box .type').forEach(v=>{
-                        if(v.innerHTML.toLowerCase()===type){
+                        if(v.getAttribute('data-type')===type){
                             v.classList.add('t-active');
-                            v.classList.remove('ech-big');
+                            // v.classList.remove('ech-big');
+                        }else{
+                            v.classList.remove('t-active');
+                            // v.classList.add('ech-big');
                         }
                     })
                 }
-                // let target = event.currentTarget;
-                // target.classList.remove('ech-big');
-                // target.classList.add('t-active');
-            
         },
-        getExamp(name,type){
-            //模糊搜索原则：优先name查询
-            if(name){ //搜索框输入
-                this.$router.push({
-                    query:{
-                        type:'all',
-                        search:name
-                    }
-                })
-            }
+        getExamp(option){ //name(模糊),id,type（模糊）
+            // if(!option.name || !option.type || !option.id) return;
+            this.loading = true
+            option.size = this.size;
             this.$axios.searchExample({
-                name:name || '',
-                type:name || (type || '')
+                params:option
             }).then(res=>{
+                this.loading = false
                 if(res.data.success){
-                    console.log(res.data);
-                    this.exampleList = res.data.example;
-                    let data = {
-                        data:res.data.example,
-                        createTime:Date.now()  //添加存储本地时间
-                    }
-                    sessionStorage.setItem('exampleList',JSON.stringify(data)); //保存到本地
+                    this.exampleList = res.data.result.example;
+                    this.count = res.data.result.count
+                    this.total = res.data.result.total
+                    // let query = this.$route.query
+                    // query.page = res.data.result.page
+                    // console.log(query);
+                    // this.$router.push({query:query})
                 }else{
                     this.$message({
                         showClose: true,
                         message: res.data.message,
-                        // type: 'warning',
                         type: 'error',
                         duration:2500
                     });
                 }
-            }).catch(res=>{})
+            }).catch(res=>{
+                this.loading = false
+            })
 
         },
         //添加人物到名人库
         addExample(name){
                 if(!name) return;
+                this.loading = true
                 this.$axios.addExample({
                     name:name
                 }).then(res=>{
+                    this.loading = false
                     if(res.data.success){
-                        console.log(res.data);
-                        this.exampleList = res.data.example;
-                        let data = {
-                            data:res.data.example,
-                            createTime:Date.now()  //添加存储本地时间
-                        }
-                        sessionStorage.setItem('exampleList',JSON.stringify(data)); //保存到本地
+                        this.exampleList = [res.data.example];
 
                     }else{
                         console.log(res.data)
                     }
-                }).catch(res=>{})
+                }).catch(res=>{
+                    this.loading = false                    
+                })
 
         },
         //详情跳转
@@ -268,61 +270,52 @@ export default {
             this.$router.push({path:'/example/details',query:{eid:value._id}})
             // localStorage.setItem('exampleItemData',JSON.stringify(value));
         },
-        //改变query.type，调用函数获取对应数据
+        //根据query，调用函数获取对应数据
         changeQuery(){
-            let type = this.$route.query.type;
-            if(!type || this.currentType === type) return;
-            if(type && type!=='all'){
-                //根据type获取
-                this.getExamp('',this.$route.query.type)
-            }else{
-                // 获取全部
-                this.getExamp('','')
+            let query = this.$route.query
+            let type = query.type?query.type:'';
+            let search = query.search?query.search:'';
+            let page = query.page?query.page:1;
+            if(type){
+                if(type=='all'){
+                    // 获取全部
+                    this.getExamp({page:page})
+                }else{
+                    //根据type获取
+                    this.getExamp({ type:type,page:page })
+                }
+            }else if(search){
+                // 按name模糊搜索
+                this.getExamp({ name:search,page:page })
+                this.searchName = search
             }
-            this.currentType = type;
-            this.searchName = '';
-            // 设置types样式
-            this.setTypesStyle(type);
+            this.currentPage = Number(page)
+            this.setTypesStyle()
         }
     },
     watch:{
-        '$route.query.type':'changeQuery',
-        '$route.fullPath':function(){
-            let type = this.$route.query.type;
-            if(!type){
-                this.$router.push({query:{type:'all'}});
-                type = 'all';
-            }
-        }
+        '$route.query':'changeQuery',
     },
     created(){
-        let type = this.$route.query.type;
-        if(!type){ //赋予默认type
-            this.$router.push({query:{type:'all'}});
-            type = 'all';
-        }
-        if(this.$route.query.search){
-            // 如果带有search输入框内容，按内容搜索数据
-            this.searchName = this.$route.query.search;
-            this.getExamp(this.$route.query.search,'')
+
+        let search = this.$route.query.search?this.$route.query.search:''
+        let type = this.$route.query.type?this.$route.query.type:'';
+        if(!type && !search){ //赋予默认type
+            this.$router.push({query:{type:'all',page:1}})
         }else{
-            // 输入框无内容，调函数按type获取数据
-            this.changeQuery();
+            this.changeQuery()
         }
+
         // hex转rgba
         for(var key in this.color){
             this.rgba[key] = this.colorFormat.hex2rgb(this.color[key]);
         }
-        console.log(this.rgba);
     },
     mounted(){
         // 加载完后，设置types激活样式
-        if(this.$route.query.type){
-            this.setTypesStyle(this.$route.query.type);
-        }
+        this.setTypesStyle()
     },
     components:{
-        myTab
     }
     
 };
@@ -334,185 +327,159 @@ export default {
         // height:56px;
         background-color: #f7f7f7;
         padding:10px 0;
+
         .types-box {
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
             flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
             width:100%;
-        }
-        .types-box1 {
-            flex:0; 
-            margin-top:10px;
-            border:1px solid transparent;
-            div.all {
-                width:0.25rem;
-                height:100%;
-                vertical-align:middle;
-                font-size:0.045rem;
-                margin-left:.02rem;
-                background-color: #7e77c7;
-                color:#fff;
-                margin-right:1px;
-                border-radius:3px;
-                text-align: center;
-                padding-top:.03rem;
-            }
-        }
-        .types-box2 {
+            padding:8px 15px 0px;
             flex:1;
-            padding:0 .02rem 0 0;
-            margin-top:10px;
+            // padding:0 .02rem 0 0;
+            // margin-top:10px;
             // width:100%;
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
-            flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-            position: relative;
+            // position: relative;
             &>div {
-                flex-basis:12.5%;
+                // flex-basis:12.5%;
+
+                flex:1;
                 text-align: center;
                 .type {
                     background:#eee;
                     // border:1px solid #bbb;
                     border-radius:3px;
-                    font-size:0.045rem;
+                    font-size:15px;
                     margin:1px;
-                    margin-bottom:2px;
-                    padding:0.02rem 0.01rem;
-                    color:#fff;
-                    // box-shadow: 0 0 18px #fff inset;
-                    // -moz-box-shadow: 0 0 18px #fff inset;
-                    // -webkit-box-shadow: 0 0 18px #fff inset;
-                    // text-shadow: 1px -1px 2px #222;
-                    // -moz-text-shadow: 1px -1px 2px #222;
-                    // -webkit-text-shadow: 1px -1px 2px #222;
+                    padding:4px 0;
+                    color:#eee;
                 }
 
             }
-            @media screen and (min-width:992px){
-                padding:0 .05rem 0 0;
-                &>div .type {
-                    padding:0.01rem;
+            @media screen and (max-width:768px){
+                &>div {
+                    flex:0 0 20%;
+                    .type {
+                    }
+
                 }
+
 
             }
         }
-        .types-box .type,.types-box .all {
+        .types-box .type {
                     box-shadow: 0 0 18px #fff inset;
                     -moz-box-shadow: 0 0 18px #fff inset;
                     -webkit-box-shadow: 0 0 18px #fff inset;
-                    text-shadow: 1px -1px 2px #222;
-                    -moz-text-shadow: 1px -1px 2px #222;
-                    -webkit-text-shadow: 1px -1px 2px #222;
-        }
-        .types-box .all.t-active {
-            font-weight:700;
-            // text-decoration: underline;
         }
         .types-box .type.t-active {
             font-weight:700;
+            box-shadow: none;
             text-decoration: underline;
+            color:#fff;
+            text-shadow: 1px -1px 2px #222;
+            -moz-text-shadow: 1px -1px 2px #222;
+            -webkit-text-shadow: 1px -1px 2px #222;
+            
         }
     }
     //名人列表
     .example-list {
+        margin:0 auto;
+        max-width:900px;
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-        // padding:.06rem 0 .06rem .1rem;
-        padding:.02rem 0 .1rem .2rem;
+        padding:8px 15px;
         text-align: center;
+        // justify-content:space-between;
         .item {
-            // float:left;
-            width:23.6%;
-            padding:.04rem;
+            margin:8px 0;
+            width:20%;
             .item-box {
-                padding:0 .03rem;
-                width:100%;
+                margin:0 auto;
+                padding:0 8px;
+                max-width:155px;
                 border:1px solid #eee;
-                border-radius:0.05rem;
+                border-radius:3px;
                 cursor:pointer;
                 position: relative;
-                &:hover {
-                    box-shadow: -0px -0px 1px #bbb;
-                    .info {
-                        display:inline-block;
-                    }
-                }
                 .new-flag {
                     position: absolute;
-                    top:-0.08rem;
-                    left:-1px;
-                    font-size:.17rem;
+                    top:0;
+                    left:0px;
+                    font-size:.11px;
                     color:red;
-                    i {
-                    }
+
                 }
             }
             .type {
-                font-size:.07rem;
-                padding-top:0.01rem;
+                font-size:18px;
+                padding:4px 0;
             }
             .name {
-                // height:.18rem;
-                // line-height: .18rem;
-                font-size:.05rem;
-                padding:0.02rem 0;
+                font-size:14px;
+                padding:6px 0;
             }
             .photo {
-                height:.9rem;
+                height:170px;
                 width:100%;
                 overflow: hidden;
                 position: relative;
                 background-color: #666;
+                border-radius:3px;
                 img {
                     display:block;
                     width:100%;
                     height:auto;
                 }
-                .info {
-                    display:none;
-                    width:100%;
-                    background-color: rgba(255,255,255,.3);
-                    height:.07rem;
-                    line-height: .07rem;
-                    font-size:.04rem;
-                    position: absolute;
-                    bottom:0px;
-                    left:50%;
-                    transform:translateX(-50%);
+
+            }
+
+        }
+        @media screen and (max-width:992px){
+            .item {
+                width:25%;
+            }
+        }
+        @media screen and (max-width:680px){
+            .item {
+                width:33.3%;
+            }
+        }
+        @media screen and (max-width:500px){
+        .item {
+            margin:8px 0;
+            .item-box {
+                max-width:29.5vw;
+                padding:0 6px;
+                .new-flag {
                 }
-                .redirect-flag {
-                    width:15rem;
-                    // height:30px;
-                    // background-color: pink;
-                    position: absolute;
-                    bottom:2.2rem;
-                    right:0;
-                    color:lime;
-                    i {
-                        font-size:2.5rem;
-                    }
-                    span {
-                        font-size:1.3rem;
-                    }
+            }
+            .type {
+                font-size:17px;
+                padding:4px 0;
+            }
+            .name {
+                font-size:13px;
+                padding:6px 0;
+            }
+            .photo {
+                height:30vw;
+                width:100%;
+                border-radius:2px;
+                img {
+                    display:block;
+                    width:100%;
+                    height:auto;
                 }
 
             }
 
         }
-        @media screen and (min-width:992px){
-                .item {
-                    width:19.4%;
-                    // .type,.name {
-                    //     font-size:.07rem;
-                    // }
-                    .photo {
-                        height:165px;
-                    }
-                }
-                padding-left:.3rem;
-                padding-right:.45rem;
-        } //@media screen and (min-width:992px)
+
+        } 
     }
     a:hover {color: #1a1a1a;text-decoration:none} 
-    .router-link-active {
+    .router-link-active,a {
         text-decoration: none;
     }
 }

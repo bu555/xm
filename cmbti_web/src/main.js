@@ -22,12 +22,21 @@ Vue.prototype.$moment = moment;
 // Vue.use(ElementUI)
 
 
-import {Message} from 'element-ui'
+// import 'element-ui/lib/theme-chalk/icon.css'
+// import 'element-ui/lib/theme-chalk/loading.css'
+// import 'element-ui/lib/theme-chalk/message.css'
+// import 'element-ui/lib/theme-chalk/message-box.css'
+import {Loading,Message,MessageBox,Pagination} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 
-Vue.use(Message)
+Vue.use(Loading.directive) //仅使用指令
+Vue.use(Pagination) //仅使用指令
 Vue.prototype.$message = Message
+Vue.prototype.$message = Message
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$confirm = MessageBox.confirm;
 
 
 

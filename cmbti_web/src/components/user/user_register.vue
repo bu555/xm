@@ -1,22 +1,22 @@
 <template>
   <div class="register">
-      <div class="box">
-        <div class="title">注 册</div>
+      <div class="box" v-if="!success"  v-loading="isSubmit">
+        <div class="title">用户注册</div>
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">邮箱地址</label>
-                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @input="verifyName()" spellcheck="false">
+                <label for="exampleInputEmail1">邮箱</label>
+                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱(用于登录或找回密码)" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''"  spellcheck="false">
                 <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">密码</label>
-                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @input="verifyPassword()">
+                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码由6-16个字母、数字和符号组成" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''">
                 <div v-if="!passwordVerify" class="error-msg">请输入正确密码</div>
                 <!--<div v-if="!passwordVerify" class="error-msg">请输入正确密码 <span></span>规则(6位以上,包含大小写、数字、半角符号至少两种)</div>-->
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword2">确认密码</label>
-                <input v-model="password_" type="password" class="form-control" id="exampleInputPassword2" placeholder="确认密码" @input="verifyPassword_()">
+                <input v-model="password_" type="password" class="form-control" id="exampleInputPassword2" placeholder="确认密码" @blur="password_Verify?verifyPassword_():''" @input="!password_Verify?verifyPassword_():''">
                 <div class="error-msg" v-if="!password_Verify">两次输入的密码不一致</div>
             </div>
             <!--<div class="form-group">
@@ -36,7 +36,28 @@
                 <div>已经注册了账户？</div>
                 <div><router-link to="/user/login"><a>这里登录</a></router-link></div>
             </div>
+            
         </form>
+    </div>
+    <!--注册成功 提示内容-->
+    <div class="success-info" v-if="success" style="text-align:center;margin:50px 0 90px">
+        <i class="el-icon-success" style="font-size:70px;color:#67c23a;margin-top:22px"></i><br/>
+        <div style="margin-top:25px;margin-bottom:12px">
+            恭喜注册成功！您是我们的第
+            <span style="font-size:22px;font-family:STHupo;font-style: italic;color:#2c3e50;text-shadow:1px 0 4px #666">
+                {{count}}
+            </span>位用户，欢迎您的加入。
+        </div>
+        <div style="color:#808080;font-size:14px"> 
+            <span style="font-size:15px">
+                {{times}}
+            </span>
+            秒后将为你自动跳转登录 或 
+            <span @click="goLogin" style="color:#8db4e2;text-decoration:underline;cursor:pointer">
+                点此登录
+            </span>
+        </div>
+        <p></p>
     </div>
   </div>
 </template>
@@ -55,6 +76,11 @@ export default {
         passwordVerify:true,
         password_Verify:true,
         agreeVerify:true,
+        count:'',
+        success:false,
+        times:6,
+        timeID:'',
+        registedName:''
       }
   },
   watch:{
@@ -94,7 +120,6 @@ export default {
             this.verifyPassword_();
             this.verifyAgree();
             if(!this.nameVerify || !this.passwordVerify || !this.password_Verify || !this.agreeVerify ) return;
-            console.log('submin!');
             this.isSubmit = true;
             this.$axios.register({
                 name:this.name,
@@ -102,36 +127,40 @@ export default {
             }).then(res=>{
                 this.isSubmit = false;
                 if(res.data.success){
-                    this.$message({
-                        message: '注册成功！',
-                        type: 'success'
-                    });
-                    //带上用户名，跳转到login
-                    this.$router.push({
+                    // this.$message({
+                    //     message: '注册成功！',
+                    //     type: 'success'
+                    // });
+                    this.success = true;
+                    this.count = res.data.count;
+                    this.registedName = res.data.name
+                    this.timeID = setInterval(()=> {
+                        this.times--
+                        if(this.times===0){
+                            //带上用户名，跳转到login
+                            this.$router.push({
                                 path:'/user/login',
-                                query:{name:res.data.name}
+                                query:{name:this.registedName}
                             })
-                    // this.success = true;
-                    // this.count = res.data.count;
-                    // this.loginedName = res.data.name;
-                    // var _this = this;
-                    // this.timeID = setInterval(function() {
-                    //     _this.time--;
-                    //     if(_this.time==0){
-                    //         _this.$router.push({
-                    //             path:'/user/login',
-                    //             query:{name:_this.loginedName}
-                    //         })
-                    //         clearInterval(_this.timeID);
-                    //     }
-                    // },1000);
+                            clearInterval(this.timeID);
+                        }
+                    },1000);
+                }else if(res.data.code==='-1'){
+                    this.$message.error('此账号已注册！');
                 }else{
-                    this.$message.error('注册失败！'+ res.data.message?res.data.message:'');
+                    this.$message.error('注册失败！');
                 }
             }).catch(res=>{
                 this.isSubmit = false;
             })
         },
+        // 往登录
+        goLogin(){
+            this.$router.push({
+                path:'/user/login',
+                query:{name:this.registedName}
+            })
+        }
     
   },
   mounted(){
@@ -145,23 +174,33 @@ export default {
 <style lang="less">
     .register {
     margin:0 auto;
-    max-width: 400px;
+    max-width: 440px;
         .box {
             background-color: #fefefe;
-            border:1px solid #eee;
-            border-radius:3px;
-            margin:42px 4px;
+            margin:22px 4px;
+            border:1px solid #ddd;
+            border-radius:3px 3px 2px 2px;
             form {
-                padding:10px 20px 32px;;
+                padding:20px 40px 32px;;
                 // background-color: rgba(89,142,210,.2);
+            }
+            @media screen and (max-width:500px){
+                form {
+                    padding:20px 10px 32px;;
+                    // background-color: rgba(89,142,210,.2);
+                }
             }
             .title {
                 text-align: center;
                 font-weight: 700;
-                border-bottom:1px solid #f5f5f5;
-                // background-color: #fdfdfd;
+                border:1px solid #337ab7;
+                border-bottom:1px solid #598dd3;
+                background-color: #598dd3;
                 padding: .04rem 0 .04rem;
-                font-size:.07rem;
+                font-size:.06rem;
+                margin:-1px -1px;
+                color:#f5f5f5;
+                border-radius:3px 3px 0  0;
                 @media screen and (max-width:992px){
                     font-size:.09rem;
                 }
@@ -176,7 +215,7 @@ export default {
             margin-bottom:19px;
             .error-msg {
                 // padding-left:80px;
-                color:#d55152;
+                color:#f10d0e;
                 position:absolute;
                 height:30px;
                 line-height:15px;
@@ -186,7 +225,7 @@ export default {
                 padding-left:90px;
                 text-indent:-90px; //换行后缩进
                 i {
-                    color:#d62921;
+                    color:#f10d0e;
                 }
             }
         }
@@ -199,7 +238,7 @@ export default {
                 left:0;
                 font-size:11px;
                 line-height:15px;
-                color:#d55152;
+                color:#f10d0e;
             }
 
         }

@@ -9,7 +9,7 @@ const express = require('express')
 // const router = express.Router()
 const User = require('../models/schema/user')
 const UserHistory = require('../models/schema/user.history')
-const myUtill = require('../models/utill')
+const myUtill = require('../myTool/utill')
 const sha1 = require('sha1')
 //时间处理模块
 const moment = require('moment')
@@ -26,21 +26,16 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 
 // 注册 
 const register = (req, res,next) => {
-  console.log(req.body);
-  // 这里的userRegister为mongoose中的
-  // Entity —— 由Model创建的实体，使用save方法保存数据
+  if(!myUtill.verifyEemail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
+        return res.json({
+          success: false,
+          message: '参数格式错误'
+        })
+  }
   let userRegister = new User({
       name: req.body.name,
       password: sha1(req.body.password), // 将密码加密
       role_name: myUtill.getRoleName()
-      // role_name: (()=>{
-      //       let role_name = '',
-      //       for(let i=0;i<4;i++){
-      //           let ranNum = Math.ceil(Math.random() * 25); //生成一个0到25的数字
-      //           role_name+=(String.fromCharCode(97+ranNum)); //65=A
-      //       }
-      //       return role_name;
-      // })()
   })
   // 将 objectId 转换为 用户创建时间
   // objectId即为每一行数据中的_id
@@ -58,7 +53,8 @@ const register = (req, res,next) => {
       if (user) {
         res.json({
           success: false,
-          message: '该账户已注册'
+          message: '该账户已注册',
+          code:'-1'
         })
       } else {
           userRegister.save((err, user) => {
@@ -69,15 +65,12 @@ const register = (req, res,next) => {
               })
             } else {
                 let _user = user;
-                //查询用户总数并返回
-                User.find().then(user => {
-                    res.json({
-                      success:true,
-                      message:'注册成功',
-                      name:_user.name,
-                      count:user.length
-                    })
-                })
+                  res.json({
+                    success:true,
+                    message:'注册成功',
+                    name:_user.name,
+                    count:user.length
+                  })
             }
           })
       }
@@ -92,18 +85,22 @@ const searchUser = (req,res)=>{
 }
 //邮箱找回
 const emailRetrieve = (req,res,next)=>{
+    if(!myUtill.verifyEemail(req.body.email)){
+          return res.json({
+              success:false,
+              message:"email格式错误"
+          })
+    }
     let email = req.body.email;
     User.findOne({
        name: email.toLowerCase()
     }) 
     .then(user => {
       if (user) {
-          console.log(user);
           let url = 'http://localhost:7075/user/reset?'+'uid='+user._id+'&pwd='+user.password;
           let body = `尊敬的用户：<br/>您通过邮箱方式提交了找回密码的请求，请点击下面的链接重置您的密码 。<br/><a href="${url}" target="_blank">${url}</a>`;
           // 邮件激活
           sendMail(email, "来自cmbti的邮件!", body ,function(){
-            console.log('发送邮件成功');
                   res.json({
                       success:true,
                       message:"邮件已发送",
@@ -113,7 +110,8 @@ const emailRetrieve = (req,res,next)=>{
           } else {
             res.json({
               success:false,
-              message:'此邮箱未注册！'
+              message:'此邮箱未注册！',
+              code:'-1'
             })
           }
     })
@@ -121,7 +119,12 @@ const emailRetrieve = (req,res,next)=>{
 }
 //重置密码
 const resetPassword = (req,res,next)=>{
-    console.log(req.body);
+    if(!req.body.uid || !myUtill.verifyPassword(req.body.pwd)){
+          return res.json({
+              success:false,
+              message:"参数格式错误"
+          })
+    }
     // res.redirect('http://localhost:7075/user/reset'); //重定向
     User.findOne({_id:req.body.uid}).then(user=>{
         if(user && user.password===req.body.pwd){
@@ -163,6 +166,12 @@ const search = (req,res,next)=>{
 
 // 登录
 const login = (req, res) => {
+  if(!myUtill.verifyEemail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
+        return res.json({
+          success: false,
+          message: "参数格式错误"
+        })
+  }
   let userLogin = new User({
     name: req.body.name,
     password: sha1(req.body.password)
@@ -171,7 +180,6 @@ const login = (req, res) => {
       name: userLogin.name
     })
     .then(user => {
-      console.log(user);
       if (!user) {
         res.json({
           success: false,
@@ -218,8 +226,10 @@ const isLogin = (req,res)=>{
 }
 
 module.exports = (router) => {
-    router.post('/register',checkNotLogin,register);
-    router.post('/login',checkNotLogin,login);
+    // router.post('/register',checkNotLogin,register);
+    router.post('/register',register);
+    // router.post('/login',checkNotLogin,login);
+    router.post('/login',login);
     router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
     router.post('/reset',resetPassword);
     // router.post('/search',checkLogin,search)

@@ -58,7 +58,7 @@ s,i,em{font-style:normal;text-decoration:none;}
 
 /*elementUI 样式*/
 .el-message {
-    top: 132px !important;
+    top: 122px !important;
     min-width:337px !important;
 }
 .el-loading-mask {
@@ -67,6 +67,12 @@ s,i,em{font-style:normal;text-decoration:none;}
 .bx {
   max-width:1100px;
   margin:0 auto;
+}
+.m-auto {
+  margin:0 auto;
+}
+.t-center {
+  text-align:center;
 }
 
 /*按钮公共样式*/

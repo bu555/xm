@@ -159,7 +159,6 @@ export default {
       },
       //设置主导航
       setNavStyle(currentIndex){
-          console.log(document.querySelectorAll('.nav-list>li'));
           document.querySelectorAll('.nav-list>li').forEach((v,i)=>{
               if(v.getAttribute('index')===currentIndex){
                   v.classList.add('active');
