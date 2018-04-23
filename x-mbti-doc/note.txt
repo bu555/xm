@@ -1,3 +1,5 @@
+https://github.com/bu555/xm.git  xmbti
+
 介绍一款好用 mongodb 可视化工具  启动：npm start
 github地址：https://github.com/mrvautin/adminMongo 
 
