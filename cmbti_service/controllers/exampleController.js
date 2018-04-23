@@ -6,7 +6,7 @@ const UserHistory = require('../models/schema/user.history') //用户的投票�
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
-const myUtill = require('../models/utill')
+const myUtill = require('../myTool/utill')
 //发送邮件功能
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
@@ -53,23 +53,10 @@ const addExample = (req,res)=>{
                             message:'example存储失败'
                         })
                     } else {
-                        Example.findOne({name:name}).then(example=>{
-                            if(example){
-                                if(!(example instanceof Array)){
-                                    example = [example];
-                                }
-                                res.json({
-                                    success:true,
-                                    message:'ok',
-                                    example:example
-                                })
-                            }
-                        },example=>{
-                                res.json({
-                                    success:false,
-                                    message:'存储之后查找失败'
-                                })
-
+                        res.json({
+                            success:true,
+                            message:'ok',
+                            example:example
                         })
                     }
                 })
@@ -80,46 +67,53 @@ const addExample = (req,res)=>{
         res.json(searchData);
     })
 }
-
-const getExample = (req,res,next)=>{
-    Example.find().then(example=>{
-        res.json({
-            success:true,
-            example:example
-        })
-    })
-}
 // 模糊查询(接受name 和type)
 const searchExample = (req,res,next)=>{
+    let option = req.body.params
+    console.log(option);
     let pro;
-    if(req.body.name){
-        pro = Example.find({ name:new RegExp(req.body.name,'i') });
-    }else if(req.body.type){
-        pro = Example.find({ type:new RegExp(req.body.type,'i') });
-    }else if(req.body.id){
-        pro = Example.findOne({ _id:req.body.id });
+    // 1.按name 模糊查询
+    if(option.name){
+        pro = Example.find({ name:new RegExp(option.name,'i') });
+    // 2.按type 模糊查询
+    }else if(option.type){
+        pro = Example.find({ type:new RegExp(option.type,'i') });
+    // 3.按id查询
+    }else if(option.id){
+        pro = Example.findOne({ _id:option.id });
     }else{
         pro = Example.find();
-        // return res.json({
-        //     success:false,
-        //     message:'request参数错误'
-        // })
     }
     pro.then(example=>{
         if(example){ //将本地的返回
+            // 非零非负整数
+            let reg = /^[1-9]\d{0,}$/
+            let page = reg.test(option.page)? Number(option.page):1
+            let size = reg.test(option.size)? Number(option.size):8
+            let count = Math.ceil(example.length/size)
+            let total = example.length
+            console.log(example);
             if(!(example instanceof Array)){
-                example = [example];
+                example = [example]
+            }
+            if(example.length>size){
+                example = example.slice( (page-1)*size , page*size)
             }
             res.json({
                 success:true,
                 message:'ok',
-                example:example
+                result:{
+                    example:example,
+                    size:size,
+                    page:page,
+                    count:count,
+                    total:total
+                }
             })
         }else{
             res.json({
                 success:false,
-                message:'无数据',
-                result:example
+                message:'无数据'
             }) 
         }
     },example=>{
@@ -388,7 +382,6 @@ const addToUserHistory = (uid,eid,vote,example)=>{
 
 module.exports = (router) => {
     router.post('/addExample',addExample);
-    router.post('/getExample',getExample);
     router.post('/searchExample',searchExample);
     router.post('/goVote',checkLogin,goVote);
     router.post('/searchExample',searchExample);

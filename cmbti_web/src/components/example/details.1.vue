@@ -114,7 +114,7 @@ export default {
         },
         //投票按钮
         goVote(){
-            // if(localStorage.getItem('user'))
+            // if(localStorage.getItem('USER'))
             //先确认登录是否有效
             this.$axios.isLogin().then(res=>{
                 if(res.data.success===true){
@@ -141,8 +141,8 @@ export default {
         },
         //检查重复投票
         checkRepeat(){
-            if(localStorage.getItem('user')){
-                let uid = JSON.parse(localStorage.getItem('user'))._id;
+            if(localStorage.getItem('USER')){
+                let uid = JSON.parse(localStorage.getItem('USER'))._id;
                 this.exampleItem.voteLog.forEach(v=>{
                     if(v.uid===uid){
                         this.isRepeat = true;

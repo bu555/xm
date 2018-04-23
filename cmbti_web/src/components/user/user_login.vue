@@ -1,15 +1,17 @@
 <template>
   <div class="login">
-      <div class="box">
-            <div class="title">登 录</div>
+      <div class="box"  v-loading="isSubmit">
+            <div class="title">用户登录</div>
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">邮箱地址</label>
-                    <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱">
+                    <label for="exampleInputEmail1">账号</label>
+                    <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''" spellcheck="false">
+                    <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:26px">
                     <label for="exampleInputPassword1">密码</label>
-                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''" spellcheck="false">
+                    <div v-if="!passwordVerify" class="error-msg">请输入密码</div>
                 </div>
                 <!--<div class="form-group">
                     <label for="exampleInputFile">File input</label>
@@ -20,7 +22,7 @@
                 <div style="text-align:center;padding-top:16px">
                     <div>
                         <router-link to="/user/register"><a>注册账号</a></router-link>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <router-link to="/user/reset"><a>找回密码</a></router-link>
+                        <router-link to="/user/verify"><a>找回密码</a></router-link>
                     </div>
                 </div>
             </form>
@@ -28,31 +30,53 @@
   </div>
 </template>
 <script>
+import verify from "../../assets/verify"
 export default {
   data() {
       return {
         name:'',
         password:'',
-        isSubmit:false
+        isSubmit:false,
+        nameVerify:true,
+        passwordVerify:true,
+        prevPath:''
       }
   },
   mounted() {
+
   },
   methods: {
+        //   验证账号
+        verifyName(){
+            this.nameVerify = verify.email(this.name)
+        },
+        //   验证密码
+        verifyPassword(){
+            this.passwordVerify = verify.password(this.password)
+        },
         //点击登录
         login() {
             if(this.isSubmit) return;
+            this.verifyName()
+            this.verifyPassword()
+            if(!this.nameVerify || !this.passwordVerify) return;
             this.isSubmit = true;
             this.$axios.login({
                 name:this.name,
                 password:this.password
             }).then(res=>{
+                console.log(res);
+                console.log(555555555555);
                 this.isSubmit = false;
                 if(res.data.success){
                     //用户信息存入本地，并更新vuex
-                    localStorage.setItem('user',JSON.stringify(res.data.user));
+                    localStorage.setItem('USER',JSON.stringify(res.data.user));
                     this.$store.commit('setUserName',res.data.user.role_name);
-                    console.log('888',this.$store.state);
+                    this.$message({
+                        message: '登录成功！',
+                        type: 'success'
+                    });
+                    this.$router.push({path:'/index'})
                     // if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
                     //     this.$router.go();
                     //     this.$store.commit('setModalLogin',false); 
@@ -63,15 +87,44 @@ export default {
                     //     })
                     // }
                 }else{
-
+                    this.$message.error('账号或密码错误！');
                 }
-            }).catch(res=>{ })
+            },res=>{
+                this.isSubmit = false;
+                this.$message.error('登录失败！');
+            }).catch(res=>{ 
+                this.isSubmit = false;
+            })
         }
     
   },
   created(){
       //从注册成功跳转的会带name
       this.name = this.$route.query.name || '';
+      console.log(this.prevPath);
+  },
+  beforeRouteEnter (to, from, next) {
+    //   console.log(from)
+    //   console.log(this)
+      next((vm)=>{
+        console.log(vm.name);
+        vm.prevPath = from.fullPath;
+      })
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当钩子执行前，组件实例还没被创建
+  },
+  beforeRouteUpdate (to, from, next) {
+      next()
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
+  beforeRouteLeave (to, from, next) {
+      next()
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
   }
 };
 </script>
@@ -81,20 +134,25 @@ export default {
     max-width: 400px;
     .box {
         background-color: #fefefe;
-        border:1px solid #eee;
-        border-radius:3px;
-        margin:42px 4px;
+        border:1px solid #ddd;
+        border-radius:3px 3px 2px 2px;
+        margin:30px 4px;
         form {
-            padding:10px .13rem 32px;;
+            padding:16px .13rem 32px;;
             // background-color: rgba(89,142,210,.2);
         }
         .title {
             text-align: center;
             font-weight: 700;
-            border-bottom:1px solid #f5f5f5;
-            // background-color: #fdfdfd;
+            border:1px solid #337ab7;
+            border-bottom:1px solid #598dd3;
+            background-color: #598dd3;
             padding: .04rem 0 .04rem;
-            font-size:.07rem;
+            font-size:.06rem;
+            margin:-1px -1px;
+            color:#f5f5f5;
+            border-radius:3px 3px 0  0;
+            // box-shadow: 0 0px 2px #337ab7;
             @media screen and (max-width:992px){
                 font-size:.09rem;
             }
@@ -103,6 +161,25 @@ export default {
             }
         }
         
+    }
+    .form-group {
+        position: relative;
+        margin-bottom:15px;
+        .error-msg {
+            // padding-left:80px;
+            color:#f10d0e;
+            position:absolute;
+            height:30px;
+            line-height:15px;
+            bottom:-32px;
+            left:0;
+            font-size:11px;
+            padding-left:90px;
+            text-indent:-90px; //换行后缩进
+            i {
+                color:#d62921;
+            }
+        }
     }
 }
 </style>

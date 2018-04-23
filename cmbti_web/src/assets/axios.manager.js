@@ -10,55 +10,28 @@ axios.defaults.timeout = 7000;
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {
- // element ui Loading方法
- loadinginstace = Loading.service({ fullscreen: true })
- return config
+    // loadinginstace = Loading.service({ fullscreen: true })
+    return config
 }, error => {
-    loadinginstace.close()
+    // loadinginstace.close()
     Message.error({
-        message: '加载超时'
+    message: '加载超时'
     })
- return Promise.reject(error)
+    return Promise.reject(error)
 })
 // http响应拦截器
-axios.interceptors.response.use(data => {// 响应成功关闭loading
-    if(data.data.session===false){  //未登录或登录过期
-        loadinginstace.close();
-        if(localStorage.getItem('user')){ //登录过期，重新登录
-            MessageBox.confirm('您需要重新登录, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => { 
-            // 用vuex通知用模态框登录
-            Vue.prototype.vueExample.$store.commit('setModalLogin',true);
-            //用模态登录
-                // router.push({path:'/user/login'})
-            })
-
-        }else{ //首次登录
-            MessageBox.confirm('此操作需要登录后操作, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-            }).then(() => {
-                // 用vuex通知用模态框登录
-                Vue.prototype.vueExample.$store.commit('setModalLogin',true);
-                // router.push({path:'/user/login'})
-            })
-        }
-    }else{
-        loadinginstace.close()
-        return data
-
-    }
+axios.interceptors.response.use(data => {
+    // loadinginstace.close()
+    return data
 }, error => {
-    loadinginstace.close()
+    // loadinginstace.close()
     Message.error({
     message: '加载失败'
     })
- return Promise.reject(error)
+    return Promise.reject(error)
 })
+
+// 参考：http://www.jb51.net/article/112147.htm
 
 
 export default {
@@ -107,7 +80,7 @@ export default {
     goVote(data){
         return axios.post(path+'/example/goVote',data);
     },
-    //精确查询或新增example
+    //精确查询  {name:(模糊),id:精确,type：（模糊））
     searchExample(data){
         return axios.post(path+'/example/searchExample',data);
     },

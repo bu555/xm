@@ -170,7 +170,7 @@ export default {
         },
         //投票按钮
         goVote(){
-            // if(localStorage.getItem('user'))
+            // if(localStorage.getItem('USER'))
             //先确认登录是否有效
             this.$axios.isLogin().then(res=>{
                 if(res.data.success===true){
@@ -180,15 +180,14 @@ export default {
             
         },
         //精确查询example
-        searchExamp(id){
+        searchExamp(option){
                 this.exampleItem = '';
                 this.$axios.searchExample({
-                    id:id
+                    params:option
                 }).then(res=>{
+                    console.log(res);
                     if(res.data.success){
-                        this.exampleItem = res.data.example[0];
-                        // this.isGetDate = true;
-                        console.log(this.exampleItem);
+                        this.exampleItem = res.data.result.example[0];
 
                     }else{
                     }
@@ -197,8 +196,8 @@ export default {
         },
         //检查重复投票
         checkRepeat(){
-            if(localStorage.getItem('user')){
-                let uid = JSON.parse(localStorage.getItem('user'))._id;
+            if(localStorage.getItem('USER')){
+                let uid = JSON.parse(localStorage.getItem('USER'))._id;
                 this.exampleItem.voteLog.forEach(v=>{
                     if(v.uid===uid){
                         this.isRepeat = true;
@@ -211,25 +210,8 @@ export default {
         exampleItem:'checkRepeat'
     },
     created(){
-        // 判断list数据是否存在，不存在则通过eid请求，存在则判断时间是否过期，如果过期则重新请求
-        let exampleList = sessionStorage.getItem('exampleList') || '';
-        if(exampleList){
-            exampleList = JSON.parse(exampleList);
-            if( (Date.now()-exampleList.createTime)<this.maxAge){
-                var _this = this;
-                exampleList.data.forEach(v=>{
-                    if(v._id === this.$route.query.eid){
-                        _this.exampleItem = Object.create(v); //直接使用local的数据
-                    }
-                })
-            }else{
-                //重新请求数据
-                this.searchExamp(this.$route.query.eid);
-            }
-        }else{
-            //重新请求数据
-            this.searchExamp(this.$route.query.eid);
-
+        if(this.$route.query.eid){
+            this.searchExamp({id:this.$route.query.eid});
         }
 
     },
