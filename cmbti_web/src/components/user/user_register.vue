@@ -5,7 +5,7 @@
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">邮箱</label>
-                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱(用于登录或找回密码)" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''"  spellcheck="false">
+                <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱（用于登录或找回密码）" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''"  spellcheck="false">
                 <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
             </div>
             <div class="form-group">
@@ -43,10 +43,9 @@
     <div class="success-info" v-if="success" style="text-align:center;margin:50px 0 90px">
         <i class="el-icon-success" style="font-size:70px;color:#67c23a;margin-top:22px"></i><br/>
         <div style="margin-top:25px;margin-bottom:12px">
-            恭喜注册成功！您是我们的第
+            注册成功！
             <span style="font-size:22px;font-family:STHupo;font-style: italic;color:#2c3e50;text-shadow:1px 0 4px #666">
-                {{count}}
-            </span>位用户，欢迎您的加入。
+            </span>
         </div>
         <div style="color:#808080;font-size:14px"> 
             <span style="font-size:15px">
@@ -76,7 +75,6 @@ export default {
         passwordVerify:true,
         password_Verify:true,
         agreeVerify:true,
-        count:'',
         success:false,
         times:6,
         timeID:'',
@@ -132,7 +130,6 @@ export default {
                     //     type: 'success'
                     // });
                     this.success = true;
-                    this.count = res.data.count;
                     this.registedName = res.data.name
                     this.timeID = setInterval(()=> {
                         this.times--

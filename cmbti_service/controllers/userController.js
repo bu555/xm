@@ -1,9 +1,3 @@
-// const express = require('express')
-// const User = require('../models/schema/user')
-// const router = express.Router()
-// const moment = require('moment')
-// const objectIdToTimestamp = require('objectid-to-timestamp')
-// const sha1 = require('sha1')
 
 const express = require('express')
 // const router = express.Router()
@@ -64,12 +58,10 @@ const register = (req, res,next) => {
                 message:'用户信息保存失败'
               })
             } else {
-                let _user = user;
                   res.json({
                     success:true,
                     message:'注册成功',
-                    name:_user.name,
-                    count:user.length
+                    name:user.name
                   })
             }
           })
@@ -194,7 +186,6 @@ const login = (req, res) => {
         res.json({
           success: true,
           message: "登录成功",
-          // session: req.session,
           user: user,
           // 账户创建日期
           time: moment(objectIdToTimestamp(user._id))

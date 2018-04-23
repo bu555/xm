@@ -11,7 +11,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:;">
+            <a class="navbar-brand" href="javascript:;" v-if="0">
                 <div class="logo-a">
                     <a href="www.baidu.com" target="_blank">
                         <img src="../../../static/img/logo_a.png" alt="">

@@ -5,14 +5,12 @@
             <div class="ctrl">
                 <!--<span style="cursor:pointer">首页</span>-->
                 
-                <span @click="$router.go(-1)" style="cursor:pointer"><i class="glyphicon glyphicon-th"></i> 名人库</span>
+                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-th"></i> 名人库</span>
                 <i class="glyphicon glyphicon-menu-right"></i> 
                 <span style="">{{exampleItem.name}}</span>
             </div>
             <div class="search-box  hidden-xs">
-                <el-input placeholder="请输入内容"  class="input-with-select">
-                    <el-button slot="append" icon="el-icon-search"></el-button>
-                </el-input>
+
             </div>
         </div>
     </div>
@@ -156,9 +154,14 @@ export default {
             isVote:false,
             isGetDate:true,
             isRepeat:false,
+            fromPath:''
         }
     },
     methods:{
+        // 返回名人庫
+        back(){
+            this.$router.push({path:this.fromPath})
+        },
         //监听子组件传话
         lestionSon(data){
             this.isVote = false;
@@ -213,13 +216,21 @@ export default {
         if(this.$route.query.eid){
             this.searchExamp({id:this.$route.query.eid});
         }
+        this.fromPath = localStorage.getItem('fromPath')
+        if(this.fromPath === '/'){
+            this.fromPath = '/example'
+        }
 
     },
     components:{
         voteResult,
         voteConsole,
         myComment
-    }
+    },
+    beforeRouteEnter (to, from, next) {
+        localStorage.setItem('fromPath',from.fullPath)
+        next()
+    },
     
 };
 </script>

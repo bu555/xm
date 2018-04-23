@@ -1,0 +1,5104 @@
+CMPool Github:
+https://github.com/Touch-Network/CMPool_Web.git
+buzhiguang@163.com  bu5...  帐户名：buzhiguang5
+
+领福利-移动开发总结:
+1.tel:10086 差异:6plus会直接拨号
+2.text-indent:1rem  差异:android(右偏)和ios(左偏)
+
+mongodb:
+安装后，磁盘根目录创建data/db，再从bin目录mongod.exe开启数据库
+
+关于页面加载:
+解析HTML结构。
+加载外部脚本和样式表文件。
+解析并执行脚本代码。
+DOM树构建完成。//DOMContentLoaded
+加载图片等外部文件。
+页面加载完毕。//load
+document.addEventListener("DOMContentLoaded", function() { //dom加载完
+   // ...代码...
+}, false);
+
+window.addEventListener("load", function() { //所有资源加载完
+    // ...代码...
+}, false);
+用jQ这么写
+// DOMContentLoaded
+$(document).ready(function() {
+    // ...代码...
+});
+
+//load
+$(document).load(function() {
+    // ...代码...
+});
+
+window下nginx配置：
+nginx配置文件在 nginx-1.8.0\conf\nginx.conf
+http {
+     gzip  on;
+
+    #静态文件
+    server {
+        listen       80;
+        server_name  static.cnblog.com;
+
+        location / {
+            root   G:/source/static_cnblog_com;
+        }
+    }
+
+    #html文件
+    server {
+        listen       80;
+        server_name  127.0.0.1 localhost;
+
+        location / {
+            root   G:/source/html/mobile/dist;
+            index  index.html index.htm;
+        }
+    }
+}
+一定要用命令行启动！！！
+在nginx.exe目录，打开命令行工具，用命令 启动/关闭/重启nginx 
+ 
+start nginx : 启动nginx
+nginx -s reload  ：修改配置后重新加载生效
+nginx -s reopen  ：重新打开日志文件
+nginx -t -c /path/to/nginx.conf 测试nginx配置文件是否正确
+
+关闭nginx：
+nginx -s stop  :快速停止nginx
+nginx -s quit  ：完整有序的停止nginx
+
+如果遇到报错：
+bash: nginx: command not found
+有可能是你再linux命令行环境下运行了windows命令，
+如果你之前是允许 nginx -s reload报错， 试下 ./nginx -s reload
+或者 用windows系统自带命令行工具运行
+
+vue-cli打包部署：
+参考资料：
+https://www.zhihu.com/question/46630687 
+https://www.cnblogs.com/xyyt/p/7718867.html 解决vue-router嵌套路由(子路由)在history模式下刷新无法渲染页面的问题
+关于打包需要明确的事情：
+1.vue是前端框架，build的东西就是html/css/js这些(浏览器可以跑的，和nodejs没半毛关系了)；
+2.nodejs只是代码构建、开发调试的一座工厂，本质就是前端代码开发的工具，又或者说是垫脚石；
+3.vue-cli提供了hash和history两种路由模式,hash模式url结构是127.0.01/#/home，history模式url结构是127.0.01/home；配置文件默认是hash模式，需要配置history模式需要在路由配置文件中增加 mode:'history'，一般后端不会返回404; hash模式利用history.hash实现，history模式利用pushState()和replaceState()方法实现，后端可能返回404，因此要对服务器做下配置(详见vue官方)；一般场景两者都可以使用。--参考：https://segmentfault.com/q/1010000010340823/a-1020000010598395
+4.按官方配置后，children路由刷新也同样不能显示，解决方法可以将config/index.js的build配置成assetsPublicPath: '/',因为./ 是指用户所在的当前目录（相对路径），会找不到文件；/ 则指根目录（绝对路径，项目根目录），也就是项目根目录；
+
+=====常用API=====
+【浏览器兼容】
+框架：（布局、表单、导航、tab栏、按钮、图标、轮播图....） IE8以上
+Bootstrap: 集合全局样式、组件、js插件的响应式类库，大小154 KB，Firefox/Chrome/Safari/IE8 +；
+EasyUI: 基于jQ的pc前端框架http://www.jeasyui.net
+layui: 集合了全局样式、组件、API的原生制作的响应式类库； http://www.layui.com/
+
+MUI:移动端UI基础框架；
+amazeui：移动端HTML5的UI框架；
+
+1.margin和padding各种浏览器有差异； //*{margin:0;padding:0;}
+2.img标签排列间隔差异； //设置float排列
+3.min-height设置ie无效//{min-height:200px; height:auto!important; height:200px; overflow:visible;}
+【浏览器缓存】
+缓存文件在chrome://version/ 中"个人资料路径"
+chrome://chrome-urls/,打开所有URL列表页面。
+chrome://cache，打开缓存页面。
+①非HTTP协议定义的机制:<meta http-equiv="Pragma" content="no-cache"> 
+	--告诉浏览器当前页面所有资源不被缓存,部分浏览器支持,代理服务器不支持(因为不解析html)
+②HTTP协议定义的机制:
+	--Expires策略,源于HTTP1.0,告诉浏览器在过期时间前直接从浏览器缓存取数据，而无需再次请求。
+		例子:Expires wed,28 Nov 2018 03:03:01 GMT
+	--Cache-control策略,源于HTTP1.1,作用与expires一致,优先级更高;
+		值可以是public、private、no-cache、no- store、no-transform、must-revalidate、proxy-revalidate、max-age
+		例子:Cache-control max-age=300  //单位s
+	  Last-Modified/If-Modified-Since要配合Cache-Control使用:
+		Last-Modified告诉浏览器最后修改时间;
+		If-Modified-Since：当资源过期时（使用Cache-Control标识的max-age），发现资源具有Last-Modified声明，则再次向web服务器请求时带上头 If-Modified-Since，表示请求时间。web服务器收到请求后发现有头If-Modified-Since 则与被请求资源的最后修改时间进行比对。若最后修改时间较新，说明资源又被改动过，则响应整片资源内容（写在响应消息包体内），HTTP 200；若最后修改时间较旧，说明资源无新修改，则响应HTTP 304 (无需包体，节省浏览)，告知浏览器继续使用所保存的cache
+	  Etag/If-None-Match也要配合Cache-Control使用:
+		Etag：web服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。Apache中，ETag的值，默认是对文件的索引节（INode），大小（Size）和最后修改时间（MTime）进行Hash后得到的。
+		If-None-Match：当资源过期时（使用Cache-Control标识的max-age），发现资源具有Etage声明，则再次向web服务器请求时带上头If-None-Match （Etag的值）。web服务器收到请求后发现有头If-None-Match 则与被请求资源的相应校验串进行比对，决定返回200或304。
+
+既生Last-Modified何生Etag？(后者是资源的唯一标识,权限最高)
+秒级-毫秒级、定期生成文件(实际无修改)、与代理服务器时间有误
+③用户行为与缓存:
+用户操作    Expires/Cache-Control & Last-Modified/Etag
+地址栏回车  有效 & 有效
+页链接跳转  有效 & 有效
+新开窗口    有效 & 有效  
+前进/后退   有效 & 有效
+F5刷新      无效 & 有效
+ctrl+F5	无效 & 无效
+
+【DOM操作】
+javascript中获取dom元素高度和宽度的方法如下：
+
+网页可见区域宽： document.body.clientWidth
+网页可见区域高： document.body.clientHeight
+网页可见区域宽： document.body.offsetWidth (包括边线的宽)
+网页可见区域高： document.body.offsetHeight (包括边线的高)
+网页正文全文宽： document.body.scrollWidth
+网页正文全文高： document.body.scrollHeight
+网页被卷去的高： document.body.scrollTop
+网页被卷去的左： document.body.scrollLeft
+
+对应的dom元素的宽高有以下几个常用的：
+
+元素的实际高度：document.getElementById("div").offsetHeight
+元素的实际宽度：document.getElementById("div").offsetWidth
+元素的实际距离左边界的距离：document.getElementById("div").offsetLeft
+元素的实际距离上边界的距离：document.getElementById("div").offsetTop
+		
+【HTTP】
+ POST 提交数据的四种编码方式:
+ 发送内容：<method> <request-URL> <version> <headers> <entity-body>
+ 服务器根据Content-Type字段分析后进行解码；
+ Content-Type: application/x-www-form-urlencoded;charseEt=utEf-8 //这是浏览器form表单默认的提交方式，把数据按key1=val1&key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。
+ Content-Type: multipart/form-data //上传文件FormData对象时浏览器默认的方式
+ Content-Type: application/json  //告诉服务端消息主体是序列化后的 JSON 字符串
+ Content-Type: text/xml  //提交XML数据
+ axios:
+        /*
+        "Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+        */
+        // 基本用法
+        var params = new URLSearchParams()  //序列化成查询字符串 'year=2001&month=9'
+        params.append('year', '2001')
+        params.append('month', '2')
+        axios({
+            method: 'post',
+            url: 'http://localhost:5555/api/bz/getMonthCalendar',
+            // headers: {"Content-Type":"application/x-www-form-urlencoded"},
+            //timeout: 1000, //延时多久停止
+            //withCredentials: false, // 默认的 表示跨域请求时是否需要使用凭证
+            //onUploadProgress: function (progressEvent) {},  // 对原生进度事件的处理
+            /*
+            auth: { // `auth` 表示应该使用 HTTP 基础验证，并提供凭据 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头
+                username: 'janedoe',
+                password: 's00pers3cret'
+            },*/
+            data: 'year=2001&month=9',
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+ 
+
+
+【Date日期对象】：
+new Date("2018-5-5")    //日期→对象
+Date.parse("2018-5-5")  //日期→毫秒
+new Date(1525449600000) //毫秒→对象
+new Date().getTime()  	//对象→毫秒
+Date.now()              //获取当前毫秒
+new Date().toLocaleDateString() //转当前系统时间格式
+
+//转"yyyy-MM-dd hh-mm-ss"格式函数
+function(date){
+  let year = date.getFullYear();
+  let month = (date.getMonth()+1)<10? "0"+(date.getMonth()+1):(date.getMonth()+1);
+  let day = date.getDate()<10? "0"+date.getDate():date.getDate();
+  let hour = date.getHours()<10? "0"+date.getHours():date.getHours();
+  let minute = date.getMinutes()<10? "0"+date.getMinutes():date.getMinutes();
+  let second = date.getSeconds()<10? "0"+date.getSeconds():date.getSeconds(); 
+  return year +"-"+ month +"-"+ day +" "+ hour +":"+ minute +":"+ second;
+}
+//判定对象是否是Date
+对象+instanceof Date	//返回布尔值
+Object.prototype.toString.call(对象)  返回[object Date]
+【String字符串】
+"abcde".substr(2,2); 	//"cd"  --截取2后面的2位 返回新字符串
+"abcde".substring(2,3); //"c"  --截取2至3 返回新字符串
+"abcde".slice(2,3);	//"c"  --截取2至3 返回新字符串
+"abcde".replace("bcd","$"); //"a$e" --替换 返回新字符串 (一般用正则匹配)
+"a,b,c".split(",");   //["a","b","c"]  --按指定字符分割成数组
+" ab ".trim();  		//将前后空白清除
+"aBc".toLowerCase(); //"abc"
+"aBc".toUpperCase(); //"ABC"
+"abcde".indexOf("d",0) //3  --从0开始查找"d",存在返回索引，反之-1
+"abcde".charCodeAt(0)  //97 --返回index索引字符的unicode码
+【Array数组】
+push() 	//在原数组后面添加，返回长度
+unshift()	//在原数组前面添加，返回长度
+pop()		//在原数组后面删除，返回长度
+shift()	//在原数组前面删除，返回长度
+splice(1,1) 		//从1索引起，删除n个元素 
+splice(1,1,"new") 	//从1索引起的1个元素替换成"new" 
+splice(1,0,"new") 	//在1索引前插入"new"
+reverse()			//翻转数组
+slice(0,2)		//返回0至2的新数组（复制使用）
+join("")			//返回指定字符分割的字符串
+[1,3,2].sort(function(a,b){return b-a}) //[3, 2, 1] ,a-b从小到大
+数据+instanceof Array/Object/Function  返回布尔值 , 数组/object/函数可应用
+Object.prototype.toString.call(数据) 所有数据可应用，返回 例："[object String ]"
+
+【window对象】
+setTimeout(callback, 2000, 'name'); //name是callback的传入参数
+setInterval(callback, 2000, 'name'); //name是callback的传入参数
+操作cookie:
+document.cookie="username=John Doe";
+您还可以为 cookie 添加一个过期时间（以 UTC 或 GMT 时间）。默认情况下，cookie 在浏览器关闭时删除：
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT";
+您可以使用 path 参数告诉浏览器 cookie 的路径。默认情况下，cookie 属于当前页面。
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
+删除cookie,把时间改到过去
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+window.open() - 打开新窗口
+window.close() - 关闭当前窗口
+window.moveTo() - 移动当前窗口
+window.resizeTo() - 调整当前窗口的尺寸 
+例子:创建一个窗口, 设置宽度与高度为500px: var w=window.open('','', 'width=100,height=100');w.resizeTo(500,500);
+screen.availWidth - 可用的屏幕宽度
+window.onresize()事件:监测设备窗口大小
+screen.availHeight - 可用的屏幕高度
+console.log(document.getElementsByTagName('html')[0].getBoundingClientRect().width);
+console.log(window.screen.availWidth);
+location.href 设置或获取url
+location.reload(); 刷新当前窗口
+window.location.replace(document.referrer+"?flag=success"); //用跳过来前的页面替换
+location.search 返回?后面的查询内容
+location.hash 返回#锚点的内容
+location.hostname 返回 web 主机的域名
+location.pathname 返回当前页面的路径和文件名
+location.port 返回 web 主机的端口 （80 或 443）
+location.protocol 返回所使用的 web 协议（http:// 或 https://）
+history.back() - 与在浏览器点击后退按钮相同
+history.forward() - 与在浏览器中点击向前按钮相同
+history.go(-3) -刷新或前进后退n个页面,0是刷新
+window.parent.location.href=url或 window.open("url","_parent|_self|_blank") 在父窗口跳转（一般在iframe中使用）
+<script>
+txt = "<p>浏览器代号: " + navigator.appCodeName + "</p>";
+txt+= "<p>浏览器名称: " + navigator.appName + "</p>";
+txt+= "<p>浏览器版本: " + navigator.appVersion + "</p>";
+txt+= "<p>启用Cookies: " + navigator.cookieEnabled + "</p>";
+txt+= "<p>硬件平台: " + navigator.platform + "</p>";
+txt+= "<p>用户代理: " + navigator.userAgent + "</p>";
+txt+= "<p>用户代理语言: " + navigator.systemLanguage + "</p>";
+document.getElementById("example").innerHTML=txt;
+</script> 
+警告!!!
+来自 navigator 对象的信息具有误导性，不应该被用于检测浏览器版本，这是因为：
+navigator 数据可被浏览器使用者更改
+一些浏览器对测试站点会识别错误
+浏览器无法报告晚于浏览器发布的新操作系统
+
+top表示主窗口，location表示当前窗口:
+top.location.href=”url”          在顶层页面打开url（跳出框架）
+self.location.href=”url”         仅在本页面打开url地址 　　
+parent.location.href=”url” 　    在父窗口打开Url地址 　　
+this.location.href=”url” 　　    用法和self的用法一致  
+if(top !== self){top.location.href = location.href;}   禁止frame引用
+
+
+
+【XMLHttpResquest对象】
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange=(()=>{
+     if(xhr.readyState==4&&xhr.status==200){
+       let res = JSON.parse(xhr.responseText); 
+     }
+   })
+   xhr.open('post','http://localhost:5555/api/bz/calc');
+   xhr.setRequestHeader('content-type','application/x-www-form-urlencoded'); //get请求不需要
+   xhr.send('year=1999&month=9'); //get请求null
+请求头：
+contentType: 告诉服务器，我要发什么类型的数据
+dataType：告诉服务器，我要想什么类型的数据，如果没有指定，那么会自动推断是返回 XML||JSON||script||String。
+Accept：告诉服务器，能接受什么类型
+【Promise对象】
+    //可实现异步编程   相对于传统的：回调函数和事件
+    //promise本质： 容器 保存着未来才会结束的事件， 容器中事件不受外界影响 
+    //状态： pending（进行中）、fulfilled（已成功）和rejected（已失败） resolved（已定型）
+
+    const pro = new Promise(function(resolve, reject) {
+        if (/* 异步操作成功 */){
+            resolve(value); //将状态从 pending 变为 resolved （进行→成功）
+        } else {
+            reject(error); //将状态从pending 变为 rejected （进行→失败）
+        }
+    });
+    pro.then(function(value) { //第一个参数：resolved时调用  接收promise传出的值做参数
+        // success
+        }, function(error) { //第二个参数(可选)：rejected时调用  接收promise传出的值做参数
+        // failure
+    });
+
+【mysql】
+mysql -uroot -p --启动数据库
+show charset; --查看数据库存有的码表
+create database student character set utf8;-- 创建数据库student,制定码表为utf8(旧版写为utf-8,新版为utf8)
+drop database student;-- 删除数据库student
+show databases;--查看已经创建的数据库
+use student;– 制定使用数据库student
+select database();-- 查看当前操作的数据库名称
+show create database 库名; --显示创建库语句
+
+【移动开发】
+安卓中页面跳转问题:
+window.open(url); 不适用(实际是下载)
+location.href="./p1.html"; 不适用(实际是下载)
+location.href="http://...";
+history.go(-1);
+history.back();
+document.getElementById("a-link").click();
+window.location.replace(document.referrer+"?flag=success"); //用此方法返回并刷新
+
+// 计算屏幕宽度，设置html的font-size
+$(function(){  
+    initpage();  
+    $(window).resize(function(){  
+        initpage();  
+    })  
+    
+    function initpage(){  
+        var view_width = document.getElementsByTagName('html')[0].getBoundingClientRect().width;  
+        var _html = document.getElementsByTagName('html')[0];  
+      // view_width>640?_html.style.fontSize=640/16 +'px':_html.style.fontSize =view_width/16+'px';  
+      if(view_width>360||view_width<360){
+          _html.style.fontSize=Math.round(view_width/3.6) +'px';
+          console.log(Math.round(view_width/3.6));
+      }
+    }  
+}); 
+系统检测:
+<script type="text/javascript">
+//判断访问终端
+var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, //android终端
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+</script>
+
+if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent);  
+    window.location.href ="iPhone.html";
+} else if (/(Android)/i.test(navigator.userAgent)) {
+    //alert(navigator.userAgent); 
+    window.location.href ="Android.html";
+} else {
+    window.location.href ="pc.html";
+};
+
+html拨号/发信息
+1.<ahref="tel:13764567708">移动WEB页面JS一键拨打号码咨询功能</a>
+如果要拨打固话转接分机号直接+逗号+分机号即可.
+例如：<ahref="tel:40056789,12345">移动WEB页面JS一键拨打分机号码</a>
+2.<ahref="sms:13764567708">移动WEB页面JS一键发送短信咨询功能</a>
+=========零散的·临时笔记 start============  ★☆『』?█■
+transparent 透明  "trans + parent"
+disabled 残疾，禁用（按钮禁用设置disabled="disabled"/true&false）
+parent 父辈
+parse 解析
+previous 之前的
+repeat 重复
+border-collapse:collapse   cellspacing = "0"; cellpadding
+src可以接dataUrl , url
+
+答案解析 : //停止事件冒泡  
+function stopBubble(e) {
+    // 如果提供了事件对象，则这是一个非IE浏览器
+    if ( e && e.stopPropagation ) {
+        // 因此它支持W3C的stopPropagation()方法
+        e.stopPropagation();
+    } else { 
+        // 否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+    }
+} //阻止事件默认行为
+function stopDefault(e) {
+     // 阻止默认浏览器动作(W3C)
+     if ( e && e.preventDefault ) {
+         e.preventDefault();
+     } else {
+        // IE中阻止函数器默认动作的方式
+        window.event.returnValue = false;
+    }
+    return false;
+}
+
+
+网站清单：
+www.developer.mozilla.org 前端技术搜索(火狐团队) 
+www.runoob.com菜鸟教程
+http://echarts.baidu.com/index.html  javascript图库表
+win10激活码:
+　　W269N-WFGWX-YVC9B-4J6C9-T83GX
+　　NYW94-47Q7H-7X9TT-W7TXD-JTYPM
+　　NJ4MX-VQQ7Q-FP3DB-VDGHX-7XM87
+　　MH37W-N47XK-V7XM9-C7227-GCQG9
+　　VK7JG-NPHTM-C97JM-9MPGT-3V66T
+
+
+1.JavaScript：void(0)  阻止a标签跳转：
+2.onclick="return false;"    可以阻止任何点击的默认行为
+3.ele.focus() 将光标移动到指定输入框元素
+4.\r回车 \n换行
+5.tounicode 字符转unicode编码
+6.label<label for="qq">Q Q</label><input type="text" id="qq"/>
+=========零散的·临时笔记 end============
+=========数组、字符串常用方法============
+★concat相加,连接  slice切开  push推入 shift去除  splice粘接  reverse反转
+★sort分类,整顿 join连接 split切开 replace替换 trim修剪
+?操作数组和字符串：
+concat(): 连接字符串或数组
+slice(start,end):截取start至end(不包括end)的内容
+indexOf(start,content):返回包含指定内容的索引，如无返回-1
+?操作数组：
+push()/pop() 在最后添加或删除
+unshift()/shift() 在开头添加或删除
+splice(start,n)删/splice(start,0,content)插入/splice(start,n,content)替换
+reverse()倒置数组
+sort()数组排序
+join()以指定的字符分隔数组元素，返回一个字符串
+?操作字符串：
+split():以指定的字符进行分割，返回一个数组
+replace(old,new):将第一次出现的old字符串用new替换（改变原数组、支持正则）
+substring(start,end);返回start 到end(不包括end)的字符串
+trim():清除字符串前后空白
+charAt(index):获取index索引的字符
+
+
+=========================4月27日 DOM=========================================
+【tab栏切换案例】【京东商品展示案例】【美女相册案例】 
+这仨案例基本一致：点击或移入注册 → 索引作为通信 → 排他 → 自己设置；
+实现思路：1.给导航栏注册移入移出事件(遍历注册，并使用自定义属性记录index) 2.鼠标移入函数：遍历导航栏和内容把类名清空(排他)，然后给自身设置选中时样式的类名，再给一致索引的内容设置display:block;。：
+【隔行变色，悬停高亮案例】
+基本思路：给移入和移出封装函数，加载完正常显示的实际是移出函数的隔行变色样式，移入时函数设置当前所需颜色，移出时恢复原装样式。
+
+
+========================4月27日 DOM=========================================
+【祝福墙案例】
+基本思路：for循环将元素深度clone并追加到指定区域，随机生成坐标，设置坐标。
+【点餐案例】
+基本思路：
+1.全选按钮点击事件时，菜单按钮所有checked属性=全选按钮checked(true&false);
+2.菜单按钮点击事件时，使用假设法，遍历菜单checked属性对否所有为true,最后设置全选按钮与布尔值标志变量一致。
+
+=================5月4日 DOM=========================================
+【微博无刷新评论案例】
+基本思路：点击事件时获取输入框内value，赋值给新建的标签的innerHTML，添加到评论内容区中。
+【百度搜索案例】 
+基本思路：keyup事件，[bug1解决：首先hasChildNodes()判断ul是否有子节点，有就将ul中的内容清空] → 将预存了关键字的数组遍历拿出indexOf文本框value,如果为0(即开头字段匹配)就存入临时数组，→[bug2解决：如果this.value 或者临时数组长度为0，也将ul内容清空]  遍历临时数组添加到自动提示的ul中。
+注：hasChildNodes()返回布尔
+【选择好友案例】
+基本思路：1.全部添加，遍历单侧框appendChild(每个option)到另一侧select[注:遍历时添加后索引i--]  2.选中的添加.遍历单侧框内option,判断selected是否为true，如是添加到另一侧[注:添加后索引要i--]
+
+====================5月5日 DOM=========================================
+【数据表格处理案例】 新增→确定/取消  向上移动/向下移动/删除
+基本思路：1.新增点击事件=显示新增操作框   2.取消点击事件=隐藏新增操作框(并清空输入框value) 3.确定事件=输入框中value添加到tr,tr添加到显示列表  4.向上移动事件函数=判断this的父元素tr是否有上一个兄弟元素(.priviousElementSibling)，如有.insertBefore(tr,previous)插入  5.向下移动事件函数=判断this父元素tr的priviousElementSibling的priviousElementSibling是否存在，如是就插入到其前面，如不存在就appendChild()到表格最后，如没有下一个兄弟元素说明本来就是最后一行。
+【协议按钮案例】
+基本思路：利用setInterval计时器，时间等于0时，按钮注册点击事件，修改value,跳转链接。
+【小米移动广告案例】
+基本思路：上下DIV遮罩，分别注册事件让其往上或往下移动，到达顶部时停止计时器。
+【时钟案例】
+transform:rotate(1dex);
+每秒运动：秒针度数=秒值*360/60   分针度数=分钟*360/60  时针度数=时数*360/12 [1000毫秒每次]
+持续运动：(秒值+毫秒/1000)*360/60  (分钟+秒值/60)*360/60  (时数+分钟/60)*360/12   [100毫秒每次]
+
+===================5月8-14日 DOM加强==========================================
+1. clientHeight和clientWidth用于描述元素内尺寸，是指 元素内容+内边距 大小，不包括边框（IE下实际包括）、外边距、滚动条部分
+
+2. offsetHeight和offsetWidth用于描述元素外尺寸，是指 元素内容+内边距+边框，不包括外边距和滚动条部分
+
+3. clientTop和clientLeft返回内边距的边缘和边框的外边缘之间的水平和垂直距离，也就是左，上边框宽度
+
+4. offsetTop和offsetLeft表示该元素的左上角（边框外边缘）与已定位的父容器（offsetParent对象）左上角的距离
+
+5. offsetParent对象是指元素最近的定位（relative,absolute）祖先元素，递归上溯，如果没有祖先元素是定位的话，会返回null
+offsetLeft/Top:元素的xy偏移量
+scrollLeft/Top:元素滚动出去的距离(mousescroll事件对象调用)
+clientX/Y : 可视区内鼠标的坐标(事件对象调用)
+pageX/Y : 页面坐标 = scrollLeft+clientX
+【获得当前样式函数】
+function getStyle(ele,attr){
+	if(window.getComputedStyle){
+		return window.getComputedStyle(ele,null)[attr];
+	}else{
+	  	return ele.currentStyle[attr];  //IE8
+	}
+}
+        //监听鼠标指针坐标
+        document.onmousemove = function(e){
+            // console.log(e.clientX);   
+        }
+        //监听窗口滚动距离
+        window.onscroll = function(e){ 
+            console.log(window.pageYOffset); 
+            // console.log(document.body.scrollTop); 
+            console.log(document.documentElement.scrollTop); 
+        }
+【eventTool】
+        var eventTool={
+            getEvent : function(e){ return e || window.event},  //兼容获取事件对象
+            getClientX : function(e){return this.getEvent(e).clientX;},//获取可视区内鼠标坐标(onmousemove事件)
+            getPageX: function(e){return this.getEvent(e).pageX || this.getClientX(e)+(window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft||0)}  //兼容获取pageX（=clientX+页面滚动出去的距离）
+        }
+
+【简单(匀速)动画函数封装】
+1.获取当前位置     offsetLeft
+2.定义步长         step=target>current ? +num : -num 
+3.设置移动目标位置  
+4.停止计时器     Math.abs(target-current)<Math.abs(step)条件下停止
+
+【缓动动画函数封装】
+function animate(ele,obj,callback){ }
+1.获取当前位置     先for in判断调用getStyle函数判断key[attr]是opation,zIndex中的哪一个 ,opation获取后parseFloat转换并*100后操作
+2.定义步长     step=(target-current)/10 ,target>current ? Math.ceil(step) : Math.floor(step);
+3.设置移动目标位置  current+=step;
+4.停止计时器     for in中if条件后target!=current就把标志改false，for in完成后判断标志为true了就停止计时器
+【轮播图案例】
+圆点滚动函数：currentIndex作为通信，注册mouseover事件设置index属性值，所对应的移动距离就是index*图片宽*-1；排他后再给自己类名设置样式
+左滚动函数：每点击一次currentIndex++计算移动距离；圆点第index按钮给类名设置样式；如果index=lis.length-1，index=0,目标距离=0；（向右同理）
+【手风琴案例】
+鼠标移入时全部变小，然后自己变大；鼠标移出时，全部变成固定尺寸。
+【旋转木马案例】
+1.创建5个样式的对象的数组  2.遍历把图片标签元素数组push()到数组中;  3.点击事件：arr.push(arr.shift()) 或 arr.unshift(arr.pop());
+【360开机动画案例】
+加入回调函数，先把底部盒子高度变为0，再把上面盒子宽度变为0；
+【网页放大镜案例】
+1.鼠标移入=小图遮罩和大图出现，鼠标移出=遮罩和大图消失；
+2.鼠标移动=遮罩跟着移动（cursor:move   鼠标居中  不可越界设置）
+3.放大函数：大图移动距离=小图移动*(大图最大位移-小图最大位移)
+【拖拽案例】
+1.mousedown事件=pageX-offsetLeft计算鼠标和元素左上角差值，并记录  mousemove事件=设置元素offsetLeft(pageX-差值)
+2.mouseup事件 = mousemove=null;       注：mousemove和mouseup事件源要是document，否则一旦超出可视区就不触发了
+【esc取消登录框】【回车切换输入框(获得焦点)】
+e.keyCode属性
+keyup事件= 如果this.keyCode == 键码值 ，如果this.index!=inputs.length-1，inputs[this.index+1].focus();
+
+===================5月13日==========================================
+事件冒泡和捕获：
+ele.addEventListener("click",function(){ },false)  事件冒泡，内→外
+ele.addEventListener("click",function(){ },true) 事件捕获，外→内
+eventPhase属性：
+event.eventPhase 事件阶段：1 捕获阶段执行  2 事件目标阶段  3 事件冒泡阶段
+阻止事件冒泡：
+window.event.cancleBubble = true; //谷歌和IE   cancle取消  
+event.stopPropagation(); //谷歌和火狐   propagation扩张,传播
+移除事件：
+on方式绑定--element["on"+type]=null;
+addEventListener方式绑定--element.removeListener(类型，函数，是否冒泡)；
+attachEvent方式绑定--element.detachEvent("on"+type,函数)
+
+e.type 获取当前事件
+e.target 获取事件源 （IE8中使用e.srcElement）
+
+mouseEvent.button得到鼠标键的代码
+
+transition-property:过渡属性
+transition-duration:过渡时间
+transition-delay:延迟时间
+transition-timing-function:过渡函数
+
+
+========================== 正则表达式===========================================
+使用语法:
+var reg = new RegExp(/^.*$ /);  或 var reg = /[^0-9]/;
+reg.test(str) 或 str.match(reg) 或 reg.exec(str)
+流行写法:
+new RegExp("a")
+new RegExp(/a/)
+new RegExp("a","g") 等同  /a/g
+ 【元字符】
+        .  通配所有
+        \w 字母   \W 非字母
+        \d 数字   \D 非数字  
+        \s 空白   \S非空白  [\r\n]去除换行、空格
+        \转义 |或者 ()分组
+ 【范围】
+        [0-9] [a-z] [A-Z] [^a-z]
+ 【量词】
+        * 0次或多次    ? 0次或1次
+        + 至少一次
+        {n} n次
+        {n,} n次以上
+        {n,m} n至m次
+ 【边界限定】
+        ^ 开头
+        $ 结尾   如: /^a.*a$/ a开头并结尾的字符串
+
+  如:
+        // 1.验证电话号码  020-88888888
+        console.log(/^[0]\d{2,3}[-][1-9]\d{6,7}$/.test("020-88888888"));
+        //2.验证邮箱
+        var mailReg = /^[\d\w._-]+[@][\d\w_.-]+([.][\d\w_.-]+)+/;
+        console.log(mailReg.test("test@@qq.com"));
+        //3.身份证验证
+        var sfz = /^[1-9]\d{14}([0-9]{2}([0-9]|[xX]))?$/;
+        console.log(sfz.test('450921198903320'));
+		//验证手机号
+		/^[1][0-9]{10}$/
+
+正则表达式中/i,/g,/ig,/gi,/m的区别和含义
+/i (忽略大小写)
+/g (全文查找出现的所有匹配字符)
+/m (多行查找)
+/gi(全文查找、忽略大小写)
+/ig(全文查找、忽略大小写)
+
+常用正则：
+//去除空格 
+String.prototype.Trim = function() { 
+return this.replace(/\s+/g, ""); 
+} 
+ 
+//去除换行 
+function ClearBr(key) { 
+key = key.replace(/<\/?.+?>/g,""); 
+key = key.replace(/[\r\n]/g, ""); 
+return key; 
+} 
+ 
+//去除左侧空格 
+function LTrim(str) { 
+return str.replace(/^\s*/g,""); 
+} 
+ 
+//去右空格 
+function RTrim(str) { 
+return str.replace(/\s*$/g,""); 
+} 
+ 
+//去掉字符串两端的空格 
+function trim(str) { 
+return str.replace(/(^\s*)|(\s*$)/g, ""); 
+} 
+ 
+//去除字符串中间空格 
+function CTim(str) { 
+return str.replace(/\s/g,''); 
+} 
+ 
+//是否为由数字组成的字符串 
+function is_digitals(str) { 
+var reg=/^[0-9]*$/; //匹配整数 
+return reg.test(str); 
+}
+
+//检验密码强度（8-10位）
+^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+
+
+//校验中文
+^[\\u4e00-\\u9fa5]{0,}$
+
+//由数字、26个英文字母或下划线组成的字符串
+^\\w+$
+
+//校验E-Mail 地址
+[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?
+
+JS转换HTML转义符：
+//去掉html标签
+function removeHtmlTab(tab) {
+ return tab.replace(/<[^<>]+?>/g,'');//删除所有HTML标签
+}
+//普通字符转换成转意符
+function html2Escape(sHtml) {
+ return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+}
+//转义符换成普通字符
+function escape2Html(str) {
+ var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+ return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+}
+//回车转为br标签
+function return2Br(str) {
+ return str.replace(/\r?\n/g,"<br />");
+}
+//去除开头结尾换行,并将连续3次以上换行转换成2次换行
+function trimBr(str) {
+ str=str.replace(/((\s|&nbsp;)*\r?\n){3,}/g,"\r\n\r\n");//限制最多2次换行
+ str=str.replace(/^((\s|&nbsp;)*\r?\n)+/g,'');//清除开头换行
+ str=str.replace(/((\s|&nbsp;)*\r?\n)+$/g,'');//清除结尾换行
+ return str;
+}
+// 将多个连续空格合并成一个空格
+function mergeSpace(str) {
+ str=str.replace(/(\s|&nbsp;)+/g,' ');
+ return str;
+}
+//使用match检测url指定字段
+var reg = new RegExp("(^|&)"+ "name" +"=([^&]*)(&|$)"); 
+"?name=jjk".substr(1).match(reg); 
+打印：["name=jjk", "", "jjk", "", index: 0, input: "name=jjk"]
+
+======================5月16日 jQuery ================================
+jQuery和DOM：
+0.步骤：引入jq文件→入口→代码
+1.jQuery对象[0],就是DOM对象；$(DOM对象)，返回当前DOM的jq对象
+2.
+
+【1.jQuery入口】
+  $(function(){ 
+	//代码
+  });
+  $(document).ready(function(){
+  	//代码
+  });
+【2.基本选择器】
+  $("标签名");
+  $(".类名");
+  $("#id名");   
+  注：①jQuery.fn.init[]  --jq对象，伪数组
+	②当页面有多个id,也只获取1个（id唯一性）
+	③如果没有相应的标签名/类名/id名，返回的是空数组 （DOM获取时返回的是Null）
+【3.操作CSS样式】
+  jq对象.css("属性","值");   //改单个属性值
+  jq对象.css({属性1:"值1",属性2:"值2"});   //改多个属性值
+  jq对象.css("属性");   //获取属性的值
+  jq对象.addClass("类名");  //添加类名
+  jq对象.removeClass("类名");  //删除类名
+  jq对象.toggleClass("类名");   //类名有&无之间切换
+
+  <链式编程> jq对象.方法1().方法2().方法3()……
+【4.操作节点】
+  $("<标签名>");  //创建元素
+  jq对象父元素.append(子元素);  jq对象子元素.appendTo(父元素);   //在后面添加元素
+  jq对象父元素.prepend(子元素);   jq对象子元素.prependTo(父元素象);  //在前面添加元素
+  jq对象元素X.after(jq对象元素Y);  //jq对象元素X之前插入jq对象元素Y
+  jq对象元素X.before(jq对象元素Y); //jq对象元素X之后插入jq对象元素Y
+  jq对象.html(内容);  jq对象.text(内容);  给标签添加内容
+  jq对象元素.clone(true/false 是否克隆绑定的事件)  //克隆对象元素
+   jq对象元素.remove();  //删除
+   jq对象元素.empty();   jq对象元素.html("");   // 清空
+  jq对象元素.children();  //得到jq元素下的所有子元素（数组遍历后就是DOM元素）
+  jq对象元素.parent();    //得到父元素对象
+			
+【5.动画】可传入回调函数
+  .hide(时间) //隐藏
+  .show(时间)  //显示
+  .toggle(时间)  //开关
+   
+  .fadeOut(时间) //逐渐消失（不透明→透明）
+  .fadeIn(时间) //逐渐显示（透明→不透明）
+  .fadeToggle(时间)  //消失和显示循环
+  .fadeTo(时间，目标值，回调函数)
+  
+
+  .slideUp(时间)  //向上滑动
+  .slideDown(时间) //向下滑动
+  .slideToggle(时间) //
+
+  多属性动画：
+  .animate({ 属性键值对 },时间,callback);
+  停止动画：
+  .stop(stopAll,goToEnd);
+      stopAll=true  清除所有的动画效果
+      	     =false  停止当前，在动画序列中的继续
+      goToEnd=true  停止之后当前立即结束，并执行callback
+             =false  停止之后当前不会立刻到达结束效果
+ 
+
+
+============================5月17日 jQuery ======================
+【1.注册事件】
+1.1 快速绑定： （不推荐）
+     jq对象.type(function(){
+	//代码
+     });
+
+     jq对象.hover(function(){
+	//mouseover代码
+     },function(){
+	//mouseout代码
+     })
+
+1.2 on的方式绑定：（推荐）
+    1.2.1  方式1：jq对象.on(type,callback);
+    1.2.2  方式2：jq对象.on(type,后代选择器,callback); 
+    1.2.3  方式3：jq对象.on(type,后代选择器,键值对参数,callback);
+
+1.3 bind的方式绑定：
+    1.3.1  方式1：jq对象.bind(type,callback); （不推荐，功能已被on取代）
+
+1.4 delegate方式绑定：查找后代对象，把符合选择器的绑定对象
+    1.4.1  jq父对象元素.delegate(后代选择器，type,键值对-可选参数,callback);
+
+【2.访问和设置DOM属性】
+2.1 jq对象.val();   //获取value值
+    jq对象.val("内容");  //设置value值
+
+2.2 jq对象.prop(属性名);  //访问非自定义属性
+    jq对象.prop(属性名,属性值);  //设置非自定义属性
+    jq对象.attr(属性名);  //访问自定义属性
+    jq对象.attr(属性名,属性值);  //设置自定义属性
+
+【3.事件解绑】
+3.1 jq对象.off(event,selector,callback);
+
+【4.获取宽高和位置的方法】
+    jq对象.height();
+    jq对象.width();
+    jq对象.offset();  //获得或设置基于body边界的距离 {top:0,left:0}
+    jq对象.position(); //获得对象基于父元素定位的距离（不可设置）
+    
+============================5月19日 jQuery ======================
+【1.选择器】
+    组合选择器：
+
+    var res = $("div,p,span");  //并集选择器
+    var res = $("div.box");  //交集选择器
+
+    层级选择器：                 //css:  .li2~li  li2类名后面的所有li
+    var res = $("li a");  //后代选择器
+    var res = $("li>a");  //子代选择器
+    var res = $("选择器1+选择器2");  //相邻选择器（相当于css中的兄弟选择器）
+    var res = $("选择器1~选择器2");  //兄弟选择器（选择器1后面满足选择器2的）
+
+    过滤(筛选)选择器：
+    var res = $("选择器:even");  //选中同类选择器中的偶数索引项
+    var res = $("选择器:odd");  //选中同类选择器中的奇数索引项
+
+    属性选择器：
+    在CSS中：[属性名] 属性选择器  //如：[class=box] //选中class为box的元素
+    在jQuery中： $([class=box]).css("属性","值");
+
+【2.获取节点】
+    ---常用：
+    .parent();  //获得父节点
+    .children();  //获得子节点(数组)  .children(选择器)
+    .find(选择器); //查找后代节点 如：$(".father").find("son");
+    .siblings(); // .siblings(选择器1) 获取对象中满足选择器1的兄弟节点;
+    .eq(index); //找到jq对象中索引为index的DOM对象，并包装成jq对象返回
+    .index();   //获得jq对象在兄弟中的索引
+    .index(ele); //获得指定DOM元素在对象中的索引
+    ---不常用：
+      .next();  //获取对象的下一个兄弟节点
+      .priv();  //获取对象的上一个兄弟节点
+      .prevAll(选择器);  //获取对象之前的满足选择器的节点
+      .nextAll(选择器);  //获取对象之后的满足选择器的节点 
+
+【$.ajax()】
+ 全局ajax事件：
+ ajaxComplete(callback) //请求完成时执行(无论成功与否)
+ ajaxError(callback) //错误时执行(捕捉到的错误可作为最后一个参数传递)
+ ajaxSend(callback) //请求发送前执行
+ ajaxSuccess(callback) //成功时执行
+ ajaxStart(callback) //请求前执行
+ ajaxStop(callback)  //结束后执行
+ 说明：
+ 1.全局事件永远不会再跨域的脚本中运行，也不会再JSONP请求中运行。
+ 2.$(document).ajaxSuccess(callback)事件
+ 3.只有在$.ajax()亦或$.ajaxSetup()中的global设置成true才能使用ajax全局函数，false将不能使用。
+
+ $.ajax()方法：
+ 
+    $.ajax(){
+	url:"",
+	global:false, //不触发全局ajax事件
+	type:"get|post|put|delete, " //默认是get
+	dataType:"html|text|json|xml|script|jsonp",//请求的数据类型
+	success:function(data,dataTextStatus,jqxhr){},
+	error:function(jqxhr,textStatus,error){},
+	beforeSend:function(xhr){
+       	xhr.setRequestHeader("test5","token555");  //请求头添加token信息
+    	}
+	//跨域使用凭证cookie
+      xhrFields: {
+          withCredentials: true  //写入证书(允许跨域读取cookie凭证)
+      },
+      crossDomain: true, //允许跨域
+    }
+服务端设置: "接入-控制-接收-来源"
+resp.header('Access-Control-Allow-Origin', '*')
+============================jQuery ======================
+【1.多库共存】
+  	解绑：$.noConflict();  //$==jQuery
+		var itcast = $.noConflict();
+【2.自定义方法】
+	---静态方法和动态方法区别：不需实例化和需要实例化
+	---自定义静态方法：
+	(function($){
+		$.extend({
+		方法名：function(){ }
+		});
+	})(jQuery);
+	---自定义动态方法：
+	(function($){ 
+		$.fn.extend(
+			方法名:function(参数){ } //判断有无传参:arguments.length	
+		);
+	})(jQuery);	
+
+【3.jQueryUI的使用】
+ 	---引包
+	   	[下载地址]：
+		jQueryUI官网：http://jqueryui.com/
+		菜鸟教程API：http://www.runoob.com/jqueryui/jqueryui-tutorial.html
+		[步骤]：
+		1先引入jQueryUI的css文件
+		2引入jQuery的基础文件
+		3引入jQueryUI的插件文件
+		4在入口函数中调用jQueryUI的API
+
+	---CSS组件
+	---特效组件
+		拖动：jq对象(被拖动的区域).draggable({ handle:"可按住拖动的区域" });
+		调整大小：jq对象(需要调整的区域).resizable({ handles:"s"});  //后面e,w,s,n是可以调整大小的方向
+		排序：jq对象(被拖动的区域).sortable();
+
+
+============================5月22日 H5+CSS ======================
+
+布局：一侧固定，另一侧伸缩(70%)
+IEtester  工具
+h5在ie9中部分支持，以下则不支持：
+    --一般要解决ie兼容，采取引入第三方js插件来处理
+createElement创建的是行内元素标签
+fieldset 表单组  <fieldset><legend>标题</legend></fieldset>
+notwork → All
+oninvalid英歪理 无效的]
+<lable for="userName">用户名：</lable> <input id="userName" name="userName">
+结构稳固大于一切
+盒模型 box-sizing:border-box(宽高从边框计算)    box-sizing:content-box(默认，宽高从内容计算)
+font-style:"yahei","宋体""sans serlif"
+diagram Designer画图软件
+
+【什么是HTML5】
+①第五次重大修改；
+②设计目的是为了在移动设备上支持多媒体；（audio、video、canvas）
+③增加了新特性：语义、本地存储、设备兼容、连接、网页多媒体、三维、图形等，取代了flash在移动设备的地位；
+④取消了H4过时的一些标记
+⑤优缺点：提高可用性、SEO友好、大量应用于移动应用程序和游戏、移植性好；缺点是未能很好的被PC端浏览器所支持；
+⑥未来趋势：移动优先，游戏开发者领衔"主演"。
+【HTML5结构上的差异】
+
+【H5新增的标签】
+<datalist></datalist>:依附于输入框建立关联，需为输入框的list指定一个id,实现“选择”和“输入”并存；
+[细节]：<label></label>的for属性可以规定与哪个表单元素绑定；
+	<option>可以是单标签；
+	如果输入框是url,那么value值必须添加协议;
+<keygen>:可以实现非对称加密(存在兼容问题，应用少)；
+<output></output>:  如：<output>仅仅说明这里面的文本是输出文本--不能修改，只能显示</output>；
+<meter></meter>: 度量器 如：<meter name="userLevel" id="userLevel" max="100" min="0" low="60" high="90"></meter>
+<progress>:进度条    <progress max="100" min="0" value="50"></progress>
+
+【表单中新增的属性】
+placeholder:占位符,可以用于提示文本  placeholder="文本"
+autofocus:自动获取焦点
+autocomplete:自动完成，可以用于表单元素和表单
+multiple:可以选择多个文件或者可以同时输入多个邮箱地址
+required:非空
+pattern:正则验证  pattern="表达式"
+novalidate:关闭默认的表单元素验证  novalidate="off"  on
+
+【表单中新增的类型】type=
+email:默认的邮箱验证
+tel:移动端时叫出数字键盘
+number：只能输入数字
+search：人性化的输入体验（输入框内容一键删除）
+url:只能输入带协议名称的路径，否则不显示 http:// https:// ftp://
+date：日期
+range/color/time/datetime-local/month/week
+
+【多媒体】
+src:指定路径
+controls:控制面板(默认无显示)
+autoplay:自动播放
+loop:循环播放
+poster：加载完未点击播放时，默认是视频的第一帧
+width或height:设定宽度或高度，长宽比例是不变的
+<source>:提供多种视频格式
+--例：--<audio src="路径" controls loop></audio>
+--例：--<video src="路径" controls loop width="400px" ><source src="路径" type="flv"></audio> 
+【获取DOM元素】
+document.querySelector(选择器) ：根据标签、类、id选择器，获取满足条件的第一个元素
+document.querySelectorAll(选择器) : 获取所有满足条件的元素(伪数组)
+
+
+【类名操作】
+dom.classList.add()
+dom.classList.remove()
+dom.classList.toggle()  切换类名，有或无
+dom.classList.contain()  判断元素是否拥有指定样式，返回布尔
+
+【自定义属性】
+data-名称 ：定义属性
+ele.dataset[名称(驼峰命名)]： 取值 （自定义属性值存在当前元素的dataset数组中）
+
+【表单新增事件】
+	oninput：内容(value)改变时触发 （onkeyup是有键盘参与时触发，鼠标粘贴时不会触发）
+	oninvalid:验证不通过时触发
+
+【案例：tabs案例-自定义属性的使用】
+匿名函数传入索引
+→遍历导航标签(document.querySelectorAll("a"))找出与传入索引一致的元素
+→提取这个元素的自定义目标属性(实际是内容区的id)
+→
+
+============================5月23日 H5+CSS ======================
+
+【网络状态改变事件】
+window.ononline:当网络连通时触发
+	window.addEventListener("online",function(){ //提示信息 });
+window.onoffline:网络断开时触发
+【全屏接口操作】
+        //浏览器能力测试
+        document.fullscreenEnabled = ( function() {
+            var doc = document.documentElement;
+            return ( 'requestFullscreen' in doc ) ||
+                ( 'webkitRequestFullScreen' in doc ) ||
+                // 对Firefox除了能力判断，还加上了属性判断
+                ( 'mozRequestFullScreen' in doc && document.mozFullScreenEnabled ) ||
+                false;
+        } )();
+        console.log('能力测试：'+ document.fullscreenEnabled);
+        // 开启全屏   elem.requestFullscreen()
+        //@param {DOM} elem 要全屏显示的元素(webkit下只要是DOM即可，Firefox下必须是文档中的DOM元素)
+        function requestFullscreen( elem ) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+            else if (elem.webkitRequestFullScreen) {
+                // 对 Chrome 特殊处理，
+                // 参数 Element.ALLOW_KEYBOARD_INPUT 使全屏状态中可以键盘输入。
+                if ( window.navigator.userAgent.toUpperCase().indexOf( 'CHROME' ) >= 0 ) {
+                    elem.webkitRequestFullScreen( Element.ALLOW_KEYBOARD_INPUT );
+                }
+                // Safari 浏览器中，如果方法内有参数，则 Fullscreen 功能不可用。
+                else {
+                    elem.webkitRequestFullScreen();
+                }
+            }
+            else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            }
+        }
+        //是否判断是否全屏,由document调用
+        function isFullScreen(){
+            if(document.fullScreenElement) {
+                document.fullScreenElement(); 
+            } else if(document.mozFullScreenElement) { 
+                document.mozFullScreenElement();  
+            } else if(document.webkitFullscreenElement) {  
+                document.webkitFullscreenElement(); 
+            } else if(document.msFullscreenElement) {  
+                document.msFullscreenElement(); 
+            }    
+        }
+        //退出全屏 document.exitFullscreen()
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
+        }
+        //当前全屏状态
+        function fullscreen() {
+            return document.fullscreen ||
+                document.webkitIsFullScreen ||
+                document.mozFullScreen ||
+                false;
+        }
+        //当前全屏显示的dom
+        function fullscreenElement() {
+            return document.fullscreenElement ||
+                document.webkitCurrentFullScreenElement ||
+                document.mozFullScreenElement ||
+                null;
+        }
+        
+        document.getElementById("d1").onclick = function(){
+            if(fullscreen()){
+                exitFullscreen(); //退出全屏
+            }else{
+                requestFullscreen(document.getElementById("d1")); // any individual element 
+            }
+        }
+
+【文件读取接口】
+onchange事件，监听用户是否选择了文件，选择了就触发
+文件读取对象：var reader=new FileReader();
+readAsText(文件对象,encoding):读取文本文件  (第二个参数是码表名，默认是utf-8)
+readAsBinaryString(文件对象):binary[baneli]   读取为二进制码，通常是将其传给后端存储
+readAsDataURL(): DataURL(base64编码)显示，是一种将小文件嵌入文档的方案。
+?注：FileReader的方法不会返回读取结果，这结果存储在对象的result属性中(如不成功值是null)。
+
+---FileReader的事件---
+onload:读取成功后触发
+onloadend:读取完成触发（忽略成功失败）
+onprogress:读取过程中持续触发(≈35ms/次)
+onloadstart:开始读取时触发
+onbort:读取中断时触发
+onerror:出错时触发
+
+
+
+?文件读取案例：
+①input(type=file)注册change事件，选中文件时就触发；
+②从input(type=file)元素的files[0]中获取文件
+③创建FileReader对象，调用readAsDataURL()方法读取文件
+④FileReader对象注册onload事件监听文件读取是否成功完成
+⑤从FileReader对象的result属性中获取文件的base64编码
+
+
+【地理定位接口】
+用途：基于用户位置开发应用，即基于位置服务(Location Base Service)
+获取地理信息的方式：1.IP地址  2.三维坐标(GPS、Wi-Fi、手机信号)   3.用户自定义数据
+位置信息获取方式对比：
+隐私：推送通知 HTML5 Geolocation(地理位置定位) 规范提供了一套保护用户隐私的机制。必须先得到用户明确许可，才能获取用户的位置信息
+API说明：
+a)	navigator.getCurrentPosition(successCallback, errorCallback, options) 获取当前地理信息
+	-----navigator.geolocation.CurrnetPosition(successCallback, errorCallback, options可选参)
+b)	navigator.watchPosition(successCallback, errorCallback, options) 重复获取当前地理信息
+c)	1、当成功获取地理信息后，会调用succssCallback，并返回一个包含位置信息的对象position。Coords(坐标)
+d)	position.coords.latitude纬度
+e)	position.coords.longitude经度
+f)	当获取地理信息失败后，会调用errorCallback，并返回错误信息error
+g)	可选参数 options 对象可以调整位置信息数据收集方式
+	i.	enableHighAccuracy:true/false:是否使用高精度
+	ii.	timeout:设置超时时间，单位ms
+	iii.	maximumAge:可以设置浏览器重新获取地理信息的时间间隔，单位是ms
+百度地图案例-介绍
+
+【拖拽】drag
+在拖拽中会触发的事件：
+1.在拖动目标时触发事件：
+  ondragstart 开始拖动元素时触发
+  ondrag 正在拖动时触发（每隔35毫秒触发）
+  ondragend 完成元素拖动后触发
+2.释放目标时触发事件：
+  ondragenter  拖动的对象进入容器范围内时触发
+  ondragover  拖动的对象在另一个容器范围内悬停时触发
+  ondragleave  拖动的对象离开其容器范围内时触发
+  ondrop  拖动过程中，释放鼠标键时触发
+
+注意：拖动的元素要使用draggable="true"属性（链接和图片默认可拖动，除外）
+	e.preventDefault();阻止浏览器的默认行为   prevent阻止 default未履行
+	e.dataTransfer.setData("text/html", e.target.id); 事件对象中的dataTransfer 可以存储和获取字符串数据
+
+?拖拽案例：
+①document注册dragstart事件，通过事件对象.target.id获得当前事件的id（事件捕获机制）；
+  将所获得的id存入全局变量或者e.dataTransfer.setData("text/html",id)中
+②document注册dragover(到目标容器上方触发)；
+  在此阻止浏览器的默认冒泡 e.preventDefault();  //所拖动的标签要带draggable="true"属性才能拖动
+③document注册drop事件，将通过存取的id获得元素，添加到当前事件的target中
+例子代码：
+<p>拖动img_w3slogo.gif图片到矩形框中:</p>
+<div id="div1" ondrop="ondrop_Handle(event)" ondragover="ondragover_Handle(event)">
+    <img id="drag1" src="img/Desert.jpg" draggable="true" ondragstart="ondragstart_Handle(event)" width="300" height="56">
+</div>
+<br>
+<div id="div1" ondrop="ondrop_Handle(event)" ondragover="ondragover_Handle(event)"></div>
+<br>
+<script>
+//draggable="true"： 设置元素可拖放
+/*
+    定义拖动什么 - ondragstart 开始拖动元素时触发(触发1次)
+    dataTransfer.setData() 方法设置被拖数据的数据类型和值
+*/
+function ondragstart_Handle(ev){
+    console.log(ev);
+    ev.dataTransfer.setData("Text",ev.target.id); 
+}
+//定义放到何处 - ondragover  在容器范围内悬停时触发（触发多次）
+function ondragover_Handle(ev){
+    ev.preventDefault(); //阻止对元素的默认处理方式:不可拖放 
+}
+//进行放置 - ondrop  释放鼠标键时触发（触发1次）
+function ondrop_Handle(ev){
+    ev.preventDefault(); //避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开）
+    var data=ev.dataTransfer.getData("Text"); //获得被拖的数据。
+    ev.target.appendChild(document.getElementById(data)); //找到被拖动元素放入指定容器
+}
+//event.stopPropagation();//兼容火狐
+</script>
+
+【web存储】 
+session [?se?n]会话、会议
+storage [?st?:r?d?]存储 
+local[?l??kl]本地的
+item 存储项目单
+web存储前提：
+1.网速、网页应用、存储需求的不断发展；
+2.传统的document.cookie存储只有4k，解析复杂；
+HTML5提供的解决方案：   
+优点:设置读取方便，分别有5M和20M的容量，只能存储字符串(可以将对象JSON.stringify() 编码后存储)
+window.sessionStorage
+特点：生命周期为关闭浏览器窗口，相当于存在当前页面内存，同一个窗口下数据可以共享 
+方法：setItem(key,value):设置数据，以键值对的方式
+	getItem(key):通过键获取值
+	removeItem(key):删除key及对应的值
+	clear()清空所有存储内容
+window.localStorage
+特点：存储在硬盘，永久生效；可以多窗口共享
+
+focus() 方法用于给予链接焦点。
+?web存储登录案例：
+①通过本地window.localStorage.getItem("userName")获取登录名，判断是否!=null,如果是就把其设为value，focus()给密码框；反之，focus()给用户名；
+②提交按钮注册点击事件，判断是否勾选了保存用户名，如果是获取value通过window.localStorage.setItem()存入本地，如果没有勾选，就通过window.localStorage.removeItem("userName")删除
+
+
+【应用缓存】   manifest [?m?n?fest]显示，证明  cache存储[卡什]
+概念：使用HTML5，通过创建cache manifest文件，可以轻松创建web应用的离线版本
+劣势：不能删除（要清浏览器）
+优势：
+ 1.可以配置需要缓存的资源
+ 2.无联网仍然可用
+ 3.本地读取缓存资源，提升速度，增强用户体验
+ 4.减少请求，缓解服务器负担
+cache manifest基础：
+ 1.要启用应用程序缓存，要先在html中包含manifest属性
+	<!DOCTYPE HTML>
+	<html manifest="demo.appcache"> 
+	这样的页面在用户访问时，就会缓存
+ 2.使用manifest文件定义缓存的页面
+  1.manifest文件的扩展名是.appcache，是简单的文本文件，它告诉浏览器被缓存的内容和不缓存的内容
+  2.manifest文件分为3个部分：
+	CACHE MANIFEST    //开始的第一行，必须在文件开头 
+ 	CACHE 标题下的文件，在首次下载后进行缓存；
+	NETWORK 标题下的文件需要与服务器连接，不会被缓存
+	FALLBACK 标题下的文件，规定页面无法访问时的回退页面(比如404页面)
+   文件编写格式：
+	CACHE MANIFEST
+	CACHE:
+	logo.gif
+
+	NETWORK:
+	logo.gif
+
+	FALLBACK:
+	404.html
+	其它：
+	1、CACHE: 可以省略，这种情况下将需要缓存的资源写在CACHE MANIFEST
+	2、可以指定多个CACHE: NETWORK: FALLBACK:，无顺序限制
+	3、#表示注释，只有当demo.appcache文件内容发生改变时或者手动清除缓存后，才会重新缓存。
+	4、chrome 可以通过chrome://appcache-internals/工具和离线（offline）模式来调试管理应用缓存
+		
+	更新缓存：
+	一旦文件被缓存，则浏览器会继续展示已缓存的版本，即使修改了服务器上的文件。为了确保浏览器更新缓存，	也需要更新 manifest 文件，也就意味着一旦应用被缓存，它就会保持缓存直到发生下列情况：
+	1.用户清空浏览器缓存
+	2.manifest 文件被修改（参阅下面的提示）
+	3.由程序来更新应用缓存
+	说明：更新注释行中的日期和版本号是一种使浏览器重新缓存文件的办法
+
+
+【多媒体】duration[救雷神]持续的时间
+常用方法：
+load()加载
+play()播放
+pause()暂停
+常用属性：
+currentTime 当前播放进度
+duration 视频总时长
+paused 视频播放状态
+常用事件：
+oncanplay 用户开始播放音频或视频时触发
+ontimeupdate 通过事件来报告当前播放进度（播放过程持续触发的，300ms左右）
+onended 播放完时触发重置
+
+?视频播放器案例：
+①点击播放：oncanplay事件监听视频播放，video.duration获取总时长,设置给控制栏显示
+②切换暂停：按钮注册点击事件，控制播放和暂停  （通过video.paused判断获得）
+③设进度条：timeupdate事件监听，设置正在播放时的进度条(用currentTime/video.duration的百分比设置)和时间显示(currentTime)。
+④跳播实现：进度条被点击事件，通过e.offsetX/总长度*总时长来设置给currentTime;
+⑤播放完重置：currentTime设为0，并停止播放
+⑥全屏
+============================5月25日 H5+CSS ======================
+【CSS3】
+新特性：动画、圆角、阴影、边框图片……
+现状：浏览器支持程度差，需要添加私有前缀(移动端)
+
+【CSS3新增选择器】
+属性选择器：
+E[attr]  查找有attr属性的E标签       //div[class]
+E[attr=value] 严格匹配的		//div[class=box]
+E[attr*=value] 在属性值任何位置包含  //div[class*=box]
+E[attr^=value] 在属性值开头包含 	//div[class^=box]
+E[attr$=value] 在属性值结尾包含
+
+伪类选择器：
+超链接伪类：a:link  扩展成→.a1:link  hover active visited
+E:first-child   E的父元素的第一个是E类型的子元素 (兄弟中的第一个)
+E:last-child  E的父元素的最后一个是E类型的子元素 (兄弟中的最后一个)
+★E:first-of-type E的兄弟中第一个是E类型的元素
+★E:last-of-type E的兄弟中最后一个是E类型的元素
+★★E:nth-child(n/even/odd/-n+5) 子元素中指定的元素
+★★E:nth-last-child(n/even/odd/-n+5) 子元素中最后一个元素
+★★★E:nth-of-type(n/even/odd/-n+5){ }  兄弟中指定位置的E元素
+★★★E:nth-last-of-type(n/even/odd/-n+5){ }  兄弟中指定位置(倒数)的E元素
+E:empty 查找内容为空的子元素
+E:target  点击时选中（锚链接的目标元素）//如：设置了锚链接(href="#title2")，被点击时显示样式
+
+注：n可是多种形式：nth-child(2n)、nth-child(2n+1)、nth-child(-n+5)等
+
+【伪元素选择器】
+不会生成dom树
+可以实现元素的功能
+页面结构不显示
+伪类概念：是一种固定样式，可扩展为类
+★E::after 行内元素，一般是定位使用  //无content:""浏览器不解析
+★E::before 行内元素，一般是定位使用  //无content:""浏览器不解析
+
+注：ie8及以下不支持
+
+::first-letter  选中第一个字   配合float:left,可以文字环绕效果
+::first-line  选中第一行（不会覆盖first-letter）
+::selection  获取当前选中文本，可修改颜色、背景等（不可改变它长宽结构的特性）
+
+【颜色的组成和设置】
+传统：红蓝黄
+IT：红绿蓝（Red Green Blue）  色环图
+颜色表示方式：
+1.rgba()
+2.hsla(hue色相[0-360],saturation饱和度[100%],lightness亮度[50%],alpla透明度[0-1])
+
+【shadow阴影】
+用法：
+text-shadow:X-offset Y-offset blur color;  //2px 2px 4px red;
+box-shadow:X-offset Y-offset blur color inset内阴影(默认是外阴影);  //可以添加多个
+
+【盒模型】
+用法：以边框来度量宽高，padding/margin/border变化时占用的是内容区，结构更稳定；
+boxsizing:border-box  content-box(默认)
+
+有兼容问题，要加上前缀使用：
+-moz-boxsizing:border-box //火狐浏览器
+-webkit-boxsizing:border-box  //苹果和安卓
+
+【边框圆角】
+1. border-radius:5px 5px 5px 5px //左上-右上-右下-左下（西北-东北-东南-西南）
+   border-radius:值1 值2  ////值1表示水平半径，值2表示垂直半径
+2. border-top-left(right)-radius:值1 值2  //值1表示水平半径，值2表示垂直半径  
+   border-bottom-left(right)-radius:(同上)
+
+============================5月26日 H5+CSS ======================
+linear-gradient[?l?ni?(r)]-[?gre?di?nt]直线-变化
+radial-gradient [?re?di?l] 辐射状-变化
+timing 定时
+skew 倾斜
+origin起点
+scale [ske?l]规模; 比例; 级别;
+
+重点是适配：不同屏幕，分辨率
+
+【渐变色】 
+线性渐变：
+background: linear-gradient(方向，color1 位置,color2 位置....)   //纯色显示写法：(方向，color1 0%,color1 20%,color2 20% ....) 
+方向值：to top/to right/to bottom/to left    0deg/80deg 
+位置：0%-100%
+
+径向渐变：
+background：radial-gradient(shape(形状参数 渐变大小 位置，color1 ,color2 ...))    //也可纯色显示
+形状参数(shape)：ellipse/circle
+渐变大小：closest-side最近边/farthest-side最远边/closest-corner最近角/farthest-corner最远角(默认)
+位置：at x坐标 y坐标 / at 关键字(top right bottom left)
+
+重复渐变：将指定好的范围渐变到100%
+repeating-radial-gradient(形状参数 渐变大小 位置，red 0% ,red 33.3% ,blue 33.3% blue 66.66%);
+repeating-linear-gradient(方向，red 0% ,red 33.3% ,blue 33.3% blue 66.66%);
+
+
+【background背景设置】
+background-image:url();
+background-repeat:repeat(默认样式)|no-repeat|repeat-x|repeat-y
+background-position: （left|center|right）（top|center|bottom） --默认居中
+！background: #fff url("./1.png")  no-repeat  fixed left top
+！background: 颜色 url()  重复样式  滚动或固定 x位置  y位置 （按需写）
+
+background-attachment: fixed / scroll /local跟随页面滚动，如果滚动的是元素，scroll不会跟随，local会跟随
+
+background-size:number  x y设置两个方向的具体大小
+background-size:percentage  x百分比 y百分比，参照父容器宽度，如果设置一个，会默认按第一个值缩放
+background-size:contain 背景图片等比例自动适配容器(下或右会留白)
+background-size:cover 背景图片完全适配容器（保证按比例把区域铺满，如果区域宽比例不足，自动隐藏多余的宽，反之亦然）
+★background-size:cover + background-position:center = 大尺寸图片自动适应不同大小显示区域（也就是显示图片中间的核心内容）
+
+background-origin: padding-box/border-box/content-box  //设定背景起点(从哪开始显示)
+background-clip: padding-box/border-box/content-box   //设定显示区(将其余裁剪)
+
+【边框图片】
+border-image-source:url("");  导入图片，没有slice之前会整张填充到四个角点
+border-image-slice:   要裁切的尺寸，1-4个值（加fill填充中间位置，不带单位，按上右下左规律）
+border-image-width:   设置边框宽度，带单位（一般不填，默认按border-width）
+border-image-repeat:  stretch/round/repeat直接平铺 （一般没什么用）
+
+【过渡】
+transition-property:  设置属性名称(要是可以量化的属性)
+transition-duration:  设置完成时间(单位：秒)
+transition-delay:  设置延迟的时间
+transition-timing-function: 设置速度曲线  
+----速度曲线: linear 匀速  
+              ease 慢快慢  
+              ease-in 开始时慢
+              ease-out 结束时慢
+              ease-bezier(n,n,n,n) 自定义
+
+过渡的简写：transition：属性名 总时长 延迟 时间函数
+
+【2D转换】
+2D移动?transform:translate(x,y)或translateX(x)/translateY(y)  设置要移动的位置
+      注：50%定位后，使用translate(-50% -50%)可实现水平居中
+2D缩放?transform:scale(x,y)或scaleX(x)/scaleY(y)  设置缩放的倍率(0.01)  
+2D旋转?transform:rotate(5deg)  设置旋转的角度（围绕Z轴）
+2D倾斜?transform:skew(xdeg,ydeg)或skewX()/skewY()  设置倾斜的角度
+transform-origin:x y或top right bottom left center八个方位  设置转换元素的中心点
+
+
+文本基线清除： 
+font-size:0;
+display:block;
+vertial-align:bottom;
+
+word-break:breakAll  //长文本自动换行
+
+============================5月28日 H5+CSS ======================
+【3d转换】
+3D移动?transform:translate3d(x,y,z) / translateX() translateY() translateZ()
+3D缩放?transform:scale3d(x,y,z) / scaleX() scaleY() scaleZ()
+3D旋转?transform:rotate3d(x,y,z,angle) /rotateX() rotateY() rotateZ() //xyz是原点延伸的向量值
+transform-style:preserve-3d;//显示3d效果
+定义旋转轴心)
+景深透视：
+写法1，perspective:100px
+写法2，transform:perspective(100px) rotateY(5deg)...;
+perspective-origin:x y //定义观察角度
+
+
+【动画】
+必要元素：
+a、通过@keyframes指定动画序列；自动补间动画，确定两个点，系统会自动计算中间过程。这两个点就称为关键帧。我们可以设置多个关键帧
+ b、通过百分比将动画序列分割成多个节点；
+ c、在各节点中分别定义各属性
+ d、通过animation将动画应用于相应元素；
+@keyframes testAni {
+	from { //0%表示亦可，如无代码默认使用元素原始属性 }
+	20%{ ....}
+	...
+	to {//100%表示亦可，如无代码默认使用元素原始属性}
+}
+
+
+animation-name:testAni;  //动画名
+animation-duration:2s;  //动画时长
+animation-delay:2s   //延迟时间
+
+animation-timing-function:  //时间函数(速度曲线)    steps()
+animation-iteration-count:  //执行次数   infinite:无限次
+animation-direction地里克神:  //方向设置 normal reverse  alternate   alternate-reverce
+animation-play-state:paused / running;  //动画状态控制(用在JS控制)
+animation-fill-mode: forwads保留动画结束时状态/backwards立即加载开始时状态/both开始状态+结束状态
+
+简写：
+animation:testAni 2s 0s alternate infinite steps(5)
+
+【web字体和字体图标】
+web字体：
+①下载字体，
+②在样式文件中自定义：   @font-face {font-family:"myFont".....}
+③创建样式来使用自定义字体：  .myUse {font-family:myFont}
+
+字体图标：  https://icomoon.io/app/#/select
+解决图片存在的问题：1.频繁向服务器发送请求 2.图片放大失真 3.修改和设置不方便
+①下载字体，
+②在样式文件中自定义：
+③创建样式使用字体图标： .jd_icon_字体图标名::after { content:"字体编码"}
+
+
+【文字多列布局】    
+column-count:3   //设置列数      column [?k?l?m][柯伦]纵队
+column-width:500px   //设置列宽     
+column-gap:50px    //设置列间隔   gap[g?p]缺口,间隔
+column-rule-color|style|width: //设置分割线颜色/形状/大小    rule[ru:l]规则
+column-span:none|all   //设置标题横跨行数
+
+【伸缩布局盒模型】
+css3引入的FlexBox布局，主要思想是让容器有能力让其子元素以最佳方式填充可用空间，增加灵活性。
+
+display:flex|inline-flex  将父容器设置为块级/内联级伸缩盒子
+flex-direction:定义盒子内的元素放置方向（主轴方向）
+	row --X轴从左到右(默认的) row-reverse与之相反
+	column --Y轴从上往下  column-reverse与之相反
+flex-wrap:定义盒子内元素的放置方式
+	nowrap --单行显示(默认值)
+	wrap --多行显示
+	wrap-reverce --多行显示，行的顺序从底部往上排
+flex-flow:是属性flex-direction和flex-wrap简写样式,row和nowrap是默认样式
+
+justify-content: 设置子元素在主轴方向的对齐方式
+	flex-start从开始位置排序(默认)
+	flex-end从结束位置排序
+	center从中间位置排序
+	space-between内容与主轴的start和end对齐，其它的元素之间平分间隙 between[闭签]在...之间
+	space-around在每一个元素的两边添加相等间隙
+align-items:设置元素在侧轴方向的额外空间
+	flex-start从开始位置排序(默认)
+	flex-end从结束位置排序
+	center从中间位置排序
+	stretch拉伸，如果设置了高度则失效   stretch[stret?]伸展
+	baseline:基线对齐
+
+flex-grow:定义子元素扩大比例。1正常收缩|0设定值不变(默认)。大小比例就是所设值
+flex-shrink: 定义子元素缩小比例。1正常收缩|0设定值不变(默认)。  //shrink[穿柯]收缩
+flex-basis:定义子元素长宽，额外空间会基于设置的比例做分布。
+flex:是flex-grow，flex-shrink，flex-basis三个属性的缩写。第二个和第三个参数是可选值。默认值是0 1 auto。
+
+flex精华 flex布局：
+.box{
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+.item {
+  flex-grow: <number>; /* default 0 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。 */
+}
+.item {
+  flex-shrink: <number>; /* default 1 定义了项目缩小比例，默认为1，即如果空间不足，该项目将缩小。*/
+}
+
+============================5月29日 H5+CSS案例 ======================
+布局注意事项：
+①元素定位参照中间，避免参照两侧  transform(-100%,50%)
+②定宽不定高
+【任意元素居中】
+定位→left:50%,top:50% →transform:translate(-50%,-50%)
+【携程网案例】
+1.伸缩布局：
+  行内伸缩：父元素display:flex;子元素flex:1     box-sizing:border-box
+  换行伸缩：父元素display:flex ; 子元素(4个)flex:1,width:50%
+
+【切割轮播图】
+1.结构：外box，若干li标签，每个li中定义四个面并设置成正方体，每个面插入背景图并调整尺寸
+2.逻辑：遍历li设置transition-delay为index*时间(先后顺序转动)；
+ 	计数器count++/count-- * 90deg作为旋转角度；
+	统计每次旋转所需时间，设置setTimeout延迟改变flag,保证旋转完成后进行下一次(事件函数开始时判定flag=true)
+
+【全屏插件使用】
+1.导入jq + fullpage的js文件
+2.初始化$(function(){
+		$(“#myPage”).fullpage(
+			sectionsColor:['red','blue','yellow','pink','purple'], //设置颜色键值对
+
+			afterLoad:function(anchorLink,index){
+				//清除交集选择器，当前页面再设置交集选择器，让样式生效
+				//父盒子jQ.eq(index-1)就是当前页面
+				 }
+		);  //父盒子调用fullpage方法
+	})
+   结构格式：<div id="myPage">
+    <div class="section first">
+        <h3>第一屏</h3>
+    </div>
+    <div class="section second">
+        <h3>第二屏</h3>
+    </div>
+    <div class="section">
+        <h3>第三屏</h3>
+    </div>
+    <div class="section">
+        <h3>第四屏</h3>
+    </div>
+    <section class="section">
+        <h3>第5屏</h3>
+    </section>
+</div>	
+3.在指定结构中写所需代码；在交集选择器中设置样式
+【360产品介绍案例】
+居中布局，transition过渡的灵活使用
+
+============================5月31日 网络编程和AJAX Day1======================
+【客户端和服务端】
+* 客户端：安装客户端软件，**索取服务**一方（向服务器获取）
+* 服务端：安装服务端软件，**提供服务**一方（向客户端提供）
+===客户端类型===
+- 按系统：ios端，android端，window端
+- 按设备：移动端，PC端
+- 按特性：浏览器(网页应用)，非浏览器(桌面应用)
+===服务器类型===
+-  按软件功能：
+	-文件服务器软件: Server-U、FileZilla、VsFTP等
+	-数据库服务器软件: oracle、mysql、SQL server、DB2、ACCESS等
+	-邮件服务器软件: Postfix、Sendmail等
+	-Web服务器(HTTP)软件: Apache、Nginx、IIS、Tomcat(java)、NodeJS等；
+	 http服务器主要提供文档(文本/图片/视频/音频)浏览服务;
+	 http服务器可以结合某编程语言处理业务逻辑,即服务端开发;
+	 服务端编程语言包括：php、java、.net、python、ruby等
+-  按安装操作系统：Linux服务器、Windows服务器等；
+-  按应用软件名称：Apache服务器、Nginx 服务器、IIS服务器、Tomcat服务器、
+   mysql服务器、oracle服务器、 Node服务器等；
+
+【CS/BS软件(应用)】
+   client/server 客户端+服务器，如：微信、qq等需要安装的应用程序
+   browsers/server 浏览器+服务器，如：网页地图、网页QQ、门户网站   [btaz]卜laoZ
+
+
+【IP、域名、DNS服务、端口】
+IP：网络中唯一标识；查看本机ipconfig/ifconfig(linux,mac)；查看网站ping www.baidu.com
+域名：域名是IP的另一身份(或者说是IP的面具)；相对IP，域名语义化、便于记忆
+DNS服务：
+  ---DNS:网上作为域名和IP地址相互映射的一个分布式数据库
+  ---DNS服务器：记录IP和域名对应关系的服务器
+  ---DNS寻址：浏览器根据域名，先找本机hosts文件获取IP，如果未找到，再找NDS服务器获取  //域名劫持
+端口：是计算机和外界通讯交流的窗口，每个端口对应不同的服务
+  ---查看端口占用情况：netstat -an
+  ---常见端口号：80(apache)、3306(mysql)、21(ftp)、22(ssh)
+
+【搭建web服务器】
+集成环境软件：
+phpStudy集成环境软件：{windows}+ Apache + Mysql + PHP
+  ---访问网站根目录：访问本机或127.0.0.1会打开WWW目录(index.html/index.php默认被打开)
+  ---更改网站内容：制作好的网页文件夹拷到WWW目录，浏览器访问本机IP就可以打开
+  ---多个域名网站配置：phpStudy其他选项菜单设置>设置站点域名管理（域名设置和路径设置）>打开hosts设置ip对应的域名（IP+ +域名）
+
+【php】
+?<?php 
+	header('Content-Type:text/html; charset=utf-8'); 
+	echo 'hello world!';
+ ?>
+?变量
+  $开头(声明)；
+  变量名由数字、字母、下划线组成；
+  大小写敏感；
+
+?数据类型
+ 基本数据类型：
+  字符型，整形，浮点型，布尔型，null  
+ 复杂数据类型：
+  Array:
+    索引数组：$arr = array(1,2,3);   使用print_r(arr)输出
+	遍历：
+	①foreach 遍历数组(类似javascript中的for in)  //foreach($arr as $val){ $val }
+	②for循环遍历函数   //count($arr),相当于length
+
+    关联数组：$arr = array('name'=>'jack','age'=>18);  
+	遍历：foreach($arr as $key=>$val){  } 
+  对象：
+    ①先声明类：
+	class Person { 
+	  public $name = 'jack';
+	  public $age = 18;
+	 }
+    ②用new实例化：
+	$person = new Person();
+	echo $person->age;
+  函数：
+    函数名对大小写不敏感；
+    可以设置默认参数；不可以省略参数
+
+☆主要方法：
+	echo 输出简单数据类型，如字符串、数值
+	print_r(数据); var_dump(数据); //两种输出数据的方法：
+	count(数组);   //获取数组长度或对象属性个数； 
+	in_array(值);  //值是否在数组中
+	array_push(array,value1,value2...)  将一个或多个单元（元素）压入数组的末尾（入栈）。
+	array_rand(array,number)  从数组中随机选出一个或多个元素，并返回。number可选，默认1
+	array_key_exists(key,array)  检查给定的键名或索引是否存在于数组中。
+	file_get_contents() 函数把整个文件读入一个字符串中。
+	file_put_contents()  函数把一个字符串写入文件中。
+	json_encode($arr) php转json
+	json_decode($json) json转php    
+
+	mt_rand(5, 15) //生成5-15随机数
+
+?单引号&双引号区别：单引号内部的变量不会执行双引号会执行
+
+?运算符
+  + 注意事项：只做加法运算(连接符使用".")
+
+?表单处理
+   form提交用户数据注意事项：
+   	--form的action属性，指定数据提交到哪里(哪个文件中)；
+   	--form的method属性，指定数据以什么方式提交，默认为get(此外还有post)
+		注释：HTTP GET 方法不适合大型的变量值；值是不能超过 100 个字符的。
+	--表单提交的按扭一定要是type="submit"类型,才能触发提交事件.
+   	--当上传文件时需要设置 enctype="multipart/form-data"（附件类型=多个/数据队列），而且只能post方式
+     ?get提交：<form action="log.php" method="get">...
+     ?post上传/保存文件：<form action="log.php" method="post" enctype="multipart/form-data">
+				图片:<input type="file" name="image"/>
+				<input type="submit" value="上传"></form>
+				php保存：move_uploaded_file($_FILES['image']["tmp_name"],"test.jpg") ---最后的文件名可以$_FILES['image']["name"]得到，还可以拼接存储路径
+		$_FILES["file"]["name"] - 被上传文件的名称 
+		$_FILES["file"]["type"] - 被上传文件的类型 
+		$_FILES["file"]["size"] - 被上传文件的大小，以字节计 
+		$_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称 
+		$_FILES["file"]["error"] - 由文件上传导致的错误代码 
+
+  后台接收数据：
+	--$_GET 超全局变量，专门接收get方式提交的数据，关系型数组
+	  取值：$_GET['name']；key要与input表单的name属性保持一致
+	--$_POST 超全局变量，专门接收post方式提交的数据，关系型数组
+	  取值：$_POST['name'];key要与input表单的name属性保持一致
+	--$_FILES 接收文件上传
+  
+  示例：
+html:
+<form action="05test05.php" method="post" enctype="multipart/form-data">
+    <!--<input type="text" name="uname">-->
+    <input type="file" name="image">
+    <input type="submit" value="提交">
+</form>
+php:
+<?php
+    header('Content-Type:text/html; charset=utf-8'); 
+    // 保存图片到image文件夹
+    move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
+    sleep(1);
+?>
+
+【php】
+?文件导入
+include()、require()函数可以在服务器执行PHP文件之前插入一个文件的内容,实现动态渲染。区别在于处理错误的方式不同(include(通常用于导入模块)会生成一个警告，脚本会继续执行，而require(通常用于导入数据)会生成致命错误并停止执行脚本)
+
+学习目标：
+1.浏览器和服务器
+  web服务器，提供网页浏览服务；浏览器(客户端)
+2.访问网站的请求过程
+  解析域名(hosts,DNS)成ip,找到服务器，发送请求
+3.搭建web服务器开发环境
+  phpStudy集成软件：{windows}+ Apache + Mysql + PHP
+  WWW目录放置html文件，操作界面进行网站配置、hosts设置...
+4.php基础语法
+  服务器端语言、关联数组和索引数组
+5.表单数据提交和接收
+  action='传给谁.php' method="方式get/post"
+  
+
+============================6月1日 网络编程和AJAX ======================
+【网络传输协议】
+?网络传输协议：客户端与服务器端的约定。目的：传输信息，用什么方式传
+  http/https 超文本传输协议
+  ftp 文件传输协议
+  smtp 简单邮件传输协议
+?http协议
+ 浏览器和服务器的约定，数据往返传输的规范；由“请求报文”和“响应报文”两部分组成。
+
+【AJAX编程】 Asynchronous Javascript And XML
+ ?什么是AJAX？
+  一种通信技术简称，用来实现服务器与浏览器之间异步交换数据；本质是在http协议基础上以异步的方式与服务器通信；(属于应用程序架构)
+ ?异步：
+ 什么是异步？异步程序代码执行时不会阻塞其他程序代码执行，以此提升了整体执行效率。
+ 在js中，使用XMLHttpRequest 编写异步处理程序(实现网页的部分刷新)：
+ ?XMLHttpRequest
+ XMLHttpRequest是js内置对象，提供了对HTTP协议的完全访问。是AJAX的一项关键功能。
+ API详解：
+ xhr.open()   //发起请求，可以是get、post方式
+ xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')  //设置请求头
+ xhr.send()  //发送请求主体，get方式可传null
+ xhr.onreadystatechange //监听请求响应过程状态；(每当readyState值增加的时候都会触发)。
+ xhr.readyState  //记录请求响应过程状态 4为完成
+
+ xhr.status  //响应状态码,如200  status状态
+ xhr.statusText  //响应状态信息。如：200时是OK （好像没卵用）
+ xhr.getAllResponseHeaders() //获取所有响应头信息
+ xhr.getResponseHeaders('') //获取指定头信息
+ xhr.responseText   //以普通网页字符串形式，接收响应主体   response[李斯班s]响应
+ xhr.responseXML  //以XML文档形式，接收响应主体
+ 
+
+?代码：
+ ?请求和请求报文：
+   --请求:由浏览器(客户端)发起
+   --请求报文格式：请求行、请求头、请求主体
+	**注意书写顺序**
+	```javascript
+	1. 请求行
+	xhr.open('post','01.php');
+	2. 请求头 ,get请求可以不设置
+	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	3. 请求主体 ,get请求传null 
+	xhr.send("name=xjj&age=10");
+ 	
+
+	Host：127.0.0.1             请求的主机
+	Cache-Control：max-age=0    控制缓存
+	Accept：*/*                 接受的文档MIME类型
+	User-Agent：                浏览器信息
+	Referer：                   从哪个URL跳转过来的
+	Accept-Encoding：           可接受的压缩格式
+	If-None-Match：             记录服务器响应用于控制缓存 (是由服务器自动生成的)
+	If-Modified-Since：         记录文件修改 (是由服务器自动生成的)
+	```
+
+  ?响应和响应报文：
+   --请求:服务器端发起
+   --请求报文格式：状态行、响应头、响应主体
+	1. 获取状态行（包括状态码&状态信息）
+	xhr.status 状态码
+	xhr.statusText 状态码信息
+	2. 获取响应头
+	xhr.getResponseHeader('Content-Type');
+	xhr.getAllResponseHeaders();
+	3. 响应主体   
+	xhr.responseText
+	xhr.responseXML
+
+	Date：			响应时间
+	Server：		服务器信息
+	Last-Modified：	资源最后修改时间 由服务器自动生成
+	ETag：			资源修改后生成的唯一标识由服务器自动生成
+	Content-Length：响应主体长度
+	Content-Type：	响应资源的类型	```
+	- **3、响应主体**
+	即服务端返回给客户端的内容；
+
+	> onreadystatechange：是监听整个请求响应过程(每当readyState值增加的时候都会触发)。.
+	> readyState： 记录XMLHttpRequest对象,当前的工作状态.
+	```javascript
+	0：请求未初始化（还没有调用 open()）。  
+	1：请求已经建立，但是还没有发送（还没有调用 send()）。  
+	2：请求已发送，正在处理中（通常现在可以从响应中获取内容头）。  
+	3：请求在处理中；通常响应中已有部分数据可用了，但是服务器还没有完成响应的生成。  
+	4：响应已完成；您可以获取并使用服务器的响应了。
+	/*其实我们只关心请求完成后的事*/
+	if(xhr.readyState == 4 ){
+	    console.log('响应已完成');
+	}
+
+?登录验证案例：
+ ①点击或失焦事件,请求报文:
+   /请求行xhr.open('post','.php')
+   /请求头 xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');get请求可以不设置
+   /请求主体xhr.send('uname='+uname+'&upwd='+upwd);  //格式key=value&key2=value2，get请求传null
+ ②→注册事件onreadystatechange监听响应过程状态
+    xhr.readyState==4 && xhr.status==200,就接收响应的结果
+
+?注：GET和POST请求方式的差异（面试题）
+ 1. GET没有请求主体，使用xhr.send(null)
+ 2. GET可以通过在请求URL上添加请求参数
+ 3. POST可以通过xhr.send('name=itcast&age=10')传数据
+ 4. POST需要设置content-type属性.
+ 5. GET效率更好（应用多）
+ 6. GET大小限制约4K，POST则没有限制
+
+学习目标：
+1.使用php渲染生成网页
+2.http协议组成部分
+3.开发者工具查看get和post请求报文
+4.熟悉XMLHttpRequest对象发送异步请求（案例）
+
+============================6月2日 网络编程和AJAX Day3======================
+学习目标：
+1.掌握xml和json数据的使用
+2.封装ajax函数
+【XML】
+ ?什么是XML:类似HTML的可扩展标记语言,用于传输数据,标签没有被预定义
+ ?格式规范:
+<?xml version="1.0" encoding="utf-8" ?>   //首行必须是版本信息
+<array>					  //必须有一个根元素
+    <item>				  //标签是成对的(不可数字开头)
+        <src>images/detail01.jpg</src>
+        <oldPrice>180</oldPrice>
+        <nowPrice>130</nowPrice>
+    </item>
+	....
+</array>
+ 应用:
+ php代码:<?php 
+    header('Content-Type:text/xml;charset=utf-8'); //响应内容格式是text/xml
+    $xml = file_get_contents('01.data.xml');   //读取文件
+    echo $xml;
+?>
+ js代码: var xhr = new XMLHttpRequest();
+xhr.open('get','01xml.php');  //请求行
+xhr.send(null);  //请求主体
+xhr.onreadystatechange = function(){
+	if(xhr.readyState==4 && xhr.status==200){
+		var xml = xhr.responseXML;  //获取xml格式文档
+		//DOM循环获取每个节点内容,拼接html字符串添加到表格
+	}
+}
+总结:XML虽然可以描述和传输复杂数据，但是其**解析过于复杂**并且**体积较大**，所以实现开发已经很少使用了。
+
+【JSON】
+?什么是JSON:javascript object notation,一种轻量级的文本数据交换格式;
+  不同语言有不同的解析方法(解析后操作数据) 
+	file_get_contents  php获取json文件内容
+	?json_encode($arr) php转json
+	?json_decode($json) json转php
+	?JSON.parse()     json转javascript
+	?JSON.stringify() javascript转json
+    注意: 如果要兼容老版本浏览器,可使用json2.js 文件 
+    总结：JSON体积小、解析方便且高效，在实际开发成为首选。
+?格式:
+[
+  {"src":"images/detail01.jpg","oldPrice":"10.12","newPrice":"130.00"},  //数据在名称/值对中,,使用双引号,,不能注释
+  {"src":"images/detail02.jpg","oldPrice":"1.00","newPrice":"11.00"},
+  {"src":"images/detail03.jpg","oldPrice":"100.00","newPrice":"1000.00"}  //数据由逗号分隔(最后键值对不能带逗号) 
+]
+原则:转换成当下语言的对象操作,,传输时转成JSON
+
+学习目标:
+掌握XML和JSON数据的使用 
+
+============================6月4日 网络编程和AJAX Day4======================
+【封装AJAX】
+ 步骤:
+ ①提取需要改变的部分;
+ ②利用对象优化参数; option:type/url/data/success
+ ③处理POST与GET差异;
+ ④命名空间使用,避免与其他人的函数冲突
+
+【jQuery使用AJAX】
+ $.get(url,data,callback,type)  以GET方式发起AJAX请求;
+ $.post(url,data,callback,type) 以POST方式发起AJAX请求;
+ $.ajax({ }) 自主配置方式发起AJAX请求;
+   --ajax()方法常用参数:
+	url 接口地址
+	type 请求方式
+	timeout 请求超时(如:timeout:3000,请求超过3秒就取消请求)
+	dataType 服务器返回格式(如:dataType:'json',强制把后台数据当成 json解析)
+	data 发送请求数据;
+	beforeSend:function(){//请求发起前调用 } 
+	success:function(){ //请求成功后执行 }
+	error:function(){//错误响应时执行}
+	complete(){ //响应完成时调用,无论成功与失败)}
+
+ $('#form').serialize()  表单序列化,一次性获取所有表单项的数据,格式如下:uname=111&upass=222&upass2=333
+ 				注:form要设置id,表单项要有name属性
+
+ ?服务端设置返回类型:
+	header('content-type:text/html;charset=utf-8');   //html
+	header('content-type:text/xml;charset=utf-8');   //xml
+	header('content-type:text/application/json;charset=utf-8');   //json
+
+
+【模板引擎的使用】
+  模板引擎,用来帮助我们把数据渲染成图形界面的工具.
+ ?常见的模板插件:
+   	* BaiduTemplate(百度开发) 
+	* artTemplate(腾讯开发) 
+	* velocity.js(淘宝开发) 
+	* Handlebars
+ ?artTemplate模板使用步骤:
+  1、导入模板引擎:?将下载好的ArtTemplate导入到页面中
+	<script src="./js/template.js"></script>
+  2、定义模板:
+	注意:这路的模板type='text/html'如果写成javascript会执行(js报错)
+	<script id="template" type="text/html">
+	    <h2>姓名：{{name}} </h2>
+	    <h2>年龄：{{age}}  </h2>
+	    <h2>技能：{{skill}} </h2>
+	</script>
+  3、渲染模板: 我们可以使用template(模板id,数据) 执行替换了;
+	//数据var data = {
+        name:'小明',
+        age:18,
+        skill:'快速打代码'
+	    };
+     //模板渲染数据
+     var tplstr = template('template',data); //传入ID和数据
+     document.querySelector('div').innerHTML = tplstr;
+
+?模板逻辑语法:
+ each  语法一: (在模板中定义)
+	{{each 要遍历的对象 as value index}}
+		......
+	{{/each}}
+	代码:<!--<script id="one" type="text/html">
+	    {{each arr as temp index}}
+ 	       <h3>{{temp}}</h3>  //value得到数组中的每个元素
+		<h3>{{index}}</h3>  //index是元素的索引
+ 	   {{/each}}
+		</script>-->
+	
+	语法二:
+	{{each 要遍历的对象}}
+		......
+	{{/each}}
+	代码:<script id="one" type="text/html">
+ 	   {{each arr}}
+ 	    <h3>{{$value}}</h3>   //$value得到的是数组中每个元素
+  	    <h3>{{$index}}</h3>   //$index得到的是数组中每个索引
+ 	   {{/each}}
+	</script>
+
+ if   语法:
+	{{if 条件}}
+		//执行代码;
+	{{else}}
+		//执行代码
+	{{/if}}
+
+	代码:{{ if isMan }}
+	    <h2 style="color:skyblue">男士</h2>
+	{{ else }}
+  	  <h2 style="color:hotpink">女士</h2>
+	{{/if}}
+
+
+?模板过滤器:
+ template.helper("fn",function(data,format){ return ....})
+ 使用：{{val | fn:"format"}}
+ 如果没有format {{fn(val)}}
+
+学习目标:
+掌握jquery中ajax函数的使用
+掌握模板引擎的原理及使用
+jquery+模板实现案例
+
+============================6月5日 网络编程和AJAX Day5======================
+【jQuery插件】
+ $.fn.extend(
+	getRed:function(){
+		this.css({color:"red"});  //this代表调用该对象的元素
+	}
+	//可以再添加方法
+ )(jQuery);
+ 使用时,先进入jQuery,再引入插件
+
+ 【jQuery中的jsonp】
+ jQuery中把jsonp请求技术整合到了$.ajax方法中
+  1.不用设置type属性   2.dataType要指定为jsonp
+  $.ajax({
+	url:"",
+	dataType:"jsonp",
+	success:function(data){
+		
+ 	}
+})
+beforeSend: function () {} 请求发起前调用
+ 
+【CORS】
+
+学习目标:
+瀑布流布局分析
+封装瀑布流插件
+什么是同源安全策略,影响和解决方案
+跨域请求的方式,实现原理
+完成jsonp跨域请求案例
+
+============================网络编程和AJAX======================
+需求根据后台《接口文档》实现;  接口说明/接口地址/请求方式:jsonp&cors/接口所需参数/返回数据
+
+ 接口文档
+
+
+【XHLHttpRequest2.0】
+xhr.timeout = 3000;  //超时3秒后,停止请求
+FormData对象
+FormData对象.append(name,file)  // 文件键值对(包装文件)
+
+文件上传案例:
+var myFile=input_file_ele.files[0]; //得到选中的文件
+var formData = new FormData() ;  //创建FromData对象
+formData.append("myFile",myFile); //fromData对象包装文件
+var xhr = new XMLHttpRequest();
+xhr.open("post","upload.php"); //以post方式,发给服务端 (不用请求头)
+xhr.upload.onprogress = function(e){  //ajax.upload.onprogress= function(event){} 文件上传进度
+   var progressBar = Math.floor((e.loaded/e.total)*100);//事件对象.loaded/total(已完成字节/总大小字节),取整后百分比作为进度显示
+   }
+xhr.send(formData);  //发送给服务端
+
+============================移动web开发======================
+【分辨率】
+ 屏幕尺寸:英寸,对角线测量
+ 逻辑分辨率:屏幕的宽*高
+ 设备分辨率:实际的物理像素点
+ 失真:图片放大导致,,开发使用二倍高清图来解决
+【视口】
+布局视口和理想视口都是针对移动端
+?布局视口:被手机厂商设置宽度为980px的视口;
+  原因:（手机厂商为了让移动设备可以访问旧网站-把版心宽度-980px缩放到更小的屏幕里面）
+  现象:1,视口变成980px    2,使用绝对长度单位写的元素宽和高被缩放了
+?理想视口: 要制作专门的移动web:
+ 1,不需要用到980px;
+ 2,使用绝对长度单位写的元素宽高;
+ 3,视口的宽度和屏幕的宽度一致
+ 视口标签标准写法:<meta name="viewport" content="width=device-width",initial-scale=1.0,user-scalable=no,maximum-scale=1,minimum-scale=1>
+?Idea Viewport深入讲解:
+  <li>name:告诉浏览器现在要设置什么东西 视口  viewport</li>
+  <li>content:告诉浏览器要设置视口的哪些属性</li>
+  <li>width:设置视口的宽度 device-width</li>
+  <li>initial-scale:页面打开的时候放大的倍数  </li>
+  <li>user-scalable:是否允许用户缩放页面  yes or no </li>  //uc下无视(都可以缩放)
+  <li>maximum-scale:如果允许放大的话 最大可以放大多少倍 1 </li>
+  <li>minimum-scale:如果允许放大的话，最小可以放大多少倍 1</li>
+
+?devicePixelRatio  全局属性(window下的),识别屏幕倍数  迪why-劈手-累笑
+?srcset 识别屏幕,自动显式对应的图片(路径后面+ 2x)
+<img src="images/高圆圆.png" srcset="images/科比.png 2x,images/赵丽颖.png 3x" alt="">
+
+【CSS预处理器(Less)】
+?除Less外,常用的还有sass,stylus,用法基本类似;
+安装easy less插件,或者考拉
+?变量:
+@变量名:css属性值   //@color:red;
+
+?函数:
+.函数名(@变量名:预设属性值){     //有传参就使用传参,无传参就默认是属性值
+   }
+
+?嵌套:
+.father {
+ 	.son{ 
+		>span { }
+	}
+	&:after { //注意:伪元素的正确写法}
+}
+  
+?导入less文件:
+@import "index.less";
+ 注意: 被导入的文件修改保存后,操作导入的文件也要再保存一次
+
+?注释:
+// 仅在less文件中注释
+/* */ 同时在less和css文件中注释
+
+
+============================6月10日 移动web开发 day02======================
+
+【调试】
+模拟调试:电脑上使用调试工具模拟移动设备去调试移动web(如:谷歌,火狐等浏览器)
+真机调试:电脑上使用调试工具去调试移动设备中的移动web
+  真机调试工具:
+	ghostlab 幽魂实验屋
+	vysor 屏幕投影
+	手机火狐+电脑火狐
+	手机谷歌+电脑谷歌
+	puer-weiner
+【触屏事件】
+使用触屏事件的原因:鼠标不能模拟多指触控事件;click事件在移动端存在延迟
+touchstart 手指按下屏幕时触发
+touchmove 手指在屏幕上移动时触发
+touchend 手指离开触屏时触发
+注意:
+只能用addEventListener(type,function)绑定
+触屏事件不能再pc端触发
+
+============================6月11日 移动web开发 day03======================
+【触屏事件对象属性】
+e.touches  	获取屏幕上所有触摸点的集合  (length=触摸点数量)
+e.targetTouches   获取目标元素上触摸点的集合  (length=触摸点数量)
+e.changedTouches  获取手指离开屏幕/移动时触摸点集合(相对于上一个状态发生了改变的) (length=触摸点数量)
+
+?e.touches/targetTouches/changedTouches集合中的元素有以下常用属性:
+  clientX/clientY   可视区的坐标
+  pageX/pageY   页面的坐标
+  screenX/screenY   屏幕的坐标  //有兼容问题,火狐上等于clientX/Y 
+
+【回调函数概念】
+把函数b当做参数传递到函数a中,等函数a执行完自身逻辑后调用函数b----回调函数
+
+【tap和swipe事件封装】
+ 1,判断手指的个数  touchstart事件,e.targetTouches.length !>1 ,变量存取[0]索引的.clientX/Y及startTime=Date.now();
+ 2,判断移动的距离  touchend事件,e.targetTouches.length !>1,clientX/Y的差值绝对值!>"允许偏移值"; swpie增加方向判断;
+ 3,判断按下的时间  endTime-startTime!>"允许时间值"
+
+【过渡结束监听事件】
+transitionend 过渡结束事件
+
+【移动端类库zepto】
+类似jQuery的移动端工具库,特点是模块化;
+常见的坑:
+1,xx is not function ----引入对应的模块
+2,tap点击事件 默认触发两次 ---将touch.js中100行微软新增的两个点击事件删除可解决
+3,swipe事件使用时,要给目标元素加上属性touch-action:none
+【移动端类库swiper】
+在引用zepto.js+swiper.jquery.min.js 的时候  报 xxx is not function ---要引用zepto对应模块
+
+【m.jd项目】
+注意点:
+1,a标签不可以嵌套a标签：
+2,less中像素允许写法：44px/2
+3,父元素font-size:0;子元素再设置font-size大小,可以去除空格
+4,宽一样,高成倍数的图片浮动后在缩放时高度不是完全的两倍变化(有可能发生位置偏位),可以给其中的元素清除浮动解决.
+5,bd+ 设置border属性
+6,touchstart比click快200-300ms
+7,a标签公共样式:block,宽高100%,外加div  增大响应区域
+8,实际开发中较小的特效使用原生来实现,效率更高
+--,轮播图:
+  布局:li标签前后增加一个;
+  事件:transitionend事件,过渡完成后触发;控制index
+  封装函数:goInterval()自动滚动函数; translateX( +index+ 0%);
+  基本思路:
+    // 定义轮播函数,并调用
+        // --设置显示初始图片
+        // --调用自动轮播函数(先定义函数)
+        //--transitionend事件监听索引,进行最后张或最前张的控制
+        // --滑动轮播函数
+        // 索引器同步
+  功能实现:  
+    自动轮播---setInterval(function(){},1000)定时器,index++,设置过渡属性;
+    滑动轮播---停止计时器,swipe函数判断向左/右滑动(对应索引的++或--),设置过渡属性,开启定时器
+    索引器----排他后再给自己设置active
+    注意:transitionend事件在浏览器最小化时停止监听,设置条件要加上>或<
+  
+============================6月13日 移动web开发 day04======================
+【响应式布局/开发】
+ 一套代码可以在多种设备上显示(自适应不同大小屏幕/pc和移动),并且可以提供友好的用户体验;
+媒体查询:可以根据设备不同(屏幕),去加载对应的css代码
+@media screen and (width:400px){ }
+@media screen and (max-width:500px){ }
+@media screen and (max-width:500px) and (min-width:200px){ }
+引入方式的媒体查询:
+<link rel="stylesheet" href="01.css" media="screen and (width:800px)">
+<link rel="stylesheet" href="02.css" media="screen and (width:400px)">
+
+假如我们要设定兼容 iPad 和 iphone 的视图，那么可以这样设置：
+
+
+/** iPad **/
+@media only screen and (min-width: 768px) and (max-width: 1024px) {}
+
+/** iPhone **/
+@media only screen and (min-width: 320px) and (max-width: 767px) {}
+
+    <style>
+        @media screen and (max-width: 768px) {
+            p {
+                color:red;
+            }
+        }
+        /** iPad **/
+        @media only screen and (min-width: 768px) and (max-width: 992px) {
+            p {
+                color:green;
+            }
+        }
+        /** iPhone **/
+        @media only screen and (min-width: 992px) and (max-width: 1200px) {
+            p {
+                color:skyblue;
+            }
+        }
+        @media only screen and (min-width: 1200px) {
+            p {
+                color:black;
+            }
+        }
+
+        /* 屏幕在800以上使用800的图片 */
+        @media (min-device-width:800px) { 
+            img[data-src-800px] {
+                content: attr(data-src-800px, url);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p>p标签content</p>
+    <img src="image.jpg" alt="" data-src-800px="image-800px.jpg" >
+</body>
+【bootstrap框架】
+ ?什么是bootstrap?
+ --Twitter公司开发,2011年发布;
+ --基于html,css,javascript;
+ --快速开发web应用程序和网站的前端框架;
+ --界面优雅,所占用资源小.
+?为什么选择bootstrap?
+ --移动设备优先;
+ --所有主流浏览器支持;
+ --响应式设计.
+?环境安装
+ 下载的中文地址：http://v3.bootcss.com/
+ bootstrap中文网提供免费CDN加速服务
+ 注:CDN的全称是Content Delivery Network，即内容分发网络。其基本思路是尽可能避开互联网上有可能影响数据传输速度和稳定性的瓶颈和环节，使内容传输的更快、更稳定。
+www.bootcss.com  bootstrap中文网  & 360浏览器
+www.bootcdn.cn  工具库
+?基本模板搭建:
+ 1,<head>
+    <meta charset="UTF-8">
+    <!-- 告诉IE浏览器 要以最高内核的版本去渲染页面   -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--理想视口写法-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    注:上述3个标签必须放在最前面,其他任何内容都必须紧跟其后-->
+ 2,引入bootstrap的css文件
+ <link rel="stylesheet" type="" href="./lib/css/bootstrap.min.css"><style>
+ 3, 在body底部引入jq和bootstrap的jQuery文件
+    <script src="./lib/jquery.1.12.4.js"></script> 
+    <script src="./lib/js/bootstrap.min.js"></script> 
+
+?内容:
+栅格系统:
+概念:简单说就是把所有屏幕(4种),分为了十二份,一列占据一份;
+屏幕:
+ xs 极小屏幕 小于768px   //手机
+ sm 小屏幕   768-992px   //平板电脑
+ md 普通屏幕/中等屏幕 992-1200px   //老式显示器
+ lg 大屏幕   大于1200px    //笔记本,台式机
+
+布局容器:
+ container, container-fluid(流式)
+ row
+ col-**-number  
+ 列嵌套
+ 列偏移
+
+标签页:
+ 改变自己的自定义属性
+
+轮播图:
+ data选项; js方法去设置
+
+工具提示:
+ 要加一段js代码
+ 要演示的话,最好把样式的代码写得更严格些
+
+
+============================6月14日 移动web开发 day05======================
+【微金所 案例】
+ 1,使用bootstrap
+ 2,流式布局中,文字避免使用ling-height,否则缩放时会按行高尺寸换行,溢出遮盖到下面的元素
+ 3,辅助类应用
+ 4.视口设置
+ 
+
+辅助类:
+    字体图标:network         --font查找(不显示时排查)
+浮动类:pull-left/pull-right 
+清除浮动类:clearfix
+文字水平对齐:text-center/right/left
+显示和隐藏类:show  hidden    //hidden-xs
+
+
+
+============================6月16日 移动web开发 day06======================
+ 【移动端适配】
+ 实现:媒体查询+rem做屏幕的适配&还原设计图
+   ---font-size一般设置100px,方便计算
+   ---媒体查询也可以用js实现
+   ---计算公式:
+   ---pc端滚动条占17px,移动端滚动条不占位置
+ rem:相对于root html标签的font-size像素单位
+ 工具:px转rem工具 / 标你妹
+ 点透:原因是click点击事件有延迟(比tap延迟300ms)
+      解决方案---用click代替tap  ; 用fastclick.js代替tap
+
+
+============================6月17日 Javascript高级 day01======================
+js高级重点:原型,构造函数,继承,变量名提升,闭包,沙箱模式
+string静态,不可变,开辟空间重新赋值
+==比较值,,系统会转换成值,,valueOf--toString   [].toString()-> ""   { }.toString() -> "[object Object]"
+引用类型(符合类型),值类型(基本类型)
+逻辑中断(逻辑短路)
+delete: 
+ 不能删除var声明的值;
+ 可以删除对象的自定义属性
+ 不能删除系统的内置属性,默认也不能删除通过object.defineProperty添加的属性,除非设置configurablae---configuration为true
+ 只删除数组相应索引的值
+ 有返回值true/false,但不可靠,不建议用返回值做判断
+
+[]==![] 比较步骤:
+1.先解析右边,[]为对象即存在于内存,为true,再取反得false; (变成了引用类型和布尔值的比较)
+2.左边引用类型会调用valueOf()获取返回值来比较,无法比较情况下再调用toString返回值参与比较;
+  ([].valueOf得[],无法比较,再[].toString()得到"",""==false,结果为true)
+{}==!{} 比较步骤:
+1.先解析右边,{}为对象即存在于内存,为true,取反得false;
+2.左边引用类型调用valueOf()获取返回值比较,无法比较时调用toString()返回值来比较.
+  ({}.valueOf()得空对象,再toString()得"[object Object]",==true,所以结果为false)
+ 
+msconfig 打开自动启动列表
+
+DOM方法:
+insert:document.create("div")/element.cloneNode(true/false) /appendChild()/insertBefore(ele1,ele2)/innerHTML
+delect:removeChild(ele) innerHTML
+update:innerHTML setAttribute(属性)
+select:getElementById()  getElementsByTagName(()  getElementsByClassName querySelector  querySelectorAll
+
+异常处理:try{} catch{} finaly{}
+
+调试工具:
+source(最右按钮,即第六个)定在异常行
+       断点右键--edit breakpoint,可以设置条件(直接跳到符合条件时)
+       
+面向对象:
+本质:面向过程的封装;
+对象具有的特征和行为体现: 特征=属性,行为=方法
+
+语句和表达式:表达式是语句的一部分(有返回值),语句不可能是表达式
+
+============================6月19日 Javascript高级 day02======================
+【创建对象的几种方法】
+ 字面量方式:使用字面量创建实质是调用new Object/Array/RegExp/String
+ 函数的方式:传参-new对象-return对象(工厂模式)
+ 构造函数方式: new 对象() 实例化对象
+ 
+【构造函数】
+ 定义:构造函数是用来初始化对象的
+ 特征:1,首字母大写; 2,可以传参;   3,不需手动写返回值(一般和new关键字一起使用)  
+ 执行过程:开辟内存空间→new创建对象→构造函数中的this指向了创建的对象→通过this对新增属性赋初值(初始化)→返回对象
+ 注意事项:
+  如果加了返回值:
+   ---返回基本数据类型,不会受影响;返回null,系统也默认不返回;
+   ---返回引用数据类型({},[],new Date()...),就会用返回值覆盖
+  如果当做普通函数调用:
+   ---this就是window,参数会传到window对象;
+   ---如果函数中没有return语句，则返回undefined;
+
+附加:----构造函数.的是静态成员,对象.的是实例成员
+
+【原型】-
+ 定义:构造函数在创建出来的时候,系统默认帮这个构造函数创建并关联一个空对象.这个对象就是原型.
+
+ 作用:主要用于存放公用的属性和方法(构造函数实例的对象都可访问);
+
+ 访问原型: 
+  ---通过构造函数名称.prototype获取原型. 如:Person.prototype
+  ---对象所能访问的原型,是创建这个对象时,构造函数所关联的原型;
+
+ 为原型添加属性和方法:
+  ---利用对象的动态特征,通过"类型.prototype"添加. 如: Person.prototype.address="广州"
+  ---直接为原型属性prototype赋值一个新对象. Person.prototype={ name:"susan",age:12 }
+
+ 使用原型注意事项:
+  ---1,一般只会将各个对象共享的内容成员放在原型中;
+  ---2,获取值的时候首先在对象自身找,没找到再去原型找;
+  ---3,设置值的时候,只在对象自身找,有就设置无则添加;
+  ---4,对象所能访问的原型,是创建对象的时候,构造函数原型属性指向的原型对象.
+
+ __proto__属性:非标准属性,有兼容问题,仅限开发调试时使用;
+  ---注:Person.prototype 这时Person是构造函数;   Person.__proto__ 这时Person是对象
+
+constructor属性: 指向和原型对应的构造函数;
+ 原型.constructor可以得到构造函数/对象.__proto__.constructor也能得到构造函数(前提是系统分配的原型对象,自定义的没有)
+ 一般在原型对象中定义constructor属性,记录构造函数名(规范,为了代码完整性)
+
+【面向对象三大特征】
+封装:将功能封装在对象内,向外提供访问接口;
+继承:将其他对象有的属性和方法拿过来给自己用;(这点和其他高级语言不同)
+多态:无   (其他高级语言  多态:←重写←继承←父子类 is a/can do)
+
+【继承】
+js的继承基于对象;
+继承方式:
+第一种-混入式继承,遍历a对象属性和方法赋值给b属性;
+	for( var key in a ){  b[key]=a[key]  }
+第二种-使用原型实现继承: 将属性和方法添加到原型中 (先替换,再创建对象使用)
+	for(var key in per){ a.prototype[key] = per[key] }
+第三种-混合式继承:将要继承的对象,逐个遍历,添加到原型对象中
+第四种-经典继承:Object.create(obj),有兼容性问题
+ 构造函数继承
+
+【扩展系统内置对象的成员】
+ 每个用户定义一个构造函数,构造函数原型替换成数组(就有了数组所有方法),新增属性再逐个添加到原型中
+
+【原型链】
+定义:对象都有原型,原型是一个对象,所以原型又有原型,这样就形成了一个原型链.
+属性搜索原则:当使用对象去访问一个属性或方法的时候,先在对象自身中进行查找,如果找到就直接使用;如果没找到,就沿着原型链依次向上查找,直至找到null.
+
+============================6月20日 Javascript高级 day03===========================
+【Object-原型方法】
+obj.hasOwnProperty("属性")  判断对象自身是否拥有指定的属性;
+obj.isPrototypeOf()     判断一个对象是否是指定对象的原型;
+obj.propertyIsEnumerable() 判断属性是否属于自身,同时判断是否可以遍历
+       			 //注意:使用defineProperty添加的属性不能遍历
+valueOf: 获取对象中的所有值
+time.toLocaleString: 转成本地字符串(如:时间)
+time.toString:转成字符串
+
+【歌曲列表案例】
+//实现功能:增,删,改,查
+//1.定义构造函数,存放初始资源--歌单
+//2.原型中定义共有的方法:增,删,改,查,遍历5项
+
+【Function】
+函数的构造函数就是Function,通过new来创建; Object也是通过Function创建的.
+js中所有函数的构造函数都是Function;
+用构造函数创建:
+var fn = new Function("参数1","参数2","函数体-字符串");
+拼接字符串方法:
+1.每行末尾加反斜杠"\",有兼容问题;
+2.首末加斜点`` ,es6支持;
+
+【eval函数的使用】
+eval("var num=100");  //可以将字符串当做js代码解析
+注意:
+    * 1.eval函数会将json格式的字符串的{ }当成代码块处理，造成报错;
+    * 2.可以给这个json字符串前后拼接一个(),加了()后的字符串就会被认为是一个字面量来处理了*/
+    例如:eval("("+{  }+")")
+
+【函数对象的属性】
+console.dir(fun):  获取函数的所有属性;
+arguments:  函数内部的变量,一个伪数组;函数被调用时会将所有实参存入,只有在函数被调用的时候才有值;与函数.arguments功能一样,存储内容也一样,但不是同一个对象;
+caller:  获取当前函数在哪个函数中被调用;在函数被调用时才能取到值,"函数.caller"代码要写在函数体内;
+name: 函数的名称;
+length: 形参的数量 "函数.length";
+prototype: 函数的原型;
+
+?callee, caller和arguments
+   arguments是一个Arguments对象(伪数组中存着实参), 有length和callee属性; 存在于函数中,函数调用才会存在
+   callee属性就是当前函数(即arguments所在的函数),一般在递归中arguments.callee()这样调用;
+   caller是函数的一个属性, 存储的是调用这个函数的函数(调用时才有,不调用或没在函数中调用是null)
+
+伪数组:就是加了一个length属性的对象;     var myArr={"0":"广东","1":广西,"2":"湖南",length:3 }
+
+【函数原型链】
+
+【instanceof关键字】
+instanceof:判断构造函数的protoType属性是否在对象的原型链上;
+例:
+console.log(Object instanceof Function);
+console.log(Object instanceof Object);
+console.log(Function instanceof Object);
+console.log(Function instanceof Function);
+
+============================6月22日 Javascript高级 day04===========================
+【静态成员和实例成员】
+静态成员:通过构造函数去访问的成员;  例如:Person.prototype,Person.arguments
+实例成员:通过对象访问的成员;   例如:per.hasOwnProperty , per.toString
+
+【递归】
+在函数中调用自身;要有结束条件.
+化归思想:将问题由难化易,由繁化简,由复杂化简单的过程.
+默认情况下,递归调用不能超出指定层级 (约40-50)
+
+【作用域】
+作用域:变量起作用的范围;在js中唯有函数可以定义作用域.
+词法作用域:静态作用域  js中,只会根据代码的书写结构确定变量的作用范围;(先在自己的作用域找,如果没有再到外层作用域找)
+变量名提升:
+  ?代码执行过程:预解析→执行   预解析:将关键字var和function开头的语句块提前进行处理.
+  ?变量提升:
+   ①在代码预解析阶段,js引擎会将所有的变量声明和函数声明提升到作用域最顶端;(函数在变量之前)
+   ②在两个函数同名的时候,两个函数在预解析时都进行变量名提升,但后面声明的函数会将前面的覆盖;
+   ③变量名和函数名同名时的提升,会将函数声明提升到最顶端;同名的变量会被系统忽略(因为有一个同名变量了,没有必要再创建一个undifined的变量)
+   ④表达式表达的函数不能提升/条件式函数声明时,只会提升函数名称;  test(); //test not function.  var test=function(){ }
+     条件代码中的函数也不会提升(只会把函数名当做"var 函数名=函数"去提升,,调用会提示not a function)
+   ⑤不同script标签时,函数或变量只会提升到当前script标签顶端;在后面的script中可以使用前面标签中的函数或变量.
+  ?关于this:
+   只有函数中才有this,如果在对象中使用this,获取的是undefined,最终使用的是全局变量.
+
+【作用域链】
+  ?定义:函数中嵌套函数,就形成了作用域中嵌套另一个作用域,这就是作用域链;
+  ?作用域中变量搜索原则:
+    现在当前作用域找,如果找不到就一直向上一级找,直到全局作用域.
+  ?访问规则:
+    内层作用域可以访问外层作用域的变量,但外层作用域不能直接访问内层作用域的变量.
+
+
+disable cache 清除缓存
+============================6月23日 Javascript高级 day05===========================
+【闭包】closure
+闭包,是有权访问另外一个函数作用域中变量的函数(即函数嵌套函数)
+?什么时候使用?需要有一个独自的变量(不许外部访问)的时候.
+?闭包的问题:内部对象(函数)一直被外部引用,所占用的空间不会释放.
+?闭包的作用:
+  ①保护变量---为设置变量提供专用渠道,必要时还可以增加验证逻辑代码
+  ②调整次要任务代码执行顺序---将所需执行的次要代码放在内嵌函数
+?闭包的格式:
+  function outer(){
+	function inner(){  }
+	return inner;
+  }
+注:js是单线程执行,先执行主要任务(如:变量/函数/循环),再执行次要任务(如:setTimeout)
+
+【缓存】
+缓存简称cache,数据交换的缓冲区.
+作用:就近获取数据,提升效率.  (L1→L2→内存→硬盘→服务器)
+
+============================6月25日 Javascript高级 day06===========================
+【沙箱模式】
+ 沙箱: 就是一个单独隔离的环境,安全性高.
+ 使用方法: 全局变量声明在顶部,中间写函数体,如有需要可提供外部访问的接口(如传入window)
+ 应用场景: 框架,插件,组件
+ 格式: (function(function(){ 代码 })()
+ 关于传参: 如果内容需要暴露接口到外部，才需要使用,如:window等其他自定义的参数
+ 备注：+-!~() 可将函数转成表达式
+
+【forEach和map】
+?forEach函数
+ --功能:遍历数组
+ --语法:arr.forEach(function(val,index,array){    });
+ --自定义实现: ①在Array原型中添加方法,传入一个回调函数 ②遍历this,将val,index,array当做参数传给回调函数
+ --代码:   Array.prototype. myForEach = function(callback){
+            for(var i=0;i<this.length;i++){
+                callback(this[i],i,this);
+            }
+        }
+?map函数
+ --功能:映射,一一对应的关系,数组专用,根据回调函数return内容返回一个数组
+ --语法:arr.map(function(val,index,array ){ return val*val });
+ --自定义实现:①在Array原型中添加方法,传入一个回调函数 ②遍历this,再将value,index,array传入回调函数,同时push到预定义的新数组,最后返回数组
+ --代码: Array.prototype.myMap = function(callback){
+            var result = [];
+            for(var i=0;i<this.length;i++){
+                result.push(callback(this[i],i,this)); //用户使用时要return一个值回来生成数组
+            }
+            return result;
+        }
+
+【事件绑定机制】
+思路:在EventTarget对象的原型中添加myClick函数,事件池数组=Array.prototype.slice.call(arguments),this.onclick = function(){遍历事件池的函数并调用}
+代码:	var eventArr = [];
+        EventTarget.prototype.myClick = function(callback,callback){
+            eventArr = Array.prototype.slice.call(arguments);
+            this.onclick = function(){
+                for(var i=0;i<eventArr.length;i++){
+                    eventArr[i]();
+                }
+            }
+        }
+
+【函数的四种调用模式】
+1.函数调用模式(直接调用): this是window
+2.方法调用(使用对象调用) :  this是对象
+3.构造函数调用 :this是构造函数创建的对象
+4.上下文调用: fn.call(obj,1);
+  --call(所需this指向的对象 , 参数1,参数2....)
+    转换数组应用: newArr = Array.prototype.slice.call(fakeArr);  //利用call将slice方法指向了伪数组,截取返回
+                  var max = Array.prototype.sort.call(fakeArr,function(a,b){ return a>b });  //求数组最大值
+  --apply(所需this指向的对象 , 数组|伪数组原参数)
+     转换数组应用: newArr.push.apply(newArr , fakeArr);  //复制伪数组,利用了apply能把数组拆解返回的特性
+		   newArr=Array.prototype.concat.apply(newArr,fakeArr);
+		   var max = Math.max.apply(Math,numArr);  //求数组最大值
+### 使用注意事项
+1. 当call和apply的第一个参数传入的是一个值类型的数据的时候，this指向对应的构造函数(Number,String,Boolean..)
+2. 当call和apply的第一个参数传入的是undefined或者null或者不传的时候，this指向window对象
+
+自定义mySlice方法:
+        Array.prototype.mySlice = function(start,end){
+            var s = start || 0;
+            var e = end || this.length;
+            var res = [];
+            for(var i=s;i<e;i++){
+                res.push(this[i]);
+            }
+            return res;
+        }
+
+newArr = arr.slice(); //复制数组
+arr.sort(function(a,b){ return a>b或a-b }) //从大到小排序
+
+【创建对象的模式】
+1,构造函数寄生模式
+  function Person(name){
+            var obj = {};
+            obj.name = name;
+            console.log(this);//this是Person
+            return obj;
+        }
+2,简单工厂模式
+        function createObj(name){
+            var obj = {};
+            obj.name = name;
+            console.log(this); //this是window
+            return obj;
+        }
+
+【严格模式】
+js中默认不使用严格模式,如果添加了如下语句,意味开启严格模式--
+"use strict"
+在严格模式下:
+1.变量如果没var 声明,意味着没有定义;
+2.定义相同名称的变量会报错(ES6之前); 现在是后面的将前面的覆盖
+3.形参不能重名,否则报错：Duplicate parameter name not allowed in this context
+                         error:duplicate重复的parameter参数name not allowed不允许 this context上下文中
+4.var num=010 会报错(非严格模式下按8进制处理):Octal literals are not allowed in strict mode.
+                                        error:Octal八进制literals词义are not allowed不允许in strict mode
+5.eval有自己的作用域
+6.修改系统内置对象的成员会报错(比如:Object.prototype={ })
+7.不能为值类型数据添加动态属性
+
+============================6月26日 Javascript高级 day07===========================
+【歌曲列表案例】
+ 功能:①添加歌曲 ②删除歌曲
+ 基本思路:
+ --1.定义构造函数,在原型中定义增删改查函数;
+ --2.定义render渲染函数;
+ --3.事件绑定,调用增删改查完成添加/删除的逻辑;
+
+【tab栏切换-面向对象封装】
+ 功能:①点击切换  ②自动切换
+ 使用说明:搭建好HTML结构,new一个MyTab对象即可实现; var myTab = new MyTab({tab_menu:"tab栏id",tab_main:"内容栏id",autoPlay:"true或false" })
+ 基本思路:
+ --1.构造函数MyTab中定义全局变量tabMenu、tabMain、index,并调用初始化函数; 同时在原型中定义初始化/获取元素/事件绑定/切换/自动切换函数;
+ --2.函数结构:
+     >init初始化函数: 传入所需参数,调用获取元素/事件绑定/(是否)自动切换函数;
+     >getEle获取元素函数: 根据传入的对象获取tab栏和内容栏的元素数组,并赋值给全局的tabMenu/tabMain变量;
+     >registerEvent事件绑定函数: tabMenu子元素遍历,注册onclick事件,在函数中调用切换函数;(遍历时每个子元素记录index)
+     >toggle切换函数: 遍历tabMenu和tabMain移除类名,给当前元素设置类名(形参是tabMenu当前元素);
+     >autoPlay自动切换函数: 调用setInterval计时器前存下this值,在计时器内将this.index++,调用toggle函数;(传参:_this.tabMenu[index % _this.tabMenu.length])
+ --3.沙盒模式  (function(){ ... window.MyTab=MyTab})(window)
+
+
+【注册事件封装】
+type:事件类型
+eventHandle:事件句柄,即事件触发时处理的函数
+useCapture:是否在捕获阶段触发
+基本思路: 对浏览器能力测试,返回相应的事件处理函数; (ie9以下this是不是调用者,要使用call将this指向到ele)
+	function createRegister() {
+            if (document.addEventListener) {
+                return function (ele, type, callback) {
+                    ele.addEventListener(type, callback);
+                    }
+            } else if(window.attachEvent) {
+                return function(ele,type,callback){
+                    ele.attachEvent("on"+type,function(){
+                        //ie9以下,this是window,此处使用call将this指回ele,同时要将window.event事件源传入
+                        callback.call(ele,window.event);
+                    });
+                    }
+            }else{
+                return function(ele,type,callback){
+                    ele["on"+type] = callback;
+                }
+            }
+        }
+
+
+【bootstrap自习回顾】
+ 方式1: 引入在线链接代码; (与官网同步更新)
+ 方式2: 是html5,依次引入bootstrap的css,jquery,js文件
+
+单词:
+table-striped 有条纹的
+table-condensed 紧凑,变浓,变茂盛
+active 活跃的,起作用的
+success  成功
+info  信息,提示
+danger   危险,警告
+img-thumbnail 极小的,拇指甲[ [?θ?mne?l]]
+pull-right/left  pull 拉,吸引
+horizontal 水平的[好烈阵头]
+pagination 页码,标注页码[分页栏] 
+
+============================6月28日 canvas day01======================
+pre标签:定义预格式化的文本,如:源代码
+
+【canvas】
+canvas:HTML5的新标签,又称画布,用于展示页面的绘图效果.
+应用领域:可视化数据 / 游戏 / banner广告 / 多媒体 / 未来--模拟仿真+远程操作+图形编辑
+
+【基本用法】
+?canvas标签:
+ --行内设置width和height属性;(默认300*150)
+ --在js中,canvas元素调用getContext("2d")方法,获取CanvasRenderingContext2D对象,再调用它的API进行操作
+   (又叫获取上下文,好比绘图工具箱)
+ 注:"webgl"是一种3D绘图标准，这种绘图技术标准允许把JavaScript和OpenGL ES 2.0结合在一起，通过增加OpenGL ES 2.0的一个JavaScript绑定
+?CanvasRenderingContext2D对象常用API:
+ --moveTo(x,y) 确定起点
+ --lineTo(x,y) 路径到达位置
+ --fill()      填充
+ --stroke()    描边绘制
+ --closePath() 路径闭合
+ --beginPath() 重新开始绘制
+ --clearRect(x,y,宽,高) 清除指定的矩形范围中的内容
+
+ --save()  存储上下文状态
+ --restore()  上下文恢复save()时的状态
+ --strokeRect(x,y,width,height) 绘制描边矩形
+ --fillRect(x,y,width,height) 绘制内部填充矩形
+ --rect(x,y,width,height) 创建矩形路径
+ --arc(x,y,r,startAngle,endAngle,false) 创建圆弧路径 (弧度计算方法:Math.PI/180*angle)
+ --arcTo(x1,y1,x2,y2,r)  创建圆弧路径(需要moveTo一个点,与x1y1和x2y2形成夹角,相切一个r直径的圆)
+ --fillText(txt,x,y,文本宽度)  绘制填充字体
+ --strokeText(txt,x,y,文本宽度) 绘制描边字体
+ --measureText("txt") 获取txt的显示宽度,返回一个对象,取值使用.width
+ --darwImage(img|img对象|canvas|video,x,y)  三参模式,绘制内容会100%显示
+   darwImage(img|img对象|canvas|video,x,y,w,h)  五参模式,可以改变内宽高
+   darwImage(img|img对象|canvas|video,x,y,w,h,x1,y1,w1,h1)  九参模式,截取指定的区域和大小,放到画布指定区域并设置大小
+   注意:绘制img对象时要onload完毕后绘制;
+drawImage(image, x, y)
+drawImage(image, x, y, width, height)
+drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,destX, destY, destWidth, destHeight)
+
+ --isPointInPath(x,y) 判断指定的坐标点是否进入到画布中绘制的路径,返回true(注意:只要是路径,不管闭合与否,不管是否描边都会确认)
+ ※window对象的一个方法: requestAnimationFrame(函数) 函数中调用此方法(类似递归),实现与屏幕帧严格同步来循环调用函数.
+
+ 注:非零环绕原则--从某一点连线到外面,线所穿过的线的值(顺时针1,逆时针-1)相加如果等于0就镂空,非零就填充.
+?CanvasRenderingContext2D属性:
+ --lineWidth=值  设置线宽
+ --lineCap="butt(默认)"|"round"|"square"   设置线末端类型(方形结束 | 圆角结束 | 从突出的圆角以方形结束)
+ --lineJoin="miter(默认)"|"round"|"bevel"   设置相交线的拐点(直角拐点 | 圆角拐点 | 平切拐点)
+ --getLineDash() 获得线段样式数组
+ --setLineDash([n1,n2...]) 设置线段样式
+ --lineDashOffset=值  绘制线段偏移量
+ --strokeStyle="color" 设置描边颜色
+ --fillStyle="color"  设置填充颜色
+ --font="font-style font-variant font-weight font-size font-family" 设置绘制的字体(顺序不能乱)
+   *font-variant:normal | small-caps小写变大写,并缩小显示
+ --textAlign="left|right|center|start|end"  以绘制字体时的起始坐标为基准对齐
+   *start|end:需要参照当前canvas的direction,否则无效
+ --textBaseline:"top|middle|bottom|hanging|alphabetic基线|ideogrophic"  hanging悬挂,顶对齐/top顶对齐加行高
+
+【案例】
+ 1.绘制折线图:根据用户坐标计算成显示坐标→遍历绘制点(计算后坐标存数组)→根据存数组的点绘制成线.
+ 2.运动的矩形:定时器清除和创建矩形(按照步长偏移)→控制偏移方向,判断到达边缘将step变成负值即可.
+ 3.动态饼图:计算后的数据存入数组→定时器中判断如进入下区域后beginPath、更换颜色、index++(如果等于length停止计时器) → 不停更新start角度来绘制扇形.
+ 4.小鸟游戏:面向对象编程,canvas应用(难点在旋转,重力加速度)
+
+扩展:
+echarts.baidu.com   基于canvas数据可视化插件 
+
+============================7月5日 博学谷项目 day01~day02 版本控制工具(git)和代码托管网站(github)===============================
+
+
+
+command [k??mɑ:nd]
+exists [iɡ?zists]存在
+【shell】
+什么是shell:用户和内核之间的桥梁;分命令行式(bash/sh/ksh/csh)和图形界面(windows/linux shell)两大类
+【bash】
+什么是bash: bash是GNU计划的一部分，用来替代Bourne shell。它用于基于GNU的系统如Linux. 大多数的Linux(Red Hat,Slackware,Caldera）都以bash作为缺省的shell，并且运行sh时，其实调用的是bash。
+?bash命令:
+mkdir 创建文件夹  make directory 
+touch 创建文件   touch css/base.css js/index.js---批量创建
+cd    切换目录  change directory
+ls    查看目录结构
+  ---ls -a 显示所有/ls -l 列表形式显示 /ls -a -l或ls -al 列表形式显示所有
+cat   查看文件全部内容 (在原页面带滚动条查看)
+less  查看文件全部内容(新页面满屏显示,空格键翻页,Q键退出)
+rm    删除文件
+rmdir 删除空文件夹 (rm -r //递归删除全部 rm -r -f//递归删除系统所有文件(慎用))
+mv    移动文件,等同于剪切(同时还可以改变文件名)  如:mv index.css css将index.css文件移动到css文件夹   (./移到当前)
+cp    复制文件,等同于复制(同时还可以改变文件名)  如:cp index.css css将index.css文件移动到css文件夹
+clear 清屏(内容折叠)
+reset 清屏重置(内容清空)
+echo hello world > a.txt  往文件添加内容(每次会覆盖前面)
+echo hello world >> a.txt  往文件添加内容(续写)
+
+【vi编辑器】
+什么是vi编辑器:是Linux和Unix上最基本的文本编辑器，可以执行输出、删除、查找、替换、块操作等众多文本操作，而且用户可以根据自己的需要对其进行定制，这是其他编辑程序所没有的。
+
+vi+文件名  从bash进入vi编辑器
+esc        编辑模式→命令模式
+shift+:    命令模式→底行模式
+
+?底行模式:
+:w 保存
+:q 退出
+:wq 保存+退出
+:q! 强行退出
+:e! 撤销上一步
+:set nu 设置行号
+
+?命令行模式:
+ZZ 保存并退出
+yy 复制当前行
+p  粘贴(paste)
+u  撤销上一步
+dd 删除当前行
+ctrl+f 前翻页
+ctrl+b 后翻页
+i 进入编辑模式 光标在当前
+a 进入编辑模式 光标在当前后
+A 进入编辑模式 光标在行尾
+o 进入编辑模式 在下一行开启编辑
+O 进入编辑模式 在上一行开启编辑
+
+【版本控制系统】
+本地版本控制系统  只能在本地计算机内管理版本,无法联网更新
+集中式版本控制系统  SVN TFS   解决了多人协作开发的问题(多人通过服务器进行单独开发),但过于依赖网络
+分布式版本控制系统 git(版本控制工具)
+github:一个代码托管的网站,支持git软件的命令;
+git : 分布式版本控制系统 (代码版本管理软件)
+
+【git版本管理 的基本使用】 
+?配置用户: (--global 配置当前计算机用户所有仓库 --system所有用户所有仓库)
+安装git的机器，一定要首先进行用户账户信息的配置：
+git config --global user.name "你的github用户名"
+git config --global user.email "你的github邮箱地址"
+?设置ssh公钥
+ 登陆后点击"Setting -> SSH Keys"->"New SSH key"，
+ Title处填写“id_rsa.pub”或其他任意信息。 key处粘贴ssh-add开头的一串信息（用命令cat ~/.ssh/id_rsa.pub 获取，如果获取不到，再尝试ssh-keygen -t rsa再一路按回车来生成，用ssh -T git@github.com确认，，再重新获取 ）
+?本地操作:
+git init  初始化仓库,即在当前文件夹里创建.git隐藏文件,存放历史版本
+git add -A|* 表示将本工作目录下所有文件提交到暂存区
+git rm add2.txt 删除文件
+git commit -m '日志信息'  提交信息之后的日志信息,后续可查询
+git remote -v 查看远程仓库
+git reset --hard 版本号  回到之前的某个版本
+git status   查看当前文件状态
+        >>>>文件的四种状态 :
+	1)未追踪  untracked  表示原始状态,未提交过的 
+	2)暂存区  unstage 提交到暂存区的状态   (绿色显示)
+	3)已提交  committed 表示文件已提交到仓库存储区
+	4)已修改  modifield 表示做了修改,但未提交  (红色显示)
+git log      查看版本更改的历史信息
+git log --oneline 查看版本更改的历史信息(简洁版:版本号+版本说明信息)
+git reflog   查看所有历史版本信息及操作记录
+git branch   查看所有分支 (有星号标识为显示当前)
+git branch 分支名     创建某个分支----相当于主分支副本(在主分支下操作)
+git checkout 分支名称  切换到某个分支下面
+git checkout -b 分支名称  创建&切换一步完成
+git branch -D 分支名   删除本地分支(在主分支下操作)
+git merge   分支名称   合并分支(在主分支下操作)
+   --解决冲突:合并时有可能发生冲突,需要找到文件手动修改,重新添加/提交暂存区,再合并 (提示信息:merge conflict in...  failed(失败))
+
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+        modified:   cmbti_service/controllers/exampleController.js
+——修改后并add的提示，意思是取消上一步操作，回到与版本库一致的状态
+可以使用git checkout -- <文件名>取消修改
+
+
+?远程操作
+git remote add origin "服务器地址" //origin变量就是服务器地址
+git push -u origin master   // '-u'参数将origin和master连接一起
+git branch -r #查看远程分支
+git branch -a #查看所有分支，本地和远程
+git clone <远程主机> 检出仓库
+git checkout -b <本地分支> origin/<远程分支>  将远程分支clone到本地分支（master下操作）并关联
+git pull 更新本地分支
+分支推送到远程master：git push origin <本地分支名>：master
+ git merge [name] ----将名称为[name]的分支与当前分支合并
+$ git push origin test:master         // 提交本地test分支作为远程的master分支 //好像只写这一句，远程的github就会自动创建一个test分支
+$ git push origin <本地分支>:<远程分支名>   // 提交本地test分支作为远程的test分支
+$ git pull <远程主机名> <远程分支名>:<本地分支名> 
+
+
+※实际开发步骤:
+1)每台电脑下载一份主分支;   ---git init本地初始化(建立本地仓库)→git add -A 添加到暂存区→git commit -m '' 提交仓储区
+2)再创建一个子分支进行模块开发;   ---git branch 分支名,git checkout 分支名 ,git log
+3)在子分支下修改文件,修改完后提交到仓储区
+4)切换到主分支下合并分支  ---git merge 分支名1 分支名2  
+            error: merge conflict in...  failed(失败)
+            处理冲突:手动处理,把冲突的地方统一修正后,在主分支下再提交
+注:提交时备注好描述信息,方便后续管理。
+
+Github账号:buzhiguang bu5561.. [上传的：381042434@qq.com  bu5561..]
+https://github.com/buzhiguang/buzhiguang.github.io.git
+git@github.com:buzhiguang/buzhiguang.github.io.git
+Your site is published at https://buzhiguang.github.io/
+?git服务器提交和获取(在github网站):
+git push 远程github地址 master;    ----推送文件
+git clone 远程github地址     ----下载文件(第一次时) 
+git pull 远程github地址     ----拉取文件
+
+?简化操作:
+git -am 
+https方式:
+git remote add origin "服务器地址" //origin变量就是服务器地址
+git push -u origin master   // '-u'参数将origin和master连接一起
+SSH方式:
+?将代码提交到远程仓库（SSH）
+- 1 创建SSH Key：`ssh-keygen -t rsa`
+- 2 在文件路径 `C:\用户\当前用户名\` 找到 `.ssh` 文件夹
+- 3 文件夹中有两个文件：
+    + 私钥：`id_rsa`
+    + 公钥：`id_rsa.pub`
+- 4 在 `github -> settings -> SSH and GPG keys`页面中，新创建SSH key
+- 5 粘贴 公钥 `id_rsa.pub` 内容到对应文本框中
+- 5 在github中新建仓库或者使用现在仓库，拿到`git@github.com:用户名/仓库名.git`
+- 6 此后，再次SSH方式与github“通信”，不用输入密码确认身份了
+
+?忽略上传文件
+在根目录创建.gitignore文件,在记事本中定义目录中无需上传的文件:
+/文件名.txt  ---指定文件
+/test/文件名.txt  ---某目录中指定的文件  
+/*.txt ---所有txt文件
+/*.*  ---所有文件
+
+
+?github搭建博客
+-使用github服务器的'gh-pages'分支
+```
+1 在本地工作目录使用git初始化 `git init`
+2 创建自己的博客项目
+3 将创建好的博客添加到暂存区 `git add [文件路径]`
+4 本地提交： `git commit -m "第一个博客"`
+5 创建分支：`git branch gh-pages` 分支名称固定！
+6 切换分支：`git checkout gh-pages`
+7 提交到github：`git push [github仓库地址] gh-pages`
+8 查看github中对应的仓库中，是不是提交到了 "gh-pages" 分支  
+9 访问：<github用户名>.github.io/<仓库名>/<文件名>
+10 默认会访问 index.html ``
+- 动态页面：.jsp / .php / .asp / .aspx
+
+【SSH】
+SSH是一种网络协议,用于计算机之间的加密登录;
+常见加密技术:
+ ·对称加密--加密解密使用同一个秘钥
+ ·非对称加密--需要公钥和私钥进行加密解密
+
+【本课程单词】
+shell 壳
+kernel 核心 [?k?:nl]
+hardware 硬件,装备 [?hɑ:we?]
+software 软件
+privatekey 秘钥
+publickey 公钥
+version 版本
+committed 托付,提交  [k??mid] 
+modified 改进,修正 ['m?d?fa?d]
+staged 暂时,阶段 ['ste?d??d] 
+global 全局,全球的
+branch 分支
+master 主要的,重要的
+checkout 检验,校验
+merge 合并,融合  [m?:d?]
+remote 远程的 [li毛d]
+modules 模块 ['m?d??lz] 
+git fetch 到达,抵达
+
+include 列入,涵盖
+
+
+============================7月8日 博学谷项目  实训day01===============================
+【产品开发概况】
+?开发流程:
+ 1.产品经理  确定用户需求,做出产品需要文档(prd)
+ 2.UI        PSD文件,根据需求文档产出基本的psd文件
+ 3.前端(FE)  前端开发工程 根据UI的psd文档进行页面还原,,像素级还原
+ 4.后端      后台接口开发,数据维护,向前台提供数据接口
+ 5.运维      维护服务器  项目上线的服务器维护  公司网络维护
+ 6.运营      负责项目推广和宣传,与客户沟通,根据客户要求进行后期维护
+ 7.DBA       数据库管理员,优化数据库
+ 8.测试      根据需求文档进行功能测试
+
+?开发方式:
+ 1. 后端渲染(后端直出)
+           
+	所有的数据都是来源的于后台
+          
+	由后台拼接html结构，发送给浏览器端，由浏览器渲染对应的样式
+           
+	后台是可以执行html代码的，而html代码是无法执行php代码，会将php代码给注释掉
+
+ 2. 前端渲染
+          
+	前端渲染页面结构，如果用到了数据，则会向后台发送ajax请求，请求数据，
+          
+	把请求来的数据，渲染到对应的页面中
+
+ 
+3. 混合式的开发 (主流)     
+	现在用的比较多的一种开发方式
+          
+	既有前端渲染的方式，也有后端渲染的方式
+         
+	对于每个页面当都共有的部分，可以使用后端渲染的方式
+          
+	对于 当前页面独有的部分,则是由当前页面自己来渲染
+
+【开发步骤】
+?了解网络访问原理:
+ 访问一个网址时,浏览器会优先到c:/window/System32/drivers/etc/hosts查找hosts文件,找到对应IP就请求访问;
+ 如果没找到就到附近的DNS服务器查找对应的IP(域名和IP以键值对形式存储)
+
+?需要应用到的技术:
+1.bootstrap
+2.php
+3.模块化开发思想及工具:
+  require.js
+  sea.js
+4.jQuery及其插件
+5.artTemplate
+ ---模板中的<%=%> {{ }}
+6.cookie  session 状态保持
+7.AJAX
+8.Git版本控制工具 (创建分支开发,每完成一个功能后与主分支合并)
+9.反向代理跨域请求技术
+10.插件
+   jQuery表单提交插件使用
+   bootstrap日期插件
+   模态框
+===反向代理跨域请求技术========================================
+1)先在httpd.conf 中找到这两个文件
+		
+  LoadModule proxy_module modules/mod_proxy.so      110行左右
+		
+  LoadModule proxy_http_module modules/mod_proxy_http.so   115行左右
+        
+  把这两个前面的#去掉
+2)httpd_whost.conf虚拟主机根目录下添加两行代码:
+  ProxyRequests  off    
+  ProxyPass  /api  /http://api.botue.com 
+  (设置关闭正向代理和开启反向代理)
+3)使用不同源的接口 http://studyit.com/api请求数据
+===============================================================
+===cookie和session会话机制========================================
+前因:HTTP协议具有无状态特性,客户端要面对账号密码频繁输入的恶心问题;
+对策:cookie和session的用来实现状态保持,让其可以区分不同用户,保持用户的安全登录状态;
+→cookie是以键值对存储于客户端的,用来存储账号和密码,大小在4kb左右,每次请求服务器时会自动带上cookie信息(注:不能跨域访问)
+→session是存储在服务端的,客户端与服务器之间状态保持的方式.
+php中使用session:
+调用session_start()方法→设置内容$_SESSION['uname']='张飞'→获取内容echo $_SESSION['uname']
+
+查看cookie:
+F12 application 查看cookie       ----F12 network 查看引入文件状态
+document.cookie
+==================================================================
+===模块化开发-require使用=========================================
+什么是模块化?就是一个js文件,具有某种单独功能.
+模块化优势:模块重复使用/解决变量污染/功能单一,相互独立,健壮性/项目结构层次更加清晰.
+定义模块:
+define(function(){ });     //定义模块,模块都是js文件
+模块调用:
+require(['m1.js','m2.js','m3.js'],function(r1,r2,r3){  //注:模块执行完成再执行callback,其中的形参分别是数组中模块的返回值 });
+
+※匿名模块、具名模块和非模块改造成模块※
+匿名模块:自己定义的
+具名模块:jquery等一些库   -->模块名只能使用已经定义好的
+非模块:函数、变量
+<改造代码>
+require.config({
+baseUrl:'根目录',
+paths:{ 
+	'模块名':'路径',
+	},
+shim:{
+	'bootstrap':{ deps:['jquery']},   //依赖jquery,让bootstrap也支持模块化(针对不支持模块化的)
+	'fn':{ exports:'函数、变量名'}    //可以将函数、变量改成模块化
+	},
+
+});
+
+<script data-main="js/main" src="js/require.js"></script> 
+data-main属性，它的作用是作为一个出入口，就是说在加载requireJS后，从data-main这个属性进入。
+=========================================================================================
+
+?wamp 本地服务器配置
+ ?第一步:
+ 找到C:\wamp\bin\apache\Apache2.2.21\conf\httpd.conf 文件:
+ 将Include conf/extra/httpd-vhosts.conf前面#注释去除
+
+ ?第二步:           VirtualHost虚拟主机(简写:vhosts)
+ 找到C:\wamp\bin\apache\Apache2.2.21\conf\extra\httpd-vhosts.conf文件:   
+ 在文件中配置虚拟主机:(新增以下内容)   
+ <VirtualHost *:80>
+    	
+ DocumentRoot "c:/wamp/www/bxg"      // 将启动的根目录指向此文件夹
+    	
+ ServerName jd.com
+    ServerAlias www.bxg.com
+    	
+ ErrorLog "logs/dummy-host.example.com-error.log"
+    	
+ CustomLog "logs/dummy-host.example.com-access.log" common
+	
+ </VirtualHost>
+
+ ?第三步:
+ 找到 C:\Windows\System32\drivers\etc\hosts 文件:
+ 修改hosts文件,添加域名指向
+ 如:127.0.0.1 www.bxg.com
+
+※如果使用其他盘符文件夹做根目录:
+ 1. 在C:\wamp\bin\apache\Apache2.2.21\conf 下面找到httpd.conf,修改如下内容：
+	
+ DocumentRoot "c:/wamp/www/"     这是原来的启动文件夹 原来的根目录
+	
+ DocumentRoot "d:/roots"	这是现在的启动文件夹 现在的根目录
+ 2. 
+ <Directory />
+    
+ Options FollowSymLinks
+    
+ AllowOverride None
+    
+ Order deny,allow
+    
+ #Deny from all
+	   注释掉
+ Allow from all      开启权限
+  
+ </Directory>
+
+ 3. 在207行左右，修改如下内容：
+	
+ <Directory "c:/wamp/www/">     将此行代码删除掉或是注释掉
+	
+ <Directory "d:/roots">
+	
+
+ 4. 以后所有的项目文件夹都需要放置在d:/roots文件夹下面
+4. 其它的配置同上，需要设置hosts文件中的域名和IP的映射，
+    还需要在httpd-vhosts.conf进行虚拟主机的设置
+
+?项目目录结构搭建
+ 先创建views文件夹,视图文件统一放于其中,这是源于MVC的思想(Model,views,control); 结构如下:
+views
+  |__dashboard  (仪表板,网站主入口文件)  
+  |     |__login.html
+  |     |__index.html
+  |__common     (网页共同部分的,使用php语句导入主页面)
+  |     |__aside.html
+  |     |__header.html
+  |     |__script.html   (此文件只需直接导入模块化配置文件)
+  |     |__css.html
+  |__public     (公用的资源) 
+  |     |__images
+  |     |__js
+  |     |   |__dashboard  
+  |     |   |	  |__common.js (各页面头部/侧栏功能实现 (退出 侧边栏交互 渲染侧边栏名字头像  是否跳转login...))
+
+  |     |   |	  |__login.js  (登录相关的验证功能)
+  |     |   |__teacher
+  |     |   	  |__t_list.js (讲师相关的查看/编辑/注销功能)
+  |	|__libs
+  |     |   |__config.js (模块配置文件,配置不同功能的js文件  调用初始化common.js) 
+  |     |   |__require.js   
+  |	|__uploads
+  |	|__assets  (放工具库文件) 
+  |	|__course
+  |__teacher 
+  |__user
+  |__adv
+
+?php实现简化访问
+ 1)index.php文件位于根目录,判断用户输入的内容,拼接相应字符来访问:
+    //判断 $SERVER 返回的数组是否有 PATH_INFO 这个key值
+    if(array_key_exists('PATH_INFO',$_SERVER)){
+	$path = $_SERVER['PATH_INFO'];  //赋值给$path
+	$path = substr($path,1);	//去除第一个斜杠
+	$arr =  explode('/',$path);     //从斜杠位置切割返回数组
+	if(count($arr)==1){ $path='/views/dashboard/'.$arr[0] }
+	    else if(count($arr)==2){ $path='/views/'.$arr[0].'/'.$arr[1] } 
+	}else{
+	    $path = '/views/dashboard/index';
+	}
+    include $path.'.html'; 
+ 2)去掉index.php字符访问
+  把.htaccess文件拷贝到项目的根目录下
+  到httpd.conf这里面，把LoadModule rewrite_module modules/mod_rewrite.so  116行 前面的#号去掉
+3. 重新启动服务器
+
+ 附:header("Content-type:text/html;charset=utf-8");
+
+?/views/common文件夹中定义网页共同部分html文件
+ css.html ---包括了所有css样式引入
+ script.html ---包括了所有脚本引入
+ aside.html  ---侧边栏公共html文件
+ header.html ---顶部公共html文件
+
+※使用时用php语句导入主页面  <?php include "/views/common/xxx.html"?>
+
+?建立模块化配置文件
+ /views/public/libs/require.js 
+ /views/public/libs/config.js
+ 
+?引入模块配置文件到页面
+  在/views/common/script.html公共文件中用script标签引入配置文件:
+  <script  src="/views/public/libs/require.js"></script>
+  <script src="/views/public/libs/config.js"></script>
+
+?login.js模块文件:
+ 该文件仅用于login页面,用于提交登录验证:
+ 1)账号密码发送后台,将获取到的头像和名字转成字符串存到cookie自定义属性中 
+   (目的是让同源下的所有页面可访问 $.cookie('键',JSON.stringify(data.result)))
+ 2)同时跳转到指定页面(如:首页)
+----------------------------------
+ jQuery表单提交:
+ $("form").submit( function () {    //当提交表单时，会发生 submit 事件 (type='submit')
+  return false;			   //阻止提交,阻止browser的默认行为
+ } );
+ jQuery表单序列化 表格元素:
+ $("form").serialize()   //返回字符串 ※注意添加输入框中的name属性
+ $("form").serializeArray()   //返回数组(包含对象)
+----------------------------------
+※完成后配置到config.js中,方便后续调用
+
+?common.js 模块文件:
+ 该文件作为每个页面初始化,实现以下功能:
+ 1)判断是否要跳转到login页面:
+   判断cookie如果没有PHPSESSID&&location.pathname!='login',就跳到登录页面;
+ 2)判断当前是否非login页面,如是就利用模板引擎将头像和名字渲染到aside的对应位置.
+ 3)退出功能实现:
+   退出标签注册点击事件,发送ajax请求,返回结果后退出,返回到login;
+ 4)侧边栏交互功能(点击显示子菜单)实现:
+   相应标签注册事件,点击上下拉伸显示子菜单
+    $('.navs a+ul').prev().on('click',function(){  //上一个是a相邻的ul的上一个元素
+	$(this).next().slideToggle();  //this的下一个元素, slideToggle切换元素的上拉下拉显示
+    });
+※完成后配置到config.js中,后续方便调用
+
+?讲师管理列表模块
+ 1.'讲师管理'a连接指向teacher/list.html
+ 2.样式文件引入(css aside header script.html)
+ 3.js/teacher/list.js下,异步获取列表数据,渲染到页面上
+    *模板引擎循环、if语句的使用
+    例:
+ {{each result as v i}}
+	{{if v.gender=='1'}}
+	     <td>男</td>
+	{{else}}
+	     <td>女</td>
+	{{/if}}
+  {{/each}}
+ ※渲染时注意把id存到对应的标签属性中
+
+--查看按钮,显示详细信息
+  1.动态生成的网页,要给页面的父标签委托事件   jq.on(type,'选择器',callback)
+  2.异步请求数据(发送id索取),获取数据后将数据渲染到页面上
+  3.渲染完成后弹出表格: $('#teacherModal').modal()
+
+--注销/启用按钮
+  1)在模板代码中判断返回用户数据的tc_status,是1显示注销,是0显示启用
+  2)在模块js中ajax请求,发送tc_id和tc_status,根据接收到的tc_status修改页面显示内容 (id和status要从存到标签属性取值)
+
+--编辑按钮,编辑信息
+  1)list页面中点击编辑按钮,跳转到编辑页面manager.html,并将id拼接到路径后面;
+  2)manager.html中form的内容作为模板,进行修改(模板变量、name添加、name=tc_id隐藏添加)
+	如: <input type="hidden" name="tc_id" value="{{tc_id}}">
+  3)manager.js中实现功能: (此文件嵌入manager.html)
+    a.路径后面拼接的内容切割成数组,再存入一个对象
+    b.发送tc_id给后台,并将返回的数据渲染到页面显示
+    c.点击保存按钮时,将修改后信息发送后台存储;成功后跳转到list页面
+	注:使用插件'form':'assets/jquery-form/jquery.form'
+	$(".teacher").on("click",'.btnSave',function (){
+    
+		$('form').ajaxSubmit({
+      
+			url:/api/teacher/update,
+      
+			type:'post',
+      	
+			success:function (res){
+        
+			alert('提交成功...');
+        
+			location.href='/teacher/list';//跳转到讲师列表页
+      }
+   
+		 })
+ ;   	
+			return false;
+  
+		});
+	※form插件直接从表单获取数据,不用手动获取
+	※编辑和添加都是弹出输入页面,如果有路径带了id的是编辑,反之是添加
+
+
+--添加讲师功能实现
+  1)点击添加讲师按钮跳转到编辑页面manager.html(不需拼接id了)
+  2)将模板按需渲染(比如:按钮、默认性别tc_gender、标题等)
+  3)点击添加按钮,将数据提交后台,成功了跳转到list页面
+
+--日期插件使用:
+  1)config.js中配置模块
+  'datepicker':'assets/bootstrap-datepicker/js/bootstrap-datepicker',
+  
+  'datepickerzh':'assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min'
+  2)
+   $('input[name=tc_join_date]').datepicker({
+
+	format:'yyyy/mm/dd', // 让插件按正常的年月日的格式显示
+      
+	language:'zh-CN'  // 将插件显示为汉化的状态
+    });
+~~~
+   注意datepickerzh插件不支持模块化，需要添加依赖jquery
+
+?个人中心
+ 1)点击转到settings页面
+ 2)setting.js模块中请求用户数据,渲染到页面(作为用户编辑的初始数据)
+ 3)编辑辅助操作:
+---上传图片&文件的插件uploadify: 
+    	配置文件(需依赖jQ)→
+                $('#upfile').uploadify({
+                    swf:'/views/public/assets/uploadify/uploadify.swf',   //flash文件路径(必须)
+                    uploader:'/api/uploader/avatar',   //提交路径(必须)
+                    weight:120,  //按钮宽度
+                    height:120,  //按钮高度
+                    buttonText:'', //按钮文字设置
+                    fileObjName:'tc_avatar',   //(必须)文件上传对象的名称。
+                    buttonImage:'', //按钮如果要设置图片,可以指定路径
+                    multi:false,  //设置为true可上传多个文件
+                    fileTypeExts:'*.jpg',  //指定图片格式
+                    onUploadSuccess:function (file,data,response){
+                    console.log(JSON.parse(data));
+                    //网路路径引入图片
+                    $("#img_avatar").attr('src',JSON.parse(data).result.path);
+                    }
+                });
+---日期输入插件 datepicker
+    配置datrpicker和datepickerzh插件(datepickerzh需依赖jQ)
+    	$('input[name=tc_join_date]').datepicker({
+             format:'yyyy/mm/dd',
+             language:'zh-CN'
+    	});
+
+---省市区三级联动
+    配置region插件(此插件支持模块化)
+        注:先在省市区select标签加上p c d标签
+        $('select父元素').region({
+            url:'/views/public/assets/jquery-region/region.json'
+        });
+
+---富文本编辑器ckeditor  ueditor
+   配置ckeditor插件,要进行非模块改造:
+   'ckeditor': {
+         exports:'CKEDITOR'
+     }
+   CKEDITOR.replace('文本域id',{
+      toolbarGroups : [
+            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+            { name: 'links' },
+            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
+            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] }
+          ]
+       });
+   注:表单提交前要先进行value获取:
+   $('#id').val(CKEDITOR.instances.文本域id.getData());
+
+?课程添加
+ 1)点击课程管理>课程添加 跳转到添加页面
+ 2)填写课程后,点击创建课程按钮,将cs_name发送给后台,后台返回一个cs_id,id拼接在基本信息页路径跳转
+ 3)基本信息页面basic中,通过id请求导数据渲染页面,编辑完成再提交后台,响应返回id, id拼接在课程图片页面路径后面跳转
+ 4)课程图片页面pic中,通过id请求导数据渲染页面,使用图片上传uploadify插件上传图片,上传完成后将裁切按钮恢复可用;
+   注册裁切按钮事件(判断:如果data-stutas!=save,将文字显示为保存,调用jcrop方法裁切图片,回调函数中将图片添加到指定位置
+   否则就是保存图片)
+  	$('.course-add').on('click','#jcrop',function(){
+        if($(this).attr('data-status') != 'save'){
+            $(this).attr('data-status','save');
+            $(this).text('保 存');
+
+            //对图片开始裁切
+            $('.preview img').Jcrop({
+                aspectRatio:2, //比例
+                setSelect:[22,22,300,150],  //起始位置和长宽
+                // boxWidth:400,
+            },function(){
+                // 全局变量存放裁切图对象
+                jcrop_obj = this;   //this就是裁切显示图这个对象
+                jcrop_obj.initComponent('Thumbnailer',{   //Thumbnailer显示的画布
+                    width:240,  //设置显示的宽高(根据图片视口设计的大小)
+                    height:120
+                });
+                //添加到响应的位置  .jcrop-thumb这个元素是显示裁切区域的,由插件生成
+                $('.thumb').append($('.jcrop-thumb'));
+                
+            });
+
+        }else{
+            //保存图片
+            var result = jcrop_obj.getSelection(); //返回一个包含图片信息的对象
+            $.ajax({
+                url:'/api/course/update/picture',
+                type:'post',
+                data:{
+                    cs_id:cs_id,
+                    x:result.x,
+                    y:result.y,
+                    w:result.w,
+                    h:result.h
+                },
+                success:function(d){
+                    if(d.code==200){
+                        alert('保存成功');
+                        location.href = '/course/lesson?cs_id='+cs_id;
+                        
+                    }
+                }
+            });
+        }
+ 5)课时管理:
+  1)从search获取cs_id,封装一个渲染课时列表的函数;
+  2)给"添加课时"注册事件,渲染表单,弹出模态框
+  3)给"编辑课时"按钮注册事件,根据存储在父元素的data_ctid获取数据,渲染到页面,显示模态框
+  4)给"添加"或"保存"注册事件,上传数据:
+    a.ct_is_free=Number($('').prop("checked")转换选择结果;(false=0,true=1)
+    b.模板中给form的action属性设置了提交接口的变量地址值
+
+?课程列表:
+  1)创建list.js,并定义模块
+  2)模板渲染到list页面
+
+?Echarts插件
+- 1.在js/dashboard下面新建一个index.js文件，新粘进如下代码：
+
+
+~~~javascript
+define(['echarts'],function (echarts){
+  
+// 基于准备好的dom，初始化echarts实例
+  
+var myChart = echarts.init(document.getElementById('main'));
+
+  
+// 指定图表的配置项和数据
+  
+var option = {
+    
+title: {
+      text: 'ECharts 入门示例'
+    },
+    
+tooltip: {},
+    
+legend: {
+      data:['销量']
+    },
+   
+xAxis: {
+      data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+    },
+    
+yAxis: {},
+    
+series: [{
+      
+	name: '销量',
+      
+	type: 'bar',
+      
+	data: [5, 20, 36, 10, 10, 20]
+    }]
+  
+	};
+
+  // 使用刚指定的配置项和数据显示图表。
+  
+myChart.setOption(option);
+
+})
+设置完后再首页中调用模块
+
+?NProgress用法
+- 1.在common.js中，添加下面的代码 ：
+
+
+~~~
+// 这两行代码是每个页面加载或是切换的时候，都会执行的，每个页面都会有一个进度条的效果
+    NProgress.start();
+    
+NProgress.done();
+~
+
+
+- 2.如果想让每一个ajax也有如此的效果的话，则需要 再添加两行代码 ：
+
+
+~~~javascript
+// 全局ajax事件监视，是整个页面中
+    
+// 每一次ajax请求的时候，都会有的一个进度条的效果
+    
+$(document).ajaxStart(function (){
+      NProgress.start();
+    });
+   
+$(document).ajaxStop(function (){
+      NProgress.done();
+    })
+
+
+
+
+- 3.注意一定要添加模块引入
+.....
+
+
+
+
+江湖奇侠传
+什么是ORID聚焦式会话法 (2014-08-10 23:07:28)转载▼
+标签： ＯＲＩＤ	
+       聚焦式会话（ORID）可以帮助人们一起思考任何问题，它能够帮助人们解决办公室里的争吵，开发强有力的营销策略，在朋友的生日聚会上共享感想或者讨论一场电影。聚焦式会话是一个四层次的相对简单的过程，分为四个层面的问题：
+1、数据层面（Objective）：关于事实和外部现实的问题。问题举例：你看到、听到、读到了什么？
+2、体验层面（Reflective）：立即唤起个人对数据反应等问题，是内在的反应，有时是情感或感受，隐藏的想象
+     或与事实的联想。无论何时我们遇到外部的现实（数据或客观事实），我们都在经历内在的反应。问题举
+     例：你有什么第一反应？
+3、理解层面（Interpretive）：挖掘出意义、价值、重要性和含义的问题。问题举例：从中你得到了什么启发？
+4、决定层面 （Decisional）：引出决定，使对话结束，让人们能够对未来作出决定的问题。问题举例：你能采
+     取什么行动？
+---ORID 日志
+============================= 慢慢买 项目 ============================================
+【项目内容】
+1.首页+头部底部公共模块
+2.比价搜索页面
+3.省钱控页面
+4.国内折扣页面
+5.白菜价页面
+6.海淘折扣页面
+7.优惠券页面
+8.凑单品页面
+9.商城导航页面
+10.品牌大全页面
+
+【开发要点】
+?了解需求:
+通过参照网站、psd设计稿、API文档、产品经理、设计人员熟悉各个页面的实现的功能, 操控按钮等
+?事前准备:
+接口规范: 什么风格接口
+开发计划:做成excel开发计划文档, 确定业务功能点, 负责人, 完成时间节点
+确定开发技术: 页面布局( bootstrap/flex/rem )  CSS代码( less/sass/css )  自动化工具(Gulp/webpack)   模块化( require/sea )  插件(echarts/iscroll...)   基础代码的模块化   版本管理工具(git/svn)
+?开发进行
+?项目总结
+
+【小技巧】
+?事件:
+change事件:  输入域/select选项发生改变时触发 
+input: 输入内容刷新时触发
+?url中文码:
+中文通过location.search获取会出现url中文码(乱码)  解决办法: 使用decode()函数把url中文码(乱码)转译回中文
+?html标签代码通过模板渲染到模板会自动转译:
+{{# }} 模板大括号中前面加#防转译
+
+===========================angular day01 =================================
+百度指数 index.baidu.com  关键词搜索统计数据
+
+restrict 限定;约束 
+directive指令;方针
+limit to 限制于
+【angular简介】
+?简史: 
+2009年由Misko Hevery等人创建, 基于MVC开发思想,谷歌收购至旗下,并进行维护
+诞生背景: 原生编程繁琐、复杂、多坑(兼容)
+?特点: 
+>引入后端成熟的MVC设计模式 
+>模块化开发
+>数据单向/双向绑定
+>扩展了HTML标签和属性(针对HTML标签功能单一性)
+>依赖注入
+>AngularJS不推崇DOM操作
+?版本问题:
+AngularJS 版本1.x :  当下的主流, 1.6.5发布于2017/7/3, 缺点是项目超级大的时候性能降低     --http://angularjs.org
+Angular 版本2.x :  typescript es6重写了底层, 不兼容1.x, 首个版本发布在2016/9    --http://angularjs.org
+Angular 版本4.x :  在2.x基础上进行了更新, 首个版本发布在2017/3   --http://angular.io
+
+?MVC:
+ Model: 数据模型, 用于存储数据;
+ View: 视图界面,在前端指HTML
+ Controller: 控制器, 控制业务逻辑, 制造数据模型
+
+?jqLite:
+  jqLite是jquery的一个子集,自带一些常用的方法;
+  angular.element("选择器")方法返回一个新对象,有引入jq文件就是jq对象,反之就是jqList
+
+【基本结构】
+①指定管理范围:  <body ng-app='hmApp'></body>
+②创建模块:  var app = angular.module('hmApp',[ ]);
+③创建控制器: app.controller('stuList',['$scope',function($scope){
+		$scope.name= "赵云"; //数据模型存储数据
+	}]);
+④关联视图: <div ng-controller="stuList"></div>
+⑤绑定数据:<div ng-controller="stuList">
+	 {{name}}
+	</div>
+
+【指令】
+?内置性指令:
+  ng-repeat="(key,value) in arr"  | "value in arr" 遍历数组
+  ng-repeat="(key,value) in obj" | "value in obj" 遍历对象 
+  ng-app=""  指定管控范围
+  ng-controller=""  指定与控制器关联的视图
+  ng-show="false | true | 变量 | 表达式"  控制元素是否显示 
+  ng-hide="false | true | 变量 | 表达式"  控制元素是否隐藏
+  ng-disabled ="false | true | 变量 | 表达式"  控制元素是否禁用
+  ng-checked ="false | true | 变量 | 表达式"  控制单选框是否选中
+  ng-selected ="false | true | 变量 | 表达式"  控制下拉选项是否选中
+  ng-if="false | true" 控制元素是否创建到DOM树上 
+  ng-src=""  增强路径(防止html语法报错) ---*值需要{{}}
+  ng-href=""  增强路径(防止html语法报错)
+  ng-class="{box:flag}}"  类名是否作用在元素上
+  ng-include="'页面path'"  把页面包含到当前页面位置,单引号包起来 ---服务器打开
+  ng-model="val"  指令用于表单元素,表示在$spose声明一个变量,,双向绑定
+  ng-init=""  用于初始化一些简单的数据
+  ng-switch ...ng-switch-when ...ng-switch-default
+?自定义指令:
+  调用模块对象的directive方法, 第一个参数定义指令名, 第二个回调函数中返回一个对象:
+  app.directive("myTag",function(){ 
+	return{
+		restrict:"ECMA" ;   //指定自定义指定类型,推荐"AE"  (E:元素  C:class  M:注释  A:属性)
+ 		replace:true/false;    //是否替代原标签
+		template:	"<h2>测试标题</h2>";   //模板,定义替换后的内容
+		templateUrl: 加载外部模板文件
+		link: function(scope,element,attrs){
+			//element: 当前元素, 是一个jqLite对象
+			//attrs[自定义属性名]: 拿到自定义属性的值
+		   }
+	       }
+   });
+  注意:驼峰命名法的自定义指令,在属性中使用"-"分隔书写
+
+【数据绑定】
+ ?单向绑定:
+  控制器中制造数据模型,存入数据,视图中进行绑定
+  ng-bind绑定和{{}}绑定:(效果等同)
+  <div ng-bind="data.name"></div> 
+  <div >{{data.name}}</div> 
+  闪烁问题:
+  ---原因:html代码解析时把{{}}内容当做字符解析显示,angular代码执行时将数据刷新;
+  ---对策:①ng-cloak指令,可以将元素隐藏,angular执行完再渲染(本质是缩短闪烁时间而已);
+              ②angular文件引入位置放在head标签内
+	
+?双向绑定:
+  ng-model指令用于表单元素,表示在$spose声明一个变量
+  如: <input type="text" ng-model="v">
+	<p>{{v}}</p>
+
+【事件处理】
+  格式: ng-事件类型="数据模型中的函数()";
+  如:<div ng-click="fn()"></div>
+
+【数据处理】
+? ng-repeat: 重复生成标签,遍历数组和对象
+   如:<li ng-repeat="(key,value) in arr或obj"></li>    //可得到索引&键及值
+        <li ng-repeat="val in arr或obj"></li>   //可得到值
+? ng-switch: 
+   <ul ng-switch="lesson">    //$scope.lesson = 'css';
+   	<li ng-switch-when="html">html</li>
+   	<li ng-switch-when="css">css</li>    //显示项
+   	<li ng-switch-when="js">js</li>
+   </ul>
+
+
+【案例】
+  ---tab切换:
+       视图范围内ng-switch="模型中变量",change(n){$scope.type = n},nav中调用函数传入自身对应值,子菜单中ng-switch-when="对应值"
+  ---todos记事便签:
+      1.添加任务:ng-model="taskName"双向绑定,触发事件创建对象(id,name,isFinish),存入数组
+      2.完成状态切换: 
+
+===========================angular day02 =========================
+【模块】
+模块的作用:  保持全局命名空间的清洁 / 代码复用
+使用: 主从模块,相互依赖
+ var app = angular.module("模块名(功能)",["要依赖的模块"]);
+【作用域】
+ ?是什么?
+ 作用域是和数据模型相关联的, $scope对象是定义应用业务逻辑,控制器方法和视图属性的地方
+ 是视图和控制器之间的胶水!
+ ?访问原则?
+ 子作用域中可以访问父作用域中的数据;
+ 本作用域查找→父作用域查找→$rootScope查找, 如果找不到则视图不更新( 程序是不会中断的 );
+ 父级子级作用域相互独立又相互联系
+ 根作用域: $rootScope是所有对象的最上层,是最接近全局作用域的对象
+ ?能做什么?
+ 侦探兵,数据一旦变化了就通知整个应用;
+ 提供数据存放的环境;(函数定义,运算等)
+
+ ?生命周期:
+ 出生: 创建控制器时,自动用$injector创建一个新的作用域     // app.controller("ctrl",["$scope",function($scope){} ])
+ 建立关系: 运行时,所有$scope对象会连接视图,并注册上下文发生变化时执行的函数($watch函数)
+ 变化更新:循环执行脏值检测,有变化时就触发指定注册的回调函数
+ 死亡: 在视图不再需要它的时候,angular会自动清理 (本质是用$scope的$destory()方法清理)
+※注: 只有ng-controller和ng-repeat指令是有自己作用域的
+
+【控制器】
+ ? 是什么?
+  可以将一个独立视图相关的业务逻辑封装在一个独立的容器(模块)中,通过依赖注入来实现服务的访问;
+  是作用域和视图之间的桥梁
+  
+ 创建控制器: 创建的同时
+
+【过滤器】 
+  内置过滤器:
+  {{time | date:"yyyy年MM月dd日 HH点mm分ss秒"}}
+  {{money|currency:"￥":1}}  --人民币,四舍五入保留一位
+  {{char | uppercase}}
+  {{char | lowercase}}
+  {{arr | limitTo:n}}  从两端截取数组或字符串
+  {{num | number:2}} 保留两位小数
+  {{person | json}} 对象显示成json字符串
+  {{students | orderBy:"age":true}} 对象数组以age做降序排列(默认升序)
+  {{numArr | orderBy: null :true}}  基本数据数组降序排列(默认升序)
+  {{students | filter:{age:20} }} 找出age=20的对象
+
+  自定义过滤器:
+  {{arr | subFilter:2:3}}    //视图中使用
+  代码: app.fliter("subFilter",function(){
+         return function(scope,index,count){
+	return scope.slice(index,index+count);
+	}
+   });
+
+【依赖注入】
+ 什么是依赖: A需要在B功能的基础上才能实现自己的功能, 即A依赖B;
+ 行内式注入: 数组内写明依赖的模块,与回调函数形参一一对应
+ --app.controller("myCtrl",["$scope","$log",function($scope,$log){  }]);
+  ※推荐使用行内式, 具有可读性,确保代码完美压缩
+  推断式注入: 在函数中传入模块名,由angular根据形参判断使用什么模块
+ --app.controller(function($scope,$log){ }) 
+
+【内置服务】
+? $log:
+ $log.error("打印错误信息");
+ $log.debug("debug信息");
+ $log.info("info信息");
+ $log.log("正常打印日志");
+ $log.warn("打印警告信息")
+?$timeout:
+   $timeout(function(){},1000);
+?$interval:
+   var clearId = $interval(function(){},1000);   
+   $interval.cancel(clearId);
+?$filter: 
+   var currency = $filter("date");  //返回的是函数
+   var data = currency(45.67,"￥",1);  
+   ※$filter和filter: $filter服务用于控制器内,filter过滤器用于视图中
+?$http: 
+  get请求代码:
+  $http({
+	url:"",
+	method:"get",
+	params:{ name=zs,age=22  }
+  }).then(function(res){ //成功时执行 }).catch(function(){ //失败时执行 });
+  post请求代码:
+  $http({
+  	url:"",
+ 	method:"post",   //默认是get
+	data:"name=zs&age=22"  ,
+	header:{ "Content-Type":"application/x-www-form-urlencoded"}
+   }).then(function(res.data){ //成功时执行 },function(){ //失败时执行 }); 
+
+  ·AJAX加强:
+  AJAX中get提交的数据是Query String格式. (唯一可以提交的格式)
+  AJAX中post提交的数据是Request Payload格式, 这种格式服务器一般不接收, 只接收Form Data的
+  转换Form Data格式: xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+  ·jsonp跨域加强:
+   由于浏览器的同源策略,ajax不支持跨域请求(协议,域名,端口)
+   实现:
+	function get(d){  }   //定义一个函数,函数体中进行数据d处理
+	<script src="http://baidu.com?callback=get"></scriprt>   //带上需要的参数连接服务器
+   	服务端配合返回  echo get."(".data数据.")";
+	浏览器运行 get(data数据),实际上时调用了函数,因此就获取到了数据完成了处理
+
+ ?$rootScope
+    用于设置根作用域;  ($scope是某视图区的作用域)
+ ?$route
+   $route.updateParams({参数:值})  :修改地址栏参数  (jquery String格式)
+ ?$routeParams
+   $routeParams.page //获取地址栏中的参数
+ ?$scope
+$scope.$apply();//告诉视图 数据模型发生了变化 需要刷新视图.
+===========================angular day03 =========================
+【自定义服务】
+?使用factory方法: 
+ app.factory("myServer",["$http",function($http){  //必要时注入其他服务
+	return  {
+	 	fn1:function(){} 
+
+	}
+  }]);
+?使用service方法:
+ app.service("myService",["$log",function($log){  //必要时注入其他服务
+	this.fn1 = function(){  }
+}]);
+
+ 在控制器, 注入服务时就会执;
+ 注:$scope只能在控制器中使用,自定义服务无需依赖
+
+【配置块】
+  在ng执行流程中的"配置和运行"流程,允许对模块进行自定义的配置;
+  具体步骤: 模块对象调用config方法,参数是一个数组, 传入相应服务的Provider和一个回调函数(回调函数注入模块),函数内由服务Provider调用方法配置
+  注: 每一个服务对应一个Provider,如:$httpProvider, $logProvider....
+ app.config(["$logProvider" , function( $logProvider ){
+	$logProvider.debugEnabled(false);  //让$log服务的debug方法失效
+ }]);
+  
+
+【运行块】【$rootScope服务】
+  模块服务除了以注入方式来使用之外,还可以独立运行(不依赖于控制器); 
+  具体步骤: 模块对象调用run方法,参数是一个数组, 传入要运行的模块,加上一个回调函数
+ app.run(["$rootScope",function(){
+	$rootScope.name = "jack";  //运行块设置rootScope,设置根作用域数据
+ }]);
+ ※回调函数中的代码在"配置运行阶段执行",常用的模块有$http,$rootScope,$log...
+
+【SPA单页应用程序】
+  ?SPA: 在一个页面集成多种功能,通过局部刷新技术实现功能切换;
+  ?基本实现方案:
+  按钮设置锚链接→监听锚链接跳转→根据锚点请求不同的功能做展示
+  onhashchange事件监听锚点变化触发
+  根据锚点hash值,ajax请求数据渲染页面
+  ?SPA优点和缺点:
+  优点: 无跳转闪屏,体验比传统网站更好
+  缺点: 内容是独立的,SEO爬虫无法识别spa的内容
+
+【路由】
+ angular中的路由对锚点变化实现切换视图原理进行了封装; (1.2版本后的路由功能与核心文件分开了)
+  ? 配置步骤:
+ 1.引入angular-route路由模块文件;
+ 2.新建模块时依赖"ngRoute"模块;   
+    var app = angular.module("hmApp",["ngRoute"]);
+ 3.锚点格式修改<li><a href="#!/my">我的音乐</a></li>  
+ 4.通过配置$routeProvider来进行路由的设定:
+    显示区确定ng-view指令
+    ①templateUrl: ""
+    ②template:"<p></p>"
+    ③redirectTo: 路由跳转(直接到指定配置页)
+    ④controller:指定与请求回来的视图所关联的控制器
+    如: app.config(["$routeProvider",fucntion($routeProvider){
+	$routeProvider.when("/my ",{ 
+		templateUrl:"/music/my.html"
+	 }).when("/",{
+		templateUrl:"/music/home/html"      //如果为空锚点,也指定一个页面
+	}).otherwise({ 
+		// template:"<h2>404,你点击的网页飞到火星去了</h2>"
+		redirectTo:"/home"    //跳到/home路由
+		controller:"控制器名称"  //与控制器关联
+	});
+   }]);
+
+  ? 路由前置符号的配置:
+  ①默认情况要以#!开头;(谷歌搜索爬网站时按此为标记进去收录内容)
+  ②前置符号!的修改:
+   app.config(["$locationProvider",function($locationProvider){ 
+	$locationProvider.hashPrefix("@");  //前置替换成@
+   }]);
+
+  ? 带参数路由:
+   路由跳转时后面可带QueryString类型参数: #/home?name=jack
+   加这个参数目的是在与视图关联的控制器中获取,进行数据操作
+
+  路由匹配的方法:
+	路由			可匹配
+  "#!/home?name=jack&age=22"	"/home"
+  "#!/home/:name/:age"		"/home/jack/22"
+  "#!/home/:name?/:age?"		"/home"  或  "/home/jack/22"
+  
+【npm命令和cnpm】
+--save  -S | --save 项目用
+--dev -D |--dev 开发用
+npm install express      # 本地安装
+npm install express -g   # 全局安装
+npm install express --save     # 项目用
+npm install express --dev     # 开发用
+npm uninstall webpack --save-dev 卸载模块
+运行时需要用到的包使用--save，否则使用--save-dev
+npm install gulp --save-dev 或 npm install gulp -D  安装包信息将加入到devDependencies（开发阶段的依赖），开发阶段一般使用它
+
+===========================angular day04  =========================
+【moviecat】
+ 豆瓣电影项目总结:
+ 1.建基本目录
+   ---node_modules  放置npm下载的插件
+   ---src > index.html /app.js/模块文件夹/自定义服务文件夹/assets下>js,css,img
+ 2.npm下载所需插件 angular,angular-route
+    ---cd切换到目录,→npm init初始化→npm install 插件名@x.y.z --save
+ 3.按照页面功能,分模块
+    主模块app: 与ng-app值一致的,一个页面有且只能有一个主模块
+    从模块包括"热映、top250等"
+ 4.主模块创建,依赖从模块(前提是引入从模块)
+ 5.控制器中处理数据: (需要操作数据的视图一定要在路由配置中关联控制器)
+    ---$route.updateParams({参数:值 })  //修改或设定地址栏的值(jquery string格式)
+    ---$routeParams.参数  //获取参数值,需要路由定义才能使用  
+    ---在自定义服务中,数据模型数据改变后要$scope.$apply()方法,通知视图刷新页面
+    ---$window.location.hash  获取或设置的是?后面的所有值
+ 6.自定义服务jsonp
+ 7.指令使用:
+   ---ng-class={类名: 表达式}   //控制样式
+   ---ng-hide="{{}}"      //控制隐藏和显示
+   ---ng-click="fn(参数--)"  //点击+参数的递增或递减直接指令完成
+
+===========================angular day05  ================
+【Gulp构建工具】
+ ?常见构建:Grunt , Gulp , FIS_3 , webpack
+ ?Gulp安装:
+  1)全局安装       
+	> npm install gulp -g
+  2)项目目录安装   
+	>(切换到项目目录)npm install gulp --save
+
+  3)项目根目录建一个gulpfile.js文件
+  4)引入本地的require模块
+	>var gulp = require("gulp");   
+  5)创建任务和执行任务
+	>创建: gulp.task("任务名",function(){   })
+	>DOS调用: gulp 任务名
+  6)压缩css
+	gulp.task("yscss",function(){
+		gulp.src("./css/base.css")
+		.pipe(cssmin)
+	})
+ Gulp使用:
+ 创建任务:
+ var gulp = require("gulp")   //引入模块
+ var cssmin = require("gulp-cssmin")
+ gulp.task("yasuoCSS",function(){
+	gulp.src(" ")
+	//下载css压缩插件 gulp-cssmin
+	gulp.pipe(cssmin())
+	gulp.pipe
+	gulp.pipe(gulp.dest("./dest"))
+})
+
+gulp.task("ysjs",function(){
+	gulp.src("")
+	//下载js压缩插件gulp-uglify  --save
+	.pipe(uflify())
+	.pipe(gulp.dest("./dest"))
+})
+
+gulp.task("yshtml",function(){
+	gulp.src("")
+	//下载压缩插件gulp-htmlmin  --save
+	.pipe(htmlmin())
+	.pipe(gulp.dest("./dest"))
+})
+
+gulp.task("ysimage",function(){
+	gulp.src("")
+	//下载压缩插件gulp-imagemin  --save
+	.pipe(htmlmin("./image/*.*"))
+	.pipe(gulp.dest("./dest"))
+})
+合并文件:
+ 通配写法: /src/*.js
+	["./src/*/*.js","!./"]
+gulp.task("concat",function(){
+	gulp.src([
+	"./js.js"
+	]);
+	.pipe(concat("合成文件名")).pipe(gulp.dest("./dest"))
+	//下载gulp-concat --save
+})
+
+
+ 执行任务:
+cmd中,切换到项目根目录,使用命令:gulp 任务名
+
+监视文件变化:
+gulp.task("watchcss",function(){ 
+	gulp.watch("监视的文件路径");
+})
+
+
+
+【Bower和npm】
+bower是前端插件超市,npm是专注前后台插件
+bower 从github下载,基于git
+安装bower:
+	>npm install  bower -g
+	>卸载 uninstall
+使用:
+切换到项目目录
+bower  init  ,生成bower.json
+下载: bower install 插件名   (依赖的库会一起下载)
+  
+【Browser-sync】
+ 主要功能: 代码发生改变后,浏览器自动刷新,用来进行浏览器兼容性测试
+ 安装: npm install browser-sync -g  //`-dev`参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.
+ 使用: 在项目文件夹执行 browser-sync start --server -files "监控的文件名"
+
+【hexo】 博客搭建工具  https://hexo.io
+ 安装hexo环境:
+ 1)npm install hexo-cli -g    //cli --commandline 命令行  ,  gui --图形界面
+ 2)hexo init myblog   //在当前目录创建文件夹,并下载初始化文件
+ 3)cd myblog
+ 4)hexo server  打开提示的网页地址即可
+发表文章:
+ hexo new 文章名
+* 会生出一个.md文件
+* 在这个文件中编辑.md文件. 该md文件的内容就是发布的博客.
+* 重新启动`hexo s` 打开网页就可以看到新发表的文章.
+主题安装:
+ next主题官网: [点击跳转](http://theme-next.iissnan.com/)
+ 下载最新版本→解压到博客的themes目录, 改名字为next→目录下的_config.yml文件配置:修改thems:1配置项为next
+  →重启服务
+主题配置:
+ 打开scheme文档
+5. 部署到github
+* github pages
+* 基于项目:
+  * 在github上创建仓库.
+  * 本地项目创建仓储.
+  * 新建分支 gh-pages
+    * 创建没有父节点的分支
+    * git checkout --orphan gh-pages
+  * 并在分支提交到github上的gh-pages分支.
+  * setting查看网址.
+* 基于用户的
+## 6. 部署博客
+* hexo g
+* hexo d
+## 7. 建目录
+* hexo new page photo
+#  以项目的方式将我们的网站部署到github上去.
+*   在github上面创建1个远程的仓库
+*   初始化本地网站目录为一个本地的git仓库
+  *   `git init`
+* 在本地创建分支 名字为gh-pages
+  * **git checkout --orphan gh-pages**
+* 然后在这个分支中,提交代码.
+* 将本地仓库中的代码提交到git远程仓库的 gh-pages分支.
+※部署到github   以用户形式和项目形式
+
+===========================nodejs 01 ES6  =======================
+【ES6语法(ES2015)】
+  ECMAScript2015,乳名ES6
+
+【let和const】
+  ?两者使用场景: 防止变量污染, 帮助预防潜在错误
+  ?两者区别:
+  let :新的变量定义方式,用于替代var关键字定义变量
+    特点: 
+	1.不允许重复声明
+	2.块级作用域
+	3.存在暂时性死区(没有预解析(初始化不赋值,var是赋值undefined的)
+  const :与let不同的是,其只用于定义常量,且定义时必须赋值,且不允许修改
+
+【解构赋值】
+  使用场景:
+  ?数组解构:
+	let [ a , [b1 ,  , b3 ], c , d=40 ] = [10,[21,22,23],30]
+  ?对象解构:
+	let { a:aaa , b , c } = { a:10 , b:20 , c:30 }
+	let { , b:[b1,b2,b3] , c:{ name , age} } = { a:100 , b:[1 , 2 , 3] , c:{name:"zs" , age : 22 } }
+	
+	let obj={a:10,b:20,c:{c1:31,c2:32,c3:33}}
+
+	
+let {b,a:"aaa",c:{c2}}=obj;
+【字符串定义方式】
+  ``定义字符串:  换行了也是可以定义字符串的   
+	 `abcd
+	efg`
+  ${}: 模板方式 : 可以直接使用变量,调函数,做运算
+	let year = 2017;
+	`今年是${year}年,距离2050年还有${2050+year}年`
+
+【...三点运算符】
+  用于拆解数组和合并数组(会自动判断,是数组就拆,是基本数据就合并)
+  ?应用场景:
+        function getSum(...n){  //把传入值合并成数组
+            let sum = 0;
+            n.forEach(function(val,index,arr){
+                sum+=val;
+            });
+            return sum;
+        }
+        let arr = [ 11 , 2 , 3 , 4 , 5 ];
+	//解开数组/伪数组
+       let min = Math.min(...arr);  或let min1 = Math.min.apply(null,arr);
+
+【函数】 形参=>代码体
+ ?箭头函数:
+无参数: ()=>{ //函数体 }
+ 一个参数:  a=>{ //函数体 }
+两个参数:  (a,b)=>{ /函数体 }
+ 其特点: 
+函数体一句代码可以不用大括号,会自动返回
+this总是指向调用该函数的对象
+不能作为构造函数使用
+不能使用arguments, 可使用...num        
+ ? 设置默认值:
+  function fn(a=10,b=10){ }
+  fn();  //调用时没有传参就是默认值10
+ ? 参数解构赋值:
+  function fn({a,b}){  }
+  fn({ a:10 , b:20 });
+
+【对象】
+1.可以引用变量生成属性
+   var a=10,b=20;
+   var obj = {a,b}
+2.可以简写对象中的函数
+   var obj = {
+	fn1:function(){ },
+	fn2(){ //函数体};
+   }
+3.可以使用变量起属性名
+   let attrName = "name";
+   obj2 = {
+	[attrName]: "玄烨"
+   }
+
+【类】
+ class Person{
+	//构造器
+	constructor(name,age){
+	     this.name = name;
+	     this.age = age;
+ 	};
+	//方法
+	run(){
+	     console.log("行走")
+	};
+ }
+【继承】
+ class Person extends Animal{
+	constructor(name,age,gender){
+		super(name,age);   //使用super关键字
+		this.gender = gender;
+	};
+  }
+
+【filter()方法】
+  作用是过滤数据(数组形式)
+  例:
+  var arr = [5,5,6,1,4,0,7];
+  arr = arr.filter(function( val ){ return val%2==0 });  //将数组中偶数返回
+  arr = arr.filter( val =>{ return val%2==0 } );  //将数组中偶数返回
+【Set和Map 数据结构】
+Set类似数组，值是唯一的,遍历顺序是先进先出
+ const s = new Set(); 
+ const ss = new Set([2,2,3,4,5,5]); // {2,3,4,5}
+ ss.size; //4
+ ss.add("9")
+ ss.delete() //删除某个值，返回一个布尔值，表示删除是否成功。
+add(value)：添加某个值，返回 Set 结构本身。
+delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+has(value)：返回一个布尔值，表示该值是否为Set的成员。
+clear()：清除所有成员，没有返回值
+
+Map 类似对象，键可以是一个函数或对象，顺序是先进先出
+set(key) get(key) delete(key) has(key)
+===========================nodejs 02   =======================
+  【nodeJs】
+ ?可以做什么?
+  开发网站服务器,类似apache
+  开发web应用,api接口
+  开发cli工具(如:构建工具)
+
+  ?操作
+  方式1:
+  进入cmd: 输入node,,直接可以输js代码运行
+  退出node:两次Ctrl+C  或输入“.exit”回车
+  方式2:
+  node +js文件名
+  ?启动一个http服务:
+   require("http").createServer(处理回调).listen(端口,域名,回调);
+ 【nodeJs基本格式】
+   'use strict';   //严格模式下
+   let responseData = [{id: 1, name: '法拉利', time: '2013'}, {id: 2, name: '玛莎拉蒂', time: '2015'}];
+   const http = require("http");    //http是node内置模块
+   const url = require("url");
+   //创建服务器对象
+   let server=http.createServer( function( request,response ){    //node的api基于事件,所以执行的代码要放在回调中
+	//解决编码和跨域问题
+	response.writeHead(200,{
+        	"Content-Type":"application/json;charset=utf-8",
+        	"Access-Control-Allow-Origin":"*",   //任何可访问
+        	"Access-Control-Allow-Methods":"*"    //任何方法可请求
+    	});
+    	response.write(JSON.stringify(responseData));
+	response.end();    //写上结束语句
+   });
+   //服务器对象的listen方法等同于xhr的send(),调用后才会开启服务,监听对应端口号
+  server.listen('8888',()=>console.log("服务器启动"));
+   
+  ? 新知识点:
+  ①编码与解码:
+  	解码: decodeURIComponent("%E5%BE%B7%E6%84%8F%E5%BF%97");  >>转成"德意志"
+   	编码: encodeURIComponent("德意志");  >>"%E5%BE%B7%E6%84%8F%E5%BF%97"
+  ②request.url 获取服务器地址后面所有内容    比如:http://aa.com/add/a?name=zs 中的"/add/a?name=zs"   -----用于post请求,或者不带参数的get请求
+  ③request.url.pathname.startsWith("/add")  判断url中前面部分是否是"/add"   ----用于带参数的get请求
+     request.url.pathname.endsWith("/a")  判断url中前面部分是否是"/a"  
+  ④request.method 获取请求方式    比如:"POST"或"GET"
+  ⑤url.parse(request.url,true) 将request.url信息转成对象  ----用于带参数的get请求   
+     如:得到http://aa.com/add?a=1&b=2中的{query:{a:1,b:2}，pathname:add} 等信息
+  ⑥	let data;
+	request.on("data",chunk=>data+=chunk);
+	request.on("end",()=>{
+		//data  ---"name=zs"或者"name=zs&age=22&gender=1"  ,根据实际进行切割操作
+	})
+
+【npm和cnpm, bower, yarm】包管理工具
+ 安装cnpm：npm install -g cnpm --registry=https://registry.npm.taobao.org
+  ===========================nodejs 03   =======================
+【文件操作API】
+  使用fs内置模块提供的方法
+  const fs = require("fs");
+  fs.writeFile("./aa.txt","content内容"，（err）=>{ if(!err){ //成功代码 }else{ //失败代码 }  })；
+  fs.readFile("./aa.txt",(err,data)=>{ if(!err){ //成功代码 }else{ //失败代码 }  } );
+
+【文件服务器】 请求文件&请求API
+   ?实现请求限制的关键代码;
+   --判断是接口还是文件请求:  if( req.url.startsWith("/api")){  }else if(req.url.startsWith("/frontend")){  }
+   ?处理不同类型文件的响应信息;
+   --使用mime模块(npm下载,第三方包): let fileType=mime.lookup(url.parse(req.url).pathname);
+
+【模块化】
+  AMD: 异步模块定义, 专为浏览器环境定义的一套模块化开发规范。require.js是其代表作。
+  commonJS: 专为后端而生的模块化规范,node的模块就是以此实现的。
+  ES6: W3C在es6有定义模块规范, 在以上两个基础实现的,适合全端,但未有浏览器予以支持;应该是以后的大趋势.
+  ?Node.js中的模块化
+    特点:    代码在模块作用域
+	模块可多次加载(第一次加载时运行,然后把结果缓存,后续要加载直接从缓存读取)
+	相比AMD异步加载模块,commonJS会按顺序依次加载
+   加载规则: 
+	const  m = require("http或./.js");
+	如果传入的是普通字符串,会自动去node_modules加载包,会逐层查找;
+	如果是一个路径, ./ 或 ../ 或 / 开头的就会按路径去加载.
+
+  对外暴露值: 
+  如: let  m1 = require("./m1.js");
+  对外暴露值:
+  暴露一个: module.exports=function(){ return ...}
+  暴露多个: module.exports.min = function(){  }; module.exports.max = function(){  } ...
+	module.export = { min:function(){} ,max:function()....  }
+
+	export function min(arr) {
+	    return Math.min(...arr);
+	};
+	或:
+	export min= function(){ }
+
+   ?内置模块:
+   http : 启动服务对象  // require("http").createServer(处理回调).listen(端口,域名,回调);
+   url : 将字符串格式url解析为对象,可方便获取(?后面的存在.query对象中)
+   fs : 同步/异步读写文件
+	fs.readFile(路径,(err,data)=>{ })
+	fs.writeFile(路径,(err,data)=>{ })
+	fs.readFileSync(路径,码表)   //返回数据
+	fs.writeFileSync(路径,码表)
+  ?第三方模块:
+  mime:  let fileType= mime.lookup(urlObj.pathname); //实际是获取末部,返回相应类型
+
+【every , some和reduce】
+  every: 判断是否所有符合条件    // arr.every(v=> v%2==1)
+  some: 判断是否有其一符合条件    // arr.some(v=> v%2==1)
+  reduce: 可操作两个元素   // arr.reduce((v1,v2)=>v1+v2) --v1+v2的和作为形参v1,一直加完 (如果空数组会报错)
+
+===========================nodejs 04   =======================
+【商品管理案例】
+  目录结构: 
+  |__app.js   //主模块   开启一个http服务, 判断是请求文件还是请求接口(如:apiHandler(req,resp) 交给api模块处理)
+  |__frontend    //前端代码
+  |	|__index.html 
+  |	|__css
+  |	|__js
+  |__afterend    //后端代码
+  |	|__controller   //业务逻辑控制
+  |	|	|__api.js   //判断是什么功能的请求,分别处理响应回去的数据(处理req的数据,调用相关方法)
+  |	|	|__file.js   //第三方mime处理文件类型, 响应回去对应文件
+  |	|__ model   //数据处理层
+  |	|	|__goods_manager.js  //读取data.json中的数据到内存,获取最大索引,class GoodsManager类中,init(),增删改查方法
+  |	|	|__data -- data.json  //存储数据(持久化)
+  |	|__view
+  |__node_module  //第三方插件
+程序实现要点:
+1.模块化的定义
+  module.exports = function(){}  或  module.exports = GoodsManager 这是类名(要使用的东西,将其暴露出来,不用暴露的写在模块中的其他区域)
+2.模块使用:
+  const gm = require("./frontend/goods_manager.js")  //引用后,gm就是类名,就可以new gm()了
+3.运用的知识点:
+   ①req.url.startsWith("/api")  //判断url是否以/api打头 (req.url得到的是地址后面的内容)
+   ②/^\/(frontend | public)/.test(req.url)  //利用正则,判断url是否是指定字符打头
+   ③url.parse(req.url,true),得到包含url所有信息的对象,如: .pathname ---(得到地址后至?前所有) ,.query.name --得到拼接的数据(get请求) 
+   ④req.on('data',(chunk)=>data+=chunk);   req.on("end",()=>{ //得到data  })
+   ⑤转码: decodeURIComponent( data ) //转中文   encodeURIComponent( data )
+   ⑥读写数据:  (注:文件路径相对于自身模块文件)
+	fs.readFileSync("文件路径","utf-8");   //同步读取  (取出的是json,要转换  JSONP.parse()) 
+	fs.writeFileSync("文件路径","转成json后的数据")  //同步写入
+	fs.resdFile("文件路径",(err,data)=>{ if(!err){//成功后代码}else{失败后代码}  })
+	fs.writeFile("文件路径","对应格式的内容",err=>{ if(!err){//成功后代码}else{失败后代码}  } )
+
+【数据持久化】
+  同步读取:
+	fs.readFileSync("文件路径","utf-8");   //同步读取  (取出的是json,要转换  JSONP.parse()) 
+	fs.writeFileSync("文件路径","转成json后的数据")  //同步写入
+
+【mongo DB】  powershell
+   ?简介:数据管理软件, 提供了增删改查接口供操作(不支持sql语句,没有表结构, 简单方便)
+   ?常用命令:
+基本:
+  mongod --dbpath c:/data/db 启动服务  (路径名正确可直接mongod,前提c盘根目录手动创建data目录,再建db目录)
+或者 双击 bin目录中的mongod.exe
+  ctrl+C 停止服务
+  mongo  连接数据库
+  show dbs 查看数据库
+  use store 命令切换到store数据库 (如果没有会自动创建)
+  db 查看当前数据库名称
+  show collections 查看当前库所有集合
+增加:
+  数据库.集合.insert(JSON)   
+	如: db.goods.insertOne({name: '豪车', time: 2015})
+	     db.goods.insertMany([{name: '垃圾', time: 2015}, {name: '奔驰', time: 2012}, {name: '宝马', time: 2012}])
+ 查找:
+    数据库.集合.find(条件)  
+	db.goods.find()命令列出goods集合中的所有数据
+	db.goods.find({"time": "2012"})命令找出time为2012的所有数据
+	db.goods.findOne({"time": "2012"})命令找出time为2012的第一条数据
+	db.goods.find({"name": /豪/})命令列出goods集合中name字段含有'豪'的数据
+删除:
+   数据库.集合.remove(条件, 是否只删除一条)
+	使用db.goods.remove({'time': '2015'})命令删除goods集合中time为2015的所有数据
+	使用db.goods.remove({'time': '2012'}, true)命令删除goods集合中time为2012的第一条数据
+	使用db.goods.remove()命令删除全部数据
+
+修改:
+  数据库.集合.update(条件, 新值, 没有匹配是否新增, 是否更新多条数据)
+	使用db.goods.update({'time': '2015'}, {'name': '玛莎拉', 'time': '2017'})命令替换goods集合中time为2015的第一条数据
+	使用db.goods.update({'time': '2015'}, {$set: {'time': '2017'})命令替换goods集合中time为2015的第一条数据的time字段
+保存:
+   数据库.集合.save(JSON)
+	如果数据中含有_id字段，那么update这个_id的数据
+	如果没有_id字段，那么insert该数据
+
+ ?node程序连接MongoDB:
+   需要安装驱动包mongodb
+  --连接:
+	'use strict';
+	const mongodb = require('mongodb');
+	const MongoClient = mongodb.MongoClient;
+	let dbUrl = 'mongodb://localhost:27017/store';
+	MongoClient.connect(dbUrl, (err, db) => {
+    	if(!err) {
+        		console.log('在这里进行数据的增删查改');
+    	}else {
+        		console.log('数据库连接失败');
+   	 }});
+  --增加:
+	db.collection("goods").insertOne({name:"zs",age:12},( err,result )=>.....)
+  --删除:
+	db.collection("goods").remove({"time":"222"}, ( err,result )=>.....)   
+	注:objectId
+  --查询:
+	db.collection("goods").find().toArray(( err,result )=>.....)
+  --修改:
+  	db.collection("goods").update({gender:"nv"},{$set:{age:22} },( err,result )=>..... )
+常用方法: 
+删除数据库自己
+db.dropDatabase()
+获取指定集合实例
+db.collection(集合名称)
+删除集合自己
+collection.drop()
+插入数据
+collection.insert(内容)
+collection.insertOne(一条内容)
+collection.insertMany(多条内容)
+删除数据
+collection.remove(条件, 是否只删除一条)
+查找数据
+collection.find(条件, isOne)
+修改数据
+collection.update(条件, 新值, 没有匹配是否新增, 是否更新多条数据)
+
+条件查询:
+1.6.1. 含义
+
+(>) 大于 - $gt (greater then)
+(<) 小于 - $lt (less then)
+(>=) 大于等于 - $gte (greater then or equal)
+(<= ) 小于等于 - $lte (less then or equal)
+(!=) 不等于 - $ne (not equal)
+1.6.1.1. 范例
+查询价格大于100的商品
+db.store.find({price: {$gt: 100}})
+查询价格小于100的商品
+db.store.find({price: {$lt: 100}})
+查询价格大于等于100的商品
+db.store.find({price: {$gte: 100}})
+查询价格小于等于100的商品
+db.store.find({price: {$lte: 100}})
+查询价格等于100的商品
+db.store.find({price: 100})
+查询价格不等于100的商品
+db.store.find({price: {$ne: 100}})
+排序:
+以price字段做升序排序
+db.store.find().sort({price: 1})
+以price字段做降序排序
+db.store.find().sort({price: -1})
+注：这里必须是正1与负1
+
+【assign 合并对象】
+var target  =  { a: 1 };
+var source1 = { b: 2 };
+var source2 = { c: 3 };
+Object.assign(target, source1, source2);
+===========================nodejs day05   =======================
+【启动服务】 【内置中间件】【第三方中间件】【中间件执行】
+===========================nodejs day06   =======================
+【登录页面与接口】【服务端添加session】
+===========================vue.js day01   =======================
+【MVVM思想】
+  Model 负责数据存储
+  View: 负责页面显示(一般是在页面定义个根元素做显示)
+  View Model: vue的实例, 负责业务逻辑处理
+【基本模型】
+  var vm = new Vue({
+	el:"#app",   //视图范围
+	data:{ },	//数据
+	methods:{ },   //数据分支-方法
+	components:{ }	//组件
+	filters:{ }	//过滤器
+  });
+【vue指令】
+{{}} 插值表达式 , 有闪烁问题
+v-text:  变量渲染到指定元素(解析为纯文本) //<div v-text="msg"></div>
+v-html: 变量渲染到指定元素(当html标签解析   容易导致XSS跨站脚本攻击,不安全,不推荐)
+v-cloak: 遮盖使用{{}}时的闪烁  //<div v-cloak></div>   同时要添加样式:[v-cloak]{display:none}
+    ---避免闪烁: ①使用{{}}同时增加v-cloak属性  ②使用v-text  ③使用v-html
+v-on:事件类型.修饰符="methods中定义的方法"  
+    ---简写@click="方法"
+    ---修饰符: @click.stop="" //阻止冒泡  调用 event.stopPropagation()
+	@click.prevent="" //阻止默认行为  event.preventDefault()
+	@keydown.(enter||tab||65) 键盘按钮区分
+v-if: 插入与删除节点   如: v-if="search(name)"  ,如果name与函数中的正则匹配就显示节点
+v-show: 显示与隐藏节点
+v-model: 双向绑定数据(表单元素使用)
+v-bind: 用于给元素动态绑定一个或多个特性(如:class和style)
+	语法:    v-bind:属性名="引用data中定义的变量"
+          例:--- <img v-bind:src="路径">  简写: <img :src="路径">
+	<div class="day" :class="{ 'active': v.month!=monthVal,'zm':(i+1)%7==0||(i+1)%7==6}"></div>
+	<div v-bind:style="{fontSize: size + 'px'}"></div>
+	<div v-bind:style="[styleObjectA , styleObjectB]"></div>	
+v-for: 用于循环重复   
+  ---遍历数组语法: v-for="(v,i) in list"
+  ---遍历对象语法: v-for="(v,k) in obj"
+  ---指定循环次数: v-for="n in 5"
+v-once: 视图只会渲染一次
+v-pre: 跳过元素编译,显示原始标签
+
+【插件】
+  ?vue-resource   用于vue的ajax扩展     
+  第一步:引入并启用
+  import VueResource from "vue-resource"; 
+  Vue.use(VueResource);
+  第二步:使用
+  vm.$http.get(url,data).then(success回调, error回调)
+  vm.$http.post(url,data,{emulateJSON : true}).then(success回调, error回调)
+
+	静态方法:
+	Vue.http.get(url,data).then(success,error)
+	实例方法:
+	vm.$http.get(url,{params:{键值对}}).then(success,error)
+	vm.$http.post(url,{params:{键值对},{emulateJSON:true} ).then(success,error)
+
+  ?vue-router   用于控制页面的切换
+  第一步:引入并启用
+  import VueRouter from "vue-router";
+  Vue.use(VueRouter);
+  第二步:定义路由规则
+  var vueRouter = new VueRouter({
+	routes:[
+	   {path:"/",redirect:"/login"},
+	   {path:"/login",component : login}  //前提要定义了login这个组件
+	]
+   });
+   第三步:加入到Vue实例中(webpack后才会使用)
+  new Vue(){
+	el:"#app",
+	router:vueRouter
+  }
+   第四步:主视图定义点击跳转,并确定组件显示位置  
+  <router-link to="/login">登录</router-link>  
+  <router-link to="/register">注册</router-link> 
+  <router-view></router-view>   //组件显示占位区
+
+【生命周期函数】 这些函数在Vue执行到某些阶段时执行
+ created(){ //初始化时执行 }
+ 
+【计算属性computed】
+computed：{
+	calc(){return this.index+1}
+}
+
+  
+【过滤器】
+ ?私有过滤器,在实例中定义:
+filters:{
+	rmb:function(price){
+	return "￥"+price;
+	}
+{
+ ?全局过滤器,在任何位置可定义:
+{{v.price|rmb}}
+Vue.filter("rmb",function(price){return "￥"+price})
+
+【组件定义和使用】  独立的vm模块
+ ?传统方法:
+var cp = Vue.extend({   	
+	template:"<p>今晚播映:{{val}}</p>",
+	data:function(){
+	     val:"你的名字"
+ 	}
+});
+//注册为全局组件
+Vue.component("vue-p1",cp);
+//使用组件
+<vue-pl></vue-pl>
+ 
+ ?快捷方法:(简单)
+Vue.component("vue-list",{   //定义一个组件,,确定组件名称
+	template:"#v-id",     //也可以用id确定视图范围
+	data:function(){
+		return{
+		    country:["德国","日本","意大利"]     //数据定义在函数中return
+		}
+	}
+});
+
+★★★组件的切换★★★
+通过vue内置的<component v-bind:is="要显示的组件名"></component>
+
+注意事项:
+1)template中必须使用一个根节点包裹子节点
+2)data必须定义成函数返回对象形式
+
+【组件数据传递】
+父传子: 在使用的子组件标签上通过自定义属性绑定传递
+ <v-tpl v-bind:id="id"></v-tpl>
+ props:["id"]----子组件在实例中这样获取
+
+子传父: 子组件标签通过v-on:自定义事件名="回调"监听子组件事件获取值
+	父组件通过this.$emit(自定义事件名,arg1,arg2..) 方法发送事件
+
+【特殊属性】
+ key: vue内部绘图时优化,减少充绘次数,原理是给每个元素设一个唯一编号(通常是v-for时);
+ ref: 标签中添加ref="名字"属性,可通过实例.$refs.名字 获取数据
+
+【watch配置项】
+ 用于观察数据变化,一旦变化机会执行配置好的回调函数
+ 如: watch:{ $route:function(){ this.getData(this.$route.params.id) } }  //$route只要变动,函数执行
+
+
+===========================vue.js day02   =======================
+--save  -S | --save 项目用
+--dev -D |--dev 开发用
+【webpack 3.0】
+ 模块打包,  工具,基于node.js, 默认只能打包js文件, 使用loader可扩展其他文件打包
+ webpack是一个前端资源加载/打包工具。它将根据模块的依赖关系进行静态分析,然后将这些模块按照指定的规则生成对应的静态资源
+  ?使用:
+   --配置config.js
+   --设置main.js
+	import './css/index.css'  //导入css,less,sass|scss文件
+	import footerTpl from './tpl/footer.tpl'  //导入tpl模板
+	import Vue from './vue.js'  //导入js文件
+		---注:js需要使用ES6语法 export function min() { };  或: export min= function(){ } 
+
+
+============================================
+es6模块化：export default, exports,import
+ export default Obj; //导出一个 Obj
+ exports.one = one;  //导出多个 {one:one,two:two}
+ exports.two = two;
+
+ import Obj from "/a.js";  //导入一个
+ import {one,two} from "/b.js"  导入多个
+============================================ 
+module.exports.queryJQ = queryJQ;
+module.exports.jqArr = jqArr;
+const {queryJQ,jqArr} = require('./queryJQ.js');  
+
+
+===========================vue.js day03   =======================
+【vue开发环境搭建】
+ ①预装的环境: node , npm , cnpm
+ ②项目目录
+ ③webpack环境搭建
+     ?全局安装: 
+	npm install webpack -g
+	npm install webpack-dev-server -g
+     ?本地安装(项目目录):
+	npm i webpack --dev
+	npm i webpack-dev-server --dev
+	npm i html-webpack-plugin --dev
+	npm i css-loader style-loader --dev  
+	npm i less less-loader -D
+	npm i html-loader -D
+	npm i image-webpack-loader -D
+	npm i url-loader file-loader -D
+	npm i vue-loader vue-template-compiler -D
+	npm i babel-loader babel-core -D      再安装插件：npm i babel-preset-es2015 babel-plugin-transform-runtime -D	
+     ?配置package.json 目的是启动服务
+	a.直接在项目中执行webpack-dev-server --inline --open --content-base build,可启动
+	b. 在package.json的scripts项添加: "dev": "webpack-dev-server --inline --hot --open --port 6666"  //后面加-d是调试模式,-p是压缩模式
+     ?配置webpack.config.js
+      <代码>
+      var path = require("path");  //导入node的内置模块
+      var htmlWebpackPlugin = require("html-webpack-plugin");  //html插件
+      module.exports = {
+	entry:'./src/main.js',   //1.配置entry 入口
+	output:{		   //2.配置output 出口
+	     path:path.resolve(__dirname,"./")  	//需要var path=require("path")这个node的内置模块,生成绝对路径
+	     filename:'build.js',   		//最终生成的文件名
+  	 },
+	plugins:[   	 //3.配置插件  ---注:使用plugins前要先本地安装webpack
+	     new htmlWebpackPlugin({	//配置后,html文件自动链入打包后的js文件
+	     	template:"./src/index.html",  //原来的html
+	    	 filename:'index.html',  	//最终的文件名
+	     	inject:'body'   		//js脚本自动插入到主页的body底部 
+        	     })
+   	 ],
+	module:{		//4.配置loader   ---用来扩展webpack,打包其他文件类型  [rules 设定,规定] 
+		rules:[	
+	  	     {	//配置css文件
+                   		test:/\.css$/,  //匹配.css文件
+                   		use:[
+                   	 	'style-loader',  // 打包样式文件的loader  [loader装载]
+                   	 	'css-loader'     //顺序:先下后上  (如有less,scss|sass在后面再添加)
+                  	 	]
+	  	     },
+		     {	//配置tpl模板文件
+			test:/\.tpl$/,
+                		use:[ 'html-loader' ]
+           		    },
+            		    {	//替换文件的引用，小文件将以base64编码的形式和文件一起打包，可减少http请求  (针对img和url背景图)
+                		test:/\.(png|jpg|gif)$/,      
+                		use:[
+                    			{loader:'url-loader',options:{limit:1024}},  //limit设置的是大于1024byte(字节)的图片转成base64码
+                    			'image-webpack-loader'   //用于压缩图片
+                		]
+            		    },
+		    { 	
+                		test:/\.js$/,
+                		include:/src/, 		//包括src中的所有js文件
+                		exclude:/node_modules/,      //排除node_modules目录
+                		use:{
+                    			loader:"babel-loader",  
+                    			options:{
+                        				//配置要解析的语法规范 --依赖安装cnpm install babel-core babel-preset-es2015 babel-plugin-transform-runtime --save --dev
+                        				presets:['es2015'],  //转es6
+                        				plugins:['transform-runtime'] //依赖'transform-runtime' babel-core babel-preset-es2015插件
+                   	 		}
+                	    	}
+            		    },
+ 		    {	//配置vue模块
+                		test:/\.vue$/,
+                		use:[ "vue-loader" ]
+           		    } 
+		]
+      	}	
+     </代码>
+	
+【代码架构】
+main.js  引包, Vue.use()启用插件, 导入app.vue根组件, 实例vm关联并渲染视图
+App.vue  根组件可以插入其他功能组件, 导出配置好的组件
+index.html  id="app"定义视图区
+
+其他:
+两个对象:
+     vm.route 包含object: fullPath / hash /matched / meta / params / path / query
+     vm.router 包含VueRouter: afterHooks / app / apps / matcher{} /...
+router-link标签:
+     <router-link to="/register">注册按钮</router-link>
+     <router-link :to="{ path: '/login', query: { a: 11, b: 22, c: 33 } }">点击跳转到哪？</router-link>
+ 
+【Mint UI】
+mint-ui基于vue的移动端组件  http://mint-ui.github.io/#!/zh-cn
+ios风格
+【HBuilder】
+--MUI (非严格模式,,仅使用样式 http://dev.dcloud.net.cn/mui/)
+
+
+
+git log -3    覆盖上次提交
+rm -rf src/img选择性删除
+
+
+<style scoped lang="less"></style>
+加了scoped的只在本组件生效(实质是多生成了一个data-v="随机数"属性)
+
+Vue.js 提供了一个方法 watch，它用于观察Vue实例上的数据变动。对应一个对象，键是观察表达式，值是对应回调。值也可以是方法名，或者是对象，包含选项。具体的用法可以直接看下面的示例，简单直接
+
+用法:
+<router-link to="aaa">
+<router-link :to="'aaa'+val.id">
+
+vw vh vm CSS长度单位
+vw  相对于视口的宽度。视口被均分为100单位的vw(即浏览器可视区) 100vw = 可视区宽度
+
+vh  相对于视口的高度。视口被均分为100单位的vh(即浏览器可视区) 100vh  = 可视区高度
+
+vmin/vm 相对于视口的宽度或高度中较小的那个。其中最小的那个被均分为100单位的vmin（即vm
+
+overflow:scroll的同时隐藏滚动条:使用自定义滚动条的伪对象选择器::-webkit-scrollbar
+ele::-webkit-scrollbar {display:none }
+如何去除元素换行间距:父元素font-size:0,子元素(要换行的元素):font-size:12px
+8bit = 1Byte(1B)
+1024B = 1KB
+
+vue项目github命令:  push https://github.com/buzhiguang/vue_project.git master
+
+常用插件:
+img_preview_install 
+vue_preview
+Lazyload ---mintUI内置
+
+tab切换:
+mintUI切换:
+Vue内置的component组件
+
+
+vue项目个人总结:
+
+商品购买功能:
+--tab栏(评论和详情)切换:
+--购买数量
+   ---数据传递
+   ---本地存储购物数量(localStorage或者cookie)  localStorage:存储数据量大,数据不丢失,api简单好用
+
+arr.findIndex(val=>item.id==5) 返回符合条件的第一个元素下标
+arr.some(val=>val.id==5) 返回布尔值,只要一个符合就为真
+this.$router.push("/index",query:{"/shopcart/order"});
+this.$router.go(-1);
+cookie.maxage
+
+自动登录??实现
+========================8月19================================
+1)post是发送数据的,不需缓存
+2)缓存时采取深拷贝后存储
+深拷贝:
+$.extend方法实现
+JSON.parse(JSON.stringify(jsonData))方法实现
+3)url传参方式不同({params:params}和?a=1拼接),会影响缓存有效性
+4)Vue.js devtools调试工具:数据查看调试,包括vuex
+5)vuex
+导入,注入,配置,使用
+6)var cache={obj:Object.assign({},obj)} 
+7)router:router  ==  router   键值对表示形式
+8)swiper
+
+===================react===
+webpack中文网: doc.webpack-china.org
+webpack使用步骤:
+命令:	webpack -p 压缩js文件
+	webpack --progress  显示进度
+	webpack --config
+基于node,  module.exports={ }    //node
+
+1.全局/本地安装webpack
+2.创建webpack.config.js
+3.文件中定义入口+处理工具(loader plugin)+出口:
+const path=require("path");  //引入内置模块
+module.exports={
+	//入口路径
+	entry:path.join(__dirname,"src","main.js"),
+	//loader配置(样式,图片,es6处理)
+	module:{ rules:[{test:/.css$/,use:["style-loader","css-loader"]},{}...]},
+	//出口 
+	output:{
+		path:path.join(__dirname,"dist"),
+		filename:"bundle.js"
+	}
+ }
+4.
+
+
+
+source-map:压缩后代码还原 (调bug)
+plugin插件:
+debuger
+
+
+react 欠规范 : angular,vue 容易规范
+react 北京上海用的多
+VR,人工智能  没有出色作品,可能是昙花一现
+路由==单页面应用核心
+call,apply,bind
+
+哪里渲染: 确定渲染位置,加内容,不同的是api 
+----react-dom / id=app render(c){return c(App组件)}/ ng-app
+
+react渲染:
+react渲染过程: react对象→虚拟DOM→DOM
+组件:有状态组件和无状态组件
+jsx语法:
+{}表达式,声明时js语法,可以写注释
+import / export default{} 要使用babel转换
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+互联网阵营 ['yy','斗鱼'] vs ['知乎','得到',喜马拉雅]
+
+
+新手上路,
+
+圆桌派 第二季
+jq主流版本
+电影猫在top250刷新时 active在首页bug
+urlroute路由
+
+itcast0102
+码丁
+爱指南 火骑士
+瀑布流 练习
+
+fire70.com/net/top
+south.在线
+southeath.com/net
+southsun.com/net
+i57.top
+爱火
+
+
+vscode 智能提示
+【】
+狄航
+
+反馈:移动,bootstrap  有的放矢
+6月17日任务:
+company
+阿国  正弦余弦  加速<物理>  for...each  调试工具常见报错 卜树
+2.百度秘钥 
+3.聚合数据
+心无旁骛,全力以赴,坚持到底
+5.return   return false  ;  location.pathname;  visibility cursor  xml和json  get和post
+
+
+反馈:值得听两遍视频
+1.辅助类,bootstrap网站  聚合数据
+========================================================================================
+『VSCode快捷键:』
+shift+alt+F   代码格式化
+shift+ctrl+D  复制行
+alt+方向      行移动
+ctrl+enter/ctrl+shift+enter 向下/上插入一行
+ctrl+delete   删除光标右侧的字
+shift+delete  删除行
+
+
+
+
+单词:
+text-decoration 文本装饰  none/underline/overline删除线/line-through(穿过)删除线
+color:inherit[in-her-li]  颜色继承
+placeholder  占位符
+vertical-align: middle;
+subject 学科
+syntax 语法
+
+阴
+  认知-知己知彼
+  核心价值
+阳
+  行为
+  出身阶层
+?有心流伴随的才叫事业,有信念和意志驱动的才叫人生
+?发现自己的无知,狭隘,浅薄是一件幸运的事
+?人有了信念并且去坚持,其力量就会成倍的增长
+? 即时反馈,荣誉感,社交,渴望成就
+?人脉的本质是同等级的人的资源交换,这个东西一直以来忽悠了不少人,好多人为此把宝贵的时间和精力投入进去,荒芜了时间,废了自身(糟蹋了健康,退化了大脑),努力提升自己才是王道,把自己做到极致,什么'人脉'、'斜杠'等等自然水到渠成;罗振宇的生活中没有纯社交的饭局,事实就是敢于去存量,拒绝时间精力的无谓浪费.
+?鸡汤的意义在于增强信心,走出舒适区,不屑鸡汤的恰好是那些安于心理舒适区,凡事喜欢找借口的,说到底是自欺
+?认知不到位,看到也看不到,听到也听不到.
+?做够了自己,做尽了自己,才有资格追问客观的不平
+?穷是万能好用的借口,穷还成了蠢最好的理由
+?马克吐温说过:人生中最重要的两天是你出生的那天,以及你找到人生目的的那天.我说:出生那天是你的命,找到人生目的那天是你的运.(多数人25岁就死了,一直到75岁才埋,但愿那个名单里没有你和我)
+?阻碍人类发展的不是事物本身虚幻,也不是缺乏推理能力,而是之前所积累的偏见; 
+自我合理化: 重组偏见=思考,重复过往错误=坚持梦想,伤害别人自尊=直率,消极荒废=放松,故步自封=坚守,随便放弃=选择,酩酊大醉=豪爽,不思进取=低调...
+?存量:
+ 一切死存量皆为包袱 去存量后才能创新与进步,所要付出的代价也是残酷的,要割舍常年积累的东西,否则就是固守过去. active
+ 人性中对过去过度留恋,对未来过于恐惧,造就了虚度当下,而你要做的是过往不恋,未来不惧,当下不乱
+?查理芒格:
+ 选择擅长的并专注坚持 & 不见兔子撒鹰 & 预见性(汽车普及就别卖马鞭了) & 从众心理(强者恒强) & 心理学运用(操纵和激励)
+ 数学(复利原理|排列组合|概率方法|决策树理论) & 思维模型 
+?演讲:
+ 提前准备
+ 开头引用诗词/金句/图片/介绍一个人揭示主题  
+ 单层逻辑的三段式(三个故事,三个经历,三个感受)
+ 结尾时复盘,总结主题
+ 其他:穿插重复和排比 深呼吸+皱眉与放松+闭眼与睁眼+握拳与松开 双手抱球状 忌点视环视交替
+?两眼论:
+ 做到领域No.1  2*做到领域前25%  2*领域前25%+n
+?贫穷:因为时刻面对解决温饱的紧迫感，身处同样层次的环境，结果就是视野越来越狭窄，讲道理/学习于其而言都是多余的  （商业上,影响人，就是要窄化他人视野） 客观而言,农村自身的生产已经难以形成良性循环,更多的时候为了获取基本家庭开销,还是不得不以肢解完整的家庭作为代价,这样结婚,生子,外出打工,制造留守儿童,就成为事实上的轮回.  无财曰贫,无路曰穷
+ 
+  百度秘钥ak:
+应用编号	应用名称	访问应用（AK）	                        应用类别	备注信息
+（双击更改）	应用配置
+  9734995	               web2017         Y7rgLvsAbafFiGWjnTqx534wW4ilO7Qo	浏览器端
+CSDN账号 13725745575 9910..
+Github账号:buzhiguang 381042434@qq.com  bu5561..
+
+
+
+『4.性格网 ??   裕仁天皇 冈村宁次 尼古拉二世 列宁 杜鲁门 胡志明 吴耐温 萨达姆 汪精卫 王克敏 周佛海
+app:八字 紫薇 日历 日程 生日 星座 英语单词添加[读音]』
+卜俊秀 骏秀 骏永 永骏
+公 十月初四 37.11.06 子 天蝎|处女
+婆 冬月廿一 43.12.17 寅 射手|天秤
+父 二月初一 64.03.14 申16:00 双鱼|处女
+母  七月十四 62.08.13 巳10:00 狮子|天蝎
+阿叔 八月十二 65.09.07 子 处女|双子&巨蟹&狮子
+金婶 六月初六 76.07.02 卯 巨蟹|巨蟹&狮子
+三叔 六月十四 67.07.21 卯6:00 巨蟹|狮子
+大姑 二月廿一 70.03.28 亥23:00 白羊|射手(真)?天蝎
+二姑 七月廿七 72.09.04 申 处女|摩羯
+明 三月十六 88.05.01 辰 金牛|巨蟹
+肖 十月廿五 88.12.03 亥 射手|狮子
+侄子1 正月初十 10.02.23 未15:05 双鱼|巨蟹&狮子
+侄女1 五月廿二 13.06.29 午 巨蟹|天秤座
+侄女2 四月十二  15.5.29 酉 双子|天蝎
+海军 十月廿四 89.11.21 卯7:15 天蝎|天蝎
+华昌 腊月初一 97.01.09 丑2:30 摩羯|天蝎
+广昌 二月廿五 99.04.11 戌20:10 白羊|天蝎
+金萍 三月初一 00.04.05 丑2:30 白羊|摩羯
+金兰 九月十六 01.11.01 巳11:20 天蝎|摩羯&射手
+智敏 腊月十一 07.01.29 子0:55 水瓶|双子&天蝎
+广文 十月初七 00.11.02 午13:20 天蝎|水瓶
+
+console.dir(ele),显示所有属性
+echo益秋
+博客园:buzhiguagn bu_5561407    csdn :13725745575 991002026
+★☆『』?█■????? 【】
+<link rel="stylesheet" href="css/base.css">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+学习,思考,自制,谦卑,持之以恒
+"寒门出贵子"一直以来就犹如bug的存在,只能作为最底阶层的精神寄托,仅此而已。望子成龙不如自己先成龙。
+所谓的收获就是获得了稀缺性，就是要经历重重困境、层层脱敏的过程,，
+一百个人就有可能给你贴上一百种不同的标签
+<p>眉毛上的汗水和眉毛下的泪水，你必须选择一样<br>你不努力，活该生活在社会的最底层</p>
+终此一生，我们都在与自身的天赋和缺陷做斗争
+沸腾十五年--这个世界还是很美好的,即便是在凛凛北风中,只要有希望、有梦想、肯努力、肯坚持,那么结果总是好的.
+----------------------------
+
+《解读希特勒》
+主线:
+10-25(青年)思考时代史→25-40(中年)介入并反思时代史→40-56(晚年)操控时代史.----历史创造了他,他又创造了历史
+缺乏系统正规教育,认知基于自身的大量阅读;总理期间工作散漫无规律,灵感来临时快马加鞭执行
+
+履历:
+18岁前:中学辍学,艺术院校落榜
+18-25岁:在维也纳/慕尼黑流浪生活
+26-30岁参战,没职业计划,没职业前景,缺乏指挥才能,勇敢获得一/二级铁十字勋章;30岁时遭毒气袭击在兵营养伤一年,参加了一个极右小党,开始踏入下半生 (按其固执,好学,幻想的性格,养伤这一年应该在思考人生与历史吧?)
+
+性情:恐惧亲密关系
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

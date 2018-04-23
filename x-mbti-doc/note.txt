@@ -1,5 +1,9 @@
 https://github.com/bu555/xm.git  xmbti
 
+IP：119.9.77.245
+帳號：WD0035
+密碼：B$2eiy
+
 介绍一款好用 mongodb 可视化工具  启动：npm start
 github地址：https://github.com/mrvautin/adminMongo 
 

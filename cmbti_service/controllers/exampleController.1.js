@@ -11,7 +11,6 @@ const myUtill = require('../myTool/utill')
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const GrabWeb = require('../controllers/grabWeb')
-const VOTE = require('../controllers/voteController')
 
 // // 爬数据添,添加example
 const addExample = (req,res)=>{
@@ -23,13 +22,16 @@ const addExample = (req,res)=>{
         })
     }
     GrabWeb.https(name).then(searchData=>{
+
         let result = {e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}; //初始化值
-        // 添加一條新數據
         let exampleAdd = new Example({
-            name: name.trim(),
+            name: name,
             type: "****",
+            vote: result,
+            voteLog:[],
             info: searchData.data.info || '',
             img_url: searchData.data.imgURL || '',
+            total: 0, 
             tag: searchData.data.tag || '',
             birth: searchData.data.birth || '',
             conste: searchData.data.conste || '', //星座
@@ -51,31 +53,18 @@ const addExample = (req,res)=>{
                             message:'example存储失败'
                         })
                     } else {
-                        // 增加一条vote
-                        addVote(example._id).then(r=>{
-                            res.json({
-                                success:true,
-                                message:'create success',
-                                example:example
-                            })
-                        },r=>{
-                            res.json({
-                                success:false,
-                                message:'create vote fail!'
-                            })
+                        res.json({
+                            success:true,
+                            message:'ok',
+                            example:example
                         })
                     }
                 })
             }
-        },example=>{
-            res.json({
-                success:false,
-                message:'未知错误'
-            })
         })
 
     },searchData=>{
-        res.json('error',searchData);
+        res.json(searchData);
     })
 }
 // 模糊查询(接受name 和type)
@@ -139,33 +128,71 @@ const searchExample = (req,res,next)=>{
 const goVote = (req,res,next)=>{
       let uid = req.session.user._id;//用户id
       let eid = req.body.eid; //example Id
-      let result = req.body.vote;
-      if(!uid || !eid || !myUtill.testVote(result)){
+      let vote = req.body.vote;
+
+      if(!uid || !eid || !myUtill.testVote(vote)){
           return res.json({
               success:false,
               message:'参数格式错误'
           })
       }
-      VOTE.goVote({
-          uid: uid,
-          eid: eid,
-          result: result
-      }).then(data=>{
-            //成功
-            res.json({
-                success:true,
-                message:data
+
+        checkVote(uid,eid).then(result=>{
+            //检查重复投票通过
+            Example.findOne({_id:eid}).then(example=>{
+                if(example){
+                    addToUserHistory(uid,eid,vote,example).then(result=>{
+                        // user.history添加成功
+                        addToExample(uid,eid,vote,example).then(result=>{
+                        // example添加成功
+                            res.json(result) 
+                        },result=>{
+                            res.json(result)
+                        })
+
+                    },result=>{
+                        res.json(result); //错误信息返回
+                    })
+                }else{
+                    res.json({
+                        success:false,
+                        message:'无此名字存在'
+                    })
+                }
             })
-      },data=>{
-          //失败
-          res.json({
-              success:false,
-              message:data
-          })
-      })
-
+        },result=>{
+            res.json(result)
+        })
 }
-
+//查询user.history,判定该用户是否已投票
+const checkVote = (uid,eid)=>{
+     var pro = new Promise((resolve,reject)=>{
+        let isVoted = false; 
+        UserHistory.findOne({uid:uid}).then(user_history=>{
+            if(user_history){
+                let uh_list = user_history.voteList.slice(0);
+                for(let i=0;i<uh_list.length;i++){
+                    if(uh_list[i].eid == eid){
+                        reject({
+                            success:false,
+                            message:'不可重复投票'
+                        })
+                    }
+                }
+                resolve({
+                    success:true,
+                    message:'可投票（用户尚未对此eid投过票）'
+                })
+            }else{
+                resolve({
+                    success:true,
+                    message:'可投票（该用户尚未创建user.history）'
+                })
+            }
+        })
+     })
+     return pro;
+}
 //添加一条vote记录到example的voteLog并更新自身的type
 const addToExample = (uid,eid,vote,example)=>{
     let pro = new Promise((resolve,reject)=>{
@@ -244,11 +271,74 @@ const addToExample = (uid,eid,vote,example)=>{
     })
     return pro;
 }
+//添加一条vote记录到user.history（）
+const addToUserHistory = (uid,eid,vote,example)=>{
+    let pro = new Promise((resolve,reject)=>{
+        UserHistory.findOne({uid:uid}).then(user_history=>{
+            if(user_history){ //用户存在
+                console.log('用户存在');
+                UserHistory.update({uid:uid},{$push:{
+                    voteList:{
+                        eid:eid,
+                        name:example.name,
+                        vote:vote,
+                        c_time:moment().format('YYYY-MM-DD HH:mm:ss')
+                    }
+                }},err=>{
+                    if(err){
+                        reject({
+                            success:false,
+                            message:'数据push存入失败'
+                        });
+                    }else{
+                        resolve({
+                            success:true,
+                            message:'添加成功'
+                        });
+                    }
+                })
+            }else{ //用户不存在
+                console.log('用户不存在');
+                new UserHistory({
+                    uid:uid,
+                    voteList:[],
+                    commentList:[]
+                }).save(err=>{
+                    if(err){
+                        reject({
+                            success:false,
+                            message:'投票信息存入失败'
+                        });
+                    }else{
+                        UserHistory.update({uid:uid},{$push:{voteList:{                  
+                            eid:eid,
+                            name:example.name,
+                            vote:vote,
+                            c_time:moment().format('YYYY-MM-DD HH:mm:ss')
+                        
+                        }}},err=>{
+                            if(!err){
+                                resolve({
+                                    success:true,
+                                    message:'记录存入userHistory成功'
+                                });
+
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    })
+    return pro;
+}
+
 
 module.exports = (router) => {
     router.post('/addExample',addExample);
     router.post('/searchExample',searchExample);
     router.post('/goVote',checkLogin,goVote);
+    router.post('/searchExample',searchExample);
     // router.post('/fuzzyExample',fuzzyExample);
     // router.post('/login',checkNotLogin,login);
     // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
