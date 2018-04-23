@@ -1,28 +1,44 @@
 
-const Vote = require('../models/schema/vote')  //存储投票记录
+const VOTE = require('../models/schema/vote')  //存储投票记录
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../myTool/utill')
 
+const getVote = (option)=>{
+    return new Promise((resolve,reject)=>{
+        console.log(option);
+        if(option.eid){
+            VOTE.findOne({eid:option.eid}).then(vote=>{
+                resolve(vote)
+            },vote=>{
+                reject('not find eid')
+            })
+        }else{
+            reject('error,params illegality')
+        }
+
+    })
+}
 const goVote = (option)=>{
       let uid = option.uid;//用户id
       let eid = option.eid; //example Id
       let result = option.result;
       let pro = new Promise((resolve,reject)=>{
-            // if(!uid || !eid || !myUtill.testVote(result)){
-            //     reject('params error!')
-            // }
             //检验是否重复投票
-            checkVote(uid,eid).then(result=>{
+            checkVote(uid,eid).then(r=>{
                 //添加投票记录
-                addVote(uid,eid,result).then(result=>{
-                    resolve('add success')
-                },result=>{
-                    reject(result)
+                addVote(uid,eid,result).then(r=>{
+                    getVote({eid:eid}).then(data=>{
+                        resolve(data) //成功后将最新数据返回
+                    },data=>{
+                        reject('getVote fail')
+                    })
+                },r=>{
+                    reject(r)
                 })
-            },result=>{
-                reject(result)
+            },r=>{
+                reject(r)
             })
 
 
@@ -33,7 +49,7 @@ const goVote = (option)=>{
 // 添加 vote
 const addVote = (uid,eid,result)=>{
      var pro = new Promise((resolve,reject)=>{
-        Vote.update({eid:eid},{$push: {list:{
+        VOTE.update({eid:eid},{$push: {list:{
             uid:uid,
             result:result,
             c_time:moment().format('YYYY-MM-DD HH:mm:ss')
@@ -50,7 +66,7 @@ const addVote = (uid,eid,result)=>{
 // 检验vote是否重复
 const checkVote = (uid,eid)=>{
      var pro = new Promise((resolve,reject)=>{
-        Vote.findOne({eid:eid}).then(vote=>{
+        VOTE.findOne({eid:eid}).then(vote=>{
             if(vote){
                 for(let i=0;i<vote.list.length;i++){
                     if(vote.list[i].uid == uid){
@@ -71,7 +87,7 @@ const createVote = (eid)=>{
         let pro = new Promise((resolve,reject)=>{
             if(eid){
                 console.log('eid',typeof eid);
-                let voteAdd = new Vote({
+                let voteAdd = new VOTE({
                     eid:eid,
                     list:[],
                 })

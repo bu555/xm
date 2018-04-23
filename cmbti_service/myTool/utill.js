@@ -40,23 +40,15 @@ module.exports =  {
       },
       //检测vote是否符合格式
       testVote(vote){
+            if(!vote || typeof vote !== 'string') return false;
             if(vote.length!==4){ //4位
                 return false;
             }else{
-                if(vote === '****'){
+                if( /[ei]/.test(vote[0]) && /[sn]/.test(vote[1]) && /[tf]/.test(vote[2]) && /[jp]/.test(vote[3]) ){
+                    return true;
+                }else{
                     return false;
                 }
-                if( /[ei*]/.test(vote[0]) && /[sn*]/.test(vote[1]) && /[tf*]/.test(vote[2]) && /[jp*]/.test(vote[3]) ){
-                    return true;
-                }
-                
-                return false;
-                // for(let i=0;i<4;i++){  //只可是指定的字符
-                //     if(/[eisntfjp*]/.test(vote.charAt(i))===false){
-                //         return false;
-                //     }
-                // }
-                // return true;
             }
       }
 

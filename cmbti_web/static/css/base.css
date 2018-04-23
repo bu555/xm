@@ -68,6 +68,10 @@ s,i,em{font-style:normal;text-decoration:none;}
   max-width:1100px;
   margin:0 auto;
 }
+.bbx {
+  max-width:900px;
+  margin:0 auto;
+}
 .m-auto {
   margin:0 auto;
 }

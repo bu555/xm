@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group" style="margin-bottom:26px">
                     <label for="exampleInputPassword1">密码</label>
-                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''" spellcheck="false">
+                    <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''"  @keyup.enter="login()" spellcheck="false">
                     <div v-if="!passwordVerify" class="error-msg">请输入密码</div>
                 </div>
                 <!--<div class="form-group">
@@ -39,7 +39,7 @@ export default {
         isSubmit:false,
         nameVerify:true,
         passwordVerify:true,
-        prevPath:''
+        fromPath:''
       }
   },
   mounted() {
@@ -76,7 +76,7 @@ export default {
                         message: '登录成功！',
                         type: 'success'
                     });
-                    this.$router.push({path:'/index'})
+                    this.$router.push({path: this.fromPath})
                     // if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
                     //     this.$router.go();
                     //     this.$store.commit('setModalLogin',false); 
@@ -101,19 +101,16 @@ export default {
   created(){
       //从注册成功跳转的会带name
       this.name = this.$route.query.name || '';
-      console.log(this.prevPath);
+
+        this.fromPath = localStorage.getItem('fromPath')
+        if(this.fromPath === '/' || this.fromPath.indexOf('/user')!==-1){
+            this.fromPath = '/index'
+        }
   },
-  beforeRouteEnter (to, from, next) {
-    //   console.log(from)
-    //   console.log(this)
-      next((vm)=>{
-        console.log(vm.name);
-        vm.prevPath = from.fullPath;
-      })
-    // 在渲染该组件的对应路由被 confirm 前调用
-    // 不！能！获取组件实例 `this`
-    // 因为当钩子执行前，组件实例还没被创建
-  },
+beforeRouteEnter (to, from, next) {
+    localStorage.setItem('fromPath',from.fullPath)
+    next()
+},
   beforeRouteUpdate (to, from, next) {
       next()
     // 在当前路由改变，但是该组件被复用时调用
