@@ -51,8 +51,8 @@ const addExample = (req,res)=>{
                             message:'example存储失败'
                         })
                     } else {
-                        // 增加一条vote
-                        addVote(example._id).then(r=>{
+                        // 根据eid,创建一条vote
+                        VOTE.createVote(example._id).then(r=>{
                             res.json({
                                 success:true,
                                 message:'create success',
@@ -78,32 +78,15 @@ const addExample = (req,res)=>{
         res.json('error',searchData);
     })
 }
-// 模糊查询(接受name 和type)
 const searchExample = (req,res,next)=>{
     let option = req.body.params
-    console.log(option);
-    let pro;
-    // 1.按name 模糊查询
-    if(option.name){
-        pro = Example.find({ name:new RegExp(option.name,'i') });
-    // 2.按type 模糊查询
-    }else if(option.type){
-        pro = Example.find({ type:new RegExp(option.type,'i') });
-    // 3.按id查询
-    }else if(option.id){
-        pro = Example.findOne({ _id:option.id });
-    }else{
-        pro = Example.find();
-    }
-    pro.then(example=>{
-        if(example){ //将本地的返回
-            // 非零非负整数
-            let reg = /^[1-9]\d{0,}$/
+    getExample(option).then(example=>{
+            // 分页处理
+            let reg = /^[1-9]\d{0,}$/    // 非零非负整数
             let page = reg.test(option.page)? Number(option.page):1
             let size = reg.test(option.size)? Number(option.size):8
             let count = Math.ceil(example.length/size)
             let total = example.length
-            console.log(example);
             if(!(example instanceof Array)){
                 example = [example]
             }
@@ -121,40 +104,66 @@ const searchExample = (req,res,next)=>{
                     total:total
                 }
             })
-        }else{
-            res.json({
-                success:false,
-                message:'无数据'
-            }) 
-        }
     },example=>{
-        res.json(example);
+        res.json({
+            success:false,
+            message:'未知错误'
+        });
     })
 }
-//投票 （注：需要登录）
-//逻辑：1、查询user.history判断是否重复投票 
-// 2-1、更新example中的total、vote、voteLog、type（需要计算判断）
-// 2-2、添加到user.history的voteList,{eid:'',name:'',vote:'',c_time:''}
+// 查询example (接受name  type  eid)
+const getExample = (option)=>{
+    return new Promise((resolve,reject)=>{
+        let pro;
+        // 1.按name 模糊查询
+        if(option.name){
+            pro = Example.find({ name:new RegExp(option.name,'i') });
+        // 2.按type 模糊查询
+        }else if(option.type){
+            pro = Example.find({ type:new RegExp(option.type,'i') });
+        // 3.按id查询
+        }else if(option.eid){
+            pro = Example.findOne({ _id:option.eid });
+        }else{
+            pro = Example.find();
+        }
+        pro.then(example=>{
+            if(example){
+                resolve(example)
+            }else{
+                reject('error,not find')
+            }
+        },example=>{
+            reject('error')
+        })
 
+    })
+}
+
+// 投票
 const goVote = (req,res,next)=>{
-      let uid = req.session.user._id;//用户id
-      let eid = req.body.eid; //example Id
-      let result = req.body.vote;
-      if(!uid || !eid || !myUtill.testVote(result)){
+      let uid = req.session.user._id;
+      let eid = req.body.eid?req.body.eid:''
+      let result = req.body.result?req.body.result:'';
+      if(!eid || !myUtill.testVote(result)){
           return res.json({
               success:false,
               message:'参数格式错误'
           })
       }
+      
       VOTE.goVote({
           uid: uid,
           eid: eid,
           result: result
       }).then(data=>{
-            //成功
+          //成功返回后，计算投票数
+            data.list.forEach((v,i)=>{
+                
+            })
             res.json({
                 success:true,
-                message:data
+                message:''
             })
       },data=>{
           //失败

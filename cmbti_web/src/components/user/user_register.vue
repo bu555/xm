@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword2">确认密码</label>
-                <input v-model="password_" type="password" class="form-control" id="exampleInputPassword2" placeholder="确认密码" @blur="password_Verify?verifyPassword_():''" @input="!password_Verify?verifyPassword_():''">
+                <input v-model="password_" type="password" class="form-control" id="exampleInputPassword2" placeholder="确认密码" @blur="password_Verify?verifyPassword_():''" @input="!password_Verify?verifyPassword_():''" @keyup.enter="register()">
                 <div class="error-msg" v-if="!password_Verify">两次输入的密码不一致</div>
             </div>
             <!--<div class="form-group">

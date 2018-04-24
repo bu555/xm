@@ -76,6 +76,7 @@
                 <!--<div class="right-side .visible-lg-*">-->
                     <div class="r-content">
                         right-side
+                        <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="vote()">Loading state</button>
                     </div>
                 </div>
         </div>
@@ -158,6 +159,17 @@ export default {
         }
     },
     methods:{
+        //投票
+        vote(){
+            this.$axios.goVote({
+                eid:this.$route.query.eid,
+                result:'intj'
+            }).then(res=>{
+                if(res.data.success){
+                    console.log(res);
+                }
+            })
+        },
         // 返回名人庫
         back(){
             this.$router.push({path:this.fromPath})
@@ -214,10 +226,10 @@ export default {
     },
     created(){
         if(this.$route.query.eid){
-            this.searchExamp({id:this.$route.query.eid});
+            this.searchExamp({eid:this.$route.query.eid});
         }
         this.fromPath = localStorage.getItem('fromPath')
-        if(this.fromPath === '/'){
+        if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
             this.fromPath = '/example'
         }
 
@@ -241,6 +253,7 @@ export default {
         // background-color: #e8ecf5;
         background-color: #f7f7f7;
         .nav-view {
+            max-width:1020px;
             background-color: transparent;
             height:40px;
             line-height: 40px;
@@ -272,6 +285,7 @@ export default {
         }
     }
     .main-box {
+        max-width:1020px;
         .left-vote {
             margin:0;
             padding-top:8px;
