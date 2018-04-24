@@ -3,7 +3,7 @@ const express = require('express')
 // const router = express.Router()
 const User = require('../models/schema/user')
 const UserHistory = require('../models/schema/user.history')
-const myUtill = require('../myTool/utill')
+const myUtill = require('../models/utill')
 const sha1 = require('sha1')
 //时间处理模块
 const moment = require('moment')

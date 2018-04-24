@@ -6,7 +6,7 @@ const UserHistory = require('../models/schema/user.history') //用户的投票�
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
-const myUtill = require('../myTool/utill')
+const myUtill = require('../models/utill')
 //发送邮件功能
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin

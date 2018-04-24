@@ -3,7 +3,7 @@ const Vote = require('../models/schema/vote')  //存储投票记录
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
-const myUtill = require('../myTool/utill')
+const myUtill = require('../models/utill')
 
 const goVote = (option)=>{
       let uid = option.uid;//用户id
