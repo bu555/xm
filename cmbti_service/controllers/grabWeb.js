@@ -61,8 +61,6 @@ class GrabWeb{
                     }
                     // let imgURL = $('body .album-wrap img').attr('src');
                     resolve({
-                        success:true,
-                        message:'爬取数据成功',
                         data:{
                             imgURL:imgURL,
                             info:info,
@@ -84,10 +82,7 @@ class GrabWeb{
                     //     console.log('写入完毕2');  
                     // }); 
                 }else{
-                    reject({
-                        message:'数据爬取出错',
-                        success:false
-                    });
+                    reject('爬取数据出错');
                 }
             });  
         })
