@@ -8,6 +8,7 @@ const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
 const Example = require('../controllers/example')
 const Vote = require('../controllers/vote')
+const Comment = require('../controllers/comment')
 
 const addExample = (req,res)=>{
     let name = req.body.name || '';
@@ -17,32 +18,61 @@ const addExample = (req,res)=>{
             message: 'name为必需参数' 
         })
     }
+
     // 创建example
     Example.createExample({
         name:name
     }).then(data=>{
+        return data
+    }).then(data=>{
         let eid = data._id
         let example = data
-        // 创建vote记录
-        Vote.createVote({eid:eid}).then(data=>{
+        Promise.all([Vote.createVote({eid:eid}),Comment.createComment({eid:eid})]).then(data=>{
             res.json({
                 success:true,
                 message:'success',
                 example:example
             })
-        },data=>{
+        })
+        
+    }).catch(error=>{
             res.json({
                 success:false,
-                message:data
+                message:error
             })
-        })
-    },data=>{
-        res.json({
-            success:false,
-            message:data
-        })
-
     })
+
+    // Example.createExample({
+    //     name:name
+    // }).then(data=>{
+    //     let eid = data._id
+    //     let example = data
+    //     // 创建vote和commente记录
+    //     Vote.createVote({eid:eid}).then(data=>{
+    //         res.json({
+    //             success:true,
+    //             message:'success',
+    //             example:example
+    //         })
+    //     },data=>{
+    //         res.json({
+    //             success:false,
+    //             message:data
+    //         })
+    //     })
+    // },data=>{
+    //     res.json({
+    //         success:false,
+    //         message:data
+    //     })
+    // })
+
+
+    // try{
+    //     let exa = await Example.createExample({name:name})
+    //     let eid = exa._id
+    //     let a = await Vote.createVote({eid:eid})
+    // }
     
 }
 const searchExample = (req,res,next)=>{
@@ -90,40 +120,60 @@ const goVote = (req,res,next)=>{
           })
       }
       // 添加到vote list
-      Vote.addVote({
-          uid: uid,
-          eid: eid,
-          result: result
-      }).then(data=>{
-            // 成功
-            Example.updateExample({
-                eid:eid,
-                type:result
-            }).then(data=>{
+      (async ()=>{
+          try{
+                await Vote.addVote({ uid: uid, eid: eid, result: result })
+                let example = await  Example.updateExample({ eid:eid, type:result })
                 res.json({
                     success:true,
                     message:'success',
-                    example:data
+                    example:example
                 })
-            },data=>{
+          }catch(error){
                 res.json({
                     success:false,
-                    message:data
+                    message:error
                 })
-            })
-      },data=>{
-          //失败
-          res.json({
-              success:false,
-              message:data
-          })
-      })
-
+          }
+      })()
 }
+const addComment = (req,res,next)=>{
+    console.log(req.body.result);
+    let uid = req.session.user._id;
+    let eid = req.body.eid;
+    let result = req.body.result;
+    (async ()=>{
+        try{
+            await Comment.addComment({eid:eid,uid:uid,result:result})
+            let comments = await Comment.getComment({eid:eid})
+            res.json({
+                success:true,
+                message:'success',
+                comments:comments
+            })
+        }catch(error){
+            res.json({
+                success:false,
+                message:error
+            })
+        }
 
+    })()
+    
+    
+    
+    // .then(data=>{
+    //             res.json({
+    //                 success:true,
+    //                 message:'success',
+    //                 example:example
+    //             })
+    // })
+}
 
 module.exports = (router) => {
     router.post('/addExample',addExample);
     router.post('/searchExample',searchExample);
     router.post('/goVote',checkLogin,goVote);
+    router.post('/addComment',checkLogin,addComment);
 }

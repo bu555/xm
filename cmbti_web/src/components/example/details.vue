@@ -77,6 +77,7 @@
                     <div class="r-content">
                         right-side
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="vote()">Loading state</button>
+                        <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="comment()">comment</button>
                     </div>
                 </div>
         </div>
@@ -168,6 +169,16 @@ export default {
                 if(res.data.success){
                     console.log(res);
                 }
+            })
+        },
+        comment(){
+            this.$axios.addComment({
+                eid:this.$route.query.eid,
+                result:'fftest测试一下'
+            }).then(res=>{
+                console.log(res);
+            }).catch(error=>{
+                console.log(error);
             })
         },
         // 返回名人庫
