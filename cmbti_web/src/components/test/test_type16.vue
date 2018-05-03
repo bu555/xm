@@ -1,11 +1,11 @@
 <template>
 <div class="test-16type">
-    <div class="radio">
-  <label>
-    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-    Option two can be something else and selecting it will deselect option one
-  </label>
-</div>
+            <!--<div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Option two can be something else and selecting it will deselect option one
+                </label>
+            </div>
             <div class="left-box">
                 <div class="test-list">
                     <mySelect v-for="(v,i) in list" :key="i" @getRes="result[v.id]=((val)=>val)($event)" :question="(i+1)+'. '+v.question"></mySelect>  
@@ -13,7 +13,16 @@
                 </div>
                 <div class="btn">
                     <button type="button" class="btn btn-primary" @click="submitTest()">提 交</button>
-                    <!--<el-button type="primary" round @click="submitTest()">提 交</el-button>-->
+                    <el-button type="primary" round @click="submitTest()">提 交</el-button>
+                </div>
+            </div>-->
+            <div class="questions">
+                <div class="item" v-for="(v,i) in mbti93" :key="i">
+                    <div class="title">{{v.q}}</div>
+                    <template>
+                        <el-radio v-model="v.res" :label="v.at">{{v.a}}</el-radio><br/>
+                        <el-radio v-model="v.res" :label="v.bt">{{v.b}}</el-radio>
+                    </template>
                 </div>
             </div>
 
@@ -22,9 +31,12 @@
 <script>
 import {type16} from './question.js'
 import mySelect from "./select"
+import mbti93 from './q_mbti93'
 export default {
     data(){
         return {
+            mbti93:[],
+            res93:[],
             list:'',
             result:{},
             clacRes:{
@@ -87,6 +99,9 @@ export default {
     created(){
         this.list = type16;
         console.log('格式化',this.$moment().format('YYYY-MM-DD hh:mm:ss'));
+
+        this.mbti93 = mbti93
+        // this.res93 
 
 
     },

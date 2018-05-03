@@ -15,28 +15,29 @@ Vue.prototype.$moment = moment;
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式
-// import 'element-ui/lib/theme-chalk/index.css'
-// import 'element-ui/lib/theme-chalk/display.css'
+import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 // element-ui
-// import ElementUI from 'element-ui'
-// Vue.use(ElementUI)
+import ElementUI from 'element-ui'
+Vue.use(ElementUI)
 
 
 // import 'element-ui/lib/theme-chalk/icon.css'
 // import 'element-ui/lib/theme-chalk/loading.css'
 // import 'element-ui/lib/theme-chalk/message.css'
 // import 'element-ui/lib/theme-chalk/message-box.css'
-import {Loading,Message,MessageBox,Pagination} from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import 'element-ui/lib/theme-chalk/display.css'
 
-Vue.use(Loading.directive) //仅使用指令
-Vue.use(Pagination) //仅使用指令
-Vue.prototype.$message = Message
-Vue.prototype.$message = Message
-Vue.prototype.$msgbox = MessageBox;
-Vue.prototype.$alert = MessageBox.alert;
-Vue.prototype.$confirm = MessageBox.confirm;
+// import {Loading,Message,MessageBox,Pagination} from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/display.css'
+
+// Vue.use(Loading.directive) //仅使用指令
+// Vue.use(Pagination) //仅使用指令
+// Vue.prototype.$message = Message
+// Vue.prototype.$message = Message
+// Vue.prototype.$msgbox = MessageBox;
+// Vue.prototype.$alert = MessageBox.alert;
+// Vue.prototype.$confirm = MessageBox.confirm;
 
 
 

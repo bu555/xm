@@ -40,16 +40,8 @@ module.exports =  {
       },
       //检测vote是否符合格式
       testVote(vote){
-            if(!vote || typeof vote !== 'string') return false;
-            if(vote.length!==4){ //4位
-                return false;
-            }else{
-                if( /[ei]/.test(vote[0]) && /[sn]/.test(vote[1]) && /[tf]/.test(vote[2]) && /[jp]/.test(vote[3]) ){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
+            let reg = /^[ei][sn][tf][jp]$/
+            return vote && reg.test(vote) ? true:false
       }
 
 }

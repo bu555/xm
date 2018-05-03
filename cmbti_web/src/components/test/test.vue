@@ -27,14 +27,27 @@
             </router-link>
             <div class="info" v-html="'16人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
         </div>
-
         <div class="item">
+            <div class="icon">
+                <router-link to="/test/mbti93">
+                    <img src="../../../static/img/test_icon.jpg" alt="">
+                </router-link>
+            </div>
+            <router-link to="/test/mbti93">
+            <div class="title">
+               MBTI93
+            </div>
+            </router-link>
+            <div class="info" v-html="'16人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
+        </div>
+
+        <!--<div class="item">
             <div class="icon">
                 <img src="../../../static/img/test_icon.jpg" alt="">
             </div>
             <div class="title">16型人格测试</div>
             <div class="info" v-html="'16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
-        </div>
+        </div>-->
     </nav>
 </div> 
 </template>
