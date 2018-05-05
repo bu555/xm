@@ -16,7 +16,7 @@
     </div>
 
     <div class="main-box bx container">
-        <div class="row">
+        <!--<div class="row">-->
             <div class="left-vote  col-xs-12 col-sm-12 col-md-8 col-lg-8 row">
                 <div class="vote row">
                     <!--人物详情-->
@@ -46,13 +46,22 @@
                                 
                             </div>
                             <div class="vote-result">
-                                <voteResult v-if="exampleItem" :example="exampleItem"></voteResult>
+                                <!--<voteResult v-if="exampleItem" :example="exampleItem"></voteResult>-->
+                                <div class="item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
+                                    <div class="type">{{v.type?v.type.toUpperCase():''}}</div>
+                                    <div class="prog">
+                                        <div :style="'width:'+v.perce">
+                                            <div class="count">{{v.count}}</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                             <div style="padding-top:14px">
                                 <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
                                 <!--<el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>-->
-                                <button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>
-                                <button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>
+                                <!--<button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>-->
+                                <!--<button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>-->
 
                             </div>
                         </div>
@@ -65,6 +74,33 @@
                             </div>
 
                         </div>
+                    </div>
+                    <!--投票+评论-->
+                    <div class="user-ctrl">
+                        <br>
+                        <div class="u-comment">
+                            <p>评论：</p>
+                            <el-input type="textarea" v-model="myComment"></el-input></br>
+                            <el-button size="small" class="u-btn">评论</el-button>
+
+                        </div>
+                        <div class="u-vote">
+                            <br>
+                            <p>投票：</p>
+                            <el-select v-model="voteType" filterable clearable placeholder="请选择">
+                                <el-option
+                                v-for="item in typeList"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                            </el-select>
+                            </br>
+                            <el-button size="small" class="u-btn" @click="vote()">投票</el-button>
+
+                        </div>
+                        
+                            <!--<el-button>取消</el-button>-->
                     </div>
                     <!--评论区-->
                     <div class="comment">
@@ -80,7 +116,7 @@
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="comment()">comment</button>
                     </div>
                 </div>
-        </div>
+        <!--</div>-->
 
         <!--<div class="left-side">
             <div class="vote">
@@ -156,18 +192,35 @@ export default {
             isVote:false,
             isGetDate:true,
             isRepeat:false,
-            fromPath:''
+            fromPath:'',
+            voteArr:[],
+            myComment:'',
+            myVote:'',
+            voteType:'',
+            typeList:[],
         }
     },
     methods:{
         //投票
         vote(){
+            if(!this.voteType){
+                this.$message({
+                    showClose: true,
+                    message: '请先选择类型',
+                    type: 'warning'
+                });
+                return;
+            }
             this.$axios.goVote({
                 eid:this.$route.query.eid,
-                result:'intj'
+                result:this.voteType
             }).then(res=>{
                 if(res.data.success){
-                    console.log(res);
+                    this.$message({
+                        showClose: true,
+                        message: '操作成功！',
+                        type: 'success'
+                    });
                 }
             })
         },
@@ -215,6 +268,46 @@ export default {
                     if(res.data.success){
                         this.exampleItem = res.data.result.example[0];
 
+                        // 类型排序
+                        let vote = []
+                        let total = 0
+                        for(let key in this.exampleItem.vote){
+                            total += Number(this.exampleItem.vote[key])
+                        }
+                        console.log(total);
+                        for(let key in this.exampleItem.vote){
+                            console.log(this.exampleItem.vote[key]);
+                            vote.push({
+                                type:key,
+                                count:this.exampleItem.vote[key],
+                                perce:total===0?'0%':this.exampleItem.vote[key]/total*100 + '%'
+                            })
+                        }
+                        console.log(vote);
+                        for(let i=0;i<vote.length-1;i++){
+                            for(let j=0;j<vote.length-1-i;j++){
+                                if(vote[j].count < vote[j+1].count){
+                                    let temp = vote[j+1]
+                                    vote[j+1] = vote[j]
+                                    vote[j] = temp
+                                }
+                            }
+                        }
+                        //如果最大与type相等
+                        if(this.exampleItem.type!=='****' &&vote[0].type!=this.exampleItem.type){
+                            let temp;
+                            for(let i=0;i<vote.length;i++){
+                                if(vote[i].type==this.exampleItem.type){
+                                    temp = vote[i]
+                                    vote.splice(i,1)
+                                    break;
+                                }
+                            }
+                            vote.unshift(temp)
+                        }
+                        console.log('vote排序：',vote);
+                        this.voteArr = vote
+
                     }else{
                     }
                 }).catch(res=>{})
@@ -243,6 +336,14 @@ export default {
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
             this.fromPath = '/example'
         }
+
+        //处理typeList数据
+        this.$mbti.types.forEach((v,i)=>{
+            this.typeList.push({
+                value:v,
+                label:v.toUpperCase()
+            })
+        })
 
     },
     components:{
@@ -323,7 +424,7 @@ export default {
             }
             @media screen and(max-width:415px){
                 .example-box {
-                        padding-top:12px;
+                        padding:5% 6%;
                         height:auto;
                         // padding-right:13%;
                         // padding-left:13%;
@@ -348,19 +449,19 @@ export default {
         .example-box {
             // display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
             // background-color: #eee;
-                height:317px;
-                border:1px solid #f0f0f0;
-                border-radius:4px 0 0 4px;
-                overflow: hidden;
-                border-right:none;
-                padding:.06rem;
-                padding-left:.09rem;
-                font-size:13px;
-                color:#777;
-                word-break: break-all; //英文换行
-                a {
-                color:#70a9e5;
-                }
+            height:300px;
+            border:1px solid #f0f0f0;
+            border-radius:4px 0 0 4px;
+            overflow: hidden;
+            border-right:none;
+            padding:3% ;
+            // padding-left:.09rem;
+            font-size:13px;
+            color:#777;
+            word-break: break-all; //英文换行
+            a {
+            color:#70a9e5;
+            }
             .item {
                 // flex:1 0 46%;
                 box-sizing: border-box;
@@ -368,11 +469,11 @@ export default {
                 margin-right:5px;
                 padding-left:12px;
                 margin-bottom:8px;
-                width:180px;
+                width:170px;
                 position: relative;
                 .photo {
                     width:100%;
-                    height:210px;
+                    height:200px;
                     overflow: hidden;
                     background-color: #777;
                 }
@@ -385,9 +486,52 @@ export default {
                 }
             }
         }   
+        .vote-result {
+            padding:32px 0px;
+            &>.item {
+                margin:0 auto;
+                display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+                max-width:270px;
+                padding-right:70px;
+                .type{
+                    flex:0 0 55px;
+                    height:25px;
+                    line-height: 25px;
+                    text-align:right;
+                    padding-right:5px;
+                    // background-color: pink;
+                }
+                .prog{
+                    flex:1;
+                    height:25px;
+                    border-left:1px solid #6ac342;
+                    display:flex;
+                    align-items:center;
+                    &>div {
+                        height:16px;
+                        background-color: #6ac342;
+                        width:100%;
+                        border-radius:0px 8px 8px 0px;
+                        position: relative;
+                        .count{
+                            position: absolute;
+                            right:0;
+                            top:0;
+                            transform:translateX(100%);
+                            height:16px;
+                            line-height: 16px;
+                            text-align:left;
+                            padding-left:4px;
+
+                        }
+                    }
+                }
+            }
+            
+        }
         // 投票结果
         .vote-box {
-            height:317px;
+            height:300px;
             border:1px solid #f0f0f0;
             border-radius:0 4px 4px 0;
             border-left-color:#f8f8f8;
@@ -416,6 +560,12 @@ export default {
                 // background-color: #eee;
                 border-bottom:1px solid #f8f8f8;
                 // box-shadow: 1px 0 3px #ccc;
+            }
+        }
+        .user-ctrl {
+            .u-btn {
+                margin-top: 10px;
+                margin-right: 40px;
             }
         }
 

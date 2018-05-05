@@ -49,6 +49,12 @@ s,i,em{font-style:normal;text-decoration:none;}
   text-align: center;
   line-height: 32px;
 }
+.txt-left {
+  text-align: left;
+}
+.txt-center {
+  text-align: center;
+}
 @media screen and (max-width:768px){
   .my-tit {
     font-size:16px;

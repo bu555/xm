@@ -16,6 +16,17 @@
                     <el-button type="primary" round @click="submitTest()">提 交</el-button>
                 </div>
             </div>-->
+            <div class="info bx">
+                <p>测试须知：</p>
+                <p>本量表最初由我国心理学专家与美国东卡罗莱纳大学合作完成，1994年完成了MBTI-G人格类型量表的翻译和修订；1998 年后，又修订</p>出版了最新的 MBTI-M人格类型量表。
+                <p>心理成长根据新时代的语境、网络特点、以及本站的海量样本分析，对本量表进行了进一步的修订。</p>
+                <p>测试指导语</p>
+                <p>1、选项没有“对”与“错”之分</p>
+                <p>2、选择更接近你平时的感受或行为的那项</p>
+                <p>3、请选择你是怎么样做的，而不要选择你想要怎样、以为会怎样、或者认为哪样更好</p>
+                <p>4、性格无好坏，本量表检测你的性格倾向，而不是你的知识、技能、经验</p>
+                <p>本次测试共 93 题`</p>
+            </div> 
             <div class="questions">
                 <div class="item" v-for="(v,i) in mbti93" :key="i">
                     <div class="title">{{i+1}}、{{v.q}}</div>
@@ -25,7 +36,9 @@
                     </template>
                 </div>
             </div>
-            <el-button type="primary" round @click="submitTest()">提 交</el-button>
+            <div class="btn-ctrl">
+                <el-button type="primary" round @click="submitTest()">提 交</el-button>
+            </div>
 
 </div> 
 </template>
@@ -35,13 +48,29 @@ export default {
     data(){
         return {
             mbti93:[],
-            res93:[],
+            res:{
+                e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0
+            }
         }
     },
     methods:{
         submitTest(){
             console.log(this.mbti93);
+            this.mbti93.forEach((v,i)=>{
+                if(v.res){
+                    this.res[v.res] = this.res[v.res]+1
+                    console.log(v.res);
+                }
+            })
+            console.log(this.res);
+            this.$router.push({
+                path:'/test/mbti93/report',
+                query:{
+                    result:JSON.stringify(this.res)
+                }
+            })
         }
+
 
     },
     created(){
@@ -58,26 +87,46 @@ export default {
 </script>
 <style lang="less">
 .test-mbti93 {
-        max-width:320px;
+    padding:15px;
+    .info {
+        max-width:700px;
+        padding-top:22px;
+    }
+    .questions{
+        max-width:400px;
         margin:0 auto;
         padding-top:50px;
-        .questions{
-            .item {
-                padding-top:10px;
+        padding-left:12px;
+        .item {
+            padding-top:12px;
+            .title {
+                padding-bottom:4px;
+                font-size:15px;
+                text-indent:-32px;
                 padding-left:22px;
-                .title {
-                    padding-bottom:3px;
-                    text-indent: -12px;
+
+            }
+            .el-radio {
+                white-space:normal; 
+                padding-left:40px;
+                text-indent:-18px;
+                span.el-radio__label {
                 }
-                .el-radio {
-                    white-space: wrap; 
-                    span.el-radio__label {
-                        padding:115px;
-                        text-indent:-15px;
-                    }
+                span:last-child{
+                    margin-left:-9px;
+                    // color:red;
+                    // padding-left:20px;
+                    // text-indent:-17px;
+
                 }
+
             }
         }
+    }
+    .btn-ctrl {
+        text-align:center;
+        padding:22px 20px;
+    }
 
         
 }

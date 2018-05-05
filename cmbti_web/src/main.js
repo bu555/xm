@@ -12,6 +12,9 @@ import '../static/css/ec-css-hover.css'
 import store from '@/store/store'
 import moment from 'moment'
 Vue.prototype.$moment = moment;
+import mbti from './assets/mbti'
+Vue.prototype.$mbti = mbti;
+
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式
