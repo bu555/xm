@@ -81,13 +81,13 @@
                         <div class="u-comment">
                             <p>评论：</p>
                             <el-input type="textarea" v-model="myComment"></el-input></br>
-                            <el-button size="small" class="u-btn">评论</el-button>
+                            <el-button size="small" class="u-btn" @click="comment()">评论</el-button>
 
                         </div>
-                        <div class="u-vote">
+                        <div class="u-vote" v-if="!isRepeat">
                             <br>
                             <p>投票：</p>
-                            <el-select v-model="voteType" filterable clearable placeholder="请选择">
+                            <el-select v-model="myVote" filterable clearable placeholder="请选择">
                                 <el-option
                                 v-for="item in typeList"
                                 :key="item.value"
@@ -196,14 +196,13 @@ export default {
             voteArr:[],
             myComment:'',
             myVote:'',
-            voteType:'',
             typeList:[],
         }
     },
     methods:{
         //投票
         vote(){
-            if(!this.voteType){
+            if(!this.myVote){
                 this.$message({
                     showClose: true,
                     message: '请先选择类型',
@@ -213,7 +212,7 @@ export default {
             }
             this.$axios.goVote({
                 eid:this.$route.query.eid,
-                result:this.voteType
+                result:this.myVote
             }).then(res=>{
                 if(res.data.success){
                     this.$message({
@@ -225,14 +224,36 @@ export default {
             })
         },
         comment(){
+            if(!this.myComment){
+                this.$message({
+                    showClose: true,
+                    message: '请输入评论内容',
+                    type: 'warning'
+                });
+                return;
+            }
             this.$axios.addComment({
                 eid:this.$route.query.eid,
-                result:'fftest测试一下'
+                result:this.myComment
+            }).then(res=>{
+                    this.$message({
+                        showClose: true,
+                        message: '操作成功！',
+                        type: 'success'
+                    });
+            }).catch(error=>{
+                console.log(error);
+            })
+        },
+        getComment(){
+            this.$axios.getComment({
+                eid:this.$route.query.eid,
             }).then(res=>{
                 console.log(res);
             }).catch(error=>{
                 console.log(error);
             })
+
         },
         // 返回名人庫
         back(){
@@ -258,15 +279,17 @@ export default {
             })
             
         },
-        //精确查询example
-        searchExamp(option){
+        //id精确查询example
+        getExampleById(eid){
                 this.exampleItem = '';
-                this.$axios.searchExample({
-                    params:option
+                this.$axios.getExampleById({
+                    eid:eid
                 }).then(res=>{
                     console.log(res);
                     if(res.data.success){
-                        this.exampleItem = res.data.result.example[0];
+                        this.exampleItem = res.data.example;
+                        this.isRepeat = res.data.repeat
+                        console.log('isRepeat:',this.isRepeat);
 
                         // 类型排序
                         let vote = []
@@ -317,11 +340,11 @@ export default {
         checkRepeat(){
             if(localStorage.getItem('USER')){
                 let uid = JSON.parse(localStorage.getItem('USER'))._id;
-                this.exampleItem.voteLog.forEach(v=>{
-                    if(v.uid===uid){
-                        this.isRepeat = true;
-                    }
-                })
+                // this.exampleItem.voteLog.forEach(v=>{
+                //     if(v.uid===uid){
+                //         this.isRepeat = true;
+                //     }
+                // })
             }
         }
     },
@@ -330,8 +353,11 @@ export default {
     },
     created(){
         if(this.$route.query.eid){
-            this.searchExamp({eid:this.$route.query.eid});
+            this.getExampleById(this.$route.query.eid);
+            this.getComment();
+
         }
+        //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
             this.fromPath = '/example'

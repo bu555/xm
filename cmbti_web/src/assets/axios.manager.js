@@ -88,8 +88,16 @@ export default {
     // fuzzyExample(data){
     //     return axios.post(path+'/example/fuzzyExample',data);
     // },
-    //投票  {eid:'',result:'xxxx'）
+    //投票  {eid:'',result:'xxxx'}
     addComment(data){
         return axios.post(path+'/example/addComment',data);
+    },
+    //投票  {eid:''}
+    getComment(data){
+        return axios.post(path+'/example/getComment',data);
+    },
+    //投票  {eid:''}
+    getExampleById(data){
+        return axios.post(path+'/example/getExampleById',data);
     },
 }

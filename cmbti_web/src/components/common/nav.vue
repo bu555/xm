@@ -169,19 +169,26 @@ export default {
           })
       },
       exitLogin(){
-            window.localStorage.removeItem('user');
+            localStorage.setItem('USER','')
             this.$store.commit('setUserName','');
             this.$axios.delSession().then(res=>{
                 if(res.data.success){
                     this.$router.push({path:'/'});
                 }
             })
+      },
+      init(){
+        if(localStorage.getItem('USER')){
+              let role_name = JSON.parse(localStorage.getItem('USER')).role_name;
+              this.$store.commit('setUserName',role_name);
+        }
       }
   },
   mounted() {
       this.changeRoute();
   },
   created(){
+    this.init()
   }
 }
 </script>
