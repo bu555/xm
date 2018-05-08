@@ -8,7 +8,26 @@
         <span>最新</span>
     </div>
     <div class="comment-list">
-        <div class="items">
+        <div class="items" v-for="(v,i) in comment" :key="i">
+            <div class="com-header"> 
+                <div class="photo">像</div>
+                <div class="role-name">{{v.role_name}}</div> 
+                <div class="date">{{v.c_time}}</div>
+            </div>
+            <div class="com-content">{{v.result}}</div>
+            <div class="handle">
+                <div class="zan">
+                    ↑ 1234
+                </div>
+                <div class="reply">
+                    O 1234
+                </div>
+                <div class="share">
+                    →
+                </div>
+            </div>
+        </div>
+        <!--<div class="items">
             <div class="com-header"> 
                 <div class="photo">像</div>
                 <div class="role-name">角色名55</div> 
@@ -45,46 +64,24 @@
                     →
                 </div>
             </div>
-        </div>
-        <div class="items">
-            <div class="com-header"> 
-                <div class="photo">像</div>
-                <div class="role-name">角色名55</div> 
-                <div class="date">2002-6-6</div>
-            </div>
-            <div class="com-content">XXXXXXXXXXXXXXXXXXXXXXXXXX</br>XXXXXXXXXXXXXX</div>
-            <div class="handle">
-                <div class="zan">
-                    ↑ 1234
-                </div>
-                <div class="reply">
-                    O 1234
-                </div>
-                <div class="share">
-                    →
-                </div>
-            </div>
-        </div>
+        </div>-->
     </div>
 </div>
 </template>
 <script>
 export default {
-   methods:{
-        getComment(){
-            this.$axios.getComment({
-                eid:this.$route.query.eid,
-            }).then(res=>{
-                console.log(res);
-            }).catch(error=>{
-                console.log(error);
-            })
+    data(){
+        return {
+            // comment:[]
+        }
+    },
+    props:['comment'],
+    methods:{
 
-        },
-   },
-   created(){
-       this.getComment()
-   }
+    },
+    created(){
+        
+    }
 }
 </script>
 <style lang='less'>

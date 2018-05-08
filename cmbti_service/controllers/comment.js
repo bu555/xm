@@ -1,5 +1,6 @@
 
 const CommentModel = require('../models/schema/comment') 
+const User = require('./user') 
 //时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
@@ -15,7 +16,17 @@ class Comment {
         return new Promise((resolve,reject)=>{
             CommentModel.findOne({eid:eid}).then(comment=>{
                 if(comment){
-                    resolve(comment)
+                        (async ()=>{
+                            try{
+                                for(let i=0;i<comment.list.length;i++){
+                                    let user = await User.getUser({uid:comment.list[i].uid})
+                                    comment.list[i].role_name = user.role_name ||  '已注销'
+                                }
+                                resolve(comment.list)
+                            }catch(error){
+                                reject(error)
+                            }
+                        })()
                 }else{
                     reject('eid not find')
                 }
