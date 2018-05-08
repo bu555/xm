@@ -15,10 +15,9 @@
         </div>
     </div>
 
-    <div class="main-box bx container">
-        <!--<div class="row">-->
-            <div class="left-vote  col-xs-12 col-sm-12 col-md-8 col-lg-8 row">
-                <div class="vote row">
+    <div class="main-box bx ">
+            <div class="left-vote">
+                <div class="vote">
                     <!--人物详情-->
                     <div v-if="exampleItem" class="example-box clearfix col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="item">
@@ -108,68 +107,14 @@
                     </div>
                 </div>
                 <!--右侧栏-->
-                <div class="right-side hidden-xs hidden-sm col-md-4 col-lg-4">
-                <!--<div class="right-side .visible-lg-*">-->
+                <div class="right-side">
                     <div class="r-content">
                         right-side
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="vote()">Loading state</button>
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="comment()">comment</button>
                     </div>
                 </div>
-        <!--</div>-->
 
-        <!--<div class="left-side">
-            <div class="vote">
-                <div v-if="exampleItem" class="left-box">
-                    <div class="info-txt">
-                        {{exampleItem.info}}
-                    </div>
-                    <div class="item">
-                        <div class="item-box">
-                            <div class="type">{{exampleItem.type.toUpperCase()}}</div>
-                            <div class="photo">
-                                <img :src="exampleItem.img_url" alt="">
-                            </div>
-                            <div class="name">{{exampleItem.name}}</div>
-                        </div>
-                    </div>
-                    <div class="baike">
-                        <a href="" target="_blank">
-                            <img src="../../../static/img/hudongbaike.jpg" alt="前往互动百科">
-                        </a>
-                        <a href="" target="_blank" style="margin-left:10px">
-                            <img src="../../../static/img/baidubaike.jpg" alt="前往百度百科">
-                        </a>
-                    </div>
-                </div>
-                <div class="right-box" v-if="!isVote">
-                    <div class="vote-title">投票结果</div>
-                    <div class="vote-result" style="height:177px">
-                        <voteResult v-if="exampleItem" :example="exampleItem"></voteResult>
-                    </div>
-                    <div>
-                        <button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>
-                        <button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>
-
-                    </div>
-                </div>
-                <div class="right-box" v-if="isVote">
-                    <div class="vote-title">投 票 台</div>
-                    <div class="vote-result" style="height:177px">
-                        <voteConsole @sonSend="lestionSon($event)"></voteConsole>
-                    </div>
-
-                </div>
-            </div>
-            <div class="comment">
-                <myComment></myComment>
-            </div>
-        </div>
-        <div class="right-side">
-            <div class="top-side">
-                top-side
-            </div>
-        </div>-->
 
         
     </div>
@@ -215,6 +160,7 @@ export default {
                 result:this.myVote
             }).then(res=>{
                 if(res.data.success){
+                    this.getExampleById()  //更新数据
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -245,16 +191,7 @@ export default {
                 console.log(error);
             })
         },
-        getComment(){
-            this.$axios.getComment({
-                eid:this.$route.query.eid,
-            }).then(res=>{
-                console.log(res);
-            }).catch(error=>{
-                console.log(error);
-            })
 
-        },
         // 返回名人庫
         back(){
             this.$router.push({path:this.fromPath})
@@ -280,7 +217,12 @@ export default {
             
         },
         //id精确查询example
-        getExampleById(eid){
+        getExampleById(){
+                if(this.$route.query.eid){
+                    var eid = this.$route.query.eid.trim()
+                }else{
+                    return;
+                }
                 this.exampleItem = '';
                 this.$axios.getExampleById({
                     eid:eid
@@ -352,11 +294,8 @@ export default {
         exampleItem:'checkRepeat'
     },
     created(){
-        if(this.$route.query.eid){
-            this.getExampleById(this.$route.query.eid);
-            this.getComment();
+        this.getExampleById();
 
-        }
         //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
@@ -424,9 +363,12 @@ export default {
     }
     .main-box {
         max-width:1020px;
+        display:flex;
+        padding:1% 2.5%;
         .left-vote {
             margin:0;
             padding-top:8px;
+            flex:1;
             @media screen and(min-width:416px) and (max-width:768px){
                 .example-box {
                         height:auto;
@@ -598,14 +540,18 @@ export default {
         .comment {
             padding-top:20px;
         }
-    }    
-    .right-side {
-        padding:8px;
-        .r-content {
-            border:1px solid #f2f2f2;
-            min-height: 322px;
+        .right-side {
+            @media screen and (max-width:1024px){
+                display:none;
+            }
+            padding:8px;
+            flex:0 0 310px;
+            .r-content {
+                border:1px solid #f2f2f2;
+                min-height: 322px;
+            }
         }
-    }
+    }    
 
     
 }

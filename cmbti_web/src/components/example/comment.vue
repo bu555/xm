@@ -70,13 +70,27 @@
 </template>
 <script>
 export default {
-  
+   methods:{
+        getComment(){
+            this.$axios.getComment({
+                eid:this.$route.query.eid,
+            }).then(res=>{
+                console.log(res);
+            }).catch(error=>{
+                console.log(error);
+            })
+
+        },
+   },
+   created(){
+       this.getComment()
+   }
 }
 </script>
 <style lang='less'>
 .my-comment {
     text-align: left;
-    padding:8px;
+    padding:8px 2px;
     .title {
         font-size:15px;
     }
