@@ -9,6 +9,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const Example = require('../controllers/example')
 const Vote = require('../controllers/vote')
 const Comment = require('../controllers/comment')
+const User = require('../controllers/user')
 
 const addExample = (req,res)=>{
     let name = req.body.name || '';
@@ -149,19 +150,35 @@ const getComment = (req,res,next)=>{
               message:'参数格式错误'
           })
       }
-      Comment.getComment({
-          eid: eid
-      }).then(comment=>{
-            res.json({
-                success:true,
-                comment:comment
-            })
-      }).catch(error=>{
-            res.json({
-                success:false,
-                message:error
-            })
-      })
+      (async ()=>{
+          try{
+                let comment = await Comment.getComment({ eid: eid })
+                res.json({
+                    success:true,
+                    comment:comment
+                })
+           }catch(error){
+                res.json({
+                    success:false,
+                    message:error
+                })
+           }
+      })()
+
+
+    //   Comment.getComment({
+    //       eid: eid
+    //   }).then(comment=>{
+    //         res.json({
+    //             success:true,
+    //             comment:comment
+    //         })
+    //   }).catch(error=>{
+    //         res.json({
+    //             success:false,
+    //             message:error
+    //         })
+    //   })
 
 }
 const getExampleById = (req,res,next)=>{

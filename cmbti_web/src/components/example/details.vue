@@ -103,7 +103,7 @@
                     </div>
                     <!--评论区-->
                     <div class="comment">
-                        <myComment></myComment>
+                        <myComment :comment="commentList"></myComment>
                     </div>
                 </div>
                 <!--右侧栏-->
@@ -142,6 +142,7 @@ export default {
             myComment:'',
             myVote:'',
             typeList:[],
+            commentList:[]
         }
     },
     methods:{
@@ -182,11 +183,14 @@ export default {
                 eid:this.$route.query.eid,
                 result:this.myComment
             }).then(res=>{
+                if(res.data.success){
+                    this.getComment()
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
                         type: 'success'
                     });
+                }
             }).catch(error=>{
                 console.log(error);
             })
@@ -278,6 +282,19 @@ export default {
                 }).catch(res=>{})
 
         },
+        getComment(){
+            this.$axios.getComment({
+                eid:this.$route.query.eid,
+            }).then(res=>{
+                if(res.data.success){
+                    this.commentList = res.data.comment
+                }
+                console.log(res);
+            }).catch(error=>{
+                console.log(error);
+            })
+
+        },
         //检查重复投票
         checkRepeat(){
             if(localStorage.getItem('USER')){
@@ -295,6 +312,7 @@ export default {
     },
     created(){
         this.getExampleById();
+        this.getComment()
 
         //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
