@@ -4,6 +4,7 @@ var cheerio = require('cheerio');  //使用cheerio，相当于使用jQuery操作
 var request=require('request');  //针对https页面
 var fs = require('fs');  
 var path=require('path'); 
+var myUtill = require('../models/utill')
 // var url = 'https://baike.baidu.com/item/%E6%AF%9B%E6%B3%BD%E4%B8%9C/113835' ;
 // var url = 'https://baike.baidu.com/item/%E5%88%98%E5%BE%B7%E5%8D%8E/114923' ;
 
@@ -34,7 +35,7 @@ class GrabWeb{
         });  
     }
     //爬取百度百科人物信息
-    static https(name){
+    static https(name,eid){
         let url = 'https://baike.baidu.com/item/'+encodeURI(name);
         let pro = new Promise((resolve,reject)=>{
             request.get({url:url,encoding:null},function(err,response,body){
@@ -60,16 +61,20 @@ class GrabWeb{
                         imgURL = $('body .album-wrap img').attr('src');
                     }
                     // let imgURL = $('body .album-wrap img').attr('src');
-                    resolve({
-                        data:{
-                            imgURL:imgURL,
-                            info:info,
-                            name:name,
-                            tag: '',
-                            birth: '',
-                            conste: '', //星座
-                        }
-                    });
+                    GrabWeb.saveImage({
+                        url:imgURL
+                    }).then(url=>{
+                        resolve({
+                            data:{
+                                imgURL:url,
+                                info:info,
+                                name:name,
+                                tag: '',
+                                birth: '',
+                                conste: '', //星座
+                            }
+                        });
+                    })
                     // console.log(__dirname); //当前文件的目录名
                     // console.log(path.join(__dirname,'../','public')); //当前文件的目录名
                     // GrabWeb.saveImage($('body .summary-pic img').attr('src')); //存入本地
@@ -89,8 +94,41 @@ class GrabWeb{
         return pro;
     }
     //保存图片
-    static saveImage(url){
-        request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
+    static saveImage(options){
+        // request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
+
+        // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
+        return new Promise((resolve,reject)=>{
+            console.log(options.url);
+            // var hash = myUtill.randomString(15);
+            var time = Date.now()
+            var date = new Date()
+            var year = date.getFullYear()
+            var month = date.getMonth()+1
+            month = month<10 ? '0'+String(month) : String(month)
+            // console.log('文件夹名',year + month);
+            let name = year + month
+            fs.exists(path.join(__dirname,'../upload/'+name),function(exists){
+                if(exists){
+                    save()
+                }
+                if(!exists){
+                    fs.mkdir( path.join(__dirname,'../upload/'+name ),function(err){
+                        if (!err) {
+                            save()
+                        }
+                    });
+                }
+            })
+
+            function save(){
+                var writeStream=fs.createWriteStream(path.join(__dirname,'../upload/'+name+'/'+time+'.jpg'),{autoClose:true})
+                request(options.url).pipe(writeStream);
+                writeStream.on('finish',function(){
+                    resolve('/upload/'+name+'/'+time+'.jpg')
+                })
+            }
+        })
     }
     //上传文件
     static uploadFile(url){
