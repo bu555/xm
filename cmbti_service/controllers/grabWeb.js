@@ -100,7 +100,8 @@ class GrabWeb{
         // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
         return new Promise((resolve,reject)=>{
             console.log(options.url);
-            var hash = myUtill.randomString(15);
+            // var hash = myUtill.randomString(15);
+            var time = Date.now()
             var date = new Date()
             var year = date.getFullYear()
             var month = date.getMonth()+1
@@ -109,14 +110,11 @@ class GrabWeb{
             let name = year + month
             fs.exists(path.join(__dirname,'../upload/'+name),function(exists){
                 if(exists){
-                    console.log("文件存在")
                     save()
                 }
                 if(!exists){
-                    console.log("文件不存在")
                     fs.mkdir( path.join(__dirname,'../upload/'+name ),function(err){
                         if (!err) {
-                            console.log("目录创建成功。");
                             save()
                         }
                     });
@@ -124,10 +122,10 @@ class GrabWeb{
             })
 
             function save(){
-                var writeStream=fs.createWriteStream(path.join(__dirname,'../upload/'+name+'/'+hash+'.jpg'),{autoClose:true})
+                var writeStream=fs.createWriteStream(path.join(__dirname,'../upload/'+name+'/'+time+'.jpg'),{autoClose:true})
                 request(options.url).pipe(writeStream);
                 writeStream.on('finish',function(){
-                    resolve('/upload/'+name+'/'+hash+'.jpg')
+                    resolve('/upload/'+name+'/'+time+'.jpg')
                 })
             }
         })

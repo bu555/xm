@@ -1,8 +1,8 @@
 .DS_Store
 node_modules/
 /dist/
-public/
-upload/
+cmbti_service/public/
+cmbti_service/upload/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
