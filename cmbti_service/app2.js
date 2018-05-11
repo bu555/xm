@@ -24,11 +24,6 @@ app.set('port',process.env.PORT || 7000)
 app.use(cors({credentials: true, origin: 'http://localhost:7075'}));//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //解析请求主体(用于获取post传递的参数)
 app.use(bodyParser.json()); //解析application/json
-
-app.use('/', express.static(path.join(__dirname,'public')));
-app.use('/images', express.static(path.join(__dirname,'upload')));
-app.use('/api/user',user);
-app.use('/api/example',example);
 // session
 app.use(session({
   secret: 'usersession',
@@ -43,6 +38,11 @@ app.use(session({
   // })
 }))
 
+app.use('/', express.static(path.join(__dirname,'public')));
+app.use('/images', express.static(path.join(__dirname,'upload')));
+app.use('/api/user',user);
+app.use('/api/example',example);
+
 
 http.createServer(app).listen(app.get('port'),function(){
     console.log("Express server running! 启动端口:"+app.get('port'));
@@ -51,7 +51,7 @@ http.createServer(app).listen(app.get('port'),function(){
 
 
 
-// module.exports = app;
+module.exports = app;
 
 // 登录、注册、密码重置、密码找回 
 // 防XSS  md5
