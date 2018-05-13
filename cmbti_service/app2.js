@@ -39,7 +39,7 @@ app.use(session({
 }))
 
 app.use('/', express.static(path.join(__dirname,'public')));
-app.use('/images', express.static(path.join(__dirname,'upload')));
+app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
 app.use('/api/user',user);
 app.use('/api/example',example);
 

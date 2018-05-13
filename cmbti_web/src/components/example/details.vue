@@ -1,13 +1,28 @@
 <template>
 <div class="details">
-    <div class="tab-nav">
+    <div class="tab-nav" v-show="!tabFixed">
         <div class="nav-view bx ">
             <div class="ctrl">
                 <!--<span style="cursor:pointer">首页</span>-->
                 
-                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-th"></i> 名人库</span>
-                <i class="glyphicon glyphicon-menu-right"></i> 
-                <span style="">{{exampleItem.name}}</span>
+                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-menu-left"></i> 返回名人库</span>
+                <!--<i class="glyphicon glyphicon-menu-right"></i> 
+                <span style="">{{exampleItem.name}}</span>-->
+            </div>
+            <div class="search-box  hidden-xs">
+
+            </div>
+        </div>
+    </div>
+    <!--滚动时显示-->
+    <div v-if="tabFixed" class="tab-nav" style="position:fixed;top:0;left:0;width:100%;z-index:100;background-color:rgba(112, 169, 229,.92);">
+        <div class="nav-view bx ">
+            <div class="ctrl">
+                <!--<span style="cursor:pointer">首页</span>-->
+                
+                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-menu-left"></i> 返回名人库</span>
+                <!--<i class="glyphicon glyphicon-menu-right"></i> 
+                <span style="">{{exampleItem.name}}</span>-->
             </div>
             <div class="search-box  hidden-xs">
 
@@ -23,7 +38,7 @@
                         <div class="item">
                             <!--<img :src="exampleItem.img_url" alt="">-->
                             <div class="photo">
-                                <img :src="exampleItem.img_url" alt="">
+                                <img :src="$pathImgs+exampleItem.img_url" alt="">
                             </div>
                         </div>
                         <!--<div class="txt">-->
@@ -44,6 +59,7 @@
                                 <p>( {{exampleItem.type?exampleItem.type.toUpperCase():''}} )</p>
                                 
                             </div>
+                            <div class="figure"></div>
                             <div class="vote-result">
                                 <!--<voteResult v-if="exampleItem" :example="exampleItem"></voteResult>-->
                                 <div class="item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
@@ -63,15 +79,6 @@
                                 <!--<button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>-->
 
                             </div>
-                        </div>
-                        <div class="vote-box clearfix col-xs-12 col-sm-6 col-md-6 col-lg-6" v-if="isVote">
-                            <div class="vote-title">
-                                <p class="tit">投 票</p>
-                            </div>
-                            <div class="vote-result">
-                                <voteConsole @sonSend="lestionSon($event)"></voteConsole>
-                            </div>
-
                         </div>
                     </div>
                     <!--投票+评论-->
@@ -142,7 +149,8 @@ export default {
             myComment:'',
             myVote:'',
             typeList:[],
-            commentList:[]
+            commentList:[],
+            tabFixed:false
         }
     },
     methods:{
@@ -170,6 +178,7 @@ export default {
                 }
             })
         },
+        // 提交评论
         comment(){
             if(!this.myComment){
                 this.$message({
@@ -184,6 +193,7 @@ export default {
                 result:this.myComment
             }).then(res=>{
                 if(res.data.success){
+                    this.myComment=''
                     this.getComment()
                     this.$message({
                         showClose: true,
@@ -295,20 +305,17 @@ export default {
             })
 
         },
-        //检查重复投票
-        checkRepeat(){
-            if(localStorage.getItem('USER')){
-                let uid = JSON.parse(localStorage.getItem('USER'))._id;
-                // this.exampleItem.voteLog.forEach(v=>{
-                //     if(v.uid===uid){
-                //         this.isRepeat = true;
-                //     }
-                // })
-            }
+        handleScroll () {
+            this.tabFixed = window.scrollY>102;
+            console.log(window.scrollY);
         }
     },
+    mounted(){
+        window.addEventListener('scroll', this.handleScroll);
+    },
     watch:{
-        exampleItem:'checkRepeat'
+        '$store.state.modalLoginSuccess':'getExampleById'
+
     },
     created(){
         this.getExampleById();
@@ -344,17 +351,17 @@ export default {
 <style lang="less">
 .details {
     .tab-nav {
-        height:40px;
-        // background-color: #e8ecf5;
-        background-color: #f7f7f7;
+        height:42px;
+        background-color: rgba(0,0,100,.15);
+        // border-bottom:1px solid #f1f1f1;
         .nav-view {
             max-width:1020px;
             background-color: transparent;
-            height:40px;
-            line-height: 40px;
+            height:42px;
+            line-height: 42px;
             font-size:13px;
-            color:#72748a;
-            border-bottom: 1px solid #eee;
+            color:#fcfcfc;
+            // border-bottom: 1px solid #eee;
             .search-box {
                 float:left;
                 margin-left:25px;
@@ -381,11 +388,16 @@ export default {
     }
     .main-box {
         max-width:1020px;
+        background-color: rgba(255,255,255,.8);
         display:flex;
-        padding:1% 2.5%;
+        margin-top:3px;
+        padding:1% 1%;
+        @media screen and(max-width:768px){
+            padding:3% 5%;
+        }
         .left-vote {
             margin:0;
-            padding-top:8px;
+            // padding-top:8px;
             flex:1;
             @media screen and(min-width:416px) and (max-width:768px){
                 .example-box {
@@ -436,6 +448,7 @@ export default {
             // display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
             // background-color: #eee;
             height:300px;
+            background-color: #fefefe;
             border:1px solid #f0f0f0;
             border-radius:4px 0 0 4px;
             overflow: hidden;
@@ -472,8 +485,21 @@ export default {
                 }
             }
         }   
+        .vote-box {
+            background-color: #fefefe;
+            .figure {
+                margin:4px auto;
+                height:18px;
+                width:260px;
+                background-color: lime;
+                background:url('/static/img/figure.png');
+                background-size:cover;
+                opacity:0.2;
+            }
+
+        }
         .vote-result {
-            padding:32px 0px;
+            padding:22px 0px;
             &>.item {
                 margin:0 auto;
                 display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
@@ -543,9 +569,7 @@ export default {
                 }
                 // font-weight:700;
                 margin:0 28px;
-                // background-color: #eee;
-                border-bottom:1px solid #f8f8f8;
-                // box-shadow: 1px 0 3px #ccc;
+                // border-bottom:1px solid #f8f8f8;
             }
         }
         .user-ctrl {
@@ -562,11 +586,13 @@ export default {
             @media screen and (max-width:1024px){
                 display:none;
             }
-            padding:8px;
+            padding-left:8px;
             flex:0 0 310px;
             .r-content {
                 border:1px solid #f2f2f2;
                 min-height: 322px;
+                padding:5px;
+                background-color: #fefefe;
             }
         }
     }    

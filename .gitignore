@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 /dist/
+node-http-proxy/public/
+cmbti_service/localImgs/
 cmbti_service/public/
 cmbti_service/upload/
 npm-debug.log*

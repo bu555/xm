@@ -44,7 +44,7 @@ app.use(session({
   // })
 }))
 app.use('/', express.static('public'));
-app.use('/upload', express.static('upload'));
+app.use('/imgs', express.static('localImgs'));
 // app.use('/', index);
 // app.use('/api/data',data);
 app.use('/api/user',user);

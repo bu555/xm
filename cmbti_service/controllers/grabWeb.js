@@ -23,7 +23,7 @@ class GrabWeb{
                 var chunkAll = Buffer.concat(arrBuf, bufLength); //Buffer的concat方法将一组Buffer对象合并为一个Buffer对象（bufLength可选参数，指定合并后Buffer对象的总长度）。  
                 var strJson = iconv.decode(chunkAll,'gb2312');    //iconv根据网页chartset转码(解决乱码问题)
                 var $ = cheerio.load(strJson);  //使用cheerio，相当于使用jQuery操作页面(相当于$(html))
-                console.log($);
+                
                 // var str = $('body a').text();
                 // var date =$('.item').eq(2).children().eq(3).children('a').text()+'\n';
                 // var buff1=new Buffer(str+date+"\n"); 
@@ -99,21 +99,20 @@ class GrabWeb{
 
         // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
         return new Promise((resolve,reject)=>{
-            console.log(options.url);
-            // var hash = myUtill.randomString(15);
+            var hash = myUtill.randomString(1);
             var time = Date.now()
             var date = new Date()
             var year = date.getFullYear()
             var month = date.getMonth()+1
             month = month<10 ? '0'+String(month) : String(month)
             // console.log('文件夹名',year + month);
-            let name = year + month
-            fs.exists(path.join(__dirname,'../upload/'+name),function(exists){
+            let dirName = year + month
+            fs.exists(path.join(__dirname,'../localImgs/'+dirName),function(exists){
                 if(exists){
                     save()
                 }
                 if(!exists){
-                    fs.mkdir( path.join(__dirname,'../upload/'+name ),function(err){
+                    fs.mkdir( path.join(__dirname,'../localImgs/'+dirName ),function(err){
                         if (!err) {
                             save()
                         }
@@ -122,10 +121,10 @@ class GrabWeb{
             })
 
             function save(){
-                var writeStream=fs.createWriteStream(path.join(__dirname,'../upload/'+name+'/'+time+'.jpg'),{autoClose:true})
+                var writeStream=fs.createWriteStream(path.join(__dirname,'../localImgs/'+dirName+'/'+time+hash+'.jpg'),{autoClose:true})
                 request(options.url).pipe(writeStream);
                 writeStream.on('finish',function(){
-                    resolve('/upload/'+name+'/'+time+'.jpg')
+                    resolve('/'+dirName+'/'+time+hash+'.jpg')
                 })
             }
         })

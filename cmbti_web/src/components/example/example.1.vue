@@ -246,7 +246,7 @@ export default {
 </script>
 <style lang="less">
 .example {
-    background-color: #fdfdfd;
+    background-color: lime;
     .tab-nav {
         height:40px;
         // background-color: #e8ecf5;
@@ -273,6 +273,7 @@ export default {
     }
     .main-box {
         display: flex; display: -webkit-flex;display: -ms-flex;
+        background-color: lime;
         // padding:10px;
         .example-list {
             width:72%;

@@ -7,7 +7,6 @@ const captchapng = require('captchapng');
  * @param next
  */
 function randomcodePngController(req , res , next){
-    console.log('jkjkjk');
     var code = '0123456789';
     var length = 4;
     var randomcode = '';

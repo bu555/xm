@@ -70,7 +70,6 @@ const addExample = (req,res)=>{
 // 模糊查询(接受name 和type)
 const searchExample = (req,res,next)=>{
     let option = req.body.params
-    console.log(option);
     let pro;
     // 1.按name 模糊查询
     if(option.name){
@@ -92,7 +91,6 @@ const searchExample = (req,res,next)=>{
             let size = reg.test(option.size)? Number(option.size):8
             let count = Math.ceil(example.length/size)
             let total = example.length
-            console.log(example);
             if(!(example instanceof Array)){
                 example = [example]
             }
@@ -276,7 +274,6 @@ const addToUserHistory = (uid,eid,vote,example)=>{
     let pro = new Promise((resolve,reject)=>{
         UserHistory.findOne({uid:uid}).then(user_history=>{
             if(user_history){ //用户存在
-                console.log('用户存在');
                 UserHistory.update({uid:uid},{$push:{
                     voteList:{
                         eid:eid,
@@ -298,7 +295,6 @@ const addToUserHistory = (uid,eid,vote,example)=>{
                     }
                 })
             }else{ //用户不存在
-                console.log('用户不存在');
                 new UserHistory({
                     uid:uid,
                     voteList:[],

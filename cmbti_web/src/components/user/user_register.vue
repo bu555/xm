@@ -163,8 +163,8 @@ export default {
   mounted(){
   },
   created(){
-      //从注册成功跳转的会带name
-    //   this.ruleForm.name = this.$route.query.name || 'bzg@qq.com';
+      //从模态登录进入，关闭模态框
+      this.$store.commit('setModalLogin',false);
   }
 };
 </script>
@@ -179,6 +179,7 @@ export default {
             border-radius:3px 3px 2px 2px;
             form {
                 padding:20px 40px 32px;;
+                background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
             }
             @media screen and (max-width:500px){
@@ -191,6 +192,7 @@ export default {
                 text-align: center;
                 font-weight: 700;
                 border:1px solid #337ab7;
+                // border:1px solid #ddd;
                 border-bottom:1px solid #598dd3;
                 background-color: #598dd3;
                 padding: .04rem 0 .04rem;

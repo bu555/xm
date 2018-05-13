@@ -29,7 +29,6 @@ class User {
         }else if(uid){
             data._id = uid
         }
-        console.log('datA',data);
         return UserModel.findOne(data)
     }
 }

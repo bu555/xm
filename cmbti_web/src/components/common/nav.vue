@@ -189,6 +189,7 @@ export default {
   },
   created(){
     this.init()
+    console.log('cookie',document.cookie);
   }
 }
 </script>
@@ -269,5 +270,16 @@ export default {
     padding-left:20px;
     padding-right:20px;
   } 
+  .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+      color: #fff;
+      background-color: #456ea5;;
+  }
+  .my-nav a:hover, .my-nav a:visited {
+      color: #fff;
+      text-decoration: none;
+  }
+  .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+      color: #fff;
+  }
 }
 </style>

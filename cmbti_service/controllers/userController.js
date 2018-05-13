@@ -145,8 +145,6 @@ const resetPassword = (req,res,next)=>{
 }
 
 const search = (req,res,next)=>{
-  console.log( moment(new Date()).format('YYYY-MM-DD HH:mm:ss'));
- 
     User.find({ })
     .then(user => {
       return res.json({

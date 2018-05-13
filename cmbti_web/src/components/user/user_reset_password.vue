@@ -118,6 +118,7 @@ export default {
         margin:30px 4px;
         form {
             padding:16px .13rem 32px;;
+            background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
         .title {

@@ -3,12 +3,16 @@
       <myNav></myNav>
       <router-view class="router-view"></router-view>
       <myFooter></myFooter>
+      <div v-if="$store.state.modalLogin">
+        <loginModal></loginModal>
+      </div>
   </div>
 </template>
 
 <script>
 import myNav from './components/common/nav'
 import myFooter from './components/common/footer'
+import loginModal from '../src/components/user/user_login_modal'
 export default {
   name: 'App',
   data(){
@@ -18,7 +22,8 @@ export default {
   },
   components: {
     myNav,
-    myFooter
+    myFooter,
+    loginModal
   },
   methods:{
 
@@ -60,6 +65,7 @@ export default {
 
 <style lang="less">
     .root-app {
+      background:url('/static/img/bg_1.png');
       .router-view {
         margin-bottom:12px;
         overflow: hidden;

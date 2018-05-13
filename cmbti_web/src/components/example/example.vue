@@ -4,7 +4,7 @@
         <div class="bx clearfix">
             <div class="col-md-4">
                 <div class="input-group">
-                <input v-model="searchName" type="text" class="form-control" placeholder="Search for...">
+                <input v-model="searchName" type="text" class="form-control" placeholder="Search for..." @keyup.enter="search()">
                 <span class="input-group-btn">
                     <button @click="search()" class="btn btn-default" type="button">Go!</button>
                 </span>
@@ -48,7 +48,7 @@
                     <div class="item-box" :style="'border-color:'+(typeof rgba[v.type]=='string'?rgba[v.type].substr(0,rgba[v.type].length-1)+',.4)':'')+';color:'+color[v.type] ">
                         <div class="type">{{v.type.toUpperCase()}}</div>
                         <div class="photo" :style="'box-shadow: 0 0 5px '+color[v.type]+';'">
-                            <img :src="v.img_url" alt="">
+                            <img :src="$pathImgs+v.img_url" alt="">
                             <!--投票提示-->
                             <!--<div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">
                                 <span>投个票去！</span><i class="icon iconfont icon-new"></i>
@@ -66,7 +66,7 @@
                 </div>
         </div>
         <!--分页-->
-        <div class="m-auto t-center" style="padding:20px 0">
+        <div class="m-auto t-center pagi" style="padding:20px 0">
             <el-pagination
             background
             :page-size="size"
@@ -322,11 +322,15 @@ export default {
 </script>
 <style lang="less">
 .example {
-    background-color: #fdfdfd;
+    // background-color: #fdfdfd;
+    // max-width:1070px;
+    margin:0 auto;
     .my-tab {
         // height:56px;
-        background-color: #f7f7f7;
-        padding:10px 0;
+        // background-color: #f7f7f7;
+        // background-color: rgba(190,190,190,.45);
+        background-color: rgba(0,0,100,.15);
+        padding:10px 0 15px;
 
         .types-box {
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
@@ -384,11 +388,12 @@ export default {
     }
     //名人列表
     .example-list {
-        margin:0 auto;
-        max-width:900px;
+        background-color: rgba(255,255,255,.72);
+        margin:4px auto 0;
+        max-width:1066px;
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-        padding:8px 15px;
+        padding:22px 4%;
         text-align: center;
         // justify-content:space-between;
         .item {
@@ -477,6 +482,11 @@ export default {
         }
 
         } 
+    }
+    // 分页
+    .pagi{
+        max-width:1066px;
+        background-color: rgba(255,255,255,.72);
     }
     a:hover {color: #1a1a1a;text-decoration:none} 
     .router-link-active,a {

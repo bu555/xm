@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-// import {mutations} from '@/store/mutations'
 Vue.use(Vuex);
 
 const state = {
@@ -8,6 +7,7 @@ const state = {
     userName:'',
     //通知使用模态框登录
     modalLogin:false,
+    modalLoginSuccess:false, 
 } 
 const mutations = {
     //存储用户信息

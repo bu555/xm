@@ -61,7 +61,8 @@ const vueRouter = new Router({
     {path:'/document',component:document},
 
     // discuss 交流区
-    {path:'/discuss',component:discuss,  meta:{requireAuth: true }},
+    {path:'/discuss',component:discuss},
+    // {path:'/discuss',component:discuss,  meta:{requireAuth: true }},
     
     
     // 用户登陆、注册、找回密码

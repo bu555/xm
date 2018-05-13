@@ -25,17 +25,18 @@ export default {
         top:0;
         left:0;
         z-index:999;
-        background-color: rgba(0,0,0,.2);
+        background-color: rgba(0,0,0,.5);
         width:100%;
         height:100%;
         .main-box {
             // background-color: #fcfcfc;
             // background-color: rgba(255,255,255,.5);
-            background-color: #e5e5e5;
-            width:370px;
-            margin:105px auto;
-            padding-bottom:10px;
-            padding-top:1px;
+            // background-color: #e5e5e5;
+            max-width:370px;
+            margin:100px auto;
+            height:auto;
+            // padding-bottom:10px;
+            // padding-top:1px;
             border-radius:5px;
             position:relative;
             .demo-ruleForm.c-login {
@@ -46,15 +47,15 @@ export default {
                 height: 25px;
                 background-color: transparent;
                 position: absolute;
-                top: 8px;
-                right: 10px;
+                top: 11px;
+                right: 11px;
                 font-size: 20px;
                 text-align: center;
                 line-height: 25px;
                 cursor: pointer;
-                color:#bbb;
+                color:#eee;
                 &:hover {
-                    color:#666;
+                    color:#fff;
                 }
             }
 

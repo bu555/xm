@@ -76,16 +76,13 @@ export default {
                         message: '登录成功！',
                         type: 'success'
                     });
-                    this.$router.push({path: this.fromPath})
-                    // if(this.$store.state.modalLogin){ //如果是模态框登录，留在当前页面，并刷新
-                    //     this.$router.go();
-                    //     this.$store.commit('setModalLogin',false); 
-                    // }else{  //非模态登录，跳转个人中心
-                    //     this.$router.push({
-                    //         // path:beforeLoginPath
-                    //         path:'/'
-                    //     })
-                    // }
+                    if(this.$store.state.modalLogin){ //如果是模态框登录
+                        // this.$router.go();
+                        this.$store.state.modalLoginSuccess = true;
+                        this.$store.commit('setModalLogin',false); 
+                    }else{  //非模态登录
+                        this.$router.push({path: this.fromPath})
+                    }
                 }else{
                     this.$message.error('账号或密码错误！');
                 }
@@ -136,6 +133,7 @@ beforeRouteEnter (to, from, next) {
         margin:30px 4px;
         form {
             padding:16px .13rem 32px;;
+            background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
         .title {

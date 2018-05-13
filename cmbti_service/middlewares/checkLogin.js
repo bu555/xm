@@ -7,6 +7,8 @@ module.exports = {
       return res.json({
         error: '未登录',
         session: false,
+        message:'noLogin',
+        code:'-5'
       });
     }
     next();

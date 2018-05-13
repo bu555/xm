@@ -21,7 +21,6 @@ var transporter = nodemailer.createTransport({
         if (error) {
             console.log(error);
         }
-        console.log('发送成功')
         callback();
     });
   }
