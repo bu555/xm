@@ -14,6 +14,7 @@ const commentSchema = mongoose.Schema({
     //         zan:['eid','eid'...]
     //     }
     // ]
+
 })
 
 const Comment = module.exports = mongoose.model('Comment', commentSchema) 

@@ -1,5 +1,5 @@
 <template>
-<div class="example " v-loading="loading">
+<div class="example ">
     <div class="my-tab  container-fluid">
         <div class="bx clearfix">
             <div class="col-md-4">
@@ -187,7 +187,6 @@ export default {
             size:8, //每页条数
             count:0,//总页数
             total:0,//总条数
-            loading:false,
             currentPage:1
         }
     },
@@ -219,12 +218,10 @@ export default {
         },
         getExamp(option){ //name(模糊),id,type（模糊）
             // if(!option.name || !option.type || !option.id) return;
-            this.loading = true
             option.size = this.size;
             this.$axios.searchExample({
                 params:option
             }).then(res=>{
-                this.loading = false
                 if(res.data.success){
                     this.exampleList = res.data.result.example;
                     this.count = res.data.result.count
@@ -242,18 +239,15 @@ export default {
                     });
                 }
             }).catch(res=>{
-                this.loading = false
             })
 
         },
         //添加人物到名人库
         addExample(name){
                 if(!name) return;
-                this.loading = true
                 this.$axios.addExample({
                     name:name
                 }).then(res=>{
-                    this.loading = false
                     if(res.data.success){
                         this.exampleList = [res.data.example];
 
@@ -261,7 +255,6 @@ export default {
                         console.log(res.data)
                     }
                 }).catch(res=>{
-                    this.loading = false                    
                 })
 
         },

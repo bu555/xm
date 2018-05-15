@@ -15,10 +15,10 @@ axios.defaults.timeout = 7000;
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {
-    // loadinginstace = Loading.service({ fullscreen: true })
+    loadinginstace = Loading.service({ fullscreen: true })
     return config
 }, error => {
-    // loadinginstace.close()
+    loadinginstace.close()
     Message.error({
     message: '加载超时'
     })
@@ -26,14 +26,13 @@ axios.interceptors.request.use(config => {
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {
-    // loadinginstace.close()
-    console.log('data33',data);
+    loadinginstace.close()
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
     }
     return data
 }, error => {
-    // loadinginstace.close()
+    loadinginstace.close()
     Message.error({
     message: '加载失败'
     })

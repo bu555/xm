@@ -2,7 +2,8 @@ const E = require('./example')
 const V = require('./vote')
 const C = require('./comment')
 const R = require('./exampleController')
-// E.createExample({name:'希特勒'}).then(res=>{
+// 创建人物
+// E.createExample({name:'李斯'}).then(res=>{
 //     console.log(res);
 // },res=>{
 //     console.log('错误',res);
@@ -41,8 +42,17 @@ const R = require('./exampleController')
 // }).catch(err=>{
 //     console.log(err);
 // })
-C.deleteComment({eid:'11111151',cid:'lvGw3rIANaKr4nL',uid:'b557',result:''}).then(res=>{
-    console.log(res);
+// C.deleteComment({eid:'11111151',cid:'lvGw3rIANaKr4nL',uid:'b557',result:''}).then(res=>{
+//     console.log(res);
+// }).catch(err=>{
+//     console.log(err);
+// })
+
+// C.addComment({eid:'5afa3dd5b3973b12d480b88c',uid:'uid1',result:'矿工数量100'}).then(data=>{
+//     console.log('评论成功');
+// })
+C.addZan({eid:'5afa3dd5b3973b12d480b88c',cid:'5afa3e588f9dc033a0840913',uid:'uid5'}) .then(data=>{
+    console.log(data);
 }).catch(err=>{
     console.log(err);
 })

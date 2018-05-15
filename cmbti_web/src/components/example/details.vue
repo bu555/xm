@@ -32,9 +32,9 @@
 
     <div class="main-box bx ">
             <div class="left-vote">
-                <div class="vote">
+                <div class="vote clearfix">
                     <!--人物详情-->
-                    <div v-if="exampleItem" class="example-box clearfix col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="example-box clearfix col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <div class="item">
                             <!--<img :src="exampleItem.img_url" alt="">-->
                             <div class="photo">
@@ -81,14 +81,14 @@
                             </div>
                         </div>
                     </div>
+                    <br>
                     <!--投票+评论-->
                     <div class="user-ctrl">
-                        <br>
                         <div class="u-comment">
                             <p>评论：</p>
                             <el-input type="textarea" v-model="myComment"></el-input></br>
-                            <!--<el-button size="small" class="u-btn" @click="comment()">评论</el-button>-->
-                            <el-button size="small" class="u-btn" @click="moniVote()">评论</el-button>
+                            <el-button size="small" class="u-btn" @click="comment()">评论</el-button>
+                            <!--<el-button size="small" class="u-btn" @click="moniVote()">评论</el-button>-->
 
                         </div>
                         <div class="u-vote" v-if="!isRepeat">
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <!--右侧栏-->
-                <div class="right-side">
+                <div class="right-side" >
                     <div class="r-content">
                         right-side
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="vote()">Loading state</button>
@@ -151,15 +151,11 @@ export default {
             myVote:'',
             typeList:[],
             commentList:[],
-            tabFixed:false
+            tabFixed:false, //tab定位
+
         }
     },
     methods:{
-        moniVote(){
-            this.comment()
-            this.comment()
-            this.comment()
-        },
         //投票
         vote(){
             if(!this.myVote){
@@ -175,13 +171,14 @@ export default {
                 result:this.myVote
             }).then(res=>{
                 if(res.data.success){
-                    this.getExampleById()  //更新数据
+                    this.exampleHandle(res.data.example)
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
                         type: 'success'
                     });
                 }
+            }).catch(err=>{
             })
         },
         // 提交评论
@@ -200,7 +197,7 @@ export default {
             }).then(res=>{
                 if(res.data.success){
                     this.myComment=''
-                    this.getComment()
+                    this.commentList = res.data.comment
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -225,16 +222,46 @@ export default {
                 this.exampleItem = data;
             }
         },
-        //投票按钮
-        goVote(){
-            // if(localStorage.getItem('USER'))
-            //先确认登录是否有效
-            this.$axios.isLogin().then(res=>{
-                if(res.data.success===true){
-                    this.isVote = true; //如果登录有效则进入投票界面
+        exampleHandle(example){
+                this.exampleItem = example;
+                this.isRepeat = example.voted
+
+                // 类型排序
+                let vote = []
+                let total = 0
+                for(let key in this.exampleItem.vote){
+                    total += Number(this.exampleItem.vote[key])
                 }
-            })
-            
+                for(let key in this.exampleItem.vote){
+                    vote.push({
+                        type:key,
+                        count:this.exampleItem.vote[key],
+                        perce:total===0?'0%':this.exampleItem.vote[key]/total*100 + '%'
+                    })
+                }
+                for(let i=0;i<vote.length-1;i++){
+                    for(let j=0;j<vote.length-1-i;j++){
+                        if(vote[j].count < vote[j+1].count){
+                            let temp = vote[j+1]
+                            vote[j+1] = vote[j]
+                            vote[j] = temp
+                        }
+                    }
+                }
+                //如果最大与type相等
+                if(this.exampleItem.type!=='****' &&vote[0].type!=this.exampleItem.type){
+                    let temp;
+                    for(let i=0;i<vote.length;i++){
+                        if(vote[i].type==this.exampleItem.type){
+                            temp = vote[i]
+                            vote.splice(i,1)
+                            break;
+                        }
+                    }
+                    vote.unshift(temp)
+                }
+                console.log('vote排序：',vote);
+                this.voteArr = vote
         },
         //id精确查询example
         getExampleById(){
@@ -249,50 +276,7 @@ export default {
                 }).then(res=>{
                     console.log(res);
                     if(res.data.success){
-                        this.exampleItem = res.data.example;
-                        this.isRepeat = res.data.repeat
-                        console.log('isRepeat:',this.isRepeat);
-
-                        // 类型排序
-                        let vote = []
-                        let total = 0
-                        for(let key in this.exampleItem.vote){
-                            total += Number(this.exampleItem.vote[key])
-                        }
-                        console.log(total);
-                        for(let key in this.exampleItem.vote){
-                            console.log(this.exampleItem.vote[key]);
-                            vote.push({
-                                type:key,
-                                count:this.exampleItem.vote[key],
-                                perce:total===0?'0%':this.exampleItem.vote[key]/total*100 + '%'
-                            })
-                        }
-                        console.log(vote);
-                        for(let i=0;i<vote.length-1;i++){
-                            for(let j=0;j<vote.length-1-i;j++){
-                                if(vote[j].count < vote[j+1].count){
-                                    let temp = vote[j+1]
-                                    vote[j+1] = vote[j]
-                                    vote[j] = temp
-                                }
-                            }
-                        }
-                        //如果最大与type相等
-                        if(this.exampleItem.type!=='****' &&vote[0].type!=this.exampleItem.type){
-                            let temp;
-                            for(let i=0;i<vote.length;i++){
-                                if(vote[i].type==this.exampleItem.type){
-                                    temp = vote[i]
-                                    vote.splice(i,1)
-                                    break;
-                                }
-                            }
-                            vote.unshift(temp)
-                        }
-                        console.log('vote排序：',vote);
-                        this.voteArr = vote
-
+                        this.exampleHandle(res.data.example)
                     }else{
                     }
                 }).catch(res=>{})
@@ -460,7 +444,6 @@ export default {
             overflow: hidden;
             border-right:none;
             padding:3% ;
-            // padding-left:.09rem;
             font-size:13px;
             color:#777;
             word-break: break-all; //英文换行
@@ -586,7 +569,7 @@ export default {
         }
 
         .comment {
-            padding-top:20px;
+            padding-top:10px;
         }
         .right-side {
             @media screen and (max-width:1024px){
