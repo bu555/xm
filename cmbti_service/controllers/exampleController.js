@@ -6,7 +6,7 @@ const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../models/utill')
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
-const Example = require('../controllers/example')
+const Example = require('../controllers/exampleHandler')
 const Vote = require('../controllers/vote')
 const Comment = require('../controllers/comment')
 const User = require('../controllers/user')
@@ -22,18 +22,11 @@ const addExample = (req,res)=>{
     // 创建example
     Example.createExample({
         name:name
-    }).then(data=>{
-        let eid = data._id
-        let example = data
-
-        // 创建vote和comment记录
-        Promise.all([Vote.createVote({eid:eid}),Comment.createComment({eid:eid})])
-        .then(data=>{
-            res.json({
-                success:true,
-                message:'success',
-                example:example
-            })
+    }).then(example=>{
+        res.json({
+            success:true,
+            message:'success',
+            example:example
         })
     }).catch(error=>{
         res.json({
@@ -87,28 +80,23 @@ const goVote = (req,res,next)=>{
               message:'参数格式错误'
           })
       }
+
       // 添加到vote list
-      Vote.addVote({
+      Example.addVote({
           uid: uid,
           eid: eid,
           result: result
-      }).then(data=>{
-            // 成功,更新example
-            return Example.updateExample({
-                eid:eid,
-                type:result
+      }).then(example=>{
+            res.json({
+                success:true,
+                message:'success',
+                example:example
             })
-      }).then(data=>{
-                res.json({
-                    success:true,
-                    message:'success',
-                    example:data
-                })
       }).catch(error=>{
-                res.json({
-                    success:false,
-                    message:error
-                })
+            res.json({
+                success:false,
+                message:error
+            })
       })
 
 }
@@ -124,14 +112,15 @@ const addComment = (req,res,next)=>{
           })
       }
       // 添加到vote list
-      Comment.addComment({
+      Example.addComment({
           uid: uid,
           eid: eid,
           result: result
-      }).then(data=>{
+      }).then(comment=>{
             res.json({
                 success:true,
-                message:'success'
+                message:'success',
+                comment:comment
             })
       }).catch(error=>{
             res.json({
@@ -152,7 +141,7 @@ const getComment = (req,res,next)=>{
       }
       (async ()=>{
           try{
-                let comment = await Comment.getComment({ eid: eid })
+                let comment = await Example.getComment({ eid: eid })
                 res.json({
                     success:true,
                     comment:comment
@@ -166,50 +155,25 @@ const getComment = (req,res,next)=>{
       })()
 
 
-    //   Comment.getComment({
-    //       eid: eid
-    //   }).then(comment=>{
-    //         res.json({
-    //             success:true,
-    //             comment:comment
-    //         })
-    //   }).catch(error=>{
-    //         res.json({
-    //             success:false,
-    //             message:error
-    //         })
-    //   })
-
 }
 const getExampleById = (req,res,next)=>{
     let login = req.session.user  //是否登录
     let eid = req.body.eid || ''
+    let uid = req.session.user ? req.session.user._id : ''
     if(!eid){
           return res.json({
               success:false,
               message:'参数格式错误'
           })
     }
-    // Example.findById(eid,example=>{
-    Example.searchExample({eid:eid}).then(example=>{
-        if(req.session.user){
-            // 如果登录了，查询是否已vote
-            Vote.checkVote({eid:eid,uid:req.session.user._id}).then(r=>{
+    Example.getExampleById({eid:eid,uid:uid}).then(example=>{
+            if(example){
                 res.json({
                     success:true,
                     message:'ok',
                     example:example,
-                    repeat:r  //是否重复
                 })
-            })
-        }else{
-            res.json({
-                success:true,
-                message:'ok',
-                example:example,
-                repeat:false
-            })
-        }
+            }
     }).catch(error=>{
         res.json({
             success:false,

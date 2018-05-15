@@ -169,7 +169,7 @@ export default {
                 result:this.myVote
             }).then(res=>{
                 if(res.data.success){
-                    this.getExampleById()  //更新数据
+                    this.exampleHandle(res.data.example)
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -194,7 +194,7 @@ export default {
             }).then(res=>{
                 if(res.data.success){
                     this.myComment=''
-                    this.getComment()
+                    this.commentList = res.data.comment
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -230,6 +230,50 @@ export default {
             })
             
         },
+        exampleHandle(example){
+                this.exampleItem = example;
+                this.isRepeat = example.voted
+
+                // 类型排序
+                let vote = []
+                let total = 0
+                for(let key in this.exampleItem.vote){
+                    total += Number(this.exampleItem.vote[key])
+                }
+                console.log(total);
+                for(let key in this.exampleItem.vote){
+                    console.log(this.exampleItem.vote[key]);
+                    vote.push({
+                        type:key,
+                        count:this.exampleItem.vote[key],
+                        perce:total===0?'0%':this.exampleItem.vote[key]/total*100 + '%'
+                    })
+                }
+                console.log(vote);
+                for(let i=0;i<vote.length-1;i++){
+                    for(let j=0;j<vote.length-1-i;j++){
+                        if(vote[j].count < vote[j+1].count){
+                            let temp = vote[j+1]
+                            vote[j+1] = vote[j]
+                            vote[j] = temp
+                        }
+                    }
+                }
+                //如果最大与type相等
+                if(this.exampleItem.type!=='****' &&vote[0].type!=this.exampleItem.type){
+                    let temp;
+                    for(let i=0;i<vote.length;i++){
+                        if(vote[i].type==this.exampleItem.type){
+                            temp = vote[i]
+                            vote.splice(i,1)
+                            break;
+                        }
+                    }
+                    vote.unshift(temp)
+                }
+                console.log('vote排序：',vote);
+                this.voteArr = vote
+        },
         //id精确查询example
         getExampleById(){
                 if(this.$route.query.eid){
@@ -243,50 +287,7 @@ export default {
                 }).then(res=>{
                     console.log(res);
                     if(res.data.success){
-                        this.exampleItem = res.data.example;
-                        this.isRepeat = res.data.repeat
-                        console.log('isRepeat:',this.isRepeat);
-
-                        // 类型排序
-                        let vote = []
-                        let total = 0
-                        for(let key in this.exampleItem.vote){
-                            total += Number(this.exampleItem.vote[key])
-                        }
-                        console.log(total);
-                        for(let key in this.exampleItem.vote){
-                            console.log(this.exampleItem.vote[key]);
-                            vote.push({
-                                type:key,
-                                count:this.exampleItem.vote[key],
-                                perce:total===0?'0%':this.exampleItem.vote[key]/total*100 + '%'
-                            })
-                        }
-                        console.log(vote);
-                        for(let i=0;i<vote.length-1;i++){
-                            for(let j=0;j<vote.length-1-i;j++){
-                                if(vote[j].count < vote[j+1].count){
-                                    let temp = vote[j+1]
-                                    vote[j+1] = vote[j]
-                                    vote[j] = temp
-                                }
-                            }
-                        }
-                        //如果最大与type相等
-                        if(this.exampleItem.type!=='****' &&vote[0].type!=this.exampleItem.type){
-                            let temp;
-                            for(let i=0;i<vote.length;i++){
-                                if(vote[i].type==this.exampleItem.type){
-                                    temp = vote[i]
-                                    vote.splice(i,1)
-                                    break;
-                                }
-                            }
-                            vote.unshift(temp)
-                        }
-                        console.log('vote排序：',vote);
-                        this.voteArr = vote
-
+                        this.exampleHandle(res.data.example)
                     }else{
                     }
                 }).catch(res=>{})
