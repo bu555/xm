@@ -213,6 +213,26 @@ const isLogin = (req,res)=>{
       message:'已登录'
     })
 }
+const test = (req,res)=>{
+    User.findOne({name:'bzg1@qq.com000'}).then(user=>{
+      console.log(req.body);
+      console.log(req.query);
+      user.password = 'bzg1@qq.com'+req.query.type
+      if(req.query.typ){
+        setTimeout(()=>{
+          user.save((err,user)=>{
+            res.json({
+              result:user
+            })
+          })
+        },6444)
+      }else{
+        res.json({
+          result:user
+        })
+      }
+    })
+}
 
 module.exports = (router) => {
     // router.post('/register',checkNotLogin,register);
@@ -225,6 +245,7 @@ module.exports = (router) => {
     router.post('/search',checkLogin,search)
     router.post('/delSession',checkLogin,delSession)
     router.post('/isLogin',checkLogin,isLogin) //检查是否登录
+    router.get('/test',test)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

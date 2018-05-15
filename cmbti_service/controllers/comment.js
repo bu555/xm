@@ -60,7 +60,7 @@ class Comment {
                                 cid:myUtill.randomString(15), //15位字符串
                                 uid:options.uid,
                                 result:options.result,
-                                c_time:moment().format('YYYY-MM-DD HH:mm:ss')
+                                c_time:moment().utc().format()
                             }} },err=>{
                                 if(!err){
                                     resolve('success')

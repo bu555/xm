@@ -15,7 +15,7 @@
         </div>
     </div>
     <!--滚动时显示-->
-    <div v-if="tabFixed" class="tab-nav" style="position:fixed;top:0;left:0;width:100%;z-index:100;background-color:rgba(112, 169, 229,.92);">
+    <div v-if="tabFixed" class="tab-nav" style="position:fixed;top:0;left:0;width:100%;z-index:100;background-color:rgba(112, 169, 229,.92);transition：display 2s">
         <div class="nav-view bx ">
             <div class="ctrl">
                 <!--<span style="cursor:pointer">首页</span>-->
@@ -87,7 +87,8 @@
                         <div class="u-comment">
                             <p>评论：</p>
                             <el-input type="textarea" v-model="myComment"></el-input></br>
-                            <el-button size="small" class="u-btn" @click="comment()">评论</el-button>
+                            <!--<el-button size="small" class="u-btn" @click="comment()">评论</el-button>-->
+                            <el-button size="small" class="u-btn" @click="moniVote()">评论</el-button>
 
                         </div>
                         <div class="u-vote" v-if="!isRepeat">
@@ -154,6 +155,11 @@ export default {
         }
     },
     methods:{
+        moniVote(){
+            this.comment()
+            this.comment()
+            this.comment()
+        },
         //投票
         vote(){
             if(!this.myVote){
@@ -490,7 +496,7 @@ export default {
             .figure {
                 margin:4px auto;
                 height:18px;
-                width:260px;
+                width:255px;
                 background-color: lime;
                 background:url('/static/img/figure.png');
                 background-size:cover;

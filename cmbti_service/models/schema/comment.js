@@ -9,7 +9,9 @@ const commentSchema = mongoose.Schema({
     //     {
     //         uid:'',
     //         res:'',
-    //         data:''
+    //         data:'',
+    //         c_time:'',
+    //         zan:['eid','eid'...]
     //     }
     // ]
 })
