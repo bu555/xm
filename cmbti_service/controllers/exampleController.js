@@ -7,8 +7,9 @@ const myUtill = require('../models/utill')
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
 const Example = require('../controllers/exampleHandler')
+const Comment = require('../controllers/commentHandler')
 const Vote = require('../controllers/vote')
-const Comment = require('../controllers/comment')
+// const Comment = require('../controllers/comment')
 const User = require('../controllers/user')
 
 const addExample = (req,res)=>{
@@ -112,7 +113,7 @@ const addComment = (req,res,next)=>{
           })
       }
       // 添加到vote list
-      Example.addComment({
+      Comment.addComment({
           uid: uid,
           eid: eid,
           result: result
@@ -120,7 +121,7 @@ const addComment = (req,res,next)=>{
             res.json({
                 success:true,
                 message:'success',
-                comment:comment
+                // comment:comment
             })
       }).catch(error=>{
             res.json({
@@ -131,9 +132,52 @@ const addComment = (req,res,next)=>{
 
 }
 // 获取评论
-const getComment = (req,res,next)=>{
+const getComment = (req,res,next)=>{ //{page:num}
+      let uid = req.session.user._id
       let eid = req.body.eid || ''
-      if(!eid){
+      let page = req.body.page || ''
+      if(!eid || !myUtill.verifyNum(page)){
+          return res.json({
+              success:false,
+              message:'参数格式错误'
+          })
+      }
+    //   page = Number(page)
+      (async ()=>{
+          try{
+                let num = 5  //每次5条
+                let comment = await Comment.getComment({ eid: eid })
+                let over = comment.list.length<=num*page
+                let list = comment.list.slice(page*num-num,num)
+                console.log(comment,uid);
+                for(let i=0;i<list.length;i++){
+                    if(list[i].zan.indexOf(uid)!=-1){
+                        list[i].zaned = true
+                    }
+                }
+
+                res.json({
+                    success:true,
+                    comment:list,
+                    over: over
+                })
+           }catch(error){
+                res.json({
+                    success:false,
+                    message:error
+                })
+           }
+      })()
+
+
+}
+// 评论点赞
+const clickZan = (req,res,next)=>{ //{page:num}
+console.log(req.body);
+      let uid = req.session.user._id
+      let eid = req.body.eid || ''
+      let cid = req.body.cid || ''
+      if(!cid || !eid ||!uid){
           return res.json({
               success:false,
               message:'参数格式错误'
@@ -141,10 +185,11 @@ const getComment = (req,res,next)=>{
       }
       (async ()=>{
           try{
-                let comment = await Example.getComment({ eid: eid })
+                let zanCount = await Comment.clickZan({ eid: eid,cid:cid,uid:uid })
+
                 res.json({
                     success:true,
-                    comment:comment
+                    zanCount:zanCount
                 })
            }catch(error){
                 res.json({
@@ -168,6 +213,7 @@ const getExampleById = (req,res,next)=>{
     }
     Example.getExampleById({eid:eid,uid:uid}).then(example=>{
             if(example){
+                console.log("E",example);
                 res.json({
                     success:true,
                     message:'ok',
@@ -190,4 +236,5 @@ module.exports = (router) => {
     router.post('/addComment',checkLogin,addComment);
     router.post('/getExampleById',getExampleById);
     router.post('/getComment',getComment);
+    router.post('/clickZan',checkLogin,clickZan);
 }

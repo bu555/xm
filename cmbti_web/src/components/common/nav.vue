@@ -171,11 +171,12 @@ export default {
       exitLogin(){
             localStorage.setItem('USER','')
             this.$store.commit('setUserName','');
-            this.$axios.delSession().then(res=>{
-                if(res.data.success){
-                    this.$router.push({path:'/'});
-                }
-            })
+            this.$router.push({path:'/'});
+            // this.$axios.delSession().then(res=>{
+            //     if(res.data.success){
+            //         this.$router.push({path:'/'});
+            //     }
+            // })
       },
       init(){
         if(localStorage.getItem('USER')){

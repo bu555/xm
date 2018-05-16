@@ -16,7 +16,7 @@
             </div>
             <div class="com-content">{{v.result}}</div>
             <div class="handle">
-                <div class="zan">
+                <div class="zan" @click="zan({cid:v._id,eid:$route.query.eid})" :style="'color:'+ (v.zaned?'blue':'black')">
                     ↑ 1234
                 </div>
                 <div class="reply">
@@ -77,7 +77,11 @@ export default {
     },
     props:['comment'],
     methods:{
-
+        zan(options){
+                this.$axios.clickZan(options).then(res=>{
+                    console.log(res);
+                })
+        }
     },
     created(){
         

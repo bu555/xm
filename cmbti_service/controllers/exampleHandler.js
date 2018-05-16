@@ -1,5 +1,6 @@
 
 const ExampleModel = require('../models/schema/exampleSchema')
+const CommentModel = require('../models/schema/commentSchema')
 const moment = require('moment')
 const myUtill = require('../models/utill')
 const GrabWeb = require('../controllers/grabWeb')
@@ -47,7 +48,17 @@ class Example{
                             if(err) {
                                 reject('Data save fail')
                             } else {
-                                resolve(example)
+                                new CommentModel({
+                                    eid:String(example._id),
+                                    name:example.name,
+                                    list:[],
+                                    zaned:false
+                                }).save((err,comment)=>{
+                                    if(!err){
+                                        console.log('commENT',comment);
+                                        resolve(example)
+                                    }
+                                })
                             }
                         })
                     },data=>{
@@ -63,8 +74,8 @@ class Example{
     // params : {name:'',type:'',page:'',size:''}
     searchExample(options={}){
         return new Promise((resolve,reject)=>{
-            let page = options.page && /^[1-9][0-9]*$/.test(options.page) ? Number(options.page): 1
-            let size = options.size && /^[1-9][0-9]*$/.test(options.size) ? Number(options.size): 5
+            // let page = options.page && /^[1-9][0-9]*$/.test(options.page) ? Number(options.page): 1
+            // let size = options.size && /^[1-9][0-9]*$/.test(options.size) ? Number(options.size): 5
             let pro;
             // 1.按name 模糊查询
             if(options.name){
@@ -88,7 +99,8 @@ class Example{
             // query.exec(function(err,docs){
             //     console.log(docs);
             // })
-            pro.limit(size).skip((page-1)*size).then(example=>{
+            // pro.limit(size).skip((page-1)*size).then(example=>{
+            pro.then(example=>{
                 if(example){
                     example.forEach((v,i)=>{
                         v.comment && delete v.comment
@@ -109,7 +121,6 @@ class Example{
             ExampleModel.findById(options.eid,(err,example)=>{
                 if(!err){
                     if(example){
-                        console.log('OOOOOOOOOOOOOOOOO');
                         if(options.uid){  //已登录
                              for(let i=0;i<example.voteLog.length;i++){
                                 if(example.voteLog[i].uid === options.uid){

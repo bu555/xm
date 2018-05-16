@@ -1,5 +1,8 @@
 
 module.exports =  {
+        verifyNum(num){
+            return /^[1-9]\d{0,}$/.test(num)
+        },
         // 随机字符串
         randomString : function(num) {
             var possibleCode = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";

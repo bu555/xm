@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <!--右侧栏-->
-                <div class="right-side" >
+                <div class="right-side">
                     <div class="r-content">
                         right-side
                         <button type="button" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off" @click="vote()">Loading state</button>
@@ -152,6 +152,7 @@ export default {
             typeList:[],
             commentList:[],
             tabFixed:false, //tab定位
+            commentPage:1
 
         }
     },
@@ -197,7 +198,8 @@ export default {
             }).then(res=>{
                 if(res.data.success){
                     this.myComment=''
-                    this.commentList = res.data.comment
+                    this.commentPage = 1
+                    this.getComment()
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -285,9 +287,11 @@ export default {
         getComment(){
             this.$axios.getComment({
                 eid:this.$route.query.eid,
+                page:this.commentPage
             }).then(res=>{
                 if(res.data.success){
                     this.commentList = res.data.comment
+                    this.commentPage = this.commentPage+1
                 }
                 console.log(res);
             }).catch(error=>{
@@ -298,19 +302,28 @@ export default {
         handleScroll () {
             this.tabFixed = window.scrollY>102;
             console.log(window.scrollY);
+        },
+        initData(flag){
+            if(flag){
+                this.getExampleById();
+                this.getComment()
+            }else{
+                setTimeout(()=>{
+                    this.getExampleById();
+                    this.getComment()
+                },22)
+            }
         }
     },
     mounted(){
         window.addEventListener('scroll', this.handleScroll);
     },
     watch:{
-        '$store.state.modalLoginSuccess':'getExampleById'
+        '$store.state.modalLoginSuccess':'initData'
 
     },
     created(){
-        this.getExampleById();
-        this.getComment()
-
+        this.initData(true)
         //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){

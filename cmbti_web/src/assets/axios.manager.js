@@ -96,15 +96,19 @@ export default {
     // fuzzyExample(data){
     //     return axios.post(pathAPI+'/example/fuzzyExample',data);
     // },
-    //投票  {eid:'',result:'xxxx'}
+    //添加评论  {eid:'',result:'xxxx'}
     addComment(data){
         return axios.post(pathAPI+'/example/addComment',data);
     },
-    //投票  {eid:''}
+    //获取评论  {eid:''}
     getComment(data){
         return axios.post(pathAPI+'/example/getComment',data);
     },
-    //投票  {eid:''}
+    //评论点赞  {eid:''，cid:''}
+    clickZan(data){
+        return axios.post(pathAPI+'/example/clickZan',data);
+    },
+    //获取example数据  {eid:''}
     getExampleById(data){
         return axios.post(pathAPI+'/example/getExampleById',data);
     },
