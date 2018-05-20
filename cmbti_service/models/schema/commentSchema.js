@@ -17,7 +17,8 @@ const commentSchema = new mongoose.Schema({
                             c_time:Date
                         }
                     ],
-                    zaned:Boolean  
+                    // zaned:Boolean,
+                    zanCount:Number
                 }
 
             ]

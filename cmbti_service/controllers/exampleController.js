@@ -133,7 +133,7 @@ const addComment = (req,res,next)=>{
 }
 // 获取评论
 const getComment = (req,res,next)=>{ //{page:num}
-      let uid = req.session.user._id
+      let uid = req.session.user ? req.session.user._id : ''
       let eid = req.body.eid || ''
       let page = req.body.page || ''
       if(!eid || !myUtill.verifyNum(page)){
@@ -147,20 +147,26 @@ const getComment = (req,res,next)=>{ //{page:num}
           try{
                 let num = 5  //每次5条
                 let comment = await Comment.getComment({ eid: eid })
-                let over = comment.list.length<=num*page
-                let list = comment.list.slice(page*num-num,num)
-                console.log(comment,uid);
-                for(let i=0;i<list.length;i++){
-                    if(list[i].zan.indexOf(uid)!=-1){
-                        list[i].zaned = true
+                let over = comment.list.length<=num*page  //是否还有数据
+                let list = comment.list.slice(page*num-num,page*num)
+                console.log(list);
+                // (async ()=>{
+                    for(let i=0;i<list.length;i++){
+                        let temp = JSON.parse(JSON.stringify(list[i]))
+                        temp.zaned = false
+                        if(list[i].zan.indexOf(uid)!=-1){
+                            temp.zaned = true 
+                        }
+                        let user = await User.getUser({uid:list[i].uid})
+                        temp.role_name = user ? user.role_name :  '已注销'
+                        list[i] = temp
                     }
-                }
-
-                res.json({
-                    success:true,
-                    comment:list,
-                    over: over
-                })
+                    res.json({
+                        success:true,
+                        comment:list,
+                        over: over
+                    })
+                // })
            }catch(error){
                 res.json({
                     success:false,
@@ -173,7 +179,6 @@ const getComment = (req,res,next)=>{ //{page:num}
 }
 // 评论点赞
 const clickZan = (req,res,next)=>{ //{page:num}
-console.log(req.body);
       let uid = req.session.user._id
       let eid = req.body.eid || ''
       let cid = req.body.cid || ''
@@ -202,7 +207,7 @@ console.log(req.body);
 
 }
 const getExampleById = (req,res,next)=>{
-    let login = req.session.user  //是否登录
+    // let login = req.session.user  //是否登录
     let eid = req.body.eid || ''
     let uid = req.session.user ? req.session.user._id : ''
     if(!eid){
@@ -213,7 +218,6 @@ const getExampleById = (req,res,next)=>{
     }
     Example.getExampleById({eid:eid,uid:uid}).then(example=>{
             if(example){
-                console.log("E",example);
                 res.json({
                     success:true,
                     message:'ok',

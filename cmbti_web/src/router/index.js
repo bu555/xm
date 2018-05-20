@@ -29,18 +29,18 @@ import example_details from '@/components/example/details'
 // document
 import document from '@/components/document/document'
 
-// discuss
-import discuss from '@/components/discuss/discuss'
+// forum
+import forum from '@/components/forum/forum'
 
 
 
 const vueRouter = new Router({
   mode:'history',
   routes: [
-    {path:'/',redirect:'/index'},
+    {path:'/index',redirect:'/'},
     // redirect:'pool/systemStts',
     //Home
-    {path:'/index',name:'1-1',component:home_index},
+    {path:'/',name:'1-1',component:home_index},
 
     // mbti
     {path:'/mbti',component:mbti},
@@ -55,14 +55,14 @@ const vueRouter = new Router({
 
     // example
     {path:'/example',component:example},
-    {path:'/example/details',component:example_details},
+    {path:'/example/:id',component:example_details},
 
     // document
     {path:'/document',component:document},
 
-    // discuss 交流区
-    {path:'/discuss',component:discuss},
-    // {path:'/discuss',component:discuss,  meta:{requireAuth: true }},
+    // forum 交流区
+    {path:'/forum',component:forum},
+    // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     
     
     // 用户登陆、注册、找回密码
@@ -70,6 +70,9 @@ const vueRouter = new Router({
     { path: '/user/register',component: user_register},
     { path: '/user/verify',component: user_verify },
     { path: '/user/reset',component: user_reset_password },
+
+
+    { path: '*',redirect:'/'}
 
  
   ]

@@ -71,6 +71,7 @@
                                     </div>
                                     
                                 </div>
+                                <div v-if="isRepeat">你已参与</div>
                             </div>
                             <div style="padding-top:14px">
                                 <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
@@ -87,8 +88,9 @@
                         <div class="u-comment">
                             <p>评论：</p>
                             <el-input type="textarea" v-model="myComment"></el-input></br>
-                            <el-button size="small" class="u-btn" @click="comment()">评论</el-button>
-                            <!--<el-button size="small" class="u-btn" @click="moniVote()">评论</el-button>-->
+                            <div style="text-align:right;padding-top:5px">
+                                <el-button size="small" type="primary" @click="comment()">评 论</el-button>
+                            </div>
 
                         </div>
                         <div class="u-vote" v-if="!isRepeat">
@@ -102,8 +104,7 @@
                                 :value="item.value">
                                 </el-option>
                             </el-select>
-                            </br>
-                            <el-button size="small" class="u-btn" @click="vote()">投票</el-button>
+                            <el-button size="small" type="primary" @click="vote()">投票</el-button>
 
                         </div>
                         
@@ -111,7 +112,22 @@
                     </div>
                     <!--评论区-->
                     <div class="comment">
-                        <myComment :comment="commentList"></myComment>
+                        <div class="title">评论区</div>
+                        <div class="category">
+                            <span>分类：</span>
+                            <span>热门</span>
+                            <span class="line"></span>
+                            <span>最新</span>
+                        </div>
+                        <div class="content">
+                            <div class="list">
+                                <myComment :comment="commentList"></myComment>
+                            </div> 
+                            <div v-if="commentList.length===0" class="empty">暂无评论 (￢_￢)</div>
+                            <div v-if="!isOver" @click="getComment()" class="load-more">加载更多.....</div>
+                            <div v-if="commentList.length!==0 && isOver" class="nor-more">没有更多了(¬､¬)</div>
+
+                        </div>
                     </div>
                 </div>
                 <!--右侧栏-->
@@ -152,8 +168,9 @@ export default {
             typeList:[],
             commentList:[],
             tabFixed:false, //tab定位
-            commentPage:1
-
+            commentPage:1,
+            isOver:true,
+            eid:''
         }
     },
     methods:{
@@ -168,7 +185,7 @@ export default {
                 return;
             }
             this.$axios.goVote({
-                eid:this.$route.query.eid,
+                eid:this.eid,
                 result:this.myVote
             }).then(res=>{
                 if(res.data.success){
@@ -193,7 +210,7 @@ export default {
                 return;
             }
             this.$axios.addComment({
-                eid:this.$route.query.eid,
+                eid:this.eid,
                 result:this.myComment
             }).then(res=>{
                 if(res.data.success){
@@ -262,21 +279,14 @@ export default {
                     }
                     vote.unshift(temp)
                 }
-                console.log('vote排序：',vote);
                 this.voteArr = vote
         },
         //id精确查询example
         getExampleById(){
-                if(this.$route.query.eid){
-                    var eid = this.$route.query.eid.trim()
-                }else{
-                    return;
-                }
                 this.exampleItem = '';
                 this.$axios.getExampleById({
-                    eid:eid
+                    eid:this.eid
                 }).then(res=>{
-                    console.log(res);
                     if(res.data.success){
                         this.exampleHandle(res.data.example)
                     }else{
@@ -286,14 +296,14 @@ export default {
         },
         getComment(){
             this.$axios.getComment({
-                eid:this.$route.query.eid,
+                eid:this.eid,
                 page:this.commentPage
             }).then(res=>{
                 if(res.data.success){
-                    this.commentList = res.data.comment
+                    this.commentList = this.commentList.concat(res.data.comment)
+                    this.isOver = res.data.over  //是否还有数据
                     this.commentPage = this.commentPage+1
                 }
-                console.log(res);
             }).catch(error=>{
                 console.log(error);
             })
@@ -301,13 +311,17 @@ export default {
         },
         handleScroll () {
             this.tabFixed = window.scrollY>102;
-            console.log(window.scrollY);
+            // console.log(window.scrollY);
         },
         initData(flag){
-            if(flag){
+            
+            if(flag==='init'){
                 this.getExampleById();
                 this.getComment()
             }else{
+                // 弹窗登录成功后进入此分支
+                if(!this.$store.state.modalLoginSuccess) return;
+                this.commentPage = 1
                 setTimeout(()=>{
                     this.getExampleById();
                     this.getComment()
@@ -323,7 +337,8 @@ export default {
 
     },
     created(){
-        this.initData(true)
+        this.eid = this.$route.path.split('/')[2]
+        this.initData('init')
         //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
@@ -391,12 +406,13 @@ export default {
     }
     .main-box {
         max-width:1020px;
-        background-color: rgba(255,255,255,.8);
+        background-color: rgba(255,255,255,.75);
+        // background-color: #fcfcfc;
         display:flex;
         margin-top:3px;
         padding:1% 1%;
         @media screen and(max-width:768px){
-            padding:3% 5%;
+            padding:2%;
         }
         .left-vote {
             margin:0;
@@ -501,7 +517,7 @@ export default {
 
         }
         .vote-result {
-            padding:22px 0px;
+            padding:15px 0px;
             &>.item {
                 margin:0 auto;
                 display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
@@ -575,14 +591,61 @@ export default {
             }
         }
         .user-ctrl {
-            .u-btn {
-                margin-top: 10px;
-                margin-right: 40px;
-            }
-        }
 
+        }
+        .u-comment {
+            max-width:555px;
+        }
         .comment {
             padding-top:10px;
+            // width:600px;
+            .content {
+                background-color: #fefeff;
+                border-radius:2px;
+                padding-bottom:12px;
+                border:1px solid #f5f5f5;
+            }
+            .title {
+                font-size:15px;
+            }
+            .category {
+                font-size:14px;
+                display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+                padding-top:2px;
+                margin-bottom:5px;
+                span {
+                    height:22px;
+                    line-height: 22px;
+                }
+                .line {
+                    width:1px;
+                    height:15px;
+                    background-color:#ccc;
+                    margin:3px 6px;
+                }
+            }
+            .empty {
+                 text-align:center;
+                 background:#fff;
+                 height:42px;
+                 line-height: 42px;
+            }
+            .load-more {
+                margin:0px auto;
+                max-width:200px;
+                height:42px;
+                line-height: 42px;
+                color: blue;
+                text-align:center;
+                // background-color: #eee;
+                cursor:pointer;
+                font-size:15px;
+            }
+            .nor-more {
+                color:#ccc;
+                text-align: center;
+                padding-top:10px;
+            }
         }
         .right-side {
             @media screen and (max-width:1024px){

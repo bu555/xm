@@ -18,7 +18,8 @@ class Comment{
                             c_time:moment().utc(),
                             zan:[],
                             reply:[],
-                            zaned:false
+                            // zaned:false,
+                            zanCount:0
                     })
                     comment.save((err,comment)=>{
                         if(!err){
@@ -62,11 +63,13 @@ class Comment{
                         if(comment.list[i]._id==options.cid){
                             flag = true
                             if(comment.list[i].zan.indexOf(options.uid) !== -1){
-                                comment.list[i].zan.splice(comment.list[i].zan.indexOf(options.uid),1)
+                                comment.list[i].zan.splice(comment.list[i].zan.indexOf(options.uid),1)  //删除一个元素
                                 count = comment.list[i].zan.length
+                                comment.list[i].zanCount = count
                                 break;
                             }else{
                                 count = comment.list[i].zan.push(options.uid)
+                                comment.list[i].zanCount = count
                                 break;
                             }
                         }
@@ -74,7 +77,7 @@ class Comment{
                     if(!flag) return reject('The cid not find')
                     comment.save((err,comment)=>{
                         if(!err){
-                            resolve({zanCount:count})
+                            resolve(count)
                         }else{
                             reject('The comment save is failed')
                         }

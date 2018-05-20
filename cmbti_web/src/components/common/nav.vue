@@ -29,7 +29,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav nav-list">
               <li index='0' class="active">
-                <router-link to="/index">
+                <router-link to="/">
                    首页
                 </router-link>
               </li>
@@ -72,7 +72,7 @@
                 </router-link>
               </li>
               <li class=""  index='4'>
-                <router-link to="/discuss">
+                <router-link to="/forum">
                 交流区
                 </router-link>
               </li>
@@ -130,11 +130,11 @@ export default {
       return {
           //配置路由正则
           routeObj:{
-            '0':/^\/index/,
+            '0':/^\//,
             '1':/^\/mbti/,
             '2':/^\/test/,
             '3':/^\/example/,
-            '4':/^\/discuss/,
+            '4':/^\/forum/,
           },
       }
   },
@@ -150,7 +150,9 @@ export default {
           let currentPath = this.$route.path;
           let index = '';
           for(let key in this.routeObj){
-              if(this.routeObj[key].test(currentPath)){
+              if(!currentPath) {
+                index = key
+              }else if(this.routeObj[key].test(currentPath)){
                   index = key;
               }
           }
@@ -171,12 +173,13 @@ export default {
       exitLogin(){
             localStorage.setItem('USER','')
             this.$store.commit('setUserName','');
+            this.$store.commit('setModalLoginSuccess',false);
             this.$router.push({path:'/'});
-            // this.$axios.delSession().then(res=>{
-            //     if(res.data.success){
-            //         this.$router.push({path:'/'});
-            //     }
-            // })
+            this.$axios.delSession().then(res=>{
+                if(res.data.success){
+                    
+                }
+            })
       },
       init(){
         if(localStorage.getItem('USER')){
@@ -190,7 +193,6 @@ export default {
   },
   created(){
     this.init()
-    console.log('cookie',document.cookie);
   }
 }
 </script>

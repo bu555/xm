@@ -43,7 +43,7 @@
                 </div>
                 <!--有数据-->
                 <div class="item" v-for="(v,i) in exampleList" :key="i">
-                    <router-link :to="{path:'/example/details',query:{eid:v._id}}">
+                    <router-link :to="{path:'/example/'+v._id}">
                     <!--<div class="item-box" :style="'border-color:'+color[v.type]+';color:'+color[v.type] ">-->
                     <div class="item-box" :style="'border-color:'+(typeof rgba[v.type]=='string'?rgba[v.type].substr(0,rgba[v.type].length-1)+',.4)':'')+';color:'+color[v.type] ">
                         <div class="type">{{v.type.toUpperCase()}}</div>

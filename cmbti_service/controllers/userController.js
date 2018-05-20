@@ -201,7 +201,9 @@ const login = (req, res) => {
 }
 // 登出 delete user session
 const delSession = (req, res) => {
-  req.session.user = null;
+  if (req.session.user){
+      req.session.user = null;
+  }
   res.json({
       success:true,
       message: '登出成功'
@@ -243,7 +245,7 @@ module.exports = (router) => {
     router.post('/reset',resetPassword);
     // router.post('/search',checkLogin,search)
     router.post('/search',checkLogin,search)
-    router.post('/delSession',checkLogin,delSession)
+    router.post('/delSession',delSession)
     router.post('/isLogin',checkLogin,isLogin) //检查是否登录
     router.get('/test',test)
 

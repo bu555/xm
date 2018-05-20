@@ -55,7 +55,6 @@ class Example{
                                     zaned:false
                                 }).save((err,comment)=>{
                                     if(!err){
-                                        console.log('commENT',comment);
                                         resolve(example)
                                     }
                                 })
@@ -122,14 +121,15 @@ class Example{
                 if(!err){
                     if(example){
                         if(options.uid){  //已登录
+                            // 判断是否透过票
+                             example.voted = false
                              for(let i=0;i<example.voteLog.length;i++){
                                 if(example.voteLog[i].uid === options.uid){
                                     example.voted = true
-                                    return resolve(example)
+                                    break;
                                 }
-                                example.voted = false
-                                resolve(example)
                             }
+                            resolve(example)
                         }else{ //未登录
                             example.voted = false
                             resolve(example)

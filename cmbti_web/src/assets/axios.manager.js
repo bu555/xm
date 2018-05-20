@@ -29,8 +29,10 @@ axios.interceptors.response.use(data => {
     loadinginstace.close()
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
+        Promise.reject(error)
+    }else{
+        return data
     }
-    return data
 }, error => {
     loadinginstace.close()
     Message.error({

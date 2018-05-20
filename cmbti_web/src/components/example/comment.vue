@@ -1,70 +1,38 @@
 <template>
 <div class="my-comment">
-    <div class="title">评论区</div>
+    <!--<div class="title">评论区</div>
     <div class="category">
         <span>分类：</span>
         <span>热门</span>
         <span class="line"></span>
         <span>最新</span>
-    </div>
+    </div>-->
     <div class="comment-list">
         <div class="items" v-for="(v,i) in comment" :key="i">
+            <div class="photo">
+                <img src="/static/img/logo_a.png" alt="">
+            </div>
             <div class="com-header"> 
-                <div class="photo">像</div>
                 <div class="role-name">{{v.role_name}}</div> 
-                <div class="date">{{v.c_time}}</div>
+                <div class="date">{{$moment(v.c_time).fromNow()}}</div>
             </div>
-            <div class="com-content">{{v.result}}</div>
+            <div class="com-content">
+                <p>{{v.result}}</p>
+            </div>
             <div class="handle">
-                <div class="zan" @click="zan({cid:v._id,eid:$route.query.eid})" :style="'color:'+ (v.zaned?'blue':'black')">
-                    ↑ 1234
+                <div :class="v.zaned?'zan active':'zan'" :ref="'zan'+i" @click="zan({cid:v._id},'zan'+i)" >
+                    <!--<span class="el-icon-star-on"></span> {{v.zanCount}}-->
+                    <span class="el-icon-caret-top"></span> <em>{{v.zanCount}}</em>
                 </div>
-                <div class="reply">
+                <!--<div class="reply">
                     O 1234
                 </div>
                 <div class="share">
                     →
-                </div>
+                </div>-->
             </div>
         </div>
-        <!--<div class="items">
-            <div class="com-header"> 
-                <div class="photo">像</div>
-                <div class="role-name">角色名55</div> 
-                <div class="date">2002-6-6</div>
-            </div>
-            <div class="com-content">XXXXXXXXXXXXXXXXXXXXXXXXXX</br>XXXXXXXXXXXXXX</div>
-            <div class="handle">
-                <div class="zan">
-                    ↑ 1234
-                </div>
-                <div class="reply">
-                    O 1234
-                </div>
-                <div class="share">
-                    →
-                </div>
-            </div>
-        </div>
-        <div class="items">
-            <div class="com-header"> 
-                <div class="photo">像</div>
-                <div class="role-name">角色名55</div> 
-                <div class="date">2002-6-6</div>
-            </div>
-            <div class="com-content">XXXXXXXXXXXXXXXXXXXXXXXXXX</br>XXXXXXXXXXXXXX</div>
-            <div class="handle">
-                <div class="zan">
-                    ↑ 1234
-                </div>
-                <div class="reply">
-                    O 1234
-                </div>
-                <div class="share">
-                    →
-                </div>
-            </div>
-        </div>-->
+
     </div>
 </div>
 </template>
@@ -77,9 +45,26 @@ export default {
     },
     props:['comment'],
     methods:{
-        zan(options){
+        zan(options,ref){
+                options.eid = this.$route.path.split('/')[2]
+                if(this.zaning) return;
+                this.zaning = true;
                 this.$axios.clickZan(options).then(res=>{
-                    console.log(res);
+                    this.zaning = false
+                    if(res.data.success){
+                        console.log(res);
+                        console.log(this.$refs[ref]);
+                        let currentDOM = this.$refs[ref][0];
+                        currentDOM.classList.toggle('active')
+                        if(currentDOM.classList.contains('active')){
+                            console.log(currentDOM.querySelector('em').innerHTML)
+                            currentDOM.querySelector('em').innerHTML = Number(currentDOM.querySelector('em').innerHTML) +1
+                        }else{
+                            currentDOM.querySelector('em').innerHTML = Number(currentDOM.querySelector('em').innerHTML) -1
+                        }
+                    }
+                }).catch(err=>{
+                    this.zaning = false
                 })
         }
     },
@@ -91,65 +76,87 @@ export default {
 <style lang='less'>
 .my-comment {
     text-align: left;
-    padding:8px 2px;
-    .title {
-        font-size:15px;
-    }
-    .category {
-        font-size:14px;
-        display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-        padding-top:2px;
-        span {
-            height:22px;
-            line-height: 22px;
-        }
-        .line {
-            width:1px;
-            height:15px;
-            background-color:#ccc;
-            margin:3px 6px;
-        }
-    }
+    // max-width:600px;
+    margin:15px;
+    margin-top:7px;
     .comment-list {
         .items {
-            font-size:12px;
-            padding:6px 0;
-            border-top:1px solid #ddd;
+            font-size:14px;
+            padding-left:70px;
+            border-bottom:1px solid #f5f5f5;
+            position: relative;
+            .photo {
+                width:42px;
+                height:42px;
+                // border-radius:50%;
+                overflow: hidden;
+                border:1px solid #eee;
+                background-color: #eee;
+                position: absolute;
+                left: 7px;
+                top:10px;
+                img {
+                    width:100%;
+                    // height:auto;
+                    // object-fit: cover;
+                }
+            }
             .com-header {
                 display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
                 align-items: center; //垂直居中
                 // justify-content: center; //水平居中
-                padding:1px 0;
+                padding:7px 0 3px;
                 &>div{
                     margin-right:10px;
                 }
-                .photo {
-                    width:28px;
-                    height:20px;
-                    border-radius:14px;
-                    text-align:center;
-                    line-height:20px;
-                    border:1px solid #eee;
-                    background-color: #ccc;
-                }
                 .role-name {
+                    color:#598dd3;
                 }
                 .date {
-                    color:#aaa;
+                    color:#ccc;
+                    font-size:12px;
                 }
             }
             .com-content {
-                border-top:1px solid #f5f5f5;
-                padding:6px 0;
-                min-height:32px;
+                border-top:1px dotted #f7f7f7;
+                // border-bottom:1px solid #fafafd;
+                padding-top:4px;
+                min-height:28px;
+                max-width:555px;
             }
             .handle {
                 display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
                 align-items: center; //垂直居中
                 // justify-content: center; //水平居中
-                padding:2px 0 8px;
-
+                padding:2px 0 15px;
+                .zan {
+                    background-color: #fafcfc;
+                    padding:1px 7px;
+                    padding-right:10px;
+                    border:1px solid #f2f2f2;
+                    border-radius:4px;
+                    cursor:pointer;
+                    color:#aaa;
+                }
+                .zan.active {
+                    border:1px solid #d5edfd;
+                    background-color: #f6fdff;
+                    color:#288ef7;
+                }
             }
+        }
+
+    }
+    @media screen and (max-width:500px){
+        .comment-list {
+            .items {
+                padding-left:57px;
+                .photo {
+                    left: -1px;
+                    top:10px;
+                }
+            }
+
         }
     }
 }

@@ -11,6 +11,7 @@ import '../static/css/ec-css-hover.css'
 // vuex
 import store from '@/store/store'
 import moment from 'moment'
+moment.locale('zh-cn')
 Vue.prototype.$moment = moment;
 import mbti from './assets/mbti'
 Vue.prototype.$mbti = mbti;
