@@ -38,7 +38,7 @@ class Vote {
                     VoteModel.update({eid:options.eid},{$push: {list:{
                         uid:options.uid,
                         result:options.result,
-                        c_time:moment().format('YYYY-MM-DD HH:mm:ss')
+                        c_time:moment().utc().format()
                     }} },err=>{
                         if(!err){
                             resolve('success')

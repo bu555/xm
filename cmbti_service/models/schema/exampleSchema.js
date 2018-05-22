@@ -1,12 +1,4 @@
 const mongoose = require('mongoose')
-// 连接数据库
-mongoose.connect('mongodb://localhost:27017/test', { useMongoClient: true });
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, '连接失败！connection error:'));
-db.once('open', function() {
-  console.log('连接成功！connect success')
-});
-
 const exampleSchema = new mongoose.Schema({
     name: String,
     create_time: Date,
@@ -43,23 +35,23 @@ const exampleSchema = new mongoose.Schema({
             c_time:Date
         }
     ],
-    comment:[
-        {
-            uid:String,
-            // cid:String,
-            result:String,
-            c_time:Date,
-            zan:Array,   //['uid1','uid2']
-            reply:[
-                {
-                    uid:String,
-                    res:String,
-                    c_time:Date
-                }
-            ]  
+    // comment:[
+    //     {
+    //         uid:String,
+    //         // cid:String,
+    //         result:String,
+    //         c_time:Date,
+    //         zan:Array,   //['uid1','uid2']
+    //         reply:[
+    //             {
+    //                 uid:String,
+    //                 res:String,
+    //                 c_time:Date
+    //             }
+    //         ]  
 
-        }
-    ]
+    //     }
+    // ]
 })
 
 const ExampleModel = mongoose.model('example', exampleSchema) 

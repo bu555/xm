@@ -201,7 +201,9 @@ const login = (req, res) => {
 }
 // 登出 delete user session
 const delSession = (req, res) => {
-  req.session.user = null;
+  if (req.session.user){
+      req.session.user = null;
+  }
   res.json({
       success:true,
       message: '登出成功'
@@ -211,6 +213,26 @@ const isLogin = (req,res)=>{
     res.json({
       success:true,
       message:'已登录'
+    })
+}
+const test = (req,res)=>{
+    User.findOne({name:'bzg1@qq.com000'}).then(user=>{
+      console.log(req.body);
+      console.log(req.query);
+      user.password = 'bzg1@qq.com'+req.query.type
+      if(req.query.typ){
+        setTimeout(()=>{
+          user.save((err,user)=>{
+            res.json({
+              result:user
+            })
+          })
+        },6444)
+      }else{
+        res.json({
+          result:user
+        })
+      }
     })
 }
 
@@ -223,8 +245,9 @@ module.exports = (router) => {
     router.post('/reset',resetPassword);
     // router.post('/search',checkLogin,search)
     router.post('/search',checkLogin,search)
-    router.post('/delSession',checkLogin,delSession)
+    router.post('/delSession',delSession)
     router.post('/isLogin',checkLogin,isLogin) //检查是否登录
+    router.get('/test',test)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

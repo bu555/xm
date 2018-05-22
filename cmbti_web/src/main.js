@@ -11,9 +11,17 @@ import '../static/css/ec-css-hover.css'
 // vuex
 import store from '@/store/store'
 import moment from 'moment'
+moment.locale('zh-cn')
 Vue.prototype.$moment = moment;
 import mbti from './assets/mbti'
 Vue.prototype.$mbti = mbti;
+
+console.log('momentUTC',moment().utc().format());
+console.log('momentUTC1',moment('2018-05-14T14:44:05.000Z').format('YYYY-MM-DD HH:mm:ss'));
+console.log('momentUTC2',moment('2018-05-14T14:44:05Z').format('YYYY-MM-DD HH:mm:ss'));
+
+
+
 
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'

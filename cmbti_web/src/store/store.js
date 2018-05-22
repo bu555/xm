@@ -7,7 +7,7 @@ const state = {
     userName:'',
     //通知使用模态框登录
     modalLogin:false,
-    modalLoginSuccess:false, 
+    modalLoginSuccess:false,
 } 
 const mutations = {
     //存储用户信息
@@ -16,6 +16,9 @@ const mutations = {
     },
     setModalLogin(state,value){
         state.modalLogin = value;
+    },
+    setModalLoginSuccess(state,value){
+        state.modalLoginSuccess = value;
     }
 }
 export default new Vuex.Store({

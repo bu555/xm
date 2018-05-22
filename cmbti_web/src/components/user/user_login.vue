@@ -5,7 +5,7 @@
             <form>
                 <div class="form-group">
                     <label for="exampleInputEmail1">账号</label>
-                    <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''" spellcheck="false">
+                    <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''"  @keyup.enter="login()" spellcheck="false">
                     <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
                 </div>
                 <div class="form-group" style="margin-bottom:26px">
@@ -35,7 +35,7 @@ export default {
   data() {
       return {
         name:'',
-        password:'',
+        password:'Aa111111',
         isSubmit:false,
         nameVerify:true,
         passwordVerify:true,
@@ -78,8 +78,9 @@ export default {
                     });
                     if(this.$store.state.modalLogin){ //如果是模态框登录
                         // this.$router.go();
-                        this.$store.state.modalLoginSuccess = true;
+                        console.log(88888);
                         this.$store.commit('setModalLogin',false); 
+                        this.$store.commit('setModalLoginSuccess',true); 
                     }else{  //非模态登录
                         this.$router.push({path: this.fromPath})
                     }
@@ -101,7 +102,7 @@ export default {
 
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user')!==-1){
-            this.fromPath = '/index'
+            this.fromPath = '/'
         }
   },
 beforeRouteEnter (to, from, next) {
@@ -142,7 +143,7 @@ beforeRouteEnter (to, from, next) {
             border:1px solid #337ab7;
             border-bottom:1px solid #598dd3;
             background-color: #598dd3;
-            padding: .04rem 0 .04rem;
+            padding: 11px 0;
             font-size:.06rem;
             margin:-1px -1px;
             color:#f5f5f5;

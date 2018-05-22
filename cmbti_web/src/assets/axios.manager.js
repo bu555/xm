@@ -15,10 +15,10 @@ axios.defaults.timeout = 7000;
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {
-    // loadinginstace = Loading.service({ fullscreen: true })
+    loadinginstace = Loading.service({ fullscreen: true })
     return config
 }, error => {
-    // loadinginstace.close()
+    loadinginstace.close()
     Message.error({
     message: '加载超时'
     })
@@ -26,14 +26,15 @@ axios.interceptors.request.use(config => {
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {
-    // loadinginstace.close()
-    console.log('data33',data);
+    loadinginstace.close()
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
+        Promise.reject(error)
+    }else{
+        return data
     }
-    return data
 }, error => {
-    // loadinginstace.close()
+    loadinginstace.close()
     Message.error({
     message: '加载失败'
     })
@@ -97,15 +98,19 @@ export default {
     // fuzzyExample(data){
     //     return axios.post(pathAPI+'/example/fuzzyExample',data);
     // },
-    //投票  {eid:'',result:'xxxx'}
+    //添加评论  {eid:'',result:'xxxx'}
     addComment(data){
         return axios.post(pathAPI+'/example/addComment',data);
     },
-    //投票  {eid:''}
+    //获取评论  {eid:''}
     getComment(data){
         return axios.post(pathAPI+'/example/getComment',data);
     },
-    //投票  {eid:''}
+    //评论点赞  {eid:''，cid:''}
+    clickZan(data){
+        return axios.post(pathAPI+'/example/clickZan',data);
+    },
+    //获取example数据  {eid:''}
     getExampleById(data){
         return axios.post(pathAPI+'/example/getExampleById',data);
     },

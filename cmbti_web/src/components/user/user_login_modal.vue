@@ -43,17 +43,17 @@ export default {
                 max-width: 370px;
             }
             .close {
-                width: 25px;
-                height: 25px;
+                width: 28px;
+                height: 28px;
                 background-color: transparent;
                 position: absolute;
-                top: 11px;
+                top: 9px;
                 right: 11px;
                 font-size: 20px;
                 text-align: center;
-                line-height: 25px;
+                line-height: 28px;
                 cursor: pointer;
-                color:#eee;
+                color:#fff;
                 &:hover {
                     color:#fff;
                 }
