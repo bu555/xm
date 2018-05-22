@@ -17,82 +17,42 @@
             </router-link>
         </div>
         <div class="article-list">
-            <ul>
                 <!--<li v-for="(v,i) in 5">-->
+            <ul>
                 <li>
-                    <div class="l">
-                        <div class="author">
-                            <div>名字123</div>
+                        <div class="author u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
+                            <div class="u-name">名字123</div>
                         </div>
-                        <!--<div class="data">54/1000</div>-->
-                        <!--<div class="type">置顶</div>-->
-                        <div class="type">
-                            <div>精华</div>
+                        <div class="title1"><span class="type">精华</span><span class="txt">文章标题UUUUUUUUUUUUU章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章</span></div>
+                        <div class="last-replay u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
                         </div>
-                        <div class="title">
-                            <div>文章标题文文章标题文文章</div>
-                            
-                        </div>
-                    </div>
-                    <div class="r">
-                        <div class="last-replay">
-                            <div>A001000kkk</div>
-                        </div>
-                        <div class="last-replay-date">
-                            <div>1天前</div>
-                        </div>
-                    </div>
+                        <div class="last-replay-date">14小时前</div>
                 </li>
                 <li>
-                    <div class="l">
-                        <div class="author">
-                            <div>名字123</div>
+                        <div class="author u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
                         </div>
-                        <!--<div class="data">54/1000</div>-->
-                        <!--<div class="type">置顶</div>-->
-                        <div class="type">
-                            <div>精华</div>
+                        <div class="title1"><span class="type">精华</span><span class="txt">文章标题UUUUUUUUUUUUU章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章</span></div>
+                        <div class="last-replay u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
                         </div>
-                        <div class="title">
-                            <div>文章标题文文章DDDDDD标题文文章</div>
-                            
-                        </div>
-                    </div>
-                    <div class="r">
-                        <div class="last-replay">
-                            <div>A001000kkk</div>
-                        </div>
-                        <div class="last-replay-date">
-                            <div>1天前</div>
-                        </div>
-                    </div>
+                        <div class="last-replay-date">14小时前</div>
                 </li>
                 <li>
-                    <div class="l">
-                        <div class="author">
-                            <div>名字12345</div>
+                        <div class="author u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
                         </div>
-                        <!--<div class="data">54/1000</div>-->
-                        <!--<div class="type">置顶</div>-->
-                        <div class="type">
-                            <div>精华</div>
+                        <div class="title1"><span class="type">精华</span><span class="txt">文章标题UUUUUUUUUUUUU章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章</span></div>
+                        <div class="last-replay u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
                         </div>
-                        <div class="title">
-                            <div>文章标题文文DDD章标题文文章</div>
-                            
-                        </div>
-                    </div>
-                    <div class="r">
-                        <div class="last-replay">
-                            <div>A001000kkk</div>
-                        </div>
-                        <div class="last-replay-date">
-                            <div>1天前</div>
-                        </div>
-                    </div>
+                        <div class="last-replay-date">14小时前</div>
                 </li>
-
+ 
             </ul>
+
         </div>
      </div>
      <div class="right-box">
@@ -126,7 +86,8 @@ export default {
     display:flex;
     .left-box {
         background-color: rgba(255,255,255,.75);
-        flex:0 0 75%;
+        flex:1;
+        width:100%;
         .tabs {
             padding:10px;
             background-color: #f2f6f6;
@@ -147,94 +108,70 @@ export default {
             }
         }
         .article-list {
-            ul{
-                li{
+                    width:100%;
+                    ul {}
+                    li{
                     display:flex;
-                    justify-content:space-between;
-                    // background: #eee;
+                    justify-content:flex-start;
+                    align-items:center;
                     border-top:1px solid #f2f6f6;
-                    padding:0 5px;
-                    &>.l{
-                        display:flex;
-                        flex:0 0 78%;
-                        .author {
-                            flex:0 0 12%;
-                            &>div {
-                                white-space: nowrap;
-                            }
-                        }
-                        .type {
-                            // flex:0 0 12%;
-                            &>div{
-                                padding:0 3px;
-                                white-space: nowrap;
-                                border-radius:3px;
-                                color:#fff;
-                                // background: #598dd3;
-                                background: #feae4b;
-                            }
-                        }
-                        .title {
-                            flex:1 0 50%;
-                            &>div {
-                                width:100%;
-                                overflow: hidden;
-                                // text-overflow:ellipsis;
-                                // white-space: nowrap;
-                            }
-                        }
-                        &>div {
-                            margin:8px 3px;
-                            // white-space: nowrap;
-                        }
-                        background-color: #eee;
+                    padding:0 5px 0 1.8%;
+                    &:hover {
+                        background:#f2f6f6;
+                        cursor:pointer;
                     }
-                    &>.r{
-                        background-color: lime;
-                        display:flex;
-                        flex:1;
-                        .last-replay {
+                    }
+                    li>div {
+                        margin:4px 1%;
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                        white-space: nowrap;
+                    }
+                    .u-photo {
+                        // flex:0 0 11%;
+                        width:34px;
+                        height:34px;
+                        overflow: hidden;
+                        border:1px solid #ddd;
+                        border-radius:3px;
+                        position: relative;
+                        img {
+                            width:100%;
+                            height:auto;
+                            // object-fit: cover;
+                        }
+                        .u-name {
+                            position: absolute;
+                            top:0px;
+                            left:10px;
+                        }
 
-                        }
-                        .last-replay-date {
-                            flex:1;
-                            white-space: nowrap;
-                            text-align:right;
-                        }
-                        &>div {
-                            margin:8px 3px;
-                            // white-space: nowrap;
-                        }
                     }
-                    &>div{
-                        // &>div {
-                        //     margin:8px 3px;
-                        //     // white-space: nowrap;
-                        //     overflow: hidden;
-                        //     text-overflow:ellipsis;
-                        //     white-space: nowrap;
-                        // }
-                        // .title,.last-replay,.author {
-                        // }
-                        // .title {
-                        //     // flex:1;
-                        // }
-                        // .type {
-                        //     min-width:22px;
-                        //     max-width:42px;
-                        //     padding:0 3px;
-                        //     border-radius:3px;
-                        //     color:#fff;
-                        //     // background: #598dd3;
-                        //     background: #feae4b;
-                        // }
-                        // .author {
-                        //     width:50px;
-                        // }
-                        
+                    .title1 {
+                        flex:1;
+                        text-align:left;
+                        padding-right:12px;
+                        max-width:500px;
+                    } 
+                    .title1 .type {
+                        padding:1px 3px;
+                        white-space: nowrap;
+                        border-radius:3px;
+                        color:#fff;
+                        background: #feae4b;
+                        margin-right:1%;
+                        font-size:12px;
                     }
-                }
-            }
+                    .last-replay.u-photo{
+                        width:27px;
+                        height:27px;
+
+                    }
+                    .last-replay-date {
+                        flex:0 0 15%;
+                        color:#d4cfcf;
+                    }
+                
         }
     }
     .right-box {
@@ -244,47 +181,32 @@ export default {
 
     @media screen and (max-width:768px) {
         .left-box {
-            // background-color: rgba(255,255,255,.75);
-            flex:0 0 100% !important;
-            // .tabs {
-            //     padding:10px;
-            //     background-color: #f6f6f6;
-            //     .router-link-active {
-            //         margin:1%;
-            //     }
-            // }
             .article-list{
                 ul {
                     li {
                         font-size:13px;
                         .title {
-                            height:18px;
-                            overflow: hidden;
+                            // height:18px;
+                            // overflow: hidden;
                         }
                     }
                 }
             }
         }
         .right-box {
-            display:none;
+            flex:0 0 0;
         }
     }
     @media screen and (max-width:450px) {
         .left-box {
-            // background-color: rgba(255,255,255,.75);
-            // flex:0 0 100% !important;
-            // .tabs {
-            //     padding:10px;
-            //     background-color: #f6f6f6;
-            //     .router-link-active {
-            //         margin:1%;
-            //     }
-            // }
             .article-list{
                 ul {
                     li {
                         .last-replay {
                             display:none;
+                        }
+                        .author {
+                            // display:none;
                         }
                     }
                 }
