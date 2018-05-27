@@ -73,7 +73,7 @@
               </li>
               <li class=""  index='4'>
                 <router-link to="/forum">
-                交流区
+                M论坛
                 </router-link>
               </li>
             </ul>
@@ -169,6 +169,7 @@ export default {
               }
               
           })
+          
       },
       exitLogin(){
             localStorage.setItem('USER','')
@@ -190,6 +191,11 @@ export default {
   },
   mounted() {
       this.changeRoute();
+      document.querySelectorAll('.nav-list>li a[href^="/"]').forEach((v,i)=>{
+        v.onclick = function(){
+          document.querySelector('#bs-example-navbar-collapse-1').classList.remove('in')
+        }
+      })
   },
   created(){
     this.init()
@@ -272,6 +278,7 @@ export default {
   .nav-list>li>a {
     padding-left:20px;
     padding-right:20px;
+    font-size:15px;
   } 
   .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
       color: #fff;

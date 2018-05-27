@@ -1,5 +1,5 @@
 <template>
-<div class="example ">
+<div class="example " v-loading="loading">
     <div class="my-tab  container-fluid">
         <div class="bx clearfix">
             <div class="col-md-4">
@@ -33,7 +33,7 @@
     </div>
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
     <div class="bx">
-        <div class="example-list"> 
+        <div class="example-list" style="min-height:300px"> 
                 <!--无数据--><!--无数据-->
                 <div v-if="exampleList&&exampleList.length===0" style="padding-top:70px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
@@ -187,7 +187,8 @@ export default {
             size:8, //每页条数
             count:0,//总页数
             total:0,//总条数
-            currentPage:1
+            currentPage:1,
+            loading:false
         }
     },
     methods:{
@@ -219,9 +220,11 @@ export default {
         getExamp(option){ //name(模糊),id,type（模糊）
             // if(!option.name || !option.type || !option.id) return;
             option.size = this.size;
+            this.loading = true;
             this.$axios.searchExample({
                 params:option
             }).then(res=>{
+                this.loading = false;
                 if(res.data.success){
                     this.exampleList = res.data.result.example;
                     this.count = res.data.result.count
@@ -239,15 +242,18 @@ export default {
                     });
                 }
             }).catch(res=>{
+                this.loading = false;
             })
 
         },
         //添加人物到名人库
         addExample(name){
                 if(!name) return;
+                this.loading = true;
                 this.$axios.addExample({
                     name:name
                 }).then(res=>{
+                    this.loading = false;
                     if(res.data.success){
                         this.exampleList = [res.data.example];
 
@@ -255,6 +261,7 @@ export default {
                         console.log(res.data)
                     }
                 }).catch(res=>{
+                    this.loading = false;
                 })
 
         },

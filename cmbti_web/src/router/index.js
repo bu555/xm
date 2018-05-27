@@ -31,6 +31,10 @@ import document from '@/components/document/document'
 
 // forum
 import forum from '@/components/forum/forum'
+import forum_item from '@/components/forum/forum_item'
+
+// 个人中心
+import my_home from '@/components/my/my_home'
 
 
 
@@ -62,8 +66,11 @@ const vueRouter = new Router({
 
     // forum 交流区
     {path:'/forum',component:forum},
+    {path:'/forum/:articleID',component:forum_item},
     // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     
+    //个人中心
+    {path:'/my',component:my_home},
     
     // 用户登陆、注册、找回密码
     { path: '/user/login', component: user_login },
