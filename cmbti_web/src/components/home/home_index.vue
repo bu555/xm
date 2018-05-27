@@ -112,7 +112,7 @@ export default {
             background-color: #fff;
         }
         .h-title {
-            text-align: center;
+            // text-align: center;
             font-size:28px;
             padding:10px 0;
             background-color: #fff;
