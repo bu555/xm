@@ -1,0 +1,158 @@
+
+const AccountModel = require('../models/schema/accountSchema') 
+class Account {
+    constructor(){
+    }
+    // 创建一个用户信息model  
+    // options:{uid:'',title:'',category:'share',content:''}
+    static addAccountInfo(options={}){
+        return new Promise((resolve,reject)=>{
+            new AccountModel.info({
+                uid:options.uid,
+                r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
+                avatar:'', //头像
+                profile:'', //简介
+                sex:"-1",
+                city:'',
+                birth:'', //
+                // 参与测试结果
+                // t_result:Array, //{mbti:{res:'intj',date:'string'},keirsey:{res:'NT',date:‘string’},function}
+                // 关注的用户
+                followers:[], //['uid','uid']
+                // 被关注
+                following:[], //['uid','uid']
+                // 好友
+                friends:[], //['uid','uid']
+                // 喜欢文章
+                likes_atricle:[], //['aid','aid']
+                my_article:[], //发表的文章
+                my_comment:[],
+                // 关注de人物
+                atten_example:[], //['eid','eid']
+            }).save((err,i)=>{
+                if(!err){
+                    console.log(i);
+                    resolve(i)
+                }
+            })
+        })
+    }
+    // 已发表文章记录 options;{uid:'',aid:''}
+    static addPublishLog(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({uid:options.uid},{$push:{my_article:options.aid}},err=>{
+                if(err) return reject('Update error')
+                resolve('Update success!')
+            }) 
+        })
+    }
+    // 删除已发表文章记录 options;{uid:'',aid:''}
+    static deletePublishLog(options={}){
+        return new Promise((resolve,reject)=>{
+            console.log(options.uid);
+            console.log(options.aid);
+            AccountModel.info.update({"uid":options.uid},{"$pull":{"my_article":options.aid}},err=>{
+                console.log(err);
+                if(err) return reject('Update error')
+                resolve('Update success!')
+            }) 
+        })
+    }
+    // 个人喜欢文章记录 options:{aid:'',uid:'',offset:1/-1}
+    static clickLikeArticleLog(options={}){
+        return new Promise((resolve,reject)=>{
+            if(options.offset===1){
+                AccountModel.info.update({uid:options.uid},{$push:{likes_atricle:options.aid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else if(options.offset===-1){
+                AccountModel.info.update({uid:options.uid},{$pull:{likes_atricle:options.aid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else {
+                reject('Params "offset" error')
+            }
+        })
+    }
+    // 个人评论记录 options:{aid:''/或eid:'',cid:'',uid:''}
+    static addCommentLog(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({uid:options.uid},{$push:{my_comment:{
+                eid:options.eid || "",
+                aid:options.aid || "",
+                cid:options.cid
+            }}},err=>{
+                if(err) return reject('Log add faild!')
+                resolve('success')
+            })
+        })
+    }
+    // uid查询用户
+    static getUserInfoById(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.findOne({"uid":options.uid}).then(user=>{
+                if(user){
+                    resolve(user)
+                }else{
+                    resolve(null)
+                }
+            }).catch((err)=>{
+                reject('The seach error')
+            })
+        })
+    }
+    // 关注/取消关注用户 options:{uid:'',uuid:'',status:'1'/'0'}
+    static followUser(options={}){
+        return new Promise((resolve,reject)=>{
+                AccountModel.info.findOne({"uid":options.uuid}).then(user=>{
+                    if(user){
+                        if(options.status=='1'){
+                            AccountModel.info.update({"uid":options.uid},{$addToSet:{followers:options.uuid}},err=>{
+                                if(err) reject('followers $push falid')
+                                AccountModel.info.update({"uid":options.uuid},{$addToSet:{following:options.uid}},err=>{
+                                    if(err) reject('following $push falid')
+                                    resolve('success')
+                                })
+                            })
+                        }else if(options.status=='0'){
+                            AccountModel.info.update({"uid":options.uid},{$pull:{followers:options.uuid}},err=>{
+                                if(err) reject('followers $pull falid')
+                                AccountModel.info.update({"uid":options.uuid},{$pull:{following:options.uid}},err=>{
+                                    if(err) reject('following $pull falid')
+                                    resolve('success')
+                                })
+                            })
+                        }else{
+                            reject('The status params error')
+                        }
+
+                    }else{
+                        reject('The uuid not find')
+                    }
+                })
+
+        })
+    }
+    // 修改用户资料
+    static modifyInfo(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({"uid":options.uid},{$set:{
+                    r_name:options.r_name || '',
+                    profile:options.profile || '', //简介
+                    sex:options.sex || '',
+                    city:options.city || '-1',
+                    birth:options.birth || '', 
+            }},err=>{
+                if(err) reject('modify faild')
+                resolve('modify success')
+            })
+
+        })
+    }
+    // 修改头像
+
+}
+
+module.exports = Account
