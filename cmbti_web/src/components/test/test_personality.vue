@@ -1,5 +1,6 @@
 <template>
-<div class="test-16type">
+<div class="test-personality">
+    <div class="t-left">
             <!--<div class="radio">
                 <label>
                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
@@ -17,7 +18,8 @@
                 </div>
             </div>-->
             <div class="questions">
-                <div class="item" v-for="(v,i) in mbti93" :key="i">
+                <!--<div class="item" v-for="(v,i) in mbti93" :key="i">-->
+                <div class="item" v-for="(v,i) in mbti93.slice(0,7)" :key="i">
                     <div class="title">{{v.q}}</div>
                     <template>
                         <el-radio v-model="v.res" :label="v.at">{{v.a}}</el-radio><br/>
@@ -25,6 +27,14 @@
                     </template>
                 </div>
             </div>
+    </div>
+    <div class="t-aside">
+        <div class="t-a-boxs" v-for="i in 5">
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+        </div>
+    </div>
 
 </div> 
 </template>
@@ -112,53 +122,54 @@ export default {
 };
 </script>
 <style lang="less">
-.test-16type {
-        max-width:960px;
-        margin:0 auto;
-        .left-box {
-            flex-grow:1;
-            flex-basis:70%;
-            min-height:255px;
-            // border:1px solid #eee;
-            .test-list {
-                padding:10px;
-                .answer {
-                    padding-left:20px;
-                    padding-top:5px;
-                }
-                .el-radio {
-                    margin:5px;
-                }
-                .t-items {
-                    padding:6px 0;
-                }
-                // .el-radio__input.is-checked+.el-radio__label {
-                //     color: #538dd5;
-                // }
-                // .el-radio__input.is-checked .el-radio__inner {
-                //     background: #538dd5;
-                // }
+.test-personality {
+    max-width:1180px;
+    margin:0 auto;
+    padding:2%;
+    position: relative;
+    display:flex;
+    .t-left {
+        flex:1;
+        background: #fff;
+        margin-bottom:5%;
+    }
+    .t-aside {
+        // right:0px;
+        // top:0px;
+        flex:0 0 342px;
+        padding-left:1.2%;
+        .t-a-boxs {
+            width:100%;
+            min-height:220px;
+            background-color: #fff;
+            padding:5%;
+            margin:0 0 4%;
+        }
+    }
+    a:hover {
+        text-decoration:none;
+    }
+    @media screen and (max-width:768px){
+        flex-wrap:wrap;
+        .t-aside {
+            flex:0 0 100%;
+        }
+        .q-list {
+            padding-right:0px;
+        }
+        .t-aside {
+            width:100%;
+        }
+    }
+    @media screen and (max-width:500px){
+        .q-list {
+            .item {
+                flex:0 0 50% ;
             }
-            .btn {
-                text-align:center;
-                margin:20px;
-                .el-button.is-round {
-                    padding:10px 32px;
-                }
-            }
-            
         }
-        .right-box {
-            flex-grow:1;
-            flex-basis:30%;
-            min-height:255px;
-            border:1px solid #eee;
-
+        .t-aside {
         }
-        .el-radio__label {
-            font-size: 13px;
-        }
-        
+    }
 }
 
 </style>

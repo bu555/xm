@@ -11,6 +11,9 @@ import user_verify from '@/components/user/user_verify'
 //home页面
 import home_index from '@/components/home/home_index'
 
+//type页面
+import type from '@/components/type/type'
+
 // mbti
 import mbti from '@/components/mbti/mbti'
 
@@ -18,9 +21,9 @@ import mbti from '@/components/mbti/mbti'
 import test from '@/components/test/test'
 import test_mbti93 from '@/components/test/test_mbti93'
 import mbti93_report from '@/components/test/mbti93_report'
-import test_type16 from '@/components/test/test_type16'
-import type16_report from '@/components/test/type16_report'
-import test_mid8 from '@/components/test/test_mid8'
+import test_personality from '@/components/test/test_personality'
+import personality_report from '@/components/test/personality_report'
+import test_function from '@/components/test/test_function'
 
 // example
 import example from '@/components/example/example'
@@ -30,8 +33,9 @@ import example_details from '@/components/example/details'
 import document from '@/components/document/document'
 
 // forum
-import forum from '@/components/forum/forum'
+import forum_index from '@/components/forum/forum_index'
 import forum_item from '@/components/forum/forum_item'
+import forum_article_new from '@/components/forum/forum_article_new'
 
 // 个人中心
 import my_home from '@/components/my/my_home'
@@ -46,6 +50,9 @@ const vueRouter = new Router({
     //Home
     {path:'/',name:'1-1',component:home_index},
 
+    // type
+    {path:'/type',component:type},
+
     // mbti
     {path:'/mbti',component:mbti},
 
@@ -53,9 +60,9 @@ const vueRouter = new Router({
     {path:'/test',component:test},
     {path:'/test/mbti93',component:test_mbti93},
     {path:'/test/mbti93/report',component:mbti93_report},
-    {path:'/test/type16',component:test_type16},
-    {path:'/test/type16/report',component:type16_report},
-    {path:'/test/mid8',component:test_mid8},
+    {path:'/test/personality',component:test_personality},
+    {path:'/test/personality/report',component:personality_report},
+    {path:'/test/function',component:test_function},
 
     // example
     {path:'/example',component:example},
@@ -65,7 +72,8 @@ const vueRouter = new Router({
     {path:'/document',component:document},
 
     // forum 交流区
-    {path:'/forum',component:forum},
+    {path:'/forum',component:forum_index},
+    {path:'/forum/article/new',component:forum_article_new},
     {path:'/forum/:articleID',component:forum_item},
     // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     

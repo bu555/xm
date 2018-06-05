@@ -1,5 +1,5 @@
 <template>
-<div class="test-mid8">
+<div class="test-function">
     <!--<mySelect @getRes="myRes = sendRes($event)" question = "1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  -->
     <mySelect @getRes="myRes=((val)=>val)($event)" question="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
     <mySelect @getRes="myRes=((val)=>val)($event)" question="1、编辑和服务名称是IDR Labs Ltd45"></mySelect>  
@@ -33,7 +33,7 @@ export default {
 };
 </script>
 <style lang="less">
-.test-mid8 {
+.test-function {
     max-width:980px;
     margin:0 auto;
 

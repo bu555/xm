@@ -65,7 +65,8 @@ export default {
 
 <style lang="less">
     .root-app {
-      background:url('/static/img/bg_1.png');
+      // background:url('/static/img/bg_1.png');
+      background:#f6f6f6;
       .router-view {
         margin-bottom:12px;
         overflow: hidden;

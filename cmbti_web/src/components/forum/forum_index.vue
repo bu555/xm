@@ -1,12 +1,6 @@
 <template>
 <div class="forum">
-     <!--forum 交流区-->
-     <div class="left-box">
-         <div class="ctrl-bar">
-             <button class="clean-gray">分享</button>
-             <button class="clean-gray">提问</button>
-             <!--button.clean-gray-->
-         </div>
+    <div class="main-box">
         <div class="tabs">
             <router-link :to="{query:{category:'all'}}">
                 全部
@@ -20,6 +14,14 @@
             <router-link :to="{query:{category:'ask'}}">
                 问答
             </router-link>
+            <a style=""><span style="display:inline-block;width:2px"></span></a>
+            <!--发帖按钮-->
+            <div class="ctrl-bar">
+                <router-link to="/forum/article/new">
+                    <el-button type="primary" plain round size="medium"><i class="el-icon-edit"></i> 创建</el-button>
+                    <!--<el-button type="primary" plain round size="medium"><i class="el-icon-edit-outline"></i> 发帖</el-button>-->
+                </router-link>
+            </div>
         </div>
         <div class="article-list">
             <ul>
@@ -31,7 +33,7 @@
                         <div class="title1">
                             <span class="type">精华</span>
                             <router-link :to="'/forum/'+123">
-                            <span class="txt">
+                            <span class="txt" style="white-space: nowrap;">
                                 {{i%2===0?'文章标题U章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章':'《Node.js 调试指南》开源书籍发布'}}
                             </span>
                             </router-link>
@@ -46,10 +48,14 @@
             </ul>
 
         </div>
-     </div>
-     <div class="right-box">
-         右88
-     </div>
+    </div>
+    <div class="aside-box">
+        <div class="aside-items" v-for="i in 5">
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+        </div>
+    </div>
 </div> 
 </template>
 <script>
@@ -71,28 +77,24 @@ export default {
     
 };
 </script>
-<style lang="less" socped>
+<style lang="less">
 @bg:rgba(255,255,255,.75);
 .forum {
-    max-width:1050px;
-    margin:8px auto;
+    max-width:1180px;
+    margin:12px auto;
+    position: relative;
     display:flex;
-    .left-box {
+    .main-box {
         flex:1;
+        background-color: #fff;
+        margin-bottom:12px;
         width:100%;
-        .ctrl-bar {
-            height:42px;
-            background-color: rgba(255,255,255,.5);
-            margin-bottom:3px;
-            text-align: right;
-            line-height: 42px;
-            // border:1px solid rgba(255,255,255,.5);
-        }
         .tabs {
-            padding:10px;
-            background-color: #c8ddf5;;
+            padding:15px 15px;
+            background-color: #fcfcfc;
+            position: relative;
             .router-link-active {
-                padding:3px;
+                padding:4px;
                 margin:5px;
                 font-size:15px;
                 border-radius:3px;
@@ -106,6 +108,12 @@ export default {
                 color:#fff;
                 text-decoration: none;
             }
+            .ctrl-bar {
+                position: absolute;
+                right:10px;
+                top:50%;
+                transform: translateY(-50%)
+            }
         }
         .article-list {
                     background: @bg;
@@ -113,14 +121,15 @@ export default {
                     min-height:322px;
                     ul {}
                     li{
-                    display:flex;
-                    justify-content:flex-start;
-                    align-items:center;
-                    border-top:1px solid #f2f6f6;
-                    padding:0 5px 0 1.8%;
-                    font-size:15px;
+                        display:flex;
+                        justify-content:flex-start;
+                        align-items:center;
+                        border-top:1px solid #f2f6f6;
+                        padding:0 5px 0 1.8%;
+                        font-size:15px;
                     &:hover {
-                        background:#f2f6f6;
+                        // background:#f2f6f6;
+                        background:#fcfcfc;
                     }
                     }
                     li>div,a{
@@ -172,6 +181,7 @@ export default {
                         align-items:center;
                         a {
                             // text-decoration: none;
+                            flex:1;
                             margin:0;
                             padding:5px 0;
                         }
@@ -202,13 +212,32 @@ export default {
                 
         }
     }
-    .right-box {
-        background-color: #ddd;
-        flex:0 0 25%;
+    .aside-box {
+        flex:0 0 333px;
+        margin-left:12px;
+        .aside-items {
+            width:100%;
+            min-height:150;
+            background-color: #fff;
+            padding:15px;
+            margin:0 0 10px;
+        }
     }
-
-    @media screen and (max-width:768px) {
-        .left-box {
+    a:hover {
+        text-decoration:none;
+    }
+    @media screen and (max-width:768px){
+        flex-wrap:wrap;
+        .main-box {
+            .tabs {
+                padding-left:5px !important;
+                a {
+                    margin:5px 2px !important;
+                }
+            }
+            .ctrl-bar button {
+                padding:8px 15px !important;
+            }
             .article-list{
                 ul {
                     li {
@@ -224,13 +253,15 @@ export default {
                     }
                 }
             }
+
         }
-        .right-box {
-            display:none;
+        .aside-box {
+            flex:0 0 100%;
+            margin-left:0;
         }
     }
     @media screen and (max-width:450px) {
-        .left-box {
+        .main-box {
             .article-list{
                 ul {
                     li {
@@ -248,12 +279,9 @@ export default {
                 }
             }
         }
-        .right-box {
-            display:none;
-        }
     }
     @media screen and (max-width:370px) {
-        .left-box {
+        .main-box {
             .article-list{
                 ul {
                     li {
@@ -277,13 +305,7 @@ export default {
                 }
             }
         }
-        .right-box {
-            display:none;
-        }
     }
-
-
-
 }
 
 </style>

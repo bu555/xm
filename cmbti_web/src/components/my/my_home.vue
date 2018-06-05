@@ -1,6 +1,6 @@
 <template>
 <div class="my-home">
-     <div class="left-box">
+    <div class="main-box">
         <div class="m-header">
             <div class="photo">
                 <img src="/static/img/logo_a.png" alt="">
@@ -12,42 +12,74 @@
                 <button>编辑个人资料</button>
             </div>
             <div class="m-info">
-                <div><span  class="r-name">密南</span> <span  class="sex">男</span></div>
-                <p>质量管理/汽车制造/爬山&骑行爱好者</p>
+                <div><span  class="r-name">密南</span> <span  class="sex"></span></div>
+                <div style="line-height:18px;height:36px;overflow:hidden">质量管理/汽车制造/爬山&骑行爱好者</div>
             </div>
         </div>
         <div class="m-body">
-            
+            <div class="m-tab">
+                <div @click="tabIndex='1'" :class="tabIndex==='1'?'active':''">档案</div>
+                <div @click="tabIndex='2'" :class="tabIndex==='2'?'active':''">喜欢</div>
+                <div @click="tabIndex='3'" :class="tabIndex==='3'?'active':''">关注</div>
+                <div @click="tabIndex='4'" :class="tabIndex==='4'?'active':''">好友</div>
+                <div @click="tabIndex='5'" :class="tabIndex==='5'?'active':''">发表</div>
+                <div @click="tabIndex='6'" :class="tabIndex==='6'?'active':''">评论</div>
+            </div>
+            <div class="m-content">
+                <div v-if="tabIndex==='1'">
+                    档案
+                </div>
+                <div v-if="tabIndex==='2'">
+                    喜欢
+                </div>
+                <div v-if="tabIndex==='3'">
+                    关注
+                </div>
+            </div>
         </div>
-
-     </div>
-     <div class="right-box">
-         右88
-     </div>
+    </div>
+    <div class="aside-box">
+        <div class="aside-items" v-for="i in 5">
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+        </div>
+    </div>
 </div> 
 </template>
 <script>
 export default {
-    methods:{
-        init(){
-
+    data(){
+        return {
+            tabIndex:'2'
         }
+    },
+    methods:{
+
+    },
+    watch:{
 
     },
     mounted(){
+
+    },
+    components:{
+
     },
     created(){
-    }
+    },
     
 };
 </script>
-<style lang="less" socped>
+<style lang="less">
 .my-home {
-    max-width:1050px;
-    margin:8px auto;
+    max-width:1100px;
+    margin:12px auto;
+    position: relative;
     display:flex;
-    .left-box {
-        width:100%;
+    .main-box {
+        flex:1;
+        margin-bottom:12px;
         .m-header {
             height:170px;
             padding-top:85px;
@@ -60,7 +92,7 @@ export default {
                 height:115px;
                 position: absolute;
                 bottom:15px;
-                left:15px;
+                left:25px;
                 background-color: #ccc;
                 border:1px solid #aaa;
                 box-shadow: 0 0 12px #70a9e5 inset;
@@ -81,16 +113,16 @@ export default {
             .m-info {
                 background: rgba(255,255,255,.8);
                 height:100%;
-                padding-left:145px;
+                padding-left:152px;
                 padding-top:18px;
                 span.r-name {
-                    font-size:16px;
+                    font-size:15px;
                     font-weight:700;
                     margin-bottom:5px;
                 }
                 span.sex {
                     color:#555;
-                    font-size:15px;
+                    font-size:14px;
                     padding-left:15px;
                 }
             }
@@ -99,29 +131,60 @@ export default {
             min-height:300px;
             width:100%;
             background-color: rgba(255,255,255,.8);
+            .m-tab {
+                display:flex;
+                padding:0 3px;
+                background-color: #f9f9f9;
+                &>div {
+                    flex:1;
+                    text-align:center;
+                    padding:10px 0;
+                    border-bottom:1px solid #f5f5f5;
+                    cursor:pointer;
+                    background-color: #f9f9f9;
+                    &:hover {
+                        border-bottom:1px solid #cbdff5;
+                        font-weight:700;
+                    }
+                }
+                &>div.active {
+                    font-weight:700;
+                    border-bottom:2px solid #70a9e5;
+                }
+            }
+            .m-content {
+                padding:12px;
+            }
         }
     }
-    .right-box {
-        background-color: #ddd;
-        flex:0 0 25%;
-    }
-
-
-    @media screen and (max-width:768px) {
-        .left-box {
-
-        }
-        .right-box {
-            display:none;
-            // flex:0 0 0;
+    .aside-box {
+        flex:0 0 333px;
+        margin-left:12px;
+        .aside-items {
+            width:100%;
+            min-height:150;
+            background-color: #fff;
+            padding:2.5%;
+            margin:0 0 10px;
         }
     }
-    @media screen and (max-width:480px) {
-        .left-box {
+    a:hover {
+        text-decoration:none;
+    }
+    @media screen and (max-width:768px){
+        flex-wrap:wrap;
+        .aside-box {
+            flex:0 0 100%;
+            margin-left:0;
+        }
+    }
+    @media screen and (max-width:500px){
+        .main-box {
             .m-header {
                 .photo {
                     width:85px;
                     height:85px;
+                    left:10px;
                     img {
                     }
                 }
@@ -132,20 +195,22 @@ export default {
                     top:15px;
                 }
                 .m-info {
-                    padding-left:115px;
+                    padding-left:105px;
                     span.r-name {
                     }
                     span.sex {
                     }
                 }
             }
-        }
-        .right-box {
-            display:none;
-            // flex:0 0 0;
+            .m-body {
+                .m-tab {
+                    &>div {
+                        padding:7px 0;
+                    }
+                }
+            }
         }
     }
-
 }
 
 </style>

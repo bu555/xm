@@ -338,11 +338,6 @@ export default {
             width:100%;
             padding:8px 15px 0px;
             flex:1;
-            // padding:0 .02rem 0 0;
-            // margin-top:10px;
-            // width:100%;
-            display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
-            // position: relative;
             &>div {
                 // flex-basis:12.5%;
 

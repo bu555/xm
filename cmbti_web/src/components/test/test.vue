@@ -1,46 +1,44 @@
 <template>
-<div class="test bx">
-    <nav class="nav">
-        <div class="item">
-            <div class="icon">
-                <router-link to="/test/type16">
-                    <img src="../../../static/img/test_icon.jpg" alt="">
-                </router-link>
-            </div>
-            <router-link to="/test/type16">
-                <div class="title">
-                    16型人格测试
+<div class="test">
+    <div class="main-box">
+        <div class="test-list">
+            <div class="item">
+                <div class="icon">
+                    <router-link to="/test/personality">
+                        <img src="../../../static/img/test_icon.jpg" alt="">
+                    </router-link>
                 </div>
-            </router-link>
-            <div class="info" v-html="'16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
-        </div>
-        <div class="item">
-            <div class="icon">
-                <router-link to="/test/mid8">
-                    <img src="../../../static/img/test_icon.jpg" alt="">
+                    <div class="title">
+                <router-link to="/test/personality">
+                        16型人格测试
                 </router-link>
+                    </div>
             </div>
-            <router-link to="/test/mid8">
-            <div class="title">
-                八维功能测试
+            <div class="item">
+                <div class="icon">
+                    <router-link to="/test/function">
+                        <img src="../../../static/img/test_icon.jpg" alt="">
+                    </router-link>
+                </div>
+                <div class="title">
+                <router-link to="/test/function">
+                    八维功能测试
+                </router-link>
+                </div>
             </div>
-            </router-link>
-            <div class="info" v-html="'16人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
-        </div>
-        <div class="item">
-            <div class="icon">
+            <div class="item" v-for="i in 5">
+                <div class="icon">
+                    <router-link to="/test/mbti93">
+                        <img src="../../../static/img/test_icon.jpg" alt="">
+                    </router-link>
+                </div>
+                <div class="title">
                 <router-link to="/test/mbti93">
-                    <img src="../../../static/img/test_icon.jpg" alt="">
+                MBTI93
                 </router-link>
+                </div>
             </div>
-            <router-link to="/test/mbti93">
-            <div class="title">
-               MBTI93
-            </div>
-            </router-link>
-            <div class="info" v-html="'16人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人6人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
         </div>
-
         <!--<div class="item">
             <div class="icon">
                 <img src="../../../static/img/test_icon.jpg" alt="">
@@ -48,7 +46,14 @@
             <div class="title">16型人格测试</div>
             <div class="info" v-html="'16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格16人格'"> </div>
         </div>-->
-    </nav>
+    </div>
+    <div class="aside-box">
+        <div class="aside-items" v-for="i in 5">
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+            <p>INTJ和INTP测试</p>
+        </div>
+    </div>
 </div> 
 </template>
 <script>
@@ -77,27 +82,36 @@ export default {
 </script>
 <style lang="less">
 .test {
-    max-width:960px;
-    padding:2%;
-    .nav {
+    max-width:1180px;
+    margin:12px auto;
+    position: relative;
+    display:flex;
+    .main-box {
+        flex:1;
+        background-color: #fff;
+        margin-bottom:12px;
+    }
+    .test-list {
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+        justify-content:flex-start;
+        flex-wrap:wrap;
         min-height:230px;
+        padding:2.5%;
         .item {
-            padding-top:2%;
-            padding-bottom:0.5%;
+            flex:0 0 25%;
             border:1px solid #eee;
             border-radius:5px;
-            margin:0 1%;
-            flex:1;
+            background-color: #fff;
+            padding:20px 10px;
+            max-height:300px;
             .icon {
                 width:100%;
                 // height:100%;
                 // width:50%;
                 margin:0 auto;
-                // background-color: #ddd;
                 text-align: center;
                 img {
-                    display:block;
+                    // display:block;
                     width:50%;
                     margin:0 auto;
                     // height:auto;
@@ -111,20 +125,41 @@ export default {
             .info {
                 padding:3%;
             }
-            @media screen and (max-width:600px){
-                margin:0 0.5%;
-                .title {
-                    font-size:.13rem;
-                }
-                .info {
-                    font-size:.08rem;
-                }
 
-            }
+        }
+
+    }
+    .aside-box {
+        // right:0px;
+        // top:0px;
+        flex:0 0 333px;
+        margin-left:12px;
+        .aside-items {
+            width:100%;
+            min-height:150;
+            background-color: #fff;
+            padding:2.5%;
+            margin:0 0 10px;
         }
     }
     a:hover {
         text-decoration:none;
+    }
+    @media screen and (max-width:768px){
+        flex-wrap:wrap;
+        .aside-box {
+            flex:0 0 100%;
+            margin-left:0;
+        }
+        .test-list {
+        }
+    }
+    @media screen and (max-width:500px){
+        .test-list {
+            .item {
+                flex:0 0 50% ;
+            }
+        }
     }
 }
 

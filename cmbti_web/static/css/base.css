@@ -10,7 +10,8 @@ textarea { resize:none; } /*防止拖动*/
 img {border:0; vertical-align:middle; }  /*  去掉图片低测默认的3像素空白缝隙，或者用display：block也可以*/
 table { border-collapse:collapse; }
 html{
-    background:#f6f8f6;
+    /*background:#f6f8f6;*/
+    background: url('../img/bg_1.png');
 }
 body {
     overflow-y: scroll;
@@ -69,10 +70,11 @@ s,i,em{font-style:normal;text-decoration:none;}
 /*elementUI 样式*/
 .el-message {
     top: 122px !important;
-    min-width:337px !important;
+    min-width:290px !important;
 }
 .el-loading-mask {
     background-color: rgba(255,255,255,0.5) !important;
+   
 }
 .bx {
   max-width:1100px;

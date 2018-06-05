@@ -30,7 +30,12 @@
             <ul class="nav navbar-nav nav-list">
               <li index='0' class="active">
                 <router-link to="/">
-                   首页
+                   Home
+                </router-link>
+              </li>
+              <li index='1'>
+                <router-link to="/type">
+                    人格类型
                 </router-link>
               </li>
               <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
@@ -72,8 +77,8 @@
                 </router-link>
               </li>
               <li class=""  index='4'>
-                <router-link to="/forum">
-                M论坛
+                <router-link to="/forum?category=all">
+                    M论坛
                 </router-link>
               </li>
             </ul>
