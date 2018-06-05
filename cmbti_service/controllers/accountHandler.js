@@ -12,7 +12,7 @@ class Account {
                 r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
                 avatar:'', //头像
                 profile:'', //简介
-                sex:-1,
+                sex:"-1",
                 city:'',
                 birth:'', //
                 // 参与测试结果
@@ -89,6 +89,69 @@ class Account {
             })
         })
     }
+    // uid查询用户
+    static getUserInfoById(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.findOne({"uid":options.uid}).then(user=>{
+                if(user){
+                    resolve(user)
+                }else{
+                    resolve(null)
+                }
+            }).catch((err)=>{
+                reject('The seach error')
+            })
+        })
+    }
+    // 关注/取消关注用户 options:{uid:'',uuid:'',status:'1'/'0'}
+    static followUser(options={}){
+        return new Promise((resolve,reject)=>{
+                AccountModel.info.findOne({"uid":options.uuid}).then(user=>{
+                    if(user){
+                        if(options.status=='1'){
+                            AccountModel.info.update({"uid":options.uid},{$addToSet:{followers:options.uuid}},err=>{
+                                if(err) reject('followers $push falid')
+                                AccountModel.info.update({"uid":options.uuid},{$addToSet:{following:options.uid}},err=>{
+                                    if(err) reject('following $push falid')
+                                    resolve('success')
+                                })
+                            })
+                        }else if(options.status=='0'){
+                            AccountModel.info.update({"uid":options.uid},{$pull:{followers:options.uuid}},err=>{
+                                if(err) reject('followers $pull falid')
+                                AccountModel.info.update({"uid":options.uuid},{$pull:{following:options.uid}},err=>{
+                                    if(err) reject('following $pull falid')
+                                    resolve('success')
+                                })
+                            })
+                        }else{
+                            reject('The status params error')
+                        }
+
+                    }else{
+                        reject('The uuid not find')
+                    }
+                })
+
+        })
+    }
+    // 修改用户资料
+    static modifyInfo(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({"uid":options.uid},{$set:{
+                    r_name:options.r_name || '',
+                    profile:options.profile || '', //简介
+                    sex:options.sex || '',
+                    city:options.city || '-1',
+                    birth:options.birth || '', 
+            }},err=>{
+                if(err) reject('modify faild')
+                resolve('modify success')
+            })
+
+        })
+    }
+    // 修改头像
 
 }
 

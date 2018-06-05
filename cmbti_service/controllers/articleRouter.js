@@ -116,7 +116,7 @@ const clickArticleLike = (req,res)=>{
             console.log(err);
             return res.json({
                 success: false,
-                message: 'Failed' 
+                message: 'catch error' 
             })
         }
 
@@ -150,7 +150,7 @@ const addComment = (req,res)=>{
             console.log(err);
             return res.json({
                 success: false,
-                message: 'Failed' 
+                message: 'catch error' 
             })
         }
 
@@ -183,7 +183,7 @@ const clickCommentZan = (req,res)=>{
             console.log(err);
             return res.json({
                 success: false,
-                message: 'Failed' 
+                message: 'catch error' 
             })
         }
     })()
@@ -213,13 +213,93 @@ const getArticle = (req,res)=>{
             console.log(err);
             return res.json({
                 success: false,
-                message: 'Failed' 
+                message: 'catch error' 
             })
         }
     })()
 }
+// aid获取文章 options {aid:''}
+const getArticleById = (req,res)=>{
+    let options = req.body || {}
+    // 参数验证
+    if(!options.aid || typeof(options.aid)!=='string'){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+    (async ()=>{
+        try{
+            let a = await Article.getArticleById(options) 
+            let result = JSON.parse(JSON.stringify(a[0]))
+            delete result.like
+            // delete r[0].like 
+            result.content = a[1].content
+            let user = await Account.getUserInfoById({uid:a[0].uid})
+            result.r_name = user.r_name
+            result.avatar = user.avatar
+            res.json({
+                success: true,
+                message: 'Success',
+                result: result
+            })
 
-// 获取评论内容（aid:'',eid:'',cid:''）
+        }catch(err){
+            return res.json({
+                success: false,
+                message: 'catch error' 
+            })
+        }
+    })()
+}
+// aid 获取评论 options {aid:'必传',page:'必传',size:'必传'}
+const getComment = (req,res)=>{
+        let options = req.body || {}
+        options.uid = req.session.user ? req.session.user._id : ''
+        // options.eid = req.body.aid || ''
+        // options.page = req.body.page || ''
+      if(!options.aid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size)){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let size = myUtill.verifyNum(options.size) ? Number(options.size) : 5  //每次条数
+                let page = myUtill.verifyNum(options.page) ? Number(options.page) : 1  //页数
+                let list = await Article.getComment(options)
+                let newList = JSON.parse(JSON.stringify(list.slice((options.page-1)*options.size, (options.page-1)*options.size + options.size)))
+                let proArr = []
+                newList.forEach((v,i)=>{
+                    proArr.push(Account.getUserInfoById({uid:v.uid}))
+                })
+                let userList = await Promise.all(proArr)
+                for(let i=0;i<newList.length;i++){
+                    if(userList[i]){
+                        newList[i].r_name = userList[i].r_name
+                        newList[i].avatar = userList[i].avatar 
+                    }else{
+                        newList[i].r_name = '已注销'
+                        newList[i].avatar = ''
+                    }
+                }
+
+                res.json({
+                    success: true,
+                    message: 'Success',
+                    result: newList
+                })
+            }catch(err){
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+
+
 
 
 
@@ -230,6 +310,28 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, '连接失败！connection error:'));
 db.once('open', function() {
   console.log('连接成功！connect success')
+
+    getComment({
+        body:{
+            aid:'5b10a11fe9e24821305e3648',
+            page:'1',
+            size:'5'
+            // likes:'1'
+            // keyword:'tian'
+            // category:'share'
+            // good:true
+        },
+        session:{
+            user:{
+                _id:'u555'
+            }
+        }
+    },{json:json})
+
+
+
+
+
 
     // publishArticle({
     //     body:{
@@ -367,11 +469,24 @@ db.once('open', function() {
     // getArticle({
     //     body:{
     //         // likes:'1'
-    //         // keyword:'冠军'
+    //         // keyword:'tian'
     //         // category:'share'
-    //         good:true
+    //         // good:true
     //     }
     // },{json:json})
+
+    // getArticleById({
+    //     body:{
+    //         aid:'5b10a11fe9e24821305e3647'
+    //         // likes:'1'
+    //         // keyword:'tian'
+    //         // category:'share'
+    //         // good:true
+    //     }
+    // },{json:json})
+
+
+
 
 
 

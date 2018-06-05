@@ -354,6 +354,33 @@ class Article {
             })
         })
     }
+    // 查看文章 options {aid:''}
+    static getArticleById(options={}){
+        return new Promise((resolve,reject)=>{
+            Promise.all([
+                ArticleModel.article.findOne({"_id":options.aid}),
+                ArticleModel.content.findOne({"aid":options.aid}),
+            ]).then(result=>{
+                if(result){
+                    resolve(result)
+                }else{
+                    reject('null')
+                }
+            })
+        })
+    }
+    // aid查评论options {aid:'必传'}
+    static getComment(options={}){
+        return new Promise((resolve,reject)=>{
+            ArticleModel.comment.findOne({"aid":options.aid}).then(c=>{
+                    if(c){
+                        resolve(c.comment)
+                    }else{
+                        reject('null')
+                    }
+                }) 
+            })
+    }
 
 
     static  t(){
