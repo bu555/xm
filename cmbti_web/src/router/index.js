@@ -38,7 +38,11 @@ import forum_item from '@/components/forum/forum_item'
 import forum_article_new from '@/components/forum/forum_article_new'
 
 // 个人中心
-import my_home from '@/components/my/my_home'
+import my from '@/components/my/my'
+import my_info from '@/components/my/my_info'
+import my_like from '@/components/my/my_like'
+import my_publish from '@/components/my/my_publish'
+import my_follow from '@/components/my/my_follow'
 
 
 
@@ -78,7 +82,16 @@ const vueRouter = new Router({
     // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     
     //个人中心
-    {path:'/my',component:my_home},
+    { path:'/my',
+      component:my,
+      children:[
+        {path:'info',component:my_info},
+        {path:'like',component:my_like},
+        {path:'publish',component:my_publish},
+        {path:'follow',component:my_follow},
+      ]
+        
+    },
     
     // 用户登陆、注册、找回密码
     { path: '/user/login', component: user_login },

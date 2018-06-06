@@ -31,13 +31,14 @@
                             <div class="u-name">名字123</div>
                         </div>
                         <div class="title1">
-                            <span class="type">精华</span>
+                            <span class="type">精</span>
                             <router-link :to="'/forum/'+123">
-                            <span class="txt" style="white-space: nowrap;">
+                            <!--<span class="txt" style="white-space: nowrap;">-->
+                            <span class="txt" style="">
                                 {{i%2===0?'文章标题U章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章':'《Node.js 调试指南》开源书籍发布'}}
                             </span>
                             </router-link>
-                            </div>
+                        </div>
                         <div class="last-replay u-photo">
                             <img src="/static/img/logo_a.png" alt="">
                             <div class="u-name">名字123</div>
@@ -190,7 +191,7 @@ export default {
                         }
                     } 
                     .title1 .type {
-                        padding:2px 3px 1px;
+                        padding:2px 3px 0px 2px;
                         white-space: nowrap;
                         border-radius:3px;
                         color:#fff;

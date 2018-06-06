@@ -17,16 +17,59 @@
             </div>
         </div>
         <div class="m-body">
-            <div class="m-tab">
+            <!--<div class="m-tab">
                 <div @click="tabIndex='1'" :class="tabIndex==='1'?'active':''">档案</div>
-                <div @click="tabIndex='2'" :class="tabIndex==='2'?'active':''">喜欢</div>
+                <div @click="tabIndex='2'" :class="tabIndex==='2'?'active':''">标记</div>
                 <div @click="tabIndex='3'" :class="tabIndex==='3'?'active':''">关注</div>
-                <div @click="tabIndex='4'" :class="tabIndex==='4'?'active':''">好友</div>
-                <div @click="tabIndex='5'" :class="tabIndex==='5'?'active':''">发表</div>
-                <div @click="tabIndex='6'" :class="tabIndex==='6'?'active':''">评论</div>
+                <div @click="tabIndex='4'" :class="tabIndex==='4'?'active':''">发表</div>
+                <div @click="tabIndex='5'" :class="tabIndex==='5'?'active':''">评论</div>
+                <div @click="tabIndex='5'" :class="tabIndex==='5'?'active':''">评论</div>
+            </div>-->
+            <div class="m-tab-b">
+                <div>
+                    <router-link to="">
+                        个人档案
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        我关注
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        关注我
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        标记
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        测试
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        发表
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        评论
+                    </router-link>
+                </div>
+                <div>
+                    <router-link to="">
+                        消息
+                    </router-link>
+                </div>
             </div>
             <div class="m-content">
-                <div v-if="tabIndex==='1'">
+                <!--<router-view></router-view>-->
+                <!--<div v-if="tabIndex==='1'">
                     档案
                 </div>
                 <div v-if="tabIndex==='2'">
@@ -34,7 +77,7 @@
                 </div>
                 <div v-if="tabIndex==='3'">
                     关注
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -80,10 +123,11 @@ export default {
     .main-box {
         flex:1;
         margin-bottom:12px;
+        width:100%;
         .m-header {
             height:170px;
             padding-top:85px;
-            background:url('/static/img/yssl_bg.png') no-repeat;
+            background:url('/static/img/my_bg.jpg') no-repeat;
             background-size:cover;
             position: relative;
             margin-bottom:8px;
@@ -133,15 +177,17 @@ export default {
             background-color: rgba(255,255,255,.8);
             .m-tab {
                 display:flex;
-                padding:0 3px;
+                padding:0 5px;
                 background-color: #f9f9f9;
                 &>div {
                     flex:1;
                     text-align:center;
                     padding:10px 0;
                     border-bottom:1px solid #f5f5f5;
+                    border-top:1px solid #efefef;
                     cursor:pointer;
                     background-color: #f9f9f9;
+                    max-width:100px;
                     &:hover {
                         border-bottom:1px solid #cbdff5;
                         font-weight:700;
@@ -152,8 +198,23 @@ export default {
                     border-bottom:2px solid #70a9e5;
                 }
             }
+            .m-tab-b {
+                a {
+                    display:block;
+                    padding:5px  0;
+                    border-bottom:1px solid #f7f7f7;
+                    &:visited {
+                        text-decoration: none;
+                    }
+                    &:link {
+                        text-decoration: none;
+                    }
+                }
+
+            }
             .m-content {
                 padding:12px;
+                
             }
         }
     }

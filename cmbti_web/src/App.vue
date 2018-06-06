@@ -67,6 +67,7 @@ export default {
     .root-app {
       // background:url('/static/img/bg_1.png');
       background:#f6f6f6;
+      font-size:15px;
       .router-view {
         margin-bottom:12px;
         overflow: hidden;
