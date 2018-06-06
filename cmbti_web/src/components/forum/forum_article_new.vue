@@ -94,6 +94,16 @@ export default {
             console.log(this.form.title);
             console.log(this.form.category);
             console.log(this.form.content);
+            // input : {uid:'',title:'',category:'share',content:''}
+            this.$axios.articlePublish({
+                title:this.form.title,
+                category:this.form.category,
+                content:this.form.content
+            }).then(res=>{
+                if(res.success){
+                    
+                }
+            })
         },
         updateData(html){
             this.form.content = html

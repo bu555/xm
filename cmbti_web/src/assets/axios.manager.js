@@ -114,4 +114,21 @@ export default {
     getExampleById(data){
         return axios.post(pathAPI+'/example/getExampleById',data);
     },
+    //上传头像  
+    uploadPhoto(data){
+        return axios.post(pathAPI+'/account/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
+    },
+
+    // 發表文章 
+    articlePublish(data){
+        return axios.post(pathAPI+'/article/publish',data);
+    },
+    // 獲取文章（查詢主要信息） 
+    getArticle(data){
+        return axios.post(pathAPI+'/article/getArticle',data);
+    },
+    // aid獲取文章評論  options {aid:'必传',page:'必传',size:'必传'}
+    getCommentByAid(data){
+        return axios.post(pathAPI+'/article/getCommentByAid',data);
+    },
 }

@@ -2,6 +2,7 @@
 <div class="type">
     <div class="main-box">
         <h2>16种性格类型的档案</h2>
+        <ua></ua>
     </div>
     <div class="aside-box">
         <div class="aside-items" v-for="i in 5">
@@ -13,11 +14,15 @@
 </div> 
 </template>
 <script>
+import ua from '../my/upload_avatar'
 export default {
     data(){
         return {
 
         }
+    },
+    components:{
+        ua
     },
     methods:{
 
@@ -26,9 +31,6 @@ export default {
 
     },
     mounted(){
-
-    },
-    components:{
 
     },
     created(){

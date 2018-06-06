@@ -2,13 +2,12 @@ var express = require("express");
 var path = require('path');
 var http = require('http');
 const session = require('express-session');
-// var index = require('./router/index');
-var data = require('./router/data');
-var user = require('./router/user');
-var example = require('./router/example');
+var articleRouter = require('./router/articleRouter');
+var accountRouter = require('./router/accountRouter');
+var userRouter = require('./router/userRouter');
+// var example = require('./router/example');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
-const router = express.Router();
 
 // 连接数据库
 var mongoose = require('mongoose');
@@ -39,9 +38,11 @@ app.use(session({
 }))
 
 app.use('/', express.static(path.join(__dirname,'public')));
-app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
-app.use('/api/user',user);
-app.use('/api/example',example);
+// app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
+app.use('/api/user',userRouter);
+// app.use('/api/example',example);
+app.use('/api/article',articleRouter);
+app.use('/api/account',accountRouter);
 
 
 http.createServer(app).listen(app.get('port'),function(){

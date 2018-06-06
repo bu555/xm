@@ -65,20 +65,16 @@ export default {
                 name:this.name,
                 password:this.password
             }).then(res=>{
-                console.log(res);
-                console.log(555555555555);
                 this.isSubmit = false;
                 if(res.data.success){
                     //用户信息存入本地，并更新vuex
                     localStorage.setItem('USER',JSON.stringify(res.data.user));
-                    this.$store.commit('setUserName',res.data.user.role_name);
+                    this.$store.commit('setUserName',res.data.user.r_name);
                     this.$message({
                         message: '登录成功！',
                         type: 'success'
                     });
                     if(this.$store.state.modalLogin){ //如果是模态框登录
-                        // this.$router.go();
-                        console.log(88888);
                         this.$store.commit('setModalLogin',false); 
                         this.$store.commit('setModalLoginSuccess',true); 
                     }else{  //非模态登录

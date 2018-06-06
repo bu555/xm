@@ -97,8 +97,12 @@ export default {
             e.currentTarget.classList.toggle('active')
 
         },
-        init(){
-
+        getCommentByAid(){
+            this.$axios.getCommentByAid({aid:'5b10a11fe9e24821305e3648',page:'1',size:'3'}).then(res=>{
+                if(res.success){
+                    console.log(res);
+                }
+            })
         }
 
     },
@@ -109,6 +113,8 @@ export default {
                     query:{category:'all'}
                 })
             }
+
+            this.getCommentByAid()
     }
     
 };
