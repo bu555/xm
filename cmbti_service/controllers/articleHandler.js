@@ -260,7 +260,7 @@ class Article {
 
     }
     //获取文章 options:{page:1,size:5,keyword:{category:'share/ask',good:true}}
-    static getArticle(){
+    static getArticle123(){
         return new Promise((resolve,reject)=>{
             // ArticleModel.article.find
             // ArticleModel.article.find({category: 'share'}).then(as=>{  //找share
@@ -335,17 +335,18 @@ class Article {
         return new Promise((resolve,reject)=>{
             let pro ;
             if(options.keyword){
-                pro = ArticleModel.article.find({"title":new RegExp(options.keyword,'i')})
+                pro = ArticleModel.article.find({"title":new RegExp(options.keyword,'i')},"-like")
             }else if(options.category){
-                pro = ArticleModel.article.find({"category":options.category})
+                pro = ArticleModel.article.find({"category":options.category},"-like")
             }else if(options.likes){
                 // Model.find({“age”:{ “$get”:18 , “$lte”:30 } } ); 查询 age 大于等于18并小于等于30的文档
                 // “$lt”小于  “$lte”	小于等于   “$gt”大于   “$gte”	大于等于  “$ne”	不等于
-                pro = ArticleModel.article.find({"likes":{"$gte":Number(options.likes)}})
+                pro = ArticleModel.article.find({"likes":{"$gte":Number(options.likes)}},"-like")
             }else if(options.good){
-                pro = ArticleModel.article.find({"good":options.good})
+                pro = ArticleModel.article.find({"good":options.good},"-like")
             }else{
-                pro = ArticleModel.article.find({"likes":{"$gte":1}})
+                // pro = ArticleModel.article.find({"likes":{"$gte":1}})
+                pro = ArticleModel.article.find({},"-like")
             }
             pro.then(result=>{
                 resolve(result) //返回数组

@@ -1,10 +1,12 @@
 var express = require("express");
+const router = express.Router();
 var path = require('path');
 const session = require('express-session');
 // var index = require('./router/index');
 var data = require('./router/data');
 var user = require('./router/user');
 var example = require('./router/example');
+var account = require('./router/account');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
 const GrabWeb = require('./controllers/grabWeb')
@@ -14,7 +16,6 @@ GrabWeb.https();
 
 
 
-const router = express.Router();
 
 // 连接数据库
 var mongoose = require('mongoose');
@@ -49,6 +50,7 @@ app.use('/imgs', express.static('localImgs'));
 // app.use('/api/data',data);
 app.use('/api/user',user);
 app.use('/api/example',example);
+app.use('/api/account',accountRouter(router));
 
 
 

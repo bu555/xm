@@ -66,6 +66,16 @@ export default {
         }
 
     },
+    methods:{
+        getArticle(){
+            this.$axios.getArticle({}).then(res=>{
+                if(res.success){
+                    console.log(res);
+                }
+            })
+        },
+
+    },
     created(){
             let category = this.$route.query.category
             if(!category){
@@ -73,6 +83,8 @@ export default {
                     query:{category:'all'}
                 })
             }
+
+            this.getArticle()
     }
     
 };

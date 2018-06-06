@@ -4,7 +4,7 @@ class Account {
     constructor(){
     }
     // 创建一个用户信息model  
-    // options:{uid:'',title:'',category:'share',content:''}
+    // options:{uid:''}
     static addAccountInfo(options={}){
         return new Promise((resolve,reject)=>{
             new AccountModel.info({
@@ -31,7 +31,6 @@ class Account {
                 atten_example:[], //['eid','eid']
             }).save((err,i)=>{
                 if(!err){
-                    console.log(i);
                     resolve(i)
                 }
             })
@@ -89,7 +88,7 @@ class Account {
             })
         })
     }
-    // uid查询用户
+    // uid查询用户 {uid:''}
     static getUserInfoById(options={}){
         return new Promise((resolve,reject)=>{
             AccountModel.info.findOne({"uid":options.uid}).then(user=>{
@@ -151,7 +150,7 @@ class Account {
 
         })
     }
-    // 修改头像
+    // 修改头像 
 
 }
 
