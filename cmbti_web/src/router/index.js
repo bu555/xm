@@ -9,7 +9,7 @@ import user_reset_password from '@/components/user/user_reset_password'
 import user_verify from '@/components/user/user_verify'
 
 //home页面
-import home_index from '@/components/home/home_index'
+import home_index from '@/components/home/home_index' ;import home_index1 from '@/components/home/home_index.1'
 
 //type页面
 import type from '@/components/type/type'
@@ -48,7 +48,7 @@ const vueRouter = new Router({
     {path:'/index',redirect:'/'},
     // redirect:'pool/systemStts',
     //Home
-    {path:'/',name:'1-1',component:home_index},
+    {path:'/',name:'1-1',component:home_index},{path:'/t',component:home_index1},
 
     // type
     {path:'/type',component:type},

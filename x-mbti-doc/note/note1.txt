@@ -1,13 +1,13 @@
-idea¼¤»îÂë:
+ï»¿ideaæ¿€æ´»ç :
 EB101IWSWD-eyJsaWNlbnNlSWQiOiJFQjEwMUlXU1dEIiwibGljZW5zZWVOYW1lIjoibGFuIHl1IiwiYXNzaWduZWVOYW1lIjoiIiwiYXNzaWduZWVFbWFpbCI6IiIsImxpY2Vuc2VSZXN0cmljdGlvbiI6IkZvciBlZHVjYXRpb25hbCB1c2Ugb25seSIsImNoZWNrQ29uY3VycmVudFVzZSI6ZmFsc2UsInByb2R1Y3RzIjpbeyJjb2RlIjoiSUkiLCJwYWlkVXBUbyI6IjIwMTgtMTAtMTQifSx7ImNvZGUiOiJSUzAiLCJwYWlkVXBUbyI6IjIwMTgtMTAtMTQifSx7ImNvZGUiOiJXUyIsInBhaWRVcFRvIjoiMjAxOC0xMC0xNCJ9LHsiY29kZSI6IlJEIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In0seyJjb2RlIjoiUkMiLCJwYWlkVXBUbyI6IjIwMTgtMTAtMTQifSx7ImNvZGUiOiJEQyIsInBhaWRVcFRvIjoiMjAxOC0xMC0xNCJ9LHsiY29kZSI6IkRCIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In0seyJjb2RlIjoiUk0iLCJwYWlkVXBUbyI6IjIwMTgtMTAtMTQifSx7ImNvZGUiOiJETSIsInBhaWRVcFRvIjoiMjAxOC0xMC0xNCJ9LHsiY29kZSI6IkFDIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In0seyJjb2RlIjoiRFBOIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In0seyJjb2RlIjoiUFMiLCJwYWlkVXBUbyI6IjIwMTgtMTAtMTQifSx7ImNvZGUiOiJDTCIsInBhaWRVcFRvIjoiMjAxOC0xMC0xNCJ9LHsiY29kZSI6IlBDIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In0seyJjb2RlIjoiUlNVIiwicGFpZFVwVG8iOiIyMDE4LTEwLTE0In1dLCJoYXNoIjoiNjk0NDAzMi8wIiwiZ3JhY2VQZXJpb2REYXlzIjowLCJhdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlLCJpc0F1dG9Qcm9sb25nYXRlZCI6ZmFsc2V9-Gbb7jeR8JWOVxdUFaXfJzVU/O7c7xHQyaidCnhYLp7v32zdeXiHUU7vlrrm5y9ZX0lmQk3plCCsW+phrC9gGAPd6WDKhkal10qVNg0larCR2tQ3u8jfv1t2JAvWrMOJfFG9kKsJuw1P4TozZ/E7Qvj1cupf/rldhoOmaXMyABxNN1af1RV3bVhe4FFZe0p7xlIJF/ctZkFK62HYmh8V3AyhUNTzrvK2k+t/tlDJz2LnW7nYttBLHld8LabPlEEjpTHswhzlthzhVqALIgvF0uNbIJ5Uwpb7NqR4U/2ob0Z+FIcRpFUIAHEAw+RLGwkCge5DyZKfx+RoRJ/In4q/UpA==-MIIEPjCCAiagAwIBAgIBBTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE1MTEwMjA4MjE0OFoXDTE4MTEwMTA4MjE0OFowETEPMA0GA1UEAwwGcHJvZDN5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQC9WZuYgQedSuOc5TOUSrRigMw4/+wuC5EtZBfvdl4HT/8vzMW/oUlIP4YCvA0XKyBaCJ2iX+ZCDKoPfiYXiaSiH+HxAPV6J79vvouxKrWg2XV6ShFtPLP+0gPdGq3x9R3+kJbmAm8w+FOdlWqAfJrLvpzMGNeDU14YGXiZ9bVzmIQbwrBA+c/F4tlK/DV07dsNExihqFoibnqDiVNTGombaU2dDup2gwKdL81ua8EIcGNExHe82kjF4zwfadHk3bQVvbfdAwxcDy4xBjs3L4raPLU3yenSzr/OEur1+jfOxnQSmEcMXKXgrAQ9U55gwjcOFKrgOxEdek/Sk1VfOjvS+nuM4eyEruFMfaZHzoQiuw4IqgGc45ohFH0UUyjYcuFxxDSU9lMCv8qdHKm+wnPRb0l9l5vXsCBDuhAGYD6ss+Ga+aDY6f/qXZuUCEUOH3QUNbbCUlviSz6+GiRnt1kA9N2Qachl+2yBfaqUqr8h7Z2gsx5LcIf5kYNsqJ0GavXTVyWh7PYiKX4bs354ZQLUwwa/cG++2+wNWP+HtBhVxMRNTdVhSm38AknZlD+PTAsWGu9GyLmhti2EnVwGybSD2Dxmhxk3IPCkhKAK+pl0eWYGZWG3tJ9mZ7SowcXLWDFAk0lRJnKGFMTggrWjV8GYpw5bq23VmIqqDLgkNzuoog==
 
-ideaÊ¹ÓÃspring boot ÈÈ¸üĞÂ¡¢ÈÈ¼ÓÔØ:
-1¡¢Settings->Build project automatically
-2¡¢Ctrl+Shift+A ->ËÑË÷registry£¬ÕÒµ½Registry...£¬×¢ÒâÊÇºóÃæÓĞÈı¸öµãµÄÄÇ¸ö£¬È»ºóÕÒµ½compiler.automake.allow.when.app.running£¬¹´Ñ¡
+ideaä½¿ç”¨spring boot çƒ­æ›´æ–°ã€çƒ­åŠ è½½:
+1ã€Settings->Build project automatically
+2ã€Ctrl+Shift+A ->æœç´¢registryï¼Œæ‰¾åˆ°Registry...ï¼Œæ³¨æ„æ˜¯åé¢æœ‰ä¸‰ä¸ªç‚¹çš„é‚£ä¸ªï¼Œç„¶åæ‰¾åˆ°compiler.automake.allow.when.app.runningï¼Œå‹¾é€‰
 
-Corporation ¹«Ë¾,ÉçÍÅ
-operation not permitted ²Ù×÷²»ÔÊĞí(È¨ÏŞ²»×ã£¿)
-È·¶¨µÄ±äÁ¿+È·¶¨µÄÊı¾İÀàĞÍÊ±ÏÈÉùÃ÷¸³Öµ£¬±ÜÃâNaN
+Corporation å…¬å¸,ç¤¾å›¢
+operation not permitted æ“ä½œä¸å…è®¸(æƒé™ä¸è¶³ï¼Ÿ)
+ç¡®å®šçš„å˜é‡+ç¡®å®šçš„æ•°æ®ç±»å‹æ—¶å…ˆå£°æ˜èµ‹å€¼ï¼Œé¿å…NaN
 
 www.gang70.com
 www.shui70.com
@@ -24,113 +24,113 @@ www.guonian.red
 www.dayun.red
 www.fenghuo.red
 www.huohu.red
-www.huoji.red »ğ¼¦ »ğ»ú »ï¼Æ »î¼¦
+www.huoji.red ç«é¸¡ ç«æœº ä¼™è®¡ æ´»é¸¡ 
 www.tuteng.red
-ĞÀâù ×Óº­ ×ÓĞù ºÆÓî ºÆÈ»
+æ¬£æ€¡ å­æ¶µ å­è½© æµ©å®‡ æµ©ç„¶
 
-http://222.222.124.77:9001/jquery.min.js //jQuery HFSÂ·¾¶
+http://222.222.124.77:9001/jquery.min.js //jQuery HFSè·¯å¾„
 
-¡¾gitÂ·¾¶¡¿
-ÈÕ±¨ÉÏ´«£ºhttp://buzhiming@192.168.185.250:7070/r/RCSMatrix.Dev.Document.git
+ã€gitè·¯å¾„ã€‘
+æ—¥æŠ¥ä¸Šä¼ ï¼šhttp://buzhiming@192.168.185.250:7070/r/RCSMatrix.Dev.Document.git
 
-URL_Manager´úÂë£ºhttp://xiaohongwei@192.168.185.250:7070/r/RCSMatrix.Base.Web.urlmanager.git? URL¹ÜÀí·şÎñ
-URL_Manager´úÂë£ºhttp://buzhiming@192.168.185.250:7070/r/RCSMatrix.Base.Web.urlmanager.git
+URL_Managerä»£ç ï¼šhttp://xiaohongwei@192.168.185.250:7070/r/RCSMatrix.Base.Web.urlmanager.git? URLç®¡ç†æœåŠ¡
+URL_Managerä»£ç ï¼šhttp://buzhiming@192.168.185.250:7070/r/RCSMatrix.Base.Web.urlmanager.git
 
-¿Í»§¶ËÉı¼¶¹ÜÀíÏµÍ³£ºgit clone http://buzhiming@192.168.185.250:7070/r/RCSMatrix.WEB.VersionManager.git
-²¿ÊğµØÖ·£ºhttp://192.168.185.250:8180/versionmanager/index.html#/white_list
+å®¢æˆ·ç«¯å‡çº§ç®¡ç†ç³»ç»Ÿï¼šgit clone http://buzhiming@192.168.185.250:7070/r/RCSMatrix.WEB.VersionManager.git
+éƒ¨ç½²åœ°å€ï¼šhttp://192.168.185.250:8180/versionmanager/index.html#/white_list
 
-usercenter¹ÜÀí£º
+usercenterç®¡ç†ï¼š
 http://buzhiming@192.168.185.250:7070/r/microservice/RCSMatrix.sys.usercenter.web.git
 
-ÎÊ¾íµ÷²é£º
+é—®å·è°ƒæŸ¥ï¼š
 http://buzhiming@192.168.185.250:7070/r/RCSMatrix.OA.Survey2.0.git
 localhost:8756/login.jsp   rcs@139.com  123456
 
-Áì¸£Àû ÓÅ»İÈ¯»î¶¯
+é¢†ç¦åˆ© ä¼˜æƒ åˆ¸æ´»åŠ¨
 http://buzhiming@192.168.185.250:7070/r/RCSMatrix.OA.Promote.git
 
 
-ÃÜÓÑÈ¦ÔËÎ¬ÏµÍ³
+å¯†å‹åœˆè¿ç»´ç³»ç»Ÿ
 http://buzhiming@192.168.185.250:7070/r/WEB/RCSMatrix.WEB.ConsumerSys.git
 
-¿¨È¯¡¾renrenfast + vue¡¿
+å¡åˆ¸ã€renrenfast + vueã€‘
 http://buzhiming@192.168.185.250:7070/summary/RCSMatrix.Base.Web.urlmanager.git
 
-JIRAÃô½İÏµÍ³  buzhiming+123456
+JIRAæ•æ·ç³»ç»Ÿ  buzhiming+123456
 zmbuc@isoftstone.com  whkay+8F  bu+137554045 bzm+55555 isoftstone 
 
-github+heox´î½¨²©¿Í
-Èí¼ş¼¼Êõ·şÎñ ios
+github+heoxæ­å»ºåšå®¢
+è½¯ä»¶æŠ€æœ¯æœåŠ¡ ios
 
-¡¾¿ò¼Ü¡¢¿âÁ´½Ó¡¿ 
-Vue2.0¹Ù·½Ö¸ÄÏ£ºhttps://cn.vuejs.org/v2/guide
-Iview UI×é¼ş¿â£ºhttp://v1.iviewui.com   »ùÓÚvueµÄPCÖĞºóÌ¨ÑùÊ½¿â
-ElementUI ×é¼ş£ºhttp://element.eleme.io  »ùÓÚvueµÄPCÖĞºóÌ¨ÑùÊ½¿â
-Mint-UI ×é¼ş£ºhttp://mint-ui.github.io/#!/zh-cn  »ùÓÚvueµÄÒÆ¶¯¶ËUI×é¼ş(IOS·ç¸ñ)
-MUI£ºhttp://dev.dcloud.net.cn/mui  ÒÆ¶¯¶ËUI×é¼ş
-weex£ºhttp://weex.apache.org/cn/
+ã€æ¡†æ¶ã€åº“é“¾æ¥ã€‘ 
+Vue2.0å®˜æ–¹æŒ‡å—ï¼šhttps://cn.vuejs.org/v2/guide
+Iview UIç»„ä»¶åº“ï¼šhttp://v1.iviewui.com   åŸºäºvueçš„PCä¸­åå°æ ·å¼åº“
+ElementUI ç»„ä»¶ï¼šhttp://element.eleme.io  åŸºäºvueçš„PCä¸­åå°æ ·å¼åº“
+Mint-UI ç»„ä»¶ï¼šhttp://mint-ui.github.io/#!/zh-cn  åŸºäºvueçš„ç§»åŠ¨ç«¯UIç»„ä»¶(IOSé£æ ¼)
+MUIï¼šhttp://dev.dcloud.net.cn/mui  ç§»åŠ¨ç«¯UIç»„ä»¶
+weexï¼šhttp://weex.apache.org/cn/
 
-¡¾markdown¡¿
-# ±êÌâ
-* ÎŞĞòÁĞ±í
-1. ÓĞĞòÁĞ±í
-> ÒıÓÃÄÚÈİ
-[]() ²åÈëÒıÓÃ
-![]() ²åÈëÍ¼Æ¬
-**´ÖÌå**
-*Ğ±Ìå*
-*** ·Ö¸îÏß
-`´úÂë¿ò-ĞÂÆßÁú`
+ã€markdownã€‘
+# æ ‡é¢˜
+* æ— åºåˆ—è¡¨
+1. æœ‰åºåˆ—è¡¨
+> å¼•ç”¨å†…å®¹
+[]() æ’å…¥å¼•ç”¨
+![]() æ’å…¥å›¾ç‰‡
+**ç²—ä½“**
+*æ–œä½“*
+*** åˆ†å‰²çº¿
+`ä»£ç æ¡†-æ–°ä¸ƒé¾™`
 
-¡¾Î¢ĞÅ¹«ÖÚÆ½Ì¨¡¿
-¹«ÖÚºÅ£º381042434@qq.com bu+55555
-Ğ¡³ÌĞò£º 137554045@qq.com bu+55555
-AppID(Ğ¡³ÌĞòID): wx7e9186940992e232
+ã€å¾®ä¿¡å…¬ä¼—å¹³å°ã€‘
+å…¬ä¼—å·ï¼š381042434@qq.com bu+55555
+å°ç¨‹åºï¼š 137554045@qq.com bu+55555
+AppID(å°ç¨‹åºID): wx7e9186940992e232
 
-1943-12-17 3 ¹ïÎ´Ê®Ò»ÔÂØ¥Ò» £¨´óÑ©8ÈÕ7Ê±26·Ö£¬¶¬ÖÁ23ÈÕ1Ê±21·Ö£©
-2017-10-14 18 ¶¡ÓÏ¾ÅÔÂØ¥Îå  £¨º®Â¶8ÈÕ10Ê±20·Ö£¬Ëª½µ23ÈÕ13Ê±26·Ö£©
-1997-1-9 2 ±û×ÓÀ°ÔÂÒ»ÈÕ £¨Ğ¡º®5ÈÕ15Ê±24·Ö£¬´óº®20ÈÕ8Ê±42·Ö£©
+1943-12-17 3 ç™¸æœªåä¸€æœˆå»¿ä¸€ ï¼ˆå¤§é›ª8æ—¥7æ—¶26åˆ†ï¼Œå†¬è‡³23æ—¥1æ—¶21åˆ†ï¼‰
+2017-10-14 18 ä¸é…‰ä¹æœˆå»¿äº”  ï¼ˆå¯’éœ²8æ—¥10æ—¶20åˆ†ï¼Œéœœé™23æ—¥13æ—¶26åˆ†ï¼‰
+1997-1-9 2 ä¸™å­è…Šæœˆä¸€æ—¥ ï¼ˆå°å¯’5æ—¥15æ—¶24åˆ†ï¼Œå¤§å¯’20æ—¥8æ—¶42åˆ†ï¼‰
 
-1997-1-9À°ÔÂ³õÒ»£¬2017-7-23ÈòÁùÔÂ³õÒ»
+1997-1-9è…Šæœˆåˆä¸€ï¼Œ2017-7-23é—°å…­æœˆåˆä¸€
 
-¡¾node¡¿
-?»ùÓÚnodeµÄ·şÎñÆô¶¯¹¤¾ßlive-server£º¢Ù npm i live-server -gf   ¡ú ¢ÚÔÚµ±Ç°Ä¿Â¼>leve-server
+ã€nodeã€‘
+?åŸºäºnodeçš„æœåŠ¡å¯åŠ¨å·¥å…·live-serverï¼šâ‘  npm i live-server -gf   â†’ â‘¡åœ¨å½“å‰ç›®å½•>leve-server
 
-¡¾W3C¡¿
-?Ò³ÃæÌø×ª£º
+ã€W3Cã€‘
+?é¡µé¢è·³è½¬ï¼š
  <a href="url" target="_blank"></a>     _self  _blank 
- window.parent.location.href=url»ò window.open("url","_parent|_self|_blank") ÔÚ¸¸´°¿ÚÌø×ª£¨Ò»°ãÔÚiframeÖĞÊ¹ÓÃ£©
-?³ß´çµ¥Î»£º
- em  Ïà¶ÔÓÚµ±Ç°×Ö´óĞ¡
- rem  Ïà¶ÔÓÚhtml¸ù×ÖÌå´óĞ¡(100·İ)
- vh vw  1vh|1vwÏà¶ÔÓÚÉè±¸¸ß¿íµÄ1%
-?inputÎÄ±¾¿òµ×²¿ºìÉ«²¨ÀËÏß½â¾ö£º ¼ÓÊôĞÔspellcheck="false"
-?bootstrap±í¸ñÁĞ¿íÎŞ·¨ÉèÖÃ£º ÔÚtable±êÇ©Ìí¼Óstyle="table-layout:fixed"
-?ÎÄ×Ö×Ô¶¯»»ĞĞ:word-wrap: break-word;
-?ÉèÖÃºĞ×Ó×îĞ¡¸ß¶È:min-height:10px;
-?ÉèÖÃ×ÖÓë×Ö¼ä¾à£ºletter-spacing
-?½â¾öä¯ÀÀÆ÷¹ö¶¯Ìõ³öÏÖÊ±´°¿Ú¿í¶È±ä¶¯£ºhtml»òbody{overflow:scroll;}  //scrollÎŞÂÛÊÇ·ñÒç³ö¶¼ÏÔÊ¾¹ö¶¯Ìõ£¬hiddenÒş²ØÒç³ö£¬autoÒç³öÊ±ÏÔÊ¾
-?ÊµÏÖ¸ß¶ÈÂúÆÁ£ºhtml,body{height:100%}
-?½ûÖ¹µã»÷±êÖ¾£º cursor:not-allowed|pointer    ---½ûÖ¹±êÖ¾|Ğ¡ÊÖ
-?½ûÖ¹Ñ¡ÖĞ&¸´ÖÆÉèÖÃ£º
-  CSSÉèÖÃ½ûÖ¹Ñ¡ÖĞ£º
+ window.parent.location.href=urlæˆ– window.open("url","_parent|_self|_blank") åœ¨çˆ¶çª—å£è·³è½¬ï¼ˆä¸€èˆ¬åœ¨iframeä¸­ä½¿ç”¨ï¼‰
+?å°ºå¯¸å•ä½ï¼š
+ em  ç›¸å¯¹äºå½“å‰å­—å¤§å°
+ rem  ç›¸å¯¹äºhtmlæ ¹å­—ä½“å¤§å°(100ä»½)
+ vh vw  1vh|1vwç›¸å¯¹äºè®¾å¤‡é«˜å®½çš„1%
+?inputæ–‡æœ¬æ¡†åº•éƒ¨çº¢è‰²æ³¢æµªçº¿è§£å†³ï¼š åŠ å±æ€§spellcheck="false"
+?bootstrapè¡¨æ ¼åˆ—å®½æ— æ³•è®¾ç½®ï¼š åœ¨tableæ ‡ç­¾æ·»åŠ style="table-layout:fixed"
+?æ–‡å­—è‡ªåŠ¨æ¢è¡Œ:word-wrap: break-word;
+?è®¾ç½®ç›’å­æœ€å°é«˜åº¦:min-height:10px;
+?è®¾ç½®å­—ä¸å­—é—´è·ï¼šletter-spacing
+?è§£å†³æµè§ˆå™¨æ»šåŠ¨æ¡å‡ºç°æ—¶çª—å£å®½åº¦å˜åŠ¨ï¼šhtmlæˆ–body{overflow:scroll;}  //scrollæ— è®ºæ˜¯å¦æº¢å‡ºéƒ½æ˜¾ç¤ºæ»šåŠ¨æ¡ï¼Œhiddenéšè—æº¢å‡ºï¼Œautoæº¢å‡ºæ—¶æ˜¾ç¤º
+?å®ç°é«˜åº¦æ»¡å±ï¼šhtml,body{height:100%}
+?ç¦æ­¢ç‚¹å‡»æ ‡å¿—ï¼š cursor:not-allowed|pointer    ---ç¦æ­¢æ ‡å¿—|å°æ‰‹
+?ç¦æ­¢é€‰ä¸­&å¤åˆ¶è®¾ç½®ï¼š
+  CSSè®¾ç½®ç¦æ­¢é€‰ä¸­ï¼š
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  JSÉèÖÃ½ûÖ¹Ñ¡ÖĞ£º
-	°ó¶¨onselectstartÊÂ¼ş£¬return false --½ûÖ¹Ñ¡ÖĞ
-	°ó¶¨oncontextmenuÊÂ¼ş£¬return false --½ûÖ¹ÓÒ¼ü
-?placeholder×ÖÌåÉèÖÃ£º
+  JSè®¾ç½®ç¦æ­¢é€‰ä¸­ï¼š
+	ç»‘å®šonselectstartäº‹ä»¶ï¼Œreturn false --ç¦æ­¢é€‰ä¸­
+	ç»‘å®šoncontextmenuäº‹ä»¶ï¼Œreturn false --ç¦æ­¢å³é”®
+?placeholderå­—ä½“è®¾ç½®ï¼š
  input::-webkit-input-placeholder { color: #D6D0D0; }
  input::-webkit-input-placeholder{color: #D6D0D0;}
  input::-moz-input-placeholder{color: #D6D0D0;}
  input::-ms-input-placeholder{color: #D6D0D0;}
 ?background: #fff url("./1.png")  no-repeat  fixed left top
- background: ÑÕÉ« url()  ÖØ¸´ÑùÊ½  ¹ö¶¯»ò¹Ì¶¨ xÎ»ÖÃ  yÎ»ÖÃ £¨°´ĞèĞ´£©
-?Î±ÔªËØÇå³ı¸¡¶¯£º
+ background: é¢œè‰² url()  é‡å¤æ ·å¼  æ»šåŠ¨æˆ–å›ºå®š xä½ç½®  yä½ç½® ï¼ˆæŒ‰éœ€å†™ï¼‰
+?ä¼ªå…ƒç´ æ¸…é™¤æµ®åŠ¨ï¼š
 .clearfix:after{
   content: "020"; 
   display: block; 
@@ -138,10 +138,10 @@ AppID(Ğ¡³ÌĞòID): wx7e9186940992e232
   clear: both; 
   visibility: hidden;  
  }
-<script defer>ºÍ<script async>
-defer ÊôĞÔ±ê×¢µÄ½Å±¾ÊÇÑÓ³Ù½Å±¾£¬Ê¹µÃä¯ÀÀÆ÷ÑÓ³Ù½Å±¾µÄÖ´ĞĞ£¬Ò²¾ÍÊÇËµ£¬½Å±¾»á±»Òì²½ÏÂÔØµ«ÊÇ²»»á±»Ö´ĞĞ£¬Ö±µ½ÎÄµµµÄÔØÈëºÍ½âÎöÍê³É£¬²¢¿ÉÒÔ²Ù×÷£¬½Å±¾²Å»á±»Ö´ĞĞ¡£
-async ÊôĞÔ±ê×¢µÄ½Å±¾ÊÇÒì²½½Å±¾£¬¼´Òì²½ÏÂÔØ½Å±¾Ê±£¬²»»á×èÈûÎÄµµ½âÎö£¬µ«ÊÇÒ»µ©ÏÂÔØÍê³Éºó£¬Á¢¼´Ö´ĞĞ£¬×èÈûÎÄµµ½âÎö¡£
-css3Ò»Ğ©ÊôĞÔ¼æÈİĞ´·¨£º
+<script defer>å’Œ<script async>
+defer å±æ€§æ ‡æ³¨çš„è„šæœ¬æ˜¯å»¶è¿Ÿè„šæœ¬ï¼Œä½¿å¾—æµè§ˆå™¨å»¶è¿Ÿè„šæœ¬çš„æ‰§è¡Œï¼Œä¹Ÿå°±æ˜¯è¯´ï¼Œè„šæœ¬ä¼šè¢«å¼‚æ­¥ä¸‹è½½ä½†æ˜¯ä¸ä¼šè¢«æ‰§è¡Œï¼Œç›´åˆ°æ–‡æ¡£çš„è½½å…¥å’Œè§£æå®Œæˆï¼Œå¹¶å¯ä»¥æ“ä½œï¼Œè„šæœ¬æ‰ä¼šè¢«æ‰§è¡Œã€‚
+async å±æ€§æ ‡æ³¨çš„è„šæœ¬æ˜¯å¼‚æ­¥è„šæœ¬ï¼Œå³å¼‚æ­¥ä¸‹è½½è„šæœ¬æ—¶ï¼Œä¸ä¼šé˜»å¡æ–‡æ¡£è§£æï¼Œä½†æ˜¯ä¸€æ—¦ä¸‹è½½å®Œæˆåï¼Œç«‹å³æ‰§è¡Œï¼Œé˜»å¡æ–‡æ¡£è§£æã€‚
+css3ä¸€äº›å±æ€§å…¼å®¹å†™æ³•ï¼š
 transform: translateX(-50%);
 -ms-transform: translateX(-50%);
 -moz-transform: translateX(-50%);
@@ -153,38 +153,38 @@ transform: translateX(-50%);
     display: -ms-flexbox;
     display: flex;
 
-¡¾node.js¡¿
-?node---pathÄ£¿é£¬nodeJsµÄpath¶ÔÏó£¬ÈçºÎÓÃÀ´´¦ÀíÄ¿Â¼£¬path.join,path.resolve,path.relative.path
+ã€node.jsã€‘
+?node---pathæ¨¡å—ï¼ŒnodeJsçš„pathå¯¹è±¡ï¼Œå¦‚ä½•ç”¨æ¥å¤„ç†ç›®å½•ï¼Œpath.join,path.resolve,path.relative.path
 
-¡¾µÇÂ¼ÑéÖ¤·½°¸¡¿
-?tokenµÇÂ¼ÑéÖ¤»ù±¾Âß¼­£º
-¡úµÇÂ¼³É¹¦·µ»ØÒ»¸ötoken¼ÇºÅ(¾ßÓĞÓĞĞ§ÆÚ)£»
-¡ú´æÈ¡µ½cookie(ÖÜÆÚÒ»°ãÉèÖÃÎª»á»°£¬±ØÒªµÄ»°¼ÓÉÏmax-ageÓĞĞ§ÆÚ)£»
-¡úÔÚ²Ù×÷Ò³Ãæ½Ó¿ÚÇëÇóÊ±´øÔÚrequestHeaderÖĞ·¢¸ø·şÎñÆ÷ÑéÖ¤£»
-¡úÈç¹û¹ıÆÚ£¬¸ù¾İ·µ»ØµÄÊ§°ÜÂëÌø×ªµ½µÇÂ¼Ò³Ãæ£»
-//$.ajax()ÖĞÉèÖÃrequestHeader:
+ã€ç™»å½•éªŒè¯æ–¹æ¡ˆã€‘
+?tokenç™»å½•éªŒè¯åŸºæœ¬é€»è¾‘ï¼š
+â†’ç™»å½•æˆåŠŸè¿”å›ä¸€ä¸ªtokenè®°å·(å…·æœ‰æœ‰æ•ˆæœŸ)ï¼›
+â†’å­˜å–åˆ°cookie(å‘¨æœŸä¸€èˆ¬è®¾ç½®ä¸ºä¼šè¯ï¼Œå¿…è¦çš„è¯åŠ ä¸Šmax-ageæœ‰æ•ˆæœŸ)ï¼›
+â†’åœ¨æ“ä½œé¡µé¢æ¥å£è¯·æ±‚æ—¶å¸¦åœ¨requestHeaderä¸­å‘ç»™æœåŠ¡å™¨éªŒè¯ï¼›
+â†’å¦‚æœè¿‡æœŸï¼Œæ ¹æ®è¿”å›çš„å¤±è´¥ç è·³è½¬åˆ°ç™»å½•é¡µé¢ï¼›
+//$.ajax()ä¸­è®¾ç½®requestHeader:
     beforeSend:function(xhr){
-       xhr.setRequestHeader("test5","token555");  //ÇëÇóÍ·Ìí¼ÓtokenĞÅÏ¢
+       xhr.setRequestHeader("test5","token555");  //è¯·æ±‚å¤´æ·»åŠ tokenä¿¡æ¯
     }
 
-¡¾Vue.js + vue-router + vue-resource + vuex¡¿
+ã€Vue.js + vue-router + vue-resource + vuexã€‘
  ===Vue.js===
-?vue²å¼ş£ºÊÔ¹ı3¸ö²å¼ş£º vue, VueHelper ºÍ vetur £¬×îÖÕÑ¡ÔñÊ¹ÓÃ vetur ¡£
-?.gitignore   ÉèÖÃ·ÇÌá½»ÎÄ¼ş£º.*  /node_modules   /dist
-?elementUIÊ¹ÓÃÎÊÌâ:
-¢Ù ERROR in ./   ...element-icons.woff?t=    £¨×ÖÌå¼ÓÔØÊ§°Ü£©---½â¾ö·½·¨£ºloaderÅäÖÃÖĞÔö¼Ówoff2?ÎÄ¼ş  test: /\.(png|jpg|gif|ttf|woff2?)$/,
-×¢£ºÊ¹ÓÃbsÒ²»á³öÏÖÕâÑùµÄÎÊÌâ
-¢Ú ĞŞ¸Äele±êÇ©µÄÑùÊ½£º²é¿´htmlÔ´Âë£¬Ñ¡ÖĞÔªËØ²¢Éè¶¨ÑùÊ½ !important;
-?DOM°ó¶¨ÊÂ¼ş¡¢´«²Î£º
-<a href="#" @click="edit(i,$event)" :data-i="555" >±à¼­</a>
- »ñÈ¡£ºedit(d,e)=>{ e.target »ò e.target.getAttribute("data-i")}
+?vueæ’ä»¶ï¼šè¯•è¿‡3ä¸ªæ’ä»¶ï¼š vue, VueHelper å’Œ vetur ï¼Œæœ€ç»ˆé€‰æ‹©ä½¿ç”¨ vetur ã€‚
+?.gitignore   è®¾ç½®éæäº¤æ–‡ä»¶ï¼š.*  /node_modules   /dist
+?elementUIä½¿ç”¨é—®é¢˜:
+â‘  ERROR in ./   ...element-icons.woff?t=    ï¼ˆå­—ä½“åŠ è½½å¤±è´¥ï¼‰---è§£å†³æ–¹æ³•ï¼šloaderé…ç½®ä¸­å¢åŠ woff2?æ–‡ä»¶  test: /\.(png|jpg|gif|ttf|woff2?)$/,
+æ³¨ï¼šä½¿ç”¨bsä¹Ÿä¼šå‡ºç°è¿™æ ·çš„é—®é¢˜
+â‘¡ ä¿®æ”¹eleæ ‡ç­¾çš„æ ·å¼ï¼šæŸ¥çœ‹htmlæºç ï¼Œé€‰ä¸­å…ƒç´ å¹¶è®¾å®šæ ·å¼ !important;
+?DOMç»‘å®šäº‹ä»¶ã€ä¼ å‚ï¼š
+<a href="#" @click="edit(i,$event)" :data-i="555" >ç¼–è¾‘</a>
+ è·å–ï¼šedit(d,e)=>{ e.target æˆ– e.target.getAttribute("data-i")}
 
-vue cli²È¿Ó£º
-¢Ù´ò°ü±¨Ëõ½ø×ÖÊı¡¢ÉÙ¿Õ¸ñµÈ´íÎó£ºÕÒµ½¸ùÄ¿Â¼buildÎÄ¼ş¼ĞµÄwebpack.base.conf.js£¬½«eslint-loader¼ì²â´úÂë¼ÓÔØÆ÷È¥³ı»ò×¢ÊÍ £¨ÈËÉñ¹²·ßµÄ´¦Å®×ù£©
-¢Úwebpack´¦ÀílessÎÄ¼ş±¨´íCannot find module ¡®less¡¯£º¹Ù·½Ëµ°²×°less-loader style-loader css-loader¿É½â¾ö£¬È»²¢ÂÑ£»ĞèÒª npm install less --dev ½â¾ö¡£
-¢Ûerror  in ./~/element-ui/lib/theme-default/index.css
+vue cliè¸©å‘ï¼š
+â‘ æ‰“åŒ…æŠ¥ç¼©è¿›å­—æ•°ã€å°‘ç©ºæ ¼ç­‰é”™è¯¯ï¼šæ‰¾åˆ°æ ¹ç›®å½•buildæ–‡ä»¶å¤¹çš„webpack.base.conf.jsï¼Œå°†eslint-loaderæ£€æµ‹ä»£ç åŠ è½½å™¨å»é™¤æˆ–æ³¨é‡Š ï¼ˆäººç¥å…±æ„¤çš„å¤„å¥³åº§ï¼‰
+â‘¡webpackå¤„ç†lessæ–‡ä»¶æŠ¥é”™Cannot find module â€˜lessâ€™ï¼šå®˜æ–¹è¯´å®‰è£…less-loader style-loader css-loaderå¯è§£å†³ï¼Œç„¶å¹¶åµï¼›éœ€è¦ npm install less --dev è§£å†³ã€‚
+â‘¢error  in ./~/element-ui/lib/theme-default/index.css
 Module build failed: Unknown word (5:1)
-½â¾ö£ºÈ¥µô webpack.base.conf.jsÎÄ¼şÖĞ£¬¶ÔcssÎÄ¼şµÄloader
+è§£å†³ï¼šå»æ‰ webpack.base.conf.jsæ–‡ä»¶ä¸­ï¼Œå¯¹cssæ–‡ä»¶çš„loader
         // {
         //   test: /\.css$/,
         //   use: [
@@ -192,7 +192,7 @@ Module build failed: Unknown word (5:1)
         //       'css-loader'
         //   ]
         // },
-¢Ü
+â‘£
 
   3 | // load the styles
   4 | var content = require("!!../../../_css-loader@0.28.7@css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!./index.css");
@@ -200,54 +200,54 @@ Module build failed: Unknown word (5:1)
     | ^
 
  ===vue-router===
-?´ø²ÎÊıÌø×ª£º
- <router-link to="/edit">Redirect</router-link>  //ÎŞ²ÎÊı
- <router-link :to="{name:'edit',params:{id:{id:001} }}">  //Â·ÓÉpath:"/edit/:id?"
- this.$router.push({name:¡®edit¡¯,params:{id:id}})
- È¡²ÎÊı£ºdata:function(){return{ id:this.$route.params.id }}
+?å¸¦å‚æ•°è·³è½¬ï¼š
+ <router-link to="/edit">Redirect</router-link>  //æ— å‚æ•°
+ <router-link :to="{name:'edit',params:{id:{id:001} }}">  //è·¯ç”±path:"/edit/:id?"
+ this.$router.push({name:â€˜editâ€™,params:{id:id}})
+ å–å‚æ•°ï¼šdata:function(){return{ id:this.$route.params.id }}
 
 
  ===vue-resource===
-?¿ÉÒÔÍ¨¹ıXMLHttpRequest»òjsonp·¢ÆğÇëÇó²¢´¦ÀíÏàÓ¦; vue-resource´óĞ¡½ö12kb; Ö§³ÖIE9ÒÔÉÏÖ÷Á÷ä¯ÀÀÆ÷
-?ÔÚÊµÀıÖĞÊ¹ÓÃ$http:
- this.$http.get(url,{option}).then(successCallback,errorCallback).catch(res=> //Òì³£ );
- this.$http.post(url,body,{option}).then(successCallback,errorCallback).catch(res=> //Òì³£ );
- Àı:
+?å¯ä»¥é€šè¿‡XMLHttpRequestæˆ–jsonpå‘èµ·è¯·æ±‚å¹¶å¤„ç†ç›¸åº”; vue-resourceå¤§å°ä»…12kb; æ”¯æŒIE9ä»¥ä¸Šä¸»æµæµè§ˆå™¨
+?åœ¨å®ä¾‹ä¸­ä½¿ç”¨$http:
+ this.$http.get(url,{option}).then(successCallback,errorCallback).catch(res=> //å¼‚å¸¸ );
+ this.$http.post(url,body,{option}).then(successCallback,errorCallback).catch(res=> //å¼‚å¸¸ );
+ ä¾‹:
  this.$http.post(url,body,{
-	url: ÇëÇóµÄurl,
-	method:  Èç"GET","POST"µÈ,
-	body: ¿ÉÒÔÊÇobject/formData/string,
-	params: object ÉèÖÃurl²ÎÊı¶ÔÏó,(½öGetÇëÇó)
-	headers: object ÉèÖÃÇëÇóÍ·,
-	timeout: mumber ÉèÖÃ³¬Ê±ºÁÃëÖµ,
-	before: function(request){} ·¢ËÍÇ°µÄ´¦Àíº¯Êı£¬ÀàËÆjQµÄbeforeSendº¯Êı,
-	progerss: function(event){} progressEvent»Øµ÷´¦Àíº¯Êı,
-	credentials:true|false ÉèÖÃ¿çÓòÇëÇóÊ±ÊÇ·ñÊ¹ÓÃÆ¾Ö¤,
+	url: è¯·æ±‚çš„url,
+	method:  å¦‚"GET","POST"ç­‰,
+	body: å¯ä»¥æ˜¯object/formData/string,
+	params: object è®¾ç½®urlå‚æ•°å¯¹è±¡,(ä»…Getè¯·æ±‚)
+	headers: object è®¾ç½®è¯·æ±‚å¤´,
+	timeout: mumber è®¾ç½®è¶…æ—¶æ¯«ç§’å€¼,
+	before: function(request){} å‘é€å‰çš„å¤„ç†å‡½æ•°ï¼Œç±»ä¼¼jQçš„beforeSendå‡½æ•°,
+	progerss: function(event){} progressEventå›è°ƒå¤„ç†å‡½æ•°,
+	credentials:true|false è®¾ç½®è·¨åŸŸè¯·æ±‚æ—¶æ˜¯å¦ä½¿ç”¨å‡­è¯,
       ???withCredentials:true?????
-	emulateJSON:true|false ½«request bodyÒÔapplication/x-www-form-urlencoded content type·¢ËÍ
+	emulateJSON:true|false å°†request bodyä»¥application/x-www-form-urlencoded content typeå‘é€
 
  }).then(
 	function(response){ 
-		response.text() ÒÔ×Ö·û´®ĞÎÊ½·µ»Øresponse body
-		response.json() ÒÔJSONĞÎÊ½·µ»Øresponse body
- 		response.blob() ÒÔ¶ş½øÖÆĞÎÊ½·µ»Øresponse body
-		response.ok  ÏìÓ¦µÄHTTP×´Ì¬ÂëÎª200-299Ö®¼äÊ±£¬¸ÃÊôĞÔÎªtrue
-		response.status 	ÏìÓ¦µÄHTTP×´Ì¬Âë
-		response.headers   ÏìÓ¦Í·object	
+		response.text() ä»¥å­—ç¬¦ä¸²å½¢å¼è¿”å›response body
+		response.json() ä»¥JSONå½¢å¼è¿”å›response body
+ 		response.blob() ä»¥äºŒè¿›åˆ¶å½¢å¼è¿”å›response body
+		response.ok  å“åº”çš„HTTPçŠ¶æ€ç ä¸º200-299ä¹‹é—´æ—¶ï¼Œè¯¥å±æ€§ä¸ºtrue
+		response.status 	å“åº”çš„HTTPçŠ¶æ€ç 
+		response.headers   å“åº”å¤´object	
 	},
-	function(response){ //???Ö»ÔÚÏìÓ¦Ê§°ÜÊ±µ÷ÓÃ??? }
- ).catch(response=> //???catch Õû¸öÏìÓ¦¹ı³Ì³ö´í¾Í»áµ÷ÓÃ??? );
+	function(response){ //???åªåœ¨å“åº”å¤±è´¥æ—¶è°ƒç”¨??? }
+ ).catch(response=> //???catch æ•´ä¸ªå“åº”è¿‡ç¨‹å‡ºé”™å°±ä¼šè°ƒç”¨??? );
 
 
-?Ê¹ÓÃinterceptorsÀ¹½ØÆ÷£º
- Á÷³Ì£º·¢ËÍÇëÇóÇ°¡úinterceptors¡ú´¦ÀíÇëÇó¡ú·¢ËÍÇëÇóºó(½ÓÊÕÏìÓ¦)¡úinterceptors¡ú³É¹¦»Øµ÷|Ê§°Ü»Øµ÷
+?ä½¿ç”¨interceptorsæ‹¦æˆªå™¨ï¼š
+ æµç¨‹ï¼šå‘é€è¯·æ±‚å‰â†’interceptorsâ†’å¤„ç†è¯·æ±‚â†’å‘é€è¯·æ±‚å(æ¥æ”¶å“åº”)â†’interceptorsâ†’æˆåŠŸå›è°ƒ|å¤±è´¥å›è°ƒ
 Vue.http.interceptors.push(function(request,next){
-  //·¢ËÍÇ°´¦ÀíÂß¼­
+  //å‘é€å‰å¤„ç†é€»è¾‘
       if(sessionStorage.getItem('token')){
         request.headers.set("token5",sessionStorage.getItem('token'));
     }
 	next(function(response){ 
-		//·¢ËÍºóÂß¼­
+		//å‘é€åé€»è¾‘
 	})
  });
 
@@ -257,9 +257,9 @@ Vue.http.options.emulateHTTP = true;
 Vue.http.interceptors.push(request, response);
 
 
-?»ñÈ¡DOM£º
- ±êÇ©ÖĞ¶¨Òå ref="Ãû"£¬Í¨¹ı vm.$refs.Ãû »ñÈ¡
-?Â·ÓÉÇ¶Ì×£º
+?è·å–DOMï¼š
+ æ ‡ç­¾ä¸­å®šä¹‰ ref="å"ï¼Œé€šè¿‡ vm.$refs.å è·å–
+?è·¯ç”±åµŒå¥—ï¼š
         {   path:"/test",
             component:V_test,
             name:"tL",
@@ -267,46 +267,46 @@ Vue.http.interceptors.push(request, response);
                 {path:"/t1",component:V_t1},
                 {path:"/t2",component:V_t2},
             ]
-        }  --ÔÚ×ÓÒ³Ãæ¶¨ÒåÒ»¸örouter-view±êÇ©
+        }  --åœ¨å­é¡µé¢å®šä¹‰ä¸€ä¸ªrouter-viewæ ‡ç­¾
 
-<a v-link="{name: 'user', params: {userId: 1}">Ìø×ª</a>
-?°ó¶¨ÀàÃû£º
+<a v-link="{name: 'user', params: {userId: 1}">è·³è½¬</a>
+?ç»‘å®šç±»åï¼š
  <div :class="{'c1':isShow,'c2'}">
  <div :class="classA ? 'class-a' : 'class-b' ">
-?vueÊµÀı´úÂë£º
+?vueå®ä¾‹ä»£ç ï¼š
 var vm = new Vue({
-	el:"#app",  //¹ÒÔØµ½Ö¸¶¨µÄDOM£¨¿ÉÒÔÊÇÑ¡ÔñÆ÷»òÔªËØÊµÀı£¬vm.$el¿ÉÒÔ·ÃÎÊ£©
-	data:function(){ return{ d1:55 } }£¬  //ÉùÃ÷Êı¾İ
-	methods:{ fn:function(){ return this.d1 }  },  //ÉùÃ÷º¯Êı
-	watch:{	 "d1":"fn" }£¬//¹Û²ìÊı¾İ±ä»¯µ÷ÓÃÏìÓ¦µÄº¯Êı(×¢£ºÊ¹ÓÃ¼ıÍ·º¯Êıthis²»ÊÇvue)
+	el:"#app",  //æŒ‚è½½åˆ°æŒ‡å®šçš„DOMï¼ˆå¯ä»¥æ˜¯é€‰æ‹©å™¨æˆ–å…ƒç´ å®ä¾‹ï¼Œvm.$elå¯ä»¥è®¿é—®ï¼‰
+	data:function(){ return{ d1:55 } }ï¼Œ  //å£°æ˜æ•°æ®
+	methods:{ fn:function(){ return this.d1 }  },  //å£°æ˜å‡½æ•°
+	watch:{	 "d1":"fn" }ï¼Œ//è§‚å¯Ÿæ•°æ®å˜åŒ–è°ƒç”¨å“åº”çš„å‡½æ•°(æ³¨ï¼šä½¿ç”¨ç®­å¤´å‡½æ•°thisä¸æ˜¯vue)
 
 
-	beforeCreate:function(){ //vm³õÊ¼»¯ºóµ÷ÓÃ },
-	?created:function(){ //Íê³ÉÁË¸÷ÖÖÊı¾İ¹Û²âºÍÔËËã£¬¹ÒÔØÎ´¿ªÊ¼ },
-	beforeMount:function(){//renderº¯ÊıÊ×´Îµ÷ÓÃ},
-	?mounted:function(){//¹ÒÔØÍê³É  vm.$elºÍvm.$refs¿ÉÓÃ},
-	beforeUpdate:function(){Êı¾İ¸üĞÂÊ±µ÷ÓÃ£¬ÔÚĞéÄâDOMäÖÈ¾Ç°}£¬
-	updated:function(){DOM¸ù¾İĞÂÊı¾İÖØĞÂäÖÈ¾Íê³É},
-	beforeDestroy:function(){//Ïú»ÙÇ°},
-	destroyed:function(){//Ïú»Ùºó},
+	beforeCreate:function(){ //vmåˆå§‹åŒ–åè°ƒç”¨ },
+	?created:function(){ //å®Œæˆäº†å„ç§æ•°æ®è§‚æµ‹å’Œè¿ç®—ï¼ŒæŒ‚è½½æœªå¼€å§‹ },
+	beforeMount:function(){//renderå‡½æ•°é¦–æ¬¡è°ƒç”¨},
+	?mounted:function(){//æŒ‚è½½å®Œæˆ  vm.$elå’Œvm.$refså¯ç”¨},
+	beforeUpdate:function(){æ•°æ®æ›´æ–°æ—¶è°ƒç”¨ï¼Œåœ¨è™šæ‹ŸDOMæ¸²æŸ“å‰}ï¼Œ
+	updated:function(){DOMæ ¹æ®æ–°æ•°æ®é‡æ–°æ¸²æŸ“å®Œæˆ},
+	beforeDestroy:function(){//é”€æ¯å‰},
+	destroyed:function(){//é”€æ¯å},
 })
 
 
 
-¡¾jQuery¡¿
-$(document).children("a") Ñ¡ÖĞ×ÓÔªËØÖĞµÄa±êÇ©ÔªËØ
-$("input[name='approve']:checked").val()  »ñÈ¡±»Ñ¡ÖĞµÄÖµ
-$.param(paramData) ¶ÔÏó×ªqueryÓï¾ä
-$("p").after("<p>Hello world!</p>"); //ÔÚÑ¡ÖĞµÄÔªËØºóÃæ²åÈëÄÚÈİ
-$("span").closest("ul").css({"color":"red"});//Ñ¡ÖĞ¸¸ÔªËØÖĞµÄ"ul"(´Óµ±Ç°ÔªËØ¿ªÊ¼ÍùÉÏ±éÀú)
-$("span").parents("ul").css({"color":"red"});//Ñ¡ÖĞ¸¸ÔªËØÖĞµÄ"ul"(´Ó¸¸ÔªËØ¿ªÊ¼ÍùÉÏ±éÀú)
+ã€jQueryã€‘
+$(document).children("a") é€‰ä¸­å­å…ƒç´ ä¸­çš„aæ ‡ç­¾å…ƒç´ 
+$("input[name='approve']:checked").val()  è·å–è¢«é€‰ä¸­çš„å€¼
+$.param(paramData) å¯¹è±¡è½¬queryè¯­å¥
+$("p").after("<p>Hello world!</p>"); //åœ¨é€‰ä¸­çš„å…ƒç´ åé¢æ’å…¥å†…å®¹
+$("span").closest("ul").css({"color":"red"});//é€‰ä¸­çˆ¶å…ƒç´ ä¸­çš„"ul"(ä»å½“å‰å…ƒç´ å¼€å§‹å¾€ä¸Šéå†)
+$("span").parents("ul").css({"color":"red"});//é€‰ä¸­çˆ¶å…ƒç´ ä¸­çš„"ul"(ä»çˆ¶å…ƒç´ å¼€å§‹å¾€ä¸Šéå†)
 
-¡¾vueÎÂ¹ÊÖªĞÂ¡¿
-?VueÊµÀı
+ã€vueæ¸©æ•…çŸ¥æ–°ã€‘
+?Vueå®ä¾‹
  var vm = new Vue({
-	el:"#app", //´´½¨Ò»¸öÊµÀı£¬²¢¹ØÁªÊÓÍ¼Çø 
+	el:"#app", //åˆ›å»ºä¸€ä¸ªå®ä¾‹ï¼Œå¹¶å…³è”è§†å›¾åŒº 
 	data:{
-		mum1:1  //¿ÉÒÔvm.num1·ÃÎÊ£¬ÏÈÉèÖÃ³õÊ¼Öµ±£Ö¤±ä¶¯ºóÊÓÍ¼¸üĞÂ
+		mum1:1  //å¯ä»¥vm.num1è®¿é—®ï¼Œå…ˆè®¾ç½®åˆå§‹å€¼ä¿è¯å˜åŠ¨åè§†å›¾æ›´æ–°
 		str:"",
 		num:0,
 		bool:false,
@@ -315,156 +315,156 @@ $("span").parents("ul").css({"color":"red"});//Ñ¡ÖĞ¸¸ÔªËØÖĞµÄ"ul"(´Ó¸¸ÔªËØ¿ªÊ¼Íù
 	     }
 	}) 
 
-?VueµÄAPI 
- ?ÊµÀıµÄÊôĞÔ(¶¼´øÓĞÇ°×º$)
-  $refs ¸ø×é¼ş¡¢domÔªËØ×¢²á(×ö±ê¼Ç)
-  	Èç£º<p ref="one"></p>   //ÓÃvm.$refs.one»ñÈ¡
-  $data »ñÈ¡data¶ÔÏó vm.$data === data // true
-  $el »ñÈ¡¹ØÁªµÄÊÓÍ¼ vm.$el === document.getElementById("app") // true
- ?ÊµÀıµÄ·½·¨ºÍÊı¾İ
+?Vueçš„API 
+ ?å®ä¾‹çš„å±æ€§(éƒ½å¸¦æœ‰å‰ç¼€$)
+  $refs ç»™ç»„ä»¶ã€domå…ƒç´ æ³¨å†Œ(åšæ ‡è®°)
+  	å¦‚ï¼š<p ref="one"></p>   //ç”¨vm.$refs.oneè·å–
+  $data è·å–dataå¯¹è±¡ vm.$data === data // true
+  $el è·å–å…³è”çš„è§†å›¾ vm.$el === document.getElementById("app") // true
+ ?å®ä¾‹çš„æ–¹æ³•å’Œæ•°æ®
   $refs 
  
 
-?×é¼ş»¯Ó¦ÓÃ¹¹½¨£º
+?ç»„ä»¶åŒ–åº”ç”¨æ„å»ºï¼š
  
-?vueÖ¸Áî
- v-cloakÖ¸Áî£º½â¾ö±äÁ¿ÉÁË¸ÎÊÌâ()
-	ÓÃ·¨£º<div id="app" v-cloak> {{msg}}</div>  ÑùÊ½£º[v-cloak] { display: none }
- v-if="isShow" ÊÇ²åÈë»òÉ¾³ı½Úµã
-   v-show="isShow" ÊÇÒş²Ø»òÏÔÊ¾½Úµã
- v-bind:data-m="msg"»ò£ºdata-m="msg"  --°ó¶¨ÊôĞÔ
- v-bind:key="v.id"  °ó¶¨Ò»¸öÊı¾İÎ¨Ò»Öµ£¬ÓÃÓÚĞéÄâDOMËã·¨£¬ÓÅ»¯äÖÈ¾Ğ§ÂÊ
- v-on:click="getA"|@click="getA"¡¢v-on:clidk.stop="getA"(.stop×èÖ¹ÊÂ¼şÃ°Åİ) 
- v-once  ¼ÓÁËv-onceµÄÔªËØÖ»»áäÖÈ¾Ò»´Î£¬Ö®ºóÊı¾İ±ä»¯Ò²²»»áäÖÈ¾
- v-pre Í¨Öª±àÒëÆ÷Ìø¹ıµ±Ç°domÔªËØ,½ÚÊ¡±àÒëÊ±¼ä
- ref="ac"  ·ÃÎÊdom  vm.$refs.ac
+?vueæŒ‡ä»¤
+ v-cloakæŒ‡ä»¤ï¼šè§£å†³å˜é‡é—ªçƒé—®é¢˜()
+	ç”¨æ³•ï¼š<div id="app" v-cloak> {{msg}}</div>  æ ·å¼ï¼š[v-cloak] { display: none }
+ v-if="isShow" æ˜¯æ’å…¥æˆ–åˆ é™¤èŠ‚ç‚¹
+   v-show="isShow" æ˜¯éšè—æˆ–æ˜¾ç¤ºèŠ‚ç‚¹
+ v-bind:data-m="msg"æˆ–ï¼šdata-m="msg"  --ç»‘å®šå±æ€§
+ v-bind:key="v.id"  ç»‘å®šä¸€ä¸ªæ•°æ®å”¯ä¸€å€¼ï¼Œç”¨äºè™šæ‹ŸDOMç®—æ³•ï¼Œä¼˜åŒ–æ¸²æŸ“æ•ˆç‡
+ v-on:click="getA"|@click="getA"ã€v-on:clidk.stop="getA"(.stopé˜»æ­¢äº‹ä»¶å†’æ³¡) 
+ v-once  åŠ äº†v-onceçš„å…ƒç´ åªä¼šæ¸²æŸ“ä¸€æ¬¡ï¼Œä¹‹åæ•°æ®å˜åŒ–ä¹Ÿä¸ä¼šæ¸²æŸ“
+ v-pre é€šçŸ¥ç¼–è¯‘å™¨è·³è¿‡å½“å‰domå…ƒç´ ,èŠ‚çœç¼–è¯‘æ—¶é—´
+ ref="ac"  è®¿é—®dom  vm.$refs.ac
  v-for="(v,i) in list"
- ?°ó¶¨ÀàÃû£º
+ ?ç»‘å®šç±»åï¼š
  <div :class="{'c1':isShow,'c2'}">
- <div :class="classA ? 'class-a' : 'class-b' "> //ÈıÔªÔËËã
-? filters:{ formatPrice:function(val){return "$"+val;} }   ×é¼şµÄ
-    Vue.filter("formatP",function(val){return '$'+val }  )  È«¾ÖµÄ
-? ¶¨ÒåÈ«¾Ö×é¼ş£º var t = Vue.extend({template:"<h1>tit</h1>"},data:function{return{ })
+ <div :class="classA ? 'class-a' : 'class-b' "> //ä¸‰å…ƒè¿ç®—
+? filters:{ formatPrice:function(val){return "$"+val;} }   ç»„ä»¶çš„
+    Vue.filter("formatP",function(val){return '$'+val }  )  å…¨å±€çš„
+? å®šä¹‰å…¨å±€ç»„ä»¶ï¼š var t = Vue.extend({template:"<h1>tit</h1>"},data:function{return{ })
 	Vue.component("v-p",t)
-	×¢£ºtemplate:"#id" Ñ¡ÔñÆ÷¶¨ÒåÒ²¿ÉÒÔ
-? ¸¸×é¼şÖĞÇĞ»»×Ó×é¼ş£º
-	<component v-if="tn=='a'" :is="a×é¼şÃû" :data-msg="msg"></component> 
-	<component v-if="tn=='a1'" :is="a1×é¼şÃû" :data-msg="msg1"></component> 
-	<component v-else :is="a×é¼ş2" :data-msg="msg2"></component> 
-? ¸¸×ÓÊı¾İ»¥´«£º
-    ¸¸´«×Ó£º<v-son :data="dd"></v-son>   ×Ó×é¼şÖĞ£ºprops:["dd"]
-    ×Ó´«¸¸£º¶¨ÒåÒ»¸ö·½·¨£¬·¢ËÍÒ»¸öÊÂ¼ş¸ø¸¸£¬¸¸¼àÌı£¬Ò»µ©´¥·¢¾Í¿ÉÒÔ¶ÔÊı¾İ´¦Àí
-	watch:{¡®sonD¡¯: function(){this.$emit("getD",this.msg,this.msg1)}  }
-	<v-son @getD="get"></v-son>    ¶¨Òå·½·¨£ºget:function(arguments){ } 
-? computedÑ¡Ïî£º¶¨Òå¼ÆËãÊôĞÔ(äÖÈ¾Ç°½øĞĞ¼ÆËã)£¬ÄÚ²¿ÓĞ»º´æ»úÖÆ£¬Èç¹ûÃ»±ä»¯¾Í´Ó»º´æÈ¡(¸´ÔÓµÄÊı¾İ´¦Àí¿ÉÒÔ·Åµ½ÕâÀï)
+	æ³¨ï¼štemplate:"#id" é€‰æ‹©å™¨å®šä¹‰ä¹Ÿå¯ä»¥
+? çˆ¶ç»„ä»¶ä¸­åˆ‡æ¢å­ç»„ä»¶ï¼š
+	<component v-if="tn=='a'" :is="aç»„ä»¶å" :data-msg="msg"></component> 
+	<component v-if="tn=='a1'" :is="a1ç»„ä»¶å" :data-msg="msg1"></component> 
+	<component v-else :is="aç»„ä»¶2" :data-msg="msg2"></component> 
+? çˆ¶å­æ•°æ®äº’ä¼ ï¼š
+    çˆ¶ä¼ å­ï¼š<v-son :data="dd"></v-son>   å­ç»„ä»¶ä¸­ï¼šprops:["dd"]
+    å­ä¼ çˆ¶ï¼šå®šä¹‰ä¸€ä¸ªæ–¹æ³•ï¼Œå‘é€ä¸€ä¸ªäº‹ä»¶ç»™çˆ¶ï¼Œçˆ¶ç›‘å¬ï¼Œä¸€æ—¦è§¦å‘å°±å¯ä»¥å¯¹æ•°æ®å¤„ç†
+	watch:{â€˜sonDâ€™: function(){this.$emit("getD",this.msg,this.msg1)}  }
+	<v-son @getD="get"></v-son>    å®šä¹‰æ–¹æ³•ï¼šget:function(arguments){ } 
+? computedé€‰é¡¹ï¼šå®šä¹‰è®¡ç®—å±æ€§(æ¸²æŸ“å‰è¿›è¡Œè®¡ç®—)ï¼Œå†…éƒ¨æœ‰ç¼“å­˜æœºåˆ¶ï¼Œå¦‚æœæ²¡å˜åŒ–å°±ä»ç¼“å­˜å–(å¤æ‚çš„æ•°æ®å¤„ç†å¯ä»¥æ”¾åˆ°è¿™é‡Œ)
 	<p>{{content}}</p>
 	computed:{content:function(){return this.val+"111"}}
-? ¶¨ÒåÒ»¸ö´¦Àí¹Ø¼ü×ÖµÄÖ¸Áî£º
-        Vue.directive('keyword', function(el, obj) {  //elÊÇËùÔÚ±êÇ©
-            let tagName = obj.arg || 'i';  //obj.argÊÇ±êÇ©Ãû¡°strong¡±
-            let k = obj.value;             //obj.valueÊÇÒªÌæ»»µÄÖµ¡°k¡±
-            let text = el.textContent;  //»ñÈ¡µ½ÎÄ±¾
-            let reg = new RegExp(k, 'g');  //È«¾ÖÆ¥Åäk
-            el.innerHTML = text.replace(reg, function(all) {  //´«ÈëÒ»¸ö»Øµ÷£¬·µ»ØµÄ¾ÍÊÇĞèÒªÌæ»»µÄÄÚÈİ
+? å®šä¹‰ä¸€ä¸ªå¤„ç†å…³é”®å­—çš„æŒ‡ä»¤ï¼š
+        Vue.directive('keyword', function(el, obj) {  //elæ˜¯æ‰€åœ¨æ ‡ç­¾
+            let tagName = obj.arg || 'i';  //obj.argæ˜¯æ ‡ç­¾åâ€œstrongâ€
+            let k = obj.value;             //obj.valueæ˜¯è¦æ›¿æ¢çš„å€¼â€œkâ€
+            let text = el.textContent;  //è·å–åˆ°æ–‡æœ¬
+            let reg = new RegExp(k, 'g');  //å…¨å±€åŒ¹é…k
+            el.innerHTML = text.replace(reg, function(all) {  //ä¼ å…¥ä¸€ä¸ªå›è°ƒï¼Œè¿”å›çš„å°±æ˜¯éœ€è¦æ›¿æ¢çš„å†…å®¹
                 let color = 'blue';
-                return `<${tagName} style="color:${color}">${all}</${tagName}>`;   //ÀûÓÃ``×Ö·û´®Ä£°åÆ´½ÓËùĞèÏÔÊ¾µÄÑùÊ½
+                return `<${tagName} style="color:${color}">${all}</${tagName}>`;   //åˆ©ç”¨``å­—ç¬¦ä¸²æ¨¡æ¿æ‹¼æ¥æ‰€éœ€æ˜¾ç¤ºçš„æ ·å¼
             });
         });	
-? $route¶ÔÏó£º$route.params   $route.query  -->hash/path/fullPath/name...
-   $router¶ÔÏó£º$router.go(-1)
+? $routeå¯¹è±¡ï¼š$route.params   $route.query  -->hash/path/fullPath/name...
+   $routerå¯¹è±¡ï¼š$router.go(-1)
 
         var vm = new Vue({
             el: '#app',
-            // 3/ÕâÊÇMVVMÖĞµÄm
+            // 3/è¿™æ˜¯MVVMä¸­çš„m
             data: {
-                valP: 'ºÙºÙ',
-                valDiv: '¿©¿©'
+                valP: 'å˜¿å˜¿',
+                valDiv: 'å’¯å’¯'
             },
             beforeCreate: function() {
-                console.log('vmÒÑ¾ÍĞ÷');
+                console.log('vmå·²å°±ç»ª');
             },
             created: function() {
-                console.log('mÒÑ¾ÍĞ÷');
+                console.log('må·²å°±ç»ª');
             },
             beforeMount: function() {
-                console.log('vÒÑ¾ÍĞ÷');
+                console.log('vå·²å°±ç»ª');
             },
             mounted: function() {
-                console.log('ÏîÄ¿ÒÑÔË×÷');
+                console.log('é¡¹ç›®å·²è¿ä½œ');
             },
             beforeUpdate: function() {
-                console.log('ĞŞ¸ÄÊı¾İ£¬Ò³Ãæ»¹Ã»ÓĞË¢ĞÂ');
+                console.log('ä¿®æ”¹æ•°æ®ï¼Œé¡µé¢è¿˜æ²¡æœ‰åˆ·æ–°');
             },
             updated: function() {
-                console.log('ÊÓÍ¼Ò²¸üĞÂÁË');
+                console.log('è§†å›¾ä¹Ÿæ›´æ–°äº†');
             },
             beforeDestroy: function() {
-                console.log('Ïú»ÙÇ°');
+                console.log('é”€æ¯å‰');
             },
             destroyed: function() {
-                console.log('Ïú»Ùºó');
+                console.log('é”€æ¯å');
             }
         });		
 
-¡¾vue cli¡¿
-?vue-cli ¹¹½¨µÄÏîÄ¿Ìí¼Óless
-²½Öè£º
+ã€vue cliã€‘
+?vue-cli æ„å»ºçš„é¡¹ç›®æ·»åŠ less
+æ­¥éª¤ï¼š
 npm install less less-loader --save-dev
-´ò¿ª build/webpack.base.conf.js £¬ÔÚ module.exports = µÄ¶ÔÏóµÄ module.rules ºóÃæÌí¼ÓÒ»¶Î£º
+æ‰“å¼€ build/webpack.base.conf.js ï¼Œåœ¨ module.exports = çš„å¯¹è±¡çš„ module.rules åé¢æ·»åŠ ä¸€æ®µï¼š
 
 module.exports = {
-    //  ´Ë´¦Ê¡ÂÔÎŞÊıĞĞ£¬ÒÑÓĞµÄµÄÆäËûµÄÄÚÈİ
+    //  æ­¤å¤„çœç•¥æ— æ•°è¡Œï¼Œå·²æœ‰çš„çš„å…¶ä»–çš„å†…å®¹
     module: {
         rules: [
-          //  ´Ë´¦Ê¡ÂÔÎŞÊıĞĞ£¬ÒÑÓĞµÄµÄÆäËûµÄ¹æÔò
+          //  æ­¤å¤„çœç•¥æ— æ•°è¡Œï¼Œå·²æœ‰çš„çš„å…¶ä»–çš„è§„åˆ™
           {
             test: /\.less$/,
             loader: "style-loader!css-loader!less-loader",
           }
         ]
     } 
-} ¡£
-×îºó£¬ÔÚ´úÂëÖĞµÄ style ±êÇ©ÖĞ ¼ÓÉÏ lang="less" ÊôĞÔ¼´¿É~
+} ã€‚
+æœ€åï¼Œåœ¨ä»£ç ä¸­çš„ style æ ‡ç­¾ä¸­ åŠ ä¸Š lang="less" å±æ€§å³å¯~
 
 <style scoped lang="less">
 
 </style>
-?´ò°üºóindex.html ÕÒ²»µ½ÎÄ¼ş"f.js::ERR_FILE_NOT_FOUND":
- configÄ¿Â¼index.jsÖĞµÄassetsPublicPath: '/'£¬½«/¸Ä³É./ 
-?´ò°üºóstaticÄ¿Â¼ÖĞ.mapÎÄ¼ş¹ı´ó£º
- configÄ¿Â¼index.jsÖĞµÄproductionSourceMap:ture£¬½«ture¸Ä³Éfalse 
-?´ò°üºóiview×ÖÌåÍ¼±êÒì³££º
- build.jsÄ¿Â¼webpack.prod.conf.jsÖĞutils.styleLoadersÖĞµÄextract¸Ä³Éfalse
+?æ‰“åŒ…åindex.html æ‰¾ä¸åˆ°æ–‡ä»¶"f.js::ERR_FILE_NOT_FOUND":
+ configç›®å½•index.jsä¸­çš„assetsPublicPath: '/'ï¼Œå°†/æ”¹æˆ./ 
+?æ‰“åŒ…åstaticç›®å½•ä¸­.mapæ–‡ä»¶è¿‡å¤§ï¼š
+ configç›®å½•index.jsä¸­çš„productionSourceMap:tureï¼Œå°†tureæ”¹æˆfalse 
+?æ‰“åŒ…åiviewå­—ä½“å›¾æ ‡å¼‚å¸¸ï¼š
+ build.jsç›®å½•webpack.prod.conf.jsä¸­utils.styleLoadersä¸­çš„extractæ”¹æˆfalse
 
-¡¾XHLHttpRequest2.0¡¿
-xhr.timeout = 3000;  //³¬Ê±3Ãëºó,Í£Ö¹ÇëÇó
-FormData¶ÔÏó
-FormData¶ÔÏó.append(name,file)  // ÎÄ¼ş¼üÖµ¶Ô(°ü×°ÎÄ¼ş)
+ã€XHLHttpRequest2.0ã€‘
+xhr.timeout = 3000;  //è¶…æ—¶3ç§’å,åœæ­¢è¯·æ±‚
+FormDataå¯¹è±¡
+FormDataå¯¹è±¡.append(name,file)  // æ–‡ä»¶é”®å€¼å¯¹(åŒ…è£…æ–‡ä»¶)
 
-ÎÄ¼şÉÏ´«°¸Àı:
-var myFile=input_file_ele.files[0]; //µÃµ½Ñ¡ÖĞµÄÎÄ¼ş
-var fromData = new FromData() ;  //´´½¨FromData¶ÔÏó
-fromData.append("myFile",myFile); //fromData¶ÔÏó°ü×°ÎÄ¼ş
+æ–‡ä»¶ä¸Šä¼ æ¡ˆä¾‹:
+var myFile=input_file_ele.files[0]; //å¾—åˆ°é€‰ä¸­çš„æ–‡ä»¶
+var fromData = new FromData() ;  //åˆ›å»ºFromDataå¯¹è±¡
+fromData.append("myFile",myFile); //fromDataå¯¹è±¡åŒ…è£…æ–‡ä»¶
 var xhr = new XMLHttpRequest();
-xhr.open("post","upload.php"); //ÒÔpost·½Ê½,·¢¸ø·şÎñ¶Ë (²»ÓÃÇëÇóÍ·)
-xhr.upload.onprogress = function(e){  //ajax.upload.onprogress= function(event){} ÎÄ¼şÉÏ´«½ø¶È
-   var progressBar = Math.floor((e.loaded/e.total)*100);//ÊÂ¼ş¶ÔÏó.loaded/total(ÒÑÍê³É×Ö½Ú/×Ü´óĞ¡×Ö½Ú),È¡Õûºó°Ù·Ö±È×÷Îª½ø¶ÈÏÔÊ¾
+xhr.open("post","upload.php"); //ä»¥postæ–¹å¼,å‘ç»™æœåŠ¡ç«¯ (ä¸ç”¨è¯·æ±‚å¤´)
+xhr.upload.onprogress = function(e){  //ajax.upload.onprogress= function(event){} æ–‡ä»¶ä¸Šä¼ è¿›åº¦
+   var progressBar = Math.floor((e.loaded/e.total)*100);//äº‹ä»¶å¯¹è±¡.loaded/total(å·²å®Œæˆå­—èŠ‚/æ€»å¤§å°å­—èŠ‚),å–æ•´åç™¾åˆ†æ¯”ä½œä¸ºè¿›åº¦æ˜¾ç¤º
    }
-xhr.send(fromData);  //·¢ËÍ¸ø·şÎñ¶Ë
+xhr.send(fromData);  //å‘é€ç»™æœåŠ¡ç«¯
 
 
 
 
 
 
-¡¾code¡¿
-//·â×°²Ù×÷cookie·½·¨
+ã€codeã€‘
+//å°è£…æ“ä½œcookieæ–¹æ³•
 var cookie = {
-            set:function(key,val,time_s){  //²ÎÊıÊÇ£º¼ü£¬Öµ£¬ÓĞĞ§ÆÚ£¨Ãë£© ²»´«time_s±íÊ¾µ±Ç°»á»°
+            set:function(key,val,time_s){  //å‚æ•°æ˜¯ï¼šé”®ï¼Œå€¼ï¼Œæœ‰æ•ˆæœŸï¼ˆç§’ï¼‰ ä¸ä¼ time_sè¡¨ç¤ºå½“å‰ä¼šè¯
                 document.cookie = key+"="+val+";max-age="+time_s;
             },
             get:function(key){
-                var c = document.cookie.replace(/[ ]/g,"");  //½«¿Õ¸ñÈ¥³ı
+                var c = document.cookie.replace(/[ ]/g,"");  //å°†ç©ºæ ¼å»é™¤
                 var arr = c.split(";");
                 for(var i=0;i<arr.length;i++){
                     if(arr[i].split("=")[0]==key){
@@ -479,37 +479,37 @@ var cookie = {
 
 
 
-¡¾photoshop¡¿
-Ctrl+R ÏÔÊ¾/Òş²Ø±ê³ß
-Ctrl+tab ÎÄµµÇĞ»»
+ã€photoshopã€‘
+Ctrl+R æ˜¾ç¤º/éšè—æ ‡å°º
+Ctrl+tab æ–‡æ¡£åˆ‡æ¢
 
-¡¾ÎÄ¼şÏÂÔØ¡¿
+ã€æ–‡ä»¶ä¸‹è½½ã€‘
     var iframe = document.createElement("iframe");  
     document.body.appendChild(iframe);  
-    iframe.src ="Â·¾¶"
+    iframe.src ="è·¯å¾„"
 
-¡¾¶ÌĞ¡¾«¸ÉµÄjs´úÂë¡¿
-?ÍÕ·åÃüÃû×ªÏÂ»®Ïß£º
+ã€çŸ­å°ç²¾å¹²çš„jsä»£ç ã€‘
+?é©¼å³°å‘½åè½¬ä¸‹åˆ’çº¿ï¼š
 'componentMapModelRegistry'.match(/^[a-z][a-z0-9]+|[A-Z][a-z0-9]*/g).join('_').toLowerCase();
 
-?Ëæ»úÑÕÉ«£º
+?éšæœºé¢œè‰²ï¼š
 (function(){
 return '#'+('00000'+(Math.random()*0x1000000<<0).toString(16)).slice(-6);
 })()
 
-?¶àÎ¬Êı×é¿³³ÉÒ»Î¬£º
+?å¤šç»´æ•°ç»„ç æˆä¸€ç»´ï¼š
 var foo0 = [1, [2, 3], [4, 5, [6,7,[8]]], [9], 10];
 var foo1 = foo0.join(',').split(',');
 
-?¼ÆËãÏàÍ¬³öÏÖµÄ´ÎÊı£º
+?è®¡ç®—ç›¸åŒå‡ºç°çš„æ¬¡æ•°ï¼š
 "abcabcdea".split('').reduce((p, k) => (p[k]++ || (p[k] = 1), p), {});
 
-?´òĞÇÆÀ·Ö
+?æ‰“æ˜Ÿè¯„åˆ†
 var rate = 2;
-"¡ï¡ï¡ï¡ï¡ï¡î¡î¡î¡î¡î".slice(5 - rate, 10 - rate); 
+"â˜…â˜…â˜…â˜…â˜…â˜†â˜†â˜†â˜†â˜†".slice(5 - rate, 10 - rate); 
 
-¡¾css´úÂë¡¿
- 1.ºº°×Óñ¸¡µñÎÄ×Ö
+ã€cssä»£ç ã€‘
+ 1.æ±‰ç™½ç‰æµ®é›•æ–‡å­—
         #MySignature {
             display: block;
             margin: 40px 40px 40px 0;
@@ -523,11 +523,11 @@ var rate = 2;
             line-height: 60px;
             cursor: default;
         }
-2.Ê¥±­²¼¾Ö
-    	×óÖĞÓÒÔªËØfloat:left;
-	ÖĞÔªËØwidth£º100%;
-	×óÓÒÏà¶ÔÓÚ¸¸ÔªËØ¶¨Î»£ºleft:0,right:0
-	¸¸ÔªËØpadding:0 ×óÓÒÔªËØµÄ¶¨¿í
+2.åœ£æ¯å¸ƒå±€
+    	å·¦ä¸­å³å…ƒç´ float:left;
+	ä¸­å…ƒç´ widthï¼š100%;
+	å·¦å³ç›¸å¯¹äºçˆ¶å…ƒç´ å®šä½ï¼šleft:0,right:0
+	çˆ¶å…ƒç´ padding:0 å·¦å³å…ƒç´ çš„å®šå®½
     <style>
         body {text-align: center;}
         .header {width:100%; background-color:pink}
@@ -537,9 +537,9 @@ var rate = 2;
         .left { float:left; width:200px; background-color: skyblue; position:absolute; left:0; }
         .right { float:left; width:200px; background-color: skyblue; position:absolute; right:0; }
         .footer {width:100%; background-color:pink}
-        .clearfix:after{content:'';height:0;line-height:0;display:block;visibility:hidden;clear:both } //Î±ÔªËØÇå³ı¸¡¶¯
+        .clearfix:after{content:'';height:0;line-height:0;display:block;visibility:hidden;clear:both } //ä¼ªå…ƒç´ æ¸…é™¤æµ®åŠ¨
         .clearfix {zoom:1;}
-        .clear {clear:both; } //¼ÓÔªËØÇå³ı¸¡¶¯
+        .clear {clear:both; } //åŠ å…ƒç´ æ¸…é™¤æµ®åŠ¨
 
     </style>
 </head>
@@ -558,240 +558,240 @@ var rate = 2;
 
 
 ENTP
-Ã«Ôó¶«
-Âí»ùÑÅÎ¬Àû
-ËÕ¸ñÀ­µ×
-¸»À¼¿ËÁÖ
-°Â°ÍÂí
-´ï·ÒÆæ
-ÂŞËØ
-·ü¶ûÌ©
+æ¯›æ³½ä¸œ
+é©¬åŸºé›…ç»´åˆ©
+è‹æ ¼æ‹‰åº•
+å¯Œå…°å…‹æ—
+å¥¥å·´é©¬
+è¾¾èŠ¬å¥‡
+ç½—ç´ 
+ä¼å°”æ³°
 
 INTP
-Ğ»¶û¸Ç²¼ÁÖ¡¢À­ÀïÅåÆæ£¨Google´´Ê¼ÈË£©
-ÁÖ¿Ï
-°®ÒòË¹Ì¹
-¿µµÂ
-´ï¶ûÎÄ
-¾ÓÀï·òÈË
-…e°¢¶û²®ÌØ¡¤Ê©Åå¶û
-µÑ¿¨¶û
-ÑÇµ±Ë¹ÃÜ
-Ã×¶û¶Ù¡¤¸¥ÀïµÂÂü£¨¾­¼ÃÑ§¼Ò£©
-Õ²Ä·Ê¿¡¤ÂóµÏÑ·£¨James Madison£¬1751Äê3ÔÂ16ÈÕ¡ª1836Äê6ÔÂ28ÈÕ£©£¬ÃÀ¹úµÚËÄÈÎ×ÜÍ³
-°ÍÃÅÄáµÂ(¹«ÔªÇ°5ÊÀ¼ÍÏ£À°ÕÜÑ§¼Ò);
+è°¢å°”ç›–å¸ƒæ—ã€æ‹‰é‡Œä½©å¥‡ï¼ˆGoogleåˆ›å§‹äººï¼‰
+æ—è‚¯
+çˆ±å› æ–¯å¦
+åº·å¾·
+è¾¾å°”æ–‡
+å±…é‡Œå¤«äºº
+åé˜¿å°”ä¼¯ç‰¹Â·æ–½ä½©å°”
+ç¬›å¡å°”
+äºšå½“æ–¯å¯†
+ç±³å°”é¡¿Â·å¼—é‡Œå¾·æ›¼ï¼ˆç»æµå­¦å®¶ï¼‰
+è©¹å§†å£«Â·éº¦è¿ªé€Šï¼ˆJames Madisonï¼Œ1751å¹´3æœˆ16æ—¥â€”1836å¹´6æœˆ28æ—¥ï¼‰ï¼Œç¾å›½ç¬¬å››ä»»æ€»ç»Ÿ
+å·´é—¨å°¼å¾·(å…¬å…ƒå‰5ä¸–çºªå¸Œè…Šå“²å­¦å®¶);
 
 ENTJ
-ÄÃÆÆÂØ
-±È¶û¸Ç´Ä
-Ë¹´óÁÖ
-½Ü¿Ë¡¤Î¤²®
+æ‹¿ç ´ä»‘
+æ¯”å°”ç›–èŒ¨
+æ–¯å¤§æ—
+æ°å…‹Â·éŸ¦ä¼¯
 
 INTJ
-ÁĞÄş
-ºÚ¸ñ¶û
-Ôú¿Ë²®¸ñ
-ÌØË¹À­
-Å£¶Ù
-Âí¿ËË¼
-Äá²É
-Ê©ÍßĞÁ¸ñ
+åˆ—å®
+é»‘æ ¼å°”
+æ‰å…‹ä¼¯æ ¼
+ç‰¹æ–¯æ‹‰
+ç‰›é¡¿
+é©¬å…‹æ€
+å°¼é‡‡
+æ–½ç“¦è¾›æ ¼
 
 
 ENFP
-ÇĞ¸ñÍßÀ­
-¿¨Ë¹ÌØÂŞ£¨¹Å°ÍÔªÊ×£©
-¿¨Ôú·Æ£¨Àû±ÈÑÇÁìĞä£©
+åˆ‡æ ¼ç“¦æ‹‰
+å¡æ–¯ç‰¹ç½—ï¼ˆå¤å·´å…ƒé¦–ï¼‰
+å¡æ‰è²ï¼ˆåˆ©æ¯”äºšé¢†è¢–ï¼‰
 
 INFP
-É¯Ê¿±ÈÑÇ
-èó¸ß
+èå£«æ¯”äºš
+æ¢µé«˜
 
 ENFJ
-…e¸êÅà¶û
-°¢À­·¨ÌØ
+åæˆˆåŸ¹å°”
+é˜¿æ‹‰æ³•ç‰¹
 
 INFJ
-…eÏ£ÌØÀÕ
-ÍĞÂå´Ä»ù
-±¾À­µÇ
-½¯½éÊ¯
-¸ÊµØ
-°ØÀ­Í¼
-ÍĞÂíË¹½Üì³Ñ·
-Êå±¾»ª
+åå¸Œç‰¹å‹’
+æ‰˜æ´›èŒ¨åŸº
+æœ¬æ‹‰ç™»
+è’‹ä»‹çŸ³
+ç”˜åœ°
+æŸæ‹‰å›¾
+æ‰˜é©¬æ–¯æ°æ–é€Š
+å”æœ¬å
 
-ESTJ --¹ğÊ¤¡¢
-Èø´ïÄ·
-ÈöÇĞ¶û·òÈË
-Ï£À­Àï
-ÀµË¹
+ESTJ --æ¡‚èƒœã€
+è¨è¾¾å§†
+æ’’åˆ‡å°”å¤«äºº
+å¸Œæ‹‰é‡Œ
+èµ–æ–¯
 
 ISTJ
-…eµËÄá´Ä
-…eÂüË¹Ì¹Òò
-ÒÁÀöÉ¯°×¶şÊÀ
+åé‚“å°¼èŒ¨
+åæ›¼æ–¯å¦å› 
+ä¼Šä¸½èç™½äºŒä¸–
 
 
-ESFJ --É­¡¢
-¶ÅÂ³ÃÅ
-…eÀï±öÌØÂå¸¦
-°Å°ÅÀ­¡¤ÎÖ¶ûÌØË¹(µçÊÓÅ®Íõ)
+ESFJ --æ£®ã€
+æœé²é—¨
+åé‡Œå®¾ç‰¹æ´›ç”«
+èŠ­èŠ­æ‹‰Â·æ²ƒå°”ç‰¹æ–¯(ç”µè§†å¥³ç‹)
 
 ISFJ
-…eÏ£À³Ä·
-…eÍşÁ®¡¤¿­ÌØ¶û
-ÀÏ²¼Ê²
+åå¸Œè±å§†
+åå¨å»‰Â·å‡¯ç‰¹å°”
+è€å¸ƒä»€
 
 ESTP  
-…e¸êÁÖ
-Çğ¼ª¶û
-ÂŞË¹¸£
-¿ÏÄáµÏ
-ÌØÀÊÆÕ
-Ğ¡²¼Ê²
-°Í¶Ù
-Âó¿Ë°¢Éª
+åæˆˆæ—
+ä¸˜å‰å°”
+ç½—æ–¯ç¦
+è‚¯å°¼è¿ª
+ç‰¹æœ—æ™®
+å°å¸ƒä»€
+å·´é¡¿
+éº¦å…‹é˜¿ç‘Ÿ
 
 ISTP
-…eÂ¡ÃÀ¶û
-ÇÇ²¼Ë¹
-ÆÕ¾©
+åéš†ç¾å°”
+ä¹”å¸ƒæ–¯
+æ™®äº¬
 
-ESFP --Ê¯Í·¡¢
-¿ËÁÖ¶Ù
-Ä«Ë÷ÀïÄá
-°¢Ã÷
-À³°ºÄÉ¶à¡¤µÏ¿¨ÆÕÀï°Â
+ESFP --çŸ³å¤´ã€
+å…‹æ—é¡¿
+å¢¨ç´¢é‡Œå°¼
+é˜¿æ˜
+è±æ˜‚çº³å¤šÂ·è¿ªå¡æ™®é‡Œå¥¥
 
 ISFP
-…eºÕË¹
-±´¿ËººÄ·
+åèµ«æ–¯
+è´å…‹æ±‰å§†
 
 
 
 
-2016.2-  ¶«İ¸ÈíÍ¨¶¯Á¦ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾ ¸ß¼¶Ç°¶Ë  Ç°¶Ë´úÂëÊµÏÖ/´øÁìĞÂÈË/Ç°¶Ë¼Ü¹¹´î½¨/ÌåÏµÎÄ¼ş½¨Á¢
-2014.2-2016.1 ¶«İ¸ÊĞ¿ìÂíÍøÂç¿Æ¼¼ÓĞÏŞ¹«Ë¾  ÍøÕ¾¿ª·¢¹¤³ÌÊ¦  ÍøÕ¾¿ª·¢
-2010.9-2013.12 ¹ãÖİÄÏ²¿¹¤³ÌËÜÁÏÓĞÏŞ¹«Ë¾ IT×¨Ô± °ì¹«ÖÜ±ßÉèÊ©µÄÎ¬»¤
-2007-2010.2 ¹ãÖİ°¢À×Ë¹ÌáÆû³µÁã²¿¼şÓĞÏŞ¹«Ë¾(ÊµÏ°)  ²úÆ·ÖúÀí¹¤³ÌÊ¦
+2016.2-  ä¸œèè½¯é€šåŠ¨åŠ›ä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸ é«˜çº§å‰ç«¯  å‰ç«¯ä»£ç å®ç°/å¸¦é¢†æ–°äºº/å‰ç«¯æ¶æ„æ­å»º/ä½“ç³»æ–‡ä»¶å»ºç«‹
+2014.2-2016.1 ä¸œèå¸‚å¿«é©¬ç½‘ç»œç§‘æŠ€æœ‰é™å…¬å¸  ç½‘ç«™å¼€å‘å·¥ç¨‹å¸ˆ  ç½‘ç«™å¼€å‘
+2010.9-2013.12 å¹¿å·å—éƒ¨å·¥ç¨‹å¡‘æ–™æœ‰é™å…¬å¸ ITä¸“å‘˜ åŠå…¬å‘¨è¾¹è®¾æ–½çš„ç»´æŠ¤
+2007-2010.2 å¹¿å·é˜¿é›·æ–¯ææ±½è½¦é›¶éƒ¨ä»¶æœ‰é™å…¬å¸(å®ä¹ )  äº§å“åŠ©ç†å·¥ç¨‹å¸ˆ
 
-¼¼ÊõÕ»£º
-PC¶ËÍøÕ¾£ºjQ+BS+¹Ì¶¨Ä£°å
-ÒÆ¶¯¶ËÍøÕ¾£ºjQueryMobile+MUI+
-ÊÖ»úAPP£ºreact+vuejs+angularJS
-OAÏµÍ³(ÖĞºóÌ¨£©£ºLayerUI¡¢vue+Element&Iview¡¢renren-fast
+æŠ€æœ¯æ ˆï¼š
+PCç«¯ç½‘ç«™ï¼šjQ+BS+å›ºå®šæ¨¡æ¿
+ç§»åŠ¨ç«¯ç½‘ç«™ï¼šjQueryMobile+MUI+
+æ‰‹æœºAPPï¼šreact+vuejs+angularJS
+OAç³»ç»Ÿ(ä¸­åå°ï¼‰ï¼šLayerUIã€vue+Element&Iviewã€renren-fast
 
-»ù±¾¿ª·¢ÄÜÁ¦£º
-ÊìÁ·Ê¹ÓÃHTML¡¢CSS¡¢JavascriptÊµÏÖÇ°¶ËUI¼°ÒµÎñ¹¦ÄÜ£»
-ÊìÁ·Ê¹ÓÃjQuery¡¢AJAX¡¢Less¡¢Axios¡¢socket.io¡¢jsonp¡¢BootstrapµÈ¹¤¾ß½øĞĞÈÕ³£¿ª·¢£»
-ÊìÁ·Ê¹ÓÃvuejs/vue-resource/vue-router/vuex¿ò¼Ü¼¼Êõ¿ª·¢ÏîÄ¿£¬¶ÔangularJS¡¢BackboneÓĞÒ»¶¨ÁË½â£»
-ÊìÏ¤»ùÓÚNodeJSµÄwebpack¡¢npmºÍGit´î½¨Ç°¶Ë¿ª·¢»·¾³£»
-ÊìÏ¤Ê¹ÓÃHTML5¡¢CSS3¼¼Êõ½øĞĞÒÆ¶¯¶Ë¿ª·¢£»
-ÊìÏ¤HTTP»º´æ»úÖÆ¼°³£¼û¼æÈİÎÊÌâ²¢ÊÊÅä£»
-ÁË½âNodeJSºÍES6£¬¿É´î½¨¼òµ¥µÄºóÌ¨·şÎñ¡¢ÊµÏÖÒ³ÃæÊı¾İÅÀÈ¡¡¢excel±í¸ñµ¼Èëµ¼³öµÈ¼òµ¥¹¦ÄÜ£»
-ÁË½âCanvasºÍEchart£¬ÊµÏÖÇ°¶ËÊı¾İ¿ÉÊÓ»¯£»
+åŸºæœ¬å¼€å‘èƒ½åŠ›ï¼š
+ç†Ÿç»ƒä½¿ç”¨HTMLã€CSSã€Javascriptå®ç°å‰ç«¯UIåŠä¸šåŠ¡åŠŸèƒ½ï¼›
+ç†Ÿç»ƒä½¿ç”¨jQueryã€AJAXã€Lessã€Axiosã€socket.ioã€jsonpã€Bootstrapç­‰å·¥å…·è¿›è¡Œæ—¥å¸¸å¼€å‘ï¼›
+ç†Ÿç»ƒä½¿ç”¨vuejs/vue-resource/vue-router/vuexæ¡†æ¶æŠ€æœ¯å¼€å‘é¡¹ç›®ï¼Œå¯¹angularJSã€Backboneæœ‰ä¸€å®šäº†è§£ï¼›
+ç†Ÿæ‚‰åŸºäºNodeJSçš„webpackã€npmå’ŒGitæ­å»ºå‰ç«¯å¼€å‘ç¯å¢ƒï¼›
+ç†Ÿæ‚‰ä½¿ç”¨HTML5ã€CSS3æŠ€æœ¯è¿›è¡Œç§»åŠ¨ç«¯å¼€å‘ï¼›
+ç†Ÿæ‚‰HTTPç¼“å­˜æœºåˆ¶åŠå¸¸è§å…¼å®¹é—®é¢˜å¹¶é€‚é…ï¼›
+äº†è§£NodeJSå’ŒES6ï¼Œå¯æ­å»ºç®€å•çš„åå°æœåŠ¡ã€å®ç°é¡µé¢æ•°æ®çˆ¬å–ã€excelè¡¨æ ¼å¯¼å…¥å¯¼å‡ºç­‰ç®€å•åŠŸèƒ½ï¼›
+äº†è§£Canvaså’ŒEchartï¼Œå®ç°å‰ç«¯æ•°æ®å¯è§†åŒ–ï¼›
 
-Ö÷ÒªÖ°Ôğ£º
-¸ºÔğ¹«Ë¾ĞÂ²úÆ·»ò°æ±¾Éı¼¶µÄÇ°¶Ë´úÂë¿ª·¢¡¢²âÊÔ¸ú½ø¡¢bugĞŞ¸´£»
-¶Ô¹«Ë¾ºóÌ¨¹ÜÀíÏµÍ³µÄÇ°¶Ë¼¼ÊõÑ¡ĞÍ¡¢¿ª·¢»·¾³´î½¨£»
-Ğ­µ÷Í³³ïÇ°¶ËÍÅ¶ÓĞÂÈËµÄ¹¤×÷.
+ä¸»è¦èŒè´£ï¼š
+è´Ÿè´£å…¬å¸æ–°äº§å“æˆ–ç‰ˆæœ¬å‡çº§çš„å‰ç«¯ä»£ç å¼€å‘ã€æµ‹è¯•è·Ÿè¿›ã€bugä¿®å¤ï¼›
+å¯¹å…¬å¸åå°ç®¡ç†ç³»ç»Ÿçš„å‰ç«¯æŠ€æœ¯é€‰å‹ã€å¼€å‘ç¯å¢ƒæ­å»ºï¼›
+åè°ƒç»Ÿç­¹å‰ç«¯å›¢é˜Ÿæ–°äººçš„å·¥ä½œ.
 
-¸ºÔğ¹«Ë¾ÍøÕ¾ÒµÎñµÄÇ°¶Ë´úÂë¿ª·¢ºÍ°æ±¾Éı¼¶£»
-»ùÓÚGB856T--88±ê×¼£¬½¨Á¢¹«Ë¾ÄÚµÄÌåÏµÎÄ¼ş£»
-¸ú½ø¿Í»§×ÊÖÊÈÏ¶¨µÄÆÀÉó»î¶¯£»
+è´Ÿè´£å…¬å¸ç½‘ç«™ä¸šåŠ¡çš„å‰ç«¯ä»£ç å¼€å‘å’Œç‰ˆæœ¬å‡çº§ï¼›
+åŸºäºGB856T--88æ ‡å‡†ï¼Œå»ºç«‹å…¬å¸å†…çš„ä½“ç³»æ–‡ä»¶ï¼›
+è·Ÿè¿›å®¢æˆ·èµ„è´¨è®¤å®šçš„è¯„å®¡æ´»åŠ¨ï¼›
 
-ÓĞ¶àÄêµÄPC/ÒÆ¶¯ÍøÕ¾¡¢APP HTML5¡¢ºóÌ¨¹ÜÀíÏµÍ³Ç°¶Ë¿ª·¢¾­Ñé£¬ÓĞ»ùÓÚGB856T--88±ê×¼£¬½¨Á¢¹«Ë¾ÄÚµÄÌåÏµÎÄ¼şµÄÊµ¼ù¡£
+æœ‰å¤šå¹´çš„PC/ç§»åŠ¨ç½‘ç«™ã€APP HTML5ã€åå°ç®¡ç†ç³»ç»Ÿå‰ç«¯å¼€å‘ç»éªŒï¼Œæœ‰åŸºäºGB856T--88æ ‡å‡†ï¼Œå»ºç«‹å…¬å¸å†…çš„ä½“ç³»æ–‡ä»¶çš„å®è·µã€‚
 
-¹¤³Ì»¯ÄÜÁ¦£º
-ÊìÏ¤½¨Á¢¿ª·¢¹ı³Ì¹ÜÀíµÄÌåÏµÎÄ¼ş£¬ÁË½âGB856T--88±ê×¼£¬ÓĞ²ÎÓë¹ı¿Í»§×ÊÖÊÈÏ¶¨µÄÆÀÉó»î¶¯£»
-¿É¸ù¾İ¹«Ë¾ÏîÄ¿ĞèÇó½øĞĞÇ°¶Ë¼¼ÊõÑ¡ĞÍ£¬±£Ö¤²úÆ·ÖÊÁ¿ºÍ¸ßĞ§Ğ­×÷£» (Ğ§ÂÊ¡¢ÍÅ¶ÓĞ­×÷¡¢¿ÉÀ©Õ¹µÍñîºÏ =¡· ¼¼ÊõÑ¡ĞÍ¡úĞ­×÷¿ª·¢¡úÓÅ»¯)
+å·¥ç¨‹åŒ–èƒ½åŠ›ï¼š
+ç†Ÿæ‚‰å»ºç«‹å¼€å‘è¿‡ç¨‹ç®¡ç†çš„ä½“ç³»æ–‡ä»¶ï¼Œäº†è§£GB856T--88æ ‡å‡†ï¼Œæœ‰å‚ä¸è¿‡å®¢æˆ·èµ„è´¨è®¤å®šçš„è¯„å®¡æ´»åŠ¨ï¼›
+å¯æ ¹æ®å…¬å¸é¡¹ç›®éœ€æ±‚è¿›è¡Œå‰ç«¯æŠ€æœ¯é€‰å‹ï¼Œä¿è¯äº§å“è´¨é‡å’Œé«˜æ•ˆåä½œï¼› (æ•ˆç‡ã€å›¢é˜Ÿåä½œã€å¯æ‰©å±•ä½è€¦åˆ =ã€‹ æŠ€æœ¯é€‰å‹â†’åä½œå¼€å‘â†’ä¼˜åŒ–)
 
-ÒÔÍù¾­ÀúÏîÄ¿£º
-»ìºÏAPP HTML5¿ª·¢£ºÃÜÓÑÈ¦APP¡¢ºÍ·ÉĞÅAPP¡¢½¡¿ÍÍøÉÏÒ©µêAPP
-ÃÜÓÑÈ¦APP:Ïê¼ûÓ¦ÓÃÉÌµê
-Ö÷Òª¼¼Êõ£ºjQuery¡¢MUI¡¢remÊÊÅä
-ºÍ·ÉĞÅAPP:Ïê¼ûÓ¦ÓÃÉÌµê
-Ö÷Òª¼¼Êõ£ºvuejs/vue-router/vuex¡¢mintUI¡¢MUI
-½¡¿ÍÍøÉÏÒ©µêAPP£ºÏê¼ûÓ¦ÓÃÉÌµê
-Ö÷Òª¼¼Êõ£ºvuejs/vue-router/vuex¡¢axios¡¢mintUI¡¢MUI
+ä»¥å¾€ç»å†é¡¹ç›®ï¼š
+æ··åˆAPP HTML5å¼€å‘ï¼šå¯†å‹åœˆAPPã€å’Œé£ä¿¡APPã€å¥å®¢ç½‘ä¸Šè¯åº—APP
+å¯†å‹åœˆAPP:è¯¦è§åº”ç”¨å•†åº—
+ä¸»è¦æŠ€æœ¯ï¼šjQueryã€MUIã€remé€‚é…
+å’Œé£ä¿¡APP:è¯¦è§åº”ç”¨å•†åº—
+ä¸»è¦æŠ€æœ¯ï¼švuejs/vue-router/vuexã€mintUIã€MUI
+å¥å®¢ç½‘ä¸Šè¯åº—APPï¼šè¯¦è§åº”ç”¨å•†åº—
+ä¸»è¦æŠ€æœ¯ï¼švuejs/vue-router/vuexã€axiosã€mintUIã€MUI
 
-ºóÌ¨¹ÜÀíÏµÍ³Ç°¶Ë¿ª·¢£ºÃÜÓÑÈ¦ÔËÎ¬ÏµÍ³¡¢°æ±¾¹ÜÀíÏµÍ³¡¢ÓÃ»§¹ÜÀíÖĞĞÄÏµÍ³
-ÓÃ»§¹ÜÀíÖĞĞÄ(ÖĞ¹úÒÆ¶¯¹«Ë¾ÄÚ²¿ÏîÄ¿)
-Ö÷Òª¼¼Êõ£º»ùÓÚLayui1.0¡¢jQuery¡¢require.jsµÄ¿ªÔ´ºóÌ¨¿ò¼Ü
-ÃÜÓÑÈ¦ÔËÎ¬ÏµÍ³(ÖĞ¹úÒÆ¶¯¹«Ë¾ÄÚ²¿ÏîÄ¿)
-Ö÷Òª¼¼Êõ£ºvuejs/vue-resource/vue-router¡¢elementUI
-°æ±¾¹ÜÀíÏµÍ³(ÖĞ¹úÒÆ¶¯¹«Ë¾ÄÚ²¿ÏîÄ¿)
-Ö÷Òª¼¼Êõ£ºÍ¬ÉÏ
+åå°ç®¡ç†ç³»ç»Ÿå‰ç«¯å¼€å‘ï¼šå¯†å‹åœˆè¿ç»´ç³»ç»Ÿã€ç‰ˆæœ¬ç®¡ç†ç³»ç»Ÿã€ç”¨æˆ·ç®¡ç†ä¸­å¿ƒç³»ç»Ÿ
+ç”¨æˆ·ç®¡ç†ä¸­å¿ƒ(ä¸­å›½ç§»åŠ¨å…¬å¸å†…éƒ¨é¡¹ç›®)
+ä¸»è¦æŠ€æœ¯ï¼šåŸºäºLayui1.0ã€jQueryã€require.jsçš„å¼€æºåå°æ¡†æ¶
+å¯†å‹åœˆè¿ç»´ç³»ç»Ÿ(ä¸­å›½ç§»åŠ¨å…¬å¸å†…éƒ¨é¡¹ç›®)
+ä¸»è¦æŠ€æœ¯ï¼švuejs/vue-resource/vue-routerã€elementUI
+ç‰ˆæœ¬ç®¡ç†ç³»ç»Ÿ(ä¸­å›½ç§»åŠ¨å…¬å¸å†…éƒ¨é¡¹ç›®)
+ä¸»è¦æŠ€æœ¯ï¼šåŒä¸Š
 
-PC/ÒÆ¶¯ÍøÕ¾Ç°¶Ë¿ª·¢£º½¡¿ÍÍøÉÏÒ©µê¡¢ Èğ²©¹«Ë¾ÃÅ»§Õ¾¡¢Ğ­ÖÚ»ú´²ÃÅ»§Õ¾
-½¡¿ÍÍøÉÏÒ©µê(ÒÆ¶¯Õ¾) https://m.jianke.com
-Ö÷Òª¼¼Êõ£ºvuejs/vue-router/vuex¡¢axios¡¢mintUI¡¢MUI
-Èğ²©¹«Ë¾ÃÅ»§Õ¾(PCÕ¾+ÒÆ¶¯Õ¾) http://www.raybest-hk.com
-Ö÷Òª¼¼Êõ£ºjQuery¡¢swiper¡¢lazyload.js
-Ğ­ÖÚ»ú´²ÃÅ»§Õ¾(PCÕ¾+ÒÆ¶¯Õ¾) http://www.waytrain-cn.com
-Ö÷Òª¼¼Êõ£ºjQuery¡¢swiper¡¢lazyload.js
-
-
-
-ÌáÉıÍ¾¾¶£º
-Êµ¼ùÖĞÒÔÄ¿µÄÇı¶¯Ñ§Ï°£»
-´óÅ£µÄ·ÖÏí£¬ÈîÒ»·å¡¢ÁÎÑ©·å£»
-·´¸´ÔÄ¶Á¾­µäÊé£º
-¡¶js¸ß¼¶³ÌĞòÉè¼Æ¡·¡¶jsÓïÑÔ¾«´â¡·¡¶Äã²»ÖªµÀµÄJS¡·
-
-¶«İ¸ÊĞÎ¢¹ÛÍøÂçĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾ ÓàÊ¤Åô 
-¶«İ¸ÊĞ¿ìÂíÍøÂç¿Æ¼¼ÓĞÏŞ¹«Ë¾ ÕÅÔ¶Ö¦ 
-¶«İ¸ÈíÍ¨¶¯Á¦ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾ 0769-22893659 ÀîÃ÷Ô¶(Àî×Ü)
+PC/ç§»åŠ¨ç½‘ç«™å‰ç«¯å¼€å‘ï¼šå¥å®¢ç½‘ä¸Šè¯åº—ã€ ç‘åšå…¬å¸é—¨æˆ·ç«™ã€åä¼—æœºåºŠé—¨æˆ·ç«™
+å¥å®¢ç½‘ä¸Šè¯åº—(ç§»åŠ¨ç«™) https://m.jianke.com
+ä¸»è¦æŠ€æœ¯ï¼švuejs/vue-router/vuexã€axiosã€mintUIã€MUI
+ç‘åšå…¬å¸é—¨æˆ·ç«™(PCç«™+ç§»åŠ¨ç«™) http://www.raybest-hk.com
+ä¸»è¦æŠ€æœ¯ï¼šjQueryã€swiperã€lazyload.js
+åä¼—æœºåºŠé—¨æˆ·ç«™(PCç«™+ç§»åŠ¨ç«™) http://www.waytrain-cn.com
+ä¸»è¦æŠ€æœ¯ï¼šjQueryã€swiperã€lazyload.js
 
 
+
+æå‡é€”å¾„ï¼š
+å®è·µä¸­ä»¥ç›®çš„é©±åŠ¨å­¦ä¹ ï¼›
+å¤§ç‰›çš„åˆ†äº«ï¼Œé˜®ä¸€å³°ã€å»–é›ªå³°ï¼›
+åå¤é˜…è¯»ç»å…¸ä¹¦ï¼š
+ã€Šjsé«˜çº§ç¨‹åºè®¾è®¡ã€‹ã€Šjsè¯­è¨€ç²¾ç²¹ã€‹ã€Šä½ ä¸çŸ¥é“çš„JSã€‹
+
+ä¸œèå¸‚å¾®è§‚ç½‘ç»œä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸ ä½™èƒœé¹ 
+ä¸œèå¸‚å¿«é©¬ç½‘ç»œç§‘æŠ€æœ‰é™å…¬å¸ å¼ è¿œæ 
+ä¸œèè½¯é€šåŠ¨åŠ›ä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸ 0769-22893659 ææ˜è¿œ(ææ€»)
 
 
 
 
-¡ô¹¤×÷Ö÷ÒªÖ°Ôğ£º
-1£©¸ù¾İÔ­ĞÍºÍÉè¼Æ¸å£¬¿ª·¢¹«Ë¾²úÆ·µÄPC/ÒÆ¶¯Ç°¶Ë´úÂë£»
-2£©¶Ô¹«Ë¾ºóÌ¨¹ÜÀíÏµÍ³Àà²úÆ·µÄÇ°¶Ë¼¼ÊõÑ¡ĞÍ£¬ºÍ¿ª·¢»·¾³´î½¨£»
-3£©ÏîÄ¿²âÊÔÇé¿ö¸ú½ø¡¢bugĞŞ¸´£»
-4£©Ğ­µ÷Í³³ïÇ°¶ËÍÅ¶ÓĞÂÈËµÄ¹¤×÷.
 
 
-¡ô¹¤×÷¼¼ÄÜ£º
-1£©ÊìÁ·Ê¹ÓÃHTML¡¢CSS¡¢JavascriptÊµÏÖÇ°¶ËUI¼°ÒµÎñ¹¦ÄÜ£»
-2£©ÊìÁ·Ê¹ÓÃjQuery¡¢AJAX¡¢Less¡¢Axios¡¢socket.io¡¢BootstrapµÈ¹¤¾ß½øĞĞÈÕ³£¿ª·¢£»
-3£©ÊìÁ·Ê¹ÓÃvuejs/vue-resource/vue-router/vuex¿ò¼Ü¼¼Êõ¿ª·¢ÏîÄ¿£»
-4£©ÊìÏ¤»ùÓÚNodeJSµÄwebpack¡¢npmºÍGit´î½¨Ç°¶Ë¿ª·¢»·¾³£»
-5£©ÊìÏ¤Ê¹ÓÃHTML5¡¢CSS3¼¼Êõ½øĞĞÒÆ¶¯¶Ë¿ª·¢£»
-6£©ÊìÏ¤HTTP»º´æ»úÖÆ¼°³£¼û¼æÈİÎÊÌâ²¢ÊÊÅä£»
-7£©ÊìÏ¤NodeJSºÍES6£¬¿É´î½¨¼òµ¥µÄºóÌ¨·şÎñ¡¢ÊµÏÖÒ³ÃæÊı¾İÅÀÈ¡¡¢excel±í¸ñµ¼Èëµ¼³öµÈ¹¦ÄÜ£»
+â—†å·¥ä½œä¸»è¦èŒè´£ï¼š
+1ï¼‰æ ¹æ®åŸå‹å’Œè®¾è®¡ç¨¿ï¼Œå¼€å‘å…¬å¸äº§å“çš„PC/ç§»åŠ¨å‰ç«¯ä»£ç ï¼›
+2ï¼‰å¯¹å…¬å¸åå°ç®¡ç†ç³»ç»Ÿç±»äº§å“çš„å‰ç«¯æŠ€æœ¯é€‰å‹ï¼Œå’Œå¼€å‘ç¯å¢ƒæ­å»ºï¼›
+3ï¼‰é¡¹ç›®æµ‹è¯•æƒ…å†µè·Ÿè¿›ã€bugä¿®å¤ï¼›
+4ï¼‰åè°ƒç»Ÿç­¹å‰ç«¯å›¢é˜Ÿæ–°äººçš„å·¥ä½œ.
 
 
-
-
-ÓĞPC/ÒÆ¶¯Õ¾¡¢»ìºÏAPP HTML5¿ª·¢¾­Ñé£¬²ÎÓë¹ıÃÜÓÑÈ¦APP¡¢ºÍ·ÉĞÅAPP¡¢½¡¿ÍÍøÉÏÒ©µêAPP¡¢¹ı¶à¸öÖĞ¹úÒÆ¶¯¹«Ë¾ºóÌ¨¹ÜÀíÏµÍ³µÄ¿ª·¢£»
-ÓĞ»ùÓÚGB856T--88±ê×¼½¨Á¢¹«Ë¾¿ª·¢ÌåÏµÎÄ¼ş£¬¶ÔÓ¦¿Í»§ÆÀÉóµÄÊµ¼ù¡£
+â—†å·¥ä½œæŠ€èƒ½ï¼š
+1ï¼‰ç†Ÿç»ƒä½¿ç”¨HTMLã€CSSã€Javascriptå®ç°å‰ç«¯UIåŠä¸šåŠ¡åŠŸèƒ½ï¼›
+2ï¼‰ç†Ÿç»ƒä½¿ç”¨jQueryã€AJAXã€Lessã€Axiosã€socket.ioã€Bootstrapç­‰å·¥å…·è¿›è¡Œæ—¥å¸¸å¼€å‘ï¼›
+3ï¼‰ç†Ÿç»ƒä½¿ç”¨vuejs/vue-resource/vue-router/vuexæ¡†æ¶æŠ€æœ¯å¼€å‘é¡¹ç›®ï¼›
+4ï¼‰ç†Ÿæ‚‰åŸºäºNodeJSçš„webpackã€npmå’ŒGitæ­å»ºå‰ç«¯å¼€å‘ç¯å¢ƒï¼›
+5ï¼‰ç†Ÿæ‚‰ä½¿ç”¨HTML5ã€CSS3æŠ€æœ¯è¿›è¡Œç§»åŠ¨ç«¯å¼€å‘ï¼›
+6ï¼‰ç†Ÿæ‚‰HTTPç¼“å­˜æœºåˆ¶åŠå¸¸è§å…¼å®¹é—®é¢˜å¹¶é€‚é…ï¼›
+7ï¼‰ç†Ÿæ‚‰NodeJSå’ŒES6ï¼Œå¯æ­å»ºç®€å•çš„åå°æœåŠ¡ã€å®ç°é¡µé¢æ•°æ®çˆ¬å–ã€excelè¡¨æ ¼å¯¼å…¥å¯¼å‡ºç­‰åŠŸèƒ½ï¼›
 
 
 
- Í¨³£ÎÒÃÇÔÚvueÀïÃæÊ¹ÓÃ±ğÈË¿ª·¢µÄ×é¼ş£¬µÚÒ»²½¾ÍÊÇinstall,µÚ¶ş²½ÔÚmain.jsÀïÃæÒıÈë£¬µÚÈı²½Vue.useÕâ¸ö×é¼ş¡£½ñÌìÎÒ¼òµ¥µÄÒ²À´useÒ»¸ö×Ô¼ºµÄ×é¼ş¡£
 
-ÕâÀïÎÒÓÃµÄwebpack-simpleÕâ¸ö¼òµ¥°æ±¾µÄ½ÅÊÖ¼ÜÎªÀı£¬°²×°¾Í²»†ªàÂÁË£¬Ö±½Ó½øÈëÕıÌâ
-
-Ê×ÏÈ¿´ÏÂÄ¿Ç°µÄÏîÄ¿½á¹¹£º
+æœ‰PC/ç§»åŠ¨ç«™ã€æ··åˆAPP HTML5å¼€å‘ç»éªŒï¼Œå‚ä¸è¿‡å¯†å‹åœˆAPPã€å’Œé£ä¿¡APPã€å¥å®¢ç½‘ä¸Šè¯åº—APPã€è¿‡å¤šä¸ªä¸­å›½ç§»åŠ¨å…¬å¸åå°ç®¡ç†ç³»ç»Ÿçš„å¼€å‘ï¼›
+æœ‰åŸºäºGB856T--88æ ‡å‡†å»ºç«‹å…¬å¸å¼€å‘ä½“ç³»æ–‡ä»¶ï¼Œå¯¹åº”å®¢æˆ·è¯„å®¡çš„å®è·µã€‚
 
 
 
-webpackÊ×ÏÈ»á¼ÓÔØmain.js£¬ËùÒÔÎÒÃÇÔÚmainµÄjsÀïÃæÒıÈë¡£ÎÒÒÔelement uiÀ´×ö¶Ô±ÈËµÃ÷
+ é€šå¸¸æˆ‘ä»¬åœ¨vueé‡Œé¢ä½¿ç”¨åˆ«äººå¼€å‘çš„ç»„ä»¶ï¼Œç¬¬ä¸€æ­¥å°±æ˜¯install,ç¬¬äºŒæ­¥åœ¨main.jsé‡Œé¢å¼•å…¥ï¼Œç¬¬ä¸‰æ­¥Vue.useè¿™ä¸ªç»„ä»¶ã€‚ä»Šå¤©æˆ‘ç®€å•çš„ä¹Ÿæ¥useä¸€ä¸ªè‡ªå·±çš„ç»„ä»¶ã€‚
 
-¸´ÖÆ´úÂë
+è¿™é‡Œæˆ‘ç”¨çš„webpack-simpleè¿™ä¸ªç®€å•ç‰ˆæœ¬çš„è„šæ‰‹æ¶ä¸ºä¾‹ï¼Œå®‰è£…å°±ä¸å•°å—¦äº†ï¼Œç›´æ¥è¿›å…¥æ­£é¢˜
+
+é¦–å…ˆçœ‹ä¸‹ç›®å‰çš„é¡¹ç›®ç»“æ„ï¼š
+
+
+
+webpacké¦–å…ˆä¼šåŠ è½½main.jsï¼Œæ‰€ä»¥æˆ‘ä»¬åœ¨mainçš„jsé‡Œé¢å¼•å…¥ã€‚æˆ‘ä»¥element uiæ¥åšå¯¹æ¯”è¯´æ˜
+
+å¤åˆ¶ä»£ç 
 import Vue from 'vue'
 import App from './App.vue'
 
-// ÒıÈëelement-ui×é¼ş
+// å¼•å…¥element-uiç»„ä»¶
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
-// ÒıÈë×Ô¶¨Òå×é¼ş¡£index.jsÊÇ×é¼şµÄÄ¬ÈÏÈë¿Ú
+// å¼•å…¥è‡ªå®šä¹‰ç»„ä»¶ã€‚index.jsæ˜¯ç»„ä»¶çš„é»˜è®¤å…¥å£
 import Loading from '../components/loading'
 Vue.use(Loading);
 
@@ -801,36 +801,36 @@ new Vue({
   render: h => h(App)
 })
 
-È»ºóÔÚLoading.vueÀïÃæ¶¨Òå×Ô¼ºµÄ×é¼şÄ£°å
+ç„¶ååœ¨Loading.vueé‡Œé¢å®šä¹‰è‡ªå·±çš„ç»„ä»¶æ¨¡æ¿
 
 
-<!-- ÕâÀïºÍÆÕÍ¨×é¼şµÄÊéĞ´Ò»Ñù -->
+<!-- è¿™é‡Œå’Œæ™®é€šç»„ä»¶çš„ä¹¦å†™ä¸€æ · -->
 <template>
     <div class="loading">
         loading...
     </div>
 </template>
 
-ÔÚindex.jsÎÄ¼şÀïÃæÌí¼Óinstall·½·¨
+åœ¨index.jsæ–‡ä»¶é‡Œé¢æ·»åŠ installæ–¹æ³•
 import MyLoading from './Loading.vue'
-// ÕâÀïÊÇÖØµã
+// è¿™é‡Œæ˜¯é‡ç‚¹
 const Loading = {
     install: function(Vue){
         Vue.component('Loading',MyLoading)
     }
 }
 
-// µ¼³ö×é¼ş
+// å¯¼å‡ºç»„ä»¶
 export default Loading
-½ÓÏÂÀ´¾ÍÊÇÔÚApp.VueÀïÃæÊ¹ÓÃ×é¼şÁË£¬Õâ¸ö×é¼şÒÑ¾­ÔÚmain.js¶¨Òå¼ÓÔØÁË
+æ¥ä¸‹æ¥å°±æ˜¯åœ¨App.Vueé‡Œé¢ä½¿ç”¨ç»„ä»¶äº†ï¼Œè¿™ä¸ªç»„ä»¶å·²ç»åœ¨main.jså®šä¹‰åŠ è½½äº†
 
 
 <template>
   <div id="app">
-  <!-- Ê¹ÓÃelement uiµÄ×é¼ş -->
-  <el-button>Ä¬ÈÏ°´Å¥</el-button>
+  <!-- ä½¿ç”¨element uiçš„ç»„ä»¶ -->
+  <el-button>é»˜è®¤æŒ‰é’®</el-button>
 
-  <!-- Ê¹ÓÃ×Ô¶¨Òå×é¼ş -->
+  <!-- ä½¿ç”¨è‡ªå®šä¹‰ç»„ä»¶ -->
   <Loading></Loading>
   </div>
 </template>
@@ -839,25 +839,25 @@ export default Loading
 
 
 
-¸ÚÎ»Ö°Ôğ£º
-1¡¢¸ºÔğ¹«Ë¾ÏµÍ³Æ½Ì¨Ç°¶Ë¼Ü¹¹¼°¿ª·¢¹¤×÷£»
-2¡¢Àí½â²¢×ñÊØÉè¼Æ¹æ·¶£¬ÅäºÏºóÌ¨ÊµÏÖÒµÎñ½Ó¿Ú¼°Êı¾İ½»»¥£»
-3¡¢²ÎÓëÏµÍ³Éè¼Æ£¬¹¦ÄÜÄ£¿éÉè¼Æ£¬Ç°¶Ë¹¦ÄÜ¿ª·¢£»
-4¡¢²ÎÓë½â¾öÏµÍ³ĞÔÄÜÓÅ»¯ºÍ¼¼ÊõÄÑµã¹¥¹Ø£»
+å²—ä½èŒè´£ï¼š
+1ã€è´Ÿè´£å…¬å¸ç³»ç»Ÿå¹³å°å‰ç«¯æ¶æ„åŠå¼€å‘å·¥ä½œï¼›
+2ã€ç†è§£å¹¶éµå®ˆè®¾è®¡è§„èŒƒï¼Œé…åˆåå°å®ç°ä¸šåŠ¡æ¥å£åŠæ•°æ®äº¤äº’ï¼›
+3ã€å‚ä¸ç³»ç»Ÿè®¾è®¡ï¼ŒåŠŸèƒ½æ¨¡å—è®¾è®¡ï¼Œå‰ç«¯åŠŸèƒ½å¼€å‘ï¼›
+4ã€å‚ä¸è§£å†³ç³»ç»Ÿæ€§èƒ½ä¼˜åŒ–å’ŒæŠ€æœ¯éš¾ç‚¹æ”»å…³ï¼›
 
-ÈÎÖ°ÒªÇó£º
-1¡¢ÊìÏ¤Ê¹ÓÃ¸÷ÖÖ web Ç°¶Ë¼¼Êõ£¬°üÀ¨ HTML5¡¢CSS¡¢Javascript¡¢Node.js µÈ£»
-2¡¢ÊìÏ¤Ò»ÖÖ»ò¶àÖÖ³£ÓÃÇ°¶Ë¿ò¼Ü¿â£¬Èçvue¡¢react¡¢angularµÈ£»
-3¡¢ÊìÏ¤Ê¹ÓÃ webpack¡¢gulp¡¢requireJS µÈÄ£¿é»¯¡¢¹¤³Ì»¯¹¤¾ß£»
-4¡¢ÄÜ¹»¸ßĞ§±àĞ´ web ½çÃæ£¬ÊìÁ·Ê¹ÓÃ Git µÈ°æ±¾¹ÜÀí¹¤¾ß£»
-5¡¢ÊìÏ¤ºó¶Ë·şÎñÆ÷ÔËĞĞ»·¾³ºÍÊı¾İÍ¨ĞÅĞ­Òé£¬vue.js, bootstrap µÈÇ°¶Ë¿ò¼Ü£»
-6¡¢ÓĞ½ÏÇ¿µÄ AJAX ¡¢GraphQL¡¢Apollo Ç°ºóÌ¨Êı¾İ½»»¥¾­Ñé£¬ json Êı¾İ¸ñÊ½£¬²¢ÇÒÄÜÅäºÏºóÌ¨Ğ´ JS µÄÒµÎñÂß¼­µÄ¾­Ñé£»
+ä»»èŒè¦æ±‚ï¼š
+1ã€ç†Ÿæ‚‰ä½¿ç”¨å„ç§ web å‰ç«¯æŠ€æœ¯ï¼ŒåŒ…æ‹¬ HTML5ã€CSSã€Javascriptã€Node.js ç­‰ï¼›
+2ã€ç†Ÿæ‚‰ä¸€ç§æˆ–å¤šç§å¸¸ç”¨å‰ç«¯æ¡†æ¶åº“ï¼Œå¦‚vueã€reactã€angularç­‰ï¼›
+3ã€ç†Ÿæ‚‰ä½¿ç”¨ webpackã€gulpã€requireJS ç­‰æ¨¡å—åŒ–ã€å·¥ç¨‹åŒ–å·¥å…·ï¼›
+4ã€èƒ½å¤Ÿé«˜æ•ˆç¼–å†™ web ç•Œé¢ï¼Œç†Ÿç»ƒä½¿ç”¨ Git ç­‰ç‰ˆæœ¬ç®¡ç†å·¥å…·ï¼›
+5ã€ç†Ÿæ‚‰åç«¯æœåŠ¡å™¨è¿è¡Œç¯å¢ƒå’Œæ•°æ®é€šä¿¡åè®®ï¼Œvue.js, bootstrap ç­‰å‰ç«¯æ¡†æ¶ï¼›
+6ã€æœ‰è¾ƒå¼ºçš„ AJAX ã€GraphQLã€Apollo å‰åå°æ•°æ®äº¤äº’ç»éªŒï¼Œ json æ•°æ®æ ¼å¼ï¼Œå¹¶ä¸”èƒ½é…åˆåå°å†™ JS çš„ä¸šåŠ¡é€»è¾‘çš„ç»éªŒï¼›
 
-ÓÅÏÈÂ¼ÓÃ£º
-1¡¢Á½Äê¼°ÒÔÉÏ web Ç°¶Ë¿ª·¢¹¤×÷¾­Ñé£»
-2¡¢ÓĞÊµ¼ÊµÄ Node.js ÏîÄ¿¿ª·¢¾­ÑéÕßÓÅÏÈ¿¼ÂÇ£»
-3¡¢¶Ô GraphQL ÓĞÒ»¶¨µÄÁË½â
-4¡¢ÓĞ¿ªÔ´×÷Æ·»ò²ÎÓë¿ªÔ´ÏîÄ¿£¨Çë¸½ github µØÖ·£©
-5¡¢ÓµÓĞ¿ª·¢Á÷³ÌÖĞµÄ´úÂë¹æ·¶ÒâÊ¶¡¢ÅäÖÃ¹ÜÀí¹æ·¶ÒâÊ¶¡¢ÎÄµµ×«Ğ´¹æ·¶ÒâÊ¶
+ä¼˜å…ˆå½•ç”¨ï¼š
+1ã€ä¸¤å¹´åŠä»¥ä¸Š web å‰ç«¯å¼€å‘å·¥ä½œç»éªŒï¼›
+2ã€æœ‰å®é™…çš„ Node.js é¡¹ç›®å¼€å‘ç»éªŒè€…ä¼˜å…ˆè€ƒè™‘ï¼›
+3ã€å¯¹ GraphQL æœ‰ä¸€å®šçš„äº†è§£
+4ã€æœ‰å¼€æºä½œå“æˆ–å‚ä¸å¼€æºé¡¹ç›®ï¼ˆè¯·é™„ github åœ°å€ï¼‰
+5ã€æ‹¥æœ‰å¼€å‘æµç¨‹ä¸­çš„ä»£ç è§„èŒƒæ„è¯†ã€é…ç½®ç®¡ç†è§„èŒƒæ„è¯†ã€æ–‡æ¡£æ’°å†™è§„èŒƒæ„è¯†
 
-PS£º½üÆÚÔÚÌìºÓÌÄÏÂÉÏ°à£¬3ÔÂ·İ¹«Ë¾ÕûÌå°áµ½Öé½­ĞÂ³Ç½ò±õÌÚÔ½´óÏÃ
+PSï¼šè¿‘æœŸåœ¨å¤©æ²³æ£ ä¸‹ä¸Šç­ï¼Œ3æœˆä»½å…¬å¸æ•´ä½“æ¬åˆ°ç æ±Ÿæ–°åŸæ´¥æ»¨è…¾è¶Šå¤§å¦

@@ -20,6 +20,9 @@ Vue.prototype.$moment = moment;
 import mbti from './assets/mbti'
 Vue.prototype.$mbti = mbti;
 
+import Layer from './assets/plugin/bu-layer/index'
+Vue.use(Layer)
+
 // console.log('momentUTC',moment().utc().format());
 // console.log('momentUTC1',moment('2018-05-14T14:44:05.000Z').format('YYYY-MM-DD HH:mm:ss'));
 // console.log('momentUTC2',moment('2018-05-14T14:44:05Z').format('YYYY-MM-DD HH:mm:ss'));

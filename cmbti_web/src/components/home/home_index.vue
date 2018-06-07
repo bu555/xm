@@ -88,6 +88,7 @@
                     </div>
                 </li>-->
             </ul>
+            <!--<bu-alert></bu-alert>-->
     </div>
 </div> 
 </template>
@@ -96,6 +97,8 @@ export default {
 
     components:{
         
+    },
+    created(){
     }
 };
 </script>
