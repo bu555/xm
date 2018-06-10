@@ -1,8 +1,15 @@
 <template>
   <div class="my-like">
+    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
+      <router-link to="/my/home">
+      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
+      </router-link>
+      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
+      <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i>标记
+    </div>
     <div class="content">
       <div class="items" v-for="(v,i) in 5">
-        <div class="type">文档</div>
+        <div class="my-type">文档</div>
         <router-link to="">
               简单的Restful API例子(Golang)
         </router-link>
@@ -28,7 +35,9 @@ export default {
 </script>
 <style lang="less">
 .my-like {
-  padding:5px 12px 22px;
+  padding:4%;
+  padding-top:12px;
+  padding-bottom:22px;
   .content {
 
   }
@@ -36,11 +45,10 @@ export default {
     display:flex;
     align-items:center;
     border-bottom:1px solid #f8f8f8;
-    .type {
+    .my-type {
       font-size:12px;
-      height:17px;
-      line-height: 17px;
-      padding:0px 2px;
+      padding:1px 2px;
+      text-align:center;
       border-radius:3px;
       margin-right:5px;
       border:1px solid #c1c1c1;
@@ -52,6 +60,7 @@ export default {
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
+      font-size:15px;
     }
     a:visited {
         text-decoration: none;
@@ -69,8 +78,7 @@ export default {
     }
   }
   
-  @media screen and (max-width:500px) {
-    padding:0px 0px 10px;
+  @media screen and (max-width:525px) {
   }
 }
 </style>

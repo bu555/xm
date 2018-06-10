@@ -147,7 +147,7 @@ export default {
         }
 
     }
-    @media screen and (max-width:500px){
+    @media screen and (max-width:525px){
         .comment-list {
             .items {
                 padding-left:57px;

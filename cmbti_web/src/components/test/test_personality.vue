@@ -161,7 +161,7 @@ export default {
             width:100%;
         }
     }
-    @media screen and (max-width:500px){
+    @media screen and (max-width:525px){
         .q-list {
             .item {
                 flex:0 0 50% ;

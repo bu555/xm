@@ -40,8 +40,9 @@ body {
     *zoom:1;/*IE/7/6*/
 }
 a {text-decoration:none; }
-a:active {color:#538dd5}  /*点击时状态 。*/
-a:link {color: #1a1a1a}   /*未访问时的状态 。*/
+a:focus {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
+a:active {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
+a:link {color: #1a1a1a;text-decoration:none}   /*未访问时的状态 。*/
 a:visited {color: #1a1a1a;text-decoration:none} /* 已访问过的状态 。*/
 a:hover {color: #1a1a1a;text-decoration:none} 
 /*a:hover {color: #FF00FF} /* 鼠标移动到链接上时的状态。*/
@@ -61,6 +62,25 @@ s,i,em{font-style:normal;text-decoration:none;}
 .txt-center {
   text-align: center;
 }
+
+.overflow-row-1 {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.overflow-row-2,.overflow-row-3,.overflow-row-8 {
+    display: -webkit-box;    
+    -webkit-box-orient: vertical;    
+    -webkit-line-clamp: 2;    
+    overflow: hidden;
+}
+.overflow-row-3 {    
+    -webkit-line-clamp: 3;    
+}
+.overflow-row-8 {    
+    -webkit-line-clamp: 8;    
+}
+
 @media screen and (max-width:768px){
   .my-tit {
     font-size:16px;

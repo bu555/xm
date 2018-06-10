@@ -423,7 +423,7 @@ export default {
                         height:auto;
                         padding-right:13%;
                         padding-left:13%;
-                        // max-width:500px;
+                        // max-width:525px;
                         border:1px solid #f0f0f0;
                         border-radius:4px 4px 0 0;
                         overflow: hidden;
@@ -445,7 +445,7 @@ export default {
                         height:auto;
                         // padding-right:13%;
                         // padding-left:13%;
-                        // max-width:500px;
+                        // max-width:525px;
                         border:1px solid #f0f0f0;
                         border-radius:4px 4px 0 0;
                         overflow: hidden;

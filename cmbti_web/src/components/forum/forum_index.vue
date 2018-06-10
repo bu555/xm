@@ -31,7 +31,7 @@
                             <div class="u-name">名字123</div>
                         </div>
                         <div class="title1">
-                            <span class="type">精</span>
+                            <span class="category-type">精</span>
                             <router-link :to="'/forum/'+123">
                             <!--<span class="txt" style="white-space: nowrap;">-->
                             <span class="txt" style="">
@@ -109,7 +109,7 @@ export default {
             .router-link-active {
                 padding:4px;
                 margin:5px;
-                font-size:15px;
+                font-size:17px;
                 border-radius:3px;
                 color:#104996;
                 &:hover {
@@ -139,20 +139,21 @@ export default {
                         align-items:center;
                         border-top:1px solid #f2f6f6;
                         padding:0 5px 0 1.8%;
-                        font-size:15px;
+                        font-size:16px;
                     &:hover {
                         // background:#f2f6f6;
                         background:#fcfcfc;
                     }
                     }
                     li>div,a{
-                        margin:4px 0.7%;
+                        margin:0px 0.7%;
                         overflow: hidden;
                         text-overflow:ellipsis;
                         white-space: nowrap;
                     }
                     .u-photo {
                         // flex:0 0 11%;
+                        margin:3px;
                         width:37px;
                         height:37px;
                         overflow:inherit;
@@ -162,6 +163,7 @@ export default {
                         &:hover {
                             .u-name {
                                 display:block;
+                                opacity:1;
                             }
                         }
                         img {
@@ -173,13 +175,17 @@ export default {
                         }
                         .u-name {
                             position: absolute;
-                            top: -3px;
+                            top: -0px;
                             left: 36px;
                             background: rgba(147, 202, 232, 0.5);
-                            color: #1d5aad;
+                            background: #70a9e5;
+                            color: #fff;
                             padding: 0 3px;
                             border-radius: 3px;
-                            display:none;
+                            // display:none;
+                            opacity:0;
+                            font-size:13px;
+                            transition: opacity 1s;
                         }
 
                     }
@@ -187,7 +193,7 @@ export default {
                         flex:1;
                         text-align:left;
                         padding-right:12px;
-                        // max-width:500px;
+                        // max-width:525px;
                         color:#455;
                         display:flex;
                         justify-content:flex-start;
@@ -202,8 +208,8 @@ export default {
                             // color:red;
                         }
                     } 
-                    .title1 .type {
-                        padding:2px 3px 0px 2px;
+                    .title1 .category-type {
+                        padding:1px 2px;
                         white-space: nowrap;
                         border-radius:3px;
                         color:#fff;
@@ -215,7 +221,7 @@ export default {
                         width:27px;
                         height:27px;
                         .u-name {
-                            left: 25px;
+                            left: 29px;
                         }
                     }
                     .last-replay-date {
@@ -254,7 +260,7 @@ export default {
             .article-list{
                 ul {
                     li {
-                        font-size:14px;
+                        // font-size:14px;
                         .u-photo {
                             width:32px;
                             height:32px;
@@ -273,41 +279,21 @@ export default {
             margin-left:0;
         }
     }
-    @media screen and (max-width:450px) {
+    @media screen and (max-width:525px) {
         .main-box {
             .article-list{
                 ul {
                     li {
-                        font-size:13px !important;
-                        .last-replay {
-                            display:none;
-                        }
-                        .last-replay-date {
-                            // font-size:12px;
-                        }
-                        .author {
-                            // display:none;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    @media screen and (max-width:370px) {
-        .main-box {
-            .article-list{
-                ul {
-                    li {
-                        font-size:13px !important;
+                        // font-size:13px !important;
                         .u-photo {
-                            width:28px;
-                            height:28px;
+                            width:32px;
+                            height:32px;
                         }
                         .last-replay {
                             display:none;
                         }
                         .last-replay-date {
-                            // font-size:12px;
+                            font-size:13px;
                             margin:0;
                             flex:0 0 18%;
                         }
@@ -315,6 +301,9 @@ export default {
                             // display:none;
                         }
                     }
+                }
+                .title1 {
+                    padding-right:0px;
                 }
             }
         }

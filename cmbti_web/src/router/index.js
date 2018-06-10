@@ -28,6 +28,7 @@ import test_function from '@/components/test/test_function'
 // example
 import example from '@/components/example/example'
 import example_details from '@/components/example/details'
+import example_item from '@/components/example/example_item'
 
 // document
 import document from '@/components/document/document'
@@ -39,10 +40,15 @@ import forum_article_new from '@/components/forum/forum_article_new'
 
 // 个人中心
 import my from '@/components/my/my'
+import my_home from '@/components/my/my_home'
 import my_info from '@/components/my/my_info'
-import my_like from '@/components/my/my_like'
+import my_mark from '@/components/my/my_mark'
 import my_publish from '@/components/my/my_publish'
-import my_follow from '@/components/my/my_follow'
+import my_followers from '@/components/my/my_followers'
+import my_following from '@/components/my/my_following'
+import my_comment from '@/components/my/my_comment'
+import my_test from '@/components/my/my_test'
+import my_test_report from '@/components/my/my_test_report'
 
 
 
@@ -71,6 +77,7 @@ const vueRouter = new Router({
     // example
     {path:'/example',component:example},
     {path:'/example/:id',component:example_details},
+    {path:'/example/:id/:id',component:example_item},
 
     // document
     {path:'/document',component:document},
@@ -85,10 +92,15 @@ const vueRouter = new Router({
     { path:'/my',
       component:my,
       children:[
+        {path:'home',component:my_home},
         {path:'info',component:my_info},
-        {path:'like',component:my_like},
+        {path:'mark',component:my_mark},
         {path:'publish',component:my_publish},
-        {path:'follow',component:my_follow},
+        {path:'followers',component:my_followers},
+        {path:'following',component:my_following},
+        {path:'comment',component:my_comment},
+        {path:'test',component:my_test},
+        {path:'test/:r',component:my_test_report},
       ]
         
     },

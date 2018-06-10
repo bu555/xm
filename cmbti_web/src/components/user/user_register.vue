@@ -182,7 +182,7 @@ export default {
                 background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
             }
-            @media screen and (max-width:500px){
+            @media screen and (max-width:525px){
                 form {
                     padding:20px 10px 32px;;
                     // background-color: rgba(89,142,210,.2);

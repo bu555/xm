@@ -67,11 +67,22 @@ export default {
     .root-app {
       // background:url('/static/img/bg_1.png');
       background:#f6f6f6;
-      font-size:15px;
+      a {text-decoration:none;color:#333 }
+      a:focus {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
+      a:active {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
+      a:link {color: #1a1a1a;text-decoration:none}   /*未访问时的状态 。*/
+      a:visited {color: #1a1a1a;text-decoration:none} /* 已访问过的状态 。*/
+      a:hover {color: #1a1a1a;text-decoration:none} 
       .router-view {
         margin-bottom:12px;
         overflow: hidden;
         min-height:420px
       }
+      font-size:16px;
+      @media screen and (max-width:768px){
+         font-size:17px;
+      }
+
+
     }
 </style>

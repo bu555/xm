@@ -1,11 +1,11 @@
 <template>
-  <div class="my-publish">
+  <div class="my-comment-a">
     <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my/home">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
       </router-link>
       <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="fa el-icon-edit"></i> 发表帖子
+      <i class="fa fa-edit"></i> 评论<span>(2)</span>
     </div>
     <div class="content">
       <div class="items" v-for="(v,i) in 5">
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 <style lang="less">
-.my-publish {
+.my-comment-a {
   padding:4%;
   padding-top:12px;
   padding-bottom:22px;

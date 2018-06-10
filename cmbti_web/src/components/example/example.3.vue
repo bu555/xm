@@ -1,18 +1,35 @@
 <template>
 <div class="example " v-loading="loading">
-    <div class="my-tab">
-            <div class="search-bar">
-                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px">
-                    <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
-                </el-input>
-            </div>
+    <div class="my-tab  container-fluid">
+        <div class="bx clearfix">
+            <div class="col-md-4">
+                <div class="input-group">
+                <input v-model="searchName" type="text" class="form-control" placeholder="Search for..." @keyup.enter="search()">
+                <span class="input-group-btn">
+                    <button @click="search()" class="btn btn-default" type="button">Go!</button>
+                </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            <!--types导航-->
             <div class="types-box">
+                <!--<div class="types-box1">
+                    <router-link to="/example?type=all">
+                    <div class="all">默认</div>
+                    </router-link>
+                </div>-->
+                <div>
+                    <router-link to="/example?type=all">
+                    <!--<div class="all type ech-big" style="background:#666" data-type="all">所有</div>-->
+                    <div class="all type" style="background:#666" data-type="all">所有</div>
+                    </router-link>
+                </div>
                 <div v-for="(v,i) in types" :key="i">
                     <router-link :to="'/example?type='+v.type">
                     <div class="type" :style="'background:'+color[v.type]" :data-type="v.type">{{v.type.toUpperCase()}}</div>
                     </router-link>
                 </div>
-            </div>
+            </div><!--types导航-->
+        </div>
     </div>
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
     <div class="bx">
@@ -25,22 +42,28 @@
                     </div>
                 </div>
                 <!--有数据-->
-
-
-
-                <div class="item" v-for="(v,i) in 10" >
-                    <router-link :to="'/example/'+123">
-                    <div class="item-box">
-                        <div class="type">ENFP</div>
-                        <div class="photo">
-                            <img src="" alt="">
+                <div class="item" v-for="(v,i) in exampleList" :key="i">
+                    <router-link :to="{path:'/example/'+v._id}">
+                    <!--<div class="item-box" :style="'border-color:'+color[v.type]+';color:'+color[v.type] ">-->
+                    <div class="item-box" :style="'border-color:'+(typeof rgba[v.type]=='string'?rgba[v.type].substr(0,rgba[v.type].length-1)+',.4)':'')+';color:'+color[v.type] ">
+                        <div class="type">{{v.type.toUpperCase()}}</div>
+                        <div class="photo" :style="'box-shadow: 0 0 5px '+color[v.type]+';'">
+                            <img :src="$pathImgs+v.img_url" alt="">
+                            <!--投票提示-->
+                            <!--<div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">
+                                <span>投个票去！</span><i class="icon iconfont icon-new"></i>
+                                
+                            </div>-->
                         </div>
-                        <div class="name overflow-row-1">基芭芭芭芭凯特尔恩斯'</div>
+                        <div class="name">{{v.name==='王石'?'奥斯特路夫斯基芭芭凯特尔恩斯':v.name}}</div>
+                        <!--左上角new标-->
+                        <!--<div  v-if="v.type==='****'" class="new-flag" data-class="ec-rotate-in"><i class="icon iconfont icon-iconfontzhizuobiaozhun023113"></i></div>-->
+                        <!--<i v-if="v.type==='****'" class="new-flag icon iconfont icon-iconfontzhizuobiaozhun023113"></i>-->
+
+                        <!--<div class="new-flag">New</div>-->
                     </div>
                     </router-link>
                 </div>
-
-
         </div>
         <!--分页-->
         <div class="m-auto t-center pagi" style="padding:20px 0">
@@ -299,62 +322,53 @@ export default {
 </script>
 <style lang="less">
 .example {
+    // background-color: #fdfdfd;
+    // max-width:1070px;
     margin:0 auto;
     .my-tab {
+        // height:56px;
+        // background-color: #f7f7f7;
+        // background-color: rgba(190,190,190,.45);
         background-color: rgba(0,0,100,.15);
-        // padding:10px 0 15px;
-        .search-bar {
-            max-width:1075px;
-            margin:0 auto;
-            padding:8px 10px 0;
-            position: relative;
-            .el-input__inner {
-                height:33px;
-                border-radius:33px 0 0 33px;
-                // border-radius:33px;
-            }
-            .el-input-group__append {
-                border-radius:0 33px 33px 0 !important;
-                margin-left:15px;
-            }
-            // .search-btn {
-            //     position: absolute;
-            //     left: 266px;
-            //     top:7px;
-            //     .el-button.is-circle {
-            //         padding: 10px;
-            //     }
-            // }
-        }
+        padding:10px 0 15px;
+
         .types-box {
-            max-width:1075px;
-            margin:0 auto;
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
             flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
             width:100%;
-            padding:10px;
-            padding-top:8px;
-            // padding-right:270px;
+            padding:8px 15px 0px;
+            flex:1;
             &>div {
-                flex:0 0 12.5%;
+                // flex-basis:12.5%;
+
+                flex:1;
                 text-align: center;
                 .type {
                     background:#eee;
                     // border:1px solid #bbb;
                     border-radius:3px;
-                    font-size:16px;
-                    margin:2px;
-                    height:32px;
-                    line-height: 32px;;
+                    font-size:15px;
+                    margin:1px;
+                    padding:4px 0;
                     color:#eee;
                 }
 
             }
+            @media screen and (max-width:768px){
+                &>div {
+                    flex:0 0 20%;
+                    .type {
+                    }
+
+                }
+
+
+            }
         }
         .types-box .type {
-                    // box-shadow: 0 0 18px #fff inset;
-                    // -moz-box-shadow: 0 0 18px #fff inset;
-                    // -webkit-box-shadow: 0 0 18px #fff inset;
+                    box-shadow: 0 0 18px #fff inset;
+                    -moz-box-shadow: 0 0 18px #fff inset;
+                    -webkit-box-shadow: 0 0 18px #fff inset;
         }
         .types-box .type.t-active {
             font-weight:700;
@@ -371,26 +385,23 @@ export default {
     .example-list {
         background-color: rgba(255,255,255,.72);
         margin:4px auto 0;
-        max-width:1055px;
+        max-width:1066px;
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-        // justify-content: center;;
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-        padding:15px;
-        padding-top:20px;
+        padding:22px 4%;
         text-align: center;
+        // justify-content:space-between;
         .item {
-            flex:0 0 16.6%;
-            margin-bottom:22px;
-            // background-color: red;
+            margin:8px 0;
+            width:20%;
             .item-box {
                 margin:0 auto;
-                padding:0 3px;
-                width:142px;
-                // border:1px solid #eee;
+                padding:0 8px;
+                max-width:155px;
+                border:1px solid #eee;
                 border-radius:3px;
                 cursor:pointer;
                 position: relative;
-                background-color: #f2f2f2;
                 .new-flag {
                     position: absolute;
                     top:0;
@@ -402,19 +413,19 @@ export default {
             }
             .type {
                 font-size:18px;
-                padding:7px 0 4px;
+                padding:4px 0;
             }
             .name {
-                font-size:15px;
-                padding:6px 0 10px;
+                font-size:14px;
+                padding:6px 0;
             }
             .photo {
-                height:160px;
+                height:170px;
                 width:100%;
                 overflow: hidden;
                 position: relative;
                 background-color: #666;
-                border-radius:1px;
+                border-radius:3px;
                 img {
                     display:block;
                     width:100%;
@@ -424,54 +435,49 @@ export default {
             }
 
         }
-    }
-    @media screen and (max-width:992px){
-        .example-list .item {
-            flex:0 0 20%;
+        @media screen and (max-width:992px){
+            .item {
+                width:25%;
+            }
         }
-    }
-    @media screen and (max-width:768px){
-        .example-list .item {
-            flex:0 0 25%;
+        @media screen and (max-width:680px){
+            .item {
+                width:33.3%;
+            }
         }
-    }
-    @media screen and (max-width:620px){
-        .example-list .item {
-            flex:0 0 33.33%;
-        }
-    }
-    @media screen and (max-width:472px){
-    .input-with-select {
-        width:100% !important;
-    }
-    .types-box {
-        &>div {
-            flex:0 0 25% !important;
-        }
-    }
-    .example-list {
-        padding:7px;
+        @media screen and (max-width:525px){
         .item {
-            flex:0 0 33.33%;
+            margin:8px 0;
             .item-box {
-                width:30vw;
+                max-width:29.5vw;
+                padding:0 6px;
                 .new-flag {
                 }
-                .type {
-                    font-size:4.7vw;
+            }
+            .type {
+                font-size:17px;
+                padding:4px 0;
+            }
+            .name {
+                font-size:13px;
+                padding:6px 0;
+            }
+            .photo {
+                height:30vw;
+                width:100%;
+                border-radius:2px;
+                img {
+                    display:block;
+                    width:100%;
+                    height:auto;
                 }
-                .name {
-                    font-size:3.75vw;
-                }
-                .photo {
-                    height:32vw;
-                }
+
             }
 
         }
-    }
 
-    } 
+        } 
+    }
     // 分页
     .pagi{
         max-width:1066px;

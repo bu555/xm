@@ -204,7 +204,7 @@ export default {
             margin-left:0;
         }
     }
-    @media screen and (max-width:500px) {
+    @media screen and (max-width:525px) {
         .main-box {
             .my-editor {
                 form {
