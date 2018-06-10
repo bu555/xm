@@ -11,6 +11,20 @@ module.exports =  {
             
             return randStr;
         },
+        // 随机数字字符
+        randomNumberString : function(num) {
+            var possibleCode = "1234567890";
+            var randStr = "";
+            for( var i = 0; i < num; i++ )  randStr += possibleCode.charAt(Math.floor(Math.random() * possibleCode.length));
+            return randStr;
+        },
+        // 随机字母字符
+        randomLowercaseString : function(num) {
+            var possibleCode = "abcdefghijklmnopqrstuvwxyz";
+            var randStr = "";
+            for( var i = 0; i < num; i++ )  randStr += possibleCode.charAt(Math.floor(Math.random() * possibleCode.length));
+            return randStr;
+        },
         // 验证用户名
         verifyEemail(email){
             return email && /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email) ? true:false;

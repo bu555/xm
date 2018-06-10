@@ -150,7 +150,18 @@ class Account {
 
         })
     }
-    // 修改头像 
+    // 用户测试记录
+    static addTestRecord(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({"uid":options.uid},{$addToSet:{"test_record":options.tid }},err=>{
+                if(err) return reject('The tid $addToSet faild')
+                resolve('success')
+            })
+
+        })
+    }
+     
+
 
 }
 
