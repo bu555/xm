@@ -20,10 +20,10 @@
                                 </router-link>-->
                                 <span>
                                 <router-link to="">
-                                        <i class="icon iconfont icon-people"></i>作者阿凡达 
+                                        <i class="icon iconfont icon-people"></i>阿凡达 
                                 </router-link>
                                 </span>
-                                <span ><i class="el-icon-time"></i> 发布于2个月前</span>
+                                <span><i class="el-icon-time"></i> 发布于2个月前</span>
                                 <!--<span><i class="el-icon-view"></i>14567次浏览</span>
                                 <span><i class="el-icon-share"></i>147次分享</span>-->
                                 <span v-if="false" class="a-mark btns1" style="margin-right:15px"><i class="el-icon-star-off" ></i>标记</span>
@@ -52,8 +52,15 @@
          </div>
          <div class="comment">
              <div class="c-header" >
-                 <i class="icon iconfont icon-interactive" style="font-size:20px"></i> 100 评论
+                 <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
+                 <span>评论</span>
              </div>
+            <div class="c-tab">
+                <span>按</span>
+                <span class="hot active" @click="toggleCommentType($event,'hot')">热门</span>
+                <span>|</span>
+                <span class="time" @click="toggleCommentType($event,'time')">时间</span>
+            </div>
              <div class="c-body">
                 <div class="c-list" v-for="(v,i) in 4">
                     <div class="photo">
@@ -62,7 +69,7 @@
                         </router-link>
                     </div>
                     <div class="c-name">宋江001
-                        <span>12天前</span> 
+                        <span  style="font-size:13px">12天前</span> 
                     </div>
                     <div class="c-content">搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html</div>
                     <div class="c-ctrl">
@@ -95,7 +102,13 @@
 </template>
 <script>
 export default {
+    data(){
+
+    },
     methods:{
+        toggleCommentType(e){
+            console.log(e.target);
+        },
         zan(e){
             let count = e.currentTarget.querySelector('em').innerHTML
             if(e.currentTarget.classList.contains('active')){
@@ -162,7 +175,7 @@ export default {
                         width:32px;
                         line-height: 18px;
                         text-align:center;
-                        font-size:13px;
+                        font-size:14px;
                         white-space: nowrap;
                         border-radius:3px;
                         color:#fff;
@@ -298,14 +311,37 @@ export default {
             .c-header {
                 height:40px;
                 line-height: 40px;
-                border-bottom:1px solid #eee;
                 background-color: #a4c8ed;
                 padding-left:4%;
                 color:#fff;
-                font-size:18px;
+                font-size:17px;
+                display:flex;
+                &>span {
+                    margin-right:4px;
+                }
+            }
+            .c-tab {
+                height:35px;
+                line-height: 35px;
+                border-bottom:1px solid #fafafa;
+                background-color: #fafafa;
+                padding-left:4%;
+                font-size:15px;
+                display:flex;
+                color:#555;
+                &>span {
+                    margin-right:7px;
+                }
+                .hot,.time {
+                    cursor:pointer;
+                }
+                &>span.active {
+                    font-weight:700;
+                    color:#222;
+                }
             }
             .c-body {
-                padding:2% 4.5% 3% 4%;
+                padding:0.5% 4.5% 3% 4%;
                 .c-list {
                     // background: pink;
                     min-height:60px;

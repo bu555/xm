@@ -8,8 +8,7 @@
             <!--NT NF SP SJ-->
             <div>
                 <div class="head">
-                    <!--<router-link to="">NT</router-link>-->
-                    NT
+                    <router-link to="">NT</router-link>
                 </div>
                 <div class="item">
                     <router-link to="">ENTJ</router-link>
@@ -26,8 +25,7 @@
             </div>
             <div>
                 <div class="head">
-                    <!--<router-link to="">NF</router-link>-->
-                    NF
+                    <router-link to="">NF</router-link>
                 </div>
                 <div class="item">
                     <router-link to="">ENFJ</router-link>
@@ -44,8 +42,7 @@
             </div>
             <div>
                 <div class="head">
-                    <!--<router-link to="">SJ</router-link>-->
-                    SJ
+                    <router-link to="">SJ</router-link>
                 </div>
                 <div class="item">
                     <router-link to="">ESFJ</router-link>
@@ -62,8 +59,7 @@
             </div>
             <div>
                 <div class="head">
-                    <!--<router-link to="">SP</router-link>-->
-                    SP
+                    <router-link to="">SP</router-link>
                 </div>
                 <div class="item">
                     <router-link to="">ESFP</router-link>
@@ -130,7 +126,7 @@ export default {
         }
         .types-menu {
             display:flex;
-            padding:12px 0;
+            padding:20px 0;
             &>div {
                 flex:0 0 25%;
                 padding-left:5%;
@@ -138,19 +134,13 @@ export default {
                 // border:1px solid #ccc;
                 // text-align:center;
                 .head {
-                    font-size:20px;
+                    font-size:22px;
                     font-weight:700;
                     border-bottom:1px solid #f29899;
-                    margin-bottom:5px;
-                    color:#555;
                 }
                 .item {
-                    height:25px;
-                    line-height: 25px;
-                    &>a:hover {
-                        color:#598dd3;
-                        // font-size:18px;
-                    }
+                    height:32px;
+                    line-height: 32px;;
                 }
             }
         }
