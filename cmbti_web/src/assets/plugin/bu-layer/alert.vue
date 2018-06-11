@@ -3,15 +3,15 @@
         <div class="domain">
            <div class="inner">
                   <div class="a-header">
-                     提示：
+                     {{title}}
                   </div>
                   <div class="a-body">
                      <!--在引入 Element 时，可以传入一个全局配置对象。该对象目前支持 size 与 zIndex 字段。size 用于改变组件的默认尺寸，zIndex 设置弹框的初始 z-index（默认值：2000）。按照引入 Element 的方式，-->
-                     {{text}}
+                     {{message}}
                   </div>
                   <div class="a-footer">
-                     <div class="confirm">确 定</div>
-                     <div class="cancel" @click="show=false">取 消</div>
+                     <div class="confirm" @click="clickHandler(true)">{{confirmBtnTxt}}</div>
+                     <div class="cancel" @click="clickHandler(false)">{{cancelBtnTxt}}</div>
                   </div>
            </div>
         </div>
@@ -24,20 +24,32 @@ export default {
   }
  },
  props: {
-      show: { // 是否显示此toast
+      show: {
         default: false
       },
-      text: { // 提醒文字
+      title: {
+        default: '提示'
+      },
+      message: { // 内容
         default: 'hello!'
       },
       position: { // 提醒容器位置
         default: 'center'
       },
-      isShowMask: { // 是否显示遮罩层
-        default: false
+      confirmBtnTxt: {
+        default: '确 定'
+      },
+      cancelBtnTxt: {
+        default: '取 消'
+      },
+      confirm: {
+         
+      },
+      showMask: { // 是否显示遮罩层
+        default: true
       },
       time: { // 显示时间
-        default: 999991500
+        default: 3000
       },
       transition: { // 是否开启动画
         default: true
@@ -45,8 +57,16 @@ export default {
  },
  mounted() { // 时间控制
     setTimeout(() => {
-      this.show = false
+    //   this.show = false
     }, this.time)
+ },
+ methods:{
+    clickHandler(status){
+        return new Promise((resolve,reject)=>{
+            this.show = false
+            status ? resolve('confirm') : reject('cancle')
+        })
+    }
  },
  computed: {
     // translate() { // 根据props，生成相对应的动画

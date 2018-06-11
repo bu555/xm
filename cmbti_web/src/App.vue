@@ -64,6 +64,7 @@ export default {
 </script>
 
 <style lang="less">
+    @import '../static/css/my-element.less'; //引入全局less文件
     .root-app {
       // background:url('/static/img/bg_1.png');
       background:#f6f6f6;

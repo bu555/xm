@@ -4,8 +4,14 @@ buzhiguang@163.com  bu5...  帐户名：buzhiguang5
 
 单行自动换行（一定要是块级元素）：
 overflow: hidden;
-text-overflow:ellipsis;
+text-overflow:ellipsis;  //ellipsis 省略
 white-space: nowrap;
+多行自动换行：（高固定并overflow:hidden）
+display: -webkit-box;
+-webkit-box-orient: vertical; //方向
+-webkit-line-clamp: 2;
+overflow: hidden;
+
 
 领福利-移动开发总结:
 1.tel:10086 差异:6plus会直接拨号
