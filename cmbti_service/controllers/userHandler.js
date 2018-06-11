@@ -34,23 +34,25 @@ class User {
     static register(options){
         return new Promise((resolve,reject)=>{
             // 查詢是否重複註冊
-            User.checkNotRegister({name:options.name}).then(r=>{
-                if(r){
+            UserModel.findOne({"name":options.name}).then(user=>{
+                if(!user){
                     let userRegister = new UserModel({
-                        name: options.name,
-                        password: sha1(options.password), // 将密码加密
+                        name: options.name.trim(),
+                        password: sha1(options.password.trim()), // 将密码加密
+                        r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
+                        avatar:'', //头像
+                        profile:'', //简介
+                        sex:"-1",
+                        city:'',
+                        birth:'', //
                     })
                     userRegister.create_time = moment(objectIdToTimestamp(userRegister._id)).format('YYYY-MM-DD HH:mm:ss');
                     userRegister.save((err, user) => {
                         if(err) return reject('Register save faild')
                         // 加入account 庫
-                        UserModel.findOne({"name":user.name}).then(u=>{
-                            if(u){
-                                Account.addAccountInfo({uid:u._id}).then(r=>{
-                                    resolve(u) //成功
+                                Account.addAccountInfo({uid:userRegister._id}).then(r=>{
+                                    resolve(userRegister.name) //成功
                                 })
-                            }
-                        })
                     })
                     
                 }else{
@@ -103,12 +105,27 @@ class User {
               if (!user) {
                 reject('Not find the name')
               } else if (sha1(options.password) === user.password) {
+                  user.password = null;
                   resolve(user)
               } else {
                 reject('賬號或密碼錯誤')
               }
           })
       })
+    }
+    // uid查询用户 {uid:''}
+    static getUserById(options={}){
+        return new Promise((resolve,reject)=>{
+            UserModel.findOne({"_id":options.uid},"avatar r_name").then(user=>{
+                if(user){
+                    resolve(user)
+                }else{
+                    resolve(null)
+                }
+            }).catch((err)=>{
+                reject('The seach error')
+            })
+        })
     }
 
 }

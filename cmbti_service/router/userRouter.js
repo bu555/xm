@@ -30,10 +30,10 @@ const register = (req, res,next) => {
               message: '参数格式错误'
           })
     }
-    User.register(req.body).then(u=>{
+    User.register(req.body).then(uName=>{
         res.json({
            success:true,
-           nane:u.name
+           nane:uName
         })
     }).catch(err=>{
           console.log(err);
@@ -115,25 +115,12 @@ const login = (req, res) => {
           })
     }
     User.login(req.body).then(user=>{
-              // 用户信息写入 session
-        user.password = null;
+        // 用户信息写入 session
         req.session.user = user;
-        // 查詢userinfo
-        Account.getUserInfoById({uid:user._id}).then(user=>{
-            if(user){
-                res.json({
-                  success:true,
-                  user:user,
-                  message:'登錄成功'
-                })
-            }else{
-              reject('查詢userinfo 失敗')
-            }
-        }).catch(err=>{
-            res.json({
-              success:false,
-              message:"操作失敗"
-            })
+        res.json({
+            success:true,
+            user:user,
+            message:'登錄成功'
         })
     }).catch(err=>{
         console.log(err);

@@ -9,12 +9,12 @@ class Account {
         return new Promise((resolve,reject)=>{
             new AccountModel.info({
                 uid:options.uid,
-                r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
-                avatar:'', //头像
-                profile:'', //简介
-                sex:"-1",
-                city:'',
-                birth:'', //
+                // r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
+                // avatar:'', //头像
+                // profile:'', //简介
+                // sex:"-1",
+                // city:'',
+                // birth:'', //
                 // 参与测试结果
                 // t_result:Array, //{mbti:{res:'intj',date:'string'},keirsey:{res:'NT',date:‘string’},function}
                 // 关注的用户

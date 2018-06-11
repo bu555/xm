@@ -107,7 +107,8 @@ class Article {
                 c_time:new Date(),
                 good:false,
                 like:[],
-                likes:0
+                likes:0,
+                update_time:new Date()
             }).save((err,a)=>{
                 if(err) return reject('the article add failed')
                 options.aid = a._id
@@ -226,17 +227,21 @@ class Article {
             ArticleModel.comment.findOne({aid:options.aid}).then(a=>{
                 if(a){
                     let cid = myUtill.randomString(7)
+                    let update_time = new Date()
                     ArticleModel.comment.update({aid:options.aid},{$push:{comment:{       //{multi : true }更新所有匹配项目
                         uid:options.uid,
                         content:options.content,
-                        c_time:new Date(),
+                        c_time:update_time,
                         zan:[],
                         zans:0,
                         replay:[],
                         cid:cid
                     }}},err=>{
                         if(err) return reject('Update faild')
-                        resolve(cid)  //返回cid
+                        resolve({
+                            cid:cid,
+                            update_time:update_time  //回复时间
+                        })  //返回cid
                     })
                 }else{
                     reject('The find aid result is empty ')
@@ -337,7 +342,11 @@ class Article {
             if(options.keyword){
                 pro = ArticleModel.article.find({"title":new RegExp(options.keyword,'i')},"-like")
             }else if(options.category){
-                pro = ArticleModel.article.find({"category":options.category},"-like")
+                if(options.category==='all'){
+                    pro = ArticleModel.article.find({},"-like")
+                }else{
+                    pro = ArticleModel.article.find({"category":options.category},"-like")
+                }
             }else if(options.likes){
                 // Model.find({“age”:{ “$get”:18 , “$lte”:30 } } ); 查询 age 大于等于18并小于等于30的文档
                 // “$lt”小于  “$lte”	小于等于   “$gt”大于   “$gte”	大于等于  “$ne”	不等于
@@ -381,6 +390,15 @@ class Article {
                     }
                 }) 
             })
+    }
+    // 更新最新回复 {aid:'必传',u_time:}
+    static setUpdateTime(options={}){
+        return new Promise((resolve,reject)=>{
+            ArticleModel.article.update({"aid":options.aid},{$set:{"u_time":options.u_time}},err=>{
+                if(err) return reject('update u_time faild')
+                resolve('success')
+            })
+        })
     }
 
 

@@ -35,7 +35,7 @@ export default {
   data() {
       return {
         name:'',
-        password:'Aa111111',
+        password:'Aa222222',
         isSubmit:false,
         nameVerify:true,
         passwordVerify:true,

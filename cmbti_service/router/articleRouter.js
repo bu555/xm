@@ -7,7 +7,7 @@ const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../models/utill')
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
-// const User = require('../controllers/user')
+const User = require('../controllers/userHandler')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
 
@@ -137,10 +137,15 @@ const addComment = (req,res)=>{
     }
     (async ()=>{
         try{
-            let cid = await Article.addComment(options)  //返回cid
-            options.cid = cid
-            // 加入到个人记录
-            let added = await Account.addCommentLog(options)
+            let r = await Article.addComment(options)  //返回cid
+            options.cid = r.cid
+            options.update_time = r.update_time
+            // 加入到个人记录,更新Article最新时间
+            await Promise.all([
+                Account.addCommentLog(options),
+                Article.setUpdateTime(options)
+            ])
+            // let added = await Account.addCommentLog(options)
             // 记录加入account
             res.json({
                 success: true,
@@ -201,13 +206,33 @@ const getArticle = (req,res)=>{
     }
     (async ()=>{
         try{
-            let r = await Article.getArticle(options)  
-            
+            // let page = options.page ? Number(options.page) : 1
+            // let size = options.size ? Number(size) : 10
+            let size = myUtill.verifyNum(options.size) ? Number(options.size) : 5  //每次条数
+            let page = myUtill.verifyNum(options.page) ? Number(options.page) : 1  //页数
+            let data = await Article.getArticle(options) 
+            let total = data.length
+            let newList = JSON.parse(JSON.stringify(data.slice(  (page-1)*size,page*size   ))) 
+            let proArr = []
+            newList.forEach((v,i)=>{
+                proArr.push(User.getUserById({uid:v.uid}))
+            })
+            let userList = await Promise.all(proArr)
+            for(let i=0;i<newList.length;i++){
+                if(userList[i]){
+                    newList[i].r_name = userList[i].r_name
+                    newList[i].avatar = userList[i].avatar 
+                }else{
+                    newList[i].r_name = '已注销'
+                    newList[i].avatar = ''
+                }
+            }
+
             res.json({
                 success: true,
                 message: 'Success',
-                result: r,
-
+                data: newList,
+                total:total
             })
 
         }catch(err){
@@ -222,6 +247,7 @@ const getArticle = (req,res)=>{
 // aid获取文章 options {aid:''}
 const getArticleById = (req,res)=>{
     let options = req.body || {}
+    options.uid = req.session.user ? req.session.user._id : ''
     // 参数验证
     if(!options.aid || typeof(options.aid)!=='string'){
         return res.json({
@@ -236,13 +262,21 @@ const getArticleById = (req,res)=>{
             delete result.like
             // delete r[0].like 
             result.content = a[1].content
-            let user = await Account.getUserInfoById({uid:a[0].uid})
+            let user = await User.getUserById({uid:a[0].uid})
             result.r_name = user.r_name
             result.avatar = user.avatar
+            result.articleLiked = false 
+            console.log(options.uid);
+            if(options.uid){
+                let loginUser = await Account.getUserInfoById({uid:options.uid})
+                if(loginUser.likes_atricle.indexOf(options.aid)!==-1){
+                    result.articleLiked = true
+                }
+            }
             res.json({
                 success: true,
                 message: 'Success',
-                result: result
+                data: result
             })
 
         }catch(err){
@@ -273,7 +307,7 @@ const getCommentByAid = (req,res)=>{
                 let newList = JSON.parse(JSON.stringify(list.slice((options.page-1)*options.size, (options.page-1)*options.size + options.size)))
                 let proArr = []
                 newList.forEach((v,i)=>{
-                    proArr.push(Account.getUserInfoById({uid:v.uid}))
+                    proArr.push(User.getUserById({uid:v.uid}))
                 })
                 let userList = await Promise.all(proArr)
                 for(let i=0;i<newList.length;i++){
@@ -293,8 +327,7 @@ const getCommentByAid = (req,res)=>{
                 res.json({
                     success: true,
                     message: 'Success',
-                    result: newList,
-                    sss:options.uid?options.uid:'未登錄'
+                    data: newList
                 })
             }catch(err){
                 return res.json({
@@ -307,8 +340,12 @@ const getCommentByAid = (req,res)=>{
 
 
 router.post('/publish',checkLogin,publishArticle);
+router.post('/addComment',checkLogin,addComment);
+router.post('/clickArticleLike',checkLogin,clickArticleLike);
+router.post('/clickCommentZan',checkLogin,clickCommentZan);
 router.post('/getArticle',getArticle);
 router.post('/getCommentByAid',getCommentByAid);
+router.post('/getArticleById',getArticleById);
 // // router.post('/login',checkNotLogin,login);
 // router.post('/login',login);
 // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码

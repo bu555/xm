@@ -77,7 +77,7 @@
                 </router-link>
               </li>
               <li class=""  index='4'>
-                <router-link to="/forum?category=all">
+                <router-link to="/forum?category=all&page=1">
                     M论坛
                 </router-link>
               </li>
