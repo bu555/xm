@@ -5,13 +5,14 @@
             <div class="a-header">
                 <div class="title">
                     <div  class="a-type">
-                        <div class="good">精华</div>
-                        <div class="share">分享</div>
-                        <div class="ask">问答</div>
+                        <div class="good"  v-if="data.good">精华</div>
+                        <div class="share" v-if="data.category==='share'">分享</div>
+                        <div class="ask"  v-if="data.category==='ask'">问答</div>
                     </div>
-                    <div class="" style="position:relative;width:100%;min-height:99px">
-                        <div class="h1">分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩</div>
+                    <div class="" style="position:relative;width:100%;min-height:55px">
+                        <!--<div class="h1">分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩</div>-->
                         <!--<div class="h1">分享推荐一个自己发现的一个VPS，有兴趣</div>-->
+                        <div class="h1">{{data.title}}</div>
                         <div class="t-info"> 
                             <div class="text">
                                 <!--作者 <router-link to="">
@@ -20,14 +21,17 @@
                                 </router-link>-->
                                 <span>
                                 <router-link to="">
-                                        <i class="icon iconfont icon-people"></i>阿凡达 
+                                        <i class="icon iconfont icon-people"></i>{{data.r_name}}
+                                        <!--作者阿凡达 -->
+                                        
                                 </router-link>
                                 </span>
-                                <span><i class="el-icon-time"></i> 发布于2个月前</span>
+                                <!--<span ><i class="el-icon-time"></i> 发布于2个月前</span>-->
+                                <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span>
                                 <!--<span><i class="el-icon-view"></i>14567次浏览</span>
                                 <span><i class="el-icon-share"></i>147次分享</span>-->
-                                <span v-if="false" class="a-mark btns1" style="margin-right:15px"><i class="el-icon-star-off" ></i>标记</span>
-                                <span v-else class="a-mark btns2" style="color:#598dd3"><i class="el-icon-star-on"></i>已标记</span>
+                                <!--<span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="el-icon-star-on" style="font-size:16px"></i>已标记</span>
+                                <span v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="el-icon-star-off"  style="font-size:16px"></i>标记</span>-->
                             </div>
                             <!--<div  class="author">
                                 <img src="/static/img/logo_a.png" alt="">
@@ -42,18 +46,28 @@
                     </div>
                 </div>
             </div>
-            <div class="a-body">
-                <p>
+            <div class="a-body">{{data.content}} <button @click="addComment">评论</button>
+                <!--<p>
                 分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有 
                 </p>
-                <p>自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有</p>
+                <p>自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有</p>-->
+            </div>
+            <div class="a-footer">
+                <div>
+                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-heart" style="font-size:16px"></i> 喜欢 <em style="font-size:14px">({{data.likes}}</em>)</span>
+                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-heart-o"  style="font-size:16px"></i> 喜欢 <em style="font-size:14px">({{data.likes}})</em></span>
+                    
+                </div>
+                <div>
+                    <el-button plain size="small"  style="font-size:15px"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 写评论</el-button>
+                </div>
             </div>
 
          </div>
          <div class="comment">
-             <div class="c-header" >
+            <div class="c-header" >
                  <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
-                 <span>评论</span>
+                 <span> 评论</span>
              </div>
             <div class="c-tab">
                 <span>按</span>
@@ -62,20 +76,24 @@
                 <span class="time" @click="toggleCommentType($event,'time')">时间</span>
             </div>
              <div class="c-body">
-                <div class="c-list" v-for="(v,i) in 4">
+                <div v-if="commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                <div class="c-list" v-for="(v,i) in commentList">
                     <div class="photo">
                         <router-link to="">
-                            <img src="/static/img/logo_a.png" alt="">
+                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                            <img v-else src="/static/img/logo_a.png" alt="">
                         </router-link>
                     </div>
-                    <div class="c-name">宋江001
-                        <span  style="font-size:13px">12天前</span> 
+                    <div class="c-name">{{v.r_name}}
+                        <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
                     </div>
-                    <div class="c-content">搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html</div>
+                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
+                        <!--搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html-->
+                    </div>
                     <div class="c-ctrl">
-                        <div class="zan c-c" @click="zan($event)">
+                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
                             <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
-                            <em>20000</em> 
+                            <em>{{v.zans}}</em> 
                         </div>
                         <div class="reply c-c">
                             <i class="icon iconfont icon-message" style="font-size:24px"></i> 
@@ -86,6 +104,10 @@
                             <em></em> 
                         </div>
                     </div>
+                </div>
+
+                <div class="load-more" v-if="currentCommentList.length==size" @click="moreComment">
+                加载更多...
                 </div>
              </div>
 
@@ -103,41 +125,80 @@
 <script>
 export default {
     data(){
-
+        return {
+            aid:'',
+            data:{},
+            commentList:[],
+            size:3,
+            commentPage:1,
+            currentCommentList:[]
+        }
     },
     methods:{
-        toggleCommentType(e){
-            console.log(e.target);
-        },
-        zan(e){
-            let count = e.currentTarget.querySelector('em').innerHTML
-            if(e.currentTarget.classList.contains('active')){
-                 count = Number(count)-1
-            }else{
-                 count = Number(count)+1
-            }
-            e.currentTarget.querySelector('em').innerHTML = count
-            e.currentTarget.classList.toggle('active')
+        zan(e,cid,zans){
+            console.log(e.currentTarget.querySelector('em'));
+            let d = e.currentTarget.querySelector('em')
+            let count = d.innerHTML
+            // console.log(count);
+            this.$axios.clickArticleCommentZan({aid:this.aid,cid:cid}).then(res=>{
+                if(res.data.success){
+                    // if(e.currentTarget.classList.contains('active')){
+                    //     count = Number(count)-1
+                    // }else{
+                    //     count = Number(count)+1
+                    // }
+                    d.innerHTML = Number(count)+res.data.result.count
+                    // e.currentTarget.classList.toggle('active')
+                }
+            })
 
         },
         getCommentByAid(){
-            this.$axios.getCommentByAid({aid:'5b10a11fe9e24821305e3648',page:'1',size:'3'}).then(res=>{
-                if(res.success){
-                    console.log(res);
+            this.$axios.getCommentByAid({aid:this.aid,page:this.commentPage,size:this.size}).then(res=>{
+                if(res.data.success){
+                    this.currentCommentList = res.data.data
+                    this.commentList = this.commentList.concat(res.data.data)
                 }
             })
+        },
+        getArticleInfo(){
+            this.$axios.getArticleById({aid:this.aid}).then(res=>{
+                if(res.data.success){
+                    this.data = res.data.data
+                }
+            })
+        },
+        addComment(){
+            this.$axios.articleAddComment({aid:this.aid,content:'这是评论内容'}).then(res=>{
+                if(res.data.success){
+                    console.log('评论成功');
+                }
+            })
+        },
+        clickLike(){
+            this.$axios.clickArticleLike({aid:this.aid}).then(res=>{
+                if(res.data.success){
+                    this.data.likes = this.data.likes+res.data.result.count
+                    this.data.articleLiked = !this.data.articleLiked
+                }
+            })
+        },
+        moreComment(){
+            this.commentPage = this.commentPage-0+1  //页数加1
+            this.getCommentByAid()  //获取下一页评论
+        },
+        // 显示所有评论
+        showAllComment(e){
+            e.currentTarget.classList.toggle('overflow-row-5')
         }
-
     },
     created(){
-            let category = this.$route.query.category
-            if(!category){
-                this.$router.push({
-                    query:{category:'all'}
-                })
-            }
-
+        this.aid = this.$route.path.split('/')[2]
+        if(this.aid){
+            this.getArticleInfo()
             this.getCommentByAid()
+
+        }
     }
     
 };
@@ -175,7 +236,7 @@ export default {
                         width:32px;
                         line-height: 18px;
                         text-align:center;
-                        font-size:14px;
+                        font-size:13px;
                         white-space: nowrap;
                         border-radius:3px;
                         color:#fff;
@@ -186,7 +247,9 @@ export default {
                         background: #feae4b;
                     }
                     .share {
-                        background-color: #598dd3;
+                        // background-color: #598dd3;
+                        border:1px solid #bbb;
+                        color: #bbb;
                     }
                     .ask {
                         background-color: #80bd01;
@@ -209,26 +272,16 @@ export default {
                         display:flex;
                         flex-wrap:wrap;
                         align-items:center;
+                        margin-left: -2px;
                         &>span {
                             margin:0px 15px 0px 0;
                         }
-                        .a-mark {
-                        // line-height: 18px;
-                        border-radius:2px;
-                        cursor:pointer;
-                        display:inline-block;
-                        font-size:14px;
-                        &:hover {
-                            color:#456ea5;
-                        }
-                        .a-mark.btns2 {
-                            color:#598dd3;
-                        }
+
 
                         }
                     }
                     i {
-                        margin-left:5px;
+                        // margin-left:5px;
                     }
                     a {
                         color:#838383;
@@ -297,30 +350,57 @@ export default {
             }
         }
         .a-body {
-            padding:3% 4.5% 5% 4%;
+            padding:3% 6% 5% 8%;
             font-size:16px;
             // border-bottom:1px solid #efefef;
             border-top:1px solid #efefef;
+            min-height:150px;
         }
         .a-footer {
-            padding:1% 4.5% 1% 4%;
+            padding:2% 6% 2% 8%;
+            border-top:1px solid #eee;
+            border-bottom:1px solid #eee;
+            background-color: #fefefe;
+            display:flex;
+            justify-content: space-between;
+            &>div {
+                height:36px;
+                line-height: 36px;
+                border-radius:18px;
+                // border:1px solid #ccc;
+            }
+            .a-like {
+            // line-height: 18px;
+            border-radius:2px;
+            cursor:pointer;
+            display:inline-block;
+            font-size:16px;
+            color:#888;
+            &:hover {
+                color:#4d9efc;
+            }
+            .a-like.btns2 {
+                color:#4d9efc;
+            }
 
         }
-        .comment {
-            background-color: #fff;
-            .c-header {
-                height:40px;
-                line-height: 40px;
-                background-color: #a4c8ed;
-                padding-left:4%;
-                color:#fff;
-                font-size:17px;
-                display:flex;
-                &>span {
-                    margin-right:4px;
-                }
-            }
-            .c-tab {
+    }
+    .comment {
+        background-color: #fff;
+        min-height:150px;
+        padding-bottom:10px;
+        .c-header {
+            height:40px;
+            line-height: 40px;
+            border-bottom:1px solid #eee;
+            background-color: #a4c8ed;
+            padding-left:4%;
+            color:#fff;
+            font-size:16px;
+            display:flex;
+            align-items:center;
+        }
+        .c-tab {
                 height:35px;
                 line-height: 35px;
                 border-bottom:1px solid #fafafa;
@@ -340,72 +420,83 @@ export default {
                     color:#222;
                 }
             }
-            .c-body {
-                padding:0.5% 4.5% 3% 4%;
-                .c-list {
-                    // background: pink;
-                    min-height:60px;
-                    padding:12px 0px 9px 50px;
-                    border-bottom:1px solid #f7f7f7;
-                    position: relative;
-                    color:#3c3c3c;
-                    .photo {
-                        width:39px;
-                        height:39px;
-                        border:1px solid #eee;
-                        position: absolute;
-                        top:15px;
-                        left:0px;
-                        border-radius:2px;
-                        img {
-                            width:100%;
-                            height:100%;
-                        }
+        .c-body {
+            padding:2% 4.5% 3% 4%;
+            .c-list {
+                // background: pink;
+                min-height:60px;
+                padding:12px 0px 9px 50px;
+                border-bottom:1px solid #f7f7f7;
+                position: relative;
+                color:#3c3c3c;
+                .photo {
+                    width:39px;
+                    height:39px;
+                    border:1px solid #eee;
+                    position: absolute;
+                    top:15px;
+                    left:0px;
+                    border-radius:2px;
+                    img {
+                        width:100%;
+                        height:100%;
                     }
-                    .c-name {
-                        font-size:15px;
-                        font-weight:700;
-                        // color:#456ea5;
-                        &>span {
-                            color:#aaa;
-                            padding-left:10px;
-                            font-weight:400;
-                        }
+                }
+                .c-name {
+                    font-size:15px;
+                    font-weight:700;
+                    // color:#456ea5;
+                    &>span {
+                        color:#aaa;
+                        padding-left:10px;
+                        font-weight:400;
                     }
-                    .c-content {
-                        padding:2px 0 5px;
-                        font-size:15px;
-                    }
-                    .c-ctrl {
+                }
+                .c-content {
+                    padding:2px 0 5px;
+                    font-size:15px;
+                }
+                .c-ctrl {
+                    display:flex;
+                    font-size:14px;
+                    padding-top:5px;
+                    .c-c {
+                        line-height: 20px;;
+                        vertical-align: middle;
                         display:flex;
-                        font-size:14px;
-                        .c-c {
-                            line-height: 20px;;
-                            vertical-align: middle;
-                            display:flex;
-                            align-items: center;
-                            cursor:pointer;
-                            width:25px;
-                            margin-right:50px;
-                            color:#cbcbcb;
-                            i {
-                                padding:2px 2px 2px 1px;
-                            }
-                            em {
-                                padding-top:4px;
-                            }
+                        align-items: center;
+                        cursor:pointer;
+                        width:25px;
+                        margin-right:50px;
+                        color:#cbcbcb;
+                        i {
+                            padding:2px 2px 2px 1px;
                         }
-                        .zan {
-                            margin-right:60px;
-                            &:hover {
-
-                            }
-
-                        }
-                        .zan.active {
-                            color:#70a9e5;
+                        em {
+                            padding-top:4px;
                         }
                     }
+                    .zan {
+                        margin-right:50px;
+                        &:hover {
+
+                        }
+
+                    }
+                    .zan.active {
+                        color:#70a9e5;
+                    }
+                }
+            }
+            .load-more {
+                max-width:365px;
+                margin:0 auto;
+                text-align:center;
+                padding:10px 0;
+                cursor:pointer;
+                color:#598dd3;
+                &:hover {
+                    color:#456ea5;
                 }
             }
         }
@@ -501,7 +592,6 @@ export default {
             .comment {
                 // padding:2% 2.5% 2% 3%;
                 padding:0;
-                min-height:47px;
                 .c-body {
                     padding:2% 2.5% 2% 3%;
                     .c-list {
@@ -510,6 +600,10 @@ export default {
                         }
                     }
                 }
+
+            }
+            .a-footer {
+                padding:2% 2.5% 2% 4%;
             }
         }
     }

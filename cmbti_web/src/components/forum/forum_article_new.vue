@@ -29,7 +29,7 @@
                         @change="onEditorChange($event)">
         </quill-editor>-->
 
-                    <vue-html5-editor :content="initContent" :height="200" width="100%" @change="updateData" ></vue-html5-editor>
+                    <vue-html5-editor :content="form.content" :height="200" width="100%" @change="updateData" ></vue-html5-editor>
                     <!--<editor :content="content" :height="500" :z-index="1000" :auto-height="true" :show-module-name="false"></editor>-->
                 
                     </div>
@@ -71,11 +71,9 @@ export default {
         return {
             form:{
                 title:'',
-                type:'',
                 category:'',
                 content:''
             },
-            initContent:'',
         }
     },
     components: {
@@ -83,31 +81,27 @@ export default {
         // 'editor1' : new VueHtml5Editor(this.options1)
     },
     mounted(){
-            this.$message({
-          showClose: true,
-          message: '警告哦，这是一条警告消息',
-          type: 'warning'
-        });
     },
     methods:{  
         submitArticle(){
-            console.log(this.form.title);
-            console.log(this.form.category);
-            console.log(this.form.content);
-            // input : {uid:'',title:'',category:'share',content:''}
             this.$axios.articlePublish({
                 title:this.form.title,
                 category:this.form.category,
                 content:this.form.content
             }).then(res=>{
-                if(res.success){
-                    
+                if(res.data.success){
+                    this.form.title = ''
+                    this.form.category = ''
+                    this.form.content = ''
+                    this.$message({
+                        message: '发表成功！',
+                        type: 'success'
+                    });
                 }
             })
         },
         updateData(html){
             this.form.content = html
-            console.log(this.form.content);
         },
         init(){
 

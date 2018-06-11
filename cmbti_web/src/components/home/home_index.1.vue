@@ -12,11 +12,42 @@ export default {
         
     },
     created(){
-        this.$layer.alert('555555')
-        setTimeout(()=>{
-            // this.$layer.alert.hide()
-        },91000)
+        // this.$layer.alert({
+        //     title:'标题123',
+        //     message:'确定伤处？'
+        // }).then(()=>{
+        //     console.log('确定');
+        // }).catch(()=>{
+        //     console.log('取消');
+        // })
+
+        // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        //   confirmButtonText: '确定',
+        //   cancelButtonText: '取消',
+        //   type: 'warning'
+        // }).then(() => {
+        //   this.$message({
+        //     type: 'success',
+        //     message: '删除成功!'
+        //   });
+        // }).catch(() => {
+        //   this.$message({
+        //     type: 'info',
+        //     message: '已取消删除'
+        //   });          
+        // });
+
+        this.$alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
     }
+    
 };
 </script>
 <style lang="less">

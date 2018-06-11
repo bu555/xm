@@ -40,7 +40,8 @@ const articleSchema = new mongoose.Schema({
     c_time:Date,
     good:Boolean, //加精
     like:[String],
-    likes:Number
+    likes:Number,
+    update_time:Date, //更新时间
 })
 // 实例方法
 // articleSchema.methods.updateLikes = function(){

@@ -1,20 +1,19 @@
 <template>
-<div class="forum">
+<div class="forum" v-loading="loading">
     <div class="main-box">
         <div class="tabs">
-            <router-link :to="{query:{category:'all'}}">
-                全部
+            <router-link :to="{query:{category:'all',page:'1'}}">
+                <span :class="$route.query.category==='all'?'active':''">全部</span>
             </router-link>
-            <router-link :to="{query:{category:'good'}}">
-                精华
+            <router-link :to="{query:{category:'good',page:'1'}}">
+                <span :class="$route.query.category==='good'?'active':''">精华</span>
             </router-link>
-            <router-link :to="{query:{category:'share'}}">
-                分享
+            <router-link :to="{query:{category:'share',page:'1'}}">
+                <span :class="$route.query.category==='share'?'active':''">分享</span>
             </router-link>
-            <router-link :to="{query:{category:'ask'}}">
-                问答
+            <router-link :to="{query:{category:'ask',page:'1'}}">
+                <span :class="$route.query.category==='ask'?'active':''">问答</span>
             </router-link>
-            <a style=""><span style="display:inline-block;width:2px"></span></a>
             <!--发帖按钮-->
             <div class="ctrl-bar">
                 <router-link to="/forum/article/new">
@@ -25,7 +24,28 @@
         </div>
         <div class="article-list">
             <ul>
-                <li v-for="(v,i) in 5">
+                <li v-for="(v,i) in list">
+                        <div class="author u-photo">
+                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                            <img v-else src="/static/img/logo_a.png" alt="">
+                            <div class="u-name">{{v.r_name}}</div>
+                        </div>
+                        <div class="title1">
+                            <span class="category-type" v-if="v.good">精</span>
+                            <router-link :to="'/forum/'+v._id">
+                            <!--<span class="txt" style="white-space: nowrap;">-->
+                            <span class="txt" style="">
+                                {{v.title}}
+                            </span>
+                            </router-link>
+                        </div>
+                        <!--<div class="last-replay u-photo">
+                            <img src="/static/img/logo_a.png" alt="">
+                            <div class="u-name">名字123</div>
+                        </div>-->
+                        <div class="last-replay-date">{{$moment(v.update_time ? v.update_time:v.c_time).startOf().fromNow()}} 更新</div>
+                </li>
+                <!--<li v-for="(v,i) in 5">
                         <div class="author u-photo">
                             <img src="/static/img/logo_a.png" alt="">
                             <div class="u-name">名字123</div>
@@ -33,7 +53,6 @@
                         <div class="title1">
                             <span class="category-type">精</span>
                             <router-link :to="'/forum/'+123">
-                            <!--<span class="txt" style="white-space: nowrap;">-->
                             <span class="txt" style="">
                                 {{i%2===0?'文章标题U章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章':'《Node.js 调试指南》开源书籍发布'}}
                             </span>
@@ -44,10 +63,22 @@
                             <div class="u-name">名字123</div>
                         </div>
                         <div class="last-replay-date">14小时前</div>
-                </li>
+                </li>-->
  
             </ul>
 
+        </div>
+        <!--分页-->
+        <div style="text-align:center;padding:15px 0 22px;">
+            <el-pagination
+            background
+            :current-page="currentPage"
+            :page-size ="size"
+            :pager-count="5"
+            @current-change="changePage"
+            layout="prev, pager, next"
+            :total="total">
+            </el-pagination>
         </div>
     </div>
     <div class="aside-box">
@@ -61,31 +92,73 @@
 </template>
 <script>
 export default {
+    data(){
+        return {
+            list:'',
+            total:0,
+            size:12,
+            currentPage:0,
+            loading:false
+        }
+    },
+    watch:{
+        "$route.query":function(){
+            this.getArticle({
+                category:this.$route.query.category || 'all',
+                page:this.$route.query.page || '1'
+            })
+        }
+    },
     methods:{
+        // 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean}
+        getArticle(options){
+            this.loading = true
+            this.$axios.getArticle(Object.assign({
+                size:this.size
+            },options)).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.list = res.data.data
+                    this.total = res.data.total
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        changePage(p){
+            this.currentPage = p
+            let q = JSON.parse(JSON.stringify(this.$route.query))
+            q.page = p
+            this.$router.push({query:q} )
+            // console.log(val);
+        },
         init(){
-
+            let query = this.$route.query;
+            if(!query.category || !query.page){
+                // this.$router.push({
+                //     query:{
+                //         category:'all',
+                //         page:'1'
+                //     }
+                // })
+            }
+            this.getArticle({
+                category:this.$route.query.category,
+                page:this.$route.query.page
+            })
+            this.currentPage = query.page?Number(query.page):1
         }
 
     },
-    methods:{
-        getArticle(){
-            this.$axios.getArticle({}).then(res=>{
-                if(res.success){
-                    console.log(res);
-                }
-            })
-        },
-
-    },
     created(){
-            let category = this.$route.query.category
-            if(!category){
-                this.$router.push({
-                    query:{category:'all'}
-                })
-            }
+            // let category = this.$route.query.category
+            // if(!category){
+            //     this.$router.push({
+            //         query:{category:'all'}
+            //     })
+            // }
 
-            this.getArticle()
+            this.init()
     }
     
 };
@@ -106,17 +179,21 @@ export default {
             padding:15px 15px;
             background-color: #fcfcfc;
             position: relative;
-            .router-link-active {
-                padding:4px;
-                margin:5px;
+            &>a>span {
+                display:inline-block;
+                width:47px;
+                height:25px;
+                margin-right:10px;
                 font-size:17px;
                 border-radius:3px;
                 color:#104996;
+                text-align:center;
+                line-height: 25px;
                 &:hover {
                     text-decoration: none;
                 }
             }
-            .router-link-exact-active {
+            &>a>span.active {
                 background-color: #456ea5;
                 color:#fff;
                 text-decoration: none;
@@ -131,7 +208,7 @@ export default {
         .article-list {
                     background: @bg;
                     width:100%;
-                    min-height:322px;
+                    min-height:420px;
                     ul {}
                     li{
                         display:flex;
@@ -153,14 +230,16 @@ export default {
                     }
                     .u-photo {
                         // flex:0 0 11%;
-                        margin:3px;
-                        width:37px;
-                        height:37px;
+                        margin:4px 3px;
+                        width:35px;
+                        height:35px;
                         overflow:inherit;
                         position: relative;
                         box-sizing: border-box;
                         cursor:pointer;
+                        overflow: hidden;
                         &:hover {
+                        overflow:visible;
                             .u-name {
                                 display:block;
                                 opacity:1;
@@ -225,6 +304,7 @@ export default {
                         }
                     }
                     .last-replay-date {
+                        font-size:14px;
                         flex:0 0 16%;
                         color:#d4cfcf;
                     }
@@ -243,15 +323,15 @@ export default {
         }
     }
     a:hover {
-        text-decoration:none;
+        text-decoration:underline;
     }
     @media screen and (max-width:768px){
         flex-wrap:wrap;
         .main-box {
             .tabs {
                 padding-left:5px !important;
-                a {
-                    margin:5px 2px !important;
+                &>a>span {
+                    margin-right:2px !important;
                 }
             }
             .ctrl-bar button {
@@ -293,9 +373,9 @@ export default {
                             display:none;
                         }
                         .last-replay-date {
-                            font-size:13px;
+                            font-size:12px;
                             margin:0;
-                            flex:0 0 18%;
+                            flex:0 0 22%;
                         }
                         .author {
                             // display:none;

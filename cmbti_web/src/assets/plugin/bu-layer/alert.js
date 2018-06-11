@@ -41,15 +41,17 @@ const Alert = {
                 $vm.show = false
                 return
             }
-            if(typeof options === 'string') { // 对参数进行判断
-                $vm.text = options // 传入props
-            }else if(Object.prototype.toString.call(options)==='[object Object]'){
+            if(Object.prototype.toString.call(options)==='[object Object]'){
                 Object.assign($vm, options) // 合并参数与实例
             }else{
                 console.log('Params error!')
                 return
             }
             $vm.show = true
+            console.log($vm);
+            return function(){
+
+            }
         }
     }
 }

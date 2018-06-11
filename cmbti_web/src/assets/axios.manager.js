@@ -15,10 +15,10 @@ axios.defaults.timeout = 7000;
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {
-    loadinginstace = Loading.service({ fullscreen: true })
+    // loadinginstace = Loading.service({ fullscreen: true })
     return config
 }, error => {
-    loadinginstace.close()
+    // loadinginstace.close()
     Message.error({
     message: '加载超时'
     })
@@ -26,7 +26,7 @@ axios.interceptors.request.use(config => {
 })
 // http响应拦截器
 axios.interceptors.response.use(data => {
-    loadinginstace.close()
+    // loadinginstace.close()
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
         Promise.reject(error)
@@ -34,7 +34,7 @@ axios.interceptors.response.use(data => {
         return data
     }
 }, error => {
-    loadinginstace.close()
+    // loadinginstace.close()
     Message.error({
     message: '加载失败'
     })
@@ -118,7 +118,7 @@ export default {
     uploadPhoto(data){
         return axios.post(pathAPI+'/account/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
     },
-
+// Article----------------------------------------------
     // 發表文章 
     articlePublish(data){
         return axios.post(pathAPI+'/article/publish',data);
@@ -127,8 +127,24 @@ export default {
     getArticle(data){
         return axios.post(pathAPI+'/article/getArticle',data);
     },
+    // 獲取文章（标题+内容） 
+    getArticleById(data){
+        return axios.post(pathAPI+'/article/getArticleById',data);
+    },
     // aid獲取文章評論  options {aid:'必传',page:'必传',size:'必传'}
     getCommentByAid(data){
         return axios.post(pathAPI+'/article/getCommentByAid',data);
+    },
+    // {aid:'',,content:''} 文章评论 需登录
+    articleAddComment(data){
+        return axios.post(pathAPI+'/article/addComment',data);
+    },
+    // {aid:'',} like文章 需登录
+    clickArticleLike(data){
+        return axios.post(pathAPI+'/article/clickArticleLike',data);
+    },
+    // 对文章评论点赞  input : {aid:'',uid:'',cid:''} 需登录
+    clickArticleCommentZan(data){
+        return axios.post(pathAPI+'/article/clickCommentZan',data);
     },
 }

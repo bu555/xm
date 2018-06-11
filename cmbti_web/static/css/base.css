@@ -68,7 +68,7 @@ s,i,em{font-style:normal;text-decoration:none;}
     text-overflow:ellipsis;
     white-space: nowrap;
 }
-.overflow-row-2,.overflow-row-3,.overflow-row-8 {
+.overflow-row-2,.overflow-row-3,.overflow-row-5,.overflow-row-8 {
     display: -webkit-box;    
     -webkit-box-orient: vertical;    
     -webkit-line-clamp: 2;    
@@ -76,6 +76,9 @@ s,i,em{font-style:normal;text-decoration:none;}
 }
 .overflow-row-3 {    
     -webkit-line-clamp: 3;    
+}
+.overflow-row-5 {    
+    -webkit-line-clamp: 5;    
 }
 .overflow-row-8 {    
     -webkit-line-clamp: 8;    

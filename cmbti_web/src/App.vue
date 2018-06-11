@@ -64,9 +64,10 @@ export default {
 </script>
 
 <style lang="less">
+    @import '../static/css/my-element.less'; //引入全局less文件
     .root-app {
       // background:url('/static/img/bg_1.png');
-      background:#f6f6f6;
+      background:#f0f0f0;
       a {text-decoration:none;color:#333 }
       a:focus {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
       a:active {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
