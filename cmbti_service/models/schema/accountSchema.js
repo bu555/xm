@@ -11,6 +11,7 @@ const infoSchema = new mongoose.Schema({
     // 参与测试结果
     // t_result:Array, //{mbti:{res:'intj',date:'string'},keirsey:{res:'NT',date:‘string’},function}
     // 关注的用户
+    test_record:[String],
     followers:[String], //['uid','uid']
     // 被关注
     following:[String], //['uid','uid']

@@ -72,7 +72,7 @@ export default {
         .test-list {
         }
     }
-    @media screen and (max-width:500px){
+    @media screen and (max-width:525px){
 
     }
 }

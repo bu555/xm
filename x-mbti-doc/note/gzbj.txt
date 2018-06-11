@@ -1,5 +1,34 @@
 ﻿CMPool Github:
 https://github.com/Touch-Network/CMPool_Web.git
+<<<<<<< HEAD
+buzhiguang@163.com  bu5...  �ʻ�����buzhiguang5
+
+�츣��-�ƶ������ܽ�:
+1.tel:10086 ����:6plus��ֱ�Ӳ���
+2.text-indent:1rem  ����:android(��ƫ)��ios(��ƫ)
+
+mongodb:
+��װ�󣬴��̸�Ŀ¼����data/db���ٴ�binĿ¼mongod.exe�������ݿ�
+
+����ҳ�����:
+����HTML�ṹ��
+�����ⲿ�ű�����ʽ���ļ���
+������ִ�нű����롣
+DOM��������ɡ�//DOMContentLoaded
+����ͼƬ���ⲿ�ļ���
+ҳ�������ϡ�//load
+document.addEventListener("DOMContentLoaded", function() { //dom������
+   // ...����...
+}, false);
+
+window.addEventListener("load", function() { //������Դ������
+    // ...����...
+}, false);
+��jQ��ôд
+// DOMContentLoaded
+$(document).ready(function() {
+    // ...����...
+=======
 buzhiguang@163.com  bu5...  帐户名：buzhiguang5
 
 单行自动换行（一定要是块级元素）：
@@ -38,10 +67,22 @@ window.addEventListener("load", function() { //所有资源加载完
 // DOMContentLoaded
 $(document).ready(function() {
     // ...代码... 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 });
 
 //load
 $(document).load(function() {
+<<<<<<< HEAD
+    // ...����...
+});
+
+window��nginx���ã�
+nginx�����ļ��� nginx-1.8.0\conf\nginx.conf
+http {
+     gzip  on;
+
+    #��̬�ļ�
+=======
     // ...代码...
 });
 
@@ -51,6 +92,7 @@ http {
      gzip  on;
 
     #静态文件
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     server {
         listen       80;
         server_name  static.cnblog.com;
@@ -60,7 +102,11 @@ http {
         }
     }
 
+<<<<<<< HEAD
+    #html�ļ�
+=======
     #html文件
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     server {
         listen       80;
         server_name  127.0.0.1 localhost;
@@ -71,6 +117,112 @@ http {
         }
     }
 }
+<<<<<<< HEAD
+һ��Ҫ���������������
+��nginx.exeĿ¼���������й��ߣ������� ��/�ر�/����nginx 
+ 
+start nginx : ��nginx
+nginx -s reload  ���޸����ú����¼�����Ч
+nginx -s reopen  �����´���־�ļ�
+nginx -t -c /path/to/nginx.conf ����nginx�����ļ��Ƿ���ȷ
+
+�ر�nginx��
+nginx -s stop  :����ֹͣnginx
+nginx -s quit  �����������ֹͣnginx
+
+�����������
+bash: nginx: command not found
+�п���������linux�����л�����������windows���
+�����֮ǰ������ nginx -s reload���� ���� ./nginx -s reload
+���� ��windowsϵͳ�Դ������й�������
+
+vue-cli�������
+�ο����ϣ�
+https://www.zhihu.com/question/46630687 
+https://www.cnblogs.com/xyyt/p/7718867.html ���vue-routerǶ��·��(��·��)��historyģʽ��ˢ���޷���Ⱦҳ�������
+���ڴ����Ҫ��ȷ�����飺
+1.vue��ǰ�˿�ܣ�build�Ķ�������html/css/js��Щ(����������ܵģ���nodejsû��ë��ϵ��)��
+2.nodejsֻ�Ǵ��빹�����������Ե�һ�����������ʾ���ǰ�˴��뿪���Ĺ��ߣ��ֻ���˵�ǵ��ʯ��
+3.vue-cli�ṩ��hash��history����·��ģʽ,hashģʽurl�ṹ��127.0.01/#/home��historyģʽurl�ṹ��127.0.01/home�������ļ�Ĭ����hashģʽ����Ҫ����historyģʽ��Ҫ��·�������ļ������� mode:'history'��һ���˲��᷵��404; hashģʽ����history.hashʵ�֣�historyģʽ����pushState()��replaceState()����ʵ�֣���˿��ܷ���404�����Ҫ�Է�������������(���vue�ٷ�)��һ�㳡�����߶�����ʹ�á�--�ο���https://segmentfault.com/q/1010000010340823/a-1020000010598395
+4.���ٷ����ú�children·��ˢ��Ҳͬ��������ʾ������������Խ�config/index.js��build���ó�assetsPublicPath: '/',��Ϊ./ ��ָ�û����ڵĵ�ǰĿ¼�����·���������Ҳ����ļ���/ ��ָ��Ŀ¼������·������Ŀ��Ŀ¼����Ҳ������Ŀ��Ŀ¼��
+
+=====����API=====
+����������ݡ�
+��ܣ������֡�����������tab������ť��ͼ�ꡢ�ֲ�ͼ....�� IE8����
+Bootstrap: ����ȫ����ʽ�������js�������Ӧʽ��⣬��С154 KB��Firefox/Chrome/Safari/IE8 +��
+EasyUI: ����jQ��pcǰ�˿��http://www.jeasyui.net
+layui: ������ȫ����ʽ�������API��ԭ����������Ӧʽ��⣻ http://www.layui.com/
+
+MUI:�ƶ���UI������ܣ�
+amazeui���ƶ���HTML5��UI��ܣ�
+
+1.margin��padding����������в��죻 //*{margin:0;padding:0;}
+2.img��ǩ���м����죻 //����float����
+3.min-height����ie��Ч//{min-height:200px; height:auto!important; height:200px; overflow:visible;}
+����������桿
+�����ļ���chrome://version/ ��"��������·��"
+chrome://chrome-urls/,������URL�б�ҳ�档
+chrome://cache���򿪻���ҳ�档
+�ٷ�HTTPЭ�鶨��Ļ���:<meta http-equiv="Pragma" content="no-cache"> 
+	--�����������ǰҳ��������Դ��������,���������֧��,�����������֧��(��Ϊ������html)
+��HTTPЭ�鶨��Ļ���:
+	--Expires����,Դ��HTTP1.0,����������ڹ���ʱ��ǰֱ�Ӵ����������ȡ���ݣ��������ٴ�����
+		����:Expires wed,28 Nov 2018 03:03:01 GMT
+	--Cache-control����,Դ��HTTP1.1,������expiresһ��,���ȼ�����;
+		ֵ������public��private��no-cache��no- store��no-transform��must-revalidate��proxy-revalidate��max-age
+		����:Cache-control max-age=300  //��λs
+	  Last-Modified/If-Modified-SinceҪ���Cache-Controlʹ��:
+		Last-Modified�������������޸�ʱ��;
+		If-Modified-Since������Դ����ʱ��ʹ��Cache-Control��ʶ��max-age����������Դ����Last-Modified���������ٴ���web����������ʱ����ͷ If-Modified-Since����ʾ����ʱ�䡣web�������յ����������ͷIf-Modified-Since ���뱻������Դ������޸�ʱ����бȶԡ�������޸�ʱ����£�˵����Դ�ֱ��Ķ���������Ӧ��Ƭ��Դ���ݣ�д����Ӧ��Ϣ�����ڣ���HTTP 200��������޸�ʱ��Ͼɣ�˵����Դ�����޸ģ�����ӦHTTP 304 (������壬��ʡ���)����֪���������ʹ���������cache
+	  Etag/If-None-MatchҲҪ���Cache-Controlʹ��:
+		Etag��web��������Ӧ����ʱ�������������ǰ��Դ�ڷ�������Ψһ��ʶ�����ɹ����ɷ�������������Apache�У�ETag��ֵ��Ĭ���Ƕ��ļ��������ڣ�INode������С��Size��������޸�ʱ�䣨MTime������Hash��õ��ġ�
+		If-None-Match������Դ����ʱ��ʹ��Cache-Control��ʶ��max-age����������Դ����Etage���������ٴ���web����������ʱ����ͷIf-None-Match ��Etag��ֵ����web�������յ����������ͷIf-None-Match ���뱻������Դ����ӦУ�鴮���бȶԣ���������200��304��
+
+����Last-Modified����Etag��(��������Դ��Ψһ��ʶ,Ȩ�����)
+�뼶-���뼶�����������ļ�(ʵ�����޸�)������������ʱ������
+���û���Ϊ�뻺��:
+�û�����    Expires/Cache-Control & Last-Modified/Etag
+��ַ���س�  ��Ч & ��Ч
+ҳ������ת  ��Ч & ��Ч
+�¿�����    ��Ч & ��Ч  
+ǰ��/����   ��Ч & ��Ч
+F5ˢ��      ��Ч & ��Ч
+ctrl+F5	��Ч & ��Ч
+
+��DOM������
+javascript�л�ȡdomԪ�ظ߶ȺͿ�ȵķ������£�
+
+��ҳ�ɼ������ document.body.clientWidth
+��ҳ�ɼ�����ߣ� document.body.clientHeight
+��ҳ�ɼ������ document.body.offsetWidth (�������ߵĿ�)
+��ҳ�ɼ�����ߣ� document.body.offsetHeight (�������ߵĸ�)
+��ҳ����ȫ�Ŀ� document.body.scrollWidth
+��ҳ����ȫ�ĸߣ� document.body.scrollHeight
+��ҳ����ȥ�ĸߣ� document.body.scrollTop
+��ҳ����ȥ���� document.body.scrollLeft
+
+��Ӧ��domԪ�صĿ�������¼������õģ�
+
+Ԫ�ص�ʵ�ʸ߶ȣ�document.getElementById("div").offsetHeight
+Ԫ�ص�ʵ�ʿ�ȣ�document.getElementById("div").offsetWidth
+Ԫ�ص�ʵ�ʾ�����߽�ľ��룺document.getElementById("div").offsetLeft
+Ԫ�ص�ʵ�ʾ����ϱ߽�ľ��룺document.getElementById("div").offsetTop
+		
+��HTTP��
+ POST �ύ���ݵ����ֱ��뷽ʽ:
+ �������ݣ�<method> <request-URL> <version> <headers> <entity-body>
+ ����������Content-Type�ֶη�������н��룻
+ Content-Type: application/x-www-form-urlencoded;charseEt=utEf-8 //���������form��Ĭ�ϵ��ύ��ʽ�������ݰ�key1=val1&key2=val2 �ķ�ʽ���б��룬key �� val �������� URL ת�롣
+ Content-Type: multipart/form-data //�ϴ��ļ�FormData����ʱ�����Ĭ�ϵķ�ʽ
+ Content-Type: application/json  //���߷������Ϣ���������л���� JSON �ַ���
+ Content-Type: text/xml  //�ύXML����
+ axios:
+        /*
+        "Axios ��һ������ promise �� HTTP �⣬��������������� node.js �С�
+        */
+        // �����÷�
+        var params = new URLSearchParams()  //���л��ɲ�ѯ�ַ��� 'year=2001&month=9'
+=======
 一定要用命令行启动！！！
 在nginx.exe目录，打开命令行工具，用命令 启动/关闭/重启nginx 
  
@@ -175,17 +327,26 @@ javascript中获取dom元素高度和宽度的方法如下：
         */
         // 基本用法
         var params = new URLSearchParams()  //序列化成查询字符串 'year=2001&month=9'
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         params.append('year', '2001')
         params.append('month', '2')
         axios({
             method: 'post',
             url: 'http://localhost:5555/api/bz/getMonthCalendar',
             // headers: {"Content-Type":"application/x-www-form-urlencoded"},
+<<<<<<< HEAD
+            //timeout: 1000, //��ʱ���ֹͣ
+            //withCredentials: false, // Ĭ�ϵ� ��ʾ��������ʱ�Ƿ���Ҫʹ��ƾ֤
+            //onUploadProgress: function (progressEvent) {},  // ��ԭ�������¼��Ĵ���
+            /*
+            auth: { // `auth` ��ʾӦ��ʹ�� HTTP ������֤�����ṩƾ�� �⽫����һ�� `Authorization` ͷ����д�����е�����ʹ�� `headers` ���õ��Զ��� `Authorization`ͷ
+=======
             //timeout: 1000, //延时多久停止
             //withCredentials: false, // 默认的 表示跨域请求时是否需要使用凭证
             //onUploadProgress: function (progressEvent) {},  // 对原生进度事件的处理
             /*
             auth: { // `auth` 表示应该使用 HTTP 基础验证，并提供凭据 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                 username: 'janedoe',
                 password: 's00pers3cret'
             },*/
@@ -200,6 +361,17 @@ javascript中获取dom元素高度和宽度的方法如下：
  
 
 
+<<<<<<< HEAD
+��Date���ڶ��󡿣�
+new Date("2018-5-5")    //���ڡ�����
+Date.parse("2018-5-5")  //���ڡ�����
+new Date(1525449600000) //���������
+new Date().getTime()  	//���������
+Date.now()              //��ȡ��ǰ����
+new Date().toLocaleDateString() //ת��ǰϵͳʱ���ʽ
+
+//ת"yyyy-MM-dd hh-mm-ss"��ʽ����
+=======
 【Date日期对象】：
 new Date("2018-5-5")    //日期→对象
 Date.parse("2018-5-5")  //日期→毫秒
@@ -209,6 +381,7 @@ Date.now()              //获取当前毫秒
 new Date().toLocaleDateString() //转当前系统时间格式
 
 //转"yyyy-MM-dd hh-mm-ss"格式函数
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function(date){
   let year = date.getFullYear();
   let month = (date.getMonth()+1)<10? "0"+(date.getMonth()+1):(date.getMonth()+1);
@@ -218,6 +391,98 @@ function(date){
   let second = date.getSeconds()<10? "0"+date.getSeconds():date.getSeconds(); 
   return year +"-"+ month +"-"+ day +" "+ hour +":"+ minute +":"+ second;
 }
+<<<<<<< HEAD
+//�ж������Ƿ���Date
+����+instanceof Date	//���ز���ֵ
+Object.prototype.toString.call(����)  ����[object Date]
+��String�ַ�����
+"abcde".substr(2,2); 	//"cd"  --��ȡ2�����2λ �������ַ���
+"abcde".substring(2,3); //"c"  --��ȡ2��3 �������ַ���
+"abcde".slice(2,3);	//"c"  --��ȡ2��3 �������ַ���
+"abcde".replace("bcd","$"); //"a$e" --�滻 �������ַ��� (һ��������ƥ��)
+"a,b,c".split(",");   //["a","b","c"]  --��ָ���ַ��ָ������
+" ab ".trim();  		//��ǰ��հ����
+"aBc".toLowerCase(); //"abc"
+"aBc".toUpperCase(); //"ABC"
+"abcde".indexOf("d",0) //3  --��0��ʼ����"d",���ڷ�����������֮-1
+"abcde".charCodeAt(0)  //97 --����index�����ַ���unicode��
+��Array���顿
+push() 	//��ԭ���������ӣ����س���
+unshift()	//��ԭ����ǰ����ӣ����س���
+pop()		//��ԭ�������ɾ�������س���
+shift()	//��ԭ����ǰ��ɾ�������س���
+splice(1,1) 		//��1������ɾ��n��Ԫ�� 
+splice(1,1,"new") 	//��1�������1��Ԫ���滻��"new" 
+splice(1,0,"new") 	//��1����ǰ����"new"
+reverse()			//��ת����
+slice(0,2)		//����0��2�������飨����ʹ�ã�
+join("")			//����ָ���ַ��ָ���ַ���
+[1,3,2].sort(function(a,b){return b-a}) //[3, 2, 1] ,a-b��С����
+����+instanceof Array/Object/Function  ���ز���ֵ , ����/object/������Ӧ��
+Object.prototype.toString.call(����) �������ݿ�Ӧ�ã����� ����"[object String ]"
+
+��window����
+setTimeout(callback, 2000, 'name'); //name��callback�Ĵ������
+setInterval(callback, 2000, 'name'); //name��callback�Ĵ������
+����cookie:
+document.cookie="username=John Doe";
+��������Ϊ cookie ���һ������ʱ�䣨�� UTC �� GMT ʱ�䣩��Ĭ������£�cookie ��������ر�ʱɾ����
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT";
+������ʹ�� path ������������� cookie ��·����Ĭ������£�cookie ���ڵ�ǰҳ�档
+document.cookie="username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 GMT; path=/";
+ɾ��cookie,��ʱ��ĵ���ȥ
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+window.open() - ���´���
+window.close() - �رյ�ǰ����
+window.moveTo() - �ƶ���ǰ����
+window.resizeTo() - ������ǰ���ڵĳߴ� 
+����:����һ������, ���ÿ����߶�Ϊ500px: var w=window.open('','', 'width=100,height=100');w.resizeTo(500,500);
+screen.availWidth - ���õ���Ļ���
+window.onresize()�¼�:����豸���ڴ�С
+screen.availHeight - ���õ���Ļ�߶�
+console.log(document.getElementsByTagName('html')[0].getBoundingClientRect().width);
+console.log(window.screen.availWidth);
+location.href ���û��ȡurl
+location.reload(); ˢ�µ�ǰ����
+window.location.replace(document.referrer+"?flag=success"); //��������ǰ��ҳ���滻
+location.search ����?����Ĳ�ѯ����
+location.hash ����#ê�������
+location.hostname ���� web ����������
+location.pathname ���ص�ǰҳ���·�����ļ���
+location.port ���� web �����Ķ˿� ��80 �� 443��
+location.protocol ������ʹ�õ� web Э�飨http:// �� https://��
+history.back() - ���������������˰�ť��ͬ
+history.forward() - ����������е����ǰ��ť��ͬ
+history.go(-3) -ˢ�»�ǰ������n��ҳ��,0��ˢ��
+window.parent.location.href=url�� window.open("url","_parent|_self|_blank") �ڸ�������ת��һ����iframe��ʹ�ã�
+<script>
+txt = "<p>���������: " + navigator.appCodeName + "</p>";
+txt+= "<p>���������: " + navigator.appName + "</p>";
+txt+= "<p>������汾: " + navigator.appVersion + "</p>";
+txt+= "<p>����Cookies: " + navigator.cookieEnabled + "</p>";
+txt+= "<p>Ӳ��ƽ̨: " + navigator.platform + "</p>";
+txt+= "<p>�û�����: " + navigator.userAgent + "</p>";
+txt+= "<p>�û���������: " + navigator.systemLanguage + "</p>";
+document.getElementById("example").innerHTML=txt;
+</script> 
+����!!!
+���� navigator �������Ϣ�������ԣ���Ӧ�ñ����ڼ��������汾��������Ϊ��
+navigator ���ݿɱ������ʹ���߸���
+һЩ������Բ���վ���ʶ�����
+������޷���������������������²���ϵͳ
+
+top��ʾ�����ڣ�location��ʾ��ǰ����:
+top.location.href=��url��          �ڶ���ҳ���url��������ܣ�
+self.location.href=��url��         ���ڱ�ҳ���url��ַ ����
+parent.location.href=��url�� ��    �ڸ����ڴ�Url��ַ ����
+this.location.href=��url�� ����    �÷���self���÷�һ��  
+if(top !== self){top.location.href = location.href;}   ��ֹframe����
+
+
+
+��XMLHttpResquest����
+=======
 //判定对象是否是Date
 对象+instanceof Date	//返回布尔值
 Object.prototype.toString.call(对象)  返回[object Date]
@@ -308,6 +573,7 @@ if(top !== self){top.location.href = location.href;}   禁止frame引用
 
 
 【XMLHttpResquest对象】
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   let xhr = new XMLHttpRequest();
   xhr.onreadystatechange=(()=>{
      if(xhr.readyState==4&&xhr.status==200){
@@ -315,6 +581,46 @@ if(top !== self){top.location.href = location.href;}   禁止frame引用
      }
    })
    xhr.open('post','http://localhost:5555/api/bz/calc');
+<<<<<<< HEAD
+   xhr.setRequestHeader('content-type','application/x-www-form-urlencoded'); //get������Ҫ
+   xhr.send('year=1999&month=9'); //get����null
+����ͷ��
+contentType: ���߷���������Ҫ��ʲô���͵�����
+dataType�����߷���������Ҫ��ʲô���͵����ݣ����û��ָ������ô���Զ��ƶ��Ƿ��� XML||JSON||script||String��
+Accept�����߷��������ܽ���ʲô����
+��Promise����
+    //��ʵ���첽���   ����ڴ�ͳ�ģ��ص��������¼�
+    //promise���ʣ� ���� ������δ���Ż�������¼��� �������¼��������Ӱ�� 
+    //״̬�� pending�������У���fulfilled���ѳɹ�����rejected����ʧ�ܣ� resolved���Ѷ��ͣ�
+
+    const pro = new Promise(function(resolve, reject) {
+        if (/* �첽�����ɹ� */){
+            resolve(value); //��״̬�� pending ��Ϊ resolved �����С��ɹ���
+        } else {
+            reject(error); //��״̬��pending ��Ϊ rejected �����С�ʧ�ܣ�
+        }
+    });
+    pro.then(function(value) { //��һ��������resolvedʱ����  ����promise������ֵ������
+        // success
+        }, function(error) { //�ڶ�������(��ѡ)��rejectedʱ����  ����promise������ֵ������
+        // failure
+    });
+
+��mysql��
+mysql -uroot -p --�����ݿ�
+show charset; --�鿴���ݿ���е����
+create database student character set utf8;-- �������ݿ�student,�ƶ����Ϊutf8(�ɰ�дΪutf-8,�°�Ϊutf8)
+drop database student;-- ɾ�����ݿ�student
+show databases;--�鿴�Ѿ����������ݿ�
+use student;�C �ƶ�ʹ�����ݿ�student
+select database();-- �鿴��ǰ���������ݿ�����
+show create database ����; --��ʾ���������
+
+���ƶ�������
+��׿��ҳ����ת����:
+window.open(url); ������(ʵ��������)
+location.href="./p1.html"; ������(ʵ��������)
+=======
    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded'); //get请求不需要
    xhr.send('year=1999&month=9'); //get请求null
 请求头：
@@ -353,13 +659,20 @@ show create database 库名; --显示创建库语句
 安卓中页面跳转问题:
 window.open(url); 不适用(实际是下载)
 location.href="./p1.html"; 不适用(实际是下载)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 location.href="http://...";
 history.go(-1);
 history.back();
 document.getElementById("a-link").click();
+<<<<<<< HEAD
+window.location.replace(document.referrer+"?flag=success"); //�ô˷������ز�ˢ��
+
+// ������Ļ��ȣ�����html��font-size
+=======
 window.location.replace(document.referrer+"?flag=success"); //用此方法返回并刷新
 
 // 计算屏幕宽度，设置html的font-size
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 $(function(){  
     initpage();  
     $(window).resize(function(){  
@@ -376,13 +689,33 @@ $(function(){
       }
     }  
 }); 
+<<<<<<< HEAD
+ϵͳ���:
+<script type="text/javascript">
+//�жϷ����ն�
+=======
 系统检测:
 <script type="text/javascript">
 //判断访问终端
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 var browser={
     versions:function(){
         var u = navigator.userAgent, app = navigator.appVersion;
         return {
+<<<<<<< HEAD
+            trident: u.indexOf('Trident') > -1, //IE�ں�
+            presto: u.indexOf('Presto') > -1, //opera�ں�
+            webKit: u.indexOf('AppleWebKit') > -1, //ƻ�����ȸ��ں�
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//����ں�
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //�Ƿ�Ϊ�ƶ��ն�
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios�ն�
+            android: u.indexOf('Android') > -1 || u.indexOf('Adr') > -1, //android�ն�
+            iPhone: u.indexOf('iPhone') > -1 , //�Ƿ�ΪiPhone����QQHD�����
+            iPad: u.indexOf('iPad') > -1, //�Ƿ�iPad
+            webApp: u.indexOf('Safari') == -1, //�Ƿ�webӦ�ó���û��ͷ����ײ�
+            weixin: u.indexOf('MicroMessenger') > -1, //�Ƿ�΢�� ��2015-01-22������
+            qq: u.match(/\sQQ/i) == " qq" //�Ƿ�QQ
+=======
             trident: u.indexOf('Trident') > -1, //IE内核
             presto: u.indexOf('Presto') > -1, //opera内核
             webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
@@ -395,6 +728,7 @@ var browser={
             webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
             weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
             qq: u.match(/\sQQ/i) == " qq" //是否QQ
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         };
     }(),
     language:(navigator.browserLanguage || navigator.language).toLowerCase()
@@ -411,6 +745,40 @@ if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
     window.location.href ="pc.html";
 };
 
+<<<<<<< HEAD
+html����/����Ϣ
+1.<ahref="tel:13764567708">�ƶ�WEBҳ��JSһ�����������ѯ����</a>
+���Ҫ����̻�ת�ӷֻ���ֱ��+����+�ֻ��ż���.
+���磺<ahref="tel:40056789,12345">�ƶ�WEBҳ��JSһ������ֻ�����</a>
+2.<ahref="sms:13764567708">�ƶ�WEBҳ��JSһ�����Ͷ�����ѯ����</a>
+=========��ɢ�ġ���ʱ�ʼ� start============  ����?����
+transparent ͸��  "trans + parent"
+disabled �м������ã���ť��������disabled="disabled"/true&false��
+parent ����
+parse ����
+previous ֮ǰ��
+repeat �ظ�
+border-collapse:collapse   cellspacing = "0"; cellpadding
+src���Խ�dataUrl , url
+
+�𰸽��� : //ֹͣ�¼�ð��  
+function stopBubble(e) {
+    // ����ṩ���¼�����������һ����IE�����
+    if ( e && e.stopPropagation ) {
+        // �����֧��W3C��stopPropagation()����
+        e.stopPropagation();
+    } else { 
+        // ����������Ҫʹ��IE�ķ�ʽ��ȡ���¼�ð��
+        window.event.cancelBubble = true;
+    }
+} //��ֹ�¼�Ĭ����Ϊ
+function stopDefault(e) {
+     // ��ֹĬ�����������(W3C)
+     if ( e && e.preventDefault ) {
+         e.preventDefault();
+     } else {
+        // IE����ֹ������Ĭ�϶����ķ�ʽ
+=======
 html拨号/发信息
 1.<ahref="tel:13764567708">移动WEB页面JS一键拨打号码咨询功能</a>
 如果要拨打固话转接分机号直接+逗号+分机号即可.
@@ -443,12 +811,108 @@ function stopDefault(e) {
          e.preventDefault();
      } else {
         // IE中阻止函数器默认动作的方式
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         window.event.returnValue = false;
     }
     return false;
 }
 
 
+<<<<<<< HEAD
+��վ�嵥��
+www.developer.mozilla.org ǰ�˼�������(����Ŷ�) 
+www.runoob.com����̳�
+http://echarts.baidu.com/index.html  javascriptͼ���
+win10������:
+����W269N-WFGWX-YVC9B-4J6C9-T83GX
+����NYW94-47Q7H-7X9TT-W7TXD-JTYPM
+����NJ4MX-VQQ7Q-FP3DB-VDGHX-7XM87
+����MH37W-N47XK-V7XM9-C7227-GCQG9
+����VK7JG-NPHTM-C97JM-9MPGT-3V66T
+
+
+1.JavaScript��void(0)  ��ֹa��ǩ��ת��
+2.onclick="return false;"    ������ֹ�κε����Ĭ����Ϊ
+3.ele.focus() ������ƶ���ָ�������Ԫ��
+4.\r�س� \n����
+5.tounicode �ַ�תunicode����
+6.label<label for="qq">Q Q</label><input type="text" id="qq"/>
+=========��ɢ�ġ���ʱ�ʼ� end============
+=========���顢�ַ������÷���============
+��concat���,����  slice�п�  push���� shiftȥ��  spliceճ��  reverse��ת
+��sort����,���� join���� split�п� replace�滻 trim�޼�
+?����������ַ�����
+concat(): �����ַ���������
+slice(start,end):��ȡstart��end(������end)������
+indexOf(start,content):���ذ���ָ�����ݵ����������޷���-1
+?�������飺
+push()/pop() �������ӻ�ɾ��
+unshift()/shift() �ڿ�ͷ��ӻ�ɾ��
+splice(start,n)ɾ/splice(start,0,content)����/splice(start,n,content)�滻
+reverse()��������
+sort()��������
+join()��ָ�����ַ��ָ�����Ԫ�أ�����һ���ַ���
+?�����ַ�����
+split():��ָ�����ַ����зָ����һ������
+replace(old,new):����һ�γ��ֵ�old�ַ�����new�滻���ı�ԭ���顢֧������
+substring(start,end);����start ��end(������end)���ַ���
+trim():����ַ���ǰ��հ�
+charAt(index):��ȡindex�������ַ�
+
+
+=========================4��27�� DOM=========================================
+��tab���л���������������Ʒչʾ����������Ů��᰸���� 
+����������һ�£����������ע�� �� ������Ϊͨ�� �� ���� �� �Լ����ã�
+ʵ��˼·��1.��������ע�������Ƴ��¼�(����ע�ᣬ��ʹ���Զ������Լ�¼index) 2.������뺯�������������������ݰ��������(����)��Ȼ�����������ѡ��ʱ��ʽ���������ٸ�һ����������������display:block;����
+�����б�ɫ����ͣ����������
+����˼·����������Ƴ���װ������������������ʾ��ʵ�����Ƴ������ĸ��б�ɫ��ʽ������ʱ�������õ�ǰ������ɫ���Ƴ�ʱ�ָ�ԭװ��ʽ��
+
+
+========================4��27�� DOM=========================================
+��ף��ǽ������
+����˼·��forѭ����Ԫ�����clone��׷�ӵ�ָ����������������꣬�������ꡣ
+����Ͱ�����
+����˼·��
+1.ȫѡ��ť����¼�ʱ���˵���ť����checked����=ȫѡ��ťchecked(true&false);
+2.�˵���ť����¼�ʱ��ʹ�ü��跨�������˵�checked���ԶԷ�����Ϊtrue,�������ȫѡ��ť�벼��ֵ��־����һ�¡�
+
+=================5��4�� DOM=========================================
+��΢����ˢ�����۰�����
+����˼·������¼�ʱ��ȡ�������value����ֵ���½��ı�ǩ��innerHTML����ӵ������������С�
+���ٶ����������� 
+����˼·��keyup�¼���[bug1���������hasChildNodes()�ж�ul�Ƿ����ӽڵ㣬�оͽ�ul�е��������] �� ��Ԥ���˹ؼ��ֵ���������ó�indexOf�ı���value,���Ϊ0(����ͷ�ֶ�ƥ��)�ʹ�����ʱ���飬��[bug2��������this.value ������ʱ���鳤��Ϊ0��Ҳ��ul�������]  ������ʱ������ӵ��Զ���ʾ��ul�С�
+ע��hasChildNodes()���ز���
+��ѡ����Ѱ�����
+����˼·��1.ȫ����ӣ����������appendChild(ÿ��option)����һ��select[ע:����ʱ��Ӻ�����i--]  2.ѡ�е����.�����������option,�ж�selected�Ƿ�Ϊtrue��������ӵ���һ��[ע:��Ӻ�����Ҫi--]
+
+====================5��5�� DOM=========================================
+�����ݱ�������� ������ȷ��/ȡ��  �����ƶ�/�����ƶ�/ɾ��
+����˼·��1.��������¼�=��ʾ����������   2.ȡ������¼�=��������������(����������value) 3.ȷ���¼�=�������value��ӵ�tr,tr��ӵ���ʾ�б�  4.�����ƶ��¼�����=�ж�this�ĸ�Ԫ��tr�Ƿ�����һ���ֵ�Ԫ��(.priviousElementSibling)������.insertBefore(tr,previous)����  5.�����ƶ��¼�����=�ж�this��Ԫ��tr��priviousElementSibling��priviousElementSibling�Ƿ���ڣ����ǾͲ��뵽��ǰ�棬�粻���ھ�appendChild()����������û����һ���ֵ�Ԫ��˵�������������һ�С�
+��Э�鰴ť������
+����˼·������setInterval��ʱ����ʱ�����0ʱ����ťע�����¼����޸�value,��ת���ӡ�
+��С���ƶ���永����
+����˼·������DIV���֣��ֱ�ע���¼��������ϻ������ƶ������ﶥ��ʱֹͣ��ʱ����
+��ʱ�Ӱ�����
+transform:rotate(1dex);
+ÿ���˶����������=��ֵ*360/60   �������=����*360/60  ʱ�����=ʱ��*360/12 [1000����ÿ��]
+�����˶���(��ֵ+����/1000)*360/60  (����+��ֵ/60)*360/60  (ʱ��+����/60)*360/12   [100����ÿ��]
+
+===================5��8-14�� DOM��ǿ==========================================
+1. clientHeight��clientWidth��������Ԫ���ڳߴ磬��ָ Ԫ������+�ڱ߾� ��С���������߿�IE��ʵ�ʰ���������߾ࡢ����������
+
+2. offsetHeight��offsetWidth��������Ԫ����ߴ磬��ָ Ԫ������+�ڱ߾�+�߿򣬲�������߾�͹���������
+
+3. clientTop��clientLeft�����ڱ߾�ı�Ե�ͱ߿�����Ե֮���ˮƽ�ʹ�ֱ���룬Ҳ�������ϱ߿���
+
+4. offsetTop��offsetLeft��ʾ��Ԫ�ص����Ͻǣ��߿����Ե�����Ѷ�λ�ĸ�������offsetParent�������Ͻǵľ���
+
+5. offsetParent������ָԪ������Ķ�λ��relative,absolute������Ԫ�أ��ݹ����ݣ����û������Ԫ���Ƕ�λ�Ļ����᷵��null
+offsetLeft/Top:Ԫ�ص�xyƫ����
+scrollLeft/Top:Ԫ�ع�����ȥ�ľ���(mousescroll�¼��������)
+clientX/Y : ����������������(�¼��������)
+pageX/Y : ҳ������ = scrollLeft+clientX
+����õ�ǰ��ʽ������
+=======
 网站清单：
 www.developer.mozilla.org 前端技术搜索(火狐团队) 
 www.runoob.com菜鸟教程
@@ -542,6 +1006,7 @@ scrollLeft/Top:元素滚动出去的距离(mousescroll事件对象调用)
 clientX/Y : 可视区内鼠标的坐标(事件对象调用)
 pageX/Y : 页面坐标 = scrollLeft+clientX
 【获得当前样式函数】
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function getStyle(ele,attr){
 	if(window.getComputedStyle){
 		return window.getComputedStyle(ele,null)[attr];
@@ -549,16 +1014,137 @@ function getStyle(ele,attr){
 	  	return ele.currentStyle[attr];  //IE8
 	}
 }
+<<<<<<< HEAD
+        //�������ָ������
+        document.onmousemove = function(e){
+            // console.log(e.clientX);   
+        }
+        //�������ڹ�������
+=======
         //监听鼠标指针坐标
         document.onmousemove = function(e){
             // console.log(e.clientX);   
         }
         //监听窗口滚动距离
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         window.onscroll = function(e){ 
             console.log(window.pageYOffset); 
             // console.log(document.body.scrollTop); 
             console.log(document.documentElement.scrollTop); 
         }
+<<<<<<< HEAD
+��eventTool��
+        var eventTool={
+            getEvent : function(e){ return e || window.event},  //���ݻ�ȡ�¼�����
+            getClientX : function(e){return this.getEvent(e).clientX;},//��ȡ���������������(onmousemove�¼�)
+            getPageX: function(e){return this.getEvent(e).pageX || this.getClientX(e)+(window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft||0)}  //���ݻ�ȡpageX��=clientX+ҳ�������ȥ�ľ��룩
+        }
+
+����(����)����������װ��
+1.��ȡ��ǰλ��     offsetLeft
+2.���岽��         step=target>current ? +num : -num 
+3.�����ƶ�Ŀ��λ��  
+4.ֹͣ��ʱ��     Math.abs(target-current)<Math.abs(step)������ֹͣ
+
+����������������װ��
+function animate(ele,obj,callback){ }
+1.��ȡ��ǰλ��     ��for in�жϵ���getStyle�����ж�key[attr]��opation,zIndex�е���һ�� ,opation��ȡ��parseFloatת����*100�����
+2.���岽��     step=(target-current)/10 ,target>current ? Math.ceil(step) : Math.floor(step);
+3.�����ƶ�Ŀ��λ��  current+=step;
+4.ֹͣ��ʱ��     for in��if������target!=current�Ͱѱ�־��false��for in��ɺ��жϱ�־Ϊtrue�˾�ֹͣ��ʱ��
+���ֲ�ͼ������
+Բ�����������currentIndex��Ϊͨ�ţ�ע��mouseover�¼�����index����ֵ������Ӧ���ƶ��������index*ͼƬ��*-1���������ٸ��Լ�����������ʽ
+�����������ÿ���һ��currentIndex++�����ƶ����룻Բ���index��ť������������ʽ�����index=lis.length-1��index=0,Ŀ�����=0��������ͬ��
+���ַ��ٰ�����
+�������ʱȫ����С��Ȼ���Լ��������Ƴ�ʱ��ȫ����ɹ̶��ߴ硣
+����תľ������
+1.����5����ʽ�Ķ��������  2.������ͼƬ��ǩԪ������push()��������;  3.����¼���arr.push(arr.shift()) �� arr.unshift(arr.pop());
+��360��������������
+����ص��������Ȱѵײ����Ӹ߶ȱ�Ϊ0���ٰ�������ӿ�ȱ�Ϊ0��
+����ҳ�Ŵ󾵰�����
+1.�������=Сͼ���ֺʹ�ͼ���֣�����Ƴ�=���ֺʹ�ͼ��ʧ��
+2.����ƶ�=���ָ����ƶ���cursor:move   ������  ����Խ�����ã�
+3.�Ŵ�������ͼ�ƶ�����=Сͼ�ƶ�*(��ͼ���λ��-Сͼ���λ��)
+����ק������
+1.mousedown�¼�=pageX-offsetLeft��������Ԫ�����Ͻǲ�ֵ������¼  mousemove�¼�=����Ԫ��offsetLeft(pageX-��ֵ)
+2.mouseup�¼� = mousemove=null;       ע��mousemove��mouseup�¼�ԴҪ��document������һ�������������Ͳ�������
+��escȡ����¼�򡿡��س��л������(��ý���)��
+e.keyCode����
+keyup�¼�= ���this.keyCode == ����ֵ �����this.index!=inputs.length-1��inputs[this.index+1].focus();
+
+===================5��13��==========================================
+�¼�ð�ݺͲ���
+ele.addEventListener("click",function(){ },false)  �¼�ð�ݣ��ڡ���
+ele.addEventListener("click",function(){ },true) �¼����������
+eventPhase���ԣ�
+event.eventPhase �¼��׶Σ�1 ����׶�ִ��  2 �¼�Ŀ��׶�  3 �¼�ð�ݽ׶�
+��ֹ�¼�ð�ݣ�
+window.event.cancleBubble = true; //�ȸ��IE   cancleȡ��  
+event.stopPropagation(); //�ȸ�ͻ��   propagation����,����
+�Ƴ��¼���
+on��ʽ��--element["on"+type]=null;
+addEventListener��ʽ��--element.removeListener(���ͣ��������Ƿ�ð��)��
+attachEvent��ʽ��--element.detachEvent("on"+type,����)
+
+e.type ��ȡ��ǰ�¼�
+e.target ��ȡ�¼�Դ ��IE8��ʹ��e.srcElement��
+
+mouseEvent.button�õ������Ĵ���
+
+transition-property:��������
+transition-duration:����ʱ��
+transition-delay:�ӳ�ʱ��
+transition-timing-function:���ɺ���
+
+
+========================== ������ʽ===========================================
+ʹ���﷨:
+var reg = new RegExp(/^.*$ /);  �� var reg = /[^0-9]/;
+reg.test(str) �� str.match(reg) �� reg.exec(str)
+����д��:
+new RegExp("a")
+new RegExp(/a/)
+new RegExp("a","g") ��ͬ  /a/g
+ ��Ԫ�ַ���
+        .  ͨ������
+        \w ��ĸ   \W ����ĸ
+        \d ����   \D ������  
+        \s �հ�   \S�ǿհ�  [\r\n]ȥ�����С��ո�
+        \ת�� |���� ()����
+ ����Χ��
+        [0-9] [a-z] [A-Z] [^a-z]
+ �����ʡ�
+        * 0�λ���    ? 0�λ�1��
+        + ����һ��
+        {n} n��
+        {n,} n������
+        {n,m} n��m��
+ ���߽��޶���
+        ^ ��ͷ
+        $ ��β   ��: /^a.*a$/ a��ͷ����β���ַ���
+
+  ��:
+        // 1.��֤�绰����  020-88888888
+        console.log(/^[0]\d{2,3}[-][1-9]\d{6,7}$/.test("020-88888888"));
+        //2.��֤����
+        var mailReg = /^[\d\w._-]+[@][\d\w_.-]+([.][\d\w_.-]+)+/;
+        console.log(mailReg.test("test@@qq.com"));
+        //3.���֤��֤
+        var sfz = /^[1-9]\d{14}([0-9]{2}([0-9]|[xX]))?$/;
+        console.log(sfz.test('450921198903320'));
+		//��֤�ֻ���
+		/^[1][0-9]{10}$/
+
+������ʽ��/i,/g,/ig,/gi,/m������ͺ���
+/i (���Դ�Сд)
+/g (ȫ�Ĳ��ҳ��ֵ�����ƥ���ַ�)
+/m (���в���)
+/gi(ȫ�Ĳ��ҡ����Դ�Сд)
+/ig(ȫ�Ĳ��ҡ����Դ�Сд)
+
+��������
+//ȥ���ո� 
+=======
 【eventTool】
         var eventTool={
             getEvent : function(e){ return e || window.event},  //兼容获取事件对象
@@ -670,37 +1256,89 @@ new RegExp("a","g") 等同  /a/g
 
 常用正则：
 //去除空格 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 String.prototype.Trim = function() { 
 return this.replace(/\s+/g, ""); 
 } 
  
+<<<<<<< HEAD
+//ȥ������ 
+=======
 //去除换行 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function ClearBr(key) { 
 key = key.replace(/<\/?.+?>/g,""); 
 key = key.replace(/[\r\n]/g, ""); 
 return key; 
 } 
  
+<<<<<<< HEAD
+//ȥ�����ո� 
+=======
 //去除左侧空格 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function LTrim(str) { 
 return str.replace(/^\s*/g,""); 
 } 
  
+<<<<<<< HEAD
+//ȥ�ҿո� 
+=======
 //去右空格 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function RTrim(str) { 
 return str.replace(/\s*$/g,""); 
 } 
  
+<<<<<<< HEAD
+//ȥ���ַ������˵Ŀո� 
+=======
 //去掉字符串两端的空格 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function trim(str) { 
 return str.replace(/(^\s*)|(\s*$)/g, ""); 
 } 
  
+<<<<<<< HEAD
+//ȥ���ַ����м�ո� 
+=======
 //去除字符串中间空格 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function CTim(str) { 
 return str.replace(/\s/g,''); 
 } 
  
+<<<<<<< HEAD
+//�Ƿ�Ϊ��������ɵ��ַ��� 
+function is_digitals(str) { 
+var reg=/^[0-9]*$/; //ƥ������ 
+return reg.test(str); 
+}
+
+//��������ǿ�ȣ�8-10λ��
+^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+
+
+//У������
+^[\\u4e00-\\u9fa5]{0,}$
+
+//�����֡�26��Ӣ����ĸ���»�����ɵ��ַ���
+^\\w+$
+
+//У��E-Mail ��ַ
+[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?
+
+JSת��HTMLת�����
+//ȥ��html��ǩ
+function removeHtmlTab(tab) {
+ return tab.replace(/<[^<>]+?>/g,'');//ɾ������HTML��ǩ
+}
+//��ͨ�ַ�ת����ת���
+function html2Escape(sHtml) {
+ return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+}
+//ת���������ͨ�ַ�
+=======
 //是否为由数字组成的字符串 
 function is_digitals(str) { 
 var reg=/^[0-9]*$/; //匹配整数 
@@ -730,10 +1368,25 @@ function html2Escape(sHtml) {
  return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
 }
 //转义符换成普通字符
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function escape2Html(str) {
  var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
  return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
 }
+<<<<<<< HEAD
+//�س�תΪbr��ǩ
+function return2Br(str) {
+ return str.replace(/\r?\n/g,"<br />");
+}
+//ȥ����ͷ��β����,��������3�����ϻ���ת����2�λ���
+function trimBr(str) {
+ str=str.replace(/((\s|&nbsp;)*\r?\n){3,}/g,"\r\n\r\n");//�������2�λ���
+ str=str.replace(/^((\s|&nbsp;)*\r?\n)+/g,'');//�����ͷ����
+ str=str.replace(/((\s|&nbsp;)*\r?\n)+$/g,'');//�����β����
+ return str;
+}
+// ����������ո�ϲ���һ���ո�
+=======
 //回车转为br标签
 function return2Br(str) {
  return str.replace(/\r?\n/g,"<br />");
@@ -746,10 +1399,330 @@ function trimBr(str) {
  return str;
 }
 // 将多个连续空格合并成一个空格
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 function mergeSpace(str) {
  str=str.replace(/(\s|&nbsp;)+/g,' ');
  return str;
 }
+<<<<<<< HEAD
+//ʹ��match���urlָ���ֶ�
+var reg = new RegExp("(^|&)"+ "name" +"=([^&]*)(&|$)"); 
+"?name=jjk".substr(1).match(reg); 
+��ӡ��["name=jjk", "", "jjk", "", index: 0, input: "name=jjk"]
+
+======================5��16�� jQuery ================================
+jQuery��DOM��
+0.���裺����jq�ļ�����ڡ�����
+1.jQuery����[0],����DOM����$(DOM����)�����ص�ǰDOM��jq����
+2.
+
+��1.jQuery��ڡ�
+  $(function(){ 
+	//����
+  });
+  $(document).ready(function(){
+  	//����
+  });
+��2.����ѡ������
+  $("��ǩ��");
+  $(".����");
+  $("#id��");   
+  ע����jQuery.fn.init[]  --jq����α����
+	�ڵ�ҳ���ж��id,Ҳֻ��ȡ1����idΨһ�ԣ�
+	�����û����Ӧ�ı�ǩ��/����/id�������ص��ǿ����� ��DOM��ȡʱ���ص���Null��
+��3.����CSS��ʽ��
+  jq����.css("����","ֵ");   //�ĵ�������ֵ
+  jq����.css({����1:"ֵ1",����2:"ֵ2"});   //�Ķ������ֵ
+  jq����.css("����");   //��ȡ���Ե�ֵ
+  jq����.addClass("����");  //�������
+  jq����.removeClass("����");  //ɾ������
+  jq����.toggleClass("����");   //������&��֮���л�
+
+  <��ʽ���> jq����.����1().����2().����3()����
+��4.�����ڵ㡿
+  $("<��ǩ��>");  //����Ԫ��
+  jq����Ԫ��.append(��Ԫ��);  jq������Ԫ��.appendTo(��Ԫ��);   //�ں������Ԫ��
+  jq����Ԫ��.prepend(��Ԫ��);   jq������Ԫ��.prependTo(��Ԫ����);  //��ǰ�����Ԫ��
+  jq����Ԫ��X.after(jq����Ԫ��Y);  //jq����Ԫ��X֮ǰ����jq����Ԫ��Y
+  jq����Ԫ��X.before(jq����Ԫ��Y); //jq����Ԫ��X֮�����jq����Ԫ��Y
+  jq����.html(����);  jq����.text(����);  ����ǩ�������
+  jq����Ԫ��.clone(true/false �Ƿ��¡�󶨵��¼�)  //��¡����Ԫ��
+   jq����Ԫ��.remove();  //ɾ��
+   jq����Ԫ��.empty();   jq����Ԫ��.html("");   // ���
+  jq����Ԫ��.children();  //�õ�jqԪ���µ�������Ԫ�أ�������������DOMԪ�أ�
+  jq����Ԫ��.parent();    //�õ���Ԫ�ض���
+			
+��5.�������ɴ���ص�����
+  .hide(ʱ��) //����
+  .show(ʱ��)  //��ʾ
+  .toggle(ʱ��)  //����
+   
+  .fadeOut(ʱ��) //����ʧ����͸����͸����
+  .fadeIn(ʱ��) //����ʾ��͸������͸����
+  .fadeToggle(ʱ��)  //��ʧ����ʾѭ��
+  .fadeTo(ʱ�䣬Ŀ��ֵ���ص�����)
+  
+
+  .slideUp(ʱ��)  //���ϻ���
+  .slideDown(ʱ��) //���»���
+  .slideToggle(ʱ��) //
+
+  �����Զ�����
+  .animate({ ���Լ�ֵ�� },ʱ��,callback);
+  ֹͣ������
+  .stop(stopAll,goToEnd);
+      stopAll=true  ������еĶ���Ч��
+      	     =false  ֹͣ��ǰ���ڶ��������еļ���
+      goToEnd=true  ֹ֮ͣ��ǰ������������ִ��callback
+             =false  ֹ֮ͣ��ǰ�������̵������Ч��
+ 
+
+
+============================5��17�� jQuery ======================
+��1.ע���¼���
+1.1 ���ٰ󶨣� �����Ƽ���
+     jq����.type(function(){
+	//����
+     });
+
+     jq����.hover(function(){
+	//mouseover����
+     },function(){
+	//mouseout����
+     })
+
+1.2 on�ķ�ʽ�󶨣����Ƽ���
+    1.2.1  ��ʽ1��jq����.on(type,callback);
+    1.2.2  ��ʽ2��jq����.on(type,���ѡ����,callback); 
+    1.2.3  ��ʽ3��jq����.on(type,���ѡ����,��ֵ�Բ���,callback);
+
+1.3 bind�ķ�ʽ�󶨣�
+    1.3.1  ��ʽ1��jq����.bind(type,callback); �����Ƽ��������ѱ�onȡ����
+
+1.4 delegate��ʽ�󶨣����Һ�����󣬰ѷ���ѡ�����İ󶨶���
+    1.4.1  jq������Ԫ��.delegate(���ѡ������type,��ֵ��-��ѡ����,callback);
+
+��2.���ʺ�����DOM���ԡ�
+2.1 jq����.val();   //��ȡvalueֵ
+    jq����.val("����");  //����valueֵ
+
+2.2 jq����.prop(������);  //���ʷ��Զ�������
+    jq����.prop(������,����ֵ);  //���÷��Զ�������
+    jq����.attr(������);  //�����Զ�������
+    jq����.attr(������,����ֵ);  //�����Զ�������
+
+��3.�¼����
+3.1 jq����.off(event,selector,callback);
+
+��4.��ȡ��ߺ�λ�õķ�����
+    jq����.height();
+    jq����.width();
+    jq����.offset();  //��û����û���body�߽�ľ��� {top:0,left:0}
+    jq����.position(); //��ö�����ڸ�Ԫ�ض�λ�ľ��루�������ã�
+    
+============================5��19�� jQuery ======================
+��1.ѡ������
+    ���ѡ������
+
+    var res = $("div,p,span");  //����ѡ����
+    var res = $("div.box");  //����ѡ����
+
+    �㼶ѡ������                 //css:  .li2~li  li2�������������li
+    var res = $("li a");  //���ѡ����
+    var res = $("li>a");  //�Ӵ�ѡ����
+    var res = $("ѡ����1+ѡ����2");  //����ѡ�������൱��css�е��ֵ�ѡ������
+    var res = $("ѡ����1~ѡ����2");  //�ֵ�ѡ������ѡ����1��������ѡ����2�ģ�
+
+    ����(ɸѡ)ѡ������
+    var res = $("ѡ����:even");  //ѡ��ͬ��ѡ�����е�ż��������
+    var res = $("ѡ����:odd");  //ѡ��ͬ��ѡ�����е�����������
+
+    ����ѡ������
+    ��CSS�У�[������] ����ѡ����  //�磺[class=box] //ѡ��classΪbox��Ԫ��
+    ��jQuery�У� $([class=box]).css("����","ֵ");
+
+��2.��ȡ�ڵ㡿
+    ---���ã�
+    .parent();  //��ø��ڵ�
+    .children();  //����ӽڵ�(����)  .children(ѡ����)
+    .find(ѡ����); //���Һ���ڵ� �磺$(".father").find("son");
+    .siblings(); // .siblings(ѡ����1) ��ȡ����������ѡ����1���ֵܽڵ�;
+    .eq(index); //�ҵ�jq����������Ϊindex��DOM���󣬲���װ��jq���󷵻�
+    .index();   //���jq�������ֵ��е�����
+    .index(ele); //���ָ��DOMԪ���ڶ����е�����
+    ---�����ã�
+      .next();  //��ȡ�������һ���ֵܽڵ�
+      .priv();  //��ȡ�������һ���ֵܽڵ�
+      .prevAll(ѡ����);  //��ȡ����֮ǰ������ѡ�����Ľڵ�
+      .nextAll(ѡ����);  //��ȡ����֮�������ѡ�����Ľڵ� 
+
+��$.ajax()��
+ ȫ��ajax�¼���
+ ajaxComplete(callback) //�������ʱִ��(���۳ɹ����)
+ ajaxError(callback) //����ʱִ��(��׽���Ĵ������Ϊ���һ����������)
+ ajaxSend(callback) //������ǰִ��
+ ajaxSuccess(callback) //�ɹ�ʱִ��
+ ajaxStart(callback) //����ǰִ��
+ ajaxStop(callback)  //������ִ��
+ ˵����
+ 1.ȫ���¼���Զ�����ٿ���Ľű������У�Ҳ������JSONP���������С�
+ 2.$(document).ajaxSuccess(callback)�¼�
+ 3.ֻ����$.ajax()���$.ajaxSetup()�е�global���ó�true����ʹ��ajaxȫ�ֺ�����false������ʹ�á�
+
+ $.ajax()������
+ 
+    $.ajax(){
+	url:"",
+	global:false, //������ȫ��ajax�¼�
+	type:"get|post|put|delete, " //Ĭ����get
+	dataType:"html|text|json|xml|script|jsonp",//�������������
+	success:function(data,dataTextStatus,jqxhr){},
+	error:function(jqxhr,textStatus,error){},
+	beforeSend:function(xhr){
+       	xhr.setRequestHeader("test5","token555");  //����ͷ���token��Ϣ
+    	}
+	//����ʹ��ƾ֤cookie
+      xhrFields: {
+          withCredentials: true  //д��֤��(��������ȡcookieƾ֤)
+      },
+      crossDomain: true, //�������
+    }
+���������: "����-����-����-��Դ"
+resp.header('Access-Control-Allow-Origin', '*')
+============================jQuery ======================
+��1.��⹲�桿
+  	���$.noConflict();  //$==jQuery
+		var itcast = $.noConflict();
+��2.�Զ��巽����
+	---��̬�����Ͷ�̬�������𣺲���ʵ��������Ҫʵ����
+	---�Զ��徲̬������
+	(function($){
+		$.extend({
+		��������function(){ }
+		});
+	})(jQuery);
+	---�Զ��嶯̬������
+	(function($){ 
+		$.fn.extend(
+			������:function(����){ } //�ж����޴���:arguments.length	
+		);
+	})(jQuery);	
+
+��3.jQueryUI��ʹ�á�
+ 	---����
+	   	[���ص�ַ]��
+		jQueryUI������http://jqueryui.com/
+		����̳�API��http://www.runoob.com/jqueryui/jqueryui-tutorial.html
+		[����]��
+		1������jQueryUI��css�ļ�
+		2����jQuery�Ļ����ļ�
+		3����jQueryUI�Ĳ���ļ�
+		4����ں����е���jQueryUI��API
+
+	---CSS���
+	---��Ч���
+		�϶���jq����(���϶�������).draggable({ handle:"�ɰ�ס�϶�������" });
+		������С��jq����(��Ҫ����������).resizable({ handles:"s"});  //����e,w,s,n�ǿ��Ե�����С�ķ���
+		����jq����(���϶�������).sortable();
+
+
+============================5��22�� H5+CSS ======================
+
+���֣�һ��̶�����һ������(70%)
+IEtester  ����
+h5��ie9�в���֧�֣�������֧�֣�
+    --һ��Ҫ���ie���ݣ���ȡ���������js���������
+createElement������������Ԫ�ر�ǩ
+fieldset ����  <fieldset><legend>����</legend></fieldset>
+notwork �� All
+oninvalidӢ���� ��Ч��]
+<lable for="userName">�û�����</lable> <input id="userName" name="userName">
+�ṹ�ȹ̴���һ��
+��ģ�� box-sizing:border-box(��ߴӱ߿����)    box-sizing:content-box(Ĭ�ϣ���ߴ����ݼ���)
+font-style:"yahei","����""sans serlif"
+diagram Designer��ͼ���
+
+��ʲô��HTML5��
+�ٵ�����ش��޸ģ�
+�����Ŀ����Ϊ�����ƶ��豸��֧�ֶ�ý�壻��audio��video��canvas��
+�������������ԣ����塢���ش洢���豸���ݡ����ӡ���ҳ��ý�塢��ά��ͼ�εȣ�ȡ����flash���ƶ��豸�ĵ�λ��
+��ȡ����H4��ʱ��һЩ���
+����ȱ�㣺��߿����ԡ�SEO�Ѻá�����Ӧ�����ƶ�Ӧ�ó������Ϸ����ֲ�Ժã�ȱ����δ�ܺܺõı�PC���������֧�֣�
+��δ�����ƣ��ƶ����ȣ���Ϸ����������"����"��
+��HTML5�ṹ�ϵĲ��졿
+
+��H5�����ı�ǩ��
+<datalist></datalist>:���������������������Ϊ������listָ��һ��id,ʵ�֡�ѡ�񡱺͡����롱���棻
+[ϸ��]��<label></label>��for���Կ��Թ涨���ĸ���Ԫ�ذ󶨣�
+	<option>�����ǵ���ǩ��
+	����������url,��ôvalueֵ�������Э��;
+<keygen>:����ʵ�ַǶԳƼ���(���ڼ������⣬Ӧ����)��
+<output></output>:  �磺<output>����˵����������ı�������ı�--�����޸ģ�ֻ����ʾ</output>��
+<meter></meter>: ������ �磺<meter name="userLevel" id="userLevel" max="100" min="0" low="60" high="90"></meter>
+<progress>:������    <progress max="100" min="0" value="50"></progress>
+
+���������������ԡ�
+placeholder:ռλ��,����������ʾ�ı�  placeholder="�ı�"
+autofocus:�Զ���ȡ����
+autocomplete:�Զ���ɣ��������ڱ�Ԫ�غͱ�
+multiple:����ѡ�����ļ����߿���ͬʱ�����������ַ
+required:�ǿ�
+pattern:������֤  pattern="���ʽ"
+novalidate:�ر�Ĭ�ϵı�Ԫ����֤  novalidate="off"  on
+
+���������������͡�type=
+email:Ĭ�ϵ�������֤
+tel:�ƶ���ʱ�г����ּ���
+number��ֻ����������
+search�����Ի����������飨���������һ��ɾ����
+url:ֻ�������Э�����Ƶ�·����������ʾ http:// https:// ftp://
+date������
+range/color/time/datetime-local/month/week
+
+����ý�塿
+src:ָ��·��
+controls:�������(Ĭ������ʾ)
+autoplay:�Զ�����
+loop:ѭ������
+poster��������δ�������ʱ��Ĭ������Ƶ�ĵ�һ֡
+width��height:�趨��Ȼ�߶ȣ���������ǲ����
+<source>:�ṩ������Ƶ��ʽ
+--����--<audio src="·��" controls loop></audio>
+--����--<video src="·��" controls loop width="400px" ><source src="·��" type="flv"></audio> 
+����ȡDOMԪ�ء�
+document.querySelector(ѡ����) �����ݱ�ǩ���ࡢidѡ��������ȡ���������ĵ�һ��Ԫ��
+document.querySelectorAll(ѡ����) : ��ȡ��������������Ԫ��(α����)
+
+
+������������
+dom.classList.add()
+dom.classList.remove()
+dom.classList.toggle()  �л��������л���
+dom.classList.contain()  �ж�Ԫ���Ƿ�ӵ��ָ����ʽ�����ز���
+
+���Զ������ԡ�
+data-���� ����������
+ele.dataset[����(�շ�����)]�� ȡֵ ���Զ�������ֵ���ڵ�ǰԪ�ص�dataset�����У�
+
+���������¼���
+	oninput������(value)�ı�ʱ���� ��onkeyup���м��̲���ʱ���������ճ��ʱ���ᴥ����
+	oninvalid:��֤��ͨ��ʱ����
+
+��������tabs����-�Զ������Ե�ʹ�á�
+����������������
+������������ǩ(document.querySelectorAll("a"))�ҳ��봫������һ�µ�Ԫ��
+����ȡ���Ԫ�ص��Զ���Ŀ������(ʵ������������id)
+��
+
+============================5��23�� H5+CSS ======================
+
+������״̬�ı��¼���
+window.ononline:��������ͨʱ����
+	window.addEventListener("online",function(){ //��ʾ��Ϣ });
+window.onoffline:����Ͽ�ʱ����
+��ȫ���ӿڲ�����
+        //�������������
+=======
 //使用match检测url指定字段
 var reg = new RegExp("(^|&)"+ "name" +"=([^&]*)(&|$)"); 
 "?name=jjk".substr(1).match(reg); 
@@ -1067,10 +2040,20 @@ window.ononline:当网络连通时触发
 window.onoffline:网络断开时触发
 【全屏接口操作】
         //浏览器能力测试
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         document.fullscreenEnabled = ( function() {
             var doc = document.documentElement;
             return ( 'requestFullscreen' in doc ) ||
                 ( 'webkitRequestFullScreen' in doc ) ||
+<<<<<<< HEAD
+                // ��Firefox���������жϣ��������������ж�
+                ( 'mozRequestFullScreen' in doc && document.mozFullScreenEnabled ) ||
+                false;
+        } )();
+        console.log('�������ԣ�'+ document.fullscreenEnabled);
+        // ����ȫ��   elem.requestFullscreen()
+        //@param {DOM} elem Ҫȫ����ʾ��Ԫ��(webkit��ֻҪ��DOM���ɣ�Firefox�±������ĵ��е�DOMԪ��)
+=======
                 // 对Firefox除了能力判断，还加上了属性判断
                 ( 'mozRequestFullScreen' in doc && document.mozFullScreenEnabled ) ||
                 false;
@@ -1078,17 +2061,27 @@ window.onoffline:网络断开时触发
         console.log('能力测试：'+ document.fullscreenEnabled);
         // 开启全屏   elem.requestFullscreen()
         //@param {DOM} elem 要全屏显示的元素(webkit下只要是DOM即可，Firefox下必须是文档中的DOM元素)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         function requestFullscreen( elem ) {
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
             }
             else if (elem.webkitRequestFullScreen) {
+<<<<<<< HEAD
+                // �� Chrome ���⴦��
+                // ���� Element.ALLOW_KEYBOARD_INPUT ʹȫ��״̬�п��Լ������롣
+                if ( window.navigator.userAgent.toUpperCase().indexOf( 'CHROME' ) >= 0 ) {
+                    elem.webkitRequestFullScreen( Element.ALLOW_KEYBOARD_INPUT );
+                }
+                // Safari ������У�����������в������� Fullscreen ���ܲ����á�
+=======
                 // 对 Chrome 特殊处理，
                 // 参数 Element.ALLOW_KEYBOARD_INPUT 使全屏状态中可以键盘输入。
                 if ( window.navigator.userAgent.toUpperCase().indexOf( 'CHROME' ) >= 0 ) {
                     elem.webkitRequestFullScreen( Element.ALLOW_KEYBOARD_INPUT );
                 }
                 // Safari 浏览器中，如果方法内有参数，则 Fullscreen 功能不可用。
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                 else {
                     elem.webkitRequestFullScreen();
                 }
@@ -1097,7 +2090,11 @@ window.onoffline:网络断开时触发
                 elem.mozRequestFullScreen();
             }
         }
+<<<<<<< HEAD
+        //�Ƿ��ж��Ƿ�ȫ��,��document����
+=======
         //是否判断是否全屏,由document调用
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         function isFullScreen(){
             if(document.fullScreenElement) {
                 document.fullScreenElement(); 
@@ -1109,7 +2106,11 @@ window.onoffline:网络断开时触发
                 document.msFullscreenElement(); 
             }    
         }
+<<<<<<< HEAD
+        //�˳�ȫ�� document.exitFullscreen()
+=======
         //退出全屏 document.exitFullscreen()
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         function exitFullscreen() {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
@@ -1121,14 +2122,22 @@ window.onoffline:网络断开时触发
                 document.mozCancelFullScreen();
             }
         }
+<<<<<<< HEAD
+        //��ǰȫ��״̬
+=======
         //当前全屏状态
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         function fullscreen() {
             return document.fullscreen ||
                 document.webkitIsFullScreen ||
                 document.mozFullScreen ||
                 false;
         }
+<<<<<<< HEAD
+        //��ǰȫ����ʾ��dom
+=======
         //当前全屏显示的dom
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         function fullscreenElement() {
             return document.fullscreenElement ||
                 document.webkitCurrentFullScreenElement ||
@@ -1138,12 +2147,87 @@ window.onoffline:网络断开时触发
         
         document.getElementById("d1").onclick = function(){
             if(fullscreen()){
+<<<<<<< HEAD
+                exitFullscreen(); //�˳�ȫ��
+=======
                 exitFullscreen(); //退出全屏
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
             }else{
                 requestFullscreen(document.getElementById("d1")); // any individual element 
             }
         }
 
+<<<<<<< HEAD
+���ļ���ȡ�ӿڡ�
+onchange�¼��������û��Ƿ�ѡ�����ļ���ѡ���˾ʹ���
+�ļ���ȡ����var reader=new FileReader();
+readAsText(�ļ�����,encoding):��ȡ�ı��ļ�  (�ڶ����������������Ĭ����utf-8)
+readAsBinaryString(�ļ�����):binary[baneli]   ��ȡΪ�������룬ͨ���ǽ��䴫����˴洢
+readAsDataURL(): DataURL(base64����)��ʾ����һ�ֽ�С�ļ�Ƕ���ĵ��ķ�����
+?ע��FileReader�ķ������᷵�ض�ȡ����������洢�ڶ����result������(�粻�ɹ�ֵ��null)��
+
+---FileReader���¼�---
+onload:��ȡ�ɹ��󴥷�
+onloadend:��ȡ��ɴ��������Գɹ�ʧ�ܣ�
+onprogress:��ȡ�����г�������(��35ms/��)
+onloadstart:��ʼ��ȡʱ����
+onbort:��ȡ�ж�ʱ����
+onerror:����ʱ����
+
+
+
+?�ļ���ȡ������
+��input(type=file)ע��change�¼���ѡ���ļ�ʱ�ʹ�����
+�ڴ�input(type=file)Ԫ�ص�files[0]�л�ȡ�ļ�
+�۴���FileReader���󣬵���readAsDataURL()������ȡ�ļ�
+��FileReader����ע��onload�¼������ļ���ȡ�Ƿ�ɹ����
+�ݴ�FileReader�����result�����л�ȡ�ļ���base64����
+
+
+������λ�ӿڡ�
+��;�������û�λ�ÿ���Ӧ�ã�������λ�÷���(Location Base Service)
+��ȡ������Ϣ�ķ�ʽ��1.IP��ַ  2.��ά����(GPS��Wi-Fi���ֻ��ź�)   3.�û��Զ�������
+λ����Ϣ��ȡ��ʽ�Աȣ�
+��˽������֪ͨ HTML5 Geolocation(����λ�ö�λ) �淶�ṩ��һ�ױ����û���˽�Ļ��ơ������ȵõ��û���ȷ��ɣ����ܻ�ȡ�û���λ����Ϣ
+API˵����
+a)	navigator.getCurrentPosition(successCallback, errorCallback, options) ��ȡ��ǰ������Ϣ
+	-----navigator.geolocation.CurrnetPosition(successCallback, errorCallback, options��ѡ��)
+b)	navigator.watchPosition(successCallback, errorCallback, options) �ظ���ȡ��ǰ������Ϣ
+c)	1�����ɹ���ȡ������Ϣ�󣬻����succssCallback��������һ������λ����Ϣ�Ķ���position��Coords(����)
+d)	position.coords.latitudeγ��
+e)	position.coords.longitude����
+f)	����ȡ������Ϣʧ�ܺ󣬻����errorCallback�������ش�����Ϣerror
+g)	��ѡ���� options ������Ե���λ����Ϣ�����ռ���ʽ
+	i.	enableHighAccuracy:true/false:�Ƿ�ʹ�ø߾���
+	ii.	timeout:���ó�ʱʱ�䣬��λms
+	iii.	maximumAge:����������������»�ȡ������Ϣ��ʱ�����λ��ms
+�ٶȵ�ͼ����-����
+
+����ק��drag
+����ק�лᴥ�����¼���
+1.���϶�Ŀ��ʱ�����¼���
+  ondragstart ��ʼ�϶�Ԫ��ʱ����
+  ondrag �����϶�ʱ������ÿ��35���봥����
+  ondragend ���Ԫ���϶��󴥷�
+2.�ͷ�Ŀ��ʱ�����¼���
+  ondragenter  �϶��Ķ������������Χ��ʱ����
+  ondragover  �϶��Ķ�������һ��������Χ����ͣʱ����
+  ondragleave  �϶��Ķ����뿪��������Χ��ʱ����
+  ondrop  �϶������У��ͷ�����ʱ����
+
+ע�⣺�϶���Ԫ��Ҫʹ��draggable="true"���ԣ����Ӻ�ͼƬĬ�Ͽ��϶������⣩
+	e.preventDefault();��ֹ�������Ĭ����Ϊ   prevent��ֹ defaultδ����
+	e.dataTransfer.setData("text/html", e.target.id); �¼������е�dataTransfer ���Դ洢�ͻ�ȡ�ַ�������
+
+?��ק������
+��documentע��dragstart�¼���ͨ���¼�����.target.id��õ�ǰ�¼���id���¼�������ƣ���
+  ������õ�id����ȫ�ֱ�������e.dataTransfer.setData("text/html",id)��
+��documentע��dragover(��Ŀ�������Ϸ�����)��
+  �ڴ���ֹ�������Ĭ��ð�� e.preventDefault();  //���϶��ı�ǩҪ��draggable="true"���Բ����϶�
+��documentע��drop�¼�����ͨ����ȡ��id���Ԫ�أ���ӵ���ǰ�¼���target��
+���Ӵ��룺
+<p>�϶�img_w3slogo.gifͼƬ�����ο���:</p>
+=======
 【文件读取接口】
 onchange事件，监听用户是否选择了文件，选择了就触发
 文件读取对象：var reader=new FileReader();
@@ -1213,6 +2297,7 @@ g)	可选参数 options 对象可以调整位置信息数据收集方式
 ③document注册drop事件，将通过存取的id获得元素，添加到当前事件的target中
 例子代码：
 <p>拖动img_w3slogo.gif图片到矩形框中:</p>
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 <div id="div1" ondrop="ondrop_Handle(event)" ondragover="ondragover_Handle(event)">
     <img id="drag1" src="img/Desert.jpg" draggable="true" ondragstart="ondragstart_Handle(event)" width="300" height="56">
 </div>
@@ -1220,15 +2305,83 @@ g)	可选参数 options 对象可以调整位置信息数据收集方式
 <div id="div1" ondrop="ondrop_Handle(event)" ondragover="ondragover_Handle(event)"></div>
 <br>
 <script>
+<<<<<<< HEAD
+//draggable="true"�� ����Ԫ�ؿ��Ϸ�
+/*
+    �����϶�ʲô - ondragstart ��ʼ�϶�Ԫ��ʱ����(����1��)
+    dataTransfer.setData() �������ñ������ݵ��������ͺ�ֵ
+=======
 //draggable="true"： 设置元素可拖放
 /*
     定义拖动什么 - ondragstart 开始拖动元素时触发(触发1次)
     dataTransfer.setData() 方法设置被拖数据的数据类型和值
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 */
 function ondragstart_Handle(ev){
     console.log(ev);
     ev.dataTransfer.setData("Text",ev.target.id); 
 }
+<<<<<<< HEAD
+//����ŵ��δ� - ondragover  ��������Χ����ͣʱ������������Σ�
+function ondragover_Handle(ev){
+    ev.preventDefault(); //��ֹ��Ԫ�ص�Ĭ�ϴ���ʽ:�����Ϸ� 
+}
+//���з��� - ondrop  �ͷ�����ʱ����������1�Σ�
+function ondrop_Handle(ev){
+    ev.preventDefault(); //��������������ݵ�Ĭ�ϴ���drop �¼���Ĭ����Ϊ����������ʽ�򿪣�
+    var data=ev.dataTransfer.getData("Text"); //��ñ��ϵ����ݡ�
+    ev.target.appendChild(document.getElementById(data)); //�ҵ����϶�Ԫ�ط���ָ������
+}
+//event.stopPropagation();//���ݻ��
+</script>
+
+��web�洢�� 
+session [?se?n]�Ự������
+storage [?st?:r?d?]�洢 
+local[?l??kl]���ص�
+item �洢��Ŀ��
+web�洢ǰ�᣺
+1.���١���ҳӦ�á��洢����Ĳ��Ϸ�չ��
+2.��ͳ��document.cookie�洢ֻ��4k���������ӣ�
+HTML5�ṩ�Ľ��������   
+�ŵ�:���ö�ȡ���㣬�ֱ���5M��20M��������ֻ�ܴ洢�ַ���(���Խ�����JSON.stringify() �����洢)
+window.sessionStorage
+�ص㣺��������Ϊ�ر���������ڣ��൱�ڴ��ڵ�ǰҳ���ڴ棬ͬһ�����������ݿ��Թ��� 
+������setItem(key,value):�������ݣ��Լ�ֵ�Եķ�ʽ
+	getItem(key):ͨ������ȡֵ
+	removeItem(key):ɾ��key����Ӧ��ֵ
+	clear()������д洢����
+window.localStorage
+�ص㣺�洢��Ӳ�̣�������Ч�����Զര�ڹ���
+
+focus() �������ڸ������ӽ��㡣
+?web�洢��¼������
+��ͨ������window.localStorage.getItem("userName")��ȡ��¼�����ж��Ƿ�!=null,����ǾͰ�����Ϊvalue��focus()������򣻷�֮��focus()���û�����
+���ύ��ťע�����¼����ж��Ƿ�ѡ�˱����û���������ǻ�ȡvalueͨ��window.localStorage.setItem()���뱾�أ����û�й�ѡ����ͨ��window.localStorage.removeItem("userName")ɾ��
+
+
+��Ӧ�û��桿   manifest [?m?n?fest]��ʾ��֤��  cache�洢[��ʲ]
+���ʹ��HTML5��ͨ������cache manifest�ļ����������ɴ���webӦ�õ����߰汾
+���ƣ�����ɾ����Ҫ���������
+���ƣ�
+ 1.����������Ҫ�������Դ
+ 2.��������Ȼ����
+ 3.���ض�ȡ������Դ�������ٶȣ���ǿ�û�����
+ 4.�������󣬻������������
+cache manifest������
+ 1.Ҫ����Ӧ�ó��򻺴棬Ҫ����html�а���manifest����
+	<!DOCTYPE HTML>
+	<html manifest="demo.appcache"> 
+	������ҳ�����û�����ʱ���ͻỺ��
+ 2.ʹ��manifest�ļ����建���ҳ��
+  1.manifest�ļ�����չ����.appcache���Ǽ򵥵��ı��ļ������������������������ݺͲ����������
+  2.manifest�ļ���Ϊ3�����֣�
+	CACHE MANIFEST    //��ʼ�ĵ�һ�У��������ļ���ͷ 
+ 	CACHE �����µ��ļ������״����غ���л��棻
+	NETWORK �����µ��ļ���Ҫ����������ӣ����ᱻ����
+	FALLBACK �����µ��ļ����涨ҳ���޷�����ʱ�Ļ���ҳ��(����404ҳ��)
+   �ļ���д��ʽ��
+=======
 //定义放到何处 - ondragover  在容器范围内悬停时触发（触发多次）
 function ondragover_Handle(ev){
     ev.preventDefault(); //阻止对元素的默认处理方式:不可拖放 
@@ -1288,6 +2441,7 @@ cache manifest基础：
 	NETWORK 标题下的文件需要与服务器连接，不会被缓存
 	FALLBACK 标题下的文件，规定页面无法访问时的回退页面(比如404页面)
    文件编写格式：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	CACHE MANIFEST
 	CACHE:
 	logo.gif
@@ -1297,6 +2451,185 @@ cache manifest基础：
 
 	FALLBACK:
 	404.html
+<<<<<<< HEAD
+	������
+	1��CACHE: ����ʡ�ԣ���������½���Ҫ�������Դд��CACHE MANIFEST
+	2������ָ�����CACHE: NETWORK: FALLBACK:����˳������
+	3��#��ʾע�ͣ�ֻ�е�demo.appcache�ļ����ݷ����ı�ʱ�����ֶ��������󣬲Ż����»��档
+	4��chrome ����ͨ��chrome://appcache-internals/���ߺ����ߣ�offline��ģʽ�����Թ���Ӧ�û���
+		
+	���»��棺
+	һ���ļ������棬������������չʾ�ѻ���İ汾����ʹ�޸��˷������ϵ��ļ���Ϊ��ȷ����������»��棬	Ҳ��Ҫ���� manifest �ļ���Ҳ����ζ��һ��Ӧ�ñ����棬���ͻᱣ�ֻ���ֱ���������������
+	1.�û�������������
+	2.manifest �ļ����޸ģ������������ʾ��
+	3.�ɳ���������Ӧ�û���
+	˵��������ע�����е����ںͰ汾����һ��ʹ��������»����ļ��İ취
+
+
+����ý�塿duration[������]������ʱ��
+���÷�����
+load()����
+play()����
+pause()��ͣ
+�������ԣ�
+currentTime ��ǰ���Ž���
+duration ��Ƶ��ʱ��
+paused ��Ƶ����״̬
+�����¼���
+oncanplay �û���ʼ������Ƶ����Ƶʱ����
+ontimeupdate ͨ���¼������浱ǰ���Ž��ȣ����Ź��̳��������ģ�300ms���ң�
+onended ������ʱ��������
+
+?��Ƶ������������
+�ٵ�����ţ�oncanplay�¼�������Ƶ���ţ�video.duration��ȡ��ʱ��,���ø���������ʾ
+���л���ͣ����ťע�����¼������Ʋ��ź���ͣ  ��ͨ��video.paused�жϻ�ã�
+�����������timeupdate�¼��������������ڲ���ʱ�Ľ�����(��currentTime/video.duration�İٷֱ�����)��ʱ����ʾ(currentTime)��
+������ʵ�֣�������������¼���ͨ��e.offsetX/�ܳ���*��ʱ�������ø�currentTime;
+�ݲ��������ã�currentTime��Ϊ0����ֹͣ����
+��ȫ��
+============================5��25�� H5+CSS ======================
+��CSS3��
+�����ԣ�������Բ�ǡ���Ӱ���߿�ͼƬ����
+��״�������֧�̶ֳȲ��Ҫ���˽��ǰ׺(�ƶ���)
+
+��CSS3����ѡ������
+����ѡ������
+E[attr]  ������attr���Ե�E��ǩ       //div[class]
+E[attr=value] �ϸ�ƥ���		//div[class=box]
+E[attr*=value] ������ֵ�κ�λ�ð���  //div[class*=box]
+E[attr^=value] ������ֵ��ͷ���� 	//div[class^=box]
+E[attr$=value] ������ֵ��β����
+
+α��ѡ������
+������α�ࣺa:link  ��չ�ɡ�.a1:link  hover active visited
+E:first-child   E�ĸ�Ԫ�صĵ�һ����E���͵���Ԫ�� (�ֵ��еĵ�һ��)
+E:last-child  E�ĸ�Ԫ�ص����һ����E���͵���Ԫ�� (�ֵ��е����һ��)
+��E:first-of-type E���ֵ��е�һ����E���͵�Ԫ��
+��E:last-of-type E���ֵ������һ����E���͵�Ԫ��
+���E:nth-child(n/even/odd/-n+5) ��Ԫ����ָ����Ԫ��
+���E:nth-last-child(n/even/odd/-n+5) ��Ԫ�������һ��Ԫ��
+����E:nth-of-type(n/even/odd/-n+5){ }  �ֵ���ָ��λ�õ�EԪ��
+����E:nth-last-of-type(n/even/odd/-n+5){ }  �ֵ���ָ��λ��(����)��EԪ��
+E:empty ��������Ϊ�յ���Ԫ��
+E:target  ���ʱѡ�У�ê���ӵ�Ŀ��Ԫ�أ�//�磺������ê����(href="#title2")�������ʱ��ʾ��ʽ
+
+ע��n���Ƕ�����ʽ��nth-child(2n)��nth-child(2n+1)��nth-child(-n+5)��
+
+��αԪ��ѡ������
+��������dom��
+����ʵ��Ԫ�صĹ���
+ҳ��ṹ����ʾ
+α������һ�̶ֹ���ʽ������չΪ��
+��E::after ����Ԫ�أ�һ���Ƕ�λʹ��  //��content:""�����������
+��E::before ����Ԫ�أ�һ���Ƕ�λʹ��  //��content:""�����������
+
+ע��ie8�����²�֧��
+
+::first-letter  ѡ�е�һ����   ���float:left,�������ֻ���Ч��
+::first-line  ѡ�е�һ�У����Ḳ��first-letter��
+::selection  ��ȡ��ǰѡ���ı������޸���ɫ�������ȣ����ɸı�������ṹ�����ԣ�
+
+����ɫ����ɺ����á�
+��ͳ��������
+IT����������Red Green Blue��  ɫ��ͼ
+��ɫ��ʾ��ʽ��
+1.rgba()
+2.hsla(hueɫ��[0-360],saturation���Ͷ�[100%],lightness����[50%],alpla͸����[0-1])
+
+��shadow��Ӱ��
+�÷���
+text-shadow:X-offset Y-offset blur color;  //2px 2px 4px red;
+box-shadow:X-offset Y-offset blur color inset����Ӱ(Ĭ��������Ӱ);  //������Ӷ��
+
+����ģ�͡�
+�÷����Ա߿���������ߣ�padding/margin/border�仯ʱռ�õ������������ṹ���ȶ���
+boxsizing:border-box  content-box(Ĭ��)
+
+�м������⣬Ҫ����ǰ׺ʹ�ã�
+-moz-boxsizing:border-box //��������
+-webkit-boxsizing:border-box  //ƻ���Ͱ�׿
+
+���߿�Բ�ǡ�
+1. border-radius:5px 5px 5px 5px //����-����-����-���£�����-����-����-���ϣ�
+   border-radius:ֵ1 ֵ2  ////ֵ1��ʾˮƽ�뾶��ֵ2��ʾ��ֱ�뾶
+2. border-top-left(right)-radius:ֵ1 ֵ2  //ֵ1��ʾˮƽ�뾶��ֵ2��ʾ��ֱ�뾶  
+   border-bottom-left(right)-radius:(ͬ��)
+
+============================5��26�� H5+CSS ======================
+linear-gradient[?l?ni?(r)]-[?gre?di?nt]ֱ��-�仯
+radial-gradient [?re?di?l] ����״-�仯
+timing ��ʱ
+skew ��б
+origin���
+scale [ske?l]��ģ; ����; ����;
+
+�ص������䣺��ͬ��Ļ���ֱ���
+
+������ɫ�� 
+���Խ��䣺
+background: linear-gradient(����color1 λ��,color2 λ��....)   //��ɫ��ʾд����(����color1 0%,color1 20%,color2 20% ....) 
+����ֵ��to top/to right/to bottom/to left    0deg/80deg 
+λ�ã�0%-100%
+
+���򽥱䣺
+background��radial-gradient(shape(��״���� �����С λ�ã�color1 ,color2 ...))    //Ҳ�ɴ�ɫ��ʾ
+��״����(shape)��ellipse/circle
+�����С��closest-side�����/farthest-side��Զ��/closest-corner�����/farthest-corner��Զ��(Ĭ��)
+λ�ã�at x���� y���� / at �ؼ���(top right bottom left)
+
+�ظ����䣺��ָ���õķ�Χ���䵽100%
+repeating-radial-gradient(��״���� �����С λ�ã�red 0% ,red 33.3% ,blue 33.3% blue 66.66%);
+repeating-linear-gradient(����red 0% ,red 33.3% ,blue 33.3% blue 66.66%);
+
+
+��background�������á�
+background-image:url();
+background-repeat:repeat(Ĭ����ʽ)|no-repeat|repeat-x|repeat-y
+background-position: ��left|center|right����top|center|bottom�� --Ĭ�Ͼ���
+��background: #fff url("./1.png")  no-repeat  fixed left top
+��background: ��ɫ url()  �ظ���ʽ  ������̶� xλ��  yλ�� ������д��
+
+background-attachment: fixed / scroll /local����ҳ������������������Ԫ�أ�scroll������棬local�����
+
+background-size:number  x y������������ľ����С
+background-size:percentage  x�ٷֱ� y�ٷֱȣ����ո�������ȣ��������һ������Ĭ�ϰ���һ��ֵ����
+background-size:contain ����ͼƬ�ȱ����Զ���������(�»��һ����)
+background-size:cover ����ͼƬ��ȫ������������֤��������������������������������㣬�Զ����ض���Ŀ���֮��Ȼ��
+��background-size:cover + background-position:center = ��ߴ�ͼƬ�Զ���Ӧ��ͬ��С��ʾ����Ҳ������ʾͼƬ�м�ĺ������ݣ�
+
+background-origin: padding-box/border-box/content-box  //�趨�������(���Ŀ�ʼ��ʾ)
+background-clip: padding-box/border-box/content-box   //�趨��ʾ��(������ü�)
+
+���߿�ͼƬ��
+border-image-source:url("");  ����ͼƬ��û��slice֮ǰ��������䵽�ĸ��ǵ�
+border-image-slice:   Ҫ���еĳߴ磬1-4��ֵ����fill����м�λ�ã�������λ��������������ɣ�
+border-image-width:   ���ñ߿��ȣ�����λ��һ�㲻�Ĭ�ϰ�border-width��
+border-image-repeat:  stretch/round/repeatֱ��ƽ�� ��һ��ûʲô�ã�
+
+�����ɡ�
+transition-property:  ������������(Ҫ�ǿ�������������)
+transition-duration:  �������ʱ��(��λ����)
+transition-delay:  �����ӳٵ�ʱ��
+transition-timing-function: �����ٶ�����  
+----�ٶ�����: linear ����  
+              ease ������  
+              ease-in ��ʼʱ��
+              ease-out ����ʱ��
+              ease-bezier(n,n,n,n) �Զ���
+
+���ɵļ�д��transition�������� ��ʱ�� �ӳ� ʱ�亯��
+
+��2Dת����
+2D�ƶ�?transform:translate(x,y)��translateX(x)/translateY(y)  ����Ҫ�ƶ���λ��
+      ע��50%��λ��ʹ��translate(-50% -50%)��ʵ��ˮƽ����
+2D����?transform:scale(x,y)��scaleX(x)/scaleY(y)  �������ŵı���(0.01)  
+2D��ת?transform:rotate(5deg)  ������ת�ĽǶȣ�Χ��Z�ᣩ
+2D��б?transform:skew(xdeg,ydeg)��skewX()/skewY()  ������б�ĽǶ�
+transform-origin:x y��top right bottom left center�˸���λ  ����ת��Ԫ�ص����ĵ�
+
+
+�ı���������� 
+=======
 	其它：
 	1、CACHE: 可以省略，这种情况下将需要缓存的资源写在CACHE MANIFEST
 	2、可以指定多个CACHE: NETWORK: FALLBACK:，无顺序限制
@@ -1474,10 +2807,107 @@ transform-origin:x y或top right bottom left center八个方位  设置转换元
 
 
 文本基线清除： 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 font-size:0;
 display:block;
 vertial-align:bottom;
 
+<<<<<<< HEAD
+word-break:breakAll  //���ı��Զ�����
+
+============================5��28�� H5+CSS ======================
+��3dת����
+3D�ƶ�?transform:translate3d(x,y,z) / translateX() translateY() translateZ()
+3D����?transform:scale3d(x,y,z) / scaleX() scaleY() scaleZ()
+3D��ת?transform:rotate3d(x,y,z,angle) /rotateX() rotateY() rotateZ() //xyz��ԭ�����������ֵ
+transform-style:preserve-3d;//��ʾ3dЧ��
+������ת����)
+����͸�ӣ�
+д��1��perspective:100px
+д��2��transform:perspective(100px) rotateY(5deg)...;
+perspective-origin:x y //����۲�Ƕ�
+
+
+��������
+��ҪԪ�أ�
+a��ͨ��@keyframesָ���������У��Զ����䶯����ȷ�������㣬ϵͳ���Զ������м���̡���������ͳ�Ϊ�ؼ�֡�����ǿ������ö���ؼ�֡
+ b��ͨ���ٷֱȽ��������зָ�ɶ���ڵ㣻
+ c���ڸ��ڵ��зֱ��������
+ d��ͨ��animation������Ӧ������ӦԪ�أ�
+@keyframes testAni {
+	from { //0%��ʾ��ɣ����޴���Ĭ��ʹ��Ԫ��ԭʼ���� }
+	20%{ ....}
+	...
+	to {//100%��ʾ��ɣ����޴���Ĭ��ʹ��Ԫ��ԭʼ����}
+}
+
+
+animation-name:testAni;  //������
+animation-duration:2s;  //����ʱ��
+animation-delay:2s   //�ӳ�ʱ��
+
+animation-timing-function:  //ʱ�亯��(�ٶ�����)    steps()
+animation-iteration-count:  //ִ�д���   infinite:���޴�
+animation-direction�������:  //�������� normal reverse  alternate   alternate-reverce
+animation-play-state:paused / running;  //����״̬����(����JS����)
+animation-fill-mode: forwads���������ʱ״̬/backwards�������ؿ�ʼʱ״̬/both��ʼ״̬+����״̬
+
+��д��
+animation:testAni 2s 0s alternate infinite steps(5)
+
+��web���������ͼ�꡿
+web���壺
+���������壬
+������ʽ�ļ����Զ��壺   @font-face {font-family:"myFont".....}
+�۴�����ʽ��ʹ���Զ������壺  .myUse {font-family:myFont}
+
+����ͼ�꣺  https://icomoon.io/app/#/select
+���ͼƬ���ڵ����⣺1.Ƶ����������������� 2.ͼƬ�Ŵ�ʧ�� 3.�޸ĺ����ò�����
+���������壬
+������ʽ�ļ����Զ��壺
+�۴�����ʽʹ������ͼ�꣺ .jd_icon_����ͼ����::after { content:"�������"}
+
+
+�����ֶ��в��֡�    
+column-count:3   //��������      column [?k?l?m][����]�ݶ�
+column-width:500px   //�����п�     
+column-gap:50px    //�����м��   gap[g?p]ȱ��,���
+column-rule-color|style|width: //���÷ָ�����ɫ/��״/��С    rule[ru:l]����
+column-span:none|all   //���ñ���������
+
+���������ֺ�ģ�͡�
+css3�����FlexBox���֣���Ҫ˼����������������������Ԫ������ѷ�ʽ�����ÿռ䣬��������ԡ�
+
+display:flex|inline-flex  ������������Ϊ�鼶/��������������
+flex-direction:��������ڵ�Ԫ�ط��÷������᷽��
+	row --X�������(Ĭ�ϵ�) row-reverse��֮�෴
+	column --Y���������  column-reverse��֮�෴
+flex-wrap:���������Ԫ�صķ��÷�ʽ
+	nowrap --������ʾ(Ĭ��ֵ)
+	wrap --������ʾ
+	wrap-reverce --������ʾ���е�˳��ӵײ�������
+flex-flow:������flex-direction��flex-wrap��д��ʽ,row��nowrap��Ĭ����ʽ
+
+justify-content: ������Ԫ�������᷽��Ķ��뷽ʽ
+	flex-start�ӿ�ʼλ������(Ĭ��)
+	flex-end�ӽ���λ������
+	center���м�λ������
+	space-between�����������start��end���룬������Ԫ��֮��ƽ�ּ�϶ between[��ǩ]��...֮��
+	space-around��ÿһ��Ԫ�ص����������ȼ�϶
+align-items:����Ԫ���ڲ��᷽��Ķ���ռ�
+	flex-start�ӿ�ʼλ������(Ĭ��)
+	flex-end�ӽ���λ������
+	center���м�λ������
+	stretch���죬��������˸߶���ʧЧ   stretch[stret?]��չ
+	baseline:���߶���
+
+flex-grow:������Ԫ�����������1��������|0�趨ֵ����(Ĭ��)����С������������ֵ
+flex-shrink: ������Ԫ����С������1��������|0�趨ֵ����(Ĭ��)��  //shrink[����]����
+flex-basis:������Ԫ�س�������ռ��������õı������ֲ���
+flex:��flex-grow��flex-shrink��flex-basis�������Ե���д���ڶ����͵����������ǿ�ѡֵ��Ĭ��ֵ��0 1 auto��
+
+flex���� flex���֣�
+=======
 word-break:breakAll  //长文本自动换行
 
 ============================5月28日 H5+CSS ======================
@@ -1572,11 +3002,115 @@ flex-basis:定义子元素长宽，额外空间会基于设置的比例做分布
 flex:是flex-grow，flex-shrink，flex-basis三个属性的缩写。第二个和第三个参数是可选值。默认值是0 1 auto。
 
 flex精华 flex布局：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 .box{
   display: -webkit-flex; /* Safari */
   display: flex;
 }
 .item {
+<<<<<<< HEAD
+  flex-grow: <number>; /* default 0 ������Ŀ�ķŴ������Ĭ��Ϊ0�����������ʣ��ռ䣬Ҳ���Ŵ� */
+}
+.item {
+  flex-shrink: <number>; /* default 1 ��������Ŀ��С������Ĭ��Ϊ1��������ռ䲻�㣬����Ŀ����С��*/
+}
+
+============================5��29�� H5+CSS���� ======================
+����ע�����
+��Ԫ�ض�λ�����м䣬�����������  transform(-100%,50%)
+�ڶ�������
+������Ԫ�ؾ��С�
+��λ��left:50%,top:50% ��transform:translate(-50%,-50%)
+��Я����������
+1.�������֣�
+  ������������Ԫ��display:flex;��Ԫ��flex:1     box-sizing:border-box
+  ������������Ԫ��display:flex ; ��Ԫ��(4��)flex:1,width:50%
+
+���и��ֲ�ͼ��
+1.�ṹ����box�����li��ǩ��ÿ��li�ж����ĸ��沢���ó������壬ÿ������뱳��ͼ�������ߴ�
+2.�߼�������li����transition-delayΪindex*ʱ��(�Ⱥ�˳��ת��)��
+ 	������count++/count-- * 90deg��Ϊ��ת�Ƕȣ�
+	ͳ��ÿ����ת����ʱ�䣬����setTimeout�ӳٸı�flag,��֤��ת��ɺ������һ��(�¼�������ʼʱ�ж�flag=true)
+
+��ȫ�����ʹ�á�
+1.����jq + fullpage��js�ļ�
+2.��ʼ��$(function(){
+		$(��#myPage��).fullpage(
+			sectionsColor:['red','blue','yellow','pink','purple'], //������ɫ��ֵ��
+
+			afterLoad:function(anchorLink,index){
+				//�������ѡ��������ǰҳ�������ý���ѡ����������ʽ��Ч
+				//������jQ.eq(index-1)���ǵ�ǰҳ��
+				 }
+		);  //�����ӵ���fullpage����
+	})
+   �ṹ��ʽ��<div id="myPage">
+    <div class="section first">
+        <h3>��һ��</h3>
+    </div>
+    <div class="section second">
+        <h3>�ڶ���</h3>
+    </div>
+    <div class="section">
+        <h3>������</h3>
+    </div>
+    <div class="section">
+        <h3>������</h3>
+    </div>
+    <section class="section">
+        <h3>��5��</h3>
+    </section>
+</div>	
+3.��ָ���ṹ��д������룻�ڽ���ѡ������������ʽ
+��360��Ʒ���ܰ�����
+���в��֣�transition���ɵ����ʹ��
+
+============================5��31�� �����̺�AJAX Day1======================
+���ͻ��˺ͷ���ˡ�
+* �ͻ��ˣ���װ�ͻ��������**��ȡ����**һ�������������ȡ��
+* ����ˣ���װ����������**�ṩ����**һ������ͻ����ṩ��
+===�ͻ�������===
+- ��ϵͳ��ios�ˣ�android�ˣ�window��
+- ���豸���ƶ��ˣ�PC��
+- �����ԣ������(��ҳӦ��)���������(����Ӧ��)
+===����������===
+-  ��������ܣ�
+	-�ļ����������: Server-U��FileZilla��VsFTP��
+	-���ݿ���������: oracle��mysql��SQL server��DB2��ACCESS��
+	-�ʼ����������: Postfix��Sendmail��
+	-Web������(HTTP)���: Apache��Nginx��IIS��Tomcat(java)��NodeJS�ȣ�
+	 http��������Ҫ�ṩ�ĵ�(�ı�/ͼƬ/��Ƶ/��Ƶ)�������;
+	 http���������Խ��ĳ������Դ���ҵ���߼�,������˿���;
+	 ����˱�����԰�����php��java��.net��python��ruby��
+-  ����װ����ϵͳ��Linux��������Windows�������ȣ�
+-  ��Ӧ��������ƣ�Apache��������Nginx ��������IIS��������Tomcat��������
+   mysql��������oracle�������� Node�������ȣ�
+
+��CS/BS���(Ӧ��)��
+   client/server �ͻ���+���������磺΢�š�qq����Ҫ��װ��Ӧ�ó���
+   browsers/server �����+���������磺��ҳ��ͼ����ҳQQ���Ż���վ   [btaz]��laoZ
+
+
+��IP��������DNS���񡢶˿ڡ�
+IP��������Ψһ��ʶ���鿴����ipconfig/ifconfig(linux,mac)���鿴��վping www.baidu.com
+������������IP����һ���(����˵��IP�����)�����IP���������廯�����ڼ���
+DNS����
+  ---DNS:������Ϊ������IP��ַ�໥ӳ���һ���ֲ�ʽ���ݿ�
+  ---DNS����������¼IP��������Ӧ��ϵ�ķ�����
+  ---DNSѰַ��������������������ұ���hosts�ļ���ȡIP�����δ�ҵ�������NDS��������ȡ  //�����ٳ�
+�˿ڣ��Ǽ���������ͨѶ�����Ĵ��ڣ�ÿ���˿ڶ�Ӧ��ͬ�ķ���
+  ---�鿴�˿�ռ�������netstat -an
+  ---�����˿ںţ�80(apache)��3306(mysql)��21(ftp)��22(ssh)
+
+���web��������
+���ɻ��������
+phpStudy���ɻ��������{windows}+ Apache + Mysql + PHP
+  ---������վ��Ŀ¼�����ʱ�����127.0.0.1���WWWĿ¼(index.html/index.phpĬ�ϱ���)
+  ---������վ���ݣ������õ���ҳ�ļ��п���WWWĿ¼����������ʱ���IP�Ϳ��Դ�
+  ---���������վ���ã�phpStudy����ѡ��˵�����>����վ�����������������ú�·�����ã�>��hosts����ip��Ӧ��������IP+ +������
+
+��php��
+=======
   flex-grow: <number>; /* default 0 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。 */
 }
 .item {
@@ -1678,10 +3212,32 @@ phpStudy集成环境软件：{windows}+ Apache + Mysql + PHP
   ---多个域名网站配置：phpStudy其他选项菜单设置>设置站点域名管理（域名设置和路径设置）>打开hosts设置ip对应的域名（IP+ +域名）
 
 【php】
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 ?<?php 
 	header('Content-Type:text/html; charset=utf-8'); 
 	echo 'hello world!';
  ?>
+<<<<<<< HEAD
+?����
+  $��ͷ(����)��
+  �����������֡���ĸ���»�����ɣ�
+  ��Сд��У�
+
+?��������
+ �����������ͣ�
+  �ַ��ͣ����Σ������ͣ������ͣ�null  
+ �����������ͣ�
+  Array:
+    �������飺$arr = array(1,2,3);   ʹ��print_r(arr)���
+	������
+	��foreach ��������(����javascript�е�for in)  //foreach($arr as $val){ $val }
+	��forѭ����������   //count($arr),�൱��length
+
+    �������飺$arr = array('name'=>'jack','age'=>18);  
+	������foreach($arr as $key=>$val){  } 
+  ����
+    ���������ࣺ
+=======
 ?变量
   $开头(声明)；
   变量名由数字、字母、下划线组成；
@@ -1701,10 +3257,66 @@ phpStudy集成环境软件：{windows}+ Apache + Mysql + PHP
 	遍历：foreach($arr as $key=>$val){  } 
   对象：
     ①先声明类：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	class Person { 
 	  public $name = 'jack';
 	  public $age = 18;
 	 }
+<<<<<<< HEAD
+    ����newʵ������
+	$person = new Person();
+	echo $person->age;
+  ������
+    �������Դ�Сд����У�
+    ��������Ĭ�ϲ�����������ʡ�Բ���
+
+����Ҫ������
+	echo ������������ͣ����ַ�������ֵ
+	print_r(����); var_dump(����); //����������ݵķ�����
+	count(����);   //��ȡ���鳤�Ȼ�������Ը����� 
+	in_array(ֵ);  //ֵ�Ƿ���������
+	array_push(array,value1,value2...)  ��һ��������Ԫ��Ԫ�أ�ѹ�������ĩβ����ջ����
+	array_rand(array,number)  �����������ѡ��һ������Ԫ�أ������ء�number��ѡ��Ĭ��1
+	array_key_exists(key,array)  �������ļ����������Ƿ�����������С�
+	file_get_contents() �����������ļ�����һ���ַ����С�
+	file_put_contents()  ������һ���ַ���д���ļ��С�
+	json_encode($arr) phpתjson
+	json_decode($json) jsonתphp    
+
+	mt_rand(5, 15) //����5-15�����
+
+?������&˫�������𣺵������ڲ��ı�������ִ��˫���Ż�ִ��
+
+?�����
+  + ע�����ֻ���ӷ�����(���ӷ�ʹ��".")
+
+?������
+   form�ύ�û�����ע�����
+   	--form��action���ԣ�ָ�������ύ������(�ĸ��ļ���)��
+   	--form��method���ԣ�ָ��������ʲô��ʽ�ύ��Ĭ��Ϊget(���⻹��post)
+		ע�ͣ�HTTP GET �������ʺϴ��͵ı���ֵ��ֵ�ǲ��ܳ��� 100 ���ַ��ġ�
+	--���ύ�İ�Ťһ��Ҫ��type="submit"����,���ܴ����ύ�¼�.
+   	--���ϴ��ļ�ʱ��Ҫ���� enctype="multipart/form-data"����������=���/���ݶ��У�������ֻ��post��ʽ
+     ?get�ύ��<form action="log.php" method="get">...
+     ?post�ϴ�/�����ļ���<form action="log.php" method="post" enctype="multipart/form-data">
+				ͼƬ:<input type="file" name="image"/>
+				<input type="submit" value="�ϴ�"></form>
+				php���棺move_uploaded_file($_FILES['image']["tmp_name"],"test.jpg") ---�����ļ�������$_FILES['image']["name"]�õ���������ƴ�Ӵ洢·��
+		$_FILES["file"]["name"] - ���ϴ��ļ������� 
+		$_FILES["file"]["type"] - ���ϴ��ļ������� 
+		$_FILES["file"]["size"] - ���ϴ��ļ��Ĵ�С�����ֽڼ� 
+		$_FILES["file"]["tmp_name"] - �洢�ڷ��������ļ�����ʱ���������� 
+		$_FILES["file"]["error"] - ���ļ��ϴ����µĴ������ 
+
+  ��̨�������ݣ�
+	--$_GET ��ȫ�ֱ�����ר�Ž���get��ʽ�ύ�����ݣ���ϵ������
+	  ȡֵ��$_GET['name']��keyҪ��input����name���Ա���һ��
+	--$_POST ��ȫ�ֱ�����ר�Ž���post��ʽ�ύ�����ݣ���ϵ������
+	  ȡֵ��$_POST['name'];keyҪ��input����name���Ա���һ��
+	--$_FILES �����ļ��ϴ�
+  
+  ʾ����
+=======
     ②用new实例化：
 	$person = new Person();
 	echo $person->age;
@@ -1758,20 +3370,172 @@ phpStudy集成环境软件：{windows}+ Apache + Mysql + PHP
 	--$_FILES 接收文件上传
   
   示例：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 html:
 <form action="05test05.php" method="post" enctype="multipart/form-data">
     <!--<input type="text" name="uname">-->
     <input type="file" name="image">
+<<<<<<< HEAD
+    <input type="submit" value="�ύ">
+=======
     <input type="submit" value="提交">
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 </form>
 php:
 <?php
     header('Content-Type:text/html; charset=utf-8'); 
+<<<<<<< HEAD
+    // ����ͼƬ��image�ļ���
+=======
     // 保存图片到image文件夹
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     move_uploaded_file($_FILES["image"]["tmp_name"],"images/".$_FILES["image"]["name"]);
     sleep(1);
 ?>
 
+<<<<<<< HEAD
+��php��
+?�ļ�����
+include()��require()���������ڷ�����ִ��PHP�ļ�֮ǰ����һ���ļ�������,ʵ�ֶ�̬��Ⱦ���������ڴ������ķ�ʽ��ͬ(include(ͨ�����ڵ���ģ��)������һ�����棬�ű������ִ�У���require(ͨ�����ڵ�������)��������������ִֹͣ�нű�)
+
+ѧϰĿ�꣺
+1.������ͷ�����
+  web���������ṩ��ҳ������������(�ͻ���)
+2.������վ���������
+  ��������(hosts,DNS)��ip,�ҵ�����������������
+3.�web��������������
+  phpStudy���������{windows}+ Apache + Mysql + PHP
+  WWWĿ¼����html�ļ����������������վ���á�hosts����...
+4.php�����﷨
+  �����������ԡ������������������
+5.�������ύ�ͽ���
+  action='����˭.php' method="��ʽget/post"
+  
+
+============================6��1�� �����̺�AJAX ======================
+�����紫��Э�顿
+?���紫��Э�飺�ͻ�����������˵�Լ����Ŀ�ģ�������Ϣ����ʲô��ʽ��
+  http/https ���ı�����Э��
+  ftp �ļ�����Э��
+  smtp ���ʼ�����Э��
+?httpЭ��
+ ������ͷ�������Լ����������������Ĺ淶���ɡ������ġ��͡���Ӧ���ġ���������ɡ�
+
+��AJAX��̡� Asynchronous Javascript And XML
+ ?ʲô��AJAX��
+  һ��ͨ�ż�����ƣ�����ʵ�ַ������������֮���첽�������ݣ���������httpЭ����������첽�ķ�ʽ�������ͨ�ţ�(����Ӧ�ó���ܹ�)
+ ?�첽��
+ ʲô���첽���첽�������ִ��ʱ�������������������ִ�У��Դ�����������ִ��Ч�ʡ�
+ ��js�У�ʹ��XMLHttpRequest ��д�첽�������(ʵ����ҳ�Ĳ���ˢ��)��
+ ?XMLHttpRequest
+ XMLHttpRequest��js���ö����ṩ�˶�HTTPЭ�����ȫ���ʡ���AJAX��һ��ؼ����ܡ�
+ API��⣺
+ xhr.open()   //�������󣬿�����get��post��ʽ
+ xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')  //��������ͷ
+ xhr.send()  //�����������壬get��ʽ�ɴ�null
+ xhr.onreadystatechange //����������Ӧ����״̬��(ÿ��readyStateֵ���ӵ�ʱ�򶼻ᴥ��)��
+ xhr.readyState  //��¼������Ӧ����״̬ 4Ϊ���
+
+ xhr.status  //��Ӧ״̬��,��200  status״̬
+ xhr.statusText  //��Ӧ״̬��Ϣ���磺200ʱ��OK ������û���ã�
+ xhr.getAllResponseHeaders() //��ȡ������Ӧͷ��Ϣ
+ xhr.getResponseHeaders('') //��ȡָ��ͷ��Ϣ
+ xhr.responseText   //����ͨ��ҳ�ַ�����ʽ��������Ӧ����   response[��˹��s]��Ӧ
+ xhr.responseXML  //��XML�ĵ���ʽ��������Ӧ����
+ 
+
+?���룺
+ ?����������ģ�
+   --����:�������(�ͻ���)����
+   --�����ĸ�ʽ�������С�����ͷ����������
+	**ע����д˳��**
+	```javascript
+	1. ������
+	xhr.open('post','01.php');
+	2. ����ͷ ,get������Բ�����
+	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+	3. �������� ,get����null 
+	xhr.send("name=xjj&age=10");
+ 	
+
+	Host��127.0.0.1             ���������
+	Cache-Control��max-age=0    ���ƻ���
+	Accept��*/*                 ���ܵ��ĵ�MIME����
+	User-Agent��                �������Ϣ
+	Referer��                   ���ĸ�URL��ת������
+	Accept-Encoding��           �ɽ��ܵ�ѹ����ʽ
+	If-None-Match��             ��¼��������Ӧ���ڿ��ƻ��� (���ɷ������Զ����ɵ�)
+	If-Modified-Since��         ��¼�ļ��޸� (���ɷ������Զ����ɵ�)
+	```
+
+  ?��Ӧ����Ӧ���ģ�
+   --����:�������˷���
+   --�����ĸ�ʽ��״̬�С���Ӧͷ����Ӧ����
+	1. ��ȡ״̬�У�����״̬��&״̬��Ϣ��
+	xhr.status ״̬��
+	xhr.statusText ״̬����Ϣ
+	2. ��ȡ��Ӧͷ
+	xhr.getResponseHeader('Content-Type');
+	xhr.getAllResponseHeaders();
+	3. ��Ӧ����   
+	xhr.responseText
+	xhr.responseXML
+
+	Date��			��Ӧʱ��
+	Server��		��������Ϣ
+	Last-Modified��	��Դ����޸�ʱ�� �ɷ������Զ�����
+	ETag��			��Դ�޸ĺ����ɵ�Ψһ��ʶ�ɷ������Զ�����
+	Content-Length����Ӧ���峤��
+	Content-Type��	��Ӧ��Դ������	```
+	- **3����Ӧ����**
+	������˷��ظ��ͻ��˵����ݣ�
+
+	> onreadystatechange���Ǽ�������������Ӧ����(ÿ��readyStateֵ���ӵ�ʱ�򶼻ᴥ��)��.
+	> readyState�� ��¼XMLHttpRequest����,��ǰ�Ĺ���״̬.
+	```javascript
+	0������δ��ʼ������û�е��� open()����  
+	1�������Ѿ����������ǻ�û�з��ͣ���û�е��� send()����  
+	2�������ѷ��ͣ����ڴ����У�ͨ�����ڿ��Դ���Ӧ�л�ȡ����ͷ����  
+	3�������ڴ����У�ͨ����Ӧ�����в������ݿ����ˣ����Ƿ�������û�������Ӧ�����ɡ�  
+	4����Ӧ����ɣ������Ի�ȡ��ʹ�÷���������Ӧ�ˡ�
+	/*��ʵ����ֻ����������ɺ����*/
+	if(xhr.readyState == 4 ){
+	    console.log('��Ӧ�����');
+	}
+
+?��¼��֤������
+ �ٵ����ʧ���¼�,������:
+   /������xhr.open('post','.php')
+   /����ͷ xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');get������Բ�����
+   /��������xhr.send('uname='+uname+'&upwd='+upwd);  //��ʽkey=value&key2=value2��get����null
+ �ڡ�ע���¼�onreadystatechange������Ӧ����״̬
+    xhr.readyState==4 && xhr.status==200,�ͽ�����Ӧ�Ľ��
+
+?ע��GET��POST����ʽ�Ĳ��죨�����⣩
+ 1. GETû���������壬ʹ��xhr.send(null)
+ 2. GET����ͨ��������URL������������
+ 3. POST����ͨ��xhr.send('name=itcast&age=10')������
+ 4. POST��Ҫ����content-type����.
+ 5. GETЧ�ʸ��ã�Ӧ�öࣩ
+ 6. GET��С����Լ4K��POST��û������
+
+ѧϰĿ�꣺
+1.ʹ��php��Ⱦ������ҳ
+2.httpЭ����ɲ���
+3.�����߹��߲鿴get��post������
+4.��ϤXMLHttpRequest�������첽���󣨰�����
+
+============================6��2�� �����̺�AJAX Day3======================
+ѧϰĿ�꣺
+1.����xml��json���ݵ�ʹ��
+2.��װajax����
+��XML��
+ ?ʲô��XML:����HTML�Ŀ���չ�������,���ڴ�������,��ǩû�б�Ԥ����
+ ?��ʽ�淶:
+<?xml version="1.0" encoding="utf-8" ?>   //���б����ǰ汾��Ϣ
+<array>					  //������һ����Ԫ��
+    <item>				  //��ǩ�ǳɶԵ�(�������ֿ�ͷ)
+=======
 【php】
 ?文件导入
 include()、require()函数可以在服务器执行PHP文件之前插入一个文件的内容,实现动态渲染。区别在于处理错误的方式不同(include(通常用于导入模块)会生成一个警告，脚本会继续执行，而require(通常用于导入数据)会生成致命错误并停止执行脚本)
@@ -1913,12 +3677,80 @@ include()、require()函数可以在服务器执行PHP文件之前插入一个�
 <?xml version="1.0" encoding="utf-8" ?>   //首行必须是版本信息
 <array>					  //必须有一个根元素
     <item>				  //标签是成对的(不可数字开头)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         <src>images/detail01.jpg</src>
         <oldPrice>180</oldPrice>
         <nowPrice>130</nowPrice>
     </item>
 	....
 </array>
+<<<<<<< HEAD
+ Ӧ��:
+ php����:<?php 
+    header('Content-Type:text/xml;charset=utf-8'); //��Ӧ���ݸ�ʽ��text/xml
+    $xml = file_get_contents('01.data.xml');   //��ȡ�ļ�
+    echo $xml;
+?>
+ js����: var xhr = new XMLHttpRequest();
+xhr.open('get','01xml.php');  //������
+xhr.send(null);  //��������
+xhr.onreadystatechange = function(){
+	if(xhr.readyState==4 && xhr.status==200){
+		var xml = xhr.responseXML;  //��ȡxml��ʽ�ĵ�
+		//DOMѭ����ȡÿ���ڵ�����,ƴ��html�ַ�����ӵ����
+	}
+}
+�ܽ�:XML��Ȼ���������ʹ��临�����ݣ�������**�������ڸ���**����**����ϴ�**������ʵ�ֿ����Ѿ�����ʹ���ˡ�
+
+��JSON��
+?ʲô��JSON:javascript object notation,һ�����������ı����ݽ�����ʽ;
+  ��ͬ�����в�ͬ�Ľ�������(�������������) 
+	file_get_contents  php��ȡjson�ļ�����
+	?json_encode($arr) phpתjson
+	?json_decode($json) jsonתphp
+	?JSON.parse()     jsonתjavascript
+	?JSON.stringify() javascriptתjson
+    ע��: ���Ҫ�����ϰ汾�����,��ʹ��json2.js �ļ� 
+    �ܽ᣺JSON���С�����������Ҹ�Ч����ʵ�ʿ�����Ϊ��ѡ��
+?��ʽ:
+[
+  {"src":"images/detail01.jpg","oldPrice":"10.12","newPrice":"130.00"},  //����������/ֵ����,,ʹ��˫����,,����ע��
+  {"src":"images/detail02.jpg","oldPrice":"1.00","newPrice":"11.00"},
+  {"src":"images/detail03.jpg","oldPrice":"100.00","newPrice":"1000.00"}  //�����ɶ��ŷָ�(����ֵ�Բ��ܴ�����) 
+]
+ԭ��:ת���ɵ������ԵĶ������,,����ʱת��JSON
+
+ѧϰĿ��:
+����XML��JSON���ݵ�ʹ�� 
+
+============================6��4�� �����̺�AJAX Day4======================
+����װAJAX��
+ ����:
+ ����ȡ��Ҫ�ı�Ĳ���;
+ �����ö����Ż�����; option:type/url/data/success
+ �۴���POST��GET����;
+ �������ռ�ʹ��,�����������˵ĺ�����ͻ
+
+��jQueryʹ��AJAX��
+ $.get(url,data,callback,type)  ��GET��ʽ����AJAX����;
+ $.post(url,data,callback,type) ��POST��ʽ����AJAX����;
+ $.ajax({ }) �������÷�ʽ����AJAX����;
+   --ajax()�������ò���:
+	url �ӿڵ�ַ
+	type ����ʽ
+	timeout ����ʱ(��:timeout:3000,���󳬹�3���ȡ������)
+	dataType ���������ظ�ʽ(��:dataType:'json',ǿ�ưѺ�̨���ݵ��� json����)
+	data ������������;
+	beforeSend:function(){//������ǰ���� } 
+	success:function(){ //����ɹ���ִ�� }
+	error:function(){//������Ӧʱִ��}
+	complete(){ //��Ӧ���ʱ����,���۳ɹ���ʧ��)}
+
+ $('#form').serialize()  �����л�,һ���Ի�ȡ���б��������,��ʽ����:uname=111&upass=222&upass2=333
+ 				ע:formҪ����id,����Ҫ��name����
+
+ ?��������÷�������:
+=======
  应用:
  php代码:<?php 
     header('Content-Type:text/xml;charset=utf-8'); //响应内容格式是text/xml
@@ -1984,11 +3816,73 @@ xhr.onreadystatechange = function(){
  				注:form要设置id,表单项要有name属性
 
  ?服务端设置返回类型:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	header('content-type:text/html;charset=utf-8');   //html
 	header('content-type:text/xml;charset=utf-8');   //xml
 	header('content-type:text/application/json;charset=utf-8');   //json
 
 
+<<<<<<< HEAD
+��ģ�������ʹ�á�
+  ģ������,�����������ǰ�������Ⱦ��ͼ�ν���Ĺ���.
+ ?������ģ����:
+   	* BaiduTemplate(�ٶȿ���) 
+	* artTemplate(��Ѷ����) 
+	* velocity.js(�Ա�����) 
+	* Handlebars
+ ?artTemplateģ��ʹ�ò���:
+  1������ģ������:?�����غõ�ArtTemplate���뵽ҳ����
+	<script src="./js/template.js"></script>
+  2������ģ��:
+	ע��:��·��ģ��type='text/html'���д��javascript��ִ��(js����)
+	<script id="template" type="text/html">
+	    <h2>������{{name}} </h2>
+	    <h2>���䣺{{age}}  </h2>
+	    <h2>���ܣ�{{skill}} </h2>
+	</script>
+  3����Ⱦģ��: ���ǿ���ʹ��template(ģ��id,����) ִ���滻��;
+	//����var data = {
+        name:'С��',
+        age:18,
+        skill:'���ٴ����'
+	    };
+     //ģ����Ⱦ����
+     var tplstr = template('template',data); //����ID������
+     document.querySelector('div').innerHTML = tplstr;
+
+?ģ���߼��﷨:
+ each  �﷨һ: (��ģ���ж���)
+	{{each Ҫ�����Ķ��� as value index}}
+		......
+	{{/each}}
+	����:<!--<script id="one" type="text/html">
+	    {{each arr as temp index}}
+ 	       <h3>{{temp}}</h3>  //value�õ������е�ÿ��Ԫ��
+		<h3>{{index}}</h3>  //index��Ԫ�ص�����
+ 	   {{/each}}
+		</script>-->
+	
+	�﷨��:
+	{{each Ҫ�����Ķ���}}
+		......
+	{{/each}}
+	����:<script id="one" type="text/html">
+ 	   {{each arr}}
+ 	    <h3>{{$value}}</h3>   //$value�õ�����������ÿ��Ԫ��
+  	    <h3>{{$index}}</h3>   //$index�õ�����������ÿ������
+ 	   {{/each}}
+	</script>
+
+ if   �﷨:
+	{{if ����}}
+		//ִ�д���;
+	{{else}}
+		//ִ�д���
+	{{/if}}
+
+	����:{{ if isMan }}
+	    <h2 style="color:skyblue">��ʿ</h2>
+=======
 【模板引擎的使用】
   模板引擎,用来帮助我们把数据渲染成图形界面的工具.
  ?常见的模板插件:
@@ -2048,11 +3942,37 @@ xhr.onreadystatechange = function(){
 
 	代码:{{ if isMan }}
 	    <h2 style="color:skyblue">男士</h2>
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	{{ else }}
   	  <h2 style="color:hotpink">女士</h2>
 	{{/if}}
 
 
+<<<<<<< HEAD
+?ģ�������:
+ template.helper("fn",function(data,format){ return ....})
+ ʹ�ã�{{val | fn:"format"}}
+ ���û��format {{fn(val)}}
+
+ѧϰĿ��:
+����jquery��ajax������ʹ��
+����ģ�������ԭ��ʹ��
+jquery+ģ��ʵ�ְ���
+
+============================6��5�� �����̺�AJAX Day5======================
+��jQuery�����
+ $.fn.extend(
+	getRed:function(){
+		this.css({color:"red"});  //this������øö����Ԫ��
+	}
+	//��������ӷ���
+ )(jQuery);
+ ʹ��ʱ,�Ƚ���jQuery,��������
+
+ ��jQuery�е�jsonp��
+ jQuery�а�jsonp���������ϵ���$.ajax������
+  1.��������type����   2.dataTypeҪָ��Ϊjsonp
+=======
 ?模板过滤器:
  template.helper("fn",function(data,format){ return ....})
  使用：{{val | fn:"format"}}
@@ -2076,6 +3996,7 @@ jquery+模板实现案例
  【jQuery中的jsonp】
  jQuery中把jsonp请求技术整合到了$.ajax方法中
   1.不用设置type属性   2.dataType要指定为jsonp
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   $.ajax({
 	url:"",
 	dataType:"jsonp",
@@ -2083,6 +4004,81 @@ jquery+模板实现案例
 		
  	}
 })
+<<<<<<< HEAD
+beforeSend: function () {} ������ǰ����
+ 
+��CORS��
+
+ѧϰĿ��:
+�ٲ������ַ���
+��װ�ٲ������
+ʲô��ͬԴ��ȫ����,Ӱ��ͽ������
+��������ķ�ʽ,ʵ��ԭ��
+���jsonp����������
+
+============================�����̺�AJAX======================
+������ݺ�̨���ӿ��ĵ���ʵ��;  �ӿ�˵��/�ӿڵ�ַ/����ʽ:jsonp&cors/�ӿ��������/��������
+
+ �ӿ��ĵ�
+
+
+��XHLHttpRequest2.0��
+xhr.timeout = 3000;  //��ʱ3���,ֹͣ����
+FormData����
+FormData����.append(name,file)  // �ļ���ֵ��(��װ�ļ�)
+
+�ļ��ϴ�����:
+var myFile=input_file_ele.files[0]; //�õ�ѡ�е��ļ�
+var formData = new FormData() ;  //����FromData����
+formData.append("myFile",myFile); //fromData�����װ�ļ�
+var xhr = new XMLHttpRequest();
+xhr.open("post","upload.php"); //��post��ʽ,��������� (��������ͷ)
+xhr.upload.onprogress = function(e){  //ajax.upload.onprogress= function(event){} �ļ��ϴ�����
+   var progressBar = Math.floor((e.loaded/e.total)*100);//�¼�����.loaded/total(������ֽ�/�ܴ�С�ֽ�),ȡ����ٷֱ���Ϊ������ʾ
+   }
+xhr.send(formData);  //���͸������
+
+============================�ƶ�web����======================
+���ֱ��ʡ�
+ ��Ļ�ߴ�:Ӣ��,�Խ��߲���
+ �߼��ֱ���:��Ļ�Ŀ�*��
+ �豸�ֱ���:ʵ�ʵ��������ص�
+ ʧ��:ͼƬ�Ŵ���,,����ʹ�ö�������ͼ�����
+���ӿڡ�
+�����ӿں������ӿڶ�������ƶ���
+?�����ӿ�:���ֻ��������ÿ��Ϊ980px���ӿ�;
+  ԭ��:���ֻ�����Ϊ�����ƶ��豸���Է��ʾ���վ-�Ѱ��Ŀ��-980px���ŵ���С����Ļ���棩
+  ����:1,�ӿڱ��980px    2,ʹ�þ��Գ��ȵ�λд��Ԫ�ؿ�͸߱�������
+?�����ӿ�: Ҫ����ר�ŵ��ƶ�web:
+ 1,����Ҫ�õ�980px;
+ 2,ʹ�þ��Գ��ȵ�λд��Ԫ�ؿ��;
+ 3,�ӿڵĿ�Ⱥ���Ļ�Ŀ��һ��
+ �ӿڱ�ǩ��׼д��:<meta name="viewport" content="width=device-width",initial-scale=1.0,user-scalable=no,maximum-scale=1,minimum-scale=1>
+?Idea Viewport���뽲��:
+  <li>name:�������������Ҫ����ʲô���� �ӿ�  viewport</li>
+  <li>content:���������Ҫ�����ӿڵ���Щ����</li>
+  <li>width:�����ӿڵĿ�� device-width</li>
+  <li>initial-scale:ҳ��򿪵�ʱ��Ŵ�ı���  </li>
+  <li>user-scalable:�Ƿ������û�����ҳ��  yes or no </li>  //uc������(����������)
+  <li>maximum-scale:�������Ŵ�Ļ� �����ԷŴ���ٱ� 1 </li>
+  <li>minimum-scale:�������Ŵ�Ļ�����С���ԷŴ���ٱ� 1</li>
+
+?devicePixelRatio  ȫ������(window�µ�),ʶ����Ļ����  ��why-����-��Ц
+?srcset ʶ����Ļ,�Զ���ʽ��Ӧ��ͼƬ(·������+ 2x)
+<img src="images/��ԲԲ.png" srcset="images/�Ʊ�.png 2x,images/����ӱ.png 3x" alt="">
+
+��CSSԤ������(Less)��
+?��Less��,���õĻ���sass,stylus,�÷���������;
+��װeasy less���,���߿���
+?����:
+@������:css����ֵ   //@color:red;
+
+?����:
+.������(@������:Ԥ������ֵ){     //�д��ξ�ʹ�ô���,�޴��ξ�Ĭ��������ֵ
+   }
+
+?Ƕ��:
+=======
 beforeSend: function () {} 请求发起前调用
  
 【CORS】
@@ -2156,10 +4152,115 @@ xhr.send(formData);  //发送给服务端
    }
 
 ?嵌套:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 .father {
  	.son{ 
 		>span { }
 	}
+<<<<<<< HEAD
+	&:after { //ע��:αԪ�ص���ȷд��}
+}
+  
+?����less�ļ�:
+@import "index.less";
+ ע��: ��������ļ��޸ı����,����������ļ�ҲҪ�ٱ���һ��
+
+?ע��:
+// ����less�ļ���ע��
+/* */ ͬʱ��less��css�ļ���ע��
+
+
+============================6��10�� �ƶ�web���� day02======================
+
+�����ԡ�
+ģ�����:������ʹ�õ��Թ���ģ���ƶ��豸ȥ�����ƶ�web(��:�ȸ�,����������)
+�������:������ʹ�õ��Թ���ȥ�����ƶ��豸�е��ƶ�web
+  ������Թ���:
+	ghostlab �Ļ�ʵ����
+	vysor ��ĻͶӰ
+	�ֻ����+���Ի��
+	�ֻ��ȸ�+���Թȸ�
+	puer-weiner
+�������¼���
+ʹ�ô����¼���ԭ��:��겻��ģ���ָ�����¼�;click�¼����ƶ��˴����ӳ�
+touchstart ��ָ������Ļʱ����
+touchmove ��ָ����Ļ���ƶ�ʱ����
+touchend ��ָ�뿪����ʱ����
+ע��:
+ֻ����addEventListener(type,function)��
+�����¼�������pc�˴���
+
+============================6��11�� �ƶ�web���� day03======================
+�������¼��������ԡ�
+e.touches  	��ȡ��Ļ�����д�����ļ���  (length=����������)
+e.targetTouches   ��ȡĿ��Ԫ���ϴ�����ļ���  (length=����������)
+e.changedTouches  ��ȡ��ָ�뿪��Ļ/�ƶ�ʱ�����㼯��(�������һ��״̬�����˸ı��) (length=����������)
+
+?e.touches/targetTouches/changedTouches�����е�Ԫ�������³�������:
+  clientX/clientY   ������������
+  pageX/pageY   ҳ�������
+  screenX/screenY   ��Ļ������  //�м�������,����ϵ���clientX/Y 
+
+���ص��������
+�Ѻ���b�����������ݵ�����a��,�Ⱥ���aִ���������߼�����ú���b----�ص�����
+
+��tap��swipe�¼���װ��
+ 1,�ж���ָ�ĸ���  touchstart�¼�,e.targetTouches.length !>1 ,������ȡ[0]������.clientX/Y��startTime=Date.now();
+ 2,�ж��ƶ��ľ���  touchend�¼�,e.targetTouches.length !>1,clientX/Y�Ĳ�ֵ����ֵ!>"����ƫ��ֵ"; swpie���ӷ����ж�;
+ 3,�жϰ��µ�ʱ��  endTime-startTime!>"����ʱ��ֵ"
+
+�����ɽ��������¼���
+transitionend ���ɽ����¼�
+
+���ƶ������zepto��
+����jQuery���ƶ��˹��߿�,�ص���ģ�黯;
+�����Ŀ�:
+1,xx is not function ----�����Ӧ��ģ��
+2,tap����¼� Ĭ�ϴ������� ---��touch.js��100��΢����������������¼�ɾ���ɽ��
+3,swipe�¼�ʹ��ʱ,Ҫ��Ŀ��Ԫ�ؼ�������touch-action:none
+���ƶ������swiper��
+������zepto.js+swiper.jquery.min.js ��ʱ��  �� xxx is not function ---Ҫ����zepto��Ӧģ��
+
+��m.jd��Ŀ��
+ע���:
+1,a��ǩ������Ƕ��a��ǩ��
+2,less����������д����44px/2
+3,��Ԫ��font-size:0;��Ԫ��������font-size��С,����ȥ���ո�
+4,��һ��,�߳ɱ�����ͼƬ������������ʱ�߶Ȳ�����ȫ�������仯(�п��ܷ���λ��ƫλ),���Ը����е�Ԫ������������.
+5,bd+ ����border����
+6,touchstart��click��200-300ms
+7,a��ǩ������ʽ:block,���100%,���div  ������Ӧ����
+8,ʵ�ʿ����н�С����Чʹ��ԭ����ʵ��,Ч�ʸ���
+--,�ֲ�ͼ:
+  ����:li��ǩǰ������һ��;
+  �¼�:transitionend�¼�,������ɺ󴥷�;����index
+  ��װ����:goInterval()�Զ���������; translateX( +index+ 0%);
+  ����˼·:
+    // �����ֲ�����,������
+        // --������ʾ��ʼͼƬ
+        // --�����Զ��ֲ�����(�ȶ��庯��)
+        //--transitionend�¼���������,��������Ż���ǰ�ŵĿ���
+        // --�����ֲ�����
+        // ������ͬ��
+  ����ʵ��:  
+    �Զ��ֲ�---setInterval(function(){},1000)��ʱ��,index++,���ù�������;
+    �����ֲ�---ֹͣ��ʱ��,swipe�����ж�����/�һ���(��Ӧ������++��--),���ù�������,����ʱ��
+    ������----�������ٸ��Լ�����active
+    ע��:transitionend�¼����������С��ʱֹͣ����,��������Ҫ����>��<
+  
+============================6��13�� �ƶ�web���� day04======================
+����Ӧʽ����/������
+ һ�״�������ڶ����豸����ʾ(����Ӧ��ͬ��С��Ļ/pc���ƶ�),���ҿ����ṩ�Ѻõ��û�����;
+ý���ѯ:���Ը����豸��ͬ(��Ļ),ȥ���ض�Ӧ��css����
+@media screen and (width:400px){ }
+@media screen and (max-width:525px){ }
+@media screen and (max-width:525px) and (min-width:200px){ }
+���뷽ʽ��ý���ѯ:
+<link rel="stylesheet" href="01.css" media="screen and (width:800px)">
+<link rel="stylesheet" href="02.css" media="screen and (width:400px)">
+
+��������Ҫ�趨���� iPad �� iphone ����ͼ����ô�����������ã�
+=======
 	&:after { //注意:伪元素的正确写法}
 }
   
@@ -2262,6 +4363,7 @@ transitionend 过渡结束事件
 <link rel="stylesheet" href="02.css" media="screen and (width:400px)">
 
 假如我们要设定兼容 iPad 和 iphone 的视图，那么可以这样设置：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
 
 /** iPad **/
@@ -2294,7 +4396,11 @@ transitionend 过渡结束事件
             }
         }
 
+<<<<<<< HEAD
+        /* ��Ļ��800����ʹ��800��ͼƬ */
+=======
         /* 屏幕在800以上使用800的图片 */
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         @media (min-device-width:800px) { 
             img[data-src-800px] {
                 content: attr(data-src-800px, url);
@@ -2303,6 +4409,261 @@ transitionend 过渡结束事件
     </style>
 </head>
 <body>
+<<<<<<< HEAD
+    <p>p��ǩcontent</p>
+    <img src="image.jpg" alt="" data-src-800px="image-800px.jpg" >
+</body>
+��bootstrap��ܡ�
+ ?ʲô��bootstrap?
+ --Twitter��˾����,2011�귢��;
+ --����html,css,javascript;
+ --���ٿ���webӦ�ó������վ��ǰ�˿��;
+ --��������,��ռ����ԴС.
+?Ϊʲôѡ��bootstrap?
+ --�ƶ��豸����;
+ --�������������֧��;
+ --��Ӧʽ���.
+?������װ
+ ���ص����ĵ�ַ��http://v3.bootcss.com/
+ bootstrap�������ṩ���CDN���ٷ���
+ ע:CDN��ȫ����Content Delivery Network�������ݷַ����硣�����˼·�Ǿ����ܱܿ����������п���Ӱ�����ݴ����ٶȺ��ȶ��Ե�ƿ���ͻ��ڣ�ʹ���ݴ���ĸ��졢���ȶ���
+www.bootcss.com  bootstrap������  & 360�����
+www.bootcdn.cn  ���߿�
+?����ģ��:
+ 1,<head>
+    <meta charset="UTF-8">
+    <!-- ����IE����� Ҫ������ں˵İ汾ȥ��Ⱦҳ��   -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--�����ӿ�д��-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    ע:����3����ǩ���������ǰ��,�����κ����ݶ����������-->
+ 2,����bootstrap��css�ļ�
+ <link rel="stylesheet" type="" href="./lib/css/bootstrap.min.css"><style>
+ 3, ��body�ײ�����jq��bootstrap��jQuery�ļ�
+    <script src="./lib/jquery.1.12.4.js"></script> 
+    <script src="./lib/js/bootstrap.min.js"></script> 
+
+?����:
+դ��ϵͳ:
+����:��˵���ǰ�������Ļ(4��),��Ϊ��ʮ����,һ��ռ��һ��;
+��Ļ:
+ xs ��С��Ļ С��768px   //�ֻ�
+ sm С��Ļ   768-992px   //ƽ�����
+ md ��ͨ��Ļ/�е���Ļ 992-1200px   //��ʽ��ʾ��
+ lg ����Ļ   ����1200px    //�ʼǱ�,̨ʽ��
+
+��������:
+ container, container-fluid(��ʽ)
+ row
+ col-**-number  
+ ��Ƕ��
+ ��ƫ��
+
+��ǩҳ:
+ �ı��Լ����Զ�������
+
+�ֲ�ͼ:
+ dataѡ��; js����ȥ����
+
+������ʾ:
+ Ҫ��һ��js����
+ Ҫ��ʾ�Ļ�,��ð���ʽ�Ĵ���д�ø��ϸ�Щ
+
+
+============================6��14�� �ƶ�web���� day05======================
+��΢���� ������
+ 1,ʹ��bootstrap
+ 2,��ʽ������,���ֱ���ʹ��ling-height,��������ʱ�ᰴ�и߳ߴ绻��,����ڸǵ������Ԫ��
+ 3,������Ӧ��
+ 4.�ӿ�����
+ 
+
+������:
+    ����ͼ��:network         --font����(����ʾʱ�Ų�)
+������:pull-left/pull-right 
+���������:clearfix
+����ˮƽ����:text-center/right/left
+��ʾ��������:show  hidden    //hidden-xs
+
+
+
+============================6��16�� �ƶ�web���� day06======================
+ ���ƶ������䡿
+ ʵ��:ý���ѯ+rem����Ļ������&��ԭ���ͼ
+   ---font-sizeһ������100px,�������
+   ---ý���ѯҲ������jsʵ��
+   ---���㹫ʽ:
+   ---pc�˹�����ռ17px,�ƶ��˹�������ռλ��
+ rem:�����root html��ǩ��font-size���ص�λ
+ ����:pxתrem���� / ������
+ ��͸:ԭ����click����¼����ӳ�(��tap�ӳ�300ms)
+      �������---��click����tap  ; ��fastclick.js����tap
+
+
+============================6��17�� Javascript�߼� day01======================
+js�߼��ص�:ԭ��,���캯��,�̳�,����������,�հ�,ɳ��ģʽ
+string��̬,���ɱ�,���ٿռ����¸�ֵ
+==�Ƚ�ֵ,,ϵͳ��ת����ֵ,,valueOf--toString   [].toString()-> ""   { }.toString() -> "[object Object]"
+��������(��������),ֵ����(��������)
+�߼��ж�(�߼���·)
+delete: 
+ ����ɾ��var������ֵ;
+ ����ɾ��������Զ�������
+ ����ɾ��ϵͳ����������,Ĭ��Ҳ����ɾ��ͨ��object.defineProperty��ӵ�����,��������configurablae---configurationΪtrue
+ ֻɾ��������Ӧ������ֵ
+ �з���ֵtrue/false,�����ɿ�,�������÷���ֵ���ж�
+
+[]==![] �Ƚϲ���:
+1.�Ƚ����ұ�,[]Ϊ���󼴴������ڴ�,Ϊtrue,��ȡ����false; (������������ͺͲ���ֵ�ıȽ�)
+2.����������ͻ����valueOf()��ȡ����ֵ���Ƚ�,�޷��Ƚ�������ٵ���toString����ֵ����Ƚ�;
+  ([].valueOf��[],�޷��Ƚ�,��[].toString()�õ�"",""==false,���Ϊtrue)
+{}==!{} �Ƚϲ���:
+1.�Ƚ����ұ�,{}Ϊ���󼴴������ڴ�,Ϊtrue,ȡ����false;
+2.����������͵���valueOf()��ȡ����ֵ�Ƚ�,�޷��Ƚ�ʱ����toString()����ֵ���Ƚ�.
+  ({}.valueOf()�ÿն���,��toString()��"[object Object]",==true,���Խ��Ϊfalse)
+ 
+msconfig ���Զ����б�
+
+DOM����:
+insert:document.create("div")/element.cloneNode(true/false) /appendChild()/insertBefore(ele1,ele2)/innerHTML
+delect:removeChild(ele) innerHTML
+update:innerHTML setAttribute(����)
+select:getElementById()  getElementsByTagName(()  getElementsByClassName querySelector  querySelectorAll
+
+�쳣����:try{} catch{} finaly{}
+
+���Թ���:
+source(���Ұ�ť,��������)�����쳣��
+       �ϵ��Ҽ�--edit breakpoint,������������(ֱ��������������ʱ)
+       
+�������:
+����:������̵ķ�װ;
+������е���������Ϊ����: ����=����,��Ϊ=����
+
+���ͱ��ʽ:���ʽ������һ����(�з���ֵ),��䲻�����Ǳ��ʽ
+
+============================6��19�� Javascript�߼� day02======================
+����������ļ��ַ�����
+ ��������ʽ:ʹ������������ʵ���ǵ���new Object/Array/RegExp/String
+ �����ķ�ʽ:����-new����-return����(����ģʽ)
+ ���캯����ʽ: new ����() ʵ��������
+ 
+�����캯����
+ ����:���캯����������ʼ�������
+ ����:1,����ĸ��д; 2,���Դ���;   3,�����ֶ�д����ֵ(һ���new�ؼ���һ��ʹ��)  
+ ִ�й���:�����ڴ�ռ��new������������캯���е�thisָ���˴����Ķ����ͨ��this���������Ը���ֵ(��ʼ��)�����ض���
+ ע������:
+  ������˷���ֵ:
+   ---���ػ�����������,������Ӱ��;����null,ϵͳҲĬ�ϲ�����;
+   ---����������������({},[],new Date()...),�ͻ��÷���ֵ����
+  ���������ͨ��������:
+   ---this����window,�����ᴫ��window����;
+   ---���������û��return��䣬�򷵻�undefined;
+
+����:----���캯��.���Ǿ�̬��Ա,����.����ʵ����Ա
+
+��ԭ�͡�-
+ ����:���캯���ڴ���������ʱ��,ϵͳĬ�ϰ�������캯������������һ���ն���.����������ԭ��.
+
+ ����:��Ҫ���ڴ�Ź��õ����Ժͷ���(���캯��ʵ���Ķ��󶼿ɷ���);
+
+ ����ԭ��: 
+  ---ͨ�����캯������.prototype��ȡԭ��. ��:Person.prototype
+  ---�������ܷ��ʵ�ԭ��,�Ǵ����������ʱ,���캯����������ԭ��;
+
+ Ϊԭ��������Ժͷ���:
+  ---���ö���Ķ�̬����,ͨ��"����.prototype"���. ��: Person.prototype.address="����"
+  ---ֱ��Ϊԭ������prototype��ֵһ���¶���. Person.prototype={ name:"susan",age:12 }
+
+ ʹ��ԭ��ע������:
+  ---1,һ��ֻ�Ὣ��������������ݳ�Ա����ԭ����;
+  ---2,��ȡֵ��ʱ�������ڶ���������,û�ҵ���ȥԭ����;
+  ---3,����ֵ��ʱ��,ֻ�ڶ���������,�о������������;
+  ---4,�������ܷ��ʵ�ԭ��,�Ǵ��������ʱ��,���캯��ԭ������ָ���ԭ�Ͷ���.
+
+ __proto__����:�Ǳ�׼����,�м�������,���޿�������ʱʹ��;
+  ---ע:Person.prototype ��ʱPerson�ǹ��캯��;   Person.__proto__ ��ʱPerson�Ƕ���
+
+constructor����: ָ���ԭ�Ͷ�Ӧ�Ĺ��캯��;
+ ԭ��.constructor���Եõ����캯��/����.__proto__.constructorҲ�ܵõ����캯��(ǰ����ϵͳ�����ԭ�Ͷ���,�Զ����û��)
+ һ����ԭ�Ͷ����ж���constructor����,��¼���캯����(�淶,Ϊ�˴���������)
+
+�������������������
+��װ:�����ܷ�װ�ڶ�����,�����ṩ���ʽӿ�;
+�̳�:�����������е����Ժͷ����ù������Լ���;(���������߼����Բ�ͬ)
+��̬:��   (�����߼�����  ��̬:����д���̳С������� is a/can do)
+
+���̳С�
+js�ļ̳л��ڶ���;
+�̳з�ʽ:
+��һ��-����ʽ�̳�,����a�������Ժͷ�����ֵ��b����;
+	for( var key in a ){  b[key]=a[key]  }
+�ڶ���-ʹ��ԭ��ʵ�ּ̳�: �����Ժͷ�����ӵ�ԭ���� (���滻,�ٴ�������ʹ��)
+	for(var key in per){ a.prototype[key] = per[key] }
+������-���ʽ�̳�:��Ҫ�̳еĶ���,�������,��ӵ�ԭ�Ͷ�����
+������-����̳�:Object.create(obj),�м���������
+ ���캯���̳�
+
+����չϵͳ���ö���ĳ�Ա��
+ ÿ���û�����һ�����캯��,���캯��ԭ���滻������(�������������з���),���������������ӵ�ԭ����
+
+��ԭ������
+����:������ԭ��,ԭ����һ������,����ԭ������ԭ��,�������γ���һ��ԭ����.
+��������ԭ��:��ʹ�ö���ȥ����һ�����Ի򷽷���ʱ��,���ڶ��������н��в���,����ҵ���ֱ��ʹ��;���û�ҵ�,������ԭ�����������ϲ���,ֱ���ҵ�null.
+
+============================6��20�� Javascript�߼� day03===========================
+��Object-ԭ�ͷ�����
+obj.hasOwnProperty("����")  �ж϶��������Ƿ�ӵ��ָ��������;
+obj.isPrototypeOf()     �ж�һ�������Ƿ���ָ�������ԭ��;
+obj.propertyIsEnumerable() �ж������Ƿ���������,ͬʱ�ж��Ƿ���Ա���
+       			 //ע��:ʹ��defineProperty��ӵ����Բ��ܱ���
+valueOf: ��ȡ�����е�����ֵ
+time.toLocaleString: ת�ɱ����ַ���(��:ʱ��)
+time.toString:ת���ַ���
+
+�������б�����
+//ʵ�ֹ���:��,ɾ,��,��
+//1.���幹�캯��,��ų�ʼ��Դ--�赥
+//2.ԭ���ж��干�еķ���:��,ɾ,��,��,����5��
+
+��Function��
+�����Ĺ��캯������Function,ͨ��new������; ObjectҲ��ͨ��Function������.
+js�����к����Ĺ��캯������Function;
+�ù��캯������:
+var fn = new Function("����1","����2","������-�ַ���");
+ƴ���ַ�������:
+1.ÿ��ĩβ�ӷ�б��"\",�м�������;
+2.��ĩ��б��`` ,es6֧��;
+
+��eval������ʹ�á�
+eval("var num=100");  //���Խ��ַ�������js�������
+ע��:
+    * 1.eval�����Ὣjson��ʽ���ַ�����{ }���ɴ���鴦����ɱ���;
+    * 2.���Ը����json�ַ���ǰ��ƴ��һ��(),����()����ַ����ͻᱻ��Ϊ��һ����������������*/
+    ����:eval("("+{  }+")")
+
+��������������ԡ�
+console.dir(fun):  ��ȡ��������������;
+arguments:  �����ڲ��ı���,һ��α����;����������ʱ�Ὣ����ʵ�δ���,ֻ���ں��������õ�ʱ�����ֵ;�뺯��.arguments����һ��,�洢����Ҳһ��,������ͬһ������;
+caller:  ��ȡ��ǰ�������ĸ������б�����;�ں���������ʱ����ȡ��ֵ,"����.caller"����Ҫд�ں�������;
+name: ����������;
+length: �βε����� "����.length";
+prototype: ������ԭ��;
+
+?callee, caller��arguments
+   arguments��һ��Arguments����(α�����д���ʵ��), ��length��callee����; �����ں�����,�������òŻ����
+   callee���Ծ��ǵ�ǰ����(��arguments���ڵĺ���),һ���ڵݹ���arguments.callee()��������;
+   caller�Ǻ�����һ������, �洢���ǵ�����������ĺ���(����ʱ����,�����û�û�ں����е�����null)
+
+α����:���Ǽ���һ��length���ԵĶ���;     var myArr={"0":"�㶫","1":����,"2":"����",length:3 }
+
+������ԭ������
+
+��instanceof�ؼ��֡�
+instanceof:�жϹ��캯����protoType�����Ƿ��ڶ����ԭ������;
+��:
+=======
     <p>p标签content</p>
     <img src="image.jpg" alt="" data-src-800px="image-800px.jpg" >
 </body>
@@ -2556,11 +4917,57 @@ prototype: 函数的原型;
 【instanceof关键字】
 instanceof:判断构造函数的protoType属性是否在对象的原型链上;
 例:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 console.log(Object instanceof Function);
 console.log(Object instanceof Object);
 console.log(Function instanceof Object);
 console.log(Function instanceof Function);
 
+<<<<<<< HEAD
+============================6��22�� Javascript�߼� day04===========================
+����̬��Ա��ʵ����Ա��
+��̬��Ա:ͨ�����캯��ȥ���ʵĳ�Ա;  ����:Person.prototype,Person.arguments
+ʵ����Ա:ͨ��������ʵĳ�Ա;   ����:per.hasOwnProperty , per.toString
+
+���ݹ顿
+�ں����е�������;Ҫ�н�������.
+����˼��:���������ѻ���,�ɷ�����,�ɸ��ӻ��򵥵Ĺ���.
+Ĭ�������,�ݹ���ò��ܳ���ָ���㼶 (Լ40-50)
+
+��������
+������:���������õķ�Χ;��js��Ψ�к������Զ���������.
+�ʷ�������:��̬������  js��,ֻ����ݴ������д�ṹȷ�����������÷�Χ;(�����Լ�����������,���û���ٵ������������)
+����������:
+  ?����ִ�й���:Ԥ������ִ��   Ԥ����:���ؼ���var��function��ͷ��������ǰ���д���.
+  ?��������:
+   ���ڴ���Ԥ�����׶�,js����Ὣ���еı��������ͺ����������������������;(�����ڱ���֮ǰ)
+   ������������ͬ����ʱ��,����������Ԥ����ʱ�����б���������,�����������ĺ����Ὣǰ��ĸ���;
+   �۱������ͺ�����ͬ��ʱ������,�Ὣ�����������������;ͬ���ı����ᱻϵͳ����(��Ϊ��һ��ͬ��������,û�б�Ҫ�ٴ���һ��undifined�ı���)
+   �ܱ��ʽ���ĺ�����������/����ʽ��������ʱ,ֻ��������������;  test(); //test not function.  var test=function(){ }
+     ���������еĺ���Ҳ��������(ֻ��Ѻ���������"var ������=����"ȥ����,,���û���ʾnot a function)
+   �ݲ�ͬscript��ǩʱ,���������ֻ����������ǰscript��ǩ����;�ں����script�п���ʹ��ǰ���ǩ�еĺ��������.
+  ?����this:
+   ֻ�к����в���this,����ڶ�����ʹ��this,��ȡ����undefined,����ʹ�õ���ȫ�ֱ���.
+
+������������
+  ?����:������Ƕ�׺���,���γ�����������Ƕ����һ��������,�������������;
+  ?�������б�������ԭ��:
+    ���ڵ�ǰ��������,����Ҳ�����һֱ����һ����,ֱ��ȫ��������.
+  ?���ʹ���:
+    �ڲ���������Է������������ı���,�������������ֱ�ӷ����ڲ�������ı���.
+
+
+disable cache �������
+============================6��23�� Javascript�߼� day05===========================
+���հ���closure
+�հ�,����Ȩ��������һ�������������б����ĺ���(������Ƕ�׺���)
+?ʲôʱ��ʹ��?��Ҫ��һ�����Եı���(�����ⲿ����)��ʱ��.
+?�հ�������:�ڲ�����(����)һֱ���ⲿ����,��ռ�õĿռ䲻���ͷ�.
+?�հ�������:
+  �ٱ�������---Ϊ���ñ����ṩר������,��Ҫʱ������������֤�߼�����
+  �ڵ�����Ҫ�������ִ��˳��---������ִ�еĴ�Ҫ���������Ƕ����
+?�հ��ĸ�ʽ:
+=======
 ============================6月22日 Javascript高级 day04===========================
 【静态成员和实例成员】
 静态成员:通过构造函数去访问的成员;  例如:Person.prototype,Person.arguments
@@ -2604,10 +5011,34 @@ disable cache 清除缓存
   ①保护变量---为设置变量提供专用渠道,必要时还可以增加验证逻辑代码
   ②调整次要任务代码执行顺序---将所需执行的次要代码放在内嵌函数
 ?闭包的格式:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   function outer(){
 	function inner(){  }
 	return inner;
   }
+<<<<<<< HEAD
+ע:js�ǵ��߳�ִ��,��ִ����Ҫ����(��:����/����/ѭ��),��ִ�д�Ҫ����(��:setTimeout)
+
+�����桿
+������cache,���ݽ����Ļ�����.
+����:�ͽ���ȡ����,����Ч��.  (L1��L2���ڴ��Ӳ�̡�������)
+
+============================6��25�� Javascript�߼� day06===========================
+��ɳ��ģʽ��
+ ɳ��: ����һ����������Ļ���,��ȫ�Ը�.
+ ʹ�÷���: ȫ�ֱ��������ڶ���,�м�д������,������Ҫ���ṩ�ⲿ���ʵĽӿ�(�紫��window)
+ Ӧ�ó���: ���,���,���
+ ��ʽ: (function(function(){ ���� })()
+ ���ڴ���: ���������Ҫ��¶�ӿڵ��ⲿ������Ҫʹ��,��:window�������Զ���Ĳ���
+ ��ע��+-!~() �ɽ�����ת�ɱ��ʽ
+
+��forEach��map��
+?forEach����
+ --����:��������
+ --�﷨:arr.forEach(function(val,index,array){    });
+ --�Զ���ʵ��: ����Arrayԭ������ӷ���,����һ���ص����� �ڱ���this,��val,index,array�������������ص�����
+ --����:   Array.prototype. myForEach = function(callback){
+=======
 注:js是单线程执行,先执行主要任务(如:变量/函数/循环),再执行次要任务(如:setTimeout)
 
 【缓存】
@@ -2629,10 +5060,21 @@ disable cache 清除缓存
  --语法:arr.forEach(function(val,index,array){    });
  --自定义实现: ①在Array原型中添加方法,传入一个回调函数 ②遍历this,将val,index,array当做参数传给回调函数
  --代码:   Array.prototype. myForEach = function(callback){
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
             for(var i=0;i<this.length;i++){
                 callback(this[i],i,this);
             }
         }
+<<<<<<< HEAD
+?map����
+ --����:ӳ��,һһ��Ӧ�Ĺ�ϵ,����ר��,���ݻص�����return���ݷ���һ������
+ --�﷨:arr.map(function(val,index,array ){ return val*val });
+ --�Զ���ʵ��:����Arrayԭ������ӷ���,����һ���ص����� �ڱ���this,�ٽ�value,index,array����ص�����,ͬʱpush��Ԥ�����������,��󷵻�����
+ --����: Array.prototype.myMap = function(callback){
+            var result = [];
+            for(var i=0;i<this.length;i++){
+                result.push(callback(this[i],i,this)); //�û�ʹ��ʱҪreturnһ��ֵ������������
+=======
 ?map函数
  --功能:映射,一一对应的关系,数组专用,根据回调函数return内容返回一个数组
  --语法:arr.map(function(val,index,array ){ return val*val });
@@ -2641,13 +5083,20 @@ disable cache 清除缓存
             var result = [];
             for(var i=0;i<this.length;i++){
                 result.push(callback(this[i],i,this)); //用户使用时要return一个值回来生成数组
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
             }
             return result;
         }
 
+<<<<<<< HEAD
+���¼��󶨻��ơ�
+˼·:��EventTarget�����ԭ�������myClick����,�¼�������=Array.prototype.slice.call(arguments),this.onclick = function(){�����¼��صĺ���������}
+����:	var eventArr = [];
+=======
 【事件绑定机制】
 思路:在EventTarget对象的原型中添加myClick函数,事件池数组=Array.prototype.slice.call(arguments),this.onclick = function(){遍历事件池的函数并调用}
 代码:	var eventArr = [];
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         EventTarget.prototype.myClick = function(callback,callback){
             eventArr = Array.prototype.slice.call(arguments);
             this.onclick = function(){
@@ -2657,6 +5106,25 @@ disable cache 清除缓存
             }
         }
 
+<<<<<<< HEAD
+�����������ֵ���ģʽ��
+1.��������ģʽ(ֱ�ӵ���): this��window
+2.��������(ʹ�ö������) :  this�Ƕ���
+3.���캯������ :this�ǹ��캯�������Ķ���
+4.�����ĵ���: fn.call(obj,1);
+  --call(����thisָ��Ķ��� , ����1,����2....)
+    ת������Ӧ��: newArr = Array.prototype.slice.call(fakeArr);  //����call��slice����ָ����α����,��ȡ����
+                  var max = Array.prototype.sort.call(fakeArr,function(a,b){ return a>b });  //���������ֵ
+  --apply(����thisָ��Ķ��� , ����|α����ԭ����)
+     ת������Ӧ��: newArr.push.apply(newArr , fakeArr);  //����α����,������apply�ܰ������ⷵ�ص�����
+		   newArr=Array.prototype.concat.apply(newArr,fakeArr);
+		   var max = Math.max.apply(Math,numArr);  //���������ֵ
+### ʹ��ע������
+1. ��call��apply�ĵ�һ�������������һ��ֵ���͵����ݵ�ʱ��thisָ���Ӧ�Ĺ��캯��(Number,String,Boolean..)
+2. ��call��apply�ĵ�һ�������������undefined����null���߲�����ʱ��thisָ��window����
+
+�Զ���mySlice����:
+=======
 【函数的四种调用模式】
 1.函数调用模式(直接调用): this是window
 2.方法调用(使用对象调用) :  this是对象
@@ -2674,6 +5142,7 @@ disable cache 清除缓存
 2. 当call和apply的第一个参数传入的是undefined或者null或者不传的时候，this指向window对象
 
 自定义mySlice方法:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
         Array.prototype.mySlice = function(start,end){
             var s = start || 0;
             var e = end || this.length;
@@ -2684,6 +5153,68 @@ disable cache 清除缓存
             return res;
         }
 
+<<<<<<< HEAD
+newArr = arr.slice(); //��������
+arr.sort(function(a,b){ return a>b��a-b }) //�Ӵ�С����
+
+�����������ģʽ��
+1,���캯������ģʽ
+  function Person(name){
+            var obj = {};
+            obj.name = name;
+            console.log(this);//this��Person
+            return obj;
+        }
+2,�򵥹���ģʽ
+        function createObj(name){
+            var obj = {};
+            obj.name = name;
+            console.log(this); //this��window
+            return obj;
+        }
+
+���ϸ�ģʽ��
+js��Ĭ�ϲ�ʹ���ϸ�ģʽ,���������������,��ζ�����ϸ�ģʽ--
+"use strict"
+���ϸ�ģʽ��:
+1.�������ûvar ����,��ζ��û�ж���;
+2.������ͬ���Ƶı����ᱨ��(ES6֮ǰ); �����Ǻ���Ľ�ǰ��ĸ���
+3.�ββ�������,���򱨴�Duplicate parameter name not allowed in this context
+                         error:duplicate�ظ���parameter����name not allowed������ this context��������
+4.var num=010 �ᱨ��(���ϸ�ģʽ�°�8���ƴ���):Octal literals are not allowed in strict mode.
+                                        error:Octal�˽���literals����are not allowed������in strict mode
+5.eval���Լ���������
+6.�޸�ϵͳ���ö���ĳ�Ա�ᱨ��(����:Object.prototype={ })
+7.����Ϊֵ����������Ӷ�̬����
+
+============================6��26�� Javascript�߼� day07===========================
+�������б�����
+ ����:����Ӹ��� ��ɾ������
+ ����˼·:
+ --1.���幹�캯��,��ԭ���ж�����ɾ�Ĳ麯��;
+ --2.����render��Ⱦ����;
+ --3.�¼���,������ɾ�Ĳ�������/ɾ�����߼�;
+
+��tab���л�-��������װ��
+ ����:�ٵ���л�  ���Զ��л�
+ ʹ��˵��:���HTML�ṹ,newһ��MyTab���󼴿�ʵ��; var myTab = new MyTab({tab_menu:"tab��id",tab_main:"������id",autoPlay:"true��false" })
+ ����˼·:
+ --1.���캯��MyTab�ж���ȫ�ֱ���tabMenu��tabMain��index,�����ó�ʼ������; ͬʱ��ԭ���ж����ʼ��/��ȡԪ��/�¼���/�л�/�Զ��л�����;
+ --2.�����ṹ:
+     >init��ʼ������: �����������,���û�ȡԪ��/�¼���/(�Ƿ�)�Զ��л�����;
+     >getEle��ȡԪ�غ���: ���ݴ���Ķ����ȡtab������������Ԫ������,����ֵ��ȫ�ֵ�tabMenu/tabMain����;
+     >registerEvent�¼��󶨺���: tabMenu��Ԫ�ر���,ע��onclick�¼�,�ں����е����л�����;(����ʱÿ����Ԫ�ؼ�¼index)
+     >toggle�л�����: ����tabMenu��tabMain�Ƴ�����,����ǰԪ����������(�β���tabMenu��ǰԪ��);
+     >autoPlay�Զ��л�����: ����setInterval��ʱ��ǰ����thisֵ,�ڼ�ʱ���ڽ�this.index++,����toggle����;(����:_this.tabMenu[index % _this.tabMenu.length])
+ --3.ɳ��ģʽ  (function(){ ... window.MyTab=MyTab})(window)
+
+
+��ע���¼���װ��
+type:�¼�����
+eventHandle:�¼����,���¼�����ʱ����ĺ���
+useCapture:�Ƿ��ڲ���׶δ���
+����˼·: ���������������,������Ӧ���¼�������; (ie9����this�ǲ��ǵ�����,Ҫʹ��call��thisָ��ele)
+=======
 newArr = arr.slice(); //复制数组
 arr.sort(function(a,b){ return a>b或a-b }) //从大到小排序
 
@@ -2744,6 +5275,7 @@ type:事件类型
 eventHandle:事件句柄,即事件触发时处理的函数
 useCapture:是否在捕获阶段触发
 基本思路: 对浏览器能力测试,返回相应的事件处理函数; (ie9以下this是不是调用者,要使用call将this指向到ele)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	function createRegister() {
             if (document.addEventListener) {
                 return function (ele, type, callback) {
@@ -2752,7 +5284,11 @@ useCapture:是否在捕获阶段触发
             } else if(window.attachEvent) {
                 return function(ele,type,callback){
                     ele.attachEvent("on"+type,function(){
+<<<<<<< HEAD
+                        //ie9����,this��window,�˴�ʹ��call��thisָ��ele,ͬʱҪ��window.event�¼�Դ����
+=======
                         //ie9以下,this是window,此处使用call将this指回ele,同时要将window.event事件源传入
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                         callback.call(ele,window.event);
                     });
                     }
@@ -2764,6 +5300,60 @@ useCapture:是否在捕获阶段触发
         }
 
 
+<<<<<<< HEAD
+��bootstrap��ϰ�عˡ�
+ ��ʽ1: �����������Ӵ���; (�����ͬ������)
+ ��ʽ2: ��html5,��������bootstrap��css,jquery,js�ļ�
+
+����:
+table-striped �����Ƶ�
+table-condensed ���,��Ũ,��ïʢ
+active ��Ծ��,�����õ�
+success  �ɹ�
+info  ��Ϣ,��ʾ
+danger   Σ��,����
+img-thumbnail ��С��,Ĵָ��[ [?��?mne?l]]
+pull-right/left  pull ��,����
+horizontal ˮƽ��[������ͷ]
+pagination ҳ��,��עҳ��[��ҳ��] 
+
+============================6��28�� canvas day01======================
+pre��ǩ:����Ԥ��ʽ�����ı�,��:Դ����
+
+��canvas��
+canvas:HTML5���±�ǩ,�ֳƻ���,����չʾҳ��Ļ�ͼЧ��.
+Ӧ������:���ӻ����� / ��Ϸ / banner��� / ��ý�� / δ��--ģ�����+Զ�̲���+ͼ�α༭
+
+�������÷���
+?canvas��ǩ:
+ --��������width��height����;(Ĭ��300*150)
+ --��js��,canvasԪ�ص���getContext("2d")����,��ȡCanvasRenderingContext2D����,�ٵ�������API���в���
+   (�ֽл�ȡ������,�ñȻ�ͼ������)
+ ע:"webgl"��һ��3D��ͼ��׼�����ֻ�ͼ������׼�����JavaScript��OpenGL ES 2.0�����һ��ͨ������OpenGL ES 2.0��һ��JavaScript��
+?CanvasRenderingContext2D������API:
+ --moveTo(x,y) ȷ�����
+ --lineTo(x,y) ·������λ��
+ --fill()      ���
+ --stroke()    ��߻���
+ --closePath() ·���պ�
+ --beginPath() ���¿�ʼ����
+ --clearRect(x,y,��,��) ���ָ���ľ��η�Χ�е�����
+
+ --save()  �洢������״̬
+ --restore()  �����Ļָ�save()ʱ��״̬
+ --strokeRect(x,y,width,height) ������߾���
+ --fillRect(x,y,width,height) �����ڲ�������
+ --rect(x,y,width,height) ��������·��
+ --arc(x,y,r,startAngle,endAngle,false) ����Բ��·�� (���ȼ��㷽��:Math.PI/180*angle)
+ --arcTo(x1,y1,x2,y2,r)  ����Բ��·��(��ҪmoveToһ����,��x1y1��x2y2�γɼн�,����һ��rֱ����Բ)
+ --fillText(txt,x,y,�ı����)  �����������
+ --strokeText(txt,x,y,�ı����) �����������
+ --measureText("txt") ��ȡtxt����ʾ���,����һ������,ȡֵʹ��.width
+ --darwImage(img|img����|canvas|video,x,y)  ����ģʽ,�������ݻ�100%��ʾ
+   darwImage(img|img����|canvas|video,x,y,w,h)  ���ģʽ,���Ըı��ڿ��
+   darwImage(img|img����|canvas|video,x,y,w,h,x1,y1,w1,h1)  �Ų�ģʽ,��ȡָ��������ʹ�С,�ŵ�����ָ���������ô�С
+   ע��:����img����ʱҪonload��Ϻ����;
+=======
 【bootstrap自习回顾】
  方式1: 引入在线链接代码; (与官网同步更新)
  方式2: 是html5,依次引入bootstrap的css,jquery,js文件
@@ -2816,10 +5406,135 @@ canvas:HTML5的新标签,又称画布,用于展示页面的绘图效果.
    darwImage(img|img对象|canvas|video,x,y,w,h)  五参模式,可以改变内宽高
    darwImage(img|img对象|canvas|video,x,y,w,h,x1,y1,w1,h1)  九参模式,截取指定的区域和大小,放到画布指定区域并设置大小
    注意:绘制img对象时要onload完毕后绘制;
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 drawImage(image, x, y)
 drawImage(image, x, y, width, height)
 drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,destX, destY, destWidth, destHeight)
 
+<<<<<<< HEAD
+ --isPointInPath(x,y) �ж�ָ����������Ƿ���뵽�����л��Ƶ�·��,����true(ע��:ֻҪ��·��,���ܱպ����,�����Ƿ���߶���ȷ��)
+ ��window�����һ������: requestAnimationFrame(����) �����е��ô˷���(���Ƶݹ�),ʵ������Ļ֡�ϸ�ͬ����ѭ�����ú���.
+
+ ע:���㻷��ԭ��--��ĳһ�����ߵ�����,�����������ߵ�ֵ(˳ʱ��1,��ʱ��-1)����������0���ο�,��������.
+?CanvasRenderingContext2D����:
+ --lineWidth=ֵ  �����߿�
+ --lineCap="butt(Ĭ��)"|"round"|"square"   ������ĩ������(���ν��� | Բ�ǽ��� | ��ͻ����Բ���Է��ν���)
+ --lineJoin="miter(Ĭ��)"|"round"|"bevel"   �����ཻ�ߵĹյ�(ֱ�ǹյ� | Բ�ǹյ� | ƽ�йյ�)
+ --getLineDash() ����߶���ʽ����
+ --setLineDash([n1,n2...]) �����߶���ʽ
+ --lineDashOffset=ֵ  �����߶�ƫ����
+ --strokeStyle="color" ���������ɫ
+ --fillStyle="color"  ���������ɫ
+ --font="font-style font-variant font-weight font-size font-family" ���û��Ƶ�����(˳������)
+   *font-variant:normal | small-capsСд���д,����С��ʾ
+ --textAlign="left|right|center|start|end"  �Ի�������ʱ����ʼ����Ϊ��׼����
+   *start|end:��Ҫ���յ�ǰcanvas��direction,������Ч
+ --textBaseline:"top|middle|bottom|hanging|alphabetic����|ideogrophic"  hanging����,������/top��������и�
+
+��������
+ 1.��������ͼ:�����û�����������ʾ������������Ƶ�(��������������)�����ݴ�����ĵ���Ƴ���.
+ 2.�˶��ľ���:��ʱ������ʹ�������(���ղ���ƫ��)������ƫ�Ʒ���,�жϵ����Ե��step��ɸ�ֵ����.
+ 3.��̬��ͼ:���������ݴ����������ʱ�����ж�������������beginPath��������ɫ��index++(�������lengthֹͣ��ʱ��) �� ��ͣ����start�Ƕ�����������.
+ 4.С����Ϸ:���������,canvasӦ��(�ѵ�����ת,�������ٶ�)
+
+��չ:
+echarts.baidu.com   ����canvas���ݿ��ӻ���� 
+
+============================7��5�� ��ѧ����Ŀ day01~day02 �汾���ƹ���(git)�ʹ����й���վ(github)===============================
+
+
+
+command [k??m��:nd]
+exists [i��?zists]����
+��shell��
+ʲô��shell:�û����ں�֮�������;��������ʽ(bash/sh/ksh/csh)��ͼ�ν���(windows/linux shell)������
+��bash��
+ʲô��bash: bash��GNU�ƻ���һ���֣��������Bourne shell�������ڻ���GNU��ϵͳ��Linux. �������Linux(Red Hat,Slackware,Caldera������bash��Ϊȱʡ��shell����������shʱ����ʵ���õ���bash��
+?bash����:
+mkdir �����ļ���  make directory 
+touch �����ļ�   touch css/base.css js/index.js---��������
+cd    �л�Ŀ¼  change directory
+ls    �鿴Ŀ¼�ṹ
+  ---ls -a ��ʾ����/ls -l �б���ʽ��ʾ /ls -a -l��ls -al �б���ʽ��ʾ����
+cat   �鿴�ļ�ȫ������ (��ԭҳ����������鿴)
+less  �鿴�ļ�ȫ������(��ҳ��������ʾ,�ո����ҳ,Q���˳�)
+rm    ɾ���ļ�
+rmdir ɾ�����ļ��� (rm -r //�ݹ�ɾ��ȫ�� rm -r -f//�ݹ�ɾ��ϵͳ�����ļ�(����))
+mv    �ƶ��ļ�,��ͬ�ڼ���(ͬʱ�����Ըı��ļ���)  ��:mv index.css css��index.css�ļ��ƶ���css�ļ���   (./�Ƶ���ǰ)
+cp    �����ļ�,��ͬ�ڸ���(ͬʱ�����Ըı��ļ���)  ��:cp index.css css��index.css�ļ��ƶ���css�ļ���
+clear ����(�����۵�)
+reset ��������(�������)
+echo hello world > a.txt  ���ļ��������(ÿ�λḲ��ǰ��)
+echo hello world >> a.txt  ���ļ��������(��д)
+
+��vi�༭����
+ʲô��vi�༭��:��Linux��Unix����������ı��༭��������ִ�������ɾ�������ҡ��滻����������ڶ��ı������������û����Ը����Լ�����Ҫ������ж��ƣ����������༭������û�еġ�
+
+vi+�ļ���  ��bash����vi�༭��
+esc        �༭ģʽ������ģʽ
+shift+:    ����ģʽ������ģʽ
+
+?����ģʽ:
+:w ����
+:q �˳�
+:wq ����+�˳�
+:q! ǿ���˳�
+:e! ������һ��
+:set nu �����к�
+
+?������ģʽ:
+ZZ ���沢�˳�
+yy ���Ƶ�ǰ��
+p  ճ��(paste)
+u  ������һ��
+dd ɾ����ǰ��
+ctrl+f ǰ��ҳ
+ctrl+b ��ҳ
+i ����༭ģʽ ����ڵ�ǰ
+a ����༭ģʽ ����ڵ�ǰ��
+A ����༭ģʽ �������β
+o ����༭ģʽ ����һ�п���༭
+O ����༭ģʽ ����һ�п���༭
+
+���汾����ϵͳ��
+���ذ汾����ϵͳ  ֻ���ڱ��ؼ�����ڹ���汾,�޷���������
+����ʽ�汾����ϵͳ  SVN TFS   ����˶���Э������������(����ͨ�����������е�������),��������������
+�ֲ�ʽ�汾����ϵͳ git(�汾���ƹ���)
+github:һ�������йܵ���վ,֧��git���������;
+git : �ֲ�ʽ�汾����ϵͳ (����汾�������)
+
+��git�汾���� �Ļ���ʹ�á� 
+?�����û�: (--global ���õ�ǰ������û����вֿ� --system�����û����вֿ�)
+��װgit�Ļ�����һ��Ҫ���Ƚ����û��˻���Ϣ�����ã�
+git config --global user.name "���github�û���"
+git config --global user.email "���github�����ַ"
+?����ssh��Կ
+ ��½����"Setting -> SSH Keys"->"New SSH key"��
+ Title����д��id_rsa.pub��������������Ϣ�� key��ճ��ssh-add��ͷ��һ����Ϣ��������cat ~/.ssh/id_rsa.pub ��ȡ�������ȡ�������ٳ���ssh-keygen -t rsa��һ·���س������ɣ���ssh -T git@github.comȷ�ϣ��������»�ȡ ��
+?���ز���:
+git init  ��ʼ���ֿ�,���ڵ�ǰ�ļ����ﴴ��.git�����ļ�,�����ʷ�汾
+git add -A|* ��ʾ��������Ŀ¼�������ļ��ύ���ݴ���
+git rm add2.txt ɾ���ļ�
+git commit -m '��־��Ϣ'  �ύ��Ϣ֮�����־��Ϣ,�����ɲ�ѯ
+git remote -v �鿴Զ�ֿ̲�
+git reset --hard �汾��  �ص�֮ǰ��ĳ���汾
+git status   �鿴��ǰ�ļ�״̬
+        >>>>�ļ�������״̬ :
+	1)δ׷��  untracked  ��ʾԭʼ״̬,δ�ύ���� 
+	2)�ݴ���  unstage �ύ���ݴ�����״̬   (��ɫ��ʾ)
+	3)���ύ  committed ��ʾ�ļ����ύ���ֿ�洢��
+	4)���޸�  modifield ��ʾ�����޸�,��δ�ύ  (��ɫ��ʾ)
+git log      �鿴�汾���ĵ���ʷ��Ϣ
+git log --oneline �鿴�汾���ĵ���ʷ��Ϣ(����:�汾��+�汾˵����Ϣ)
+git reflog   �鿴������ʷ�汾��Ϣ��������¼
+git branch   �鿴���з�֧ (���Ǻű�ʶΪ��ʾ��ǰ)
+git branch ��֧��     ����ĳ����֧----�൱������֧����(������֧�²���)
+git checkout ��֧����  �л���ĳ����֧����
+git checkout -b ��֧����  ����&�л�һ�����
+git branch -D ��֧��   ɾ�����ط�֧(������֧�²���)
+git merge   ��֧����   �ϲ���֧(������֧�²���)
+   --�����ͻ:�ϲ�ʱ�п��ܷ�����ͻ,��Ҫ�ҵ��ļ��ֶ��޸�,�������/�ύ�ݴ���,�ٺϲ� (��ʾ��Ϣ:merge conflict in...  failed(ʧ��))
+=======
  --isPointInPath(x,y) 判断指定的坐标点是否进入到画布中绘制的路径,返回true(注意:只要是路径,不管闭合与否,不管是否描边都会确认)
  ※window对象的一个方法: requestAnimationFrame(函数) 函数中调用此方法(类似递归),实现与屏幕帧严格同步来循环调用函数.
 
@@ -2942,10 +5657,225 @@ git checkout -b 分支名称  创建&切换一步完成
 git branch -D 分支名   删除本地分支(在主分支下操作)
 git merge   分支名称   合并分支(在主分支下操作)
    --解决冲突:合并时有可能发生冲突,需要找到文件手动修改,重新添加/提交暂存区,再合并 (提示信息:merge conflict in...  failed(失败))
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
         modified:   cmbti_service/controllers/exampleController.js
+<<<<<<< HEAD
+�����޸ĺ�add����ʾ����˼��ȡ����һ���������ص���汾��һ�µ�״̬
+����ʹ��git checkout -- <�ļ���>ȡ���޸�
+
+
+?Զ�̲���
+git remote add origin "��������ַ" //origin�������Ƿ�������ַ
+git push -u origin master   // '-u'������origin��master����һ��
+git branch -r #�鿴Զ�̷�֧
+git branch -a #�鿴���з�֧�����غ�Զ��
+git clone <Զ������> ����ֿ�
+git checkout -b <���ط�֧> origin/<Զ�̷�֧>  ��Զ�̷�֧clone�����ط�֧��master�²�����������
+git pull ���±��ط�֧
+��֧���͵�Զ��master��git push origin <���ط�֧��>��master
+ git merge [name] ----������Ϊ[name]�ķ�֧�뵱ǰ��֧�ϲ�
+$ git push origin test:master         // �ύ����test��֧��ΪԶ�̵�master��֧ //����ֻд��һ�䣬Զ�̵�github�ͻ��Զ�����һ��test��֧
+$ git push origin <���ط�֧>:<Զ�̷�֧��>   // �ύ����test��֧��ΪԶ�̵�test��֧
+$ git pull <Զ��������> <Զ�̷�֧��>:<���ط�֧��> 
+
+
+��ʵ�ʿ�������:
+1)ÿ̨��������һ������֧;   ---git init���س�ʼ��(�������زֿ�)��git add -A ��ӵ��ݴ�����git commit -m '' �ύ�ִ���
+2)�ٴ���һ���ӷ�֧����ģ�鿪��;   ---git branch ��֧��,git checkout ��֧�� ,git log
+3)���ӷ�֧���޸��ļ�,�޸�����ύ���ִ���
+4)�л�������֧�ºϲ���֧  ---git merge ��֧��1 ��֧��2  
+            error: merge conflict in...  failed(ʧ��)
+            �����ͻ:�ֶ�����,�ѳ�ͻ�ĵط�ͳһ������,������֧�����ύ
+ע:�ύʱ��ע��������Ϣ,�����������
+
+Github�˺�:buzhiguang bu5561.. [�ϴ��ģ�381042434@qq.com  bu5561..]
+https://github.com/buzhiguang/buzhiguang.github.io.git
+git@github.com:buzhiguang/buzhiguang.github.io.git
+Your site is published at https://buzhiguang.github.io/
+?git�������ύ�ͻ�ȡ(��github��վ):
+git push Զ��github��ַ master;    ----�����ļ�
+git clone Զ��github��ַ     ----�����ļ�(��һ��ʱ) 
+git pull Զ��github��ַ     ----��ȡ�ļ�
+
+?�򻯲���:
+git -am 
+https��ʽ:
+git remote add origin "��������ַ" //origin�������Ƿ�������ַ
+git push -u origin master   // '-u'������origin��master����һ��
+SSH��ʽ:
+?�������ύ��Զ�ֿ̲⣨SSH��
+- 1 ����SSH Key��`ssh-keygen -t rsa`
+- 2 ���ļ�·�� `C:\�û�\��ǰ�û���\` �ҵ� `.ssh` �ļ���
+- 3 �ļ������������ļ���
+    + ˽Կ��`id_rsa`
+    + ��Կ��`id_rsa.pub`
+- 4 �� `github -> settings -> SSH and GPG keys`ҳ���У��´���SSH key
+- 5 ճ�� ��Կ `id_rsa.pub` ���ݵ���Ӧ�ı�����
+- 5 ��github���½��ֿ����ʹ�����ڲֿ⣬�õ�`git@github.com:�û���/�ֿ���.git`
+- 6 �˺��ٴ�SSH��ʽ��github��ͨ�š���������������ȷ�������
+
+?�����ϴ��ļ�
+�ڸ�Ŀ¼����.gitignore�ļ�,�ڼ��±��ж���Ŀ¼�������ϴ����ļ�:
+/�ļ���.txt  ---ָ���ļ�
+/test/�ļ���.txt  ---ĳĿ¼��ָ�����ļ�  
+/*.txt ---����txt�ļ�
+/*.*  ---�����ļ�
+
+
+?github�����
+-ʹ��github��������'gh-pages'��֧
+```
+1 �ڱ��ع���Ŀ¼ʹ��git��ʼ�� `git init`
+2 �����Լ��Ĳ�����Ŀ
+3 �������õĲ�����ӵ��ݴ��� `git add [�ļ�·��]`
+4 �����ύ�� `git commit -m "��һ������"`
+5 ������֧��`git branch gh-pages` ��֧���ƹ̶���
+6 �л���֧��`git checkout gh-pages`
+7 �ύ��github��`git push [github�ֿ��ַ] gh-pages`
+8 �鿴github�ж�Ӧ�Ĳֿ��У��ǲ����ύ���� "gh-pages" ��֧  
+9 ���ʣ�<github�û���>.github.io/<�ֿ���>/<�ļ���>
+10 Ĭ�ϻ���� index.html ``
+- ��̬ҳ�棺.jsp / .php / .asp / .aspx
+
+��SSH��
+SSH��һ������Э��,���ڼ����֮��ļ��ܵ�¼;
+�������ܼ���:
+ ���ԳƼ���--���ܽ���ʹ��ͬһ����Կ
+ ���ǶԳƼ���--��Ҫ��Կ��˽Կ���м��ܽ���
+
+�����γ̵��ʡ�
+shell ��
+kernel ���� [?k?:nl]
+hardware Ӳ��,װ�� [?h��:we?]
+software ���
+privatekey ��Կ
+publickey ��Կ
+version �汾
+committed �и�,�ύ  [k??mid] 
+modified �Ľ�,���� ['m?d?fa?d]
+staged ��ʱ,�׶� ['ste?d??d] 
+global ȫ��,ȫ���
+branch ��֧
+master ��Ҫ��,��Ҫ��
+checkout ����,У��
+merge �ϲ�,�ں�  [m?:d?]
+remote Զ�̵� [liëd]
+modules ģ�� ['m?d??lz] 
+git fetch ����,�ִ�
+
+include ����,����
+
+
+============================7��8�� ��ѧ����Ŀ  ʵѵday01===============================
+����Ʒ�����ſ���
+?��������:
+ 1.��Ʒ����  ȷ���û�����,������Ʒ��Ҫ�ĵ�(prd)
+ 2.UI        PSD�ļ�,���������ĵ�����������psd�ļ�
+ 3.ǰ��(FE)  ǰ�˿������� ����UI��psd�ĵ�����ҳ�滹ԭ,,���ؼ���ԭ
+ 4.���      ��̨�ӿڿ���,����ά��,��ǰ̨�ṩ���ݽӿ�
+ 5.��ά      ά��������  ��Ŀ���ߵķ�����ά��  ��˾����ά��
+ 6.��Ӫ      ������Ŀ�ƹ������,��ͻ���ͨ,���ݿͻ�Ҫ����к���ά��
+ 7.DBA       ���ݿ����Ա,�Ż����ݿ�
+ 8.����      ���������ĵ����й��ܲ���
+
+?������ʽ:
+ 1. �����Ⱦ(���ֱ��)
+           
+	���е����ݶ�����Դ���ں�̨
+          
+	�ɺ�̨ƴ��html�ṹ�����͸�������ˣ����������Ⱦ��Ӧ����ʽ
+           
+	��̨�ǿ���ִ��html����ģ���html�������޷�ִ��php���룬�Ὣphp�����ע�͵�
+
+ 2. ǰ����Ⱦ
+          
+	ǰ����Ⱦҳ��ṹ������õ������ݣ�������̨����ajax�����������ݣ�
+          
+	�������������ݣ���Ⱦ����Ӧ��ҳ����
+
+ 
+3. ���ʽ�Ŀ��� (����)     
+	�����õıȽ϶��һ�ֿ�����ʽ
+          
+	����ǰ����Ⱦ�ķ�ʽ��Ҳ�к����Ⱦ�ķ�ʽ
+         
+	����ÿ��ҳ�浱�����еĲ��֣�����ʹ�ú����Ⱦ�ķ�ʽ
+          
+	���� ��ǰҳ����еĲ���,�����ɵ�ǰҳ���Լ�����Ⱦ
+
+���������衿
+?�˽��������ԭ��:
+ ����һ����ַʱ,����������ȵ�c:/window/System32/drivers/etc/hosts����hosts�ļ�,�ҵ���ӦIP���������;
+ ���û�ҵ��͵�������DNS���������Ҷ�Ӧ��IP(������IP�Լ�ֵ����ʽ�洢)
+
+?��ҪӦ�õ��ļ���:
+1.bootstrap
+2.php
+3.ģ�黯����˼�뼰����:
+  require.js
+  sea.js
+4.jQuery������
+5.artTemplate
+ ---ģ���е�<%=%> {{ }}
+6.cookie  session ״̬����
+7.AJAX
+8.Git�汾���ƹ��� (������֧����,ÿ���һ�����ܺ�������֧�ϲ�)
+9.����������������
+10.���
+   jQuery���ύ���ʹ��
+   bootstrap���ڲ��
+   ģ̬��
+===����������������========================================
+1)����httpd.conf ���ҵ��������ļ�
+		
+  LoadModule proxy_module modules/mod_proxy.so      110������
+		
+  LoadModule proxy_http_module modules/mod_proxy_http.so   115������
+        
+  ��������ǰ���#ȥ��
+2)httpd_whost.conf����������Ŀ¼��������д���:
+  ProxyRequests  off    
+  ProxyPass  /api  /http://api.botue.com 
+  (���ùر��������Ϳ��������)
+3)ʹ�ò�ͬԴ�Ľӿ� http://studyit.com/api��������
+===============================================================
+===cookie��session�Ự����========================================
+ǰ��:HTTPЭ�������״̬����,�ͻ���Ҫ����˺�����Ƶ������Ķ�������;
+�Բ�:cookie��session������ʵ��״̬����,����������ֲ�ͬ�û�,�����û��İ�ȫ��¼״̬;
+��cookie���Լ�ֵ�Դ洢�ڿͻ��˵�,�����洢�˺ź�����,��С��4kb����,ÿ�����������ʱ���Զ�����cookie��Ϣ(ע:���ܿ������)
+��session�Ǵ洢�ڷ���˵�,�ͻ����������֮��״̬���ֵķ�ʽ.
+php��ʹ��session:
+����session_start()��������������$_SESSION['uname']='�ŷ�'����ȡ����echo $_SESSION['uname']
+
+�鿴cookie:
+F12 application �鿴cookie       ----F12 network �鿴�����ļ�״̬
+document.cookie
+==================================================================
+===ģ�黯����-requireʹ��=========================================
+ʲô��ģ�黯?����һ��js�ļ�,����ĳ�ֵ�������.
+ģ�黯����:ģ���ظ�ʹ��/���������Ⱦ/���ܵ�һ,�໥����,��׳��/��Ŀ�ṹ��θ�������.
+����ģ��:
+define(function(){ });     //����ģ��,ģ�鶼��js�ļ�
+ģ�����:
+require(['m1.js','m2.js','m3.js'],function(r1,r2,r3){  //ע:ģ��ִ�������ִ��callback,���е��βηֱ���������ģ��ķ���ֵ });
+
+������ģ�顢����ģ��ͷ�ģ������ģ���
+����ģ��:�Լ������
+����ģ��:jquery��һЩ��   -->ģ����ֻ��ʹ���Ѿ�����õ�
+��ģ��:����������
+<�������>
+require.config({
+baseUrl:'��Ŀ¼',
+paths:{ 
+	'ģ����':'·��',
+	},
+shim:{
+	'bootstrap':{ deps:['jquery']},   //����jquery,��bootstrapҲ֧��ģ�黯(��Բ�֧��ģ�黯��)
+	'fn':{ exports:'������������'}    //���Խ������������ĳ�ģ�黯
+=======
 ——修改后并add的提示，意思是取消上一步操作，回到与版本库一致的状态
 可以使用git checkout -- <文件名>取消修改
 
@@ -3158,11 +6088,28 @@ paths:{
 shim:{
 	'bootstrap':{ deps:['jquery']},   //依赖jquery,让bootstrap也支持模块化(针对不支持模块化的)
 	'fn':{ exports:'函数、变量名'}    //可以将函数、变量改成模块化
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	},
 
 });
 
 <script data-main="js/main" src="js/require.js"></script> 
+<<<<<<< HEAD
+data-main���ԣ�������������Ϊһ������ڣ�����˵�ڼ���requireJS�󣬴�data-main������Խ��롣
+=========================================================================================
+
+?wamp ���ط���������
+ ?��һ��:
+ �ҵ�C:\wamp\bin\apache\Apache2.2.21\conf\httpd.conf �ļ�:
+ ��Include conf/extra/httpd-vhosts.confǰ��#ע��ȥ��
+
+ ?�ڶ���:           VirtualHost��������(��д:vhosts)
+ �ҵ�C:\wamp\bin\apache\Apache2.2.21\conf\extra\httpd-vhosts.conf�ļ�:   
+ ���ļ���������������:(������������)   
+ <VirtualHost *:80>
+    	
+ DocumentRoot "c:/wamp/www/bxg"      // ����ĸ�Ŀ¼ָ����ļ���
+=======
 data-main属性，它的作用是作为一个出入口，就是说在加载requireJS后，从data-main这个属性进入。
 =========================================================================================
 
@@ -3177,6 +6124,7 @@ data-main属性，它的作用是作为一个出入口，就是说在加载requi
  <VirtualHost *:80>
     	
  DocumentRoot "c:/wamp/www/bxg"      // 将启动的根目录指向此文件夹
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     	
  ServerName jd.com
     ServerAlias www.bxg.com
@@ -3187,6 +6135,19 @@ data-main属性，它的作用是作为一个出入口，就是说在加载requi
 	
  </VirtualHost>
 
+<<<<<<< HEAD
+ ?������:
+ �ҵ� C:\Windows\System32\drivers\etc\hosts �ļ�:
+ �޸�hosts�ļ�,�������ָ��
+ ��:127.0.0.1 www.bxg.com
+
+�����ʹ�������̷��ļ�������Ŀ¼:
+ 1. ��C:\wamp\bin\apache\Apache2.2.21\conf �����ҵ�httpd.conf,�޸��������ݣ�
+	
+ DocumentRoot "c:/wamp/www/"     ����ԭ�������ļ��� ԭ���ĸ�Ŀ¼
+	
+ DocumentRoot "d:/roots"	�������ڵ����ļ��� ���ڵĸ�Ŀ¼
+=======
  ?第三步:
  找到 C:\Windows\System32\drivers\etc\hosts 文件:
  修改hosts文件,添加域名指向
@@ -3198,6 +6159,7 @@ data-main属性，它的作用是作为一个出入口，就是说在加载requi
  DocumentRoot "c:/wamp/www/"     这是原来的启动文件夹 原来的根目录
 	
  DocumentRoot "d:/roots"	这是现在的启动文件夹 现在的根目录
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
  2. 
  <Directory />
     
@@ -3208,6 +6170,16 @@ data-main属性，它的作用是作为一个出入口，就是说在加载requi
  Order deny,allow
     
  #Deny from all
+<<<<<<< HEAD
+	   ע�͵�
+ Allow from all      ����Ȩ��
+  
+ </Directory>
+
+ 3. ��207�����ң��޸��������ݣ�
+	
+ <Directory "c:/wamp/www/">     �����д���ɾ�������ע�͵�
+=======
 	   注释掉
  Allow from all      开启权限
   
@@ -3216,10 +6188,42 @@ data-main属性，它的作用是作为一个出入口，就是说在加载requi
  3. 在207行左右，修改如下内容：
 	
  <Directory "c:/wamp/www/">     将此行代码删除掉或是注释掉
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	
  <Directory "d:/roots">
 	
 
+<<<<<<< HEAD
+ 4. �Ժ����е���Ŀ�ļ��ж���Ҫ������d:/roots�ļ�������
+4. ����������ͬ�ϣ���Ҫ����hosts�ļ��е�������IP��ӳ�䣬
+    ����Ҫ��httpd-vhosts.conf������������������
+
+?��ĿĿ¼�ṹ�
+ �ȴ���views�ļ���,��ͼ�ļ�ͳһ��������,����Դ��MVC��˼��(Model,views,control); �ṹ����:
+views
+  |__dashboard  (�Ǳ��,��վ������ļ�)  
+  |     |__login.html
+  |     |__index.html
+  |__common     (��ҳ��ͬ���ֵ�,ʹ��php��䵼����ҳ��)
+  |     |__aside.html
+  |     |__header.html
+  |     |__script.html   (���ļ�ֻ��ֱ�ӵ���ģ�黯�����ļ�)
+  |     |__css.html
+  |__public     (���õ���Դ) 
+  |     |__images
+  |     |__js
+  |     |   |__dashboard  
+  |     |   |	  |__common.js (��ҳ��ͷ��/��������ʵ�� (�˳� ��������� ��Ⱦ���������ͷ��  �Ƿ���תlogin...))
+
+  |     |   |	  |__login.js  (��¼��ص���֤����)
+  |     |   |__teacher
+  |     |   	  |__t_list.js (��ʦ��صĲ鿴/�༭/ע������)
+  |	|__libs
+  |     |   |__config.js (ģ�������ļ�,���ò�ͬ���ܵ�js�ļ�  ���ó�ʼ��common.js) 
+  |     |   |__require.js   
+  |	|__uploads
+  |	|__assets  (�Ź��߿��ļ�) 
+=======
  4. 以后所有的项目文件夹都需要放置在d:/roots文件夹下面
 4. 其它的配置同上，需要设置hosts文件中的域名和IP的映射，
     还需要在httpd-vhosts.conf进行虚拟主机的设置
@@ -3249,11 +6253,21 @@ views
   |     |   |__require.js   
   |	|__uploads
   |	|__assets  (放工具库文件) 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   |	|__course
   |__teacher 
   |__user
   |__adv
 
+<<<<<<< HEAD
+?phpʵ�ּ򻯷���
+ 1)index.php�ļ�λ�ڸ�Ŀ¼,�ж��û����������,ƴ����Ӧ�ַ�������:
+    //�ж� $SERVER ���ص������Ƿ��� PATH_INFO ���keyֵ
+    if(array_key_exists('PATH_INFO',$_SERVER)){
+	$path = $_SERVER['PATH_INFO'];  //��ֵ��$path
+	$path = substr($path,1);	//ȥ����һ��б��
+	$arr =  explode('/',$path);     //��б��λ���и������
+=======
 ?php实现简化访问
  1)index.php文件位于根目录,判断用户输入的内容,拼接相应字符来访问:
     //判断 $SERVER 返回的数组是否有 PATH_INFO 这个key值
@@ -3261,12 +6275,78 @@ views
 	$path = $_SERVER['PATH_INFO'];  //赋值给$path
 	$path = substr($path,1);	//去除第一个斜杠
 	$arr =  explode('/',$path);     //从斜杠位置切割返回数组
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	if(count($arr)==1){ $path='/views/dashboard/'.$arr[0] }
 	    else if(count($arr)==2){ $path='/views/'.$arr[0].'/'.$arr[1] } 
 	}else{
 	    $path = '/views/dashboard/index';
 	}
     include $path.'.html'; 
+<<<<<<< HEAD
+ 2)ȥ��index.php�ַ�����
+  ��.htaccess�ļ���������Ŀ�ĸ�Ŀ¼��
+  ��httpd.conf�����棬��LoadModule rewrite_module modules/mod_rewrite.so  116�� ǰ���#��ȥ��
+3. �����������
+
+ ��:header("Content-type:text/html;charset=utf-8");
+
+?/views/common�ļ����ж�����ҳ��ͬ����html�ļ�
+ css.html ---����������css��ʽ����
+ script.html ---���������нű�����
+ aside.html  ---���������html�ļ�
+ header.html ---��������html�ļ�
+
+��ʹ��ʱ��php��䵼����ҳ��  <?php include "/views/common/xxx.html"?>
+
+?����ģ�黯�����ļ�
+ /views/public/libs/require.js 
+ /views/public/libs/config.js
+ 
+?����ģ�������ļ���ҳ��
+  ��/views/common/script.html�����ļ�����script��ǩ���������ļ�:
+  <script  src="/views/public/libs/require.js"></script>
+  <script src="/views/public/libs/config.js"></script>
+
+?login.jsģ���ļ�:
+ ���ļ�������loginҳ��,�����ύ��¼��֤:
+ 1)�˺����뷢�ͺ�̨,����ȡ����ͷ�������ת���ַ����浽cookie�Զ��������� 
+   (Ŀ������ͬԴ�µ�����ҳ��ɷ��� $.cookie('��',JSON.stringify(data.result)))
+ 2)ͬʱ��ת��ָ��ҳ��(��:��ҳ)
+----------------------------------
+ jQuery���ύ:
+ $("form").submit( function () {    //���ύ��ʱ���ᷢ�� submit �¼� (type='submit')
+  return false;			   //��ֹ�ύ,��ֹbrowser��Ĭ����Ϊ
+ } );
+ jQuery�����л� ���Ԫ��:
+ $("form").serialize()   //�����ַ��� ��ע�����������е�name����
+ $("form").serializeArray()   //��������(��������)
+----------------------------------
+����ɺ����õ�config.js��,�����������
+
+?common.js ģ���ļ�:
+ ���ļ���Ϊÿ��ҳ���ʼ��,ʵ�����¹���:
+ 1)�ж��Ƿ�Ҫ��ת��loginҳ��:
+   �ж�cookie���û��PHPSESSID&&location.pathname!='login',��������¼ҳ��;
+ 2)�жϵ�ǰ�Ƿ��loginҳ��,���Ǿ�����ģ�����潫ͷ���������Ⱦ��aside�Ķ�Ӧλ��.
+ 3)�˳�����ʵ��:
+   �˳���ǩע�����¼�,����ajax����,���ؽ�����˳�,���ص�login;
+ 4)�������������(�����ʾ�Ӳ˵�)ʵ��:
+   ��Ӧ��ǩע���¼�,�������������ʾ�Ӳ˵�
+    $('.navs a+ul').prev().on('click',function(){  //��һ����a���ڵ�ul����һ��Ԫ��
+	$(this).next().slideToggle();  //this����һ��Ԫ��, slideToggle�л�Ԫ�ص�����������ʾ
+    });
+����ɺ����õ�config.js��,�����������
+
+?��ʦ�����б�ģ��
+ 1.'��ʦ����'a����ָ��teacher/list.html
+ 2.��ʽ�ļ�����(css aside header script.html)
+ 3.js/teacher/list.js��,�첽��ȡ�б�����,��Ⱦ��ҳ����
+    *ģ������ѭ����if����ʹ��
+    ��:
+ {{each result as v i}}
+	{{if v.gender=='1'}}
+	     <td>��</td>
+=======
  2)去掉index.php字符访问
   把.htaccess文件拷贝到项目的根目录下
   到httpd.conf这里面，把LoadModule rewrite_module modules/mod_rewrite.so  116行 前面的#号去掉
@@ -3330,10 +6410,33 @@ views
  {{each result as v i}}
 	{{if v.gender=='1'}}
 	     <td>男</td>
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	{{else}}
 	     <td>女</td>
 	{{/if}}
   {{/each}}
+<<<<<<< HEAD
+ ����Ⱦʱע���id�浽��Ӧ�ı�ǩ������
+
+--�鿴��ť,��ʾ��ϸ��Ϣ
+  1.��̬���ɵ���ҳ,Ҫ��ҳ��ĸ���ǩί���¼�   jq.on(type,'ѡ����',callback)
+  2.�첽��������(����id��ȡ),��ȡ���ݺ�������Ⱦ��ҳ����
+  3.��Ⱦ��ɺ󵯳����: $('#teacherModal').modal()
+
+--ע��/���ð�ť
+  1)��ģ��������жϷ����û����ݵ�tc_status,��1��ʾע��,��0��ʾ����
+  2)��ģ��js��ajax����,����tc_id��tc_status,���ݽ��յ���tc_status�޸�ҳ����ʾ���� (id��statusҪ�Ӵ浽��ǩ����ȡֵ)
+
+--�༭��ť,�༭��Ϣ
+  1)listҳ���е���༭��ť,��ת���༭ҳ��manager.html,����idƴ�ӵ�·������;
+  2)manager.html��form��������Ϊģ��,�����޸�(ģ�������name��ӡ�name=tc_id�������)
+	��: <input type="hidden" name="tc_id" value="{{tc_id}}">
+  3)manager.js��ʵ�ֹ���: (���ļ�Ƕ��manager.html)
+    a.·������ƴ�ӵ������и������,�ٴ���һ������
+    b.����tc_id����̨,�������ص�������Ⱦ��ҳ����ʾ
+    c.������水ťʱ,���޸ĺ���Ϣ���ͺ�̨�洢;�ɹ�����ת��listҳ��
+	ע:ʹ�ò��'form':'assets/jquery-form/jquery.form'
+=======
  ※渲染时注意把id存到对应的标签属性中
 
 --查看按钮,显示详细信息
@@ -3354,6 +6457,7 @@ views
     b.发送tc_id给后台,并将返回的数据渲染到页面显示
     c.点击保存按钮时,将修改后信息发送后台存储;成功后跳转到list页面
 	注:使用插件'form':'assets/jquery-form/jquery.form'
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	$(".teacher").on("click",'.btnSave',function (){
     
 		$('form').ajaxSubmit({
@@ -3364,9 +6468,15 @@ views
       	
 			success:function (res){
         
+<<<<<<< HEAD
+			alert('�ύ�ɹ�...');
+        
+			location.href='/teacher/list';//��ת����ʦ�б�ҳ
+=======
 			alert('提交成功...');
         
 			location.href='/teacher/list';//跳转到讲师列表页
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
       }
    
 		 })
@@ -3374,6 +6484,19 @@ views
 			return false;
   
 		});
+<<<<<<< HEAD
+	��form���ֱ�Ӵӱ���ȡ����,�����ֶ���ȡ
+	���༭����Ӷ��ǵ�������ҳ��,�����·������id���Ǳ༭,��֮�����
+
+
+--��ӽ�ʦ����ʵ��
+  1)�����ӽ�ʦ��ť��ת���༭ҳ��manager.html(����ƴ��id��)
+  2)��ģ�尴����Ⱦ(����:��ť��Ĭ���Ա�tc_gender�������)
+  3)�����Ӱ�ť,�������ύ��̨,�ɹ�����ת��listҳ��
+
+--���ڲ��ʹ��:
+  1)config.js������ģ��
+=======
 	※form插件直接从表单获取数据,不用手动获取
 	※编辑和添加都是弹出输入页面,如果有路径带了id的是编辑,反之是添加
 
@@ -3385,12 +6508,46 @@ views
 
 --日期插件使用:
   1)config.js中配置模块
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   'datepicker':'assets/bootstrap-datepicker/js/bootstrap-datepicker',
   
   'datepickerzh':'assets/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min'
   2)
    $('input[name=tc_join_date]').datepicker({
 
+<<<<<<< HEAD
+	format:'yyyy/mm/dd', // �ò���������������յĸ�ʽ��ʾ
+      
+	language:'zh-CN'  // �������ʾΪ������״̬
+    });
+~~~
+   ע��datepickerzh�����֧��ģ�黯����Ҫ�������jquery
+
+?��������
+ 1)���ת��settingsҳ��
+ 2)setting.jsģ���������û�����,��Ⱦ��ҳ��(��Ϊ�û��༭�ĳ�ʼ����)
+ 3)�༭��������:
+---�ϴ�ͼƬ&�ļ��Ĳ��uploadify: 
+    	�����ļ�(������jQ)��
+                $('#upfile').uploadify({
+                    swf:'/views/public/assets/uploadify/uploadify.swf',   //flash�ļ�·��(����)
+                    uploader:'/api/uploader/avatar',   //�ύ·��(����)
+                    weight:120,  //��ť���
+                    height:120,  //��ť�߶�
+                    buttonText:'', //��ť��������
+                    fileObjName:'tc_avatar',   //(����)�ļ��ϴ���������ơ�
+                    buttonImage:'', //��ť���Ҫ����ͼƬ,����ָ��·��
+                    multi:false,  //����Ϊtrue���ϴ�����ļ�
+                    fileTypeExts:'*.jpg',  //ָ��ͼƬ��ʽ
+                    onUploadSuccess:function (file,data,response){
+                    console.log(JSON.parse(data));
+                    //��··������ͼƬ
+                    $("#img_avatar").attr('src',JSON.parse(data).result.path);
+                    }
+                });
+---���������� datepicker
+    ����datrpicker��datepickerzh���(datepickerzh������jQ)
+=======
 	format:'yyyy/mm/dd', // 让插件按正常的年月日的格式显示
       
 	language:'zh-CN'  // 将插件显示为汉化的状态
@@ -3422,11 +6579,27 @@ views
                 });
 ---日期输入插件 datepicker
     配置datrpicker和datepickerzh插件(datepickerzh需依赖jQ)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     	$('input[name=tc_join_date]').datepicker({
              format:'yyyy/mm/dd',
              language:'zh-CN'
     	});
 
+<<<<<<< HEAD
+---ʡ������������
+    ����region���(�˲��֧��ģ�黯)
+        ע:����ʡ����select��ǩ����p c d��ǩ
+        $('select��Ԫ��').region({
+            url:'/views/public/assets/jquery-region/region.json'
+        });
+
+---���ı��༭��ckeditor  ueditor
+   ����ckeditor���,Ҫ���з�ģ�����:
+   'ckeditor': {
+         exports:'CKEDITOR'
+     }
+   CKEDITOR.replace('�ı���id',{
+=======
 ---省市区三级联动
     配置region插件(此插件支持模块化)
         注:先在省市区select标签加上p c d标签
@@ -3440,6 +6613,7 @@ views
          exports:'CKEDITOR'
      }
    CKEDITOR.replace('文本域id',{
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
       toolbarGroups : [
             { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
             { name: 'links' },
@@ -3448,6 +6622,36 @@ views
             { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] }
           ]
        });
+<<<<<<< HEAD
+   ע:���ύǰҪ�Ƚ���value��ȡ:
+   $('#id').val(CKEDITOR.instances.�ı���id.getData());
+
+?�γ����
+ 1)����γ̹���>�γ���� ��ת�����ҳ��
+ 2)��д�γ̺�,��������γ̰�ť,��cs_name���͸���̨,��̨����һ��cs_id,idƴ���ڻ�����Ϣҳ·����ת
+ 3)������Ϣҳ��basic��,ͨ��id����������Ⱦҳ��,�༭������ύ��̨,��Ӧ����id, idƴ���ڿγ�ͼƬҳ��·��������ת
+ 4)�γ�ͼƬҳ��pic��,ͨ��id����������Ⱦҳ��,ʹ��ͼƬ�ϴ�uploadify����ϴ�ͼƬ,�ϴ���ɺ󽫲��а�ť�ָ�����;
+   ע����а�ť�¼�(�ж�:���data-stutas!=save,��������ʾΪ����,����jcrop��������ͼƬ,�ص������н�ͼƬ��ӵ�ָ��λ��
+   ������Ǳ���ͼƬ)
+  	$('.course-add').on('click','#jcrop',function(){
+        if($(this).attr('data-status') != 'save'){
+            $(this).attr('data-status','save');
+            $(this).text('�� ��');
+
+            //��ͼƬ��ʼ����
+            $('.preview img').Jcrop({
+                aspectRatio:2, //����
+                setSelect:[22,22,300,150],  //��ʼλ�úͳ���
+                // boxWidth:400,
+            },function(){
+                // ȫ�ֱ�����Ų���ͼ����
+                jcrop_obj = this;   //this���ǲ�����ʾͼ�������
+                jcrop_obj.initComponent('Thumbnailer',{   //Thumbnailer��ʾ�Ļ���
+                    width:240,  //������ʾ�Ŀ��(����ͼƬ�ӿ���ƵĴ�С)
+                    height:120
+                });
+                //��ӵ���Ӧ��λ��  .jcrop-thumb���Ԫ������ʾ���������,�ɲ������
+=======
    注:表单提交前要先进行value获取:
    $('#id').val(CKEDITOR.instances.文本域id.getData());
 
@@ -3476,13 +6680,19 @@ views
                     height:120
                 });
                 //添加到响应的位置  .jcrop-thumb这个元素是显示裁切区域的,由插件生成
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                 $('.thumb').append($('.jcrop-thumb'));
                 
             });
 
         }else{
+<<<<<<< HEAD
+            //����ͼƬ
+            var result = jcrop_obj.getSelection(); //����һ������ͼƬ��Ϣ�Ķ���
+=======
             //保存图片
             var result = jcrop_obj.getSelection(); //返回一个包含图片信息的对象
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
             $.ajax({
                 url:'/api/course/update/picture',
                 type:'post',
@@ -3495,13 +6705,33 @@ views
                 },
                 success:function(d){
                     if(d.code==200){
+<<<<<<< HEAD
+                        alert('����ɹ�');
+=======
                         alert('保存成功');
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                         location.href = '/course/lesson?cs_id='+cs_id;
                         
                     }
                 }
             });
         }
+<<<<<<< HEAD
+ 5)��ʱ����:
+  1)��search��ȡcs_id,��װһ����Ⱦ��ʱ�б�ĺ���;
+  2)��"��ӿ�ʱ"ע���¼�,��Ⱦ��,����ģ̬��
+  3)��"�༭��ʱ"��ťע���¼�,���ݴ洢�ڸ�Ԫ�ص�data_ctid��ȡ����,��Ⱦ��ҳ��,��ʾģ̬��
+  4)��"���"��"����"ע���¼�,�ϴ�����:
+    a.ct_is_free=Number($('').prop("checked")ת��ѡ����;(false=0,true=1)
+    b.ģ���и�form��action�����������ύ�ӿڵı�����ֵַ
+
+?�γ��б�:
+  1)����list.js,������ģ��
+  2)ģ����Ⱦ��listҳ��
+
+?Echarts���
+- 1.��js/dashboard�����½�һ��index.js�ļ�����ճ�����´��룺
+=======
  5)课时管理:
   1)从search获取cs_id,封装一个渲染课时列表的函数;
   2)给"添加课时"注册事件,渲染表单,弹出模态框
@@ -3516,39 +6746,64 @@ views
 
 ?Echarts插件
 - 1.在js/dashboard下面新建一个index.js文件，新粘进如下代码：
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
 
 ~~~javascript
 define(['echarts'],function (echarts){
   
+<<<<<<< HEAD
+// ����׼���õ�dom����ʼ��echartsʵ��
+=======
 // 基于准备好的dom，初始化echarts实例
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   
 var myChart = echarts.init(document.getElementById('main'));
 
   
+<<<<<<< HEAD
+// ָ��ͼ��������������
+=======
 // 指定图表的配置项和数据
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   
 var option = {
     
 title: {
+<<<<<<< HEAD
+      text: 'ECharts ����ʾ��'
+=======
       text: 'ECharts 入门示例'
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     },
     
 tooltip: {},
     
 legend: {
+<<<<<<< HEAD
+      data:['����']
+    },
+   
+xAxis: {
+      data: ["����","��ë��","ѩ����","����","�߸�Ь","����"]
+=======
       data:['销量']
     },
    
 xAxis: {
       data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     },
     
 yAxis: {},
     
 series: [{
       
+<<<<<<< HEAD
+	name: '����',
+=======
 	name: '销量',
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
       
 	type: 'bar',
       
@@ -3557,11 +6812,25 @@ series: [{
   
 	};
 
+<<<<<<< HEAD
+  // ʹ�ø�ָ�����������������ʾͼ��
+=======
   // 使用刚指定的配置项和数据显示图表。
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   
 myChart.setOption(option);
 
 })
+<<<<<<< HEAD
+�����������ҳ�е���ģ��
+
+?NProgress�÷�
+- 1.��common.js�У��������Ĵ��� ��
+
+
+~~~
+// �����д�����ÿ��ҳ����ػ����л���ʱ�򣬶���ִ�еģ�ÿ��ҳ�涼����һ����������Ч��
+=======
 设置完后再首页中调用模块
 
 ?NProgress用法
@@ -3570,12 +6839,22 @@ myChart.setOption(option);
 
 ~~~
 // 这两行代码是每个页面加载或是切换的时候，都会执行的，每个页面都会有一个进度条的效果
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     NProgress.start();
     
 NProgress.done();
 ~
 
 
+<<<<<<< HEAD
+- 2.�������ÿһ��ajaxҲ����˵�Ч���Ļ�������Ҫ ��������д��� ��
+
+
+~~~javascript
+// ȫ��ajax�¼����ӣ�������ҳ����
+    
+// ÿһ��ajax�����ʱ�򣬶����е�һ����������Ч��
+=======
 - 2.如果想让每一个ajax也有如此的效果的话，则需要 再添加两行代码 ：
 
 
@@ -3583,6 +6862,7 @@ NProgress.done();
 // 全局ajax事件监视，是整个页面中
     
 // 每一次ajax请求的时候，都会有的一个进度条的效果
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
     
 $(document).ajaxStart(function (){
       NProgress.start();
@@ -3595,12 +6875,167 @@ $(document).ajaxStop(function (){
 
 
 
+<<<<<<< HEAD
+- 3.ע��һ��Ҫ���ģ������
+=======
 - 3.注意一定要添加模块引入
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 .....
 
 
 
 
+<<<<<<< HEAD
+����������
+ʲô��ORID�۽�ʽ�Ự�� (2014-08-10 23:07:28)ת�ب�
+��ǩ�� �ϣңɣ�	
+       �۽�ʽ�Ự��ORID�����԰�������һ��˼���κ����⣬���ܹ��������ǽ���칫���������������ǿ������Ӫ�����ԣ������ѵ����վۻ��Ϲ�������������һ����Ӱ���۽�ʽ�Ự��һ���Ĳ�ε���Լ򵥵Ĺ��̣���Ϊ�ĸ���������⣺
+1�����ݲ��棨Objective����������ʵ���ⲿ��ʵ�����⡣����������㿴����������������ʲô��
+2��������棨Reflective��������������˶����ݷ�Ӧ�����⣬�����ڵķ�Ӧ����ʱ����л���ܣ����ص�����
+     ������ʵ�����롣���ۺ�ʱ���������ⲿ����ʵ�����ݻ�͹���ʵ�������Ƕ��ھ������ڵķ�Ӧ�������
+     ��������ʲô��һ��Ӧ��
+3�������棨Interpretive�����ھ�����塢��ֵ����Ҫ�Ժͺ�������⡣���������������õ���ʲô���
+4���������� ��Decisional��������������ʹ�Ի��������������ܹ���δ���������������⡣������������ܲ�
+     ȡʲô�ж���
+---ORID ��־
+============================= ������ ��Ŀ ============================================
+����Ŀ���ݡ�
+1.��ҳ+ͷ���ײ�����ģ��
+2.�ȼ�����ҳ��
+3.ʡǮ��ҳ��
+4.�����ۿ�ҳ��
+5.�ײ˼�ҳ��
+6.�����ۿ�ҳ��
+7.�Ż�ȯҳ��
+8.�յ�Ʒҳ��
+9.�̳ǵ���ҳ��
+10.Ʒ�ƴ�ȫҳ��
+
+������Ҫ�㡿
+?�˽�����:
+ͨ��������վ��psd��Ƹ塢API�ĵ�����Ʒ���������Ա��Ϥ����ҳ���ʵ�ֵĹ���, �ٿذ�ť��
+?��ǰ׼��:
+�ӿڹ淶: ʲô���ӿ�
+�����ƻ�:����excel�����ƻ��ĵ�, ȷ��ҵ���ܵ�, ������, ���ʱ��ڵ�
+ȷ����������: ҳ�沼��( bootstrap/flex/rem )  CSS����( less/sass/css )  �Զ�������(Gulp/webpack)   ģ�黯( require/sea )  ���(echarts/iscroll...)   ���������ģ�黯   �汾������(git/svn)
+?��������
+?��Ŀ�ܽ�
+
+��С���ɡ�
+?�¼�:
+change�¼�:  ������/selectѡ����ı�ʱ���� 
+input: ��������ˢ��ʱ����
+?url������:
+����ͨ��location.search��ȡ�����url������(����)  ����취: ʹ��decode()������url������(����)ת�������
+?html��ǩ����ͨ��ģ����Ⱦ��ģ����Զ�ת��:
+{{# }} ģ���������ǰ���#��ת��
+
+===========================angular day01 =================================
+�ٶ�ָ�� index.baidu.com  �ؼ�������ͳ������
+
+restrict �޶�;Լ�� 
+directiveָ��;����
+limit to ������
+��angular��顿
+?��ʷ: 
+2009����Misko Hevery���˴���, ����MVC����˼��,�ȸ��չ�������,������ά��
+��������: ԭ����̷��������ӡ����(����)
+?�ص�: 
+>�����˳����MVC���ģʽ 
+>ģ�黯����
+>���ݵ���/˫���
+>��չ��HTML��ǩ������(���HTML��ǩ���ܵ�һ��)
+>����ע��
+>AngularJS���Ƴ�DOM����
+?�汾����:
+AngularJS �汾1.x :  ���µ�����, 1.6.5������2017/7/3, ȱ������Ŀ�������ʱ�����ܽ���     --http://angularjs.org
+Angular �汾2.x :  typescript es6��д�˵ײ�, ������1.x, �׸��汾������2016/9    --http://angularjs.org
+Angular �汾4.x :  ��2.x�����Ͻ����˸���, �׸��汾������2017/3   --http://angular.io
+
+?MVC:
+ Model: ����ģ��, ���ڴ洢����;
+ View: ��ͼ����,��ǰ��ָHTML
+ Controller: ������, ����ҵ���߼�, ��������ģ��
+
+?jqLite:
+  jqLite��jquery��һ���Ӽ�,�Դ�һЩ���õķ���;
+  angular.element("ѡ����")��������һ���¶���,������jq�ļ�����jq����,��֮����jqList
+
+�������ṹ��
+��ָ������Χ:  <body ng-app='hmApp'></body>
+�ڴ���ģ��:  var app = angular.module('hmApp',[ ]);
+�۴���������: app.controller('stuList',['$scope',function($scope){
+		$scope.name= "����"; //����ģ�ʹ洢����
+	}]);
+�ܹ�����ͼ: <div ng-controller="stuList"></div>
+�ݰ�����:<div ng-controller="stuList">
+	 {{name}}
+	</div>
+
+��ָ�
+?������ָ��:
+  ng-repeat="(key,value) in arr"  | "value in arr" ��������
+  ng-repeat="(key,value) in obj" | "value in obj" �������� 
+  ng-app=""  ָ���ܿط�Χ
+  ng-controller=""  ָ�����������������ͼ
+  ng-show="false | true | ���� | ���ʽ"  ����Ԫ���Ƿ���ʾ 
+  ng-hide="false | true | ���� | ���ʽ"  ����Ԫ���Ƿ�����
+  ng-disabled ="false | true | ���� | ���ʽ"  ����Ԫ���Ƿ����
+  ng-checked ="false | true | ���� | ���ʽ"  ���Ƶ�ѡ���Ƿ�ѡ��
+  ng-selected ="false | true | ���� | ���ʽ"  ��������ѡ���Ƿ�ѡ��
+  ng-if="false | true" ����Ԫ���Ƿ񴴽���DOM���� 
+  ng-src=""  ��ǿ·��(��ֹhtml�﷨����) ---*ֵ��Ҫ{{}}
+  ng-href=""  ��ǿ·��(��ֹhtml�﷨����)
+  ng-class="{box:flag}}"  �����Ƿ�������Ԫ����
+  ng-include="'ҳ��path'"  ��ҳ���������ǰҳ��λ��,�����Ű����� ---��������
+  ng-model="val"  ָ�����ڱ�Ԫ��,��ʾ��$spose����һ������,,˫���
+  ng-init=""  ���ڳ�ʼ��һЩ�򵥵�����
+  ng-switch ...ng-switch-when ...ng-switch-default
+?�Զ���ָ��:
+  ����ģ������directive����, ��һ����������ָ����, �ڶ����ص������з���һ������:
+  app.directive("myTag",function(){ 
+	return{
+		restrict:"ECMA" ;   //ָ���Զ���ָ������,�Ƽ�"AE"  (E:Ԫ��  C:class  M:ע��  A:����)
+ 		replace:true/false;    //�Ƿ����ԭ��ǩ
+		template:	"<h2>���Ա���</h2>";   //ģ��,�����滻�������
+		templateUrl: �����ⲿģ���ļ�
+		link: function(scope,element,attrs){
+			//element: ��ǰԪ��, ��һ��jqLite����
+			//attrs[�Զ���������]: �õ��Զ������Ե�ֵ
+		   }
+	       }
+   });
+  ע��:�շ����������Զ���ָ��,��������ʹ��"-"�ָ���д
+
+�����ݰ󶨡�
+ ?�����:
+  ����������������ģ��,��������,��ͼ�н��а�
+  ng-bind�󶨺�{{}}��:(Ч����ͬ)
+  <div ng-bind="data.name"></div> 
+  <div >{{data.name}}</div> 
+  ��˸����:
+  ---ԭ��:html�������ʱ��{{}}���ݵ����ַ�������ʾ,angular����ִ��ʱ������ˢ��;
+  ---�Բ�:��ng-cloakָ��,���Խ�Ԫ������,angularִ��������Ⱦ(������������˸ʱ�����);
+              ��angular�ļ�����λ�÷���head��ǩ��
+	
+?˫���:
+  ng-modelָ�����ڱ�Ԫ��,��ʾ��$spose����һ������
+  ��: <input type="text" ng-model="v">
+	<p>{{v}}</p>
+
+���¼�����
+  ��ʽ: ng-�¼�����="����ģ���еĺ���()";
+  ��:<div ng-click="fn()"></div>
+
+�����ݴ���
+? ng-repeat: �ظ����ɱ�ǩ,��������Ͷ���
+   ��:<li ng-repeat="(key,value) in arr��obj"></li>    //�ɵõ�����&����ֵ
+        <li ng-repeat="val in arr��obj"></li>   //�ɵõ�ֵ
+? ng-switch: 
+   <ul ng-switch="lesson">    //$scope.lesson = 'css';
+   	<li ng-switch-when="html">html</li>
+   	<li ng-switch-when="css">css</li>    //��ʾ��
+=======
 江湖奇侠传
 什么是ORID聚焦式会话法 (2014-08-10 23:07:28)转载▼
 标签： ＯＲＩＤ	
@@ -3750,10 +7185,68 @@ Angular 版本4.x :  在2.x基础上进行了更新, 首个版本发布在2017/3
    <ul ng-switch="lesson">    //$scope.lesson = 'css';
    	<li ng-switch-when="html">html</li>
    	<li ng-switch-when="css">css</li>    //显示项
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
    	<li ng-switch-when="js">js</li>
    </ul>
 
 
+<<<<<<< HEAD
+��������
+  ---tab�л�:
+       ��ͼ��Χ��ng-switch="ģ���б���",change(n){$scope.type = n},nav�е��ú������������Ӧֵ,�Ӳ˵���ng-switch-when="��Ӧֵ"
+  ---todos���±�ǩ:
+      1.�������:ng-model="taskName"˫���,�����¼���������(id,name,isFinish),��������
+      2.���״̬�л�: 
+
+===========================angular day02 =========================
+��ģ�顿
+ģ�������:  ����ȫ�������ռ����� / ���븴��
+ʹ��: ����ģ��,�໥����
+ var app = angular.module("ģ����(����)",["Ҫ������ģ��"]);
+��������
+ ?��ʲô?
+ �������Ǻ�����ģ���������, $scope�����Ƕ���Ӧ��ҵ���߼�,��������������ͼ���Եĵط�
+ ����ͼ�Ϳ�����֮��Ľ�ˮ!
+ ?����ԭ��?
+ ���������п��Է��ʸ��������е�����;
+ ����������ҡ�����������ҡ�$rootScope����, ����Ҳ�������ͼ������( �����ǲ����жϵ� );
+ �����Ӽ��������໥�������໥��ϵ
+ ��������: $rootScope�����ж�������ϲ�,����ӽ�ȫ��������Ķ���
+ ?����ʲô?
+ ��̽��,����һ���仯�˾�֪ͨ����Ӧ��;
+ �ṩ���ݴ�ŵĻ���;(��������,�����)
+
+ ?��������:
+ ����: ����������ʱ,�Զ���$injector����һ���µ�������     // app.controller("ctrl",["$scope",function($scope){} ])
+ ������ϵ: ����ʱ,����$scope�����������ͼ,��ע�������ķ����仯ʱִ�еĺ���($watch����)
+ �仯����:ѭ��ִ����ֵ���,�б仯ʱ�ʹ���ָ��ע��Ļص�����
+ ����: ����ͼ������Ҫ����ʱ��,angular���Զ����� (��������$scope��$destory()��������)
+��ע: ֻ��ng-controller��ng-repeatָ�������Լ��������
+
+����������
+ ? ��ʲô?
+  ���Խ�һ��������ͼ��ص�ҵ���߼���װ��һ������������(ģ��)��,ͨ������ע����ʵ�ַ���ķ���;
+  �����������ͼ֮�������
+  
+ ����������: ������ͬʱ
+
+���������� 
+  ���ù�����:
+  {{time | date:"yyyy��MM��dd�� HH��mm��ss��"}}
+  {{money|currency:"��":1}}  --�����,�������뱣��һλ
+  {{char | uppercase}}
+  {{char | lowercase}}
+  {{arr | limitTo:n}}  �����˽�ȡ������ַ���
+  {{num | number:2}} ������λС��
+  {{person | json}} ������ʾ��json�ַ���
+  {{students | orderBy:"age":true}} ����������age����������(Ĭ������)
+  {{numArr | orderBy: null :true}}  �����������齵������(Ĭ������)
+  {{students | filter:{age:20} }} �ҳ�age=20�Ķ���
+
+  �Զ��������:
+  {{arr | subFilter:2:3}}    //��ͼ��ʹ��
+  ����: app.fliter("subFilter",function(){
+=======
 【案例】
   ---tab切换:
        视图范围内ng-switch="模型中变量",change(n){$scope.type = n},nav中调用函数传入自身对应值,子菜单中ng-switch-when="对应值"
@@ -3809,11 +7302,29 @@ Angular 版本4.x :  在2.x基础上进行了更新, 首个版本发布在2017/3
   自定义过滤器:
   {{arr | subFilter:2:3}}    //视图中使用
   代码: app.fliter("subFilter",function(){
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
          return function(scope,index,count){
 	return scope.slice(index,index+count);
 	}
    });
 
+<<<<<<< HEAD
+������ע�롿
+ ʲô������: A��Ҫ��B���ܵĻ����ϲ���ʵ���Լ��Ĺ���, ��A����B;
+ ����ʽע��: ������д��������ģ��,��ص������β�һһ��Ӧ
+ --app.controller("myCtrl",["$scope","$log",function($scope,$log){  }]);
+  ���Ƽ�ʹ������ʽ, ���пɶ���,ȷ����������ѹ��
+  �ƶ�ʽע��: �ں����д���ģ����,��angular�����β��ж�ʹ��ʲôģ��
+ --app.controller(function($scope,$log){ }) 
+
+�����÷���
+? $log:
+ $log.error("��ӡ������Ϣ");
+ $log.debug("debug��Ϣ");
+ $log.info("info��Ϣ");
+ $log.log("������ӡ��־");
+ $log.warn("��ӡ������Ϣ")
+=======
 【依赖注入】
  什么是依赖: A需要在B功能的基础上才能实现自己的功能, 即A依赖B;
  行内式注入: 数组内写明依赖的模块,与回调函数形参一一对应
@@ -3829,21 +7340,66 @@ Angular 版本4.x :  在2.x基础上进行了更新, 首个版本发布在2017/3
  $log.info("info信息");
  $log.log("正常打印日志");
  $log.warn("打印警告信息")
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 ?$timeout:
    $timeout(function(){},1000);
 ?$interval:
    var clearId = $interval(function(){},1000);   
    $interval.cancel(clearId);
 ?$filter: 
+<<<<<<< HEAD
+   var currency = $filter("date");  //���ص��Ǻ���
+   var data = currency(45.67,"��",1);  
+   ��$filter��filter: $filter�������ڿ�������,filter������������ͼ��
+?$http: 
+  get�������:
+=======
    var currency = $filter("date");  //返回的是函数
    var data = currency(45.67,"￥",1);  
    ※$filter和filter: $filter服务用于控制器内,filter过滤器用于视图中
 ?$http: 
   get请求代码:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   $http({
 	url:"",
 	method:"get",
 	params:{ name=zs,age=22  }
+<<<<<<< HEAD
+  }).then(function(res){ //�ɹ�ʱִ�� }).catch(function(){ //ʧ��ʱִ�� });
+  post�������:
+  $http({
+  	url:"",
+ 	method:"post",   //Ĭ����get
+	data:"name=zs&age=22"  ,
+	header:{ "Content-Type":"application/x-www-form-urlencoded"}
+   }).then(function(res.data){ //�ɹ�ʱִ�� },function(){ //ʧ��ʱִ�� }); 
+
+  ��AJAX��ǿ:
+  AJAX��get�ύ��������Query String��ʽ. (Ψһ�����ύ�ĸ�ʽ)
+  AJAX��post�ύ��������Request Payload��ʽ, ���ָ�ʽ������һ�㲻����, ֻ����Form Data��
+  ת��Form Data��ʽ: xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+  ��jsonp�����ǿ:
+   �����������ͬԴ����,ajax��֧�ֿ�������(Э��,����,�˿�)
+   ʵ��:
+	function get(d){  }   //����һ������,�������н�������d����
+	<script src="http://baidu.com?callback=get"></scriprt>   //������Ҫ�Ĳ������ӷ�����
+   	�������Ϸ���  echo get."(".data����.")";
+	��������� get(data����),ʵ����ʱ�����˺���,��˾ͻ�ȡ������������˴���
+
+ ?$rootScope
+    �������ø�������;  ($scope��ĳ��ͼ����������)
+ ?$route
+   $route.updateParams({����:ֵ})  :�޸ĵ�ַ������  (jquery String��ʽ)
+ ?$routeParams
+   $routeParams.page //��ȡ��ַ���еĲ���
+ ?$scope
+$scope.$apply();//������ͼ ����ģ�ͷ����˱仯 ��Ҫˢ����ͼ.
+===========================angular day03 =========================
+���Զ������
+?ʹ��factory����: 
+ app.factory("myServer",["$http",function($http){  //��Ҫʱע����������
+=======
   }).then(function(res){ //成功时执行 }).catch(function(){ //失败时执行 });
   post请求代码:
   $http({
@@ -3878,11 +7434,141 @@ $scope.$apply();//告诉视图 数据模型发生了变化 需要刷新视图.
 【自定义服务】
 ?使用factory方法: 
  app.factory("myServer",["$http",function($http){  //必要时注入其他服务
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	return  {
 	 	fn1:function(){} 
 
 	}
   }]);
+<<<<<<< HEAD
+?ʹ��service����:
+ app.service("myService",["$log",function($log){  //��Ҫʱע����������
+	this.fn1 = function(){  }
+}]);
+
+ �ڿ�����, ע�����ʱ�ͻ�ִ;
+ ע:$scopeֻ���ڿ�������ʹ��,�Զ��������������
+
+�����ÿ顿
+  ��ngִ�������е�"���ú�����"����,�����ģ������Զ��������;
+  ���岽��: ģ��������config����,������һ������, ������Ӧ�����Provider��һ���ص�����(�ص�����ע��ģ��),�������ɷ���Provider���÷�������
+  ע: ÿһ�������Ӧһ��Provider,��:$httpProvider, $logProvider....
+ app.config(["$logProvider" , function( $logProvider ){
+	$logProvider.debugEnabled(false);  //��$log�����debug����ʧЧ
+ }]);
+  
+
+�����п顿��$rootScope����
+  ģ����������ע�뷽ʽ��ʹ��֮��,�����Զ�������(�������ڿ�����); 
+  ���岽��: ģ��������run����,������һ������, ����Ҫ���е�ģ��,����һ���ص�����
+ app.run(["$rootScope",function(){
+	$rootScope.name = "jack";  //���п�����rootScope,���ø�����������
+ }]);
+ ���ص������еĴ�����"�������н׶�ִ��",���õ�ģ����$http,$rootScope,$log...
+
+��SPA��ҳӦ�ó���
+  ?SPA: ��һ��ҳ�漯�ɶ��ֹ���,ͨ���ֲ�ˢ�¼���ʵ�ֹ����л�;
+  ?����ʵ�ַ���:
+  ��ť����ê���ӡ�����ê������ת������ê������ͬ�Ĺ�����չʾ
+  onhashchange�¼�����ê��仯����
+  ����ê��hashֵ,ajax����������Ⱦҳ��
+  ?SPA�ŵ��ȱ��:
+  �ŵ�: ����ת����,����ȴ�ͳ��վ����
+  ȱ��: �����Ƕ�����,SEO�����޷�ʶ��spa������
+
+��·�ɡ�
+ angular�е�·�ɶ�ê��仯ʵ���л���ͼԭ������˷�װ; (1.2�汾���·�ɹ���������ļ��ֿ���)
+  ? ���ò���:
+ 1.����angular-route·��ģ���ļ�;
+ 2.�½�ģ��ʱ����"ngRoute"ģ��;   
+    var app = angular.module("hmApp",["ngRoute"]);
+ 3.ê���ʽ�޸�<li><a href="#!/my">�ҵ�����</a></li>  
+ 4.ͨ������$routeProvider������·�ɵ��趨:
+    ��ʾ��ȷ��ng-viewָ��
+    ��templateUrl: ""
+    ��template:"<p></p>"
+    ��redirectTo: ·����ת(ֱ�ӵ�ָ������ҳ)
+    ��controller:ָ���������������ͼ�������Ŀ�����
+    ��: app.config(["$routeProvider",fucntion($routeProvider){
+	$routeProvider.when("/my ",{ 
+		templateUrl:"/music/my.html"
+	 }).when("/",{
+		templateUrl:"/music/home/html"      //���Ϊ��ê��,Ҳָ��һ��ҳ��
+	}).otherwise({ 
+		// template:"<h2>404,��������ҳ�ɵ�����ȥ��</h2>"
+		redirectTo:"/home"    //����/home·��
+		controller:"����������"  //�����������
+	});
+   }]);
+
+  ? ·��ǰ�÷��ŵ�����:
+  ��Ĭ�����Ҫ��#!��ͷ;(�ȸ���������վʱ����Ϊ��ǽ�ȥ��¼����)
+  ��ǰ�÷���!���޸�:
+   app.config(["$locationProvider",function($locationProvider){ 
+	$locationProvider.hashPrefix("@");  //ǰ���滻��@
+   }]);
+
+  ? ������·��:
+   ·����תʱ����ɴ�QueryString���Ͳ���: #/home?name=jack
+   ���������Ŀ����������ͼ�����Ŀ������л�ȡ,�������ݲ���
+
+  ·��ƥ��ķ���:
+	·��			��ƥ��
+  "#!/home?name=jack&age=22"	"/home"
+  "#!/home/:name/:age"		"/home/jack/22"
+  "#!/home/:name?/:age?"		"/home"  ��  "/home/jack/22"
+  
+��npm�����cnpm��
+--save  -S | --save ��Ŀ��
+--dev -D |--dev ������
+npm install express      # ���ذ�װ
+npm install express -g   # ȫ�ְ�װ
+npm install express --save     # ��Ŀ��
+npm install express --dev     # ������
+npm uninstall webpack --save-dev ж��ģ��
+����ʱ��Ҫ�õ��İ�ʹ��--save������ʹ��--save-dev
+npm install gulp --save-dev �� npm install gulp -D  ��װ����Ϣ�����뵽devDependencies�������׶ε��������������׶�һ��ʹ����
+
+===========================angular day04  =========================
+��moviecat��
+ �����Ӱ��Ŀ�ܽ�:
+ 1.������Ŀ¼
+   ---node_modules  ����npm���صĲ��
+   ---src > index.html /app.js/ģ���ļ���/�Զ�������ļ���/assets��>js,css,img
+ 2.npm���������� angular,angular-route
+    ---cd�л���Ŀ¼,��npm init��ʼ����npm install �����@x.y.z --save
+ 3.����ҳ�湦��,��ģ��
+    ��ģ��app: ��ng-appֵһ�µ�,һ��ҳ������ֻ����һ����ģ��
+    ��ģ�����"��ӳ��top250��"
+ 4.��ģ�鴴��,������ģ��(ǰ���������ģ��)
+ 5.�������д�������: (��Ҫ�������ݵ���ͼһ��Ҫ��·�������й���������)
+    ---$route.updateParams({����:ֵ })  //�޸Ļ��趨��ַ����ֵ(jquery string��ʽ)
+    ---$routeParams.����  //��ȡ����ֵ,��Ҫ·�ɶ������ʹ��  
+    ---���Զ��������,����ģ�����ݸı��Ҫ$scope.$apply()����,֪ͨ��ͼˢ��ҳ��
+    ---$window.location.hash  ��ȡ�����õ���?���������ֵ
+ 6.�Զ������jsonp
+ 7.ָ��ʹ��:
+   ---ng-class={����: ���ʽ}   //������ʽ
+   ---ng-hide="{{}}"      //�������غ���ʾ
+   ---ng-click="fn(����--)"  //���+�����ĵ�����ݼ�ֱ��ָ�����
+
+===========================angular day05  ================
+��Gulp�������ߡ�
+ ?��������:Grunt , Gulp , FIS_3 , webpack
+ ?Gulp��װ:
+  1)ȫ�ְ�װ       
+	> npm install gulp -g
+  2)��ĿĿ¼��װ   
+	>(�л�����ĿĿ¼)npm install gulp --save
+
+  3)��Ŀ��Ŀ¼��һ��gulpfile.js�ļ�
+  4)���뱾�ص�requireģ��
+	>var gulp = require("gulp");   
+  5)���������ִ������
+	>����: gulp.task("������",function(){   })
+	>DOS����: gulp ������
+  6)ѹ��css
+=======
 ?使用service方法:
  app.service("myService",["$log",function($log){  //必要时注入其他服务
 	this.fn1 = function(){  }
@@ -4010,10 +7696,20 @@ npm install gulp --save-dev 或 npm install gulp -D  安装包信息将加入到
 	>创建: gulp.task("任务名",function(){   })
 	>DOS调用: gulp 任务名
   6)压缩css
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	gulp.task("yscss",function(){
 		gulp.src("./css/base.css")
 		.pipe(cssmin)
 	})
+<<<<<<< HEAD
+ Gulpʹ��:
+ ��������:
+ var gulp = require("gulp")   //����ģ��
+ var cssmin = require("gulp-cssmin")
+ gulp.task("yasuoCSS",function(){
+	gulp.src(" ")
+	//����cssѹ����� gulp-cssmin
+=======
  Gulp使用:
  创建任务:
  var gulp = require("gulp")   //引入模块
@@ -4021,6 +7717,7 @@ npm install gulp --save-dev 或 npm install gulp -D  安装包信息将加入到
  gulp.task("yasuoCSS",function(){
 	gulp.src(" ")
 	//下载css压缩插件 gulp-cssmin
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	gulp.pipe(cssmin())
 	gulp.pipe
 	gulp.pipe(gulp.dest("./dest"))
@@ -4028,31 +7725,61 @@ npm install gulp --save-dev 或 npm install gulp -D  安装包信息将加入到
 
 gulp.task("ysjs",function(){
 	gulp.src("")
+<<<<<<< HEAD
+	//����jsѹ�����gulp-uglify  --save
+=======
 	//下载js压缩插件gulp-uglify  --save
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	.pipe(uflify())
 	.pipe(gulp.dest("./dest"))
 })
 
 gulp.task("yshtml",function(){
 	gulp.src("")
+<<<<<<< HEAD
+	//����ѹ�����gulp-htmlmin  --save
+=======
 	//下载压缩插件gulp-htmlmin  --save
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	.pipe(htmlmin())
 	.pipe(gulp.dest("./dest"))
 })
 
 gulp.task("ysimage",function(){
 	gulp.src("")
+<<<<<<< HEAD
+	//����ѹ�����gulp-imagemin  --save
+	.pipe(htmlmin("./image/*.*"))
+	.pipe(gulp.dest("./dest"))
+})
+�ϲ��ļ�:
+ ͨ��д��: /src/*.js
+=======
 	//下载压缩插件gulp-imagemin  --save
 	.pipe(htmlmin("./image/*.*"))
 	.pipe(gulp.dest("./dest"))
 })
 合并文件:
  通配写法: /src/*.js
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	["./src/*/*.js","!./"]
 gulp.task("concat",function(){
 	gulp.src([
 	"./js.js"
 	]);
+<<<<<<< HEAD
+	.pipe(concat("�ϳ��ļ���")).pipe(gulp.dest("./dest"))
+	//����gulp-concat --save
+})
+
+
+ ִ������:
+cmd��,�л�����Ŀ��Ŀ¼,ʹ������:gulp ������
+
+�����ļ��仯:
+gulp.task("watchcss",function(){ 
+	gulp.watch("���ӵ��ļ�·��");
+=======
 	.pipe(concat("合成文件名")).pipe(gulp.dest("./dest"))
 	//下载gulp-concat --save
 })
@@ -4064,10 +7791,91 @@ cmd中,切换到项目根目录,使用命令:gulp 任务名
 监视文件变化:
 gulp.task("watchcss",function(){ 
 	gulp.watch("监视的文件路径");
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 })
 
 
 
+<<<<<<< HEAD
+��Bower��npm��
+bower��ǰ�˲������,npm��רעǰ��̨���
+bower ��github����,����git
+��װbower:
+	>npm install  bower -g
+	>ж�� uninstall
+ʹ��:
+�л�����ĿĿ¼
+bower  init  ,����bower.json
+����: bower install �����   (�����Ŀ��һ������)
+  
+��Browser-sync��
+ ��Ҫ����: ���뷢���ı��,������Զ�ˢ��,������������������Բ���
+ ��װ: npm install browser-sync -g  //`-dev`��������: ����ò���ǹ������׶�ʹ��,�����Ǹ��û�ʹ�õ�.
+ ʹ��: ����Ŀ�ļ���ִ�� browser-sync start --server -files "��ص��ļ���"
+
+��hexo�� ���ʹ����  https://hexo.io
+ ��װhexo����:
+ 1)npm install hexo-cli -g    //cli --commandline ������  ,  gui --ͼ�ν���
+ 2)hexo init myblog   //�ڵ�ǰĿ¼�����ļ���,�����س�ʼ���ļ�
+ 3)cd myblog
+ 4)hexo server  ����ʾ����ҳ��ַ����
+��������:
+ hexo new ������
+* ������һ��.md�ļ�
+* ������ļ��б༭.md�ļ�. ��md�ļ������ݾ��Ƿ����Ĳ���.
+* ������`hexo s` ����ҳ�Ϳ��Կ����·��������.
+���ⰲװ:
+ next�������: [�����ת](http://theme-next.iissnan.com/)
+ �������°汾����ѹ�����͵�themesĿ¼, ������Ϊnext��Ŀ¼�µ�_config.yml�ļ�����:�޸�thems:1������Ϊnext
+  ���������
+��������:
+ ��scheme�ĵ�
+5. ����github
+* github pages
+* ������Ŀ:
+  * ��github�ϴ����ֿ�.
+  * ������Ŀ�����ִ�.
+  * �½���֧ gh-pages
+    * ����û�и��ڵ�ķ�֧
+    * git checkout --orphan gh-pages
+  * ���ڷ�֧�ύ��github�ϵ�gh-pages��֧.
+  * setting�鿴��ַ.
+* �����û���
+## 6. ���𲩿�
+* hexo g
+* hexo d
+## 7. ��Ŀ¼
+* hexo new page photo
+#  ����Ŀ�ķ�ʽ�����ǵ���վ����github��ȥ.
+*   ��github���洴��1��Զ�̵Ĳֿ�
+*   ��ʼ��������վĿ¼Ϊһ�����ص�git�ֿ�
+  *   `git init`
+* �ڱ��ش�����֧ ����Ϊgh-pages
+  * **git checkout --orphan gh-pages**
+* Ȼ���������֧��,�ύ����.
+* �����زֿ��еĴ����ύ��gitԶ�ֿ̲�� gh-pages��֧.
+������github   ���û���ʽ����Ŀ��ʽ
+
+===========================nodejs 01 ES6  =======================
+��ES6�﷨(ES2015)��
+  ECMAScript2015,����ES6
+
+��let��const��
+  ?����ʹ�ó���: ��ֹ������Ⱦ, ����Ԥ��Ǳ�ڴ���
+  ?��������:
+  let :�µı������巽ʽ,�������var�ؼ��ֶ������
+    �ص�: 
+	1.�������ظ�����
+	2.�鼶������
+	3.������ʱ������(û��Ԥ����(��ʼ������ֵ,var�Ǹ�ֵundefined��)
+  const :��let��ͬ����,��ֻ���ڶ��峣��,�Ҷ���ʱ���븳ֵ,�Ҳ������޸�
+
+���⹹��ֵ��
+  ʹ�ó���:
+  ?����⹹:
+	let [ a , [b1 ,  , b3 ], c , d=40 ] = [10,[21,22,23],30]
+  ?����⹹:
+=======
 【Bower和npm】
 bower是前端插件超市,npm是专注前后台插件
 bower 从github下载,基于git
@@ -4146,6 +7954,7 @@ bower  init  ,生成bower.json
   ?数组解构:
 	let [ a , [b1 ,  , b3 ], c , d=40 ] = [10,[21,22,23],30]
   ?对象解构:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	let { a:aaa , b , c } = { a:10 , b:20 , c:30 }
 	let { , b:[b1,b2,b3] , c:{ name , age} } = { a:100 , b:[1 , 2 , 3] , c:{name:"zs" , age : 22 } }
 	
@@ -4153,6 +7962,20 @@ bower  init  ,生成bower.json
 
 	
 let {b,a:"aaa",c:{c2}}=obj;
+<<<<<<< HEAD
+���ַ������巽ʽ��
+  ``�����ַ���:  ������Ҳ�ǿ��Զ����ַ�����   
+	 `abcd
+	efg`
+  ${}: ģ�巽ʽ : ����ֱ��ʹ�ñ���,������,������
+	let year = 2017;
+	`������${year}��,����2050�껹��${2050+year}��`
+
+��...�����������
+  ���ڲ������ͺϲ�����(���Զ��ж�,������Ͳ�,�ǻ������ݾͺϲ�)
+  ?Ӧ�ó���:
+        function getSum(...n){  //�Ѵ���ֵ�ϲ�������
+=======
 【字符串定义方式】
   ``定义字符串:  换行了也是可以定义字符串的   
 	 `abcd
@@ -4165,6 +7988,7 @@ let {b,a:"aaa",c:{c2}}=obj;
   用于拆解数组和合并数组(会自动判断,是数组就拆,是基本数据就合并)
   ?应用场景:
         function getSum(...n){  //把传入值合并成数组
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
             let sum = 0;
             n.forEach(function(val,index,arr){
                 sum+=val;
@@ -4172,6 +7996,46 @@ let {b,a:"aaa",c:{c2}}=obj;
             return sum;
         }
         let arr = [ 11 , 2 , 3 , 4 , 5 ];
+<<<<<<< HEAD
+	//�⿪����/α����
+       let min = Math.min(...arr);  ��let min1 = Math.min.apply(null,arr);
+
+�������� �β�=>������
+ ?��ͷ����:
+�޲���: ()=>{ //������ }
+ һ������:  a=>{ //������ }
+��������:  (a,b)=>{ /������ }
+ ���ص�: 
+������һ�������Բ��ô�����,���Զ�����
+this����ָ����øú����Ķ���
+������Ϊ���캯��ʹ��
+����ʹ��arguments, ��ʹ��...num        
+ ? ����Ĭ��ֵ:
+  function fn(a=10,b=10){ }
+  fn();  //����ʱû�д��ξ���Ĭ��ֵ10
+ ? �����⹹��ֵ:
+  function fn({a,b}){  }
+  fn({ a:10 , b:20 });
+
+������
+1.�������ñ�����������
+   var a=10,b=20;
+   var obj = {a,b}
+2.���Լ�д�����еĺ���
+   var obj = {
+	fn1:function(){ },
+	fn2(){ //������};
+   }
+3.����ʹ�ñ�����������
+   let attrName = "name";
+   obj2 = {
+	[attrName]: "����"
+   }
+
+���ࡿ
+ class Person{
+	//������
+=======
 	//解开数组/伪数组
        let min = Math.min(...arr);  或let min1 = Math.min.apply(null,arr);
 
@@ -4210,10 +8074,22 @@ this总是指向调用该函数的对象
 【类】
  class Person{
 	//构造器
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	constructor(name,age){
 	     this.name = name;
 	     this.age = age;
  	};
+<<<<<<< HEAD
+	//����
+	run(){
+	     console.log("����")
+	};
+ }
+���̳С�
+ class Person extends Animal{
+	constructor(name,age,gender){
+		super(name,age);   //ʹ��super�ؼ���
+=======
 	//方法
 	run(){
 	     console.log("行走")
@@ -4223,10 +8099,21 @@ this总是指向调用该函数的对象
  class Person extends Animal{
 	constructor(name,age,gender){
 		super(name,age);   //使用super关键字
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 		this.gender = gender;
 	};
   }
 
+<<<<<<< HEAD
+��filter()������
+  �����ǹ�������(������ʽ)
+  ��:
+  var arr = [5,5,6,1,4,0,7];
+  arr = arr.filter(function( val ){ return val%2==0 });  //��������ż������
+  arr = arr.filter( val =>{ return val%2==0 } );  //��������ż������
+��Set��Map ���ݽṹ��
+Set�������飬ֵ��Ψһ��,����˳�����Ƚ��ȳ�
+=======
 【filter()方法】
   作用是过滤数据(数组形式)
   例:
@@ -4235,10 +8122,104 @@ this总是指向调用该函数的对象
   arr = arr.filter( val =>{ return val%2==0 } );  //将数组中偶数返回
 【Set和Map 数据结构】
 Set类似数组，值是唯一的,遍历顺序是先进先出
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
  const s = new Set(); 
  const ss = new Set([2,2,3,4,5,5]); // {2,3,4,5}
  ss.size; //4
  ss.add("9")
+<<<<<<< HEAD
+ ss.delete() //ɾ��ĳ��ֵ������һ������ֵ����ʾɾ���Ƿ�ɹ���
+add(value)�����ĳ��ֵ������ Set �ṹ����
+delete(value)��ɾ��ĳ��ֵ������һ������ֵ����ʾɾ���Ƿ�ɹ���
+has(value)������һ������ֵ����ʾ��ֵ�Ƿ�ΪSet�ĳ�Ա��
+clear()��������г�Ա��û�з���ֵ
+
+Map ���ƶ��󣬼�������һ�����������˳�����Ƚ��ȳ�
+set(key) get(key) delete(key) has(key)
+===========================nodejs 02   =======================
+  ��nodeJs��
+ ?������ʲô?
+  ������վ������,����apache
+  ����webӦ��,api�ӿ�
+  ����cli����(��:��������)
+
+  ?����
+  ��ʽ1:
+  ����cmd: ����node,,ֱ�ӿ�����js��������
+  �˳�node:����Ctrl+C  �����롰.exit���س�
+  ��ʽ2:
+  node +js�ļ���
+  ?��һ��http����:
+   require("http").createServer(����ص�).listen(�˿�,����,�ص�);
+ ��nodeJs������ʽ��
+   'use strict';   //�ϸ�ģʽ��
+   let responseData = [{id: 1, name: '������', time: '2013'}, {id: 2, name: '��ɯ����', time: '2015'}];
+   const http = require("http");    //http��node����ģ��
+   const url = require("url");
+   //��������������
+   let server=http.createServer( function( request,response ){    //node��api�����¼�,����ִ�еĴ���Ҫ���ڻص���
+	//�������Ϳ�������
+	response.writeHead(200,{
+        	"Content-Type":"application/json;charset=utf-8",
+        	"Access-Control-Allow-Origin":"*",   //�κοɷ���
+        	"Access-Control-Allow-Methods":"*"    //�κη���������
+    	});
+    	response.write(JSON.stringify(responseData));
+	response.end();    //д�Ͻ������
+   });
+   //�����������listen������ͬ��xhr��send(),���ú�ŻῪ�����,������Ӧ�˿ں�
+  server.listen('8888',()=>console.log("��������"));
+   
+  ? ��֪ʶ��:
+  �ٱ��������:
+  	����: decodeURIComponent("%E5%BE%B7%E6%84%8F%E5%BF%97");  >>ת��"����־"
+   	����: encodeURIComponent("����־");  >>"%E5%BE%B7%E6%84%8F%E5%BF%97"
+  ��request.url ��ȡ��������ַ������������    ����:http://aa.com/add/a?name=zs �е�"/add/a?name=zs"   -----����post����,���߲���������get����
+  ��request.url.pathname.startsWith("/add")  �ж�url��ǰ�沿���Ƿ���"/add"   ----���ڴ�������get����
+     request.url.pathname.endsWith("/a")  �ж�url��ǰ�沿���Ƿ���"/a"  
+  ��request.method ��ȡ����ʽ    ����:"POST"��"GET"
+  ��url.parse(request.url,true) ��request.url��Ϣת�ɶ���  ----���ڴ�������get����   
+     ��:�õ�http://aa.com/add?a=1&b=2�е�{query:{a:1,b:2}��pathname:add} ����Ϣ
+  ��	let data;
+	request.on("data",chunk=>data+=chunk);
+	request.on("end",()=>{
+		//data  ---"name=zs"����"name=zs&age=22&gender=1"  ,����ʵ�ʽ����и����
+	})
+
+��npm��cnpm, bower, yarm����������
+ ��װcnpm��npm install -g cnpm --registry=https://registry.npm.taobao.org
+  ===========================nodejs 03   =======================
+���ļ�����API��
+  ʹ��fs����ģ���ṩ�ķ���
+  const fs = require("fs");
+  fs.writeFile("./aa.txt","content����"����err��=>{ if(!err){ //�ɹ����� }else{ //ʧ�ܴ��� }  })��
+  fs.readFile("./aa.txt",(err,data)=>{ if(!err){ //�ɹ����� }else{ //ʧ�ܴ��� }  } );
+
+���ļ��������� �����ļ�&����API
+   ?ʵ���������ƵĹؼ�����;
+   --�ж��ǽӿڻ����ļ�����:  if( req.url.startsWith("/api")){  }else if(req.url.startsWith("/frontend")){  }
+   ?����ͬ�����ļ�����Ӧ��Ϣ;
+   --ʹ��mimeģ��(npm����,��������): let fileType=mime.lookup(url.parse(req.url).pathname);
+
+��ģ�黯��
+  AMD: �첽ģ�鶨��, רΪ��������������һ��ģ�黯�����淶��require.js�����������
+  commonJS: רΪ��˶�����ģ�黯�淶,node��ģ������Դ�ʵ�ֵġ�
+  ES6: W3C��es6�ж���ģ��淶, ��������������ʵ�ֵ�,�ʺ�ȫ��,��δ�����������֧��;Ӧ�����Ժ�Ĵ�����.
+  ?Node.js�е�ģ�黯
+    �ص�:    ������ģ��������
+	ģ��ɶ�μ���(��һ�μ���ʱ����,Ȼ��ѽ������,����Ҫ����ֱ�Ӵӻ����ȡ)
+	���AMD�첽����ģ��,commonJS�ᰴ˳�����μ���
+   ���ع���: 
+	const  m = require("http��./.js");
+	������������ͨ�ַ���,���Զ�ȥnode_modules���ذ�,��������;
+	�����һ��·��, ./ �� ../ �� / ��ͷ�ľͻᰴ·��ȥ����.
+
+  ���Ⱪ¶ֵ: 
+  ��: let  m1 = require("./m1.js");
+  ���Ⱪ¶ֵ:
+  ��¶һ��: module.exports=function(){ return ...}
+  ��¶���: module.exports.min = function(){  }; module.exports.max = function(){  } ...
+=======
  ss.delete() //删除某个值，返回一个布尔值，表示删除是否成功。
 add(value)：添加某个值，返回 Set 结构本身。
 delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
@@ -4330,11 +8311,112 @@ set(key) get(key) delete(key) has(key)
   对外暴露值:
   暴露一个: module.exports=function(){ return ...}
   暴露多个: module.exports.min = function(){  }; module.exports.max = function(){  } ...
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	module.export = { min:function(){} ,max:function()....  }
 
 	export function min(arr) {
 	    return Math.min(...arr);
 	};
+<<<<<<< HEAD
+	��:
+	export min= function(){ }
+
+   ?����ģ��:
+   http : ��������  // require("http").createServer(����ص�).listen(�˿�,����,�ص�);
+   url : ���ַ�����ʽurl����Ϊ����,�ɷ����ȡ(?����Ĵ���.query������)
+   fs : ͬ��/�첽��д�ļ�
+	fs.readFile(·��,(err,data)=>{ })
+	fs.writeFile(·��,(err,data)=>{ })
+	fs.readFileSync(·��,���)   //��������
+	fs.writeFileSync(·��,���)
+  ?������ģ��:
+  mime:  let fileType= mime.lookup(urlObj.pathname); //ʵ���ǻ�ȡĩ��,������Ӧ����
+
+��every , some��reduce��
+  every: �ж��Ƿ����з�������    // arr.every(v=> v%2==1)
+  some: �ж��Ƿ�����һ��������    // arr.some(v=> v%2==1)
+  reduce: �ɲ�������Ԫ��   // arr.reduce((v1,v2)=>v1+v2) --v1+v2�ĺ���Ϊ�β�v1,һֱ���� (���������ᱨ��)
+
+===========================nodejs 04   =======================
+����Ʒ��������
+  Ŀ¼�ṹ: 
+  |__app.js   //��ģ��   ����һ��http����, �ж��������ļ���������ӿ�(��:apiHandler(req,resp) ����apiģ�鴦��)
+  |__frontend    //ǰ�˴���
+  |	|__index.html 
+  |	|__css
+  |	|__js
+  |__afterend    //��˴���
+  |	|__controller   //ҵ���߼�����
+  |	|	|__api.js   //�ж���ʲô���ܵ�����,�ֱ�����Ӧ��ȥ������(����req������,������ط���)
+  |	|	|__file.js   //������mime�����ļ�����, ��Ӧ��ȥ��Ӧ�ļ�
+  |	|__ model   //���ݴ����
+  |	|	|__goods_manager.js  //��ȡdata.json�е����ݵ��ڴ�,��ȡ�������,class GoodsManager����,init(),��ɾ�Ĳ鷽��
+  |	|	|__data -- data.json  //�洢����(�־û�)
+  |	|__view
+  |__node_module  //���������
+����ʵ��Ҫ��:
+1.ģ�黯�Ķ���
+  module.exports = function(){}  ��  module.exports = GoodsManager ��������(Ҫʹ�õĶ���,���䱩¶����,���ñ�¶��д��ģ���е���������)
+2.ģ��ʹ��:
+  const gm = require("./frontend/goods_manager.js")  //���ú�,gm��������,�Ϳ���new gm()��
+3.���õ�֪ʶ��:
+   ��req.url.startsWith("/api")  //�ж�url�Ƿ���/api��ͷ (req.url�õ����ǵ�ַ���������)
+   ��/^\/(frontend | public)/.test(req.url)  //��������,�ж�url�Ƿ���ָ���ַ���ͷ
+   ��url.parse(req.url,true),�õ�����url������Ϣ�Ķ���,��: .pathname ---(�õ���ַ����?ǰ����) ,.query.name --�õ�ƴ�ӵ�����(get����) 
+   ��req.on('data',(chunk)=>data+=chunk);   req.on("end",()=>{ //�õ�data  })
+   ��ת��: decodeURIComponent( data ) //ת����   encodeURIComponent( data )
+   �޶�д����:  (ע:�ļ�·�����������ģ���ļ�)
+	fs.readFileSync("�ļ�·��","utf-8");   //ͬ����ȡ  (ȡ������json,Ҫת��  JSONP.parse()) 
+	fs.writeFileSync("�ļ�·��","ת��json�������")  //ͬ��д��
+	fs.resdFile("�ļ�·��",(err,data)=>{ if(!err){//�ɹ������}else{ʧ�ܺ����}  })
+	fs.writeFile("�ļ�·��","��Ӧ��ʽ������",err=>{ if(!err){//�ɹ������}else{ʧ�ܺ����}  } )
+
+�����ݳ־û���
+  ͬ����ȡ:
+	fs.readFileSync("�ļ�·��","utf-8");   //ͬ����ȡ  (ȡ������json,Ҫת��  JSONP.parse()) 
+	fs.writeFileSync("�ļ�·��","ת��json�������")  //ͬ��д��
+
+��mongo DB��  powershell
+   ?���:���ݹ������, �ṩ����ɾ�Ĳ�ӿڹ�����(��֧��sql���,û�б�ṹ, �򵥷���)
+   ?��������:
+����:
+  mongod --dbpath c:/data/db �����  (·������ȷ��ֱ��mongod,ǰ��c�̸�Ŀ¼�ֶ�����dataĿ¼,�ٽ�dbĿ¼)
+���� ˫�� binĿ¼�е�mongod.exe
+  ctrl+C ֹͣ����
+  mongo  �������ݿ�
+  show dbs �鿴���ݿ�
+  use store �����л���store���ݿ� (���û�л��Զ�����)
+  db �鿴��ǰ���ݿ�����
+  show collections �鿴��ǰ�����м���
+����:
+  ���ݿ�.����.insert(JSON)   
+	��: db.goods.insertOne({name: '����', time: 2015})
+	     db.goods.insertMany([{name: '����', time: 2015}, {name: '����', time: 2012}, {name: '����', time: 2012}])
+ ����:
+    ���ݿ�.����.find(����)  
+	db.goods.find()�����г�goods�����е���������
+	db.goods.find({"time": "2012"})�����ҳ�timeΪ2012����������
+	db.goods.findOne({"time": "2012"})�����ҳ�timeΪ2012�ĵ�һ������
+	db.goods.find({"name": /��/})�����г�goods������name�ֶκ���'��'������
+ɾ��:
+   ���ݿ�.����.remove(����, �Ƿ�ֻɾ��һ��)
+	ʹ��db.goods.remove({'time': '2015'})����ɾ��goods������timeΪ2015����������
+	ʹ��db.goods.remove({'time': '2012'}, true)����ɾ��goods������timeΪ2012�ĵ�һ������
+	ʹ��db.goods.remove()����ɾ��ȫ������
+
+�޸�:
+  ���ݿ�.����.update(����, ��ֵ, û��ƥ���Ƿ�����, �Ƿ���¶�������)
+	ʹ��db.goods.update({'time': '2015'}, {'name': '��ɯ��', 'time': '2017'})�����滻goods������timeΪ2015�ĵ�һ������
+	ʹ��db.goods.update({'time': '2015'}, {$set: {'time': '2017'})�����滻goods������timeΪ2015�ĵ�һ�����ݵ�time�ֶ�
+����:
+   ���ݿ�.����.save(JSON)
+	��������к���_id�ֶΣ���ôupdate���_id������
+	���û��_id�ֶΣ���ôinsert������
+
+ ?node��������MongoDB:
+   ��Ҫ��װ������mongodb
+  --����:
+=======
 	或:
 	export min= function(){ }
 
@@ -4433,12 +8515,75 @@ set(key) get(key) delete(key) has(key)
  ?node程序连接MongoDB:
    需要安装驱动包mongodb
   --连接:
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	'use strict';
 	const mongodb = require('mongodb');
 	const MongoClient = mongodb.MongoClient;
 	let dbUrl = 'mongodb://localhost:27017/store';
 	MongoClient.connect(dbUrl, (err, db) => {
     	if(!err) {
+<<<<<<< HEAD
+        		console.log('������������ݵ���ɾ���');
+    	}else {
+        		console.log('���ݿ�����ʧ��');
+   	 }});
+  --����:
+	db.collection("goods").insertOne({name:"zs",age:12},( err,result )=>.....)
+  --ɾ��:
+	db.collection("goods").remove({"time":"222"}, ( err,result )=>.....)   
+	ע:objectId
+  --��ѯ:
+	db.collection("goods").find().toArray(( err,result )=>.....)
+  --�޸�:
+  	db.collection("goods").update({gender:"nv"},{$set:{age:22} },( err,result )=>..... )
+���÷���: 
+ɾ�����ݿ��Լ�
+db.dropDatabase()
+��ȡָ������ʵ��
+db.collection(��������)
+ɾ�������Լ�
+collection.drop()
+��������
+collection.insert(����)
+collection.insertOne(һ������)
+collection.insertMany(��������)
+ɾ������
+collection.remove(����, �Ƿ�ֻɾ��һ��)
+��������
+collection.find(����, isOne)
+�޸�����
+collection.update(����, ��ֵ, û��ƥ���Ƿ�����, �Ƿ���¶�������)
+
+������ѯ:
+1.6.1. ����
+
+(>) ���� - $gt (greater then)
+(<) С�� - $lt (less then)
+(>=) ���ڵ��� - $gte (greater then or equal)
+(<= ) С�ڵ��� - $lte (less then or equal)
+(!=) ������ - $ne (not equal)
+1.6.1.1. ����
+��ѯ�۸����100����Ʒ
+db.store.find({price: {$gt: 100}})
+��ѯ�۸�С��100����Ʒ
+db.store.find({price: {$lt: 100}})
+��ѯ�۸���ڵ���100����Ʒ
+db.store.find({price: {$gte: 100}})
+��ѯ�۸�С�ڵ���100����Ʒ
+db.store.find({price: {$lte: 100}})
+��ѯ�۸����100����Ʒ
+db.store.find({price: 100})
+��ѯ�۸񲻵���100����Ʒ
+db.store.find({price: {$ne: 100}})
+����:
+��price�ֶ�����������
+db.store.find().sort({price: 1})
+��price�ֶ�����������
+db.store.find().sort({price: -1})
+ע�������������1�븺1
+
+��assign �ϲ�����
+=======
         		console.log('在这里进行数据的增删查改');
     	}else {
         		console.log('数据库连接失败');
@@ -4499,11 +8644,84 @@ db.store.find().sort({price: -1})
 注：这里必须是正1与负1
 
 【assign 合并对象】
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 var target  =  { a: 1 };
 var source1 = { b: 2 };
 var source2 = { c: 3 };
 Object.assign(target, source1, source2);
 ===========================nodejs day05   =======================
+<<<<<<< HEAD
+������� �������м�������������м�������м��ִ�С�
+===========================nodejs day06   =======================
+����¼ҳ����ӿڡ�����������session��
+===========================vue.js day01   =======================
+��MVVM˼�롿
+  Model �������ݴ洢
+  View: ����ҳ����ʾ(һ������ҳ�涨�����Ԫ������ʾ)
+  View Model: vue��ʵ��, ����ҵ���߼�����
+������ģ�͡�
+  var vm = new Vue({
+	el:"#app",   //��ͼ��Χ
+	data:{ },	//����
+	methods:{ },   //���ݷ�֧-����
+	components:{ }	//���
+	filters:{ }	//������
+  });
+��vueָ�
+{{}} ��ֵ���ʽ , ����˸����
+v-text:  ������Ⱦ��ָ��Ԫ��(����Ϊ���ı�) //<div v-text="msg"></div>
+v-html: ������Ⱦ��ָ��Ԫ��(��html��ǩ����   ���׵���XSS��վ�ű�����,����ȫ,���Ƽ�)
+v-cloak: �ڸ�ʹ��{{}}ʱ����˸  //<div v-cloak></div>   ͬʱҪ�����ʽ:[v-cloak]{display:none}
+    ---������˸: ��ʹ��{{}}ͬʱ����v-cloak����  ��ʹ��v-text  ��ʹ��v-html
+v-on:�¼�����.���η�="methods�ж���ķ���"  
+    ---��д@click="����"
+    ---���η�: @click.stop="" //��ֹð��  ���� event.stopPropagation()
+	@click.prevent="" //��ֹĬ����Ϊ  event.preventDefault()
+	@keydown.(enter||tab||65) ���̰�ť����
+v-if: ������ɾ���ڵ�   ��: v-if="search(name)"  ,���name�뺯���е�����ƥ�����ʾ�ڵ�
+v-show: ��ʾ�����ؽڵ�
+v-model: ˫�������(��Ԫ��ʹ��)
+v-bind: ���ڸ�Ԫ�ض�̬��һ����������(��:class��style)
+	�﷨:    v-bind:������="����data�ж���ı���"
+          ��:--- <img v-bind:src="·��">  ��д: <img :src="·��">
+	<div class="day" :class="{ 'active': v.month!=monthVal,'zm':(i+1)%7==0||(i+1)%7==6}"></div>
+	<div v-bind:style="{fontSize: size + 'px'}"></div>
+	<div v-bind:style="[styleObjectA , styleObjectB]"></div>	
+v-for: ����ѭ���ظ�   
+  ---���������﷨: v-for="(v,i) in list"
+  ---���������﷨: v-for="(v,k) in obj"
+  ---ָ��ѭ������: v-for="n in 5"
+v-once: ��ͼֻ����Ⱦһ��
+v-pre: ����Ԫ�ر���,��ʾԭʼ��ǩ
+
+�������
+  ?vue-resource   ����vue��ajax��չ     
+  ��һ��:���벢����
+  import VueResource from "vue-resource"; 
+  Vue.use(VueResource);
+  �ڶ���:ʹ��
+  vm.$http.get(url,data).then(success�ص�, error�ص�)
+  vm.$http.post(url,data,{emulateJSON : true}).then(success�ص�, error�ص�)
+
+	��̬����:
+	Vue.http.get(url,data).then(success,error)
+	ʵ������:
+	vm.$http.get(url,{params:{��ֵ��}}).then(success,error)
+	vm.$http.post(url,{params:{��ֵ��},{emulateJSON:true} ).then(success,error)
+
+  ?vue-router   ���ڿ���ҳ����л�
+  ��һ��:���벢����
+  import VueRouter from "vue-router";
+  Vue.use(VueRouter);
+  �ڶ���:����·�ɹ���
+  var vueRouter = new VueRouter({
+	routes:[
+	   {path:"/",redirect:"/login"},
+	   {path:"/login",component : login}  //ǰ��Ҫ������login������
+	]
+   });
+   ������:���뵽Vueʵ����(webpack��Ż�ʹ��)
+=======
 【启动服务】 【内置中间件】【第三方中间件】【中间件执行】
 ===========================nodejs day06   =======================
 【登录页面与接口】【服务端添加session】
@@ -4574,10 +8792,23 @@ v-pre: 跳过元素编译,显示原始标签
 	]
    });
    第三步:加入到Vue实例中(webpack后才会使用)
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
   new Vue(){
 	el:"#app",
 	router:vueRouter
   }
+<<<<<<< HEAD
+   ���Ĳ�:����ͼ��������ת,��ȷ�������ʾλ��  
+  <router-link to="/login">��¼</router-link>  
+  <router-link to="/register">ע��</router-link> 
+  <router-view></router-view>   //�����ʾռλ��
+
+���������ں����� ��Щ������Vueִ�е�ĳЩ�׶�ʱִ��
+ created(){ //��ʼ��ʱִ�� }
+ 
+����������computed��
+computed��{
+=======
    第四步:主视图定义点击跳转,并确定组件显示位置  
   <router-link to="/login">登录</router-link>  
   <router-link to="/register">注册</router-link> 
@@ -4588,10 +8819,43 @@ v-pre: 跳过元素编译,显示原始标签
  
 【计算属性computed】
 computed：{
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	calc(){return this.index+1}
 }
 
   
+<<<<<<< HEAD
+����������
+ ?˽�й�����,��ʵ���ж���:
+filters:{
+	rmb:function(price){
+	return "��"+price;
+	}
+{
+ ?ȫ�ֹ�����,���κ�λ�ÿɶ���:
+{{v.price|rmb}}
+Vue.filter("rmb",function(price){return "��"+price})
+
+����������ʹ�á�  ������vmģ��
+ ?��ͳ����:
+var cp = Vue.extend({   	
+	template:"<p>����ӳ:{{val}}</p>",
+	data:function(){
+	     val:"�������"
+ 	}
+});
+//ע��Ϊȫ�����
+Vue.component("vue-p1",cp);
+//ʹ�����
+<vue-pl></vue-pl>
+ 
+ ?��ݷ���:(��)
+Vue.component("vue-list",{   //����һ�����,,ȷ���������
+	template:"#v-id",     //Ҳ������idȷ����ͼ��Χ
+	data:function(){
+		return{
+		    country:["�¹�","�ձ�","�����"]     //���ݶ����ں�����return
+=======
 【过滤器】
  ?私有过滤器,在实例中定义:
 filters:{
@@ -4622,10 +8886,60 @@ Vue.component("vue-list",{   //定义一个组件,,确定组件名称
 	data:function(){
 		return{
 		    country:["德国","日本","意大利"]     //数据定义在函数中return
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 		}
 	}
 });
 
+<<<<<<< HEAD
+����������л�����
+ͨ��vue���õ�<component v-bind:is="Ҫ��ʾ�������"></component>
+
+ע������:
+1)template�б���ʹ��һ�����ڵ�����ӽڵ�
+2)data���붨��ɺ������ض�����ʽ
+
+��������ݴ��ݡ�
+������: ��ʹ�õ��������ǩ��ͨ���Զ������԰󶨴���
+ <v-tpl v-bind:id="id"></v-tpl>
+ props:["id"]----�������ʵ����������ȡ
+
+�Ӵ���: �������ǩͨ��v-on:�Զ����¼���="�ص�"����������¼���ȡֵ
+	�����ͨ��this.$emit(�Զ����¼���,arg1,arg2..) ���������¼�
+
+���������ԡ�
+ key: vue�ڲ���ͼʱ�Ż�,���ٳ�����,ԭ���Ǹ�ÿ��Ԫ����һ��Ψһ���(ͨ����v-forʱ);
+ ref: ��ǩ�����ref="����"����,��ͨ��ʵ��.$refs.���� ��ȡ����
+
+��watch�����
+ ���ڹ۲����ݱ仯,һ���仯����ִ�����úõĻص�����
+ ��: watch:{ $route:function(){ this.getData(this.$route.params.id) } }  //$routeֻҪ�䶯,����ִ��
+
+
+===========================vue.js day02   =======================
+--save  -S | --save ��Ŀ��
+--dev -D |--dev ������
+��webpack 3.0��
+ ģ����,  ����,����node.js, Ĭ��ֻ�ܴ��js�ļ�, ʹ��loader����չ�����ļ����
+ webpack��һ��ǰ����Դ����/������ߡ���������ģ���������ϵ���о�̬����,Ȼ����Щģ�鰴��ָ���Ĺ������ɶ�Ӧ�ľ�̬��Դ
+  ?ʹ��:
+   --����config.js
+   --����main.js
+	import './css/index.css'  //����css,less,sass|scss�ļ�
+	import footerTpl from './tpl/footer.tpl'  //����tplģ��
+	import Vue from './vue.js'  //����js�ļ�
+		---ע:js��Ҫʹ��ES6�﷨ export function min() { };  ��: export min= function(){ } 
+
+
+============================================
+es6ģ�黯��export default, exports,import
+ export default Obj; //����һ�� Obj
+ exports.one = one;  //������� {one:one,two:two}
+ exports.two = two;
+
+ import Obj from "/a.js";  //����һ��
+ import {one,two} from "/b.js"  ������
+=======
 ★★★组件的切换★★★
 通过vue内置的<component v-bind:is="要显示的组件名"></component>
 
@@ -4673,6 +8987,7 @@ es6模块化：export default, exports,import
 
  import Obj from "/a.js";  //导入一个
  import {one,two} from "/b.js"  导入多个
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 ============================================ 
 module.exports.queryJQ = queryJQ;
 module.exports.jqArr = jqArr;
@@ -4680,6 +8995,16 @@ const {queryJQ,jqArr} = require('./queryJQ.js');
 
 
 ===========================vue.js day03   =======================
+<<<<<<< HEAD
+��vue�����������
+ ��Ԥװ�Ļ���: node , npm , cnpm
+ ����ĿĿ¼
+ ��webpack�����
+     ?ȫ�ְ�װ: 
+	npm install webpack -g
+	npm install webpack-dev-server -g
+     ?���ذ�װ(��ĿĿ¼):
+=======
 【vue开发环境搭建】
  ①预装的环境: node , npm , cnpm
  ②项目目录
@@ -4688,6 +9013,7 @@ const {queryJQ,jqArr} = require('./queryJQ.js');
 	npm install webpack -g
 	npm install webpack-dev-server -g
      ?本地安装(项目目录):
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	npm i webpack --dev
 	npm i webpack-dev-server --dev
 	npm i html-webpack-plugin --dev
@@ -4697,6 +9023,47 @@ const {queryJQ,jqArr} = require('./queryJQ.js');
 	npm i image-webpack-loader -D
 	npm i url-loader file-loader -D
 	npm i vue-loader vue-template-compiler -D
+<<<<<<< HEAD
+	npm i babel-loader babel-core -D      �ٰ�װ�����npm i babel-preset-es2015 babel-plugin-transform-runtime -D	
+     ?����package.json Ŀ���������
+	a.ֱ������Ŀ��ִ��webpack-dev-server --inline --open --content-base build,����
+	b. ��package.json��scripts�����: "dev": "webpack-dev-server --inline --hot --open --port 6666"  //�����-d�ǵ���ģʽ,-p��ѹ��ģʽ
+     ?����webpack.config.js
+      <����>
+      var path = require("path");  //����node������ģ��
+      var htmlWebpackPlugin = require("html-webpack-plugin");  //html���
+      module.exports = {
+	entry:'./src/main.js',   //1.����entry ���
+	output:{		   //2.����output ����
+	     path:path.resolve(__dirname,"./")  	//��Ҫvar path=require("path")���node������ģ��,���ɾ���·��
+	     filename:'build.js',   		//�������ɵ��ļ���
+  	 },
+	plugins:[   	 //3.���ò��  ---ע:ʹ��pluginsǰҪ�ȱ��ذ�װwebpack
+	     new htmlWebpackPlugin({	//���ú�,html�ļ��Զ����������js�ļ�
+	     	template:"./src/index.html",  //ԭ����html
+	    	 filename:'index.html',  	//���յ��ļ���
+	     	inject:'body'   		//js�ű��Զ����뵽��ҳ��body�ײ� 
+        	     })
+   	 ],
+	module:{		//4.����loader   ---������չwebpack,��������ļ�����  [rules �趨,�涨] 
+		rules:[	
+	  	     {	//����css�ļ�
+                   		test:/\.css$/,  //ƥ��.css�ļ�
+                   		use:[
+                   	 	'style-loader',  // �����ʽ�ļ���loader  [loaderװ��]
+                   	 	'css-loader'     //˳��:���º���  (����less,scss|sass�ں��������)
+                  	 	]
+	  	     },
+		     {	//����tplģ���ļ�
+			test:/\.tpl$/,
+                		use:[ 'html-loader' ]
+           		    },
+            		    {	//�滻�ļ������ã�С�ļ�����base64�������ʽ���ļ�һ�������ɼ���http����  (���img��url����ͼ)
+                		test:/\.(png|jpg|gif)$/,      
+                		use:[
+                    			{loader:'url-loader',options:{limit:1024}},  //limit���õ��Ǵ���1024byte(�ֽ�)��ͼƬת��base64��
+                    			'image-webpack-loader'   //����ѹ��ͼƬ
+=======
 	npm i babel-loader babel-core -D      再安装插件：npm i babel-preset-es2015 babel-plugin-transform-runtime -D	
      ?配置package.json 目的是启动服务
 	a.直接在项目中执行webpack-dev-server --inline --open --content-base build,可启动
@@ -4736,10 +9103,25 @@ const {queryJQ,jqArr} = require('./queryJQ.js');
                 		use:[
                     			{loader:'url-loader',options:{limit:1024}},  //limit设置的是大于1024byte(字节)的图片转成base64码
                     			'image-webpack-loader'   //用于压缩图片
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                 		]
             		    },
 		    { 	
                 		test:/\.js$/,
+<<<<<<< HEAD
+                		include:/src/, 		//����src�е�����js�ļ�
+                		exclude:/node_modules/,      //�ų�node_modulesĿ¼
+                		use:{
+                    			loader:"babel-loader",  
+                    			options:{
+                        				//����Ҫ�������﷨�淶 --������װcnpm install babel-core babel-preset-es2015 babel-plugin-transform-runtime --save --dev
+                        				presets:['es2015'],  //תes6
+                        				plugins:['transform-runtime'] //����'transform-runtime' babel-core babel-preset-es2015���
+                   	 		}
+                	    	}
+            		    },
+ 		    {	//����vueģ��
+=======
                 		include:/src/, 		//包括src中的所有js文件
                 		exclude:/node_modules/,      //排除node_modules目录
                 		use:{
@@ -4752,11 +9134,85 @@ const {queryJQ,jqArr} = require('./queryJQ.js');
                 	    	}
             		    },
  		    {	//配置vue模块
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
                 		test:/\.vue$/,
                 		use:[ "vue-loader" ]
            		    } 
 		]
       	}	
+<<<<<<< HEAD
+     </����>
+	
+������ܹ���
+main.js  ����, Vue.use()���ò��, ����app.vue�����, ʵ��vm��������Ⱦ��ͼ
+App.vue  ��������Բ��������������, �������úõ����
+index.html  id="app"������ͼ��
+
+����:
+��������:
+     vm.route ����object: fullPath / hash /matched / meta / params / path / query
+     vm.router ����VueRouter: afterHooks / app / apps / matcher{} /...
+router-link��ǩ:
+     <router-link to="/register">ע�ᰴť</router-link>
+     <router-link :to="{ path: '/login', query: { a: 11, b: 22, c: 33 } }">�����ת���ģ�</router-link>
+ 
+��Mint UI��
+mint-ui����vue���ƶ������  http://mint-ui.github.io/#!/zh-cn
+ios���
+��HBuilder��
+--MUI (���ϸ�ģʽ,,��ʹ����ʽ http://dev.dcloud.net.cn/mui/)
+
+
+
+git log -3    �����ϴ��ύ
+rm -rf src/imgѡ����ɾ��
+
+
+<style scoped lang="less"></style>
+����scoped��ֻ�ڱ������Ч(ʵ���Ƕ�������һ��data-v="�����"����)
+
+Vue.js �ṩ��һ������ watch�������ڹ۲�Vueʵ���ϵ����ݱ䶯����Ӧһ�����󣬼��ǹ۲���ʽ��ֵ�Ƕ�Ӧ�ص���ֵҲ�����Ƿ������������Ƕ��󣬰���ѡ�������÷�����ֱ�ӿ������ʾ������ֱ��
+
+�÷�:
+<router-link to="aaa">
+<router-link :to="'aaa'+val.id">
+
+vw vh vm CSS���ȵ�λ
+vw  ������ӿڵĿ�ȡ��ӿڱ�����Ϊ100��λ��vw(�������������) 100vw = ���������
+
+vh  ������ӿڵĸ߶ȡ��ӿڱ�����Ϊ100��λ��vh(�������������) 100vh  = �������߶�
+
+vmin/vm ������ӿڵĿ�Ȼ�߶��н�С���Ǹ���������С���Ǹ�������Ϊ100��λ��vmin����vm
+
+overflow:scroll��ͬʱ���ع�����:ʹ���Զ����������α����ѡ����::-webkit-scrollbar
+ele::-webkit-scrollbar {display:none }
+���ȥ��Ԫ�ػ��м��:��Ԫ��font-size:0,��Ԫ��(Ҫ���е�Ԫ��):font-size:12px
+8bit = 1Byte(1B)
+1024B = 1KB
+
+vue��Ŀgithub����:  push https://github.com/buzhiguang/vue_project.git master
+
+���ò��:
+img_preview_install 
+vue_preview
+Lazyload ---mintUI����
+
+tab�л�:
+mintUI�л�:
+Vue���õ�component���
+
+
+vue��Ŀ�����ܽ�:
+
+��Ʒ������:
+--tab��(���ۺ�����)�л�:
+--��������
+   ---���ݴ���
+   ---���ش洢��������(localStorage����cookie)  localStorage:�洢��������,���ݲ���ʧ,api�򵥺���
+
+arr.findIndex(val=>item.id==5) ���ط��������ĵ�һ��Ԫ���±�
+arr.some(val=>val.id==5) ���ز���ֵ,ֻҪһ�����Ͼ�Ϊ��
+=======
      </代码>
 	
 【代码架构】
@@ -4828,10 +9284,46 @@ vue项目个人总结:
 
 arr.findIndex(val=>item.id==5) 返回符合条件的第一个元素下标
 arr.some(val=>val.id==5) 返回布尔值,只要一个符合就为真
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 this.$router.push("/index",query:{"/shopcart/order"});
 this.$router.go(-1);
 cookie.maxage
 
+<<<<<<< HEAD
+�Զ���¼??ʵ��
+========================8��19================================
+1)post�Ƿ������ݵ�,���軺��
+2)����ʱ��ȡ�����洢
+���:
+$.extend����ʵ��
+JSON.parse(JSON.stringify(jsonData))����ʵ��
+3)url���η�ʽ��ͬ({params:params}��?a=1ƴ��),��Ӱ�컺����Ч��
+4)Vue.js devtools���Թ���:���ݲ鿴����,����vuex
+5)vuex
+����,ע��,����,ʹ��
+6)var cache={obj:Object.assign({},obj)} 
+7)router:router  ==  router   ��ֵ�Ա�ʾ��ʽ
+8)swiper
+
+===================react===
+webpack������: doc.webpack-china.org
+webpackʹ�ò���:
+����:	webpack -p ѹ��js�ļ�
+	webpack --progress  ��ʾ����
+	webpack --config
+����node,  module.exports={ }    //node
+
+1.ȫ��/���ذ�װwebpack
+2.����webpack.config.js
+3.�ļ��ж������+������(loader plugin)+����:
+const path=require("path");  //��������ģ��
+module.exports={
+	//���·��
+	entry:path.join(__dirname,"src","main.js"),
+	//loader����(��ʽ,ͼƬ,es6����)
+	module:{ rules:[{test:/.css$/,use:["style-loader","css-loader"]},{}...]},
+	//���� 
+=======
 自动登录??实现
 ========================8月19================================
 1)post是发送数据的,不需缓存
@@ -4865,6 +9357,7 @@ module.exports={
 	//loader配置(样式,图片,es6处理)
 	module:{ rules:[{test:/.css$/,use:["style-loader","css-loader"]},{}...]},
 	//出口 
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 	output:{
 		path:path.join(__dirname,"dist"),
 		filename:"bundle.js"
@@ -4874,6 +9367,28 @@ module.exports={
 
 
 
+<<<<<<< HEAD
+source-map:ѹ������뻹ԭ (��bug)
+plugin���:
+debuger
+
+
+react Ƿ�淶 : angular,vue ���׹淶
+react �����Ϻ��õĶ�
+VR,�˹�����  û�г�ɫ��Ʒ,������꼻�һ��
+·��==��ҳ��Ӧ�ú���
+call,apply,bind
+
+������Ⱦ: ȷ����Ⱦλ��,������,��ͬ����api 
+----react-dom / id=app render(c){return c(App���)}/ ng-app
+
+react��Ⱦ:
+react��Ⱦ����: react���������DOM��DOM
+���:��״̬�������״̬���
+jsx�﷨:
+{}���ʽ,����ʱjs�﷨,����дע��
+import / export default{} Ҫʹ��babelת��
+=======
 source-map:压缩后代码还原 (调bug)
 plugin插件:
 debuger
@@ -4894,6 +9409,7 @@ react渲染过程: react对象→虚拟DOM→DOM
 jsx语法:
 {}表达式,声明时js语法,可以写注释
 import / export default{} 要使用babel转换
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
 
 
@@ -4931,6 +9447,55 @@ import / export default{} 要使用babel转换
 
 
 
+<<<<<<< HEAD
+��������Ӫ ['yy','����'] vs ['֪��','�õ�',ϲ������]
+
+
+������·,
+
+Բ���� �ڶ���
+jq�����汾
+��Ӱè��top250ˢ��ʱ active����ҳbug
+urlroute·��
+
+itcast0102
+�붡
+��ָ�� ����ʿ
+�ٲ��� ��ϰ
+
+fire70.com/net/top
+south.����
+southeath.com/net
+southsun.com/net
+i57.top
+����
+
+
+vscode ������ʾ
+����
+�Һ�
+
+����:�ƶ�,bootstrap  �еķ�ʸ
+6��17������:
+company
+����  ��������  ����<����>  for...each  ���Թ��߳������� ����
+2.�ٶ���Կ 
+3.�ۺ�����
+��������,ȫ���Ը�,��ֵ���
+5.return   return false  ;  location.pathname;  visibility cursor  xml��json  get��post
+
+
+����:ֵ����������Ƶ
+1.������,bootstrap��վ  �ۺ�����
+========================================================================================
+��VSCode��ݼ�:��
+shift+alt+F   �����ʽ��
+shift+ctrl+D  ������
+alt+����      ���ƶ�
+ctrl+enter/ctrl+shift+enter ����/�ϲ���һ��
+ctrl+delete   ɾ������Ҳ����
+shift+delete  ɾ����
+=======
 互联网阵营 ['yy','斗鱼'] vs ['知乎','得到',喜马拉雅]
 
 
@@ -4978,10 +9543,115 @@ alt+方向      行移动
 ctrl+enter/ctrl+shift+enter 向下/上插入一行
 ctrl+delete   删除光标右侧的字
 shift+delete  删除行
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
 
 
 
+<<<<<<< HEAD
+����:
+text-decoration �ı�װ��  none/underline/overlineɾ����/line-through(����)ɾ����
+color:inherit[in-her-li]  ��ɫ�̳�
+placeholder  ռλ��
+vertical-align: middle;
+subject ѧ��
+syntax �﷨
+
+��
+  ��֪-֪��֪��
+  ���ļ�ֵ
+��
+  ��Ϊ
+  ����ײ�
+?����������ĲŽ���ҵ,���������־�����ĲŽ�����
+?�����Լ�����֪,����,ǳ����һ�����˵���
+?�����������ȥ���,�������ͻ�ɱ�������
+? ��ʱ����,������,�罻,�����ɾ�
+?�����ı�����ͬ�ȼ����˵���Դ����,�������һֱ���������˲�����,�ö���Ϊ�˰ѱ����ʱ��;���Ͷ���ȥ,������ʱ��,��������(��̣�˽���,�˻��˴���),Ŭ�������Լ���������,���Լ���������,ʲô'����'��'б��'�ȵ���Ȼˮ������;�������������û�д��罻�ķ���,��ʵ���Ǹ���ȥ����,�ܾ�ʱ�侫������ν�˷�.
+?����������������ǿ����,�߳�������,��м������ǡ������Щ��������������,����ϲ���ҽ�ڵ�,˵����������
+?��֪����λ,����Ҳ������,����Ҳ������.
+?�������Լ�,�������Լ�,�����ʸ�׷�ʿ͹۵Ĳ�ƽ
+?�������ܺ��õĽ��,����˴���õ�����
+?�������˵��:����������Ҫ�������������������,�Լ����ҵ�����Ŀ�ĵ�����.��˵:���������������,�ҵ�����Ŀ�������������.(������25�������,һֱ��75�����,��Ը�Ǹ�������û�������)
+?�谭���෢չ�Ĳ������ﱾ�����,Ҳ����ȱ����������,����֮ǰ�����۵�ƫ��; 
+���Һ���: ����ƫ��=˼��,�ظ���������=�������,�˺���������=ֱ��,�����ķ�=����,�ʲ��Է�=����,������=ѡ��,��������=��ˬ,��˼��ȡ=�͵�...
+?����:
+ һ����������Ϊ���� ȥ��������ܴ��������,��Ҫ�����Ĵ���Ҳ�ǲп��,Ҫ���᳣����۵Ķ���,������ǹ��ع�ȥ. active
+ �����жԹ�ȥ��������,��δ�����ڿ־�,�������ȵ���,����Ҫ�����ǹ�������,δ������,���²���
+?����â��:
+ ѡ���ó��Ĳ�רע��� & ����������ӥ & Ԥ����(�����ռ��ͱ��������) & ��������(ǿ�ߺ�ǿ) & ����ѧ����(���ݺͼ���)
+ ��ѧ(����ԭ��|�������|���ʷ���|����������) & ˼άģ�� 
+?�ݽ�:
+ ��ǰ׼��
+ ��ͷ����ʫ��/���/ͼƬ/����һ���˽�ʾ����  
+ �����߼�������ʽ(��������,��������,��������)
+ ��βʱ����,�ܽ�����
+ ����:�����ظ����ű� �����+��ü�����+����������+��ȭ���ɿ� ˫�ֱ���״ �ɵ��ӻ��ӽ���
+?������:
+ ��������No.1  2*��������ǰ25%  2*����ǰ25%+n
+?ƶ��:��Ϊʱ����Խ���±��Ľ��ȸУ���ͬ����εĻ��������������ҰԽ��Խ��խ��������/ѧϰ������Զ��Ƕ����  ����ҵ��,Ӱ���ˣ�����Ҫխ��������Ұ�� �͹۶���,ũ������������Ѿ������γ�����ѭ��,�����ʱ��Ϊ�˻�ȡ������ͥ����,���ǲ��ò���֫�������ļ�ͥ��Ϊ����,�������,����,�����,�������ض�ͯ,�ͳ�Ϊ��ʵ�ϵ��ֻ�.  �޲�Իƶ,��·Ի��
+ 
+  �ٶ���Կak:
+Ӧ�ñ��	Ӧ������	����Ӧ�ã�AK��	                        Ӧ�����	��ע��Ϣ
+��˫�����ģ�	Ӧ������
+  9734995	               web2017         Y7rgLvsAbafFiGWjnTqx534wW4ilO7Qo	�������
+CSDN�˺� 13725745575 9910..
+Github�˺�:buzhiguang 381042434@qq.com  bu5561..
+
+
+
+��4.�Ը��� ??   ԣ����� �Դ����� ��������� ���� ��³�� ��־�� ������ ����ķ ���� ������ �ܷ�
+app:���� ��ޱ ���� �ճ� ���� ���� Ӣ�ﵥ�����[����]��
+������ ���� ���� ����
+�� ʮ�³��� 37.11.06 �� ��Ы|��Ů
+�� ����إһ 43.12.17 �� ����|���
+�� ���³�һ 64.03.14 ��16:00 ˫��|��Ů
+ĸ  ����ʮ�� 62.08.13 ��10:00 ʨ��|��Ы
+���� ����ʮ�� 65.09.07 �� ��Ů|˫��&��з&ʨ��
+���� ���³��� 76.07.02 î ��з|��з&ʨ��
+���� ����ʮ�� 67.07.21 î6:00 ��з|ʨ��
+��� ����إһ 70.03.28 ��23:00 ����|����(��)?��Ы
+���� ����إ�� 72.09.04 �� ��Ů|Ħ��
+�� ����ʮ�� 88.05.01 �� ��ţ|��з
+Ф ʮ��إ�� 88.12.03 �� ����|ʨ��
+ֶ��1 ���³�ʮ 10.02.23 δ15:05 ˫��|��з&ʨ��
+ֶŮ1 ����إ�� 13.06.29 �� ��з|�����
+ֶŮ2 ����ʮ��  15.5.29 �� ˫��|��Ы
+���� ʮ��إ�� 89.11.21 î7:15 ��Ы|��Ы
+���� ���³�һ 97.01.09 ��2:30 Ħ��|��Ы
+��� ����إ�� 99.04.11 ��20:10 ����|��Ы
+��Ƽ ���³�һ 00.04.05 ��2:30 ����|Ħ��
+���� ����ʮ�� 01.11.01 ��11:20 ��Ы|Ħ��&����
+���� ����ʮһ 07.01.29 ��0:55 ˮƿ|˫��&��Ы
+���� ʮ�³��� 00.11.02 ��13:20 ��Ы|ˮƿ
+
+console.dir(ele),��ʾ��������
+echo����
+����԰:buzhiguagn bu_5561407    csdn :13725745575 991002026
+����?����????? ����
+<link rel="stylesheet" href="css/base.css">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+ѧϰ,˼��,����,ǫ��,��֮�Ժ�
+"���ų�����"һֱ����������bug�Ĵ���,ֻ����Ϊ��׽ײ�ľ������,���˶��ѡ����ӳ��������Լ��ȳ�����
+��ν���ջ���ǻ����ϡȱ�ԣ�����Ҫ���������������������Ĺ���,��
+һ�ٸ��˾��п��ܸ�������һ���ֲ�ͬ�ı�ǩ
+<p>üë�ϵĺ�ˮ��üë�µ���ˮ�������ѡ��һ��<br>�㲻Ŭ�������������������ײ�</p>
+�մ�һ�������Ƕ�����������츳��ȱ��������
+����ʮ����--������绹�Ǻ����õ�,�����������ݱ�����,ֻҪ��ϣ���������롢��Ŭ�����ϼ��,��ô������Ǻõ�.
+----------------------------
+
+�����ϣ���ա�
+����:
+10-25(����)˼��ʱ��ʷ��25-40(����)���벢��˼ʱ��ʷ��40-56(����)�ٿ�ʱ��ʷ.----��ʷ��������,���ִ�������ʷ
+ȱ��ϵͳ�������,��֪��������Ĵ����Ķ�;�����ڼ乤��ɢ���޹���,�������ʱ����ӱ�ִ��
+
+����:
+18��ǰ:��ѧ�ѧ,����ԺУ���
+18-25��:��άҲ��/Ľ�����������
+26-30���ս,ûְҵ�ƻ�,ûְҵǰ��,ȱ��ָ�Ӳ���,�¸һ��һ/������ʮ��ѫ��;30��ʱ�ⶾ��Ϯ���ڱ�Ӫ����һ��,�μ���һ������С��,��ʼ̤���°��� (�����ִ,��ѧ,������Ը�,������һ��Ӧ����˼����������ʷ��?)
+
+����:�־����ܹ�ϵ
+=======
 单词:
 text-decoration 文本装饰  none/underline/overline删除线/line-through(穿过)删除线
 color:inherit[in-her-li]  颜色继承
@@ -5084,6 +9754,7 @@ echo益秋
 26-30岁参战,没职业计划,没职业前景,缺乏指挥才能,勇敢获得一/二级铁十字勋章;30岁时遭毒气袭击在兵营养伤一年,参加了一个极右小党,开始踏入下半生 (按其固执,好学,幻想的性格,养伤这一年应该在思考人生与历史吧?)
 
 性情:恐惧亲密关系
+>>>>>>> 47aaa4c06048b20c13fe5cf6684d76ba82f76916
 
 
 

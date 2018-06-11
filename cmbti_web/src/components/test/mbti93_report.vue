@@ -1,7 +1,7 @@
 <template>
-<div class="test-result bx">
+<div class="test-result">
     <div class="main">
-        <h4>MBTI 测试报告</h4>
+        <!--<h4>MBTI 测试报告</h4>-->
         <div class="line1"></div>
         <!--头部-->
         <div class="header">
@@ -19,7 +19,7 @@
                 <h5>MBTI倾向与功能</h5>
             <div class="chart">
                 <div class="m-chart">
-                    <div class="my-tit">MBTI 倾向图</div>
+                    <div class="chart-tit">MBTI 倾向图</div>
                     <div class="mids">
                         <div class="mid">
                             <div class="type">E 外倾</div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="f-chart">
-                    <div class="my-tit">{{mbtiRes.type}} 功能</div>
+                    <div class="chart-tit">{{mbtiRes.type}} 功能</div>
                     <div class="f-f txt-center">
                         <div class="f1">{{mbtiRes.f[0]}}
                             <div class="f2">{{mbtiRes.f[1]}}
@@ -94,10 +94,12 @@
                             </div>
                         </div>
                         <div class="info">
-                            <p>主导功能：{{mbtiRes.f[0].substr(0,2)}}（{{mbtiRes.f_ch[0]}} {{mbtiRes.f_en[0]}}）</p>
-                            <p>辅助功能：{{mbtiRes.f[1].substr(0,2)}}（{{mbtiRes.f_ch[1]}} {{mbtiRes.f_en[1]}}）</p>
-                            <p>第三功能：{{mbtiRes.f[2].substr(0,2)}}（{{mbtiRes.f_ch[2]}} {{mbtiRes.f_en[2]}}）</p>
-                            <p>第四功能：{{mbtiRes.f[3].substr(0,2)}}（{{mbtiRes.f_ch[3]}} {{mbtiRes.f_en[3]}}）</p>
+                            <div>
+                                <p>主导功能：{{mbtiRes.f[0].substr(0,2)}}（{{mbtiRes.f_ch[0]}} {{mbtiRes.f_en[0]}}）</p>
+                                <p>辅助功能：{{mbtiRes.f[1].substr(0,2)}}（{{mbtiRes.f_ch[1]}} {{mbtiRes.f_en[1]}}）</p>
+                                <p>第三功能：{{mbtiRes.f[2].substr(0,2)}}（{{mbtiRes.f_ch[2]}} {{mbtiRes.f_en[2]}}）</p>
+                                <p>第四功能：{{mbtiRes.f[3].substr(0,2)}}（{{mbtiRes.f_ch[3]}} {{mbtiRes.f_en[3]}}）</p>
+                            </div>
                         </div>
                     </div>
 
@@ -163,12 +165,13 @@ export default {
 </script>
 <style lang="less">
 .test-result {
-    display:flex;
-    max-width:770px;
+    margin:0 auto;
+    max-width:900px;
+    font-size:15px;
+    background-color: #fff;
     .main {
-        flex:1;
         text-align:center;
-        padding:4% 5%;
+        padding:4% 12%;
         &>h4 {
             // display:inline-block;
             background-color: #70a9e5;
@@ -230,17 +233,28 @@ export default {
         .chart {
             display:flex;
             justify-content:center;
-            
+            .chart-tit {
+                font-size:15px;
+                text-align:center;
+                height:28px;
+                line-height: 28px;
+                font-weight:600;
+                position: absolute;
+                width:100%;
+                top:7px;
+                left:0;
+            }
             .m-chart {
-                // min-width:300px;
+                position: relative;
                 flex:0 0 50%;
-                padding:18px 5px;
+                padding:0px 5px;
+                margin-bottom:5px;
                 .mids {
                     background-color: #fff;
-                    height:238px;
+                    height:275px;
                     margin:0 auto;
                     // max-width:320px;
-                    padding-top:25px;
+                    padding-top:45px;
                     border:1px solid #f0f5f5;
                     border-radius:2px;
                     // box-shadow:0 0 22px #eee inset;
@@ -297,20 +311,22 @@ export default {
             .f-chart {
                 // min-width:300px;
                 flex:0 0 50%;
-                padding:18px 5px;
+                padding:0px 5px;
+                position: relative;
                 .f-f{
                 margin:0 auto;
+                padding-top:41px;
                 // max-width:320px;
-                height:238px;
+                height:275px;
                 background: #fff;
-                padding-top:12px;
+                // padding-top:12px;
                 border:1px solid #f0f5f5;
                 border-radius:2px;
                 // box-shadow:0 0 22px #eee inset;
                     .f1 {
                         color:#fff;
                         border-radius:50%;
-                        height:60px;
+                        height:59px;
                         line-height:60px;
                         width:155px;
                         background-color:skyblue;
@@ -355,22 +371,18 @@ export default {
                             }
                         }
                     .info{
-                        padding-top:88px;
-                        padding-left:20%;
-                        text-align:left;
-                        p{
-                            font-size:13px;
-                            margin-bottom:-2px;
+                        padding-top:90px;
+                        text-align:center;
+                        &>div {
+                            display:inline-block;
+                            text-align:left;
+                            p{
+                                font-size:14px;
+                                margin-bottom:-2px;
+                            }
                         }
                     }
 
-                }
-            }
-            @media screen and (max-width:636px){
-                flex-wrap: wrap;
-                .m-chart,.f-chart {
-                    flex:0 0 100%;
-                   
                 }
             }
         }
@@ -379,11 +391,16 @@ export default {
         }
 
     }
-    .aside{
-        width:27%;
-        background-color: #ddd;
-        @media screen and (max-width:768px){
-            display:none;
+    @media screen and (max-width:768px){
+        .main {
+            padding:5%;
+        }
+        .chart {
+            flex-wrap: wrap;
+            .m-chart,.f-chart {
+                flex:0 0 100% !important;
+                
+            }
         }
     }
 

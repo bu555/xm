@@ -4,7 +4,7 @@
          <div class="article">
             <div class="a-header">
                 <div class="title">
-                    <div  class="type">
+                    <div  class="a-type">
                         <div class="good">精华</div>
                         <div class="share">分享</div>
                         <div class="ask">问答</div>
@@ -18,26 +18,36 @@
                                         <img  class="author" src="/static/img/logo_a.png" alt="">
                                 风语者 
                                 </router-link>-->
+                                <span>
                                 <router-link to="">
-                                    <span><i class="icon iconfont icon-people"  style="margin-left:0"></i>作者 ie7 </span>
+                                        <i class="icon iconfont icon-people"></i>作者阿凡达 
                                 </router-link>
-                                <span><i class="el-icon-time"></i> 发布于2个月前</span>
-                                <span><i class="el-icon-view"></i>14567次浏览</span>
-                                <span><i class="el-icon-share"></i>147次分享</span>
-                                <span class="btns"   style="margin-left:12px"><i class="fa fa-heart-o" style="margin-left:0"></i> 喜欢</span>
+                                </span>
+                                <span ><i class="el-icon-time"></i> 发布于2个月前</span>
+                                <!--<span><i class="el-icon-view"></i>14567次浏览</span>
+                                <span><i class="el-icon-share"></i>147次分享</span>-->
+                                <span v-if="false" class="a-mark btns1" style="margin-right:15px"><i class="el-icon-star-off" ></i>标记</span>
+                                <span v-else class="a-mark btns2" style="color:#598dd3"><i class="el-icon-star-on"></i>已标记</span>
                             </div>
-                            <div  class="author">
+                            <!--<div  class="author">
                                 <img src="/static/img/logo_a.png" alt="">
                                 <span class="a-name">风语者风语HHHHHH者...</span>
-                                <span class="btns"><i class="el-icon-plus"  style="font-weight:700;font-size:13px;margin-left:0"></i> 关注TA</span>
+                                <div style="text-align:center;">
+                                <span v-if="false" class="btns"><i class="el-icon-plus"  style="font-weight:700;font-size:13px;margin-left:0"></i> 关注TA</span>
                                 <span class="btns active"><i class="el-icon-plus"  style="font-weight:700;font-size:13px;margin-left:0"></i> 已关注</span>
-                            </div>
+                                </div>
+                            </div>-->
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="a-body">分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有 </div>
+            <div class="a-body">
+                <p>
+                分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有 
+                </p>
+                <p>自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有</p>
+            </div>
 
          </div>
          <div class="comment">
@@ -142,16 +152,21 @@ export default {
                 display: flex;
                 padding:4% 4.5% 1.5% 4%;
                 min-height:75px;
-                .type {
+                .a-type {
+                    flex:0 0 33px;
                     margin-right:1%;
-                    margin-top:-1px;
+                    // padding-top:2px;
                     &>div {
-                        padding:2px 5px;
+                        // flex:0 0 100%;
+                        height:18px;
+                        width:32px;
+                        line-height: 18px;
+                        text-align:center;
                         font-size:13px;
                         white-space: nowrap;
                         border-radius:3px;
                         color:#fff;
-                        height:20px;
+                        // height:20px;
                         margin-bottom:2px;
                     }
                     .good {
@@ -166,9 +181,9 @@ export default {
                 }
                 .h1 {
                     font-size:18px;
-                    // font-weight:700;
+                    font-weight:600;
                     margin:0;padding:0;
-                    padding-right:152px;
+                    // padding-right:152px;
                 }
                 .t-info {
                     font-size:14px;
@@ -176,12 +191,27 @@ export default {
                     margin-top:2.2%;
                     color:#838383;
                     .text {
-                        padding-right:230px;
+                        // background-color: #fbfbfb;
                         position:relative;
-                        .btns {
-                            position: absolute;
-                            right:157px;
-                            top:0px;
+                        display:flex;
+                        flex-wrap:wrap;
+                        align-items:center;
+                        &>span {
+                            margin:0px 15px 0px 0;
+                        }
+                        .a-mark {
+                        // line-height: 18px;
+                        border-radius:2px;
+                        cursor:pointer;
+                        display:inline-block;
+                        font-size:14px;
+                        &:hover {
+                            color:#456ea5;
+                        }
+                        .a-mark.btns2 {
+                            color:#598dd3;
+                        }
+
                         }
                     }
                     i {
@@ -198,10 +228,12 @@ export default {
                         display:inline-block;
                         border-radius:2px;
                         margin-right:5px;
-                        padding:0 7px;
+                        padding:2px 7px;
                         cursor:pointer;
-                        height:25px;
-                        line-height: 25px;
+                        display:inline-block;
+                        font-size:15px;
+                        // height:25px;
+                        // line-height: 25px;
                         &:hover {
                             background-color: #ecf5ff;
                             border-color:#a4c8ed;
@@ -218,7 +250,8 @@ export default {
                         top:-10px;
                         right:7px;
                         width:110px;
-                        padding:2px 0;
+                        padding:2px;
+                        font-size:15px;
                         // background-color: lime;
                         img {
                             width:65px;
@@ -231,7 +264,7 @@ export default {
                         }
                         &>span {
                             display:block;
-                            margin:2px auto;
+                            margin:3px auto;
                             text-align:center;
                         }
                         .a-name {
@@ -240,7 +273,10 @@ export default {
                             white-space: nowrap;
                         }
                         .btns {
-                            max-width:77px;
+                            display:inline-block;
+                            margin:0 auto;
+                            border:1px solid 
+                            // max-width:77px;
                         }
                     }
 
@@ -259,7 +295,6 @@ export default {
         }
         .comment {
             background-color: #fff;
-            font-size:15px;
             .c-header {
                 height:40px;
                 line-height: 40px;
@@ -267,6 +302,7 @@ export default {
                 background-color: #a4c8ed;
                 padding-left:4%;
                 color:#fff;
+                font-size:18px;
             }
             .c-body {
                 padding:2% 4.5% 3% 4%;
@@ -278,8 +314,8 @@ export default {
                     position: relative;
                     color:#3c3c3c;
                     .photo {
-                        width:37px;
-                        height:37px;
+                        width:39px;
+                        height:39px;
                         border:1px solid #eee;
                         position: absolute;
                         top:15px;
@@ -291,7 +327,7 @@ export default {
                         }
                     }
                     .c-name {
-                        font-size:13px;
+                        font-size:15px;
                         font-weight:700;
                         // color:#456ea5;
                         &>span {
@@ -302,18 +338,19 @@ export default {
                     }
                     .c-content {
                         padding:2px 0 5px;
+                        font-size:15px;
                     }
                     .c-ctrl {
                         display:flex;
+                        font-size:14px;
                         .c-c {
                             line-height: 20px;;
-                            font-size:12px;
                             vertical-align: middle;
                             display:flex;
                             align-items: center;
                             cursor:pointer;
                             width:25px;
-                            margin-right:22px;
+                            margin-right:50px;
                             color:#cbcbcb;
                             i {
                                 padding:2px 2px 2px 1px;
@@ -323,7 +360,7 @@ export default {
                             }
                         }
                         .zan {
-                            margin-right:42px;
+                            margin-right:60px;
                             &:hover {
 
                             }
@@ -361,23 +398,23 @@ export default {
             margin-left:0;
         }
     }
-    @media screen and (max-width:500px) {
+    @media screen and (max-width:525px) {
         .main-box {
             .a-header {
                 .title {
                     padding:4% 2.5%;
                     .h1 {
-                        font-size:17px;
                         padding-right:0;
+                        font-size:20px;
                     }
                     .t-info {
                         .text {
-                            padding-right:82px;
+                            // padding-right:82px;
                             background: #fcfcfc;
                             .btns {
-                                position: absolute;
-                                right:0px;
-                                top:5px;
+                                // position: absolute;
+                                // right:0px;
+                                // top:5px;
                             }
                         }
                         .author {
@@ -394,8 +431,8 @@ export default {
                             margin-top:4px;
                             img {
                                 flex:0 0 auto;
-                                width:34px;
-                                height:34px;
+                                width:35px;
+                                height:35px;
                                 // border-radius:50%;
                                 border-radius:4px;
                                 border:1px solid #f5f5f5;
@@ -410,7 +447,7 @@ export default {
                             .a-name {
                                 flex:1;
                                 text-align:left;
-                                font-size:12px;
+                                font-size:14px;
                                 padding-left:5px;
                             }
                             .btns {
@@ -423,6 +460,7 @@ export default {
             }
             .a-body {
                 padding:3% 2.5% 5% 4.5%;
+                font-size:17px;
             }
             .comment {
                 // padding:2% 2.5% 2% 3%;
@@ -433,7 +471,6 @@ export default {
                     .c-list {
                         padding-left:45px;
                         .c-content {
-                            font-size:14px;
                         }
                     }
                 }
