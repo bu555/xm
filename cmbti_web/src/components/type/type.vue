@@ -6,79 +6,28 @@
         </div>-->
         <div class="types-menu">
             <!--NT NF SP SJ-->
-            <div>
+            <div v-for="(v,i) in $mbti.kTypes">
                 <div class="head">
                     <!--<router-link to="">NT</router-link>-->
-                    NT
+                    {{v.t.toUpperCase()}}
                 </div>
-                <div class="item">
-                    <router-link to="">ENTJ</router-link>
+                <div :class="$route.path.split('/')[2]===v.t4[0]?'item active':'item'">
+                    <router-link :to="'/type/'+v.t4[0]">{{v.t4[0].toUpperCase()}}</router-link>
                 </div>
-                <div class="item">
-                    <router-link to="">ENTP</router-link>
+                <div :class="$route.path.split('/')[2]===v.t4[1]?'item active':'item'">
+                    <router-link :to="'/type/'+v.t4[1]">{{v.t4[1].toUpperCase()}}</router-link>
                 </div>
-                <div class="item">
-                    <router-link to="">INTJ</router-link>
+                <div :class="$route.path.split('/')[2]===v.t4[2]?'item active':'item'">
+                    <router-link :to="'/type/'+v.t4[2]">{{v.t4[2].toUpperCase()}}</router-link>
                 </div>
-                <div class="item">
-                    <router-link to="">INTP</router-link>
-                </div>
-            </div>
-            <div>
-                <div class="head">
-                    <!--<router-link to="">NF</router-link>-->
-                    NF
-                </div>
-                <div class="item">
-                    <router-link to="">ENFJ</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ENFP</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">INFJ</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">INFP</router-link>
-                </div>
-            </div>
-            <div>
-                <div class="head">
-                    <!--<router-link to="">SJ</router-link>-->
-                    SJ
-                </div>
-                <div class="item">
-                    <router-link to="">ESFJ</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ESTJ</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ISFJ</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ISTJ</router-link>
-                </div>
-            </div>
-            <div>
-                <div class="head">
-                    <!--<router-link to="">SP</router-link>-->
-                    SP
-                </div>
-                <div class="item">
-                    <router-link to="">ESFP</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ESTP</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ISFP</router-link>
-                </div>
-                <div class="item">
-                    <router-link to="">ISTP</router-link>
+                <div :class="$route.path.split('/')[2]===v.t4[3]?'item active':'item'">
+                    <router-link :to="'/type/'+v.t4[3]">{{v.t4[3].toUpperCase()}}</router-link>
                 </div>
             </div>
 
+        </div>
+        <div class="content">
+            <router-view></router-view>
         </div>
     </div>
     <div class="aside-box">
@@ -124,13 +73,11 @@ export default {
         margin-bottom:12px;
         width:100%;
         background-color: #fff;
-        .types-animation {
-            height: 220px;
-            background-color: skyblue;
-        }
+        // padding:2%;
         .types-menu {
             display:flex;
-            padding:12px 0;
+            padding:20px 10px ;
+            border-top:5px solid #598dd5;
             &>div {
                 flex:0 0 25%;
                 padding-left:5%;
@@ -145,14 +92,24 @@ export default {
                     color:#555;
                 }
                 .item {
-                    height:25px;
-                    line-height: 25px;
+                    height:27px;
+                    line-height: 27px;
+                    padding-left:5px;
                     &>a:hover {
                         color:#598dd3;
                         // font-size:18px;
                     }
                 }
+                .item.active a {
+                    color:#598dd3;
+                    font-weight:700;
+
+                }
             }
+        }
+        .content {
+            padding:7%;
+            padding-top:0;
         }
     }
     .aside-box {
@@ -174,11 +131,26 @@ export default {
             position: relative;
             width:100%;
         }
+        .main-box {
+            .content {
+                padding:4%;
+                padding-top:0;
+            }
+        }
     }
     @media screen and (max-width:525px){
 
         .main-box {
 
+        }
+    }
+    @media screen and (max-width:333px){
+        .main-box {
+            .types-menu {
+                &>div {
+                    padding-left:4%;
+                }
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ import home_index from '@/components/home/home_index' ;import home_index1 from '
 
 //type页面
 import type from '@/components/type/type'
+import type_details from '@/components/type/type_details'
 
 // mbti
 import mbti from '@/components/mbti/mbti'
@@ -61,7 +62,14 @@ const vueRouter = new Router({
     {path:'/',name:'1-1',component:home_index},{path:'/t',component:home_index1},
 
     // type
-    {path:'/type',component:type},
+    {
+      path:'/type',
+      component:type,
+      redirect:'/type/entj',
+      children:[
+        {path:':type',component:type_details}
+      ]
+    },
 
     // mbti
     {path:'/mbti',component:mbti},
@@ -91,6 +99,7 @@ const vueRouter = new Router({
     //个人中心
     { path:'/my',
       component:my,
+      redirect:'/my/home',
       children:[
         {path:'home',component:my_home},
         {path:'info',component:my_info},

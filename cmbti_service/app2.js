@@ -8,7 +8,6 @@ var userRouter = require('./router/userRouter');
 // var example = require('./router/example');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
-
 // 连接数据库
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/test', { });
@@ -19,8 +18,11 @@ db.once('open', function() {
 });
 
 var app = express();
+// app.use(cors());//跨域设置
 app.set('port',process.env.PORT || 7000)
 app.use(cors({credentials: true, origin: 'http://localhost:7075'}));//跨域设置
+// app.use(cors({credentials: true, origin: 'http://localhost:8000'}));//跨域设置
+// app.use(cors());//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //解析请求主体(用于获取post传递的参数)
 app.use(bodyParser.json()); //解析application/json
 // session
