@@ -65,9 +65,16 @@
 
          </div>
          <div class="comment">
-             <div class="c-header" >
-                 <i class="icon iconfont icon-interactive" style="font-size:20px"></i> 100 评论
+            <div class="c-header" >
+                 <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
+                 <span> 评论</span>
              </div>
+            <div class="c-tab">
+                <span>按</span>
+                <span class="hot active" @click="toggleCommentType($event,'hot')">热门</span>
+                <span>|</span>
+                <span class="time" @click="toggleCommentType($event,'time')">时间</span>
+            </div>
              <div class="c-body">
                 <div v-if="commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
                 <div class="c-list" v-for="(v,i) in commentList">
@@ -343,14 +350,14 @@ export default {
             }
         }
         .a-body {
-            padding:3% 4.5% 5% 4%;
+            padding:3% 6% 5% 8%;
             font-size:16px;
             // border-bottom:1px solid #efefef;
             border-top:1px solid #efefef;
             min-height:150px;
         }
         .a-footer {
-            padding:2% 4.5% 2% 4%;
+            padding:2% 6% 2% 8%;
             border-top:1px solid #eee;
             border-bottom:1px solid #eee;
             background-color: #fefefe;
@@ -389,8 +396,30 @@ export default {
             background-color: #a4c8ed;
             padding-left:4%;
             color:#fff;
-            font-size:18px;
+            font-size:16px;
+            display:flex;
+            align-items:center;
         }
+        .c-tab {
+                height:35px;
+                line-height: 35px;
+                border-bottom:1px solid #fafafa;
+                background-color: #fafafa;
+                padding-left:4%;
+                font-size:15px;
+                display:flex;
+                color:#555;
+                &>span {
+                    margin-right:7px;
+                }
+                .hot,.time {
+                    cursor:pointer;
+                }
+                &>span.active {
+                    font-weight:700;
+                    color:#222;
+                }
+            }
         .c-body {
             padding:2% 4.5% 3% 4%;
             .c-list {

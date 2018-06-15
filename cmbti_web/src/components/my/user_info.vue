@@ -1,5 +1,5 @@
 <template>
-<div class="my">
+<div class="user-info">
     <div class="m-header">
         <div class="photo" @click="showUploadAvatar=true">
             <img src="/static/img/logo_a.png" alt="">
@@ -69,7 +69,7 @@ export default {
 };
 </script>
 <style lang="less">
-.my {
+.user-info {
     max-width:1100px;
     margin:0px auto;
     position: relative;

@@ -214,7 +214,7 @@ export default {
                         display:flex;
                         justify-content:flex-start;
                         align-items:center;
-                        border-top:1px solid #f2f6f6;
+                        border-bottom:1px solid #f2f6f6;
                         padding:0 5px 0 1.8%;
                         font-size:16px;
                     &:hover {
