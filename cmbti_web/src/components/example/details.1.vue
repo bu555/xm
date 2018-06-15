@@ -95,7 +95,7 @@ export default {
             //     type:'',
             //     info:'',
             //     vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0},
-            //     voteLog:[]
+            //     vote_log:[]
             // },
             isVote:false,
             isGetDate:true,
@@ -143,7 +143,7 @@ export default {
         checkRepeat(){
             if(localStorage.getItem('USER')){
                 let uid = JSON.parse(localStorage.getItem('USER'))._id;
-                this.exampleItem.voteLog.forEach(v=>{
+                this.exampleItem.vote_log.forEach(v=>{
                     if(v.uid===uid){
                         this.isRepeat = true;
                     }

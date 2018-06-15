@@ -5,7 +5,7 @@ const session = require('express-session');
 var articleRouter = require('./router/articleRouter');
 var accountRouter = require('./router/accountRouter');
 var userRouter = require('./router/userRouter');
-// var example = require('./router/example');
+var exampleRouter = require('./router/exampleRouter');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
 // 连接数据库
@@ -40,9 +40,9 @@ app.use(session({
 }))
 
 app.use('/', express.static(path.join(__dirname,'public')));
-// app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
+app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
 app.use('/api/user',userRouter);
-// app.use('/api/example',example);
+app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);
 app.use('/api/account',accountRouter);
 

@@ -9,7 +9,6 @@ const exampleSchema = new mongoose.Schema({
     tag: String,
     birth: String,
     conste: String, //星座
-    voted:false,
     vote: {
         entp:Number,
         intp:Number,
@@ -28,31 +27,32 @@ const exampleSchema = new mongoose.Schema({
         esfp:Number,
         isfp:Number  
     },
-    voteLog:[
-        {
-            uid:String,
-            result:String,
-            c_time:Date
-        }
-    ],
-    // comment:[
-    //     {
-    //         uid:String,
-    //         // cid:String,
-    //         result:String,
-    //         c_time:Date,
-    //         zan:Array,   //['uid1','uid2']
-    //         reply:[
-    //             {
-    //                 uid:String,
-    //                 res:String,
-    //                 c_time:Date
-    //             }
-    //         ]  
-
-    //     }
-    // ]
+    vote_log:[String],
 })
-
-const ExampleModel = mongoose.model('example', exampleSchema) 
+const commentSchema = new mongoose.Schema({
+        eid:String,
+        comment:[
+            {
+                uid:String,
+                cid:String,
+                content:String,
+                c_time:Date,
+                zan:[String], //[uid,uid]
+                zans:Number,
+                replay:[
+                    {
+                        uid:String,
+                        content:String,
+                        c_time:Date
+                    }
+                ]
+            }
+        ]
+})
+const example = mongoose.model('e_example', exampleSchema) 
+const comment = mongoose.model('e_comment', commentSchema) 
+const ExampleModel = {
+    example:example,
+    comment:comment
+}
 module.exports = ExampleModel

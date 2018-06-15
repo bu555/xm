@@ -2,7 +2,7 @@
 <div class="example " v-loading="loading">
     <div class="my-tab">
             <div class="search-bar">
-                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px">
+                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter="search()">
                     <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
                 </el-input>
             </div>
@@ -20,7 +20,7 @@
                 <!--无数据--><!--无数据-->
                 <div v-if="exampleList&&exampleList.length===0" style="padding-top:70px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
-                    <div v-if="$route.query.search">
+                    <div v-if="$route.query.s">
                         你可以点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.search)">添加</button>{{$route.query.search}}到名人库
                     </div>
                 </div>
@@ -28,14 +28,14 @@
 
 
 
-                <div class="item" v-for="(v,i) in 10" >
-                    <router-link :to="'/example/'+123">
+                <div v-else class="item" v-for="(v,i) in exampleList" :key="i">
+                    <router-link :to="'/example/'+v._id">
                     <div class="item-box">
-                        <div class="type">ENFP</div>
+                        <div class="type">{{v.type.toUpperCase()}}</div>
                         <div class="photo">
-                            <img src="" alt="">
+                            <img :src="$pathImgs+v.img_url" alt="">
                         </div>
-                        <div class="name overflow-row-1">基芭芭芭芭凯特尔恩斯'</div>
+                        <div class="name overflow-row-1">{{v.name}}</div>
                     </div>
                     </router-link>
                 </div>
@@ -251,7 +251,7 @@ export default {
         changeQuery(){
             let query = this.$route.query
             let type = query.type?query.type:'';
-            let search = query.search?query.search:'';
+            let search = query.s?query.s:'';
             let page = query.page?query.page:1;
             if(type){
                 if(type=='all'){
@@ -275,7 +275,7 @@ export default {
     },
     created(){
 
-        let search = this.$route.query.search?this.$route.query.search:''
+        let search = this.$route.query.s?this.$route.query.s:''
         let type = this.$route.query.type?this.$route.query.type:'';
         if(!type && !search){ //赋予默认type
             this.$router.push({query:{type:'all',page:1}})

@@ -11,14 +11,14 @@
                 </div>
             </div>
             <div class="r-chart">
-                <div class="item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
+                <!--<div class="item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
                     <div class="type">{{v.type?v.type.toUpperCase():''}}</div>
                     <div class="prog">
                         <div :style="'width:'+v.perce">
                             <div class="count">{{v.count}}</div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
 
         </div>

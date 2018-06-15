@@ -31,7 +31,7 @@
                     <div class="photo">
                         <img :src="v.img_url" alt="">
                         <div class="info">
-                            {{v.voteLog.length}}人参与
+                            {{v.vote_log.length}}人参与
                         </div>
                         <!--投票提示-->
                         <div v-if="v.type==='****'" class="redirect-flag  ech-shake-time" data-class="ec-rotate-in">

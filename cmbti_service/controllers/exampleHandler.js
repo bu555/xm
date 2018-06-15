@@ -8,9 +8,10 @@ class Example{
     constructor(){
 
     }
+    // 创建名人例 {name:''}
     createExample(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.findOne({name:options.name}).then(example=>{
+            ExampleModel.example.findOne({name:options.name}).then(example=>{
                 if(!example){
                     GrabWeb.https(options.name).then(data=>{
                         let vote = {
@@ -32,7 +33,7 @@ class Example{
                                 isfp:0
                             }
                     
-                        let exampleAdd = new ExampleModel({
+                        let exampleAdd = new ExampleModel.example({
                             name: options.name,
                             type: "****",
                             vote: vote,
@@ -42,26 +43,23 @@ class Example{
                             tag: data.data.tag || '',
                             birth: data.data.birth || '',
                             conste: data.data.conste || '', //星座
-                            create_time: moment().utc(),
+                            create_time: new Date(),
                         })
                         exampleAdd.save((err, example) => {
                             if(err) {
                                 reject('Data save fail')
                             } else {
-                                new CommentModel({
-                                    eid:String(example._id),
-                                    name:example.name,
-                                    list:[],
-                                    zaned:false
+                                new ExampleModel.comment({
+                                    eid:example._id,
+                                    comment:[]
                                 }).save((err,comment)=>{
-                                    if(!err){
-                                        resolve(example)
-                                    }
+                                    if(err) return reject('save fail')
+                                    resolve(example)
                                 })
                             }
                         })
                     },data=>{
-                        reject(data)
+                        reject("数据抓取失败")
                     })    
 
                 }else{
@@ -78,13 +76,13 @@ class Example{
             let pro;
             // 1.按name 模糊查询
             if(options.name){
-                pro = ExampleModel.find({ name:new RegExp(options.name,'i') });
+                pro = ExampleModel.example.find({ name:new RegExp(options.name,'i') });
             // 2.按type 模糊查询
             }else if(options.type){
-                pro = ExampleModel.find({ type:new RegExp(options.type,'i') });
+                pro = ExampleModel.example.find({ type:new RegExp(options.type,'i') });
             // 3.查找所有
             }else{
-                pro = ExampleModel.find();
+                pro = ExampleModel.example.find();
                 // return reject('params error')
             }
 
@@ -101,10 +99,6 @@ class Example{
             // pro.limit(size).skip((page-1)*size).then(example=>{
             pro.then(example=>{
                 if(example){
-                    example.forEach((v,i)=>{
-                        v.comment && delete v.comment
-                        v.vote && delete v.vote
-                    })
                     resolve(example)
                 }else{
                     reject('example not finded')
@@ -117,14 +111,14 @@ class Example{
     getExampleById(options={}){
         return new Promise((resolve,reject)=>{
             if(!options.eid) return reject('The params error')
-            ExampleModel.findById(options.eid,(err,example)=>{
+            ExampleModel.example.findById(options.eid,(err,example)=>{
                 if(!err){
                     if(example){
                         if(options.uid){  //已登录
                             // 判断是否透过票
                              example.voted = false
-                             for(let i=0;i<example.voteLog.length;i++){
-                                if(example.voteLog[i].uid === options.uid){
+                             for(let i=0;i<example.vote_log.length;i++){
+                                if(example.vote_log[i].uid === options.uid){
                                     example.voted = true
                                     break;
                                 }
@@ -145,8 +139,8 @@ class Example{
     // 去重判断
     exampleHandle(options){
         if(options.uid){  //已登录
-            for(let i=0;i<example.voteLog.length;i++){
-                if(example.voteLog[i].uid === options.uid){
+            for(let i=0;i<example.vote_log.length;i++){
+                if(example.vote_log[i].uid === options.uid){
                     example.voted = true
                     return resolve(example)
                 }
@@ -162,16 +156,17 @@ class Example{
     // params : {eid:string,uid:string,result:'intj'}
     addVote(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.findById(options.eid,(err,example)=>{
+            ExampleModel.example.findById(options.eid,(err,example)=>{
                 if(!err){
                     if(example){
                         //验证是否重复
-                        for(let i=0;i<example.voteLog.length;i++){
-                            if(example.voteLog[i].uid === options.uid){
-                                return reject('Unable to repeat the vote')
-                            }
-                        }
-                        // 更新type 、vote 、voteLog
+                        // for(let i=0;i<example.vote_log.length;i++){
+                        //     if(example.vote_log[i].uid === options.uid){
+                        //         return reject('Unable to repeat the vote')
+                        //     }
+                        // }
+                        if(example.vote_log.indexOf(options.uid)>-1) return reject('Unable to repeat the vote')
+                        // 更新type 、vote 、vote_log
                         if(example.type!=="****"){
                             if(Object.keys(example.vote).indexOf(options.result)!=-1){
                                 if(example.type!==options.result && example.vote[options.result]+1 > example.vote[example.type]){
@@ -184,33 +179,17 @@ class Example{
                             example.type = options.result
                         }
                         example.vote[options.result] = example.vote[options.result]+1
-                        example.voteLog.push({
-                            uid:options.uid,
-                            result:options.result,
-                            c_time:moment().utc()
-                        })
-                        // type 、vote 、voteLog 验证 一致性（临时）
+                        example.vote_log.push(options.uid)
+                        // type 、vote 、vote_log 验证 一致性（临时）
                         // let tempObj = {}
-                        // example.voteLog.forEach((v,i)=>{
+                        // example.vote_log.forEach((v,i)=>{
                         //     tempObj[v.result] ? tempObj[v.result]=tempObj[v.result]+1 : tempObj[v.result]=1
                         // })
                         example.save((err,example)=>{
                             if(!err){
-                                if(example){
-                                    this.getExampleById({eid:options.eid,uid:options.uid}).then(example=>{
-                                        // 判断是否重复
-                                        for(let i=0;i<example.voteLog.length;i++){
-                                            if(example.voteLog[i].uid === options.uid){
-                                                example.voted = true
-                                                return resolve(example)
-                                            }
-                                            example.voted = false
-                                            resolve(example)
-                                        }
-                                    })
-                                }else{
-                                    reject('Handle faild')
-                                }
+                                resolve(example)
+                            }else{
+                                reject(err)
                             }
                         })
                         
@@ -222,30 +201,21 @@ class Example{
     }
     // params: {eid:'',uid:'',result:''}
     addComment(options){
+        console.log(options);
         return new Promise((resolve,reject)=>{
-            ExampleModel.findById(options.eid,(err,example)=>{
-                if(!err){
-                    example.comment.push({
-                            uid:options.uid,
-                            // cid:myUtill.randomString(15),
-                            result:options.result,
-                            c_time:moment().utc(),
-                            zan:[],
-                            reply:[]  
-                    })
-                    example.save((err,example)=>{
-                        if(!err){
-                            resolve(example.comment)
-                        }else{
-                            reject('The comment save is failed')
-                        }
-                    })
-
-                }else{
-                     reject('The eid find is failed')
-                }
+            let cid = myUtill.randomString(7)
+            ExampleModel.comment.update({"eid":options.eid},{$addToSet:{comment:{
+                    uid:options.uid,
+                    cid:cid,
+                    content:options.result,
+                    c_time:new Date(),
+                    zan:[], //[uid,uid]
+                    zans:0,
+                    replay:[]
+            }}},err=>{
+                if(err) reject(err)
+                resolve(cid)
             })
-
         })
     }
     // params: {eid:''}
@@ -253,9 +223,9 @@ class Example{
         return new Promise((resolve,reject)=>{
             let page = options.page && /^[1-9][0-9]*$/.test(options.page) ? Number(options.page): 1
             let size = options.size && /^[1-9][0-9]*$/.test(options.size) ? Number(options.size): 5
-            ExampleModel.findById(options.eid,(err,example)=>{
-                if(!err){
-                        resolve(example.comment)
+            ExampleModel.comment.findOne({"eid":options.eid}).then(c=>{
+                if(c){
+                        resolve(c.comment)
                 }else{
                      reject('The eid find is failed')
                 }
@@ -267,7 +237,7 @@ class Example{
     // params : {eid:'',cid:''}
     clickZan(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.findById(options.eid,(err,example)=>{
+            ExampleModel.example.findById(options.eid,(err,example)=>{
                 if(!err){
                     let flag = false
                     let count

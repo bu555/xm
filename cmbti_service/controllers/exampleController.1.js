@@ -28,7 +28,7 @@ const addExample = (req,res)=>{
             name: name,
             type: "****",
             vote: result,
-            voteLog:[],
+            vote_log:[],
             info: searchData.data.info || '',
             img_url: searchData.data.imgURL || '',
             total: 0, 
@@ -120,7 +120,7 @@ const searchExample = (req,res,next)=>{
 }
 //投票 （注：需要登录）
 //逻辑：1、查询user.history判断是否重复投票 
-// 2-1、更新example中的total、vote、voteLog、type（需要计算判断）
+// 2-1、更新example中的total、vote、vote_log、type（需要计算判断）
 // 2-2、添加到user.history的voteList,{eid:'',name:'',vote:'',c_time:''}
 
 const goVote = (req,res,next)=>{
@@ -191,7 +191,7 @@ const checkVote = (uid,eid)=>{
      })
      return pro;
 }
-//添加一条vote记录到example的voteLog并更新自身的type
+//添加一条vote记录到example的vote_log并更新自身的type
 const addToExample = (uid,eid,vote,example)=>{
     let pro = new Promise((resolve,reject)=>{
             // 计算投票后的vote
@@ -242,7 +242,7 @@ const addToExample = (uid,eid,vote,example)=>{
                     });
                 }else{
                     //push新记录
-                    Example.update({_id:eid},{$push:{voteLog:{
+                    Example.update({_id:eid},{$push:{vote_log:{
                         uid:uid,
                         vote:vote,
                         c_time: moment().format('YYYY-MM-DD HH:mm:ss')

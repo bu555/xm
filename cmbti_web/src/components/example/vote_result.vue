@@ -47,7 +47,7 @@ export default {
         'example'
     ],
     created(){
-            this.count = this.example.voteLog.length;
+            this.count = this.example.vote_log.length;
             this.result = this.example.vote;
             this.res =  [
                 {

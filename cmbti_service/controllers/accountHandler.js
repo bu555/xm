@@ -88,6 +88,19 @@ class Account {
             })
         })
     }
+    // 个人投票记录 options:{uid:'',eid:'' result:''}
+    static addVoteLog(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.update({uid:options.uid},{$addToSet:{vote_example:{
+                eid:options.eid,
+                result:options.result,
+                c_time:new Date()
+            }}},err=>{
+                if(err) return reject(err)
+                resolve('success')
+            })
+        })
+    }
     // uid查询用户 {uid:''}
     static getUserInfoById(options={}){
         return new Promise((resolve,reject)=>{

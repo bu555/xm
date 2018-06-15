@@ -9,7 +9,6 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const Example = require('../controllers/exampleHandler')
 const Comment = require('../controllers/commentHandler')
 const Vote = require('../controllers/vote')
-// const Comment = require('../controllers/comment')
 const User = require('../controllers/user')
 
 const addExample = (req,res)=>{
