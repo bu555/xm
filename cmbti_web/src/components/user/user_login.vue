@@ -43,7 +43,6 @@ export default {
       }
   },
   mounted() {
-
   },
   methods: {
         //   验证账号

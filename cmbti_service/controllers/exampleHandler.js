@@ -235,36 +235,61 @@ class Example{
     }
 
     // params : {eid:'',cid:''}
-    clickZan(options){
+    clickCommentZan(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.example.findById(options.eid,(err,example)=>{
-                if(!err){
-                    let flag = false
-                    let count
-                    for(let i=0;i<example.comment.length;i++){
-                        if(example.comment[i]._id==options.cid){
-                            flag = true
-                            if(example.comment[i].zan.indexOf(options.uid) !== -1){
-                                // return reject('The uid repeat addZan')
-                                example.comment[i].zan.splice(example.comment[i].zan.indexOf(options.uid),1)
-                                count = example.comment[i].zan.length
-                                break;
-                            }else{
-                                count = example.comment[i].zan.push(options.uid)
-                                break;
-                            }
+            ExampleModel.comment.findOne({"eid":options.eid}).then(e=>{
+                if(e){
+                    let exist_cid = false
+                    for(let i=0;i<e.comment.length;i++){
+                        if(e.comment[i].cid === options.cid){
+                                exist_cid = true
+                                if(e.comment[i].zan.indexOf(options.uid)===-1){
+                                    ExampleModel.comment.update({"eid":options.eid,"comment.cid":options.cid},{$push:{"comment.$.zan":options.uid},$inc:{"comment.$.zans":1}},(err,r)=>{
+                                        if(err) return reject('Update error!')
+                                        return resolve({
+                                            info:'Comment赞+1',
+                                            count:1
+                                        })
+                                    })
+                                }else{
+                                    ExampleModel.comment.update({"eid":options.eid,"comment.cid":options.cid},{$pull:{"comment.$.zan":options.uid},$inc:{"comment.$.zans":-1}},(err,r)=>{
+                                        if(err) return reject('Update error!')
+                                        return resolve({
+                                            count:-1,
+                                            info:'Comment取消点赞'
+                                        })
+                                    })
+                                
+                                }
                         }
                     }
-                    if(!flag) return reject('The cid not find')
-                    example.save((err,comment)=>{
-                        if(!err){
-                            resolve({zanCount:count})
-                        }else{
-                            reject('The comment save is failed')
-                        }
-                    })
+                    if(!exist_cid){
+                        reject('The cid not find!')
+                    }
+                    // ArticleModel.article.update({"_id":options.aid,"comment._id":options.cid},{$addToSet:{"comment.$.zan":options.uid}},(err,r)=>{
+                    //     if(err) return reject('Update error!')
+                    //     // { n: 1, nModified: 0, ok: 1 }  未添加
+                    //     // { n: 1, nModified: 1, ok: 1 }  已添加
+                    //     if(r.nModified===1){
+                    //         resolve({
+                    //             info:'Comment赞+1',
+                    //             count:1
+                    //         })
+                    //     }else{
+                    //         ArticleModel.article.update({"_id":options.aid,"comment._id":options.cid},{$pull:{"comment.$.zan":options.uid}},(err,r)=>{
+                    //             if(r.nModified===1){
+                    //                 resolve({
+                    //                     count:-1,
+                    //                     info:'Comment取消点赞'
+                    //                 })
+                    //             }else{
+                    //                 reject('$pull faild')
+                    //             }
+                    //         })
+                    //     }
+                    // })
                 }else{
-                    reject('The eid find is failed')
+                    reject('The find cid result is empty ')
                 }
             })
         })

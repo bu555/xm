@@ -72,12 +72,14 @@ export default {
     .main-box {
         margin-bottom:12px;
         width:100%;
-        background-color: #fff;
         // padding:2%;
         .types-menu {
             display:flex;
             padding:20px 10px ;
             border-top:5px solid #598dd5;
+            background-color: #fff;
+            // border-bottom:1px solid #598dd5;
+            margin-bottom:10px;
             &>div {
                 flex:0 0 25%;
                 padding-left:5%;
@@ -109,7 +111,8 @@ export default {
         }
         .content {
             padding:7%;
-            padding-top:0;
+            padding-top:5%;
+            background-color: #fff;
         }
     }
     .aside-box {

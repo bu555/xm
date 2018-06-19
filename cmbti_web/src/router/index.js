@@ -20,6 +20,7 @@ import mbti from '@/components/mbti/mbti'
 
 // test
 import test from '@/components/test/test'
+import test_home from '@/components/test/test_home'
 import test_mbti93 from '@/components/test/test_mbti93'
 import mbti93_report from '@/components/test/mbti93_report'
 import test_personality from '@/components/test/test_personality'
@@ -28,7 +29,7 @@ import test_function from '@/components/test/test_function'
 
 // example
 import example from '@/components/example/example'
-import example_details from '@/components/example/details'
+import example_details from '@/components/example/example_details'
 import example_item from '@/components/example/example_item'
 
 // document
@@ -75,12 +76,19 @@ const vueRouter = new Router({
     {path:'/mbti',component:mbti},
 
     // test
-    {path:'/test',component:test},
-    {path:'/test/mbti93',component:test_mbti93},
-    {path:'/test/mbti93/report',component:mbti93_report},
-    {path:'/test/personality',component:test_personality},
-    {path:'/test/personality/report',component:personality_report},
-    {path:'/test/function',component:test_function},
+    {
+      path:'/test',
+      component:test,
+      children:[
+        {path:'',component:test_home},
+        {path:'personality',component:test_mbti93},
+      ]
+    },
+    // {path:'/test/mbti93',component:test_mbti93},
+    // {path:'/test/mbti93/report',component:mbti93_report},
+    // {path:'/test/personality',component:test_personality},
+    // {path:'/test/personality/report',component:personality_report},
+    // {path:'/test/function',component:test_function},
 
     // example
     {path:'/example',component:example},
@@ -99,9 +107,8 @@ const vueRouter = new Router({
     //个人中心
     { path:'/my',
       component:my,
-      redirect:'/my/home',
       children:[
-        {path:'home',component:my_home},
+        {path:'',component:my_home},
         {path:'info',component:my_info},
         {path:'mark',component:my_mark},
         {path:'publish',component:my_publish},

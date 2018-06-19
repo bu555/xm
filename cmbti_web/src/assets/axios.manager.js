@@ -107,12 +107,12 @@ export default {
         return axios.post(pathAPI+'/example/getComment',data);
     },
     //评论点赞  {eid:''，cid:''}
-    clickZan(data){
-        return axios.post(pathAPI+'/example/clickZan',data);
+    clickExampleCommentZan(data){
+        return axios.post(pathAPI+'/example/clickCommentZan',data);
     },
     //获取example数据  {eid:''}
     getExampleById(data){
-        return axios.post(pathAPI+'/example/getExampleById',data);
+        return axios.get(pathAPI+'/example/getExampleById',data);
     },
     //上传头像  
     uploadPhoto(data){
