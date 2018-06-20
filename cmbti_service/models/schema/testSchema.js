@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 //个人信息
 const testSchema = new mongoose.Schema({
-    tid:{type:String,required:true},
-    category:{type:String,required:true,enum:['mbti','func','keirsey']},
+    // tid:{type:String,required:true},
+    // category:{type:String,required:true,enum:['mbti','func','keirsey']},
+    category:{type:String,required:true},
     type:String,
     uip:String,
     sex:String, //'0','1'
@@ -22,6 +23,6 @@ const testSchema = new mongoose.Schema({
     // }
 
 })
-const testModel = mongoose.model('test', testSchema) 
+const testModel = mongoose.model('t_test', testSchema) 
 
 module.exports = testModel

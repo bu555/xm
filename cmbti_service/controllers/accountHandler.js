@@ -57,7 +57,7 @@ class Account {
             }) 
         })
     }
-    // 个人喜欢文章记录 options:{aid:'',uid:'',offset:1/-1}
+    // 更新个人喜欢文章记录 options:{aid:'',uid:'',offset:1/-1}
     static clickLikeArticleLog(options={}){
         return new Promise((resolve,reject)=>{
             if(options.offset===1){
@@ -169,6 +169,22 @@ class Account {
             AccountModel.info.update({"uid":options.uid},{$addToSet:{"test_record":options.tid }},err=>{
                 if(err) return reject('The tid $addToSet faild')
                 resolve('success')
+            })
+
+        })
+    }
+    // 用户删除测试记录 {uid:'',tid:''}
+    static deleteTestRecord(options={}){
+        return new Promise((resolve,reject)=>{
+            AccountModel.info.findOne({"uid":options.uid}).then(a=>{
+                if(a && a.test_record.indexOf(options.tid)>-1){
+                    AccountModel.info.update({"uid":options.uid},{$pull:{"test_record":options.tid }},err=>{
+                        if(err) return reject('The tid $pull faild')
+                        resolve('success')
+                    })
+                }else{
+                    reject()
+                }
             })
 
         })

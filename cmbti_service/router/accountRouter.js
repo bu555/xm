@@ -17,7 +17,34 @@ var fm = require('formidable');
 
 const json = (d)=>{console.log(d);}
 
-// 关注/取消关注 options {uuid:'',status:'1或0'}
+// 获取用户info options {uid:''}
+const getUserInfoById = (req,res)=>{
+        let options = req.body || {}
+        options.uid = req.session.user._id
+      if(!options.uid){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let r = await Account.getUserInfoById(options)
+
+                res.json({
+                    success: true,
+                    message: 'Success'
+                })
+
+            }catch(err){
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 关注/取消关注用户 options:{uid:'',uuid:'',status:'1'/'0'} 1关注 0取消关注
 const followUser = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id

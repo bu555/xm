@@ -275,7 +275,7 @@ class Article {
             })
         })
     }
-    //options :{aid:'',cid:'',uid:''}
+    //评论点赞 options :{aid:'',cid:'',uid:''}
     static clickCommentZan(options){
         return new Promise((resolve,reject)=>{
             ArticleModel.comment.findOne({"aid":options.aid}).then(a=>{
