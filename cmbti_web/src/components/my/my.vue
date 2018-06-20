@@ -50,11 +50,35 @@ export default {
     },
     methods:{
         listenSon(success){
-            console.log(success);
             this.showUploadAvatar = false;
             if(success){
                 // 修改成功
+
             }
+        },
+        getAccount(){
+            // 获取账户信息
+            this.$axios.getAccountInfo().then(res=>{
+                if(res.success){
+                    console.log(res);
+                }
+            })
+        },
+        getUser(){
+            // 获取账户信息
+            this.$axios.getUserInfo().then(res=>{
+                if(res.success){
+                    console.log(res);
+                }
+            })
+        },
+        modifyUserInfo(){
+            // 修改账户信息
+            this.$axios.modifyUserInfo({avatar:'a777777555551'}).then(res=>{
+                if(res.success){
+                    console.log(res);
+                }
+            })
         }
     },
     watch:{
@@ -64,6 +88,9 @@ export default {
 
     },
     created(){
+        this.modifyUserInfo()
+        this.getAccount()
+        this.getUser()
     },
     
 };

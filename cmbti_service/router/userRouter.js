@@ -140,6 +140,61 @@ const delSession = (req, res) => {
       message: '登出成功'
   })
 }
+// 获取用户信息
+const getUserInfoById = (req, res) =>{  
+    // console.log(req.session.user);
+    // console.log()
+    // let uid = req.session.user._id
+    (async ()=>{
+        try{
+            let user = await User.getUserById({uid:req.session.user._id})
+            if(user){
+                res.json({
+                    success: true,
+                    data:user
+                })
+            }else{
+                res.json({
+                    success: false,
+                    data:user
+                })
+            }
+        }catch(err){
+            console.log(err);
+            res.json({
+                success: false
+            })
+        }
+    })()
+}
+// 修改用户信息
+const modifyUserInfo = (req, res) =>{  
+    let options = req.body || {}
+    options.uid = req.session.user._id
+    User.modifyUser(options).then(result=>{
+            res.json({
+                success: true
+            })
+    }).catch(err=>{
+            res.json({
+                success: false
+            })
+    })
+    // (async ()=>{
+    //     try{
+    //         options.uid = req.session.user._id
+    //         let modify = await User.modifyUser(options)
+    //         res.json({
+    //             success: true
+    //         })
+    //     }catch(err){
+    //         console.log(err);
+    //         res.json({
+    //             success: false
+    //         })
+    //     }
+    // })()
+}
 
 
 // router.post('/register',checkNotLogin,register);
@@ -151,6 +206,8 @@ router.post('/reset',resetPassword);
 // router.post('/search',checkLogin,search)
 router.post('/delSession',delSession)
 router.post('/checkNotRegister',checkNotRegister)
+router.post('/modifyUserInfo',checkLogin,modifyUserInfo)
+router.get('/getUserInfo',checkLogin,getUserInfoById)
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

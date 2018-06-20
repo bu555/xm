@@ -148,21 +148,21 @@ class Account {
         })
     }
     // 修改用户资料
-    static modifyInfo(options={}){
-        return new Promise((resolve,reject)=>{
-            AccountModel.info.update({"uid":options.uid},{$set:{
-                    r_name:options.r_name || '',
-                    profile:options.profile || '', //简介
-                    sex:options.sex || '',
-                    city:options.city || '-1',
-                    birth:options.birth || '', 
-            }},err=>{
-                if(err) reject('modify faild')
-                resolve('modify success')
-            })
+    // static modifyInfo(options={}){
+    //     return new Promise((resolve,reject)=>{
+    //         AccountModel.info.update({"uid":options.uid},{$set:{
+    //                 r_name:options.r_name || '',
+    //                 profile:options.profile || '', //简介
+    //                 sex:options.sex || '',
+    //                 city:options.city || '-1',
+    //                 birth:options.birth || '', 
+    //         }},err=>{
+    //             if(err) return reject('modify faild')
+    //             resolve('modify success')
+    //         })
 
-        })
-    }
+    //     })
+    // }
     // 用户测试记录
     static addTestRecord(options={}){
         return new Promise((resolve,reject)=>{

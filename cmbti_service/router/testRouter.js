@@ -105,7 +105,7 @@ const getTestAllById = (req,res)=>{
 
     })()
 }
-// 查询批量test结果  {tid:[',']}
+// 用户删除test结果  {tid:‘’}
 const deleteTestById = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user?req.session.user._id:'';

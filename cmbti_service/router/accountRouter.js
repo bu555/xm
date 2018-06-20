@@ -17,8 +17,8 @@ var fm = require('formidable');
 
 const json = (d)=>{console.log(d);}
 
-// 获取用户info options {uid:''}
-const getUserInfoById = (req,res)=>{
+// 获取账户info options {}
+const getAccountInfoById = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
       if(!options.uid){
@@ -33,7 +33,8 @@ const getUserInfoById = (req,res)=>{
 
                 res.json({
                     success: true,
-                    message: 'Success'
+                    message: 'Success',
+                    data:r
                 })
 
             }catch(err){
@@ -72,43 +73,44 @@ const followUser = (req,res)=>{
       })()
 }
 // 修改用户信息 options {r_name:'',profile:'', sex:'',city:'-1',birth'',}
-const modifyUserInfo = (req,res)=>{
-        let options = req.body || {}
-        options.uid = req.session.user._id
-      if(typeof(options.r_name)!=='string' || typeof(options.profile)!=='string' || typeof(options.sex)!=='string' || typeof(options.city)!=='string' || typeof(options.birth)!=='string'){
-          return res.json({
-              success:false,
-              message:'Params Error'
-          })
-      }
-      (async ()=>{
-          {
-            //   xss处理
-          }
-          try{
-                let r = await Account.modifyInfo(options)
+// const modifyUserInfo = (req,res)=>{
+//         let options = req.body || {}
+//         options.uid = req.session.user._id
+//       if(typeof(options.r_name)!=='string' || typeof(options.profile)!=='string' || typeof(options.sex)!=='string' || typeof(options.city)!=='string' || typeof(options.birth)!=='string'){
+//           return res.json({
+//               success:false,
+//               message:'Params Error'
+//           })
+//       }
+//       (async ()=>{
+//           {
+//             //   xss处理
+//           }
+//           try{
+//                 let r = await Account.modifyInfo(options)
 
-                res.json({
-                    success: true,
-                    message: 'Success'
-                })
+//                 res.json({
+//                     success: true,
+//                     message: 'Success'
+//                 })
 
-            }catch(err){
-                return res.json({
-                    success: false,
-                    message: 'catch error' 
-                })
-            }
-      })()
-}
+//             }catch(err){
+//                 return res.json({
+//                     success: false,
+//                     message: 'catch error' 
+//                 })
+//             }
+//       })()
+// }
 // 上傳用戶頭像
 const uploadPhoto = (req,res)=>{
+    let uid = req.session.user._id
     // 5.1创建formidable文件解析上传数据
     // 注:下载安装formidable，引入formidable再创建formidable
     var form = new fm.IncomingForm();
     // 5.2设置路径
     // 注：把路径设置为静态路径下的uploads，需在public下创建uploads
-    form.uploadDir=path.join(__dirname,'/uploads')
+    form.uploadDir=path.join(__dirname,'../avatar')
     // uploadDir设置文件的上传的路径
     // 5.3解析上传内容
     form.parse(req);
@@ -118,8 +120,8 @@ const uploadPhoto = (req,res)=>{
     // 5.5监听file事件(在服务器的路径下，有上传的文件)，处理上传内容
     form.on('file',function(field,file){//file是上传的文件
         // 5.5.1 更改上传文件的名字
-        // 使用同步更改
-        fs.renameSync(file.path,path.join(form.uploadDir,'/icon.png'))
+        // 更改
+        fs.renameSync(file.path,path.join(form.uploadDir,'/'+uid+'.jpg'))
         // 第一个参数file.path表示上传的文件所在的路径
         // 5.5.2发送给浏览器端(客户端)
         res.json({
@@ -129,8 +131,8 @@ const uploadPhoto = (req,res)=>{
 }
 
 
-router.post('/uploadPhoto',uploadPhoto);
-// router.post('/searchExample',searchExample);
+router.post('/uploadPhoto',checkLogin,uploadPhoto);
+router.get('/getAccountInfo',checkLogin,getAccountInfoById);
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);
 // router.post('/getExampleById',getExampleById);
