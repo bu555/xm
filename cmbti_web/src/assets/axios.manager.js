@@ -73,7 +73,16 @@ export default {
     isLogin(){
         return axios.post(pathAPI+'/user/isLogin');
     },
+    //获取用户信息
+    getUserInfo(data){
+        return axios.get(pathAPI+'/user/getUserInfo',data);
+    },
+    //修改用户信息
+    modifyUserInfo(data){
+        return axios.post(pathAPI+'/user/modifyUserInfo',data);
+    },
 
+// example -------------------------------------
     //爬取数据添加example  （）
     addExample(data){
         return axios.post(pathAPI+'/example/addExample',data);
@@ -114,10 +123,6 @@ export default {
     getExampleById(data){
         return axios.get(pathAPI+'/example/getExampleById',data);
     },
-    //上传头像  
-    uploadPhoto(data){
-        return axios.post(pathAPI+'/account/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
-    },
 // Article----------------------------------------------
     // 發表文章 
     articlePublish(data){
@@ -146,5 +151,16 @@ export default {
     // 对文章评论点赞  input : {aid:'',uid:'',cid:''} 需登录
     clickArticleCommentZan(data){
         return axios.post(pathAPI+'/article/clickCommentZan',data);
+    },
+
+
+// My -------------------------------
+    //获取example数据  {eid:''}
+    getAccountInfo(data){
+        return axios.get(pathAPI+'/account/getAccountInfo',data);
+    },
+    //上传头像  
+    uploadPhoto(data){
+        return axios.post(pathAPI+'/account/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
     },
 }

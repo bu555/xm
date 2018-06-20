@@ -116,15 +116,49 @@ class User {
     // uid查询用户 {uid:''}
     static getUserById(options={}){
         return new Promise((resolve,reject)=>{
-            UserModel.findOne({"_id":options.uid},"avatar r_name").then(user=>{
+            // UserModel.findOne({"_id":options.uid},"-password","avatar r_name").then(user=>{
+            UserModel.findOne({"_id":options.uid},"-password").then(user=>{
                 if(user){
                     resolve(user)
                 }else{
                     resolve(null)
                 }
             }).catch((err)=>{
-                reject('The seach error')
+                reject('The uid not find')
             })
+        })
+    }
+    // 修改用户信息 {uid:''}
+    static modifyUser(options={}){
+        return new Promise((resolve,reject)=>{
+            let set = {}
+            if(options.r_name){
+                set.r_name = options.r_name
+            }
+            if(options.profile){
+                set.profile = options.profile
+            }
+            if(options.sex){
+                set.sex = options.sex
+            }
+            if(options.city){
+                set.city = options.city
+            }
+            if(options.birth){
+                set.birth = options.birth
+            }
+            if(options.avatar){
+                set.avatar = options.avatar
+            }
+            if(Object.keys(set).length<1){
+                reject('params error')
+            }
+            console.log('options',options);
+            UserModel.update({"_id":options.uid},{$set:set},err=>{
+                if(err) return reject('modify faild')
+                resolve('modify success')
+            })
+
         })
     }
 

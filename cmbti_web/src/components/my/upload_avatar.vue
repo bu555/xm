@@ -9,8 +9,8 @@
         :outputType="'jpg'"
         :fixedBox="true"
         :autoCrop="true"
-        :autoCropWidth="125"
-        :autoCropHeight="125"
+        :autoCropWidth="255"
+        :autoCropHeight="255"
         @realTime="realTime"
         @canMove="false"
         ></vueCropper>
@@ -23,8 +23,8 @@
         </div> 
     </div>-->
     <div class="btns">
-        <button v-if="!readyUpload" type="button" class="btn" disabled style="margin-right:12px">圖像保存</button> 
-        <button v-if="readyUpload" type="button" class="btn btn-primary" @click="save()" style="margin-right:12px">圖像保存</button>
+        <button v-if="!readyUpload" type="button" class="btn" disabled style="margin-right:12px">头像保存</button> 
+        <button v-if="readyUpload" type="button" class="btn btn-primary" @click="save()" style="margin-right:12px">头像保存</button>
         <button type="button" class="btn " @click="callClose()">取 消</button>
     </div>
 
@@ -67,12 +67,16 @@ export default {
         this.loading = true
         this.$refs.cropper.getCropBlob((data) => { 
             let uploadData = new FormData();
-            uploadData.append('file', data,'avatar.png');
+            uploadData.append('file', data,'avatar.jpg');
 
             this.$axios.uploadPhoto(uploadData).then(res=>{
                 this.loading = false;
                 if(res.data.success){
-                    console.log('success');
+                    this.$message({
+                        message: '保存成功！',
+                        type: 'success'
+                    });
+                    this.callClose(true)
                 }else{
                     this.$message({
                         showClose: true,

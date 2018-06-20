@@ -89,7 +89,7 @@ const deleteArticle = (req,res)=>{
     })()
 
 }
-// 点击喜欢文章  input : {uid:'',aid:''}
+// 点击/取消喜欢文章  input : {uid:'',aid:''}
 const clickArticleLike = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;

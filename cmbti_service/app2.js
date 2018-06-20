@@ -41,6 +41,7 @@ app.use(session({
 
 app.use('/', express.static(path.join(__dirname,'public')));
 app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
+app.use('/avatar', express.static(path.join(__dirname,'avatar')));
 app.use('/api/user',userRouter);
 app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);
