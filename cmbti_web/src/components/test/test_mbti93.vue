@@ -63,6 +63,20 @@ export default {
         }
     },
     methods:{
+        calcType(res){
+            let type = ''
+            const m = 'eisntfjp'
+            let keys = Object.keys(res)
+            for(let i=0;i<m.length;i+=2){
+                if(keys.indexOf(m[i])===-1 || keys.indexOf(m[i+1])===-1) return 'params error!'
+                if(res[m[i]]===res[m[i+1]]){
+                    return m[i]+'==='+ m[i+1]
+                }else{
+                    type += res[m[i]]>res[m[i+1]] ? m[i] : m[i+1]
+                }
+            }
+            return type
+        },
         submitTest(){
             console.log(this.mbti93);
             this.mbti93.forEach((v,i)=>{
@@ -71,7 +85,28 @@ export default {
                     console.log(v.res);
                 }
             })
-            console.log(this.res);
+            let type = this.calcType({
+                e:2,i:4,s:5,n:8,t:5,f:0,j:11    ,p:19
+            }); 
+            if(type){
+                if(type.indexOf('===')>-1){
+                    console.log(type.split('===')[0]+type.split('===')[1] );
+                    return
+                }else if(type.length===4){
+                    console.log(type);
+                }else{
+                    return
+                }
+            }else{
+                return
+            }
+            let options = {
+                category:'mbti93',
+                result:this.res,
+                type:type
+                }
+            console.log("Options",options);
+            return;
             this.$router.push({
                 path:'/test/mbti93/report',
                 query:{
@@ -88,6 +123,8 @@ export default {
         console.log(this.mbti93);
         // this.res93 
 
+        
+        this.submitTest()
 
     },
     components:{
@@ -101,7 +138,7 @@ export default {
     background-color: #fff;
     margin:0px auto;
     max-width:768px;
-    padding:2% 3%;
+    padding:37px 3%;
     .info {
         padding-bottom:10px;
         &>p {

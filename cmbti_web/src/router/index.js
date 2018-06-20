@@ -81,7 +81,7 @@ const vueRouter = new Router({
       component:test,
       children:[
         {path:'',component:test_home},
-        {path:'personality',component:test_mbti93},
+        {path:'mbti93',component:test_mbti93},
       ]
     },
     // {path:'/test/mbti93',component:test_mbti93},

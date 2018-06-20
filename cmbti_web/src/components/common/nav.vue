@@ -211,6 +211,7 @@ export default {
 <style lang="less">
 .my-nav {
   background-color: #598dd3;
+  background-color: #456ea5;
   margin-top: 50px;
   .navbar {
       margin-bottom: 0px;
@@ -239,6 +240,8 @@ export default {
   }
   .navbar.navbar-default {
     background-color: #598dd3;
+    // background-color: #8268a9;
+    background-color: #456ea5;
     border: none;
   }
   .navbar-default .navbar-nav>li>a {
@@ -288,6 +291,8 @@ export default {
   .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
       color: #fff;
       background-color: #456ea5;;
+      background-color: #35485a55;;
+      // background-color: #8268a9;;
   }
   .my-nav a:hover, .my-nav a:visited {
       color: #fff;

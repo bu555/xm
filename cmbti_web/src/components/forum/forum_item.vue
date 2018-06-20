@@ -64,7 +64,7 @@
             </div>
 
             <div class="a-publish-comment" v-if="showComment">
-                <el-input type="textarea" v-model="myComment" placeholder="发表评论"></el-input></br>
+                <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input></br>
                 <div style="text-align:right;padding-top:10px">
                     <el-button size="small" type="default"  @click="showComment=false">取 消</el-button>
                     <el-button size="small" type="primary" @click="addComment">发 表</el-button>
