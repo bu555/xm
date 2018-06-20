@@ -59,10 +59,17 @@
                     
                 </div>
                 <div>
-                    <el-button plain size="small"  style="font-size:15px"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 写评论</el-button>
+                    <el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 写评论</el-button>
                 </div>
             </div>
 
+            <div class="a-publish-comment" v-if="showComment">
+                <el-input type="textarea" v-model="myComment" placeholder="发表评论"></el-input></br>
+                <div style="text-align:right;padding-top:10px">
+                    <el-button size="small" type="default"  @click="showComment=false">取 消</el-button>
+                    <el-button size="small" type="primary" @click="addComment">发 表</el-button>
+                </div>
+            </div>
          </div>
          <div class="comment">
             <div class="c-header" >
@@ -131,7 +138,9 @@ export default {
             commentList:[],
             size:3,
             commentPage:1,
-            currentCommentList:[]
+            currentCommentList:[],
+            showComment:false,
+            myComment:''
         }
     },
     methods:{
@@ -169,9 +178,18 @@ export default {
             })
         },
         addComment(){
-            this.$axios.articleAddComment({aid:this.aid,content:'这是评论内容'}).then(res=>{
+            if(!this.myComment.trim()){
+                this.$message.error('请输入评论内容！');
+                return 
+            }
+            this.$axios.articleAddComment({aid:this.aid,content:this.myComment}).then(res=>{
                 if(res.data.success){
-                    console.log('评论成功');
+                    this.$message({
+                        message: '登录成功！',
+                        type: 'success'
+                    });
+                    this.myComment = ''
+
                 }
             })
         },
@@ -359,7 +377,7 @@ export default {
         .a-footer {
             padding:2% 6% 2% 8%;
             border-top:1px solid #eee;
-            border-bottom:1px solid #eee;
+            // border-bottom:1px solid #eee;
             background-color: #fefefe;
             display:flex;
             justify-content: space-between;
@@ -384,6 +402,11 @@ export default {
             }
 
         }
+    }
+    .a-publish-comment {
+        background-color: #fefefe;
+        padding:3%;
+        border-top:1px solid #eee;
     }
     .comment {
         background-color: #fff;

@@ -39,7 +39,7 @@
             <div class="questions">
                 <div class="item" v-for="(v,i) in mbti93" :key="i">
                     <div class="title">{{i+1}}、{{v.q}}</div>
-                    <div class="radio-box" style="padding-left:20px">
+                    <div class="radio-box">
                         <el-radio v-model="v.res" :label="v.at">{{v.a}}</el-radio><br/>
                         <el-radio v-model="v.res" :label="v.bt">{{v.b}}</el-radio>
                     </div>
@@ -85,6 +85,7 @@ export default {
     created(){
 
         this.mbti93 = mbti93
+        console.log(this.mbti93);
         // this.res93 
 
 
@@ -96,7 +97,7 @@ export default {
 </script>
 <style lang="less">
 .test-mbti93 {
-    font-size:15px;
+    // font-size:17px;
     background-color: #fff;
     margin:0px auto;
     max-width:768px;
@@ -136,7 +137,7 @@ export default {
         padding-left:5px;
         .item {
             padding-top:12px;
-            font-size:15px;
+            font-size:16px;
             .title {
                 padding-bottom:4px;
                 // text-indent:-32px;
@@ -145,8 +146,9 @@ export default {
             }
             .el-radio {
                 white-space:normal; 
+                padding-left:20px;
                 span {
-                font-size:15px;
+                font-size:16px;
                 }
                 span.el-radio__label {
                 }

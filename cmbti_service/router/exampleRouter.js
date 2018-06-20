@@ -93,7 +93,7 @@ const goVote = (req,res,next)=>{
           console.log(error);
             res.json({
                 success:false,
-                message:"faild"
+                message:error
             })
       })
 
@@ -231,37 +231,40 @@ const getComment = (req,res)=>{
       })()
 }
 // 评论点赞
-const clickZan = (req,res,next)=>{ //{page:num}
-      let uid = req.session.user._id
-      let eid = req.body.eid || ''
-      let cid = req.body.cid || ''
-      if(!cid || !eid ||!uid){
-          return res.json({
-              success:false,
-              message:'参数格式错误'
-          })
-      }
-      (async ()=>{
-          try{
-                let zanCount = await Comment.clickZan({ eid: eid,cid:cid,uid:uid })
+const clickCommentZan = (req,res,next)=>{ //{page:num}
+    let options = req.body || {}
+    options.uid = req.session.user._id;
+    // 参数验证
+    if(!options.uid || !options.eid || !options.cid ){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+    (async ()=>{
+        try{
+            let r = await Example.clickCommentZan(options)  
+            
+            res.json({
+                success: true,
+                message: 'success',
+                result: r,
+            })
 
-                res.json({
-                    success:true,
-                    zanCount:zanCount
-                })
-           }catch(error){
-                res.json({
-                    success:false,
-                    message:error
-                })
-           }
-      })()
+        }catch(err){
+            console.log(err);
+            return res.json({
+                success: false,
+                message: 'catch error' 
+            })
+        }
+    })()
 
 
 }
 const getExampleById = (req,res,next)=>{
     // let login = req.session.user  //是否登录
-    let eid = req.body.eid || ''
+    let eid = req.query.eid || ''
     let uid = req.session.user ? req.session.user._id : ''
     if(!eid){
           return res.json({
@@ -289,8 +292,8 @@ router.post('/addExample',addExample);
 router.post('/searchExample',searchExample);
 router.post('/goVote',checkLogin,goVote);
 router.post('/addComment',checkLogin,addComment);
-router.post('/getExampleById',getExampleById);
+router.get('/getExampleById',getExampleById);
 router.post('/getComment',getComment);
-router.post('/clickZan',checkLogin,clickZan);
+router.post('/clickCommentZan',checkLogin,clickCommentZan);
 
 module.exports = router

@@ -19,28 +19,25 @@
                     <div class="vote">
                         <!--人物详情-->
                         <div class="example-box">
-                                <div class="e-info">
+                                <div class="e-info overflow-row-13">
                                     <div class="item">
                                         <!--<img :src="exampleItem.img_url" alt="">-->
                                         <div class="photo">
-                                            <img :src="'f'+$pathImgs+exampleItem.img_url" alt="">
+                                            <img :src="$pathImgs+exampleItem.img_url" alt="">
+                                        </div>
+                                        <div class="e-more">
+                                            <a href="" target="_blank">[维基百科]</a>
+                                            <a href="" target="_blank">[百度百科]</a>查看更多
                                         </div>
                                     </div>
-                                    <!--<div class="txt">-->
                                     {{exampleItem.info}}
-                                    <a href="" target="_blank">
-                                        [百度百科]
-                                    </a>
-                                    <a href="" target="_blank">
-                                        [互动百科]
-                                    </a>
                                 </div>
                                 <!--投票-->
                                 <div class="vote-box" v-if="!isVote">
                                         <div class="info">
                                         </div>
                                         <div class="vote-title">
-                                            <p class="tit">{{exampleItem.name}}</p>
+                                            <p class="tit overflow-row-1">{{exampleItem.name}}</p>
                                             <p>( {{exampleItem.type?exampleItem.type.toUpperCase():''}} )</p>
                                             
                                         </div>
@@ -96,22 +93,52 @@
                         </div>
                         <!--评论区-->
                         <div class="comment">
-                            <div class="title">评论区</div>
-                            <div class="category">
-                                <span>分类：</span>
-                                <span>热门</span>
-                                <span class="line"></span>
-                                <span>最新</span>
+                            <div class="c-header" >
+                                <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
+                                <span> 评论</span>
                             </div>
-                            <div class="content">
-                                <div class="list">
-                                    <myComment :comment="commentList"></myComment>
-                                </div> 
-                                <div v-if="commentList.length===0" class="empty">暂无评论 (￢_￢)</div>
-                                <div v-if="!isOver" @click="getComment()" class="load-more">加载更多.....</div>
-                                <div v-if="commentList.length!==0 && isOver" class="nor-more">没有更多了(¬､¬)</div>
+                            <div class="c-tab">
+                                <span>按</span>
+                                <span class="hot active" @click="toggleCommentType($event,'hot')">热门</span>
+                                <span>|</span>
+                                <span class="time" @click="toggleCommentType($event,'time')">时间</span>
+                            </div>
+                            <div class="c-body">
+                                <div v-if="commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                                <div class="c-list" v-for="(v,i) in commentList">
+                                    <div class="photo">
+                                        <router-link to="">
+                                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                                            <img v-else src="/static/img/logo_a.png" alt="">
+                                        </router-link>
+                                    </div>
+                                    <div class="c-name">{{v.r_name}}
+                                        <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
+                                    </div>
+                                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
+                                        <!--搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html-->
+                                    </div>
+                                    <div class="c-ctrl">
+                                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
+                                            <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
+                                            <em>{{v.zans}}</em> 
+                                        </div>
+                                        <div class="reply c-c">
+                                            <i class="icon iconfont icon-message" style="font-size:24px"></i> 
+                                            <em>22</em> 
+                                        </div>
+                                        <div class="share c-c">
+                                            <i class="icon iconfont icon-share_fill" style="font-size:20px"></i> 
+                                            <em></em> 
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="load-more" v-if="currentCommentList.length==size" @click="moreComment">
+                                加载更多...
+                                </div>
                             </div>
+
                         </div>
 
             
@@ -154,7 +181,9 @@ export default {
             tabFixed:false, //tab定位
             commentPage:1,
             isOver:true,
-            eid:''
+            eid:'',
+            size:4,
+            currentCommentList:[]
         }
     },
     methods:{
@@ -200,8 +229,8 @@ export default {
                 console.log('KKK',res);
                 if(res.data.success){
                     this.myComment=''
-                    this.commentPage = 1
-                    this.getComment()
+                    // this.commentPage = 1
+                    // this.getComment()
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -270,7 +299,9 @@ export default {
         getExampleById(){
                 this.exampleItem = '';
                 this.$axios.getExampleById({
-                    eid:this.eid
+                    params:{
+                        eid:this.eid
+                    }
                 }).then(res=>{
                     if(res.data.success){
                         this.exampleHandle(res.data.example)
@@ -283,40 +314,59 @@ export default {
             this.$axios.getComment({
                 eid:this.eid,
                 page:this.commentPage,
-                size:4
+                size:this.size
             }).then(res=>{
                 if(res.data.success){
+                    this.currentCommentList = res.data.comment
                     this.commentList = this.commentList.concat(res.data.comment)
-                    this.isOver = res.data.over  //是否还有数据
-                    this.commentPage = this.commentPage+1
                 }
             }).catch(error=>{
                 console.log(error);
             })
 
         },
+        zan(e,cid,zans){
+            let d = e.currentTarget.querySelector('em')
+            let count = d.innerHTML
+            // console.log(count);
+            this.$axios.clickExampleCommentZan({eid:this.eid,cid:cid}).then(res=>{
+                if(res.data.success){
+                    // if(e.currentTarget.classList.contains('active')){
+                    //     count = Number(count)-1
+                    // }else{
+                    //     count = Number(count)+1
+                    // }
+                    d.innerHTML = Number(count)+res.data.result.count
+                    // e.currentTarget.classList.toggle('active')
+                }
+            })
+
+        },
+        moreComment(){
+            this.commentPage = this.commentPage-0+1  //页数加1
+            this.getComment()  //获取下一页评论
+        },
         handleScroll () {
             this.tabFixed = window.scrollY>102;
             // console.log(window.scrollY);
         },
-        initData(flag){
-            
-            if(flag==='init'){
-                this.getExampleById();
-                this.getComment()
-            }else{
-                // 弹窗登录成功后进入此分支
-                if(!this.$store.state.modalLoginSuccess) return;
-                this.commentPage = 1
-                setTimeout(()=>{
-                    this.getExampleById();
-                    this.getComment()
-                },22)
-            }
+        initData(){
+            this.commentList=[]
+            this.commentPage=1
+            this.currentCommentList = []
+            this.getExampleById()
+            this.getComment()
         }
     },
     mounted(){
         // window.addEventListener('scroll', this.handleScroll);
+
+        navigator.serviceWorker.addEventListener('message', function (event) {
+    if (e.data === 'sw.update') {
+        console.log('接收到',e.data);
+        // 此处可以操作页面的 DOM 元素啦
+    }
+});
     },
     watch:{
         '$store.state.modalLoginSuccess':'initData'
@@ -324,7 +374,7 @@ export default {
     },
     created(){
         this.eid = this.$route.path.split('/')[2]
-        this.initData('init')
+        this.initData()
         //设置返回位置
         this.fromPath = localStorage.getItem('fromPath')
         if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
@@ -410,12 +460,14 @@ export default {
                 padding-right:50%;
                 background-color: #f5f5f5;
                 overflow: hidden;
-                font-size:13px;
+                font-size:14px;
                 color:#777;
                 word-break: break-all; //英文换行
                 margin-bottom:15px;
                 .e-info {
-                    height:292px;
+                    height:262px;
+                    padding-right:180px;
+                    position: relative;
                 }
                 a {
                     color:#70a9e5;
@@ -423,12 +475,10 @@ export default {
                 .item {
                     // flex:1 0 46%;
                     box-sizing: border-box;
-                    float:right;
-                    margin-right:5px;
-                    padding-left:12px;
-                    margin-bottom:8px;
                     width:170px;
-                    position: relative;
+                    position: absolute;
+                    right:0px;
+                    top:0px;
                     .photo {
                         width:100%;
                         height:200px;
@@ -437,6 +487,9 @@ export default {
                     }
                     img {
                         width:100%;
+                    }
+                    .e-more {
+                        padding:7px 0;
                     }
                 }
                 // 投票结果
@@ -526,60 +579,125 @@ export default {
 
             }   
             .user-ctrl {
-
+                margin-bottom:25px;
             }
             .u-comment {
                 max-width:555px;
             }
             .comment {
-                padding-top:10px;
-                // width:600px;
-                .content {
-                    background-color: #fefeff;
-                    border-radius:2px;
-                    padding-bottom:12px;
-                    border:1px solid #f5f5f5;
+                background-color: #fff;
+                min-height:150px;
+                padding-bottom:10px;
+                .c-header {
+                    height:40px;
+                    line-height: 40px;
+                    border-bottom:1px solid #eee;
+                    background-color: #a4c8ed;
+                    padding-left:4%;
+                    color:#fff;
+                    font-size:16px;
+                    display:flex;
+                    align-items:center;
                 }
-                .title {
-                    font-size:15px;
-                }
-                .category {
-                    font-size:14px;
-                    display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-                    padding-top:2px;
-                    margin-bottom:5px;
-                    span {
-                        height:22px;
-                        line-height: 22px;
+                .c-tab {
+                        height:35px;
+                        line-height: 35px;
+                        border-bottom:1px solid #fafafa;
+                        background-color: #fafafa;
+                        padding-left:4%;
+                        font-size:15px;
+                        display:flex;
+                        color:#555;
+                        &>span {
+                            margin-right:7px;
+                        }
+                        .hot,.time {
+                            cursor:pointer;
+                        }
+                        &>span.active {
+                            font-weight:700;
+                            color:#222;
+                        }
                     }
-                    .line {
-                        width:1px;
-                        height:15px;
-                        background-color:#ccc;
-                        margin:3px 6px;
+                .c-body {
+                    padding:2% 4.5% 3% 4%;
+                    .c-list {
+                        // background: pink;
+                        min-height:60px;
+                        padding:12px 0px 9px 50px;
+                        border-bottom:1px solid #f7f7f7;
+                        position: relative;
+                        color:#3c3c3c;
+                        .photo {
+                            width:39px;
+                            height:39px;
+                            border:1px solid #eee;
+                            position: absolute;
+                            top:15px;
+                            left:0px;
+                            border-radius:2px;
+                            img {
+                                width:100%;
+                                height:100%;
+                            }
+                        }
+                        .c-name {
+                            font-size:15px;
+                            font-weight:700;
+                            // color:#456ea5;
+                            &>span {
+                                color:#aaa;
+                                padding-left:10px;
+                                font-weight:400;
+                            }
+                        }
+                        .c-content {
+                            padding:2px 0 5px;
+                            font-size:15px;
+                        }
+                        .c-ctrl {
+                            display:flex;
+                            font-size:14px;
+                            padding-top:5px;
+                            .c-c {
+                                line-height: 20px;;
+                                vertical-align: middle;
+                                display:flex;
+                                align-items: center;
+                                cursor:pointer;
+                                width:25px;
+                                margin-right:50px;
+                                color:#cbcbcb;
+                                i {
+                                    padding:2px 2px 2px 1px;
+                                }
+                                em {
+                                    padding-top:4px;
+                                }
+                            }
+                            .zan {
+                                margin-right:50px;
+                                &:hover {
+
+                                }
+
+                            }
+                            .zan.active {
+                                color:#70a9e5;
+                            }
+                        }
                     }
-                }
-                .empty {
-                    text-align:center;
-                    background:#fff;
-                    height:42px;
-                    line-height: 42px;
-                }
-                .load-more {
-                    margin:0px auto;
-                    max-width:200px;
-                    height:42px;
-                    line-height: 42px;
-                    color: blue;
-                    text-align:center;
-                    // background-color: #eee;
-                    cursor:pointer;
-                    font-size:15px;
-                }
-                .nor-more {
-                    color:#ccc;
-                    text-align: center;
-                    padding-top:10px;
+                    .load-more {
+                        max-width:365px;
+                        margin:0 auto;
+                        text-align:center;
+                        padding:10px 0;
+                        cursor:pointer;
+                        color:#598dd3;
+                        &:hover {
+                            color:#456ea5;
+                        }
+                    }
                 }
             }
         } 

@@ -18,10 +18,10 @@
     <div class="bx">
         <div class="example-list" style="min-height:300px"> 
                 <!--无数据--><!--无数据-->
-                <div v-if="exampleList&&exampleList.length===0" style="padding-top:70px;text-align:center;width:100%">
+                <div v-if="exampleList&&exampleList.length===0" style="padding-top:20px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
                     <div v-if="$route.query.s">
-                        你可以点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.search)">添加</button>{{$route.query.search}}到名人库
+                        你可以点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.s)">添加</button>{{$route.query.s}}到名人库
                     </div>
                 </div>
                 <!--有数据-->
@@ -171,7 +171,7 @@ export default {
     methods:{
         search(){
             if(this.searchName){
-                this.$router.push({query:{search:this.searchName}})
+                this.$router.push({query:{s:this.searchName}})
             }
         },
         changePage(e){
