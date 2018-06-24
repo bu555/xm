@@ -12,8 +12,8 @@ import user_verify from '@/components/user/user_verify'
 import home_index from '@/components/home/home_index' ;import home_index1 from '@/components/home/home_index.1'
 
 //type页面
-import type from '@/components/type/type'
-import type_details from '@/components/type/type_details'
+import type from '@/components/personalities/type'
+import type_details from '@/components/personalities/type_details'
 
 // mbti
 import mbti from '@/components/mbti/mbti'
@@ -64,9 +64,9 @@ const vueRouter = new Router({
 
     // type
     {
-      path:'/type',
+      path:'/personalities',
       component:type,
-      redirect:'/type/entj',
+      redirect:'/personalities/entj',
       children:[
         {path:':type',component:type_details}
       ]
