@@ -10,14 +10,14 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 // const User = require('../controllers/user')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
+const User = require('../controllers/userHandler')
 const fs = require('fs')
 const path = require('path')
 
-var fm = require('formidable');
 
 const json = (d)=>{console.log(d);}
 
-// 获取账户info options {}
+// 获取账户info options {} //需登錄
 const getAccountInfoById = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
@@ -102,36 +102,7 @@ const followUser = (req,res)=>{
 //             }
 //       })()
 // }
-// 上傳用戶頭像
-const uploadPhoto = (req,res)=>{
-    let uid = req.session.user._id
-    // 5.1创建formidable文件解析上传数据
-    // 注:下载安装formidable，引入formidable再创建formidable
-    var form = new fm.IncomingForm();
-    // 5.2设置路径
-    // 注：把路径设置为静态路径下的uploads，需在public下创建uploads
-    form.uploadDir=path.join(__dirname,'../avatar')
-    // uploadDir设置文件的上传的路径
-    // 5.3解析上传内容
-    form.parse(req);
-    form.on('end',function(){
-        console.log('upload success')
-    })
-    // 5.5监听file事件(在服务器的路径下，有上传的文件)，处理上传内容
-    form.on('file',function(field,file){//file是上传的文件
-        // 5.5.1 更改上传文件的名字
-        // 更改
-        fs.renameSync(file.path,path.join(form.uploadDir,'/'+uid+'.jpg'))
-        // 第一个参数file.path表示上传的文件所在的路径
-        // 5.5.2发送给浏览器端(客户端)
-        res.json({
-            success:true
-        })
-    })
-}
 
-
-router.post('/uploadPhoto',checkLogin,uploadPhoto);
 router.get('/getAccountInfo',checkLogin,getAccountInfoById);
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);

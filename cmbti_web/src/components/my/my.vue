@@ -1,8 +1,9 @@
 <template>
-<div class="my">
+<div class="my" v-if="$store.state.userInfo">
     <div class="m-header">
         <div class="photo" @click="showUploadAvatar=true">
-            <img src="/static/img/logo_a.png" alt="">
+            <img v-if="$store.state.userInfo" :src="$pathAvatar +$store.state.userInfo.avatar" alt="">
+            <img v-else src="/static/img/logo_a.png" alt="">
         </div>
         <div class="edit-photo">
             <button>上传封面照片</button>
@@ -11,8 +12,8 @@
             <!--<button>编辑个人资料</button>-->
         </div>
         <div class="m-info">
-            <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">密南南密</span> <span  class="sex"></span></div>
-            <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px">质量管理/汽车制造/爬山&骑行爱好者</div>
+            <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{$store.state.userInfo.r_name}}</span> <span  class="sex"></span></div>
+            <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px">{{$store.state.userInfo.profile?$store.state.userInfo.profile:'未設置'}}</div>
         </div>
     </div>
     <div class="main-box">
@@ -48,6 +49,9 @@ export default {
     components:{
         uploadAvatar
     },
+    watch:{
+        '$store.state.modalLoginSuccess':'getAccount'
+    },
     methods:{
         listenSon(success){
             this.showUploadAvatar = false;
@@ -60,7 +64,7 @@ export default {
             // 获取账户信息
             this.$axios.getAccountInfo().then(res=>{
                 if(res.success){
-                    console.log(res);
+                    this.$store.commit('setAccountInfo',res.data)
                 }
             })
         },
@@ -69,26 +73,15 @@ export default {
             this.$axios.getUserInfo().then(res=>{
                 if(res.success){
                     console.log(res);
-                }
-            })
-        },
-        modifyUserInfo(){
-            // 修改账户信息
-            this.$axios.modifyUserInfo({avatar:'a777777555551'}).then(res=>{
-                if(res.success){
-                    console.log(res);
+                    localStorage.setItem('USER',JSON.stringify(res.data));
+                    this.$store.commit('setUserInfo',res.data)
                 }
             })
         }
     },
-    watch:{
-
-    },
     mounted(){
-
     },
     created(){
-        this.modifyUserInfo()
         this.getAccount()
         this.getUser()
     },

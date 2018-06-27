@@ -117,7 +117,7 @@ class User {
     static getUserById(options={}){
         return new Promise((resolve,reject)=>{
             // UserModel.findOne({"_id":options.uid},"-password","avatar r_name").then(user=>{
-            UserModel.findOne({"_id":options.uid},"-password").then(user=>{
+            UserModel.findOne({"_id":options.uid},"-password -create_time").then(user=>{
                 if(user){
                     resolve(user)
                 }else{

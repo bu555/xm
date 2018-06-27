@@ -18,6 +18,9 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const User = require('../controllers/userHandler')
 const Account = require('../controllers/accountHandler')
 
+var fm = require('formidable');
+const fs = require('fs')
+const path = require('path')
 
 
       
@@ -117,9 +120,13 @@ const login = (req, res) => {
     User.login(req.body).then(user=>{
         // 用户信息写入 session
         req.session.user = user;
+        let _user = JSON.parse(JSON.stringify(user))
+        delete _user._id
+        delete _user.password
+        delete _user.create_time
         res.json({
             success:true,
-            user:user,
+            user:_user,
             message:'登錄成功'
         })
     }).catch(err=>{
@@ -196,6 +203,46 @@ const modifyUserInfo = (req, res) =>{
     // })()
 }
 
+// 上傳用戶頭像
+const uploadPhoto = (req,res)=>{
+    let uid = req.session.user._id
+    let avatarPath = '/'+uid+'.jpg'
+    // 5.1创建formidable文件解析上传数据
+    // 注:下载安装formidable，引入formidable再创建formidable
+    var form = new fm.IncomingForm();
+    // 5.2设置路径
+    // 注：把路径设置为静态路径下的uploads，需在public下创建uploads
+    form.uploadDir=path.join(__dirname,'../avatar')
+    // uploadDir设置文件的上传的路径
+    // 5.3解析上传内容
+    form.parse(req);
+    form.on('end',function(){
+        User.modifyUser({avatar:avatarPath,uid:uid}).then(r=>{
+            res.json({
+                success:true
+            })
+        }).catch(err=>{
+            res.json({
+                success:false
+            })
+        })
+    })
+    // 5.5监听file事件(在服务器的路径下，有上传的文件)，处理上传内容
+    form.on('file',function(field,file){//file是上传的文件
+        // 5.5.1 更改上传文件的名字
+        // 更改
+        fs.renameSync(file.path,path.join(form.uploadDir,avatarPath))
+        // 第一个参数file.path表示上传的文件所在的路径
+        // 5.5.2发送给浏览器端(客户端)
+    })
+}
+
+
+
+
+
+
+
 
 // router.post('/register',checkNotLogin,register);
 router.post('/register',register);
@@ -208,6 +255,7 @@ router.post('/delSession',delSession)
 router.post('/checkNotRegister',checkNotRegister)
 router.post('/modifyUserInfo',checkLogin,modifyUserInfo)
 router.get('/getUserInfo',checkLogin,getUserInfoById)
+router.post('/uploadPhoto',checkLogin,uploadPhoto);
 
 //   router.post('/register', checkNotLogin, Register),
 //     router.post('/login', checkNotLogin, Login),

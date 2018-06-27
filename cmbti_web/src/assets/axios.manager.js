@@ -8,7 +8,9 @@ var path = "http://localhost:7000/"; // dev
 // var path = "/"; //prod
 var pathAPI = path+"api"; //代理服务器API路由
 var pathImgs = path+"imgs"; //代理服务器图片路由
+var pathAvatar = path+"avatar"; //代理服务器头像路由
 Vue.prototype.$pathImgs = pathImgs  
+Vue.prototype.$pathAvatar = pathAvatar  
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 7000;
@@ -80,6 +82,10 @@ export default {
     //修改用户信息
     modifyUserInfo(data){
         return axios.post(pathAPI+'/user/modifyUserInfo',data);
+    },
+    //上传头像  
+    uploadPhoto(data){
+        return axios.post(pathAPI+'/user/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
     },
 
 // example -------------------------------------
@@ -155,12 +161,9 @@ export default {
 
 
 // My -------------------------------
-    //获取example数据  {eid:''}
+    //获取AccountInfo  {'}
     getAccountInfo(data){
         return axios.get(pathAPI+'/account/getAccountInfo',data);
     },
-    //上传头像  
-    uploadPhoto(data){
-        return axios.post(pathAPI+'/account/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
-    },
+
 }

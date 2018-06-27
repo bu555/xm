@@ -46,12 +46,18 @@ export default {
               this.routerHeight = view_height;
             };
         }
+    },
+    init(){
+       if(localStorage.getItem('USER')){
+          this.$store.commit('setUserInfo',JSON.parse(localStorage.getItem('USER')))
+       }
     }
   },
   mounted(){
     // $('.router-view').css('minHeight',this.routerHeight+'px');
   },
   created(){
+    this.init()
     let _this = this;
     _this.setHtmlFontSize();
     _this.setMinHeight();
