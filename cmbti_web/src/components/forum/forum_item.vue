@@ -1,7 +1,7 @@
 <template>
-<div class="forum-item">
+<div class="forum-item" v-loading="loading">
     <div class="main-box">
-         <div class="article">
+         <div class="article" v-loading="loading1">
             <div class="a-header">
                 <div class="title">
                     <div  class="a-type">
@@ -71,7 +71,7 @@
                 </div>
             </div>
          </div>
-         <div class="comment">
+         <div class="comment" v-loading="loading2">
             <div class="c-header" >
                  <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
                  <span> 评论</span>
@@ -140,7 +140,10 @@ export default {
             commentPage:1,
             currentCommentList:[],
             showComment:false,
-            myComment:''
+            myComment:'',
+            loading1:false,
+            loading2:false,
+            loading:false
         }
     },
     methods:{
@@ -163,18 +166,26 @@ export default {
 
         },
         getCommentByAid(){
+            this.loading2 = true
             this.$axios.getCommentByAid({aid:this.aid,page:this.commentPage,size:this.size}).then(res=>{
+                this.loading2 = false
                 if(res.data.success){
                     this.currentCommentList = res.data.data
                     this.commentList = this.commentList.concat(res.data.data)
                 }
+            }).catch(err=>{
+                this.loading2 = false
             })
         },
         getArticleInfo(){
+            this.loading1 = true
             this.$axios.getArticleById({aid:this.aid}).then(res=>{
+                this.loading1 = false
                 if(res.data.success){
                     this.data = res.data.data
                 }
+            }).catch(err=>{
+                this.loading1 = false
             })
         },
         addComment(){
@@ -182,15 +193,18 @@ export default {
                 this.$message.error('请输入评论内容！');
                 return 
             }
+            this.loading = true
             this.$axios.articleAddComment({aid:this.aid,content:this.myComment}).then(res=>{
+                this.loading = false
                 if(res.data.success){
                     this.$message({
                         message: '登录成功！',
                         type: 'success'
                     });
                     this.myComment = ''
-
                 }
+            }).catch(err=>{
+                this.loading = false
             })
         },
         clickLike(){

@@ -30,23 +30,30 @@
                     <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
                 </router-link>
                 <div class="items user-ctrl">
-                  <div v-if="0">登录 / 注册</div>
+                  <div v-if="10">登录 / 注册</div>
                   <div v-else class="not-login">
                       <img class="avatar" src="../../../static/img/logo_a.png" alt="">
                       <div class="role-name overflow-row-1">中华人民共和国合同法</div>
                       <div class="user-login-out">
-                        退出
+                        <!--<i class="el-icon-caret-bottom"></i>-->
+                            <el-dropdown trigger="click" @command="handleCommand">
+                              <span class="el-dropdown-link">
+                                <i class="el-icon-arrow-down el-icon--right" style="margin:5px;"></i>
+                              </span>
+                              <el-dropdown-menu slot="dropdown" style="top:34px">
+                                <el-dropdown-item command="account"><i class="fa fa-user"></i> 个人中心</el-dropdown-item>
+                                <el-dropdown-item command="exit"><i class="fa fa-sign-out"></i> 退出</el-dropdown-item>
+                              </el-dropdown-menu>
+                            </el-dropdown>
                         <div>
-                          <router-link to="">
-
-                          </router-link>
                         </div>
                       </div>
-
                   </div>
+
+
                 </div>
             </div>
-            <div class="down-btn" @click="showDownMeun=!showDownMeun">下来</div>
+            <div class="down-btn" @click="showDownMeun=!showDownMeun"><i class="fa fa-navicon"></i></div>
          </div>
       </div>
   </div>
@@ -70,17 +77,20 @@ export default {
   components: {
   },
   watch: {
-      '$route.path':'changeRoute',
   },
   methods: {
-    toggleDown(){
+    handleCommand(command){
+      if(command==='exit'){
+         console.log('退出');
+      }else if(command==='account'){
+        console.log('个人中心');
+      }
+    },
 
-    }
   },
   mounted() {
   },
   created(){
-    this.init()
   }
 }
 </script>
@@ -89,7 +99,7 @@ export default {
 .my-nav-v2 {
     padding-top:1px;
     .my-menu {
-      margin-top:47px;
+      margin-top:55px;
       // height:50px;
       background-color: #456ea5;
       position: relative;
@@ -124,7 +134,7 @@ export default {
           .user-ctrl.items {
             position: absolute;
             right:0;
-            top:-47px;
+            top:-52px;
             padding-right:25px;
             color: #555;
             font-size:15px;
@@ -134,22 +144,21 @@ export default {
             align-items:center;
             img.avatar {
               display: block;
-              width:32px;
-              height:32px;
-              border-radius:3px;
+              width:35px;
+              height:35px;
+              border-radius:50%;
               border:1px solid #ccc;
             }
             .role-name {
               min-width:70px;
-              max-width:120px;
-              margin:0 5px;
+              max-width:110px;
+              margin:0 0 0 5px;
               &:hover {
                 color:#456ea5;
               }
             }
             .user-login-out {
               color:#bbb;
-              margin-left:12px;
               &:hover {
                 color:#555;
               }
@@ -158,7 +167,7 @@ export default {
       }
       .logo-a {
           position: absolute;
-          top:-48px;
+          top:-50px;
           left:20px;
           a>img {
             display:block;
@@ -186,7 +195,15 @@ export default {
         position: absolute;
         right:22px;;
         top:10px;
+        // background-color: lime;
+        width:32px;
+        height: 32px;
+        line-height: 32px;
+        text-align:center;
+        font-size:27px;
         display:none;
+        color:#ddd;
+        // border:1px solid #ddd;
       }
 
     }
@@ -221,6 +238,20 @@ export default {
                 padding-right:15px;
                 color:#ddd;
               }
+              .not-login {
+                display:flex;
+                align-items:center;
+                img.avatar {
+                }
+                .role-name {
+                }
+                .user-login-out {
+                  .el-dropdown-link {
+                    color:#fff;
+                  }
+                }
+              }
+
           }
           .down-btn {
             display:block;
@@ -238,5 +269,21 @@ export default {
           }
         }
     }
+
 }
+</style>
+<style>
+    ul.el-dropdown-menu{
+      /*top:34px !important;*/
+      padding:1px;
+    }
+    ul.el-dropdown-menu>li {
+        line-height: 32px;
+    }
+    ul.el-dropdown-menu>li:first-child {
+        border-bottom:1px solid #eee;
+    }
+    el-dropdown-menu__item {
+        line-height: 25px !important;
+    }
 </style>

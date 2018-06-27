@@ -30,10 +30,6 @@ import test_function from '@/components/test/test_function'
 // example
 import example from '@/components/example/example'
 import example_details from '@/components/example/example_details'
-import example_item from '@/components/example/example_item'
-
-// document
-import document from '@/components/document/document'
 
 // forum
 import forum_index from '@/components/forum/forum_index'
@@ -93,7 +89,6 @@ const vueRouter = new Router({
     // example
     {path:'/example',component:example},
     {path:'/example/:id',component:example_details},
-    {path:'/example/:id/:id',component:example_item},
 
     // document
     {path:'/document',component:document},
