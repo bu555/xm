@@ -3,11 +3,14 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    userInfo:'',
+    userInfo:{},
     //通知使用模态框登录
     modalLogin:false,
     modalLoginSuccess:false,
-    accountInfo:''
+    accountInfo:{},
+    refUser:false,
+    refAccount:false,
+    refCurrent:false,
 } 
 const mutations = {
     //存储用户信息

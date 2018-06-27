@@ -1,9 +1,8 @@
 <template>
-<div class="my" v-if="$store.state.userInfo">
+<div class="my" v-if="isLogin" v-loading="loading">
     <div class="m-header">
         <div class="photo" @click="showUploadAvatar=true">
-            <img v-if="$store.state.userInfo" :src="$pathAvatar +$store.state.userInfo.avatar" alt="">
-            <img v-else src="/static/img/logo_a.png" alt="">
+            <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
         </div>
         <div class="edit-photo">
             <button>上传封面照片</button>
@@ -43,45 +42,81 @@ import uploadAvatar from './upload_avatar'
 export default {
     data(){
         return {
+            loading:false,
             showUploadAvatar:false,
+            isLogin:false
         }
     },
     components:{
         uploadAvatar
     },
     watch:{
-        '$store.state.modalLoginSuccess':'getAccount'
+        '$store.state.modalLoginSuccess':'getAccount',
+        '$store.state.refUser':function(){
+            if(this.$store.state.refUser){
+                console.log('shuaxin');
+                // this.$store.commit('setUserInfo',{}) //改变avatar的值
+                this.$store.state.userInfo.avatar = ''
+                this.getUser()
+                this.$store.state.refUser=false
+            }
+        },
+        '$store.state.refAccount':function(){
+            if(this.$store.state.refAccount){
+                this.getAccount()
+                this.$store.state.refAccount=false
+            }
+        }
     },
     methods:{
         listenSon(success){
-            this.showUploadAvatar = false;
+            this.showUploadAvatar = false; //关闭模态框
             if(success){
-                // 修改成功
-
+                // 修改成功,通知刷新
+                this.$store.state.refUser = true  
             }
         },
         getAccount(){
             // 获取账户信息
+            this.loading = true
             this.$axios.getAccountInfo().then(res=>{
-                if(res.success){
-                    this.$store.commit('setAccountInfo',res.data)
+                this.loading = false
+                if(res.data.success){
+                    localStorage.setItem('accountInfo',JSON.stringify(res.data.data));
+                    this.$store.commit('setAccountInfo',res.data.data)
                 }
+            }).catch(err=>{
+                this.loading=false
             })
         },
         getUser(){
-            // 获取账户信息
+            this.loading = true
+            // 获取用户信息
             this.$axios.getUserInfo().then(res=>{
-                if(res.success){
-                    console.log(res);
-                    localStorage.setItem('USER',JSON.stringify(res.data));
-                    this.$store.commit('setUserInfo',res.data)
+                this.loading = false
+                if(res.data.success){
+                    localStorage.setItem('USER',JSON.stringify(res.data.data));
+                    this.$store.commit('setUserInfo',res.data.data)
                 }
+            }).catch(err=>{
+                this.loading = false
             })
+        },
+        init(){
+            if(localStorage.getItem('USER')){
+                this.isLogin = true;
+                if(!localStorage.getItem('accountInfo')){
+                    this.getAccount()
+                }
+            }else{
+                this.$store.state.modalLogin = true
+            }
         }
     },
     mounted(){
     },
     created(){
+        this.init()
         this.getAccount()
         this.getUser()
     },

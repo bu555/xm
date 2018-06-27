@@ -30,10 +30,9 @@
                     <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
                 </router-link>
                 <div class="items user-ctrl">
-                  <div v-if="10">登录 / 注册</div>
-                  <div v-else class="not-login">
-                      <img class="avatar" src="../../../static/img/logo_a.png" alt="">
-                      <div class="role-name overflow-row-1">中华人民共和国合同法</div>
+                  <div v-if="$store.state.userInfo" class="not-login">
+                      <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+                      <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
                       <div class="user-login-out">
                         <!--<i class="el-icon-caret-bottom"></i>-->
                             <el-dropdown trigger="click" @command="handleCommand">
@@ -49,6 +48,7 @@
                         </div>
                       </div>
                   </div>
+                  <div v-else @click="$store.state.modalLogin = true">登录 / 注册</div>
 
 
                 </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="my-info">
+  <div class="my-info" v-loading="loading">
     <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
@@ -44,24 +44,38 @@ export default {
             birth:'',
             sex:'',
             profile:''
-        }
+        },
+        loading:false
+      }
+    },
+    watch:{
+      "$store.state.userInfo":function(){
+          this.init()
       }
     },
     methods:{
         modifyUserInfo(){
+            this.loading = true
             // 修改账户信息
             this.$axios.modifyUserInfo(this.infoForm).then(res=>{
-                if(res.success){
+                this.loading = false
+                if(res.data.success){
                     this.$message({
                         message: '修改成功！',
                         type: 'success'
                     });
+                    this.$store.state.refUser = true
                 }
+            }).catch(err=>{
+                this.loading = false
             })
+        },
+        init(){
+          this.infoForm = JSON.parse(localStorage.getItem('USER'))
         }
     },
     created(){
-       this.infoForm = JSON.parse(localStorage.getItem('USER'))
+      this.init()
     }
 }
 </script>
