@@ -3,23 +3,26 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    // 已登录的用户名
-    userName:'',
+    userInfo:'',
     //通知使用模态框登录
     modalLogin:false,
     modalLoginSuccess:false,
+    accountInfo:''
 } 
 const mutations = {
     //存储用户信息
-    setUserName(state,name){
-        state.userName = name;
+    setUserInfo(state,user){
+        state.userInfo = user;
     },
     setModalLogin(state,value){
         state.modalLogin = value;
     },
     setModalLoginSuccess(state,value){
         state.modalLoginSuccess = value;
-    }
+    },
+    setAccountInfo(state,obj){
+        state.accountInfo = obj;
+    },
 }
 export default new Vuex.Store({
     state,

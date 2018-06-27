@@ -68,7 +68,7 @@ export default {
                 if(res.data.success){
                     //用户信息存入本地，并更新vuex
                     localStorage.setItem('USER',JSON.stringify(res.data.user));
-                    this.$store.commit('setUserName',res.data.user.r_name);
+                    this.$store.commit('setUserInfo',res.data.user);
                     this.$message({
                         message: '登录成功！',
                         type: 'success'
