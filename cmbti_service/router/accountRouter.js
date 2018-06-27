@@ -17,7 +17,7 @@ var fm = require('formidable');
 
 const json = (d)=>{console.log(d);}
 
-// 获取账户info options {}
+// 获取账户info options {} //需登錄
 const getAccountInfoById = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
