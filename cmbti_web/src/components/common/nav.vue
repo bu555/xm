@@ -3,6 +3,7 @@
 
       <div class="my-menu">
          <div class="m-view">
+           <!--网站logo-->
             <div class="logo-a">
                 <a href="www.baidu.com" target="_blank">
                     <img src="../../../static/img/logo_a.png" alt="">
@@ -13,6 +14,7 @@
                     </a>
                 </div>
             </div>
+            <!--导航list-->
             <div :class="showDownMeun?'my-menu-list active':'my-menu-list'">
                 <router-link to="/personalities">
                     <div :class="/^\/personalities/.test($route.path)? 'items active':'items'">人格类型</div>
@@ -29,10 +31,17 @@
                 <router-link to="/about">
                     <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
                 </router-link>
+                <router-link to="/my">
+                    <div  v-if="$store.state.userInfo.name" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
+                </router-link>
                 <div class="items user-ctrl">
-                  <div v-if="$store.state.userInfo" class="not-login">
-                      <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
-                      <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
+                  <div v-if="$store.state.userInfo.name" class="not-login">
+                      <router-link to="/my">
+                        <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+                      </router-link>
+                      <router-link to="/my">
+                        <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
+                      </router-link>
                       <div class="user-login-out">
                         <!--<i class="el-icon-caret-bottom"></i>-->
                             <el-dropdown trigger="click" @command="handleCommand">
@@ -48,11 +57,12 @@
                         </div>
                       </div>
                   </div>
-                  <div v-else @click="$store.state.modalLogin = true">登录 / 注册</div>
+                  <div v-else @click="$store.state.modalLogin = true" class="login-register">登录 / 注册</div>
 
 
                 </div>
             </div>
+            <!--下拉按钮-->
             <div class="down-btn" @click="showDownMeun=!showDownMeun"><i class="fa fa-navicon"></i></div>
          </div>
       </div>
@@ -81,16 +91,34 @@ export default {
   methods: {
     handleCommand(command){
       if(command==='exit'){
-         console.log('退出');
+         this.exit()
       }else if(command==='account'){
-        console.log('个人中心');
+        this.$router.push({
+          path:'/my'
+        })
       }
     },
+    exit(){
+        localStorage.setItem('accountInfo','')
+        this.$store.commit('setAccountInfo',{})
+        localStorage.setItem('USER','')
+        this.$store.commit('setUserInfo',{})
+        if(/^\/my/.test(this.$route.path)){
+           this.$router.push({
+             path:'/forum?category=all&page=1'
+           })
+        }
+        this.$message({
+            message: '你已退出！',
+            type: 'success'
+        });
+    }
 
   },
   mounted() {
   },
   created(){
+     
   }
 }
 </script>
@@ -112,7 +140,7 @@ export default {
       .my-menu-list {
           padding-left:100px;
           display:flex;
-          position: relative;
+          // position: relative;  
           a {
             // flex:1;
           }
@@ -164,6 +192,12 @@ export default {
               }
             }
           }
+          .login-register {
+              color:#456ea5;
+              &:hover {
+                color:#6a7ec7;
+              }
+          }
       }
       .logo-a {
           position: absolute;
@@ -209,13 +243,13 @@ export default {
     }
     @media screen and (max-width:768px){
         .my-menu {
+          .m-view {
+            padding-top: 52px;
+          }
           .my-menu-list {
               padding-left:0px;
               padding-top:1px;
               display:block;
-              position: relative;
-              top:52px;
-              left:0;
               height:0px;
               overflow: hidden;
               // transition-property:all;
@@ -244,10 +278,11 @@ export default {
                 img.avatar {
                 }
                 .role-name {
+                  color:#ddd;
                 }
                 .user-login-out {
                   .el-dropdown-link {
-                    color:#fff;
+                    color:#ddd;
                   }
                 }
               }
@@ -257,7 +292,7 @@ export default {
             display:block;
           }
           .my-menu-list.active{
-              height:338px;
+              height:auto;
               border-top:1px solid #c0c0c0;
           }
 
