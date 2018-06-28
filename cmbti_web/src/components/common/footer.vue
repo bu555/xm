@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="f-body">
             <div class="f-logo">
-                <img src="/static/img/logo_a.png" alt="">
+                <img v-if="0" src="/static/img/logo_a.png" alt="">
                 <span class="m-name">mbti.wang</span>
             </div>
             <div class="f-links">

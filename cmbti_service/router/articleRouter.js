@@ -337,6 +337,34 @@ const getCommentByAid = (req,res)=>{
             }
       })()
 }
+// 獲取多個文章信息
+const getArticleInfoAll = (req,res)=>{
+        let options = req.body || {}
+        // options.eid = req.body.aid || ''
+        // options.page = req.body.page || ''
+      if( !options.aid || !(options.aid instanceof Array) || !(options.aid.length>0) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let result = await Article.getArticleInfoAll(options)
+                res.json({
+                    success: true,
+                    message: 'Success',
+                    data: result
+                })
+            }catch(err){
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+
 
 
 router.post('/publish',checkLogin,publishArticle);
@@ -346,6 +374,7 @@ router.post('/clickCommentZan',checkLogin,clickCommentZan);
 router.post('/getArticle',getArticle);
 router.post('/getCommentByAid',getCommentByAid);
 router.post('/getArticleById',getArticleById);
+router.post('/getArticleInfoAll',getArticleInfoAll);
 // // router.post('/login',checkNotLogin,login);
 // router.post('/login',login);
 // router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码

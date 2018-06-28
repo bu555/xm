@@ -158,12 +158,24 @@ export default {
     clickArticleCommentZan(data){
         return axios.post(pathAPI+'/article/clickCommentZan',data);
     },
+    // 獲取多個文章主要信息  input : {aid:[aid1,aid2]} 
+    getArticleInfoAll(data){
+        return axios.post(pathAPI+'/article/getArticleInfoAll',data);
+    },
 
 
 // My -------------------------------
     //获取AccountInfo  {'}
     getAccountInfo(data){
         return axios.get(pathAPI+'/account/getAccountInfo',data);
+    },
+    //获取用户的评论（处理过的）
+    getCommentList(data){
+        return axios.get(pathAPI+'/account/getCommentList',{params:data});
+    },
+    //获取用户的评论（处理过的）
+    getMyComment(data){
+        return axios.post(pathAPI+'/account/getMyComment',data);
     },
 
 }

@@ -17,7 +17,7 @@
     </div>
     <div class="main-box">
         <div class="m-body">
-            <div class="m-content">
+            <div class="m-content" v-if="showChild">
                 <router-view></router-view>
             </div>
         </div>
@@ -44,7 +44,8 @@ export default {
         return {
             loading:false,
             showUploadAvatar:false,
-            isLogin:false
+            isLogin:false,
+            showChild:false,
         }
     },
     components:{
@@ -54,7 +55,6 @@ export default {
         '$store.state.modalLoginSuccess':'getAccount',
         '$store.state.refUser':function(){
             if(this.$store.state.refUser){
-                console.log('shuaxin');
                 // this.$store.commit('setUserInfo',{}) //改变avatar的值
                 this.$store.state.userInfo.avatar = ''
                 this.getUser()
@@ -84,6 +84,7 @@ export default {
                 if(res.data.success){
                     localStorage.setItem('accountInfo',JSON.stringify(res.data.data));
                     this.$store.commit('setAccountInfo',res.data.data)
+                    this.showChild = true
                 }
             }).catch(err=>{
                 this.loading=false
@@ -105,9 +106,7 @@ export default {
         init(){
             if(localStorage.getItem('USER')){
                 this.isLogin = true;
-                if(!localStorage.getItem('accountInfo')){
-                    this.getAccount()
-                }
+                this.getAccount()
             }else{
                 this.$store.state.modalLogin = true
             }
@@ -117,8 +116,8 @@ export default {
     },
     created(){
         this.init()
-        this.getAccount()
-        this.getUser()
+        // this.getAccount()
+        // this.getUser()
     },
     
 };

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 // 存评论
 const commentSchema = new mongoose.Schema({
     aid:String,
+    title:String,
     comment:[
         {
             uid:String,

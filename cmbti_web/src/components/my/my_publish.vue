@@ -1,5 +1,5 @@
 <template>
-  <div class="my-publish">
+  <div class="my-publish" v-loading="loading">
     <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
@@ -8,32 +8,62 @@
       <i class="fa el-icon-edit"></i> 发表帖子
     </div>
     <div class="content">
-      <div class="items" v-for="(v,i) in 5">
-        <div class="my-type share">分享</div>
-        <!--<div class="my-type ask">问答</div>-->
-        <div class="my-type good">精华</div>
-        <router-link to="">
+      <div class="items" v-for="(v,i) in data" :key="i">
+        <div class="my-type share" v-if="v.category==='share'">分享</div>
+        <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
+        <div class="my-type good" v-if="v.good">精华</div>
+        <router-link :to="'/forum/'+v._id">
               <!--简单的Restful API例子(Golang)-->
-              <span>简单的Restful API例子(Golang)</span>
+              <span>{{v.title}}</span>
         </router-link>
-        <div class="time">2018-06-06 11:11:00</div>
+        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
       </div>
     </div>
-    <div class="load-more">
+    <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       加载更多...
     </div>
   </div>
 </template>
 <script>
 export default {
-    data(){
+   data(){
       return {
+        loading:false,
+        data:[],
+        myList:'',
+        pageSize:4,
+        page:1,
+        currentData:[]
       }
     },
     methods:{
-      onSubmit(){
-
-      }
+        getArticle(){
+            if(this.myList.length<1) return
+            let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
+            if(aid.length<1) {
+              this.currentData = []  //觸發加載更多隱藏
+              return
+            }
+            this.loading = true
+            this.$axios.getArticleInfoAll({aid:aid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    let d = JSON.parse(JSON.stringify(res.data.data))
+                    this.data = this.data.concat(d)   //  res.data.data
+                    this.currentData = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        loadMore(){
+           this.page = this.page+1
+           this.getArticle()
+        }
+    },
+    created(){
+        this.myList = JSON.parse(localStorage.getItem('accountInfo')).my_article
+        this.getArticle()
     }
 }
 </script>
@@ -80,6 +110,9 @@ export default {
           overflow: hidden;
           text-overflow:ellipsis;
           white-space: nowrap;
+        }
+        &:hover {
+          color:#496ea3
         }
       }
       .time {

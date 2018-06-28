@@ -24,9 +24,9 @@
         </div>
         <div class="article-list">
             <ul>
-                <li v-for="(v,i) in list">
+                <li v-for="(v,i) in list" :key="i">
                         <div class="author u-photo">
-                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                            <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                             <img v-else src="/static/img/logo_a.png" alt="">
                             <div class="u-name">{{v.r_name}}</div>
                         </div>
