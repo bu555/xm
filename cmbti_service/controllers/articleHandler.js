@@ -122,7 +122,8 @@ class Article {
                     // 创建评论
                     new ArticleModel.comment({
                         aid:options.aid,
-                        comment:[]
+                        comment:[],
+                        title:options.title
                     }).save((err,c)=>{
                         if(err) return reject('the comment add failed')
                         resolve(options.aid) //返回aid
@@ -364,7 +365,7 @@ class Article {
             })
         })
     }
-    // 查看文章 options {aid:''}
+    // 查看全部文章 options {aid:''}
     static getArticleById(options={}){
         return new Promise((resolve,reject)=>{
             Promise.all([
@@ -375,6 +376,22 @@ class Article {
                     resolve(result)
                 }else{
                     reject('null')
+                }
+            })
+        })
+    }
+    // 查看多篇文章主要信息 options {aid:[id1,id2..]}
+    static getArticleInfoAll(options={}){
+        return new Promise((resolve,reject)=>{
+            let proArr =  []
+            options.aid.forEach((v,i)=>{
+                proArr.push(ArticleModel.article.findOne({"_id":v}))
+            }) 
+            Promise.all(proArr).then(result=>{
+                if(result){
+                    resolve(result)
+                }else{
+                    reject()
                 }
             })
         })
@@ -399,6 +416,26 @@ class Article {
                 resolve('success')
             })
         })
+    }
+    // cid和aid查看评论options {aid:'必传',cid:[id1,id2,...]}
+    static getCommentByCid(options={}){
+        return new Promise((resolve,reject)=>{
+            ArticleModel.comment.findOne({"aid":options.aid}).then(c=>{
+                    if(c){
+                        let item = {aid:'',  title:c.title||'暂空',  comment:[]}
+                        for(let i=0;i<options.cid.length;i++){
+                            for(let j=0;j<c.comment.length;j++){
+                                if(options.cid[i]===c.comment[j].cid){
+                                    item.comment.push(c.comment[j])  
+                                }
+                            }
+                        }
+                        resolve(item)
+                    }else{
+                        resolve(null)
+                    }
+                }) 
+            })
     }
 
 

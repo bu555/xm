@@ -177,6 +177,7 @@ export default {
                 this.loading2 = false
             })
         },
+        // 獲取文章主要信息
         getArticleInfo(){
             this.loading1 = true
             this.$axios.getArticleById({aid:this.aid}).then(res=>{

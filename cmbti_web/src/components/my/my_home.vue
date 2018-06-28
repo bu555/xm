@@ -11,7 +11,7 @@
                     <i class="fa fa-plus-square-o "></i> 被关注<span>(2)</span>
                 </router-link></div>
             <div><router-link to="/my/mark">
-                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 标记<span>(2)</span>
+                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 收藏<span>(2)</span>
                 </router-link></div>
             <div><router-link to="/my/test">
                     <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试

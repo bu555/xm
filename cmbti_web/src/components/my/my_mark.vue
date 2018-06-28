@@ -1,21 +1,21 @@
 <template>
-  <div class="my-like">
+  <div class="my-like" v-loading="loading">
     <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
       </router-link>
       <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i>标记
+      <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i>收藏
     </div>
     <div class="content">
-      <div class="items" v-for="(v,i) in 5">
+      <div class="items" v-for="(v,i) in data" :key="i">
         <div class="my-type">文档</div>
         <router-link to="">
-              简单的Restful API例子(Golang)
+              {{v.title}}
         </router-link>
       </div>
     </div>
-    <div class="load-more">
+    <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       加载更多...
     </div>
   </div>
@@ -24,12 +24,42 @@
 export default {
     data(){
       return {
+        loading:false,
+        data:[],
+        myList:'',
+        pageSize:4,
+        page:1,
+        currentData:[]
       }
     },
     methods:{
-      onSubmit(){
-
-      }
+        getArticle(){
+            if(this.myList.length<1) return
+            let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
+            if(aid.length<1) {
+              this.currentData = []  //觸發加載更多隱藏
+              return
+            }
+            this.loading = true
+            this.$axios.getArticleInfoAll({aid:aid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    let d = JSON.parse(JSON.stringify(res.data.data))
+                    this.data = this.data.concat(d)   //  res.data.data
+                    this.currentData = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        loadMore(){
+           this.page = this.page+1
+           this.getArticle()
+        }
+    },
+    created(){
+        this.myList = JSON.parse(localStorage.getItem('accountInfo')).likes_atricle
+        this.getArticle()
     }
 }
 </script>
@@ -61,6 +91,9 @@ export default {
       text-overflow:ellipsis;
       white-space: nowrap;
       font-size:15px;
+      &:hover {
+        color:#496ea3
+      }
     }
     a:visited {
         text-decoration: none;

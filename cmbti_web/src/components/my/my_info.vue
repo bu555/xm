@@ -28,7 +28,8 @@
         <el-input type="textarea" :rows="4" v-model="infoForm.profile"></el-input>
       </el-form-item>
       <el-form-item size="large">
-        <el-button type="primary" @click="modifyUserInfo">保 存</el-button>
+        <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>
+        <el-button v-else type="primary" disabled>保 存</el-button>
         <!--<el-button>取消</el-button>-->
       </el-form-item>
     </el-form>
@@ -45,12 +46,24 @@ export default {
             sex:'',
             profile:''
         },
-        loading:false
+        loading:false,
+        initData:'',
+        edited:false
       }
     },
     watch:{
       "$store.state.userInfo":function(){
           this.init()
+      },
+      "infoForm" : {
+          handler:function() {   //特别注意，不能用箭头函数，箭头函数，this指向全局
+              if(JSON.stringify(this.infoForm)!==JSON.stringify(this.initData)){
+                    this.edited = true
+              }else{
+                    this.edited = false
+              }
+          },
+          deep: true    //深度监听
       }
     },
     methods:{
@@ -72,6 +85,7 @@ export default {
         },
         init(){
           this.infoForm = JSON.parse(localStorage.getItem('USER'))
+          this.initData = JSON.parse(localStorage.getItem('USER'))
         }
     },
     created(){

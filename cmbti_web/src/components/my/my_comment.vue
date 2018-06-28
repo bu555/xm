@@ -8,18 +8,26 @@
       <i class="fa fa-edit"></i> 评论<span>(2)</span>
     </div>
     <div class="content">
-      <div class="items" v-for="(v,i) in 5">
-        <div class="my-type share">分享</div>
-        <!--<div class="my-type ask">问答</div>-->
-        <div class="my-type good">精华</div>
-        <router-link to="">
-              <!--简单的Restful API例子(Golang)-->
-              <span>简单的Restful API例子(Golang)</span>
-        </router-link>
-        <div class="time">2018-06-06 11:11:00</div>
+      <div class="c-tabs">
+        <div>文档</div>
+        <div>名人</div>
       </div>
+      <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
+          <h5>{{v.title}}</h5>
+            <div class="items" v-for="(v,i) in v.comment" :key="i">
+              <!--<div class="my-type share">分享</div>-->
+              <!--<div class="my-type ask">问答</div>-->
+              <!--<div class="my-type good">精华</div>-->
+              <router-link to="">
+                    <!--简单的Restful API例子(Golang)-->
+                    <span>{{v.content}}</span>
+              </router-link>
+              <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+            </div>
+      </div>
+      <!--<p v-if="empty">暂无数据</p>-->
     </div>
-    <div class="load-more">
+    <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       加载更多...
     </div>
   </div>
@@ -28,12 +36,93 @@
 export default {
     data(){
       return {
+        loading:false,
+        dataA:[],
+        dataE:[],
+        myList:'',
+        pageSize:2,
+        pageA:1,
+        pageE:1,
+        currentData:[],
+        eidCommentList:'',
+        aidCommentList:'',
+        type:'aid',
+        empty:false
+
       }
     },
     methods:{
-      onSubmit(){
-
-      }
+        getArticle(){
+            if(this.myList.length<1) return
+            let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
+            if(aid.length<1) {
+              this.currentData = []  //觸發加載更多隱藏
+              return
+            }
+            this.loading = true
+            this.$axios.getArticleInfoAll({aid:aid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    let d = JSON.parse(JSON.stringify(res.data.data))
+                    this.data = this.data.concat(d)   //  res.data.data
+                    this.currentData = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        getMyCommentList(){
+            this.$axios.getCommentList({}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    console.log('myCommentList',res);
+                    this.eidCommentList = res.data.data.eid?res.data.data.eid:''
+                    this.aidCommentList = res.data.data.aid?res.data.data.aid:''
+                    // 获取aidlist的评论
+                    if(this.aidCommentList){
+                        this.getMyComment()
+                    }
+                    // 获取eidlist的评论
+                    if(this.aidCommentList){
+                        // this.getMyComment()
+                    }
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        getMyComment(){
+            if(this.type==='aid'){
+                if(this.aidCommentList<1){
+                   this.empty = true
+                   return;
+                }
+                let aid = this.aidCommentList.slice( (this.pageA-1)*this.pageSize,this.pageSize+(this.pageA-1)*this.pageSize )
+                if(aid.length<1) {
+                  this.currentData = []  //觸發加載更多隱藏
+                  return
+                }
+                this.$axios.getMyComment({aid:aid }).then(res=>{
+                    this.loading = false
+                    if(res.data.success){
+                        let d = JSON.parse(JSON.stringify(res.data.data))
+                        this.dataA = this.dataA.concat(d)   //  res.data.data
+                        this.currentData = res.data.data
+                    }
+                }).catch(err=>{
+                    this.loading = false
+                })
+            }
+        },
+        loadMore(){
+          if(this.type==='aid'){
+              this.pageA = this.pageA+1
+              this.getMyComment()
+          }
+        }
+    },
+    created(){
+       this.getMyCommentList()
     }
 }
 </script>
@@ -42,7 +131,27 @@ export default {
   padding:4%;
   padding-top:12px;
   padding-bottom:22px;
+  .c-tabs {
+    display:flex;
+    padding-bottom:5px;
+    &>div {
+      font-size:15px;
+      padding:1px 7px;
+      border:1px solid #bbb;
+      margin-right:5px;
+      border-radius:5px;
+    }
 
+  }
+  .aid-comment,.eid-comment {
+    padding-bottom:8px;
+    border-bottom:1px solid #eee;
+     h5 {
+       font-size:15px;
+       line-height:22px;
+       margin:0;
+     }
+  }
   .content {
 
   }
@@ -71,15 +180,20 @@ export default {
       }
       &>a {
         flex:1;
-        padding:7px 0;
-        font-size:15px;
+        padding:0 ;
+        padding-left:15px;
+        font-size:14px;
         overflow: hidden;
+        color:#777;
         span {
           width:100%;
           display:block;
           overflow: hidden;
           text-overflow:ellipsis;
           white-space: nowrap;
+        }
+        &:hover {
+          color:#496ea3
         }
       }
       .time {
