@@ -25,7 +25,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="简介">
-        <el-input type="textarea" :rows="4" v-model="infoForm.profile"></el-input>
+        <el-input type="textarea" :rows="3" v-model="infoForm.profile"></el-input>
       </el-form-item>
       <el-form-item size="large">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>

@@ -15,6 +15,13 @@ export default {
     methods:{
         closedHandle(){
             this.$store.commit('setModalLogin',false);
+            if(/^\/my/.test(this.$route.path)){
+                this.$router.push({
+                    path:'/forum?category=all&page=1'
+                })
+                // 如果点击关闭登录框，通知退出
+                this.$store.state.loginOut = true
+            }
         }
     }
 };

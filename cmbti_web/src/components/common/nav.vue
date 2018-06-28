@@ -87,6 +87,13 @@ export default {
   components: {
   },
   watch: {
+    "$store.state.loginOut":function(){
+        if(this.$store.state.loginOut){
+          this.exit()
+          this.$store.state.loginOut = false
+        }
+
+    }
   },
   methods: {
     handleCommand(command){
@@ -110,12 +117,13 @@ export default {
         }
         this.$message({
             message: '你已退出！',
-            type: 'success'
+            type: 'info'
         });
     }
 
   },
   mounted() {
+    
   },
   created(){
      
@@ -178,7 +186,7 @@ export default {
               border:1px solid #ccc;
             }
             .role-name {
-              min-width:70px;
+              min-width:50px;
               max-width:110px;
               margin:0 0 0 5px;
               &:hover {

@@ -21,7 +21,7 @@
                                 </router-link>-->
                                 <span>
                                 <router-link to="">
-                                        <i class="icon iconfont icon-people"></i>{{data.r_name}}
+                                        <i class="fa fa-user-o"></i> {{data.r_name}}
                                         <!--作者阿凡达 -->
                                         
                                 </router-link>
@@ -87,11 +87,12 @@
                 <div class="c-list" v-for="(v,i) in commentList">
                     <div class="photo">
                         <router-link to="">
-                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                            <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                             <img v-else src="/static/img/logo_a.png" alt="">
                         </router-link>
                     </div>
-                    <div class="c-name">{{v.r_name}}
+                    <div class="c-name">
+                        <em class="overflow-row-1">{{v.r_name}}</em>
                         <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
                     </div>
                     <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
@@ -143,7 +144,8 @@ export default {
             myComment:'',
             loading1:false,
             loading2:false,
-            loading:false
+            loading:false,
+            
         }
     },
     methods:{
@@ -439,12 +441,12 @@ export default {
             align-items:center;
         }
         .c-tab {
-                height:35px;
-                line-height: 35px;
+                height:42px;
+                line-height: 42px;
                 border-bottom:1px solid #fafafa;
                 background-color: #fafafa;
                 padding-left:4%;
-                font-size:15px;
+                font-size:16px;
                 display:flex;
                 color:#555;
                 &>span {
@@ -482,10 +484,14 @@ export default {
                 }
                 .c-name {
                     font-size:15px;
-                    font-weight:700;
-                    // color:#456ea5;
+                    display:flex;
+                    align-items:center;
+                    color:#aaa;
+                    &>em {
+                        display:inline-block;
+                        max-width:155px;
+                    }
                     &>span {
-                        color:#aaa;
                         padding-left:10px;
                         font-weight:400;
                     }

@@ -5,7 +5,7 @@
         <vueCropper
         ref="cropper"
         :img="baseImgURL"
-        :outputSize="1"
+        :outputSize="0.1"
         :outputType="'jpg'"
         :fixedBox="true"
         :autoCrop="true"

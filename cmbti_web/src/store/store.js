@@ -8,6 +8,7 @@ const state = {
     modalLogin:false,
     modalLoginSuccess:false,
     accountInfo:{},
+    loginOut:false,
     refUser:false,
     refAccount:false,
     refCurrent:false,

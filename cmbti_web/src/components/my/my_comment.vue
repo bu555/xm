@@ -9,8 +9,9 @@
     </div>
     <div class="content">
       <div class="c-tabs">
-        <div>文档</div>
-        <div>名人</div>
+        <!--<div style="padding-right:0">分类：</div>-->
+        <div :class="typeActive==='article'?'active':''" @click="typeActive='article'">文档</div>
+        <div :class="typeActive==='example'?'active':''" @click="typeActive='example'">名人</div>
       </div>
       <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
           <h5>{{v.title}}</h5>
@@ -19,7 +20,6 @@
               <!--<div class="my-type ask">问答</div>-->
               <!--<div class="my-type good">精华</div>-->
               <router-link to="">
-                    <!--简单的Restful API例子(Golang)-->
                     <span>{{v.content}}</span>
               </router-link>
               <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
@@ -47,7 +47,8 @@ export default {
         eidCommentList:'',
         aidCommentList:'',
         type:'aid',
-        empty:false
+        empty:false,
+        typeActive:'article'
 
       }
     },
@@ -133,13 +134,21 @@ export default {
   padding-bottom:22px;
   .c-tabs {
     display:flex;
-    padding-bottom:5px;
+    padding-bottom:8px;
+    padding-left:12px;
+    margin-bottom:10px;
+    background-color: #f7f7f7;
     &>div {
-      font-size:15px;
-      padding:1px 7px;
-      border:1px solid #bbb;
-      margin-right:5px;
-      border-radius:5px;
+      font-size:16px;
+      padding:10px 7px 0px;
+      color:#aaa;
+      font-weight:700;
+      margin-right:10px;
+      cursor:pointer;
+    }
+    &>div.active {
+      border-bottom:2px solid #70a9e5;
+      color:#70a9e5;
     }
 
   }
