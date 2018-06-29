@@ -92,49 +92,40 @@
                                 <!--<el-button>取消</el-button>-->
                         </div>
                         <!--评论区-->
-                        <div class="comment">
+                        <div class="comment" v-loading="loading2||zaning">
                             <div class="c-header" >
                                 <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
                                 <span> 评论</span>
                             </div>
                             <div class="c-tab">
                                 <span>按</span>
-                                <span class="hot active" @click="toggleCommentType($event,'hot')">热门</span>
-                                <span>|</span>
-                                <span class="time" @click="toggleCommentType($event,'time')">时间</span>
+                                <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
+                                <span style="color:#bbb">|</span>
+                                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span>
                             </div>
                             <div class="c-body">
-                                <div v-if="commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                                <div v-if="!loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
                                 <div class="c-list" v-for="(v,i) in commentList">
                                     <div class="photo">
                                         <router-link to="">
-                                            <img v-if="v.avatar" :src="v.avatar" alt="">
+                                            <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                                             <img v-else src="/static/img/logo_a.png" alt="">
                                         </router-link>
                                     </div>
-                                    <div class="c-name">{{v.r_name}}
+                                    <div class="c-name">
+                                        <em class="overflow-row-1">{{v.r_name}}</em>
                                         <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
+                                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
+                                            <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
+                                            <em>{{v.zans>9999?'9999+':v.zans}}</em> 
+                                        </div>
                                     </div>
                                     <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
                                         <!--搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html-->
                                     </div>
-                                    <div class="c-ctrl">
-                                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
-                                            <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
-                                            <em>{{v.zans}}</em> 
-                                        </div>
-                                        <div class="reply c-c">
-                                            <i class="icon iconfont icon-message" style="font-size:24px"></i> 
-                                            <em>22</em> 
-                                        </div>
-                                        <div class="share c-c">
-                                            <i class="icon iconfont icon-share_fill" style="font-size:20px"></i> 
-                                            <em></em> 
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="load-more" v-if="currentCommentList.length==size" @click="moreComment">
+                                <div class="load-more" v-if="!loading2 && currentCommentList.length==size" @click="moreComment">
                                 加载更多...
                                 </div>
                             </div>
@@ -180,10 +171,22 @@ export default {
             commentList:[],
             tabFixed:false, //tab定位
             commentPage:1,
-            isOver:true,
             eid:'',
             size:4,
-            currentCommentList:[]
+            currentCommentList:[],
+            commentActive:'hot',
+            loading2:false,
+            zaning:false
+
+        }
+    },
+    watch:{
+        '$store.state.modalLoginSuccess':'initData',
+        'commentActive':function(){
+            console.log('kkkkkkkkk');
+            this.commentPage = 1
+            this.commentList = []
+            this.getComment()
         }
     },
     methods:{
@@ -311,40 +314,49 @@ export default {
 
         },
         getComment(){
+            this.loading2 = true
             this.$axios.getComment({
                 eid:this.eid,
                 page:this.commentPage,
-                size:this.size
+                size:this.size,
+                type:this.commentActive
             }).then(res=>{
+                this.loading2 = false
                 if(res.data.success){
                     this.currentCommentList = res.data.comment
                     this.commentList = this.commentList.concat(res.data.comment)
                 }
             }).catch(error=>{
+                this.loading2 = false
                 console.log(error);
             })
 
         },
         zan(e,cid,zans){
+            this.zaning = true
             let d = e.currentTarget.querySelector('em')
             let count = d.innerHTML
-            // console.log(count);
             this.$axios.clickExampleCommentZan({eid:this.eid,cid:cid}).then(res=>{
+                this.zaning = false
                 if(res.data.success){
-                    // if(e.currentTarget.classList.contains('active')){
-                    //     count = Number(count)-1
-                    // }else{
-                    //     count = Number(count)+1
-                    // }
-                    d.innerHTML = Number(count)+res.data.result.count
-                    // e.currentTarget.classList.toggle('active')
+                    if(/^\d+$/.test(count)){
+                        d.innerHTML = Number(count)+res.data.result.count
+                    }else{
+                        console.log('非数字');
+                    }
                 }
+            }).catch(err=>{
+                this.zaning = false
             })
 
         },
         moreComment(){
             this.commentPage = this.commentPage-0+1  //页数加1
             this.getComment()  //获取下一页评论
+        },
+        // 显示所有评论
+        showAllComment(e){
+            e.currentTarget.classList.toggle('overflow-row-5')
         },
         handleScroll () {
             this.tabFixed = window.scrollY>102;
@@ -362,15 +374,11 @@ export default {
         // window.addEventListener('scroll', this.handleScroll);
 
         navigator.serviceWorker.addEventListener('message', function (event) {
-    if (e.data === 'sw.update') {
-        console.log('接收到',e.data);
-        // 此处可以操作页面的 DOM 元素啦
-    }
-});
-    },
-    watch:{
-        '$store.state.modalLoginSuccess':'initData'
-
+            if (e.data === 'sw.update') {
+                console.log('接收到',e.data);
+                // 此处可以操作页面的 DOM 元素啦
+            }
+        });
     },
     created(){
         this.eid = this.$route.path.split('/')[2]
@@ -588,6 +596,7 @@ export default {
                 background-color: #fff;
                 min-height:150px;
                 padding-bottom:10px;
+                min-height:470px;
                 .c-header {
                     height:40px;
                     line-height: 40px;
@@ -600,27 +609,27 @@ export default {
                     align-items:center;
                 }
                 .c-tab {
-                        height:35px;
-                        line-height: 35px;
+                        height:42px;
+                        line-height: 42px;
                         border-bottom:1px solid #fafafa;
                         background-color: #fafafa;
                         padding-left:4%;
-                        font-size:15px;
+                        font-size:16px;
                         display:flex;
                         color:#555;
                         &>span {
                             margin-right:7px;
                         }
-                        .hot,.time {
+                        .c-type {
                             cursor:pointer;
                         }
-                        &>span.active {
+                        &>.c-type.active {
                             font-weight:700;
-                            color:#222;
+                            color:#496ea3;
                         }
                     }
                 .c-body {
-                    padding:2% 4.5% 3% 4%;
+                    padding:1% 4.5% 3% 4%;
                     .c-list {
                         // background: pink;
                         min-height:60px;
@@ -643,48 +652,42 @@ export default {
                         }
                         .c-name {
                             font-size:15px;
-                            font-weight:700;
-                            // color:#456ea5;
+                            display:flex;
+                            align-items:center;
+                            color:#7f7d7d;
+                            position: relative;
+                            margin-bottom: 2px;
+                            &>em {
+                                display:inline-block;
+                                max-width:105px;
+                            }
                             &>span {
-                                color:#aaa;
                                 padding-left:10px;
                                 font-weight:400;
+                            }
+                            .zan.c-c {
+                                line-height: 20px;;
+                                // vertical-align: middle;
+                                display:flex;
+                                align-items: center;
+                                cursor:pointer;
+                                min-width:55px;
+                                max-width:65px;
+                                // margin-right:42px;
+                                color:#cbcbcb;
+                                position: absolute;
+                                right:0px;
+                                top:0px;
+                                em {
+                                    position: relative;
+                                    top:2px;
+                                }
                             }
                         }
                         .c-content {
                             padding:2px 0 5px;
-                            font-size:15px;
-                        }
-                        .c-ctrl {
-                            display:flex;
                             font-size:14px;
-                            padding-top:5px;
-                            .c-c {
-                                line-height: 20px;;
-                                vertical-align: middle;
-                                display:flex;
-                                align-items: center;
-                                cursor:pointer;
-                                width:25px;
-                                margin-right:50px;
-                                color:#cbcbcb;
-                                i {
-                                    padding:2px 2px 2px 1px;
-                                }
-                                em {
-                                    padding-top:4px;
-                                }
-                            }
-                            .zan {
-                                margin-right:50px;
-                                &:hover {
-
-                                }
-
-                            }
-                            .zan.active {
-                                color:#70a9e5;
-                            }
+                            word-break:break-all; //英文换行
                         }
                     }
                     .load-more {

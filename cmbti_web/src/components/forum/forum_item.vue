@@ -10,59 +10,60 @@
                         <div class="ask"  v-if="data.category==='ask'">问答</div>
                     </div>
                     <div class="" style="position:relative;width:100%;min-height:55px">
-                        <!--<div class="h1">分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩</div>-->
-                        <!--<div class="h1">分享推荐一个自己发现的一个VPS，有兴趣</div>-->
                         <div class="h1">{{data.title}}</div>
                         <div class="t-info"> 
                             <div class="text">
-                                <!--作者 <router-link to="">
-                                        <img  class="author" src="/static/img/logo_a.png" alt="">
-                                风语者 
-                                </router-link>-->
                                 <span>
                                 <router-link to="">
                                         <i class="fa fa-user-o"></i> {{data.r_name}}
                                         <!--作者阿凡达 -->
-                                        
                                 </router-link>
                                 </span>
                                 <!--<span ><i class="el-icon-time"></i> 发布于2个月前</span>-->
                                 <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span>
-                                <!--<span><i class="el-icon-view"></i>14567次浏览</span>
-                                <span><i class="el-icon-share"></i>147次分享</span>-->
-                                <!--<span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="el-icon-star-on" style="font-size:16px"></i>已标记</span>
-                                <span v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="el-icon-star-off"  style="font-size:16px"></i>标记</span>-->
                             </div>
-                            <!--<div  class="author">
-                                <img src="/static/img/logo_a.png" alt="">
-                                <span class="a-name">风语者风语HHHHHH者...</span>
-                                <div style="text-align:center;">
-                                <span v-if="false" class="btns"><i class="el-icon-plus"  style="font-weight:700;font-size:13px;margin-left:0"></i> 关注TA</span>
-                                <span class="btns active"><i class="el-icon-plus"  style="font-weight:700;font-size:13px;margin-left:0"></i> 已关注</span>
-                                </div>
-                            </div>-->
                         </div>
 
                     </div>
                 </div>
             </div>
             <div class="a-body">{{data.content}} <button @click="addComment">评论</button>
-                <!--<p>
-                分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有兴趣的可以玩玩分享推荐一个自己发现的一个VPS，有 
-                </p>
-                <p>自己发现的一个VPS，有兴趣的可以玩玩。分享推荐一个自己发现的一个VPS，有</p>-->
             </div>
             <div class="a-footer">
                 <div>
-                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-heart" style="font-size:16px"></i> 喜欢 <em style="font-size:14px">({{data.likes}}</em>)</span>
-                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-heart-o"  style="font-size:16px"></i> 喜欢 <em style="font-size:14px">({{data.likes}})</em></span>
+                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-heart" style="font-size:16px"></i> 收藏 <em style="font-size:14px">({{data.likes}}</em>)</span>
+                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-heart-o"  style="font-size:16px"></i> 收藏 <em style="font-size:14px">({{data.likes}})</em></span>
                     
                 </div>
                 <div>
                     <el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 写评论</el-button>
                 </div>
             </div>
-
+            <!--来自account的评论-->
+            <div id="a-com"></div>
+            <div class="comment" v-if="(accountCommentList.comment instanceof Array) && accountCommentList.comment.length>0 " style="margin-top:15px;min-height:100px">
+                <div style="height:15px;background:#f7f7f7"></div>
+                <div style="height:40px;line-height:40px;padding-left:4%;background:#a7c8ec;color:#f9f8f9">来自{{$store.state.userInfo.r_name}}的评论</div>
+                <div class="c-body">
+                    <div class="c-list" v-for="(v,i) in accountCommentList.comment" :key="i">
+                        <div class="photo">
+                            <router-link to="">
+                                <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+                            </router-link>
+                        </div>
+                        <div class="c-name">
+                            <em class="overflow-row-1">{{$store.state.userInfo.r_name}}</em>
+                            <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
+                            <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
+                                <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
+                                <em>{{v.zans>9999?'9999+':v.zans}}</em> 
+                            </div>
+                        </div>
+                        <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
+                        </div>
+                    </div>
+                </div>
+            </div> <!--来自account的评论 end-->
             <div class="a-publish-comment" v-if="showComment">
                 <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input></br>
                 <div style="text-align:right;padding-top:10px">
@@ -71,19 +72,19 @@
                 </div>
             </div>
          </div>
-         <div class="comment" v-loading="loading2">
+         <div class="comment" v-loading="loading2||zaning">
             <div class="c-header" >
                  <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
                  <span> 评论</span>
              </div>
             <div class="c-tab">
                 <span>按</span>
-                <span class="hot active" @click="toggleCommentType($event,'hot')">热门</span>
-                <span>|</span>
-                <span class="time" @click="toggleCommentType($event,'time')">时间</span>
+                <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
+                <span style="color:#bbb">|</span>
+                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span>
             </div>
              <div class="c-body">
-                <div v-if="commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                <div v-if="!loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
                 <div class="c-list" v-for="(v,i) in commentList">
                     <div class="photo">
                         <router-link to="">
@@ -94,32 +95,24 @@
                     <div class="c-name">
                         <em class="overflow-row-1">{{v.r_name}}</em>
                         <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
+                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
+                            <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
+                            <em>{{v.zans>9999?'9999+':v.zans}}</em> 
+                        </div>
                     </div>
                     <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
                         <!--搭建 VPN 的话推荐 shadowsocks 这神奇，google 下会有很多搭建方法的教程。然后，使用和设置方法可以看（里面也提供了线路的订购） http://klead.de/docs/guide/index.html-->
                     </div>
-                    <div class="c-ctrl">
-                        <div class="zan c-c" @click="zan($event,v.cid,v.zans)">
-                            <i class="icon iconfont icon-praise_fill" style="font-size:22px"></i> 
-                            <em>{{v.zans}}</em> 
-                        </div>
-                        <div class="reply c-c">
-                            <i class="icon iconfont icon-message" style="font-size:24px"></i> 
-                            <em>22</em> 
-                        </div>
-                        <div class="share c-c">
-                            <i class="icon iconfont icon-share_fill" style="font-size:20px"></i> 
-                            <em></em> 
-                        </div>
-                    </div>
                 </div>
 
-                <div class="load-more" v-if="currentCommentList.length==size" @click="moreComment">
+                <div class="load-more" v-if="!loading2 && currentCommentList.length==size" @click="moreComment">
                 加载更多...
                 </div>
              </div>
-
          </div>
+
+
+
     </div>
     <div class="aside-box">
         <div class="aside-items" v-for="i in 5">
@@ -145,31 +138,43 @@ export default {
             loading1:false,
             loading2:false,
             loading:false,
+            commentActive:'hot',
+            zaning:false,
+
+            accountCommentList:'', //我的评论，从个人中心跳转
             
+        }
+    },
+    watch:{
+        'commentActive':function(){
+            this.commentPage = 1
+            this.commentList = []
+            this.getCommentByAid()
         }
     },
     methods:{
         zan(e,cid,zans){
-            console.log(e.currentTarget.querySelector('em'));
+            if(this.zaning) return
+            this.zaning = true
             let d = e.currentTarget.querySelector('em')
             let count = d.innerHTML
-            // console.log(count);
             this.$axios.clickArticleCommentZan({aid:this.aid,cid:cid}).then(res=>{
+                this.zaning = false
                 if(res.data.success){
-                    // if(e.currentTarget.classList.contains('active')){
-                    //     count = Number(count)-1
-                    // }else{
-                    //     count = Number(count)+1
-                    // }
-                    d.innerHTML = Number(count)+res.data.result.count
-                    // e.currentTarget.classList.toggle('active')
+                    if(/^\d+$/.test(count)){
+                        d.innerHTML = Number(count)+res.data.result.count
+                    }else{
+                        console.log('非数字');
+                    }
                 }
+            }).catch(err=>{
+                this.zaning = false
             })
 
         },
         getCommentByAid(){
             this.loading2 = true
-            this.$axios.getCommentByAid({aid:this.aid,page:this.commentPage,size:this.size}).then(res=>{
+            this.$axios.getCommentByAid({aid:this.aid,page:this.commentPage,size:this.size,type:this.commentActive}).then(res=>{
                 this.loading2 = false
                 if(res.data.success){
                     this.currentCommentList = res.data.data
@@ -233,6 +238,18 @@ export default {
             this.getArticleInfo()
             this.getCommentByAid()
 
+        }
+        //处理my 评论
+        if(this.$route.query.index || this.$route.query.index==0){
+            if(localStorage.getItem('dataA')){
+                let temp = JSON.parse(localStorage.getItem('dataA'))
+                if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档
+                    this.accountCommentList = temp[this.$route.query.index-0]
+                    // this.$router.push({
+                    //     hash:"a-com"  //到达account评论处
+                    // })
+                }
+            }
         }
     }
     
@@ -394,7 +411,6 @@ export default {
         .a-footer {
             padding:2% 6% 2% 8%;
             border-top:1px solid #eee;
-            // border-bottom:1px solid #eee;
             background-color: #fefefe;
             display:flex;
             justify-content: space-between;
@@ -429,6 +445,7 @@ export default {
         background-color: #fff;
         min-height:150px;
         padding-bottom:10px;
+        min-height:470px;
         .c-header {
             height:40px;
             line-height: 40px;
@@ -452,16 +469,16 @@ export default {
                 &>span {
                     margin-right:7px;
                 }
-                .hot,.time {
+                .c-type {
                     cursor:pointer;
                 }
-                &>span.active {
+                &>.c-type.active {
                     font-weight:700;
-                    color:#222;
+                    color:#496ea3;
                 }
             }
         .c-body {
-            padding:2% 4.5% 3% 4%;
+            padding:1% 4.5% 3% 4%;
             .c-list {
                 // background: pink;
                 min-height:60px;
@@ -486,50 +503,40 @@ export default {
                     font-size:15px;
                     display:flex;
                     align-items:center;
-                    color:#aaa;
+                    color:#7f7d7d;
+                    position: relative;
+                    margin-bottom: 2px;
                     &>em {
                         display:inline-block;
-                        max-width:155px;
+                        max-width:105px;
                     }
                     &>span {
                         padding-left:10px;
                         font-weight:400;
                     }
-                }
-                .c-content {
-                    padding:2px 0 5px;
-                    font-size:15px;
-                }
-                .c-ctrl {
-                    display:flex;
-                    font-size:14px;
-                    padding-top:5px;
-                    .c-c {
+                    .zan.c-c {
                         line-height: 20px;;
-                        vertical-align: middle;
+                        // vertical-align: middle;
                         display:flex;
                         align-items: center;
                         cursor:pointer;
-                        width:25px;
-                        margin-right:50px;
+                        min-width:55px;
+                        max-width:65px;
+                        // margin-right:42px;
                         color:#cbcbcb;
-                        i {
-                            padding:2px 2px 2px 1px;
-                        }
+                        position: absolute;
+                        right:0px;
+                        top:0px;
                         em {
-                            padding-top:4px;
+                            position: relative;
+                            top:2px;
                         }
                     }
-                    .zan {
-                        margin-right:50px;
-                        &:hover {
-
-                        }
-
-                    }
-                    .zan.active {
-                        color:#70a9e5;
-                    }
+                }
+                .c-content {
+                    padding:2px 0 5px;
+                    font-size:14px;
+                    word-break:break-all; //英文换行
                 }
             }
             .load-more {

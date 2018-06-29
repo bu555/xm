@@ -231,8 +231,8 @@ export default {
                     .u-photo {
                         // flex:0 0 11%;
                         margin:4px 3px;
-                        width:35px;
-                        height:35px;
+                        width:33px;
+                        height:33px;
                         overflow:inherit;
                         position: relative;
                         box-sizing: border-box;

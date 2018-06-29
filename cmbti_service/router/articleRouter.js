@@ -304,6 +304,24 @@ const getCommentByAid = (req,res)=>{
                 let size = myUtill.verifyNum(options.size) ? Number(options.size) : 5  //每次条数
                 let page = myUtill.verifyNum(options.page) ? Number(options.page) : 1  //页数
                 let list = await Article.getComment(options)
+                // 排序
+                if(options.type && options.type==='hot'){
+                    let temp
+                    for(let i=0;i<list.length;i++){
+                        let flag = 1
+                        for(let j=0;j<list.length-i-1;j++){
+                            if(list[j].zans<list[j+1].zans){
+                                temp = list[j]
+                                list[j] = list[j+1]
+                                list[j+1] = temp
+                                flag = 0
+                            }
+                        }
+                        if(flag===1) break  //如果没发生交换，说明数组有序
+                    }
+                }else if(options.type && options.type==='time'){
+                    list = list.reverse() //倒置
+                }
                 let newList = JSON.parse(JSON.stringify(list.slice((options.page-1)*options.size, (options.page-1)*options.size + options.size)))
                 let proArr = []
                 newList.forEach((v,i)=>{

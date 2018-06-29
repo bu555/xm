@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 //个人信息
 const infoSchema = new mongoose.Schema({
     uid:{type:String,required:true},
+    name:{type:String},
     // r_name:String,
     // avatar:String, //头像
     // profile:String, //简介

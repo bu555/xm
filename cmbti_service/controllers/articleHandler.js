@@ -365,7 +365,7 @@ class Article {
             })
         })
     }
-    // 查看全部文章 options {aid:''}
+    // 查看整篇文章 options {aid:''}
     static getArticleById(options={}){
         return new Promise((resolve,reject)=>{
             Promise.all([
@@ -422,10 +422,11 @@ class Article {
         return new Promise((resolve,reject)=>{
             ArticleModel.comment.findOne({"aid":options.aid}).then(c=>{
                     if(c){
-                        let item = {aid:'',  title:c.title||'暂空',  comment:[]}
+                        let item = {aid:options.aid,  title:c.title||'暂空',  comment:[]}
                         for(let i=0;i<options.cid.length;i++){
                             for(let j=0;j<c.comment.length;j++){
                                 if(options.cid[i]===c.comment[j].cid){
+                                    c.comment[j].zan=null
                                     item.comment.push(c.comment[j])  
                                 }
                             }

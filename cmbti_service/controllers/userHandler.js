@@ -50,7 +50,7 @@ class User {
                     userRegister.save((err, user) => {
                         if(err) return reject('Register save faild')
                         // 加入account 庫
-                                Account.addAccountInfo({uid:userRegister._id}).then(r=>{
+                                Account.addAccountInfo({uid:userRegister._id,name:userRegister.name}).then(r=>{
                                     resolve(userRegister.name) //成功
                                 })
                     })

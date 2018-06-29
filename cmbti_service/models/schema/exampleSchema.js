@@ -31,6 +31,7 @@ const exampleSchema = new mongoose.Schema({
 })
 const commentSchema = new mongoose.Schema({
         eid:String,
+        title:String,
         comment:[
             {
                 uid:String,

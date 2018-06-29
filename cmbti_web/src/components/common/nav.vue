@@ -22,7 +22,7 @@
                 <router-link :to="'/test'">
                     <div :class="/^\/test/.test($route.path)? 'items active':'items'">测试</div>
                 </router-link>
-                <router-link to="/example">
+                <router-link to="/example?type=all&page=1">
                     <div :class="/^\/example/.test($route.path)? 'items active':'items'">名人库</div>
                 </router-link>
                 <router-link to="/forum?category=all&page=1">

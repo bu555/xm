@@ -173,9 +173,13 @@ export default {
     getCommentList(data){
         return axios.get(pathAPI+'/account/getCommentList',{params:data});
     },
-    //获取用户的评论（处理过的）
-    getMyComment(data){
-        return axios.post(pathAPI+'/account/getMyComment',data);
+    //获取用户的文章评论数据
+    getMyCommentArt(data){
+        return axios.post(pathAPI+'/account/getMyCommentArt',data);
+    },
+    //获取用户的名人评论数据
+    getMyCommentExa(data){
+        return axios.post(pathAPI+'/account/getMyCommentExa',data);
     },
 
 }

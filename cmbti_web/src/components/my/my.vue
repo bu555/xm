@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="aside-box">
-        <div class="aside-items" v-for="i in 3">
+        <div class="aside-items" v-for="i in 3" style="color:#fefefe">
             <p>INTJ和INTP测试</p>
             <p>INTJ和INTP测试</p>
             <p>INTJ和INTP测试</p>

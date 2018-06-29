@@ -133,52 +133,6 @@ const addComment = (req,res,next)=>{
       })
 
 }
-// 获取评论
-// const getComment = (req,res,next)=>{ //{page:num}
-//       let uid = req.session.user ? req.session.user._id : ''
-//       let eid = req.body.eid || ''
-//       let page = req.body.page || ''
-//       if(!eid || !myUtill.verifyNum(page)){
-//           return res.json({
-//               success:false,
-//               message:'参数格式错误'
-//           })
-//       }
-//     //   page = Number(page)
-//       (async ()=>{
-//           try{
-//                 let num = 5  //每次5条
-//                 let comment = await Example.comment.getComment({ eid: eid })
-//                 let over = comment.list.length<=num*page  //是否还有数据
-//                 let list = comment.list.slice(page*num-num,page*num)
-//                 console.log(list);
-//                 // (async ()=>{
-//                     for(let i=0;i<list.length;i++){
-//                         let temp = JSON.parse(JSON.stringify(list[i]))
-//                         temp.zaned = false
-//                         if(list[i].zan.indexOf(uid)!=-1){
-//                             temp.zaned = true 
-//                         }
-//                         let user = await User.getUser({uid:list[i].uid})
-//                         temp.role_name = user ? user.role_name :  '已注销'
-//                         list[i] = temp
-//                     }
-//                     res.json({
-//                         success:true,
-//                         comment:list,
-//                         over: over
-//                     })
-//                 // })
-//            }catch(error){
-//                 res.json({
-//                     success:false,
-//                     message:error
-//                 })
-//            }
-//       })()
-
-
-// }
 // aid 获取评论 options {aid:'必传',page:'必传',size:'必传'}
 const getComment = (req,res)=>{
         let options = req.body || {}
@@ -196,6 +150,25 @@ const getComment = (req,res)=>{
                 let size = myUtill.verifyNum(options.size) ? Number(options.size) : 5  //每次条数
                 let page = myUtill.verifyNum(options.page) ? Number(options.page) : 1  //页数
                 let list = await Example.getComment(options)
+                // 排序
+                if(options.type && options.type==='hot'){
+                    let temp
+                    for(let i=0;i<list.length;i++){
+                        let flag = 1
+                        for(let j=0;j<list.length-i-1;j++){
+                            if(list[j].zans<list[j+1].zans){
+                                temp = list[j]
+                                list[j] = list[j+1]
+                                list[j+1] = temp
+                                flag = 0
+                            }
+                        }
+                        if(flag===1) break  //如果没发生交换，说明数组有序
+                    }
+                }else if(options.type && options.type==='time'){
+                    list = list.reverse() //倒置
+                }
+
                 let newList = JSON.parse(JSON.stringify(list.slice((options.page-1)*options.size, (options.page-1)*options.size + options.size)))
                 let proArr = []
                 newList.forEach((v,i)=>{

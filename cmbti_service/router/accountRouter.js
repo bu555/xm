@@ -10,6 +10,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 // const User = require('../controllers/user')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
+const Example = require('../controllers/exampleHandler')
 const User = require('../controllers/userHandler')
 const fs = require('fs')
 const path = require('path')
@@ -72,7 +73,7 @@ const followUser = (req,res)=>{
             }
       })()
 }
-// 获取用户评论历史展示
+// 获取用户评论历史展示 返回格式：{aid:[{aid:'',cid:[id,id,..]}],eid:[{eid:'',cid:[id,id,..]}]}
 const getCommentList = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
@@ -134,12 +135,16 @@ const getCommentList = (req,res)=>{
     })()
 }
 // 獲取評論 options:{aid:[{aid:'',cid:[c1,c2,...]}]} 獲取文章評論
-// 獲取評論 options:{eid:[{eid:'',cid:[c1,c2,...]}]} 獲取名人評論
-const getMyComment = (req,res)=>{
+const getMyCommentArt = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
-        console.log(options,Object.keys(options));
-      if(!options.uid || !((Object.keys(options).indexOf('aid')>-1)||(Object.keys(options).indexOf('eid')>-1)) ){
+      if(!options.uid || !(Object.keys(options).indexOf('aid')>-1) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      if(!(options.aid instanceof Array) || !options.aid.length>0 ){
           return res.json({
               success:false,
               message:'Params Error'
@@ -148,16 +153,9 @@ const getMyComment = (req,res)=>{
       (async ()=>{
           try{
                 let proArr = []
-                if(Object.keys(options).indexOf('aid')>-1){
-                    options.aid.forEach((v,i)=>{
-                        console.log('vvv',v);
-                        proArr.push(Article.getCommentByCid(v))
-                    })
-                }else if(Object.keys(options).indexOf('eid')>-1){
-                    options.eid.forEach((v,i)=>{
-                        proArr.push()
-                    })
-                }
+                options.aid.forEach((v,i)=>{
+                    proArr.push(Article.getCommentByCid(v))
+                })
                 let itemList = await Promise.all(proArr)
 
                 res.json({
@@ -166,6 +164,44 @@ const getMyComment = (req,res)=>{
                 })
 
             }catch(err){
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取評論 options:{eid:[{eid:'',cid:[c1,c2,...]}]} 獲取名人評論
+const getMyCommentExa = (req,res)=>{
+        let options = req.body || {}
+        options.uid = req.session.user._id
+      if(!options.uid || !(Object.keys(options).indexOf('eid')>-1) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      if(!(options.eid instanceof Array) || !options.eid.length>0 ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let proArr = []
+                options.eid.forEach((v,i)=>{
+                    proArr.push(Example.getCommentByCid(v))
+                })
+                let itemList = await Promise.all(proArr)
+
+                res.json({
+                    success: true,
+                    data:itemList
+                })
+
+            }catch(err){
+                console.log(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -207,7 +243,8 @@ const getMyComment = (req,res)=>{
 
 router.get('/getAccountInfo',checkLogin,getAccountInfoById);
 router.get('/getCommentList',checkLogin,getCommentList);
-router.post('/getMyComment',checkLogin,getMyComment);
+router.post('/getMyCommentArt',checkLogin,getMyCommentArt);
+router.post('/getMyCommentExa',checkLogin,getMyCommentExa);
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);
 // router.post('/getExampleById',getExampleById);

@@ -51,7 +51,8 @@ class Example{
                             } else {
                                 new ExampleModel.comment({
                                     eid:example._id,
-                                    comment:[]
+                                    comment:[],
+                                    title:exampleAdd.name
                                 }).save((err,comment)=>{
                                     if(err) return reject('save fail')
                                     resolve(example)
@@ -201,7 +202,6 @@ class Example{
     }
     // params: {eid:'',uid:'',result:''}
     addComment(options){
-        console.log(options);
         return new Promise((resolve,reject)=>{
             let cid = myUtill.randomString(7)
             ExampleModel.comment.update({"eid":options.eid},{$addToSet:{comment:{
@@ -218,7 +218,7 @@ class Example{
             })
         })
     }
-    // params: {eid:''}
+    // 获取文章的评论params: {eid:''}
     getComment(options={}){
         return new Promise((resolve,reject)=>{
             let page = options.page && /^[1-9][0-9]*$/.test(options.page) ? Number(options.page): 1
@@ -234,7 +234,7 @@ class Example{
         })
     }
 
-    // params : {eid:'',cid:''}
+    // 评论点赞params : {eid:'',cid:''}
     clickCommentZan(options){
         return new Promise((resolve,reject)=>{
             ExampleModel.comment.findOne({"eid":options.eid}).then(e=>{
@@ -294,44 +294,28 @@ class Example{
             })
         })
     }
+    // cid和eid查看评论options {eid:'必传',cid:[id1,id2,...]}
+    getCommentByCid(options={}){
+        return new Promise((resolve,reject)=>{
+            ExampleModel.comment.findOne({"eid":options.eid}).then(c=>{
+                    if(c){
+                        let item = {eid:options.eid,  title:c.title||'暂空',  comment:[]}
+                        for(let i=0;i<options.cid.length;i++){
+                            for(let j=0;j<c.comment.length;j++){
+                                if(options.cid[i]===c.comment[j].cid){
+                                    c.comment[j].zan=null
+                                    item.comment.push(c.comment[j])  
+                                }
+                            }
+                        }
+                        resolve(item)
+                    }else{
+                        resolve(null)
+                    }
+                }) 
+            })
+    }
 }
 
-// new Example().createExample().then(example=>{
-//     console.log(example);
-// }).catch(err=>{
-//     console.error(err)
-// })
-
-// new Example().addComment({eid:'5afa74ef2911a029b0fe050a',uid:'m555',result:'00001测试内容'}).then(example=>{
-//     console.log(example,123);
-// }).catch(err=>{
-//     // console.error(err)
-// })
-
-// new Example().clickZan({eid:'5afa74ef2911a029b0fe050a',uid:'m777',cid:'5afa7d7f0e9b29203ce5a94b'}).then(example=>{
-//     console.log(example,123);
-// }).catch(err=>{
-//     console.error(err)
-// })
-
-// new Example().searchExample().then(example=>{
-//     console.log(example);
-// }).catch(err=>{
-//     console.error(err)
-// })
-
-// new Example().getExampleById({eid:'5afa74ef2911a029b0fe050a'}).then(example=>{
-//     console.log(example);
-// }).catch(err=>{
-//     console.error(err)
-// })
-
-// new Example().addVote({eid:'5afa74ef2911a029b0fe050a',uid:'my001',result:'enfp'}).then(example=>{
-//     console.log(example);
-// }).catch(err=>{
-//     console.error(err)
-// })
-
-// console.log(moment('2018-05-15T06:23:12.095Z').format('YYYY-MM-DD HH:mm:ss'))
 
 module.exports = new Example()

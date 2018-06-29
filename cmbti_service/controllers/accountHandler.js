@@ -9,6 +9,7 @@ class Account {
         return new Promise((resolve,reject)=>{
             new AccountModel.info({
                 uid:options.uid,
+                name:options.name,
                 // r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
                 // avatar:'', //头像
                 // profile:'', //简介
