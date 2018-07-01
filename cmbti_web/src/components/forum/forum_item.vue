@@ -27,12 +27,12 @@
                     </div>
                 </div>
             </div>
-            <div class="a-body">{{data.content}} <button @click="addComment">评论</button>
+            <div class="a-body"  v-html="data.content">
             </div>
             <div class="a-footer">
-                <div>
-                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-heart" style="font-size:16px"></i> 收藏 <em style="font-size:14px">({{data.likes}}</em>)</span>
-                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-heart-o"  style="font-size:16px"></i> 收藏 <em style="font-size:14px">({{data.likes}})</em></span>
+                <div class="a-mark">
+                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-star" style="font-size:19px"></i> 收藏 <em style="font-size:15px">({{data.likes}})</em></span>
+                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"  style="font-size:19px"></i> 收藏 <em style="font-size:15px">({{data.likes}})</em></span>
                     
                 </div>
                 <div>
@@ -40,10 +40,13 @@
                 </div>
             </div>
             <!--来自account的评论-->
-            <div id="a-com"></div>
+            <div id="mycomment" ></div>
             <div class="comment" v-if="(accountCommentList.comment instanceof Array) && accountCommentList.comment.length>0 " style="margin-top:15px;min-height:100px">
                 <div style="height:15px;background:#f7f7f7"></div>
-                <div style="height:40px;line-height:40px;padding-left:4%;background:#a7c8ec;color:#f9f8f9">来自{{$store.state.userInfo.r_name}}的评论</div>
+                <div style="height:40px;line-height:40px;padding-left:4%;background:#a7c8ec;color:#fff">
+                    <span class="fa fa-commenting" style="font-size:18px"></span> 
+                    我的评论
+                </div>
                 <div class="c-body">
                     <div class="c-list" v-for="(v,i) in accountCommentList.comment" :key="i">
                         <div class="photo">
@@ -74,8 +77,8 @@
          </div>
          <div class="comment" v-loading="loading2||zaning">
             <div class="c-header" >
-                 <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
-                 <span> 评论</span>
+                 <span class="fa fa-comments" style="font-size:20px"></span> 
+                 评论
              </div>
             <div class="c-tab">
                 <span>按</span>
@@ -206,7 +209,7 @@ export default {
                 this.loading = false
                 if(res.data.success){
                     this.$message({
-                        message: '登录成功！',
+                        message: '评论成功！',
                         type: 'success'
                     });
                     this.myComment = ''
@@ -232,6 +235,8 @@ export default {
             e.currentTarget.classList.toggle('overflow-row-5')
         }
     },
+    mounted(){
+    },
     created(){
         this.aid = this.$route.path.split('/')[2]
         if(this.aid){
@@ -245,9 +250,6 @@ export default {
                 let temp = JSON.parse(localStorage.getItem('dataA'))
                 if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档
                     this.accountCommentList = temp[this.$route.query.index-0]
-                    // this.$router.push({
-                    //     hash:"a-com"  //到达account评论处
-                    // })
                 }
             }
         }
@@ -425,13 +427,17 @@ export default {
             border-radius:2px;
             cursor:pointer;
             display:inline-block;
-            font-size:16px;
+            font-size:15px;
             color:#888;
             &:hover {
                 color:#4d9efc;
             }
             .a-like.btns2 {
                 color:#4d9efc;
+            }
+            .a-mark {
+                display:flex;
+                align-items: center;
             }
 
         }

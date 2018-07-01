@@ -16,7 +16,7 @@
       <div v-if="typeActive==='aid'">
           <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
                 <div class="h5 overflow-row-1">
-                  <div class="h5-icon">文档</div><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'a-com'}"><span>{{v.title}}</span></router-link>
+                  <div class="h5-icon">文档</div><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'mycomment'}"><span>{{v.title}}</span></router-link>
                 </div>
                 
                 <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>

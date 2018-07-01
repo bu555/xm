@@ -5,7 +5,7 @@
             <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
         </div>
         <div class="edit-photo">
-            <button>上传封面照片</button>
+            <!--<button>上传封面照片</button>-->
         </div>
         <div class="edit-info">
             <!--<button>编辑个人资料</button>-->
