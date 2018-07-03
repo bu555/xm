@@ -1,6 +1,6 @@
 <template>
 <div class="test-result">
-    <div class="main">
+    <div class="main"  v-if="mbtiRes">
         <!--<h4>MBTI 测试报告</h4>-->
         <div class="line1"></div>
         <!--头部-->
@@ -97,8 +97,8 @@
                             <div>
                                 <p>主导功能：{{mbtiRes.f[0].substr(0,2)}}（{{mbtiRes.f_ch[0]}} {{mbtiRes.f_en[0]}}）</p>
                                 <p>辅助功能：{{mbtiRes.f[1].substr(0,2)}}（{{mbtiRes.f_ch[1]}} {{mbtiRes.f_en[1]}}）</p>
-                                <p>第三功能：{{mbtiRes.f[2].substr(0,2)}}（{{mbtiRes.f_ch[2]}} {{mbtiRes.f_en[2]}}）</p>
-                                <p>第四功能：{{mbtiRes.f[3].substr(0,2)}}（{{mbtiRes.f_ch[3]}} {{mbtiRes.f_en[3]}}）</p>
+                                <p>次等功能：{{mbtiRes.f[2].substr(0,2)}}（{{mbtiRes.f_ch[2]}} {{mbtiRes.f_en[2]}}）</p>
+                                <p>劣等功能：{{mbtiRes.f[3].substr(0,2)}}（{{mbtiRes.f_ch[3]}} {{mbtiRes.f_en[3]}}）</p>
                             </div>
                         </div>
                     </div>
@@ -136,29 +136,38 @@ import mbtiRes from './r_mbti'
 export default {
     data(){
         return {
-            mbtiRes:{},
-            Res:{
-
-            }
+            mbtiRes:'',
+            Res:'',
+            type:''
         }
     },
     methods:{
+        getResult(){
+            this.$axios.getTestById({tid:this.tid}).then(res=>{
+                if(res.data.success){
+                    this.Res = res.data.data.res
+                    this.type = res.data.data.type
+                    this.mbtiRes = mbtiRes['intj']
+                }
+            }).catch(err=>{ })
+        }
 
     },
     components:{
 
     },
     created(){
-        console.log(JSON.parse(this.$route.query.result));
-        this.Res = JSON.parse(this.$route.query.result);
-        console.log(this.Res.e>this.Res.i? this.Res.e/(this.Res.e+this.Res.i)*100+'%':'0');
-        let type = ''
-        type += this.Res.e>this.Res.i?'e':'i'
-        type += this.Res.s>this.Res.n?'s':'n'
-        type += this.Res.t>this.Res.f?'t':'f'
-        type += this.Res.j>this.Res.p?'j':'p'
-        console.log('type:',type);
-        this.mbtiRes = mbtiRes['intj']
+        this.tid = this.$route.path.split('/')[3]
+        let r = localStorage.getItem('testRes')
+        if(r){
+            r = JSON.parse(r)
+            this.Res = r.res;
+            this.mbtiRes = mbtiRes['intj']
+            localStorage.setItem('testRes','')
+        }else{
+            // 请求数据
+            this.getResult()
+        }
     },
     
 };

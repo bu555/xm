@@ -40,13 +40,7 @@ const commentSchema = new mongoose.Schema({
                 c_time:Date,
                 zan:[String], //[uid,uid]
                 zans:Number,
-                replay:[
-                    {
-                        uid:String,
-                        content:String,
-                        c_time:Date
-                    }
-                ]
+                replay:String
             }
         ]
 })

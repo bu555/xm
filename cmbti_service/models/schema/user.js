@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema({
     sex:{type:String,enum:['1','0','-1']},
     city:String,
     birth:String, //
+    grade:Number, //等级
 })
 
 // Model模型，是经过Schema构造来的，除了Schema定义的数据库骨架以外，还具有数据库行为模型，他相当于管理数据库属性、行为的类

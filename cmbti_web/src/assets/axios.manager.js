@@ -87,6 +87,10 @@ export default {
     uploadPhoto(data){
         return axios.post(pathAPI+'/user/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
     },
+    //批量获取用户信息 展示
+    userInfoListShow(data){
+        return axios.post(pathAPI+'/user/userInfoListShow',data);
+    },
 
 // example -------------------------------------
     //爬取数据添加example  （）
@@ -180,6 +184,29 @@ export default {
     //获取用户的名人评论数据
     getMyCommentExa(data){
         return axios.post(pathAPI+'/account/getMyCommentExa',data);
+    },
+    //获取用户的名人评论数据
+    getUserInfoShow(data){
+        return axios.get(pathAPI+'/account/getUserInfoShow',{params:data});
+    },
+    //关注/取消关注用户 options:{uid:'',uuid:'',status:'1'/'0'} 1关注 0取消关注
+    followUser(data){
+        return axios.post(pathAPI+'/account/followUser',data);
+    },
+    // 获取测试记录 多条
+    getMyTest(data){
+        return axios.get(pathAPI+'/account/getMyTest',{params:data});
+    },
+
+
+// Test -----------------------------
+    // 添加测试数据  {category:'',uip:'',res:'Object'}
+    addTest(data){
+        return axios.post(pathAPI+'/test/addTest',data);
+    },
+    // 添加测试数据  {category:'',uip:'',res:'Object'}
+    getTestById(data){
+        return axios.post(pathAPI+'/test/getTestById',data);
     },
 
 }

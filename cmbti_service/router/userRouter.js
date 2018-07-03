@@ -121,7 +121,7 @@ const login = (req, res) => {
         // 用户信息写入 session
         req.session.user = user;
         let _user = JSON.parse(JSON.stringify(user))
-        delete _user._id
+        delete _user.name
         delete _user.password
         delete _user.create_time
         res.json({
@@ -147,7 +147,7 @@ const delSession = (req, res) => {
       message: '登出成功'
   })
 }
-// 获取用户信息
+// 获取用户信息（用户中心）
 const getUserInfoById = (req, res) =>{  
     // console.log(req.session.user);
     // console.log()
@@ -203,6 +203,7 @@ const modifyUserInfo = (req, res) =>{
     // })()
 }
 
+
 // 上傳用戶頭像
 const uploadPhoto = (req,res)=>{
     let uid = req.session.user._id
@@ -237,6 +238,33 @@ const uploadPhoto = (req,res)=>{
     })
 }
 
+// 获取多个用户 展示 {uid:[id1,id2 ...]}
+const userInfoListShow = (req, res) =>{  
+    let options = req.body || {}
+    if(!options.uid || !(options.uid instanceof Array) || !(options.uid.length>0) ){
+          return res.json({
+            success: false,
+            message: "参数格式错误"
+          })
+    }
+    (async ()=>{
+        try{
+            let proArr = [] 
+            options.uid.forEach((v,i)=>{
+                proArr.push(User.getUserById({uid:v}))
+            })
+            let list = await Promise.all(proArr)
+            res.json({
+                success: true,
+                data:list
+            })
+        }catch(err){
+            res.json({
+                success: false
+            })
+        }
+    })()
+}
 
 
 
@@ -244,21 +272,14 @@ const uploadPhoto = (req,res)=>{
 
 
 
-// router.post('/register',checkNotLogin,register);
 router.post('/register',register);
-// router.post('/login',checkNotLogin,login);
 router.post('/login',login);
 router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
 router.post('/reset',resetPassword);
-// router.post('/search',checkLogin,search)
 router.post('/delSession',delSession)
 router.post('/checkNotRegister',checkNotRegister)
 router.post('/modifyUserInfo',checkLogin,modifyUserInfo)
 router.get('/getUserInfo',checkLogin,getUserInfoById)
 router.post('/uploadPhoto',checkLogin,uploadPhoto);
-
-//   router.post('/register', checkNotLogin, Register),
-//     router.post('/login', checkNotLogin, Login),
-//     router.get('/user', checkLogin, delSession),
-//     router.get('/', checkLogin, getSession)
+router.post('/userInfoListShow',userInfoListShow);
 module.exports = router

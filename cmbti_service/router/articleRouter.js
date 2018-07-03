@@ -10,6 +10,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const User = require('../controllers/userHandler')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
+var xss = require('xss');
 
 const json = (d)=>{console.log(d);}
 // 发表文章  input : {uid:'',title:'',category:'share',content:''}
@@ -71,7 +72,6 @@ const deleteArticle = (req,res)=>{
             // // 清除用户记录
             // let r2 = await Account.deletePublishLog(options)
             let success = await Promise.all([Article.deleteArticle(options),Account.deletePublishLog(options)])
-            console.log('Success',success);
             res.json({
                 success: true,
                 message: 'Delete success!'
@@ -89,7 +89,7 @@ const deleteArticle = (req,res)=>{
     })()
 
 }
-// 点击/取消喜欢文章  input : {uid:'',aid:''}
+// 点击/取消喜欢（收藏）文章  input : {uid:'',aid:''}
 const clickArticleLike = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
@@ -124,7 +124,7 @@ const clickArticleLike = (req,res)=>{
 
     })()
 }
-// 文章评论  input : {aid:'',uid:'',content:''}
+// 文章评论  input : {aid:'',uid:'',content:'',cid:'回复别人id'}
 const addComment = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
@@ -137,9 +137,12 @@ const addComment = (req,res)=>{
     }
     (async ()=>{
         try{
+            options.content = xss(options.content)
+
             let r = await Article.addComment(options)  //返回cid
             options.cid = r.cid
             options.update_time = r.update_time
+            options.c_count = r.c_count
             // 加入到个人记录,更新Article最新时间
             await Promise.all([
                 Account.addCommentLog(options),
@@ -194,7 +197,7 @@ const clickCommentZan = (req,res)=>{
         }
     })()
 }
-// 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean}
+// 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean,size:'',page}
 const getArticle = (req,res)=>{
     let options = req.body || {}
     // 参数验证
@@ -329,6 +332,7 @@ const getCommentByAid = (req,res)=>{
                 })
                 let userList = await Promise.all(proArr)
                 for(let i=0;i<newList.length;i++){
+                    // 查询并添加用户信息
                     if(userList[i]){
                         newList[i].r_name = userList[i].r_name
                         newList[i].avatar = userList[i].avatar 
@@ -336,10 +340,26 @@ const getCommentByAid = (req,res)=>{
                         newList[i].r_name = '已注销'
                         newList[i].avatar = ''
                     }
+                    ///登录情况下，确认是否点赞
                     if(options.uid){ //如果登錄，確認是否點過贊
                         newList[i].isZaned = newList[i].zan.indexOf(options.uid)===-1 ?  false : true
+                    }else{
+                        newList[i].isZaned = false
                     }
                     newList[i].zan = null
+                    // 在回复别的情况下,根据cid获取对应信息
+                    if(newList[i].replay){
+                        for(let k=0;k<list.length;k++){
+                            if(list[k].cid===newList[i].replay){
+                                let u = await User.getUserById({uid:list[k].uid})
+                                newList[i].rep = {
+                                    content:list[k].content,
+                                    r_name:u.r_name,
+                                    uid:list[k].uid
+                                }
+                            }
+                        }
+                    }
                 }
 
                 res.json({
@@ -348,6 +368,7 @@ const getCommentByAid = (req,res)=>{
                     data: newList
                 })
             }catch(err){
+                console.log(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -355,7 +376,7 @@ const getCommentByAid = (req,res)=>{
             }
       })()
 }
-// 獲取多個文章信息
+// 獲取多個文章信息(展示用) options:{aid:['','',...]}
 const getArticleInfoAll = (req,res)=>{
         let options = req.body || {}
         // options.eid = req.body.aid || ''
@@ -393,11 +414,4 @@ router.post('/getArticle',getArticle);
 router.post('/getCommentByAid',getCommentByAid);
 router.post('/getArticleById',getArticleById);
 router.post('/getArticleInfoAll',getArticleInfoAll);
-// // router.post('/login',checkNotLogin,login);
-// router.post('/login',login);
-// router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
-// router.post('/reset',resetPassword);
-// // router.post('/search',checkLogin,search)
-// router.post('/delSession',delSession)
-// router.post('/checkNotRegister',checkNotRegister)
 module.exports = router

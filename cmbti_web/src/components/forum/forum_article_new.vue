@@ -44,17 +44,6 @@
             </el-form>
         </div>
     </div>
-    <div class="aside-box">
-        <div class="aside-items" v-for="i in 5">
-            <p>INTJ和INTP测试</p>
-            <p>INTJ和INTP测试</p>
-            <p>INTJ和INTP测试</p>
-            <ol>
-                <li>jjj</li>
-                <li>jjj</li>
-            </ol>
-        </div>
-    </div>
 </div> 
 </template>
 <script>
@@ -117,7 +106,7 @@ export default {
 <style lang="less">
 .forum-new {
     max-width:1180px;
-    margin:12px auto;
+    margin:0px auto;
     position: relative;
     display:flex;
     

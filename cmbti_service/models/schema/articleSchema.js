@@ -11,13 +11,7 @@ const commentSchema = new mongoose.Schema({
             c_time:Date,
             zan:[String], //[uid,uid]
             zans:Number,
-            replay:[
-                {
-                    uid:String,
-                    content:String,
-                    c_time:Date
-                }
-            ]
+            replay:String //回复的cid
         }
     ]
 })
@@ -28,7 +22,7 @@ const contentSchema = new mongoose.Schema({
     aid:String,
     size:Number,
     content:String,  
-    views:Number
+    views:Number  
 })
 const content = mongoose.model('a_content', contentSchema) 
 
@@ -43,35 +37,10 @@ const articleSchema = new mongoose.Schema({
     like:[String],
     likes:Number,
     update_time:Date, //更新时间
+    c_count:Number  //评论总数
 })
-// 实例方法
-// articleSchema.methods.updateLikes = function(){
-//     this.likes = this.like.length
-//     this.save((err,a)=>{
-//         if(!err){
-//             console.log('更新后后：',a);
-//         }
-//     })
-// }
 
 const article = mongoose.model('a_article', articleSchema) 
-
-// const commentSchema = new mongoose.Schema({
-//     aid:String,
-//     uid:String,
-//     content:String,
-//     c_time:Date,
-//     zan:Array,
-//     zans:Number,
-//     replay:[
-//         {
-//             uid:String,
-//             content:String,
-//             c_time:Date
-//         }
-//     ]
-// })
-// const comment = mongoose.model('a_comment', commentSchema) 
 
 const ArticleModel = {
     article:article,

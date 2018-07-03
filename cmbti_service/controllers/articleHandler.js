@@ -229,20 +229,22 @@ class Article {
                 if(a){
                     let cid = myUtill.randomString(7)
                     let update_time = new Date()
+                    let c_count = a.comment.length
                     ArticleModel.comment.update({aid:options.aid},{$push:{comment:{       //{multi : true }更新所有匹配项目
                         uid:options.uid,
                         content:options.content,
                         c_time:update_time,
                         zan:[],
                         zans:0,
-                        replay:[],
+                        replay:options.cid?options.cid:'',
                         cid:cid
                     }}},err=>{
                         if(err) return reject('Update faild')
                         resolve({
                             cid:cid,
-                            update_time:update_time  //回复时间
-                        })  //返回cid
+                            update_time:update_time,  //回复时间
+                            c_count:c_count + 1
+                        }) 
                     })
                 }else{
                     reject('The find aid result is empty ')
@@ -411,7 +413,7 @@ class Article {
     // 更新最新回复 {aid:'必传',u_time:}
     static setUpdateTime(options={}){
         return new Promise((resolve,reject)=>{
-            ArticleModel.article.update({"aid":options.aid},{$set:{"u_time":options.u_time}},err=>{
+            ArticleModel.article.update({"aid":options.aid},{$set:{"u_time":options.u_time,"c_count":options.c_count}},err=>{
                 if(err) return reject('update u_time faild')
                 resolve('success')
             })

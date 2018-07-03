@@ -10,7 +10,7 @@
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
         <div class="my-type">文档</div>
-        <router-link to="">
+        <router-link :to="'/forum/'+v._id">
               {{v.title}}
         </router-link>
       </div>

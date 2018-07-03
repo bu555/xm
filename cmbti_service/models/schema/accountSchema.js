@@ -3,14 +3,6 @@ var mongoose = require('mongoose');
 const infoSchema = new mongoose.Schema({
     uid:{type:String,required:true},
     name:{type:String},
-    // r_name:String,
-    // avatar:String, //头像
-    // profile:String, //简介
-    // sex:{type:Number,enum:[0,1]},
-    // city:String,
-    // birth:String, //
-    // 参与测试结果
-    // t_result:Array, //{mbti:{res:'intj',date:'string'},keirsey:{res:'NT',date:‘string’},function}
     // 关注的用户
     test_record:[String],
     followers:[String], //['uid','uid']
@@ -40,6 +32,7 @@ const infoSchema = new mongoose.Schema({
             cid:String
         }
     ], //[{aid:'',eid:'',cid:''}]
+    my_message:[String], // [mid,mid,...]
 
 })
 const infoModel = mongoose.model('account_info', infoSchema) 

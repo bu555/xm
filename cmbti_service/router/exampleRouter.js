@@ -10,7 +10,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 const Example = require('../controllers/exampleHandler')
 const User = require('../controllers/userHandler')
 const Account = require('../controllers/accountHandler')
-
+var xss = require('xss');
 const addExample = (req,res)=>{
     let name = req.body.name || '';
     if(!name){
@@ -98,7 +98,7 @@ const goVote = (req,res,next)=>{
       })
 
 }
-// 评论
+// 评论 options:{eid:'',result:''}
 const addComment = (req,res,next)=>{
       let uid = req.session.user._id;
       let eid = req.body.eid?req.body.eid:''
@@ -112,7 +112,8 @@ const addComment = (req,res,next)=>{
       let options = {
           uid: uid,
           eid: eid,
-          result: result
+          result: xss(result),
+          cid: req.body.cid ? req.body.cid :''
       }
       // 添加到vote list
       Example.addComment(options).then(cid=>{
@@ -187,6 +188,19 @@ const getComment = (req,res)=>{
                         newList[i].isZaned = newList[i].zan.indexOf(options.uid)===-1 ?  false : true
                     }
                     newList[i].zan = null
+                    // 在回复别的情况下,根据cid获取对应信息
+                    if(newList[i].replay){
+                        for(let k=0;k<list.length;k++){
+                            if(list[k].cid===newList[i].replay){
+                                let u = await User.getUserById({uid:list[k].uid})
+                                newList[i].rep = {
+                                    content:list[k].content,
+                                    r_name:u.r_name,
+                                    uid:list[k].uid
+                                }
+                            }
+                        }
+                    }
                 }
 
                 res.json({
@@ -221,7 +235,7 @@ const clickCommentZan = (req,res,next)=>{ //{page:num}
             res.json({
                 success: true,
                 message: 'success',
-                result: r,
+                result: r,  //count 1 或-1
             })
 
         }catch(err){
@@ -235,6 +249,7 @@ const clickCommentZan = (req,res,next)=>{ //{page:num}
 
 
 }
+// 根据id获取example详情
 const getExampleById = (req,res,next)=>{
     // let login = req.session.user  //是否登录
     let eid = req.query.eid || ''

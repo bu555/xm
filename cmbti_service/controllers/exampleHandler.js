@@ -200,7 +200,7 @@ class Example{
             })
         })
     }
-    // params: {eid:'',uid:'',result:''}
+    // params: {eid:'',uid:'',result:'',cid:'回复别人'}
     addComment(options){
         return new Promise((resolve,reject)=>{
             let cid = myUtill.randomString(7)
@@ -211,7 +211,7 @@ class Example{
                     c_time:new Date(),
                     zan:[], //[uid,uid]
                     zans:0,
-                    replay:[]
+                    replay:options.cid?options.cid:''
             }}},err=>{
                 if(err) reject(err)
                 resolve(cid)

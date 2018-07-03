@@ -49,10 +49,7 @@ class Account {
     // 删除已发表文章记录 options;{uid:'',aid:''}
     static deletePublishLog(options={}){
         return new Promise((resolve,reject)=>{
-            console.log(options.uid);
-            console.log(options.aid);
             AccountModel.info.update({"uid":options.uid},{"$pull":{"my_article":options.aid}},err=>{
-                console.log(err);
                 if(err) return reject('Update error')
                 resolve('Update success!')
             }) 

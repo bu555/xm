@@ -49,7 +49,9 @@ export default {
     },
     init(){
        if(localStorage.getItem('USER')){
+         console.log(777);
           this.$store.commit('setUserInfo',JSON.parse(localStorage.getItem('USER')))
+          console.log('jj',this.$store.state.userInfo);
        }
     }
   },

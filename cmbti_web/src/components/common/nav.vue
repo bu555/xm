@@ -32,10 +32,10 @@
                     <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
                 </router-link>
                 <router-link to="/my">
-                    <div  v-if="$store.state.userInfo.name" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
+                    <div  v-if="$store.state.userInfo._id" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
                 </router-link>
                 <div class="items user-ctrl">
-                  <div v-if="$store.state.userInfo.name" class="not-login">
+                  <div v-if="$store.state.userInfo._id" class="not-login">
                       <router-link to="/my">
                         <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
                       </router-link>
@@ -293,6 +293,11 @@ export default {
                     color:#ddd;
                   }
                 }
+              }
+              .login-register {
+                 color:#b7c5d5;
+                 width:90px;
+                 height:40px;
               }
 
           }

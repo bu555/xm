@@ -6,8 +6,18 @@ var articleRouter = require('./router/articleRouter');
 var accountRouter = require('./router/accountRouter');
 var userRouter = require('./router/userRouter');
 var exampleRouter = require('./router/exampleRouter');
+var testRouter = require('./router/testRouter');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
+
+
+var ESAPI = require('node-esapi');
+
+var hh = ESAPI.encoder().encodeForHTML(
+  `<div><font color="#ff9900">锄大地大亨</font></div><div><font color="#ff9900">1、34</font></div><div><font color="#ff9900">2.i哦</font></div><div>`
+);
+console.log(hh);
+
 // 连接数据库
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/test', { });
@@ -46,6 +56,7 @@ app.use('/api/user',userRouter);
 app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);
 app.use('/api/account',accountRouter);
+app.use('/api/test',testRouter);
 
 
 http.createServer(app).listen(app.get('port'),function(){

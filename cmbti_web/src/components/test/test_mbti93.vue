@@ -40,13 +40,18 @@
                 <div class="item" v-for="(v,i) in mbti93" :key="i">
                     <div class="title">{{i+1}}、{{v.q}}</div>
                     <div class="radio-box">
-                        <el-radio v-model="v.res" :label="v.at">{{v.a}}</el-radio><br/>
-                        <el-radio v-model="v.res" :label="v.bt">{{v.b}}</el-radio>
+                        <el-radio @change="changeHandle" v-model="v.res" :label="v.at">{{v.a}}</el-radio><br/>
+                        <el-radio @change="changeHandle" v-model="v.res" :label="v.bt">{{v.b}}</el-radio>
                     </div>
                 </div>
             </div>
             <div class="btn-ctrl">
                 <el-button type="primary" round @click="submitTest()">提 交</el-button>
+            </div>
+
+            <div class="m-progress" v-if="count>0" @click="submitTest(true)">
+                <div class="p-inner" :style="'width:'+(count/total*100)+'%'"></div>
+                <div class="p-prop">{{count}}/{{total}}</div>
             </div>
 
 </div> 
@@ -59,60 +64,56 @@ export default {
             mbti93:[],
             res:{
                 e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0
-            }
+            },
+            count:0,
+            total:0
         }
     },
     methods:{
-        calcType(res){
-            let type = ''
-            const m = 'eisntfjp'
-            let keys = Object.keys(res)
-            for(let i=0;i<m.length;i+=2){
-                if(keys.indexOf(m[i])===-1 || keys.indexOf(m[i+1])===-1) return 'params error!'
-                if(res[m[i]]===res[m[i+1]]){
-                    return m[i]+'==='+ m[i+1]
-                }else{
-                    type += res[m[i]]>res[m[i+1]] ? m[i] : m[i+1]
+        changeHandle(){
+            let leng = mbti93.length
+            let count = 0
+            mbti93.forEach((v,i)=>{
+                if(v.res){
+                    count += 1
+                }
+            })
+            this.count = count
+        },
+        submitTest(b){
+            if(!b){
+                // 判断是否回答完成
+                if(this.count!==this.total){
+                    this.$message({
+                        showClose: true,
+                        message: '测试尚未完成！',
+                        type: 'warning'
+                    });
+                    return
                 }
             }
-            return type
-        },
-        submitTest(){
-            console.log(this.mbti93);
+
             this.mbti93.forEach((v,i)=>{
                 if(v.res){
                     this.res[v.res] = this.res[v.res]+1
                     console.log(v.res);
                 }
             })
-            let type = this.calcType({
-                e:2,i:4,s:5,n:8,t:5,f:0,j:11    ,p:19
-            }); 
-            if(type){
-                if(type.indexOf('===')>-1){
-                    console.log(type.split('===')[0]+type.split('===')[1] );
-                    return
-                }else if(type.length===4){
-                    console.log(type);
-                }else{
-                    return
+                // 判断两维度是否相等
+
+            this.$axios.addTest({
+                category:'mbti',
+                res:!b?this.res : {e:5,i:6,s:7,n:4,t:8,f:9,j:9,p:2}
+            }).then(res=>{
+                if(res.data.success){
+                    console.log(res);
+                    localStorage.setItem('testRes',JSON.stringify(res.data.data))
+                    this.$router.push({
+                        path:'/test/r/'+res.data.data.tid
+                    })
                 }
-            }else{
-                return
-            }
-            let options = {
-                category:'mbti93',
-                result:this.res,
-                type:type
-                }
-            console.log("Options",options);
-            return;
-            this.$router.push({
-                path:'/test/mbti93/report',
-                query:{
-                    result:JSON.stringify(this.res)
-                }
-            })
+            }).catch(err=>{ })
+
         }
 
 
@@ -120,11 +121,8 @@ export default {
     created(){
 
         this.mbti93 = mbti93
-        console.log(this.mbti93);
-        // this.res93 
-
+        this.total = this.mbti93.length
         
-        this.submitTest()
 
     },
     components:{
@@ -199,6 +197,36 @@ export default {
     .btn-ctrl {
         text-align:center;
         padding:22px 20px;
+    }
+    .m-progress {
+        width:700px;
+        transform:translateX(-75%);
+        position:fixed;
+        top:5px;
+        left:50%;
+        height:20px;
+        border-radius:3px;
+        overflow: hidden;
+        background: #f2f2f2;
+        .p-inner {
+            height:20px;
+            width:1%;                
+            background-color: #a2dc28;
+        }
+        .p-prop {
+            position: absolute;
+            top:0px;
+            left:50%;
+            transform:translateX(-50%);
+            font-size:15px;
+        }
+    }
+    @media screen and (max-width:768px) {
+        .m-progress {
+            width:96%;
+            transform:translateX(-50%);
+        }
+        
     }
 
         

@@ -22,7 +22,7 @@ import mbti from '@/components/mbti/mbti'
 import test from '@/components/test/test'
 import test_home from '@/components/test/test_home'
 import test_mbti93 from '@/components/test/test_mbti93'
-import mbti93_report from '@/components/test/mbti93_report'
+import test_report from '@/components/test/test_report'
 import test_personality from '@/components/test/test_personality'
 import personality_report from '@/components/test/personality_report'
 import test_function from '@/components/test/test_function'
@@ -32,6 +32,7 @@ import example from '@/components/example/example'
 import example_details from '@/components/example/example_details'
 
 // forum
+import forum from '@/components/forum/forum'
 import forum_index from '@/components/forum/forum_index'
 import forum_item from '@/components/forum/forum_item'
 import forum_article_new from '@/components/forum/forum_article_new'
@@ -48,6 +49,8 @@ import my_comment from '@/components/my/my_comment'
 import my_test from '@/components/my/my_test'
 import my_test_report from '@/components/my/my_test_report'
 
+//用户资料展示
+import show from '@/components/user_show/show'
 
 
 const vueRouter = new Router({
@@ -78,6 +81,7 @@ const vueRouter = new Router({
       children:[
         {path:'',component:test_home},
         {path:'mbti93',component:test_mbti93},
+        {path:'r/:id',component:test_report},
       ]
     },
     // {path:'/test/mbti93',component:test_mbti93},
@@ -94,9 +98,15 @@ const vueRouter = new Router({
     {path:'/document',component:document},
 
     // forum 交流区
-    {path:'/forum',component:forum_index},
-    {path:'/forum/article/new',component:forum_article_new},
-    {path:'/forum/:articleID',component:forum_item},
+    {
+      path:'/forum',
+      component:forum,
+      children:[
+        {path:'',component:forum_index},
+        {path:'article/new',component:forum_article_new},
+        {path:':articleID',component:forum_item},
+      ]
+    },
     // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     
     //个人中心
@@ -115,6 +125,8 @@ const vueRouter = new Router({
       ]
         
     },
+    //用户资料展示
+    { path:'/info/:id',component:show},
     
     // 用户登陆、注册、找回密码
     { path: '/user/login', component: user_login },

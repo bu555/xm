@@ -12,6 +12,7 @@ const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
 const Example = require('../controllers/exampleHandler')
 const User = require('../controllers/userHandler')
+const Test = require('../controllers/testHandler')
 const fs = require('fs')
 const path = require('path')
 
@@ -50,7 +51,7 @@ const getAccountInfoById = (req,res)=>{
 const followUser = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
-      if(!options.uid || !options.uuid || !options.status){
+      if(!options.uid || !options.uuid || !options.status ){
           return res.json({
               success:false,
               message:'Params Error'
@@ -62,7 +63,8 @@ const followUser = (req,res)=>{
 
                 res.json({
                     success: true,
-                    message: 'Success'
+                    message: 'Success',
+                    data:options.status
                 })
 
             }catch(err){
@@ -73,7 +75,7 @@ const followUser = (req,res)=>{
             }
       })()
 }
-// 获取用户评论历史展示 返回格式：{aid:[{aid:'',cid:[id,id,..]}],eid:[{eid:'',cid:[id,id,..]}]}
+// 获取用户评论历史展示 options:{}返回格式：{aid:[{aid:'',cid:[id,id,..]}],eid:[{eid:'',cid:[id,id,..]}]}
 const getCommentList = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
@@ -209,42 +211,88 @@ const getMyCommentExa = (req,res)=>{
             }
       })()
 }
+// 獲取my测试结果(多条)
+const getMyTest = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id
+      if(!options.uid){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let account = await Account.getUserInfoById(options)
+                let proArr = []
+                account.test_record.forEach((v,i)=>{
+                    proArr.push(Test.getTestById({tid:v}))
+                })
+                let itemList = await Promise.all(proArr)
 
-// 修改用户信息 options {r_name:'',profile:'', sex:'',city:'-1',birth'',}
-// const modifyUserInfo = (req,res)=>{
-//         let options = req.body || {}
-//         options.uid = req.session.user._id
-//       if(typeof(options.r_name)!=='string' || typeof(options.profile)!=='string' || typeof(options.sex)!=='string' || typeof(options.city)!=='string' || typeof(options.birth)!=='string'){
-//           return res.json({
-//               success:false,
-//               message:'Params Error'
-//           })
-//       }
-//       (async ()=>{
-//           {
-//             //   xss处理
-//           }
-//           try{
-//                 let r = await Account.modifyInfo(options)
+                res.json({
+                    success: true,
+                    data:itemList
+                })
 
-//                 res.json({
-//                     success: true,
-//                     message: 'Success'
-//                 })
+            }catch(err){
+                console.log(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
 
-//             }catch(err){
-//                 return res.json({
-//                     success: false,
-//                     message: 'catch error' 
-//                 })
-//             }
-//       })()
-// }
+// 查看用户的资料、发表文章
+const getUserInfoShow = (req, res) =>{  
+    let options = req.query || {}
+    let uid = req.session.user ? req.session.user._id : ''  //操作用户uid
+    if(!options.uid){
+          return res.json({
+            success: false,
+            message: "参数格式错误"
+          })
+    }
+    (async ()=>{
+        try{
+            let userInfo = await Promise.all([ User.getUserById(options),Account.getUserInfoById(options) ])
+            let isFollow = false
+            if(uid){ //如果是登录用户访问，判断是否关注了此uid
+                let acc = await Account.getUserInfoById({uid:uid})
+                isFollow = acc.followers.indexOf(options.uid)!=-1 ? true :false
+            }
+            res.json({
+                success: true,
+                data:{
+                    avatar:userInfo[0].avatar,
+                    birth:userInfo[0].birth,
+                    city:userInfo[0].city,
+                    r_name:userInfo[0].r_name,
+                    profile:userInfo[0].profile,
+                    sex:userInfo[0].sex,
+                    my_article:userInfo[1].my_article,
+                    isFollow:isFollow
+                }
+            })
+        }catch(err){
+            console.log(err);
+            res.json({
+                success: false
+            })
+        }
+    })()
+}
 
 router.get('/getAccountInfo',checkLogin,getAccountInfoById);
 router.get('/getCommentList',checkLogin,getCommentList);
 router.post('/getMyCommentArt',checkLogin,getMyCommentArt);
 router.post('/getMyCommentExa',checkLogin,getMyCommentExa);
+router.post('/followUser',checkLogin,followUser);
+router.get('/getUserInfoShow',getUserInfoShow);
+router.get('/getMyTest',checkLogin,getMyTest);
+
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);
 // router.post('/getExampleById',getExampleById);

@@ -1,5 +1,5 @@
 <template>
-<div class="forum" v-loading="loading">
+<div class="forum-index" v-loading="loading">
     <div class="main-box">
         <div class="tabs">
             <router-link :to="{query:{category:'all',page:'1'}}">
@@ -26,9 +26,11 @@
             <ul>
                 <li v-for="(v,i) in list" :key="i">
                         <div class="author u-photo">
+                            <router-link :to="'/info/'+v.uid">
                             <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                             <img v-else src="/static/img/logo_a.png" alt="">
                             <div class="u-name">{{v.r_name}}</div>
+                            </router-link>
                         </div>
                         <div class="title1">
                             <span class="category-type" v-if="v.good">精</span>
@@ -79,13 +81,6 @@
             layout="prev, pager, next"
             :total="total">
             </el-pagination>
-        </div>
-    </div>
-    <div class="aside-box">
-        <div class="aside-items" v-for="i in 5">
-            <p>INTJ和INTP测试</p>
-            <p>INTJ和INTP测试</p>
-            <p>INTJ和INTP测试</p>
         </div>
     </div>
 </div> 
@@ -165,9 +160,9 @@ export default {
 </script>
 <style lang="less">
 @bg:rgba(255,255,255,.75);
-.forum {
+.forum-index {
     max-width:1180px;
-    margin:12px auto;
+    margin:0px auto;
     position: relative;
     display:flex;
     .main-box {
@@ -311,17 +306,6 @@ export default {
                 
         }
     }
-    .aside-box {
-        flex:0 0 333px;
-        margin-left:12px;
-        .aside-items {
-            width:100%;
-            min-height:150;
-            background-color: #fff;
-            padding:15px;
-            margin:0 0 10px;
-        }
-    }
     a:hover {
         text-decoration:underline;
     }
@@ -353,10 +337,6 @@ export default {
                 }
             }
 
-        }
-        .aside-box {
-            flex:0 0 100%;
-            margin-left:0;
         }
     }
     @media screen and (max-width:525px) {

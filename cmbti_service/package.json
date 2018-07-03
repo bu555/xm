@@ -29,6 +29,7 @@
     "sha1": "^1.1.1"
   },
   "dependencies": {
-    "formidable": "^1.2.1"
+    "formidable": "^1.2.1",
+    "xss": "^1.0.3"
   }
 }

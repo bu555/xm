@@ -32,10 +32,10 @@ class Test {
             test.save((err)=>{
                 if(err) return reject('The TestModel add failed')
                 resolve({
-                    _id:test._id,
-                    // tid:test.tid,
+                    tid:test._id,
                     type:test.type,
-                    category:test.category
+                    category:test.category,
+                    res:options.res
                 })
             })
         })
@@ -49,18 +49,6 @@ class Test {
                 }else{
                     reject()
                 }
-            })
-        })
-    }
-    // 查询批量测试结果 options:{tid:[] }
-    static getTestAllById(options){
-        return new Promise((resolve,reject)=>{
-            let s = []
-            for(let i=0;i<options.tid.length;i++){
-                s.push(TestModel.findOne({"_id":options.tid[i]}))
-            }
-            Promise.all(s).then(r=>{
-                resolve(r)
             })
         })
     }

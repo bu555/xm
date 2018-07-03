@@ -1,83 +1,118 @@
 <template>
-<div class="user-info">
+<div class="show" v-loading="loading">
     <div class="m-header">
-        <div class="photo" @click="showUploadAvatar=true">
-            <img src="/static/img/logo_a.png" alt="">
-        </div>
-        <div class="edit-photo">
-            <button>上传封面照片</button>
-        </div>
-        <div class="edit-info">
-            <!--<button>编辑个人资料</button>-->
+        <div class="photo">
+            <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt="">
         </div>
         <div class="m-info">
-            <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">密南南密</span> <span  class="sex"></span></div>
-            <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px">质量管理/汽车制造/爬山&骑行爱好者</div>
+            <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
+            <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px">{{userInfo.profile?userInfo.profile:''}}</div>
+            <div style="padding-top:4px;">
+                <el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
+                <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else> 
+                    <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
+                    <!--<span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
+                    <span>取消关注</span> -->
+                </el-button>
+                
+            </div>
         </div>
     </div>
     <div class="main-box">
         <div class="m-body">
-            <div class="m-content">
-                <router-view></router-view>
+            <div class="m-content" v-if="userInfo.r_name">
+                <div class="m-tabs">
+                    <div :class="typeActive==='info'?'active':''" @click="typeActive='info'">基本信息</div>
+                    <div :class="typeActive==='publish'?'active':''" @click="typeActive='publish'">Ta的发表</div>
+                    <div style="flex:1"></div>
+                </div>
+                <!--子组件-->
+                <Info :userInfo="userInfo" v-if="typeActive==='info'"></Info>
+                <Publish :userInfo="userInfo" v-if="typeActive==='publish'"></Publish>
+                
             </div>
         </div>
     </div>
-    <div class="aside-box">
-        <div class="aside-items" v-for="i in 3">
+    <!--<div class="aside-box">
+        <div class="aside-items" v-for="i in 3" style="color:#fefefe">
             <p>INTJ和INTP测试</p>
             <p>INTJ和INTP测试</p>
             <p>INTJ和INTP测试</p>
         </div>
-    </div>
-    <div class="upload-avatar" v-if="showUploadAvatar" >
-        <div class="inner-box">
-            <!--头像上传组件-->
-            <uploadAvatar @closeMe="listenSon"></uploadAvatar>
-        </div>
-    </div>
+    </div>-->
 </div> 
 </template>
 <script>
-import uploadAvatar from './upload_avatar'
+import Info from './show_info'
+import Publish from './show_publish'
 export default {
     data(){
         return {
-            showUploadAvatar:false,
+            loading:false,
+            uid:'',
+            userInfo:{},
+            typeActive:'info',
+            
         }
     },
     components:{
-        uploadAvatar
-    },
-    methods:{
-        listenSon(success){
-            console.log(success);
-            this.showUploadAvatar = false;
-            if(success){
-                // 修改成功
-            }
-        }
+        Info,Publish
     },
     watch:{
-
+    },
+    methods:{
+        getUserInfoShow(){
+            this.loading = true
+            // 修改账户信息
+            this.$axios.getUserInfoShow({uid:this.uid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.userInfo = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        followUser(status){
+            this.loading = true
+            this.$axios.followUser({
+                uuid:this.uid,  //关注的用户id
+                status:status   // 1关注，0取消关注
+            }).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    if(res.data.data==1){
+                        this.userInfo.isFollow = true
+                    }else if(res.data.data==0){
+                        this.userInfo.isFollow = false
+                    }
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
     },
     mounted(){
-
     },
     created(){
+        this.uid = this.$route.path.split('/')[2]
+        if(this.uid){
+            this.getUserInfoShow()
+        }
     },
     
 };
 </script>
 <style lang="less">
-.user-info {
+.show {
     max-width:1100px;
     margin:0px auto;
     position: relative;
     padding-right:332px;
-    padding-top:170px;
+    padding-top:210px;
     // display:flex;
     .m-header {
-        height:160px;
+        height:195px;
         padding-top:85px;
         background:url('/static/img/my_bg.jpg') no-repeat;
         background-size:cover;
@@ -97,7 +132,7 @@ export default {
             border:1px solid #aaa;
             box-shadow: 0 0 12px #70a9e5 inset;
             border-radius:2px;
-            cursor:pointer;
+            // cursor:pointer;
             img {
                 width:100%;
                 height:100%;
@@ -154,10 +189,27 @@ export default {
             }
 
             .m-content {
+                .m-tabs {
+                    display:flex;
+                    // border-bottom:1px solid #eee;
+                    &>div {
+                        padding:10px 15px;
+                        text-align: center;
+                        border:1px solid #eee;
+                        border-right:1px solid transparent;
+                        cursor:pointer;
+                        background-color: #fbfbfb;
+                    }
+                    &>div.active {
+                        border-bottom:1px solid transparent;
+                        color:#496ea3;
+                        background-color: transparent;
+                    }
+                }
                 // padding:12px;
                 width:100%;
-                border-top:5px solid #cee1f5;
-                border-radius:3px 3px 0 0 ;
+                // border-top:1px solid #cee1f5;
+                // border-radius:1px 1px 0 0 ;
                 min-height:420px;
                 background-color: #fdfdfd;
                 
@@ -210,6 +262,7 @@ export default {
                 width:85px;
                 height:85px;
                 left:15px;
+                bottom:10px;
                 img {
                 }
             }

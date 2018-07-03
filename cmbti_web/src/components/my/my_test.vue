@@ -12,40 +12,54 @@
             <div class="">测试项目</div>
             <div class="">测试结果</div>
             <div class="">测试日期</div>
-            <div class="age">年龄</div>
+            <!--<div class="age">年龄</div>-->
             <div class=""></div>
         </div>
-        <div class="items" v-for="(v,i) in 5">
-            <div class="overflow-row-1">功能测试</div>
-            <div class="overflow-row-1">INTJ</div>
+        <div class="items" v-for="(v,i) in data" :key="i">
+            <div class="overflow-row-1">{{v.category}}</div>
+            <div class="overflow-row-1">{{v.type&&v.type.toUpperCase()}}</div>
             <div class="">
-              <span class="date-pc">2018-09-10 22:00</span>
-              <span class="date-mob">2018-09-10</span>
+              <span class="date-pc">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</span>
+              <span class="date-mob">{{$moment(v.c_time).format("YYYY-MM-DD")}}</span>
               
             </div>
-            <div class="age">22</div>
+            <!--<div class="age">22</div>-->
             <div class="show-link">
               <router-link to="">
                 查看详情
               </router-link>
             </div>
         </div>
+        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
     </div>
-    <div class="load-more">
+    <!--<div class="load-more">
       加载更多...
-    </div>
+    </div>-->
   </div>
 </template>
 <script>
 export default {
     data(){
       return {
+        data:'',
+        loading:false
       }
     },
     methods:{
-      onSubmit(){
-
+      getMyTest(){
+            this.loading = true
+            this.$axios.getMyTest({}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.data = res.data.data 
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
       }
+    },
+    created(){
+       this.getMyTest()
     }
 }
 </script>

@@ -1,26 +1,15 @@
 <template>
-  <div class="my-publish" v-loading="loading">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
-      <router-link to="/my">
-      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
-      </router-link>
-      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="fa el-icon-edit"></i> 发表帖子
-    </div>
+  <div class="user-publish" v-loading="loading">
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
-          <div class="my-type share" v-if="v.category==='share'">分享</div>
-          <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
-          <div class="my-type good" v-if="v.good">精华</div>
-          <router-link :to="'/forum/'+v._id">
-                <!--简单的Restful API例子(Golang)-->
-                <span>{{v.title}}</span>
-          </router-link>
-          <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
-          <div class="i-ctrl">
-              <i class="el-icon-edit-outline" @click="articleHandle('edit')"></i>
-              <i class="el-icon-close"  style="margin-left:5%" @click="articleHandle('del')"></i>
-          </div>
+        <div class="my-type share" v-if="v.category==='share'">分享</div>
+        <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
+        <!--<div class="my-type good" v-if="v.good">精华</div>-->
+        <router-link :to="'/forum/'+v._id">
+              <!--简单的Restful API例子(Golang)-->
+              <span>{{v.title}}</span>
+        </router-link>
+        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
       </div>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
@@ -40,6 +29,7 @@ export default {
         currentData:[]
       }
     },
+    props:['userInfo'],
     methods:{
         getArticle(){
             if(this.myList.length<1) return
@@ -63,41 +53,20 @@ export default {
         loadMore(){
            this.page = this.page+1
            this.getArticle()
-        },
-        articleHandle(t){
-            if(t==='edit'){
-
-            }else if(t==='del'){
-                this.$confirm('此操作将永久删除该文档, 是否继续?', '提示', {
-                  confirmButtonText: '确定',
-                  cancelButtonText: '取消',
-                  type: 'warning'
-                }).then(() => {
-                  this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  });
-                }).catch(() => {
-                  this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                  });          
-                });
-            }
         }
     },
     created(){
-        this.myList = JSON.parse(localStorage.getItem('accountInfo')).my_article
+        this.myList = this.userInfo.my_article
         this.getArticle()
     }
 }
 </script>
 <style lang="less">
-.my-publish {
+.user-publish {
   padding:4%;
   padding-top:12px;
   padding-bottom:22px;
-
+  min-height:250px;
   .content {
 
   }
@@ -106,10 +75,6 @@ export default {
       align-items:center;
       border-bottom:1px solid #f8f8f8;
       width:100%;
-      padding-bottom:25px;
-      position: relative;
-      padding-top:3px;
-      padding-right:55px;
       .my-type {
         font-size:12px;
         padding:1px 2px;
@@ -130,7 +95,7 @@ export default {
       }
       &>a {
         flex:1;
-        padding:0px 0;
+        padding:7px 0;
         font-size:15px;
         overflow: hidden;
         span {
@@ -147,32 +112,6 @@ export default {
       .time {
         color:#c5c5c5;
         font-size:13px;
-        position: absolute;
-        left:35px;
-        bottom:5px;
-      }
-      .i-ctrl {
-        position: absolute;
-        right:0px;
-        top:2px;
-        display:flex;
-        align-items: center;
-        justify-content: space-between;
-        width:58px;
-        i {
-          color:#aaa;
-          cursor: pointer;
-          width:22px;
-          height:22px;
-          line-height: 22px;
-          text-align:center;
-          font-size:18px;
-
-          &:hover {
-            color:#555;
-            font-size:22px;
-          }
-        }
       }
   }
   .load-more {
@@ -191,9 +130,9 @@ export default {
     // padding:0px 0px 10px;
     .items {
         .time {
-          // flex:0 0 68px;
-          // overflow:hidden;
-          // white-space:nowrap;
+          flex:0 0 68px;
+          overflow:hidden;
+          white-space:nowrap;
           // margin:0 4px;
           // background-color: red;
         }

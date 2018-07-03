@@ -45,6 +45,7 @@ class User {
                         sex:"-1",
                         city:'',
                         birth:'', //
+                        grade:0
                     })
                     userRegister.create_time = moment(objectIdToTimestamp(userRegister._id)).format('YYYY-MM-DD HH:mm:ss');
                     userRegister.save((err, user) => {
@@ -117,7 +118,7 @@ class User {
     static getUserById(options={}){
         return new Promise((resolve,reject)=>{
             // UserModel.findOne({"_id":options.uid},"-password","avatar r_name").then(user=>{
-            UserModel.findOne({"_id":options.uid},"-password -create_time").then(user=>{
+            UserModel.findOne({"_id":options.uid},"-password -create_time -name").then(user=>{
                 if(user){
                     resolve(user)
                 }else{
@@ -153,7 +154,6 @@ class User {
             if(Object.keys(set).length<1){
                 reject('params error')
             }
-            console.log('options',options);
             UserModel.update({"_id":options.uid},{$set:set},err=>{
                 if(err) return reject('modify faild')
                 resolve('modify success')
