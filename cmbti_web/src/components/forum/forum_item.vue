@@ -616,7 +616,7 @@ export default {
                     position: relative;
                     padding-top:10px;
                     border-top:1px dotted #eee;
-                    background-color: #fefefe;
+                    background-color: #f5f5f5;
                     .reply-btn {
                         position: absolute;
                         top:10px;

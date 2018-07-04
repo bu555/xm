@@ -104,6 +104,7 @@ const vueRouter = new Router({
       children:[
         {path:'',component:forum_index},
         {path:'article/new',component:forum_article_new},
+        {path:'article/edit/:id',component:forum_article_new},
         {path:':articleID',component:forum_item},
       ]
     },
@@ -135,7 +136,7 @@ const vueRouter = new Router({
     { path: '/user/reset',component: user_reset_password },
 
 
-    { path: '*',redirect:'/'}
+    // { path: '*',redirect:'/'}
 
  
   ],

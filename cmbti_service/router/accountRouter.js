@@ -1,13 +1,11 @@
 
 const express = require('express')
 const router = express.Router();
-//时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../models/utill')
 const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
-// const User = require('../controllers/user')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
 const Example = require('../controllers/exampleHandler')
@@ -15,9 +13,8 @@ const User = require('../controllers/userHandler')
 const Test = require('../controllers/testHandler')
 const fs = require('fs')
 const path = require('path')
+var logger = require('log4js').getLogger('logError');
 
-
-const json = (d)=>{console.log(d);}
 
 // 获取账户info options {} //需登錄
 const getAccountInfoById = (req,res)=>{
@@ -40,6 +37,7 @@ const getAccountInfoById = (req,res)=>{
                 })
 
             }catch(err){
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -68,6 +66,7 @@ const followUser = (req,res)=>{
                 })
 
             }catch(err){
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -128,7 +127,7 @@ const getCommentList = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -166,6 +165,7 @@ const getMyCommentArt = (req,res)=>{
                 })
 
             }catch(err){
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -203,7 +203,7 @@ const getMyCommentExa = (req,res)=>{
                 })
 
             }catch(err){
-                console.log(err);
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -236,7 +236,7 @@ const getMyTest = (req,res)=>{
                 })
 
             }catch(err){
-                console.log(err);
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -277,7 +277,7 @@ const getUserInfoShow = (req, res) =>{
                 }
             })
         }catch(err){
-            console.log(err);
+            logger.error(err);
             res.json({
                 success: false
             })

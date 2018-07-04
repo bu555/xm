@@ -1,7 +1,6 @@
 
 const express = require('express')
 const router = express.Router()
-//时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../models/utill')
@@ -11,6 +10,7 @@ const Example = require('../controllers/exampleHandler')
 const User = require('../controllers/userHandler')
 const Account = require('../controllers/accountHandler')
 var xss = require('xss');
+var logger = require('log4js').getLogger('logError');
 const addExample = (req,res)=>{
     let name = req.body.name || '';
     if(!name){
@@ -28,15 +28,17 @@ const addExample = (req,res)=>{
             message:'success',
             example:example
         })
-    }).catch(error=>{
-        res.json({
-            success:false,
-            message:error
-        })
-    })
+    }).catch(err=>{
+          logger.error(err);
+            res.json({
+                success:false,
+                message:'error'
+            })
+      })
     
 }
 const searchExample = (req,res,next)=>{
+    console.log('kkkkk');
     let option = req.body.params
     Example.searchExample(option).then(example=>{
             // 分页处理
@@ -60,11 +62,12 @@ const searchExample = (req,res,next)=>{
                     total:total
                 }
             })
-    },example=>{
+    }).catch(err=>{
+        logger.error(err);
         res.json({
             success:false,
-            message:'未知错误'
-        });
+            message:'error'
+        })
     })
 }
 // 投票
@@ -89,11 +92,11 @@ const goVote = (req,res,next)=>{
                     example:example
                 })
             })
-      }).catch(error=>{
-          console.log(error);
+      }).catch(err=>{
+          logger.error(err);
             res.json({
                 success:false,
-                message:error
+                message:'error'
             })
       })
 
@@ -125,11 +128,11 @@ const addComment = (req,res,next)=>{
                     message:'success',
                 })
             })
-      }).catch(error=>{
-           console.log(error);
+      }).catch(err=>{
+           logger.error(err);
             res.json({
                 success:false,
-                message:error
+                message:'error'
             })
       })
 
@@ -209,7 +212,7 @@ const getComment = (req,res)=>{
                     comment:newList,
                 })
             }catch(err){
-                console.log(err);
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: err 
@@ -239,7 +242,7 @@ const clickCommentZan = (req,res,next)=>{ //{page:num}
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -268,12 +271,13 @@ const getExampleById = (req,res,next)=>{
                     example:example,
                 })
             }
-    }).catch(error=>{
-        res.json({
-            success:false,
-            message:error
-        })
-    })
+    }).catch(err=>{
+            logger.error(err);
+            res.json({
+                success:false,
+                message:'error'
+            })
+      })
 }
 
 router.post('/addExample',addExample);

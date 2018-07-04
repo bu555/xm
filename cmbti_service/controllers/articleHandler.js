@@ -1,135 +1,61 @@
-// var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost:27017/test', { useMongoClient: true });
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, '连接失败！connection error:'));
-// db.once('open', function() {
-//   console.log('连接成功！connect success')
 
-
-// Article.addArticle({
-//     uid:"u5556",
-//     title:"6666 3 Article",
-//     content:'测试測試First Article',
-//     category:"ask"
-// })
-
-
-// Article.clickArticleLike({
-//     aid:'5b03b1df1cf40b35b8728edb',
-//     uid:'u0779',
-// }).then(res=>{
-//     console.log('成功',res);
-// }).catch(error=>{
-//     console.log(error);
-// })
-
-// Article.addComment({
-//     aid:'5b03b1df1cf40b35b8728edb',
-//     uid:'u0775',
-//     content:'评论内容测试test123345'
-// }).then(res=>{
-//     console.log('成功',res);
-// }).catch(error=>{
-//     console.log(error);
-// })
-
-// Article.addCommentReplay({
-//     cid:'5b03b2551df192213c91469c',
-//     uid:'u0777',
-//     content:'回复的评论内容测试test123345'
-// }).then(res=>{
-//     console.log('成功',res);
-// }).catch(error=>{
-//     console.log(error);
-// })
-
-
-// Article.clickCommentZan({
-//     cid:'5b03b2551df192213c91469c',
-//     uid:'u077558',
-//     rid:'5b03b28ed7d3ff08e4b13d48',
-// }).then(res=>{
-//     console.log('成功',res);
-// }).catch(error=>{
-//     console.log(error);
-// })
-
-// Article.setGood({aid:'5b03f8a753a8892714edaaa5'}).then(res=>{
-//     console.log('成功',res);
-// }).catch(error=>{
-//     console.log(error);
-// })
-
-
-// Article.getArticle().then(res=>{
-//     console.log(res);
-// })
-
-
-
-// });
-
-
-// const articleSchema = new mongoose.Schema({
-//     uid:String,
-//     title:String, //ask share
-//     category:String,
-//     content:String,
-//     c_time:Date,
-//     good:Boolean,
-//     like:Array,
-//     replay:[
-//         {
-//             uid:String,
-//             content:String,
-//             zan:[],
-//             zanCount:Number,
-//             c_time:Date
-//         }
-//     ]
-// })
-
-// const ArticleModel = mongoose.model('article', articleSchema) 
 
 const ArticleModel = require('../models/schema/articleSchema') 
 const myUtill = require('../models/utill')
 class Article {
     constructor(){
     }
-    // 发表文章 options:{uid:'',title:'',category:'share',content:''}
+    // 发表或编辑文章 options:{uid:'',title:'',category:'share',content:'',aid:'如有为编辑'}
     static publishArticle(options){
         return new Promise((resolve,reject)=>{
-            // 创建文章主要信息
-            new ArticleModel.article({
-                uid:options.uid,
-                title:options.title, //ask share
-                category:options.category,
-                c_time:new Date(),
-                good:false,
-                like:[],
-                likes:0,
-                update_time:new Date()
-            }).save((err,a)=>{
-                if(err) return reject('the article add failed')
-                options.aid = a._id
-                // 创建内容
-                new ArticleModel.content({
-                    aid:options.aid,
-                    content:options.content,
-                    size:options.content.length
-                }).save((err,c)=>{
-                    if(err) return reject('the content add failed')
-                    // 创建评论
-                    new ArticleModel.comment({
-                        aid:options.aid,
-                        comment:[],
-                        title:options.title
-                    }).save((err,c)=>{
-                        if(err) return reject('the comment add failed')
-                        resolve(options.aid) //返回aid
+            if(options.aid){  //编辑
+                ArticleModel.article.findOne({"_id":options.aid}).then(a=>{
+                    if(!a) return reject("The aid find failed")
+                    if(a.uid!==options.uid) return reject("The uid not match!")
+                    ArticleModel.article.update({"_id":options.aid},{$set:{"title":options.title,"category":options.category,"update_time":new Date(),"edit_time":new Date(),state:1}},err=>{
+                            if(err) return reject("The article $set faild")
+                            ArticleModel.content.update({"aid":options.aid},{$set:{"content":options.content,"size":options.content.length}},err=>{
+                                    if(err) return reject("The content $set faild")
+                                    resolve(options.aid) //返回aid
+                            })
                     })
                 })
-            })
+            }else{  //新增
+                    // 创建文章主要信息
+                    let _date = new Date()
+                    new ArticleModel.article({
+                        uid:options.uid,
+                        title:options.title, //ask share
+                        category:options.category,
+                        c_time:_date,
+                        good:false,
+                        like:[],
+                        likes:0,
+                        update_time:_date,
+                        edit_time:_date,
+                        state:1
+                    }).save((err,a)=>{
+                        if(err) return reject('The article add failed')
+                        options.aid = a._id
+                        // 创建内容
+                        new ArticleModel.content({
+                            aid:options.aid,
+                            content:options.content,
+                            size:options.content.length
+                        }).save((err,c)=>{
+                            if(err) return reject('The content add failed')
+                            // 创建评论
+                            new ArticleModel.comment({
+                                aid:options.aid,
+                                comment:[],
+                                title:options.title
+                            }).save((err,c)=>{
+                                if(err) return reject('The comment add failed')
+                                resolve(options.aid) //返回aid
+                            })
+                        })
+                    })
+            }
         })
     }
     // 删除文章(用户) options:{aid:''，uid:''}
@@ -183,7 +109,6 @@ class Article {
                     if(a.like.indexOf(options.uid)===-1){
                         ArticleModel.article.update({"_id":options.aid},{"$push":{"like":options.uid},"$inc":{"likes":1}},(err,r)=>{
                             if(err) return reject("The like array $push faild")
-                                console.log(r);
                                 resolve({
                                     info:'Article喜欢+1',
                                     count:1,

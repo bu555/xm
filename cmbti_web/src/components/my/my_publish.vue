@@ -18,8 +18,10 @@
           </router-link>
           <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
           <div class="i-ctrl">
-              <i class="el-icon-edit-outline" @click="articleHandle('edit')"></i>
-              <i class="el-icon-close"  style="margin-left:5%" @click="articleHandle('del')"></i>
+              <!--编辑-->
+              <i class="el-icon-edit-outline edit" @click="articleHandle('edit',v._id)"><em>编辑</em></i>
+              <!--删除-->
+              <i class="el-icon-delete del"  style="margin-left:5%" @click="articleHandle('del',v._id)"><em>删除</em></i>
           </div>
       </div>
     </div>
@@ -60,29 +62,53 @@ export default {
                 this.loading = false
             })
         },
+        deleteArticle(){
+            this.loading = true
+            this.$axios.deleteArticle({aid:aid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    let d = JSON.parse(JSON.stringify(res.data.data))
+                    this.data = this.data.concat(d)   //  res.data.data
+                    this.currentData = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
         loadMore(){
            this.page = this.page+1
            this.getArticle()
         },
-        articleHandle(t){
-            if(t==='edit'){
-
-            }else if(t==='del'){
-                this.$confirm('此操作将永久删除该文档, 是否继续?', '提示', {
+        articleHandle(type,aid){
+            if(type==='edit'){
+                this.$router.push({
+                  path:'/forum/article/edit/'+aid
+                })
+            }else if(type==='del'){
+                this.$confirm('此操作将永久删除此数据, 是否继续?', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                  this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  });
-                }).catch(() => {
-                  this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                  });          
-                });
+                  console.log('kkk');
+                    this.loading = true
+                    this.$axios.deleteArticle({aid:aid}).then(res=>{
+                        this.loading = false
+                        if(res.data.success){
+                              this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                              });
+                        }
+                        for(var i=0;i<this.data.length;i++){
+                           if(this.data[i]._id===aid){
+                              this.data.splice(i,1)
+                           }
+                        }
+                    }).catch(err=>{
+                        this.loading = false
+                    })
+                }).catch(() => {  });
             }
         }
     },
@@ -166,11 +192,31 @@ export default {
           height:22px;
           line-height: 22px;
           text-align:center;
-          font-size:18px;
-
+          font-size:20px;
+          position: relative;
           &:hover {
-            color:#555;
             font-size:22px;
+            em {
+              display:block;
+            }
+          }
+          em {
+            display:none;
+            position: absolute;
+            top:22px;
+            left:-3px;
+            font-size:12px;
+            width:32px;
+          }
+        }
+        i.edit {
+          &:hover {
+            color:#4d9efc;
+          }
+        }
+        i.del {
+          &:hover {
+            color:#f16a6e;
           }
         }
       }

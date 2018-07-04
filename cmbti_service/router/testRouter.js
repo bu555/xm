@@ -10,7 +10,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 // const User = require('../controllers/user')
 const Test = require('../controllers/testHandler')
 const Account = require('../controllers/accountHandler')
-const json = (d)=>{console.log(d);}
+var logger = require('log4js').getLogger('logError');
 // 添加测试数据  {category:'',uip:'',res:'Object'}
 const addTest = (req,res)=>{
     let options = req.body || {}
@@ -47,7 +47,7 @@ const addTest = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'Operation fail' 
@@ -84,7 +84,7 @@ const getTestById = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false 
             })
@@ -115,7 +115,7 @@ const deleteTestById = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false 
             })

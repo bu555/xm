@@ -1,7 +1,6 @@
 
 const express = require('express')
 const router = express.Router()
-//时间处理模块
 const moment = require('moment')
 const objectIdToTimestamp = require('objectid-to-timestamp')
 const myUtill = require('../models/utill')
@@ -11,12 +10,13 @@ const User = require('../controllers/userHandler')
 const Article = require('../controllers/articleHandler')
 const Account = require('../controllers/accountHandler')
 var xss = require('xss');
+var logger = require('log4js').getLogger('logError');
 
-const json = (d)=>{console.log(d);}
-// 发表文章  input : {uid:'',title:'',category:'share',content:''}
+// 发表或编辑文章  input : {uid:'',title:'',category:'share',content:'',aid:'可选，如有则为编辑'}
 const publishArticle = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
+    let isEdit = options.aid ? options.aid:''
     // 参数验证
     if(!options.uid || !options.title || !options.category || !options.content){
         return res.json({
@@ -35,7 +35,9 @@ const publishArticle = (req,res)=>{
             let aid = await Article.publishArticle(options)
             options.aid = aid
             //article._id 添加到account "已发表文章数组"
-            let updated = await Account.addPublishLog(options)
+            if(!isEdit){
+                let updated = await Account.addPublishLog(options)
+            }
 
             res.json({
                 success: true,
@@ -43,7 +45,7 @@ const publishArticle = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'Publish fail' 
@@ -67,10 +69,15 @@ const deleteArticle = (req,res)=>{
     }
     (async ()=>{
         try{
-            // // 清除数据
-            // let r1 = await Article.deleteArticle(options)
-            // // 清除用户记录
-            // let r2 = await Account.deletePublishLog(options)
+            // 验证是否是用户发表的文章
+            let acc = await Account.getUserInfoById(options)
+            if(acc.my_article.indexOf(options.aid)==-1){
+                return res.json({
+                    success: false,
+                    message: 'The user not publish aid' 
+                })
+            }
+            //删除文章和记录
             let success = await Promise.all([Article.deleteArticle(options),Account.deletePublishLog(options)])
             res.json({
                 success: true,
@@ -78,7 +85,7 @@ const deleteArticle = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'Delete fail' 
@@ -114,7 +121,7 @@ const clickArticleLike = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -156,7 +163,7 @@ const addComment = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -189,7 +196,7 @@ const clickCommentZan = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -239,7 +246,7 @@ const getArticle = (req,res)=>{
             })
 
         }catch(err){
-            console.log(err);
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -269,7 +276,6 @@ const getArticleById = (req,res)=>{
             result.r_name = user.r_name
             result.avatar = user.avatar
             result.articleLiked = false 
-            console.log(options.uid);
             if(options.uid){
                 let loginUser = await Account.getUserInfoById({uid:options.uid})
                 if(loginUser.likes_atricle.indexOf(options.aid)!==-1){
@@ -283,6 +289,7 @@ const getArticleById = (req,res)=>{
             })
 
         }catch(err){
+            logger.error(err);
             return res.json({
                 success: false,
                 message: 'catch error' 
@@ -368,7 +375,7 @@ const getCommentByAid = (req,res)=>{
                     data: newList
                 })
             }catch(err){
-                console.log(err);
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -396,6 +403,7 @@ const getArticleInfoAll = (req,res)=>{
                     data: result
                 })
             }catch(err){
+                logger.error(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -413,5 +421,6 @@ router.post('/clickCommentZan',checkLogin,clickCommentZan);
 router.post('/getArticle',getArticle);
 router.post('/getCommentByAid',getCommentByAid);
 router.post('/getArticleById',getArticleById);
-router.post('/getArticleInfoAll',getArticleInfoAll);
+router.post('/getArticleInfoAll',getArticleInfoAll); //獲取多個文章信息(展示用) 
+router.post('/deleteArticle',checkLogin,deleteArticle);
 module.exports = router

@@ -40,7 +40,7 @@ class Account {
     // 已发表文章记录 options;{uid:'',aid:''}
     static addPublishLog(options={}){
         return new Promise((resolve,reject)=>{
-            AccountModel.info.update({uid:options.uid},{$push:{my_article:options.aid}},err=>{
+            AccountModel.info.update({uid:options.uid},{$addToSet:{my_article:options.aid}},err=>{
                 if(err) return reject('Update error')
                 resolve('Update success!')
             }) 
@@ -102,9 +102,9 @@ class Account {
     // uid查询用户 {uid:''}
     static getUserInfoById(options={}){
         return new Promise((resolve,reject)=>{
-            AccountModel.info.findOne({"uid":options.uid}).then(user=>{
-                if(user){
-                    resolve(user)
+            AccountModel.info.findOne({"uid":options.uid},"-name").then(acc=>{
+                if(acc){
+                    resolve(acc)
                 }else{
                     resolve(null)
                 }

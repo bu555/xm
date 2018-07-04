@@ -166,6 +166,10 @@ export default {
     getArticleInfoAll(data){
         return axios.post(pathAPI+'/article/getArticleInfoAll',data);
     },
+    // 用户删除文章  input : {aid：‘’} 
+    deleteArticle(data){
+        return axios.post(pathAPI+'/article/deleteArticle',data);
+    },
 
 
 // My -------------------------------

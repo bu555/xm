@@ -17,79 +17,81 @@
     <div class="view-1100px">
         <div class="main-box ">
                     <div class="vote">
-                        <!--人物详情-->
-                        <div class="example-box">
-                                <div class="e-info overflow-row-13">
-                                    <div class="item">
-                                        <!--<img :src="exampleItem.img_url" alt="">-->
-                                        <div class="photo">
-                                            <img :src="$pathImgs+exampleItem.img_url" alt="">
+                        <div class="e-show">
+                            <!--人物详情-->
+                            <div class="example-box">
+                                    <div class="e-info overflow-row-13">
+                                        <div class="item">
+                                            <!--<img :src="exampleItem.img_url" alt="">-->
+                                            <div class="photo">
+                                                <img :src="$pathImgs+exampleItem.img_url" alt="">
+                                            </div>
+                                            <div class="e-more">
+                                                <a href="" target="_blank">[维基百科]</a>
+                                                <a href="" target="_blank">[百度百科]</a>查看更多
+                                            </div>
                                         </div>
-                                        <div class="e-more">
-                                            <a href="" target="_blank">[维基百科]</a>
-                                            <a href="" target="_blank">[百度百科]</a>查看更多
-                                        </div>
+                                        {{exampleItem.info}}
                                     </div>
-                                    {{exampleItem.info}}
-                                </div>
-                                <!--投票-->
-                                <div class="vote-box" v-if="!isVote">
-                                        <div class="info">
-                                        </div>
-                                        <div class="vote-title">
-                                            <p class="tit overflow-row-1">{{exampleItem.name}}</p>
-                                            <p>( {{exampleItem.type?exampleItem.type.toUpperCase():''}} )</p>
-                                            
-                                        </div>
-                                        <div class="figure"></div>
-                                        <div class="vote-result">
-                                            <!--<voteResult v-if="exampleItem" :example="exampleItem"></voteResult>-->
-                                            <div class="r-item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
-                                                <div class="type">{{v.type?v.type.toUpperCase():''}}</div>
-                                                <div class="prog">
-                                                    <div :style="'width:'+v.perce">
-                                                        <div class="count">{{v.count}}</div>
-                                                    </div>
-                                                </div>
+                                    <!--投票-->
+                                    <div class="vote-box" v-if="!isVote">
+                                            <div class="info">
+                                            </div>
+                                            <div class="vote-title">
+                                                <p class="tit overflow-row-1">{{exampleItem.name}}</p>
+                                                <p>( {{exampleItem.type?exampleItem.type.toUpperCase():''}} )</p>
                                                 
                                             </div>
-                                            <div v-if="isRepeat">你已参与</div>
-                                        </div>
-                                        <div style="padding-top:14px">
-                                            <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
-                                            <!--<el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>-->
-                                            <!--<button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>-->
-                                            <!--<button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>-->
+                                            <div class="figure"></div>
+                                            <div class="vote-result">
+                                                <!--<voteResult v-if="exampleItem" :example="exampleItem"></voteResult>-->
+                                                <div class="r-item" v-for="(v,i) in voteArr.slice(0,6)" :key="i">
+                                                    <div class="type">{{v.type?v.type.toUpperCase():''}}</div>
+                                                    <div class="prog">
+                                                        <div :style="'width:'+v.perce">
+                                                            <div class="count">{{v.count}}</div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div v-if="isRepeat">你已参与</div>
+                                            </div>
+                                            <div style="padding-top:14px">
+                                                <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
+                                                <!--<el-button type="primary" @click="isVote=true" style="height:34px;padding:0 22px">去投票</el-button>-->
+                                                <!--<button class="cupid-green" @click="goVote()" v-if="!isRepeat">去投票</button>-->
+                                                <!--<button class="clean-gray-nohover" v-if="isRepeat" style="color:#aaa">已投票</button>-->
 
-                                        </div>
-                                </div>
-                        </div>
-                        <!--投票+评论-->
-                        <div class="user-ctrl">
-                            <div class="u-comment">
-                                <p>评论：</p>
-                                <el-input type="textarea" v-model="myComment"></el-input></br>
-                                <div style="text-align:right;padding-top:5px">
-                                    <el-button size="small" type="primary" @click="comment()">评 论</el-button>
-                                </div>
-
+                                            </div>
+                                    </div>
                             </div>
-                            <div class="u-vote" v-if="!isRepeat">
-                                <br>
-                                <p>投票：</p>
-                                <el-select v-model="myVote" filterable clearable placeholder="请选择">
-                                    <el-option
-                                    v-for="item in typeList"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                                    </el-option>
-                                </el-select>
-                                <el-button size="small" type="primary" @click="vote()">投票</el-button>
+                            <!--投票+评论-->
+                            <div class="user-ctrl">
+                                <div class="u-comment">
+                                    <p>评论：</p>
+                                    <el-input type="textarea" v-model="myComment"></el-input></br>
+                                    <div style="text-align:right;padding-top:5px">
+                                        <el-button size="small" type="primary" @click="comment()">评 论</el-button>
+                                    </div>
 
+                                </div>
+                                <div class="u-vote" v-if="!isRepeat">
+                                    <br>
+                                    <p>投票：</p>
+                                    <el-select v-model="myVote" filterable clearable placeholder="请选择">
+                                        <el-option
+                                        v-for="item in typeList"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                        </el-option>
+                                    </el-select>
+                                    <el-button size="small" type="primary" @click="vote()">投票</el-button>
+
+                                </div>
+                                
+                                    <!--<el-button>取消</el-button>-->
                             </div>
-                            
-                                <!--<el-button>取消</el-button>-->
                         </div>
                         <!--评论区-->
                         <div class="comment" v-loading="loading2||zaning">
@@ -493,7 +495,7 @@ export default {
         }
     }
     .view-1100px {
-            max-width:1100px;
+            max-width:1180px;
             margin:15px auto;
             position: relative;
             padding-right:332px;
@@ -628,6 +630,9 @@ export default {
                 }
 
             }   
+            .e-show {
+                padding:2%;
+            }
             .user-ctrl {
                 margin-bottom:25px;
             }
@@ -751,7 +756,7 @@ export default {
                                 position: relative;
                                 padding-top:10px;
                                 border-top:1px dotted #eee;
-                                background-color: #fefefe;
+                                background-color: #f5f5f5;
                                 .reply-btn {
                                     position: absolute;
                                     top:10px;

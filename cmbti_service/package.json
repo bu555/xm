@@ -29,7 +29,10 @@
     "sha1": "^1.1.1"
   },
   "dependencies": {
+    "file-stream-rotator": "^0.2.1",
     "formidable": "^1.2.1",
+    "log4js": "^1",
+    "morgan": "^1.9.0",
     "xss": "^1.0.3"
   }
 }

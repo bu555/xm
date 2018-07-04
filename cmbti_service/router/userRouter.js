@@ -22,7 +22,7 @@ var fm = require('formidable');
 const fs = require('fs')
 const path = require('path')
 
-
+var logger = require('log4js').getLogger('logError');
       
 
 // 注册  {name:'',password:''}
@@ -39,7 +39,7 @@ const register = (req, res,next) => {
            nane:uName
         })
     }).catch(err=>{
-          console.log(err);
+          logger.error(err);
           res.json({
               success: false,
               message: '註冊失敗'
@@ -60,6 +60,7 @@ const checkNotRegister = (req,res)=>{
            message:"未註冊"
         })
     }).catch(err=>{
+        logger.error(err);
         res.json({
            success:false,
            nane:"已註冊"
@@ -81,6 +82,7 @@ const emailRetrieve = (req,res,next)=>{
            email:email
         })
     }).catch(err=>{
+        logger.error(err);
         res.json({
            success:false,
            message:"操作失敗"
@@ -101,7 +103,7 @@ const resetPassword = (req,res,next)=>{
            message:"密碼重置成功"
         })
     }).catch(err=>{
-        console.log(err);
+        logger.error(err);
         res.json({
            success:false,
            message:"操作失敗"
@@ -130,7 +132,7 @@ const login = (req, res) => {
             message:'登錄成功'
         })
     }).catch(err=>{
-        console.log(err);
+        logger.error(err);
         res.json({
            success:false,
            message:"操作失敗"
@@ -167,7 +169,7 @@ const getUserInfoById = (req, res) =>{
                 })
             }
         }catch(err){
-            console.log(err);
+            logger.error(err);
             res.json({
                 success: false
             })
@@ -183,6 +185,7 @@ const modifyUserInfo = (req, res) =>{
                 success: true
             })
     }).catch(err=>{
+            logger.error(err);
             res.json({
                 success: false
             })
@@ -195,7 +198,7 @@ const modifyUserInfo = (req, res) =>{
     //             success: true
     //         })
     //     }catch(err){
-    //         console.log(err);
+    //         logger.error(err);
     //         res.json({
     //             success: false
     //         })
@@ -223,6 +226,7 @@ const uploadPhoto = (req,res)=>{
                 success:true
             })
         }).catch(err=>{
+            logger.error(err);
             res.json({
                 success:false
             })
@@ -259,6 +263,7 @@ const userInfoListShow = (req, res) =>{
                 data:list
             })
         }catch(err){
+            logger.error(err);
             res.json({
                 success: false
             })
@@ -268,12 +273,18 @@ const userInfoListShow = (req, res) =>{
 
 
 
-
+var RateLimit = require('express-rate-limit');
+// app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时 
+var apiLimiter = new RateLimit({
+  windowMs: 15*60*1000, // 15 minutes
+  max: 3,
+  delayMs: 0 // 禁用
+});
 
 
 
 router.post('/register',register);
-router.post('/login',login);
+router.post('/login',apiLimiter,login);
 router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
 router.post('/reset',resetPassword);
 router.post('/delSession',delSession)

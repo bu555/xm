@@ -3,8 +3,14 @@
     <div class="main-box">
         <div class="title">
             <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
-            <i class="el-icon-edit" style="font-size:20px;padding-right:5px"></i>
-            <font> 创建文档</font>
+            <div v-if="aid">
+                <i class="el-icon-edit-outline" style="font-size:20px;padding-right:3px;position:relative;top:2px"></i>
+                <font> 编辑文档</font>
+            </div>
+            <div v-else>
+                <i class="el-icon-edit" style="font-size:20px;padding-right:5px"></i>
+                <font> 创建文档</font>
+            </div>
         </div>
         <div class="my-editor">
             <el-form ref="form" :model="form">
@@ -38,7 +44,7 @@
                     <label for=""></label>
                     <el-form-item>
                         <el-button type="primary" @click="submitArticle()">提交</el-button>
-                        <el-button @click="$router.push({path:'/forum'})">取消</el-button>
+                        <el-button @click="$router.go(-1)">取消</el-button>
                     </el-form-item>
                 </div>
             </el-form>
@@ -63,6 +69,9 @@ export default {
                 category:'',
                 content:''
             },
+            loading:false,
+            aid:'',
+            editAid:''
         }
     },
     components: {
@@ -73,31 +82,61 @@ export default {
     },
     methods:{  
         submitArticle(){
+            if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
+                return  this.$message({
+                            message: '内容输入不完整！',
+                            type: 'warning'
+                        });
+            }
+            this.loading = true
             this.$axios.articlePublish({
-                title:this.form.title,
-                category:this.form.category,
-                content:this.form.content
+                title:this.form.title.trim(),
+                category:this.form.category.trim(),
+                content:this.form.content.trim(),
+                aid:this.editAid
             }).then(res=>{
+                this.loading = false
                 if(res.data.success){
                     this.form.title = ''
                     this.form.category = ''
                     this.form.content = ''
+                    this.aid = ''
                     this.$message({
-                        message: '发表成功！',
+                        message: '操作成功！',
                         type: 'success'
                     });
+                    if(this.editAid){
+                        this.$router.go(-1)
+                    }
                 }
+            }).catch(err=>{
+                this.loading = false
             })
         },
         updateData(html){
             this.form.content = html
         },
-        init(){
-
+        getArticleById(){
+            this.loading = true
+            this.$axios.getArticleById({aid:this.aid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.editAid = this.aid
+                    this.form.title = res.data.data.title
+                    this.form.category = res.data.data.category
+                    this.form.content = res.data.data.content
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
         }
 
     },
     created(){
+        if(this.$route.path.indexOf('/article/edit/')>-1){
+            this.aid = this.$route.path.split('/')[4]
+            this.getArticleById()
+        }
         
     }
     

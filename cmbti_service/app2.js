@@ -1,4 +1,5 @@
 var express = require("express");
+var app = express();
 var path = require('path');
 var http = require('http');
 const session = require('express-session');
@@ -10,13 +11,12 @@ var testRouter = require('./router/testRouter');
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
 
+var log4js = require('./log4js-config');
+var logger = log4js.getLogger('logError');
+app.use(log4js.connectLogger(logger));
 
-var ESAPI = require('node-esapi');
 
-var hh = ESAPI.encoder().encodeForHTML(
-  `<div><font color="#ff9900">锄大地大亨</font></div><div><font color="#ff9900">1、34</font></div><div><font color="#ff9900">2.i哦</font></div><div>`
-);
-console.log(hh);
+
 
 // 连接数据库
 var mongoose = require('mongoose');
@@ -27,7 +27,8 @@ db.once('open', function() {
   console.log('连接成功！connect success')
 });
 
-var app = express();
+
+
 // app.use(cors());//跨域设置
 app.set('port',process.env.PORT || 7000)
 app.use(cors({credentials: true, origin: ['http://localhost:7075','http://localhost:8000']}));//跨域设置
@@ -35,19 +36,35 @@ app.use(cors({credentials: true, origin: ['http://localhost:7075','http://localh
 // app.use(cors());//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //解析请求主体(用于获取post传递的参数)
 app.use(bodyParser.json()); //解析application/json
-// session
 app.use(session({
   secret: 'usersession',
   key: 'usersession',
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 3600000 // 设置返回的cookie时效为30秒，测试用
+    maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时？
   }
   // store: new MongoStore({
   //   url: "mongodb://localhost:27017/usersession"
   // })
 }))
+
+
+
+
+
+var RateLimit = require('express-rate-limit');
+// app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时 
+var apiLimiter = new RateLimit({
+  windowMs: 15*60*1000, // 15 minutes
+  max: 3,
+  delayMs: 0 // 禁用
+});
+// app.use('/api/user/login',apiLimiter);
+
+
+
+
 
 app.use('/', express.static(path.join(__dirname,'public')));
 app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
@@ -57,6 +74,16 @@ app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);
 app.use('/api/account',accountRouter);
 app.use('/api/test',testRouter);
+
+
+
+
+
+
+
+
+
+
 
 
 http.createServer(app).listen(app.get('port'),function(){
