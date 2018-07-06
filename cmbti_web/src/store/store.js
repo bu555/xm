@@ -12,6 +12,7 @@ const state = {
     refUser:false,
     refAccount:false,
     refCurrent:false,
+    meta:{}
 } 
 const mutations = {
     //存储用户信息
@@ -26,6 +27,9 @@ const mutations = {
     },
     setAccountInfo(state,obj){
         state.accountInfo = obj;
+    },
+    setMeta(state,value){
+        state.meta = value;
     },
 }
 export default new Vuex.Store({

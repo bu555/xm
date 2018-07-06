@@ -46,6 +46,7 @@ export default {
       font-size:15px;
       display:flex;
       color:#777;
+      margin-bottom: 5px;
       .first {
          white-space: nowrap;
          color:#333;

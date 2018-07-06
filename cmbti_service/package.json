@@ -29,7 +29,11 @@
     "sha1": "^1.1.1"
   },
   "dependencies": {
+<<<<<<< HEAD
     "express-rate-limit": "^2.11.0",
+=======
+    "connect-mongodb-session": "^2.0.3",
+>>>>>>> 53b6b460ea3d8a15576e03390ab4659346e986e2
     "file-stream-rotator": "^0.2.1",
     "formidable": "^1.2.1",
     "log4js": "^1",

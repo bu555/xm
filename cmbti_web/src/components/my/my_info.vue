@@ -9,7 +9,7 @@
     </div>
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
       <el-form-item label="昵称">
-        <el-input v-model="infoForm.r_name"></el-input>
+        <el-input v-model="infoForm.r_name" :disabled="!infoForm.modify"></el-input>
       </el-form-item>
       <el-form-item label="城市">
         <el-select v-model="infoForm.city" placeholder="请选择活动区域" style="width:100%">
@@ -70,6 +70,9 @@ export default {
         modifyUserInfo(){
             this.loading = true
             // 修改账户信息
+            if(this.infoForm.r_name !=this.initData.r_name){
+              this.infoForm.new_r_name = this.infoForm.r_name
+            }
             this.$axios.modifyUserInfo(this.infoForm).then(res=>{
                 this.loading = false
                 if(res.data.success){

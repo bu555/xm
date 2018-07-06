@@ -19,14 +19,16 @@ const Account = require('./accountHandler')
 class User {
     constructor(){}
     // 查詢用戶是否註冊  {name:''}
-    static checkNotRegister(options){
+    static checkRegister(options){
         return new Promise((resolve,reject)=>{
             UserModel.findOne({"name":options.name}).then(u=>{
                 if(u){
-                  reject('Registered')
+                  resolve(true)
                 }else{
-                  resolve('Not Registered')
+                  resolve(false)
                 }
+            }).catch(err=>{
+                reject('Find name error')
             })
         })
     }
@@ -39,7 +41,7 @@ class User {
                     let userRegister = new UserModel({
                         name: options.name.trim(),
                         password: sha1(options.password.trim()), // 将密码加密
-                        r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(9),
+                        r_name:'ABCDEFGHIJ'.charAt(Math.floor(Math.random()*10)) + String(Math.random()).substr(2,7),
                         avatar:'', //头像
                         profile:'', //简介
                         sex:"-1",
@@ -112,6 +114,7 @@ class User {
                 reject('賬號或密碼錯誤')
               }
           })
+
       })
     }
     // uid查询用户 {uid:''}
@@ -133,8 +136,11 @@ class User {
     static modifyUser(options={}){
         return new Promise((resolve,reject)=>{
             let set = {}
-            if(options.r_name){
-                set.r_name = options.r_name
+            // 修改名字
+            if(options.new_r_name){
+                set.r_name = options.new_r_name
+                set.modify = false
+                set.m_time = new Date()
             }
             if(options.profile){
                 set.profile = options.profile
@@ -157,6 +163,24 @@ class User {
             UserModel.update({"_id":options.uid},{$set:set},err=>{
                 if(err) return reject('modify faild')
                 resolve('modify success')
+            })
+
+        })
+    }
+    // 检查昵称是否重复 {uid:''}
+    static checkRoleName(options={}){
+        return new Promise((resolve,reject)=>{
+            let r_name = options.new_r_name.trim()
+            UserModel.find().then(user=>{
+                if(user && (user instanceof Array)){
+                    for(let i=0;i<user.length;i++){
+                        if(user[i].r_name==r_name){
+                            return resolve(true)
+                        }
+                    }
+                    resolve(false)
+                }
+
             })
 
         })

@@ -91,6 +91,10 @@ export default {
     userInfoListShow(data){
         return axios.post(pathAPI+'/user/userInfoListShow',data);
     },
+    //检查email是否注册
+    checkRegister(data){
+        return axios.post(pathAPI+'/user/userInfoListShow',data);
+    },
 
 // example -------------------------------------
     //爬取数据添加example  （）
