@@ -2,29 +2,39 @@ var express = require("express");
 var app = express();
 var path = require('path');
 var http = require('http');
+var mongoose = require('mongoose');
 const session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+var bodyParser = require('body-parser'); 
+var cors = require('cors')
+
+// 路由配置
 var articleRouter = require('./router/articleRouter');
 var accountRouter = require('./router/accountRouter');
 var userRouter = require('./router/userRouter');
 var exampleRouter = require('./router/exampleRouter');
 var testRouter = require('./router/testRouter');
-var bodyParser = require('body-parser'); 
-var cors = require('cors')
 
+
+// 流量過濾
+var RateLimit = require('express-rate-limit');
+app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时
+
+// 日誌
 var log4js = require('./log4js-config');
 var logger = log4js.getLogger('logError');
 app.use(log4js.connectLogger(logger));
 
 
 
-
 // 连接数据库
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/test', { });
+var db_uri = 'mongodb://localhost:27017/test' 
+mongoose.connect(db_uri, { });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, '连接失败！connection error:'));
 db.once('open', function() {
-  console.log('连接成功！connect success')
+  console.log('连接成功！MongoDB connect success')
 });
 
 
@@ -36,33 +46,23 @@ app.use(cors({credentials: true, origin: ['http://localhost:7075','http://localh
 // app.use(cors());//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //解析请求主体(用于获取post传递的参数)
 app.use(bodyParser.json()); //解析application/json
+
+
+
+// session 配置
 app.use(session({
-  secret: 'usersession',
-  key: 'usersession',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时？
-  }
-  // store: new MongoStore({
-  //   url: "mongodb://localhost:27017/usersession"
-  // })
+    secret: 'usersession',
+    key: 'usersession',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时
+    },
+    // store: new MongoDBStore({
+    //           uri: db_uri,
+    //           collection: 'mySessions'
+    //         })
 }))
-
-
-
-
-
-var RateLimit = require('express-rate-limit');
-// app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时 
-var apiLimiter = new RateLimit({
-  windowMs: 15*60*1000, // 15 minutes
-  max: 3,
-  delayMs: 0 // 禁用
-});
-// app.use('/api/user/login',apiLimiter);
-
-
 
 
 
@@ -74,16 +74,6 @@ app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);
 app.use('/api/account',accountRouter);
 app.use('/api/test',testRouter);
-
-
-
-
-
-
-
-
-
-
 
 
 http.createServer(app).listen(app.get('port'),function(){

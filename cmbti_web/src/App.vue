@@ -25,7 +25,41 @@ export default {
     myFooter,
     loginModal
   },
+  watch: {
+    "$route.fullPath": "getMeta"
+  },
+  metaInfo() {
+    return {
+      title: this.$store.state.meta.title ,
+      meta: this.$store.state.meta.meta ,
+      link: this.$store.state.meta.link 
+    };
+  },
   methods:{
+    getMeta(){
+      let meta = {
+          title: this.$route.path,
+          meta: [
+            {
+              name: "keywords",
+              content: "MBTI,人格,INTJ"
+            },
+            {
+              name: "description",
+              content: "人格类型"   //200字节左右,60汉字左右
+            },
+          ],
+          link: [
+            {
+              rel: "prefetch",
+              href: "www.baidu.com"
+            }
+          ],
+          // <meta name="keywords" content="小火柴,蓝色理想,前端工程师,前端小站,HTML,CSS,JavaScript,HTTP,Vue,React,jQuery,Bootstrap">
+          // <meta name="description" content="小火柴的前端小站是小火柴开发的一个前端学习网站，以自学前端的学习总结为基础，尽量囊括了前端体系涉及的内容，希望可以对读者有所帮助">
+      }
+      this.$store.commit("setMeta", meta);
+    },
 
     //设置html  font-size
     setHtmlFontSize(){
@@ -65,6 +99,7 @@ export default {
         _this.setHtmlFontSize() 
     })
     
+    this.getMeta()
   }
 }
 </script>

@@ -29,6 +29,7 @@
     "sha1": "^1.1.1"
   },
   "dependencies": {
+    "connect-mongodb-session": "^2.0.3",
     "file-stream-rotator": "^0.2.1",
     "formidable": "^1.2.1",
     "log4js": "^1",

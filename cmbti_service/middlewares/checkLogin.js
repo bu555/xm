@@ -2,6 +2,7 @@ module.exports = {
   // 判断session是否存在，同时返回前端一个json作为状态判断
 
   checkLogin(req, res, next) {
+    console.log(req.session.user);
     if (!req.session.user) {
       return res.json({
         error: '未登录',

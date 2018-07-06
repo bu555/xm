@@ -17,7 +17,7 @@ const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin
 
 const User = require('../controllers/userHandler')
 const Account = require('../controllers/accountHandler')
-
+const Limiter = require('../middlewares/limiter')
 var fm = require('formidable');
 const fs = require('fs')
 const path = require('path')
@@ -27,7 +27,7 @@ var logger = require('log4js').getLogger('logError');
 
 // 注册  {name:'',password:''}
 const register = (req, res,next) => {
-    if(!myUtill.verifyEemail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
+    if(!myUtill.verifyEmail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
           return res.json({
               success: false,
               message: '参数格式错误'
@@ -47,29 +47,51 @@ const register = (req, res,next) => {
     })
 }
 //查询用户名是否被注册 {name:''}
-const checkNotRegister = (req,res)=>{
-    if(!myUtill.verifyEemail(req.body.name)){
+const checkRegister = (req,res)=>{
+    if(!myUtill.verifyEmail(req.body.name)){
           return res.json({
               success: false,
               message: '参数格式错误'
           })
     }
-    User.checkNotRegister({name:req.body.name}).then(r=>{
+    User.checkRegister({name:req.body.name}).then(r=>{
         res.json({
            success:true,
-           message:"未註冊"
+           isReg:r  //返回true或false
         })
     }).catch(err=>{
         logger.error(err);
         res.json({
            success:false,
-           nane:"已註冊"
+           nane:"error"
+        })
+    })
+}
+//查询昵称是否注册 {name:''}
+const checkRoleName = (req,res)=>{
+    let options = req.body
+    if( !myUtill.roleName(req.body.r_name)){
+          return res.json({
+              success: false,
+              message: '参数格式错误'
+          })
+    }
+    User.checkRoleName(options).then(r=>{
+        res.json({
+           success:true,
+           exist:r  //返回true或false
+        })
+    }).catch(err=>{
+        logger.error(err);
+        res.json({
+           success:false,
+           nane:"error"
         })
     })
 }
 //邮箱找回 {email:''}
 const emailRetrieve = (req,res,next)=>{
-    if(!myUtill.verifyEemail(req.body.email)){
+    if(!myUtill.verifyEmail(req.body.email)){
           return res.json({
               success:false,
               message:"email格式错误"
@@ -113,7 +135,7 @@ const resetPassword = (req,res,next)=>{
 
 // 登录 {name:'',password:''}
 const login = (req, res) => {
-    if(!myUtill.verifyEemail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
+    if(!myUtill.verifyEmail(req.body.name) || !myUtill.verifyPassword(req.body.password)){
           return res.json({
             success: false,
             message: "参数格式错误"
@@ -179,31 +201,56 @@ const getUserInfoById = (req, res) =>{
 // 修改用户信息
 const modifyUserInfo = (req, res) =>{  
     let options = req.body || {}
-    options.uid = req.session.user._id
-    User.modifyUser(options).then(result=>{
-            res.json({
-                success: true
+    // console.log();
+    (async ()=>{
+    options.uid = req.session.user?req.session.user._id:''
+        try{
+            if(options.new_r_name){
+                if( myUtill.roleName(options.new_r_name) ){
+                    let user = await User.getUserById(options)
+                    if(user.modify){
+                        let exist= await User.checkRoleName(options)
+                        if(exist){
+                            return res.json({
+                                success: false,
+                                message: "The roleName is exist!"
+                            })
+                        }
+                    }else{
+                        return res.json({
+                            success: false,
+                            message: "cannot modify"
+                        })
+
+                    }
+
+                }else{
+                    return res.json({
+                        success: false,
+                        message: "参数格式错误"
+                    })
+                }
+
+            }
+            User.modifyUser(options).then(result=>{
+                    res.json({
+                        success: true
+                    })
+            }).catch(err=>{
+                    logger.error(err);
+                    res.json({
+                        success: false
+                    })
             })
-    }).catch(err=>{
+        }catch(err){
+            console.log(err);
             logger.error(err);
             res.json({
                 success: false
             })
-    })
-    // (async ()=>{
-    //     try{
-    //         options.uid = req.session.user._id
-    //         let modify = await User.modifyUser(options)
-    //         res.json({
-    //             success: true
-    //         })
-    //     }catch(err){
-    //         logger.error(err);
-    //         res.json({
-    //             success: false
-    //         })
-    //     }
-    // })()
+        }
+    })()
+
 }
 
 
@@ -273,22 +320,12 @@ const userInfoListShow = (req, res) =>{
 
 
 
-var RateLimit = require('express-rate-limit');
-// app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时 
-var apiLimiter = new RateLimit({
-  windowMs: 15*60*1000, // 15 minutes
-  max: 3,
-  delayMs: 0 // 禁用
-});
-
-
-
 router.post('/register',register);
-router.post('/login',apiLimiter,login);
+router.post('/login',Limiter.login,login);
 router.post('/emailRetrieve',emailRetrieve); //邮箱找回密码
 router.post('/reset',resetPassword);
 router.post('/delSession',delSession)
-router.post('/checkNotRegister',checkNotRegister)
+router.post('/checkRegister',checkRegister)
 router.post('/modifyUserInfo',checkLogin,modifyUserInfo)
 router.get('/getUserInfo',checkLogin,getUserInfoById)
 router.post('/uploadPhoto',checkLogin,uploadPhoto);
