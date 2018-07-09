@@ -34,8 +34,84 @@ class GrabWeb{
             })
         });  
     }
+    //爬取百度百科人物信息{url:''}
+    static https(options){
+        let _this = this
+        let pro = new Promise((resolve,reject)=>{
+            request.get({url:options.url,encoding:null},function(err,response,body){
+                if(!err&&response.statusCode == 200){
+                    // var buf =  iconv.decode(body, 'utf-8');  
+                    var $=cheerio.load(body);  
+                    var flag1 = $('body .polysemantList-header-title').text().replace(/[\s\r\n]/g,'').indexOf('是一个多义词，请在下列义项上选择浏览（共')
+                    var flag2 = $('body .lemmaWgt-subLemmaListTitle').text().replace(/[\s\r\n]/g,'').indexOf('是一个多义词，请在下列义项上选择浏览（共')
+                    
+                    // "这是一个多义词，请在下列义项上选择浏览（共2个义项）"
+                    // 多义词
+                    if((flag1>-1 || flag2>-1) && !options.polysemantList){
+                        let pro = []
+                        let lis = ''
+                        if(flag1>-1){
+                            lis = $('body .polysemantList-wrapper .item').children('a')  //flag1
+                        }else if(flag2>-1){
+                            lis = $('body .custom_dot .list-dot .para').children('a')
+                        }
+                        for(let i=0;i<lis.length;i++){
+                            let url = $(lis[i]).attr('href')
+                            if(url){
+                                url = 'https://baike.baidu.com'+url
+                                pro.push(_this.https({url:url,polysemantList:true}))
+                            }
+                        }
+                        Promise.all(pro).then(data=>{
+                            // for(let i=0;i<data.length;i++){
+                            //     if(data[i]){
+                            //         data[i].url = urlArr[i]
+                            //     }
+                            // }
+                            data = data.filter(function(val){ return val!==null });
+                            resolve(data)
+                        })
+                    }else{
+                            let name = $('body .lemmaWgt-lemmaTitle-title').children('h1').text()
+                            let name1 = $('body .lemmaWgt-lemmaTitle-title').children('h2').text()
+                            let info = $('body .lemma-summary div').eq(0).text();
+                            if(info){
+                                if(info.length<150){
+                                    info += $('body .lemma-summary div').eq(1).text();
+                                    info = info.substr(0,180)+".....";
+                                }else{
+                                    info += "....."
+                                }
+                            }
+                            let imgURL = '';
+                            if($('body .summary-pic img').attr('src')){
+                                imgURL = $('body .summary-pic img').attr('src');
+                            }else if($('body .album-wrap img').attr('src')){
+                                imgURL = $('body .album-wrap img').attr('src');
+                            }
+                            let d = null
+                            if(imgURL && info && name){
+                                d = {
+                                        imgURL:imgURL,
+                                        info:info,
+                                        name:name,
+                                        name1:name1?name1:'', //名字标题
+                                        tag: '', 
+                                        birth: '',
+                                        conste: '', //星座
+                                }
+                            }
+                            // console.log(d);
+                            resolve(d);
+                    }
+                    
+                } 
+            })
+        })
+        return pro;
+    }
     //爬取百度百科人物信息
-    static https(name,eid){
+    static https1(name,eid){
         let url = 'https://baike.baidu.com/item/'+encodeURI(name);
         let pro = new Promise((resolve,reject)=>{
             request.get({url:url,encoding:null},function(err,response,body){
@@ -45,6 +121,18 @@ class GrabWeb{
                     // console.log($('body h1').text());  //名字
                     // console.log($('body .summary-pic img').attr('src')); //图片路径
                     // console.log($('body .lemma-summary div').eq(0).text()); //个人简介
+
+                    // 多义词
+                    if($('body .polysemantList-wrapper')){
+                        let lis = $('body .polysemantList-wrapper li')
+                        
+                        return resolve({
+                            data:{
+                                polysemantList:true,
+                                html:$('body .polysemantList-wrapper').html()
+                            }
+                        });
+                    }
                     let info = $('body .lemma-summary div').eq(0).text();
                     if(info){
                         if(info.length<150){
@@ -93,7 +181,7 @@ class GrabWeb{
         })
         return pro;
     }
-    //保存图片
+    //保存图片 {url:''}
     static saveImage(options){
         // request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
 

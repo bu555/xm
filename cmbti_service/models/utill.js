@@ -75,6 +75,13 @@ module.exports =  {
         roleName(r_name){
                 var reg = /^(\d|\w|[\x21-\x2f\x3a-\x40\x5b-\x60\x7B-\x7F]){1,20}$/
                 return r_name && reg.test(r_name) ? true:false
+        },
+        // 去除空白 换行..
+        emptyHandler(str){
+            if(str && typeof(str)==='string'){
+                return str.replace(/[\s\r\n]/g,'')
+            }
+            return false
         }
 
 }
