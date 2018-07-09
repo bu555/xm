@@ -8,8 +8,8 @@
       <i class="fa fa-user-o"></i> 个人档案
     </div>
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
-      <el-form-item label="昵称">
-        <el-input v-model="infoForm.r_name" :disabled="!infoForm.modify"></el-input>
+      <el-form-item label="名字">
+        <el-input v-model="infoForm.r_name" :disabled="!infoForm.modify" spellcheck=false></el-input>
       </el-form-item>
       <el-form-item label="城市">
         <el-select v-model="infoForm.city" placeholder="请选择活动区域" style="width:100%">
@@ -25,7 +25,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="简介">
-        <el-input type="textarea" :rows="3" v-model="infoForm.profile"></el-input>
+        <el-input type="textarea" :rows="3" v-model="infoForm.profile" spellcheck=false></el-input>
       </el-form-item>
       <el-form-item size="large">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>

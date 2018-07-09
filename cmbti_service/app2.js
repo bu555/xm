@@ -4,7 +4,7 @@ var path = require('path');
 var http = require('http');
 var mongoose = require('mongoose');
 const session = require('express-session');
-var MongoDBStore = require('connect-mongodb-session')(session);
+// var MongoDBStore = require('connect-mongodb-session')(session);
 
 var bodyParser = require('body-parser'); 
 var cors = require('cors')

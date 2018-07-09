@@ -14,7 +14,7 @@
                         <input v-model="password_" type="password" class="form-control" id="exampleInputPassword1" placeholder="新密码确认" @blur="verifyPassword_()">
                          <div class="error-msg" v-if="!password_Verify">两次输入的密码不一致</div>
                     </div>
-                    <button @click="reset()" type="button" class="btn btn-primary" style="width:100%">提 交</button>
+                    <button @click="reset()" type="button" class="my-btn" style="width:100%">提 交</button>
                 </form>
 
         </div>
@@ -122,22 +122,16 @@ export default {
             // background-color: rgba(89,142,210,.2);
         }
         .title {
-            text-align: center;
-            font-weight: 700;
-            border:1px solid #337ab7;
-            border-bottom:1px solid #598dd3;
-            background-color: #598dd3;
-            padding: .04rem 0 .04rem;
-            font-size:.06rem;
-            margin:-1px -1px;
-            color:#f5f5f5;
-            border-radius:3px 3px 0  0;
-            @media screen and (max-width:992px){
-                font-size:.09rem;
-            }
-            @media screen and (max-width:767px){
-                font-size:.18rem;
-            }
+                text-align: center;
+                font-weight: 700;
+                border:1px solid #456ea5;
+                border-bottom:1px solid #bbb;
+                background-color: #456ea5;
+                padding: 11px 0;
+                font-size:17px;
+                margin:-1px -1px;
+                color:#fff;
+                border-radius:3px 3px 0  0;
         }
         
     }
@@ -147,22 +141,33 @@ export default {
     }
     .form-group {
         position: relative;
-        margin-bottom:15px;
+        margin-bottom:8px;
         .error-msg {
-            // padding-left:80px;
             color:#f10d0e;
-            position:absolute;
-            height:30px;
             line-height:15px;
-            bottom:-32px;
-            left:0;
-            font-size:11px;
-            padding-left:90px;
-            text-indent:-90px; //换行后缩进
+            font-size:13px;
+            padding-top:1px;
             i {
                 color:#d62921;
             }
         }
+        input {
+            height: 30px;
+            padding-left: 5px;
+            width: 97%;
+            margin-top:3px;
+            font-size:15px;
+        }
+    }
+    button.my-btn {
+        font-size:16px; 
+        padding:5px; 
+        cursor:pointer;
+        font-family: 'Microsoft YaHei';
+        font-weight:700;
+    }
+    a:hover {
+        color:#456ea5;
     }
 }
 </style>

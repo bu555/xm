@@ -66,26 +66,23 @@ export default {
     max-width:1100px;
     margin:12px auto;
     position: relative;
+    box-sizing: border-box;
     padding-right:332px;
     padding-top:0px;
     // display:flex;
     .main-box {
         margin-bottom:12px;
         width:100%;
-        // padding:2%;
         .types-menu {
             display:flex;
+            justify-content: space-around;
             padding:20px 10px ;
             border-top:5px solid #598dd5;
             background-color: #fff;
             // border-bottom:1px solid #598dd5;
             margin-bottom:10px;
             &>div {
-                flex:0 0 25%;
-                padding-left:5%;
-                padding-right:5%;
-                // border:1px solid #ccc;
-                // text-align:center;
+                flex:0 0 22%;
                 .head {
                     font-size:20px;
                     font-weight:700;

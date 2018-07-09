@@ -5,11 +5,11 @@
          <div class="m-view">
            <!--网站logo-->
             <div class="logo-a">
-                <a href="www.baidu.com" target="_blank">
+                <a href="/" target="_blank">
                     <img src="../../../static/img/logo_a.png" alt="">
                 </a>
                 <div class="logo-b">
-                    <a href="www.baidu.com" target="_blank">
+                    <a href="/" target="_blank">
                         <img src="../../../static/img/logo_b.png" alt="" style="height:38px">
                     </a>
                 </div>
@@ -43,7 +43,6 @@
                         <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
                       </router-link>
                       <div class="user-login-out">
-                        <!--<i class="el-icon-caret-bottom"></i>-->
                             <el-dropdown trigger="click" @command="handleCommand">
                               <span class="el-dropdown-link">
                                 <i class="el-icon-arrow-down el-icon--right" style="margin:5px;"></i>
@@ -252,7 +251,7 @@ export default {
     @media screen and (max-width:768px){
         .my-menu {
           .m-view {
-            padding-top: 52px;
+            // margin-bottom: 52px;
           }
           .my-menu-list {
               padding-left:0px;
@@ -260,6 +259,8 @@ export default {
               display:block;
               height:0px;
               overflow: hidden;
+              // position: relative;
+              // top:52px;
               // transition-property:all;
               // transition-duration: 0.5s;
               a {

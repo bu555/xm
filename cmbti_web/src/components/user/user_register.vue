@@ -26,15 +26,15 @@
             </div>-->
             <div class="check-box">
                 <label>
-                <input type="checkbox" v-model="isVoted" style="margin-top:-2px"> 我同意
+                <input type="checkbox" v-model="isVoted"> <span style="cursor:pointer">我同意</span>
                 </label>&nbsp;&nbsp;
-                <a style="cursor:pointer"> xmbti协议</a> 
+                <router-link to="" style=""> xmbti协议</router-link> 
                 <div class="agree-msg" v-if="!agreeVerify" @change="verifyAgree()">请阅读并同意协议！</div>
             </div>
-            <button type="button" class="btn btn-primary" style="width:100%"  @click="register()">注 册</button>
+            <button type="button" class="my-btn" style="width:100%"  @click="register()">注 册</button>
             <div style="text-align:center;padding-top:16px">
-                <div>已经注册了账户？</div>
-                <div><router-link to="/user/login"><a>这里登录</a></router-link></div>
+                <span style="color:#aaa">已经注册了账户？</span>
+                <span><router-link to="/user/login"><a>这里登录</a></router-link></span>
             </div>
             
         </form>
@@ -191,51 +191,55 @@ export default {
             .title {
                 text-align: center;
                 font-weight: 700;
-                border:1px solid #337ab7;
-                // border:1px solid #ddd;
-                border-bottom:1px solid #598dd3;
-                background-color: #598dd3;
-                padding: .04rem 0 .04rem;
-                font-size:.06rem;
+                border:1px solid #456ea5;
+                border-bottom:1px solid #bbb;
+                background-color: #456ea5;
+                padding: 11px 0;
+                font-size:17px;
                 margin:-1px -1px;
-                color:#f5f5f5;
+                color:#fff;
                 border-radius:3px 3px 0  0;
-                @media screen and (max-width:992px){
-                    font-size:.09rem;
-                }
-                @media screen and (max-width:767px){
-                    font-size:.18rem;
-                }
             }
             
         }
         .form-group {
             position: relative;
-            margin-bottom:19px;
+            margin-bottom:8px;
             .error-msg {
-                // padding-left:80px;
                 color:#f10d0e;
-                position:absolute;
-                height:30px;
                 line-height:15px;
-                bottom:-32px;
-                left:0;
-                font-size:11px;
-                padding-left:90px;
-                text-indent:-90px; //换行后缩进
+                font-size:13px;
+                padding-top:1px;
                 i {
-                    color:#f10d0e;
+                    color:#d62921;
                 }
             }
+            input {
+                height: 30px;
+                padding-left: 5px;
+                width: 97%;
+                margin-top:3px;
+                font-size:15px;
+            }
+        }
+        button.my-btn {
+            font-size:16px; 
+            padding:5px; 
+            cursor:pointer;
+            font-family: 'Microsoft YaHei';
+            font-weight:700;
+        }
+        a:hover {
+            color:#456ea5;
         }
         .check-box {
              margin-bottom:18px;
              position: relative;
             .agree-msg {
                 position: absolute;
-                bottom:-9px;
+                bottom:-15px;
                 left:0;
-                font-size:11px;
+                font-size:13px;
                 line-height:15px;
                 color:#f10d0e;
             }

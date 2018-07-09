@@ -23,8 +23,8 @@ Vue.prototype.$mbti = mbti;
 import Layer from './assets/plugin/bu-layer/index'
 Vue.use(Layer)
 
-import VueMeta from 'vue-meta'
-Vue.use(VueMeta)
+// import VueMeta from 'vue-meta'
+// Vue.use(VueMeta)
 
 import VueHtml5Editor from 'vue-html5-editor'
 import editorConfig from './assets/editor.config'
@@ -44,7 +44,7 @@ Vue.prototype.$axios = axiosManager;
 Vue.prototype.maxAge = 5000;  //本地数据存储期限值
 
 import $ from 'jquery'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 
 import colorFormat from './assets/colorFormat'

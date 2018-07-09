@@ -108,8 +108,9 @@ class User {
               if (!user) {
                 reject('Not find the name')
               } else if (sha1(options.password) === user.password) {
-                  user.password = null;
-                  resolve(user)
+                  this.getUserById({uid:user._id}).then(user=>{
+                        resolve(user)
+                  })
               } else {
                 reject('賬號或密碼錯誤')
               }
@@ -121,7 +122,7 @@ class User {
     static getUserById(options={}){
         return new Promise((resolve,reject)=>{
             // UserModel.findOne({"_id":options.uid},"-password","avatar r_name").then(user=>{
-            UserModel.findOne({"_id":options.uid},"-password -create_time -name").then(user=>{
+            UserModel.findOne({"_id":options.uid},"-id -password -create_time -name -m_time").then(user=>{
                 if(user){
                     resolve(user)
                 }else{

@@ -201,9 +201,8 @@ const getUserInfoById = (req, res) =>{
 // 修改用户信息
 const modifyUserInfo = (req, res) =>{  
     let options = req.body || {}
-    // console.log();
-    (async ()=>{
     options.uid = req.session.user?req.session.user._id:''
+    (async ()=>{
         try{
             if(options.new_r_name){
                 if( myUtill.roleName(options.new_r_name) ){
