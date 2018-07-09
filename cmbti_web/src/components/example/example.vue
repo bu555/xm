@@ -2,7 +2,7 @@
 <div class="example " v-loading="loading">
     <div class="my-tab">
             <div class="search-bar">
-                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter="search()">
+                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter.native="search()" clearable spellcheck=false >
                     <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
                 </el-input>
             </div>
@@ -16,19 +16,32 @@
     </div>
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
     <div class="bx">
-        <div class="example-list" style="min-height:300px"> 
+        <!--在线数据-->
+        <div class="example-list" style="min-height:300px" v-if="exampleList_bk"> 
                 <!--无数据--><!--无数据-->
-                <div v-if="exampleList&&exampleList.length===0" style="padding-top:20px;text-align:center;width:100%">
+                <div v-if="exampleList_bk &&exampleList_bk.length===0" style="padding-top:20px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
-                    <div v-if="$route.query.s">
-                        你可以点击<button class="cupid-green" style="margin:20px 2px;width:50px" @click="addExample($route.query.s)">添加</button>{{$route.query.s}}到名人库
-                    </div>
                 </div>
                 <!--有数据-->
 
 
 
-                <div v-else class="item" v-for="(v,i) in exampleList" :key="i">
+                <div v-else class="item" v-for="(v,i) in exampleList_bk" :key="i">
+                    <!--<router-link :to="'/example/'+v._id">-->
+                    <div class="item-box">
+                        <div class="photo">
+                            <img :src="v.imgURL" alt="">
+                        </div>
+                        <div class="type overflow-row-1">{{v.name}}</div>
+                        <div class="type overflow-row-5" style="font-size:13px;height:99px  ">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(v)" >添 加</el-button></div>
+                    </div>
+                    <!--</router-link>-->
+                </div>
+        </div>
+        <!--数据库的数据-->
+        <div class="example-list" style="min-height:300px" v-if="exampleList"> 
+                <div class="item" v-for="(v,i) in exampleList" :key="i">
                     <router-link :to="'/example/'+v._id">
                     <div class="item-box">
                         <div class="type">{{v.type.toUpperCase()}}</div>
@@ -36,6 +49,7 @@
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
+                        <div class="type overflow-row-5" style="font-size:13px;height:99px; ">{{v.name1?v.name1:''}}{{v.info}}</div>
                     </div>
                     </router-link>
                 </div>
@@ -43,7 +57,7 @@
 
         </div>
         <!--分页-->
-        <div class="m-auto t-center pagi" style="padding:20px 0">
+        <div class="m-auto t-center pagi" style="padding:20px 0" v-if="exampleList">
             <el-pagination
             background
             :page-size="size"
@@ -67,6 +81,7 @@ export default {
     data(){
         return{
             exampleList:null,
+            exampleList_bk:'',
             detailsData:{}, //
             showDetails:false,
             searchName:'',
@@ -161,11 +176,12 @@ export default {
                     title:'ISFP'
                 }
             ],
-            size:8, //每页条数
+            size:12, //每页条数
             count:0,//总页数
             total:0,//总条数
             currentPage:1,
-            loading:false
+            loading:false,
+
         }
     },
     methods:{
@@ -203,9 +219,18 @@ export default {
             }).then(res=>{
                 this.loading = false;
                 if(res.data.success){
-                    this.exampleList = res.data.result.example;
-                    this.count = res.data.result.count
-                    this.total = res.data.result.total
+                    this.exampleList_bk = false
+                    this.exampleList = false
+                    if(res.data.result.baike){
+                        this.exampleList_bk = res.data.result.example
+                        if(!this.exampleList_bk){
+                            this.exampleList_bk = []
+                        }
+                    }else{
+                        this.exampleList = res.data.result.example;
+                        this.count = res.data.result.count
+                        this.total = res.data.result.total
+                    }
                     // let query = this.$route.query
                     // query.page = res.data.result.page
                     // console.log(query);
@@ -224,12 +249,10 @@ export default {
 
         },
         //添加人物到名人库
-        addExample(name){
-                if(!name) return;
+        addExample(example){
+                if(!example) return;
                 this.loading = true;
-                this.$axios.addExample({
-                    name:name
-                }).then(res=>{
+                this.$axios.addExample(example).then(res=>{
                     this.loading = false;
                     if(res.data.success){
                         this.exampleList = [res.data.example];
@@ -379,13 +402,13 @@ export default {
         padding-top:20px;
         text-align: center;
         .item {
-            flex:0 0 16.6%;
+            flex:0 0 24.8%;
             margin-bottom:22px;
             // background-color: red;
             .item-box {
                 margin:0 auto;
                 padding:0 3px;
-                width:142px;
+                width:90%;
                 // border:1px solid #eee;
                 border-radius:3px;
                 cursor:pointer;
@@ -409,69 +432,96 @@ export default {
                 padding:6px 0 10px;
             }
             .photo {
-                height:160px;
-                width:100%;
+                height:210px;
+                width:160px;
+                margin:0 auto;
                 overflow: hidden;
-                position: relative;
-                background-color: #666;
+                // position: relative;
+                // background-color: #666;
                 border-radius:1px;
                 img {
                     display:block;
                     width:100%;
-                    height:auto;
+                    object-fit: cover; //居中
+                    // object-fit:fill; //占满 拉伸或压缩 ===img实际设定
+                    // object-fit:contain;   //最小方向占满(如果没设高度则按比例)
+                    // object-fit:scale-down; //最中间按实际高度 （有宽高则图片大的一侧向占满）
+                    height:100%;
                 }
 
             }
 
-        }
-    }
-    @media screen and (max-width:992px){
-        .example-list .item {
-            flex:0 0 20%;
         }
     }
     @media screen and (max-width:768px){
         .example-list .item {
-            flex:0 0 25%;
-        }
-    }
-    @media screen and (max-width:620px){
-        .example-list .item {
-            flex:0 0 33.33%;
-        }
-    }
-    @media screen and (max-width:472px){
-    .input-with-select {
-        width:100% !important;
-    }
-    .types-box {
-        &>div {
-            flex:0 0 25% !important;
-        }
-    }
-    .example-list {
-        padding:7px;
-        .item {
             flex:0 0 33.33%;
             .item-box {
-                width:30vw;
-                .new-flag {
-                }
-                .type {
-                    font-size:4.7vw;
-                }
-                .name {
-                    font-size:3.75vw;
-                }
-                .photo {
-                    height:32vw;
-                }
+                width:90%;
             }
-
+            .photo {
+                width:20vw;
+                height:25vw;
+            }
         }
     }
+    @media screen and (max-width:500px){
+        .example-list .item {
+            flex:0 0 50%;
+            .item-box {
+                width:95%;
+            }
+            .photo {
+                width:32vw;
+                height:42vw;
+            }
+        }
+        .input-with-select {
+            width:100% !important;
+        }
+        .types-box {
+            &>div {
+                flex:0 0 25% !important;
+            }
+        }
+    }
+    // @media screen and (max-width:620px){
+    //     .example-list .item {
+    //         flex:0 0 33.33%;
+    //     }
+    // }
+    // @media screen and (max-width:472px){
+    //     .input-with-select {
+    //         width:100% !important;
+    //     }
+    //     .types-box {
+    //         &>div {
+    //             flex:0 0 25% !important;
+    //         }
+    //     }
+    //     .example-list {
+    //         padding:7px;
+    //         .item {
+    //             flex:0 0 33.33%;
+    //             .item-box {
+    //                 width:30vw;
+    //                 .new-flag {
+    //                 }
+    //                 .type {
+    //                     font-size:4.7vw;
+    //                 }
+    //                 .name {
+    //                     font-size:3.75vw;
+    //                 }
+    //                 .photo {
+    //                     height:32vw;
+    //                 }
+    //             }
 
-    } 
+    //         }
+    //     }
+
+    // } 
     // 分页
     .pagi{
         max-width:1066px;

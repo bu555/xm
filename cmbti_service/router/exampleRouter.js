@@ -11,18 +11,18 @@ const User = require('../controllers/userHandler')
 const Account = require('../controllers/accountHandler')
 var xss = require('xss');
 var logger = require('log4js').getLogger('logError');
+const GrabWeb = require('../controllers/grabWeb')
+
 const addExample = (req,res)=>{
-    let name = req.body.name || '';
-    if(!name){
+    let options = req.body || {};
+    if(!options.name || !options.imgURL || !options.info ){
         return json({
             success: false,
-            message: 'name为必需参数' 
+            message: '参数错误' 
         })
     }
     // 创建example
-    Example.createExample({
-        name:name
-    }).then(example=>{
+    Example.createExample(options).then(example=>{
         res.json({
             success:true,
             message:'success',
@@ -32,37 +32,53 @@ const addExample = (req,res)=>{
           logger.error(err);
             res.json({
                 success:false,
-                message:'error'
+                message:err.indexOf('exist')>0 ? err:'name is exist'
             })
       })
     
 }
 const searchExample = (req,res,next)=>{
-    console.log('kkkkk');
-    let option = req.body.params
-    Example.searchExample(option).then(example=>{
+    let options = req.body.params
+    Example.searchExample(options).then(example=>{
             // 分页处理
             if(!(example instanceof Array)){
                 example = [example]
             }
             let reg = /^[1-9]\d{0,}$/    // 非零非负整数
-            let page = reg.test(option.page)? Number(option.page):1
-            let size = reg.test(option.size)? Number(option.size):8
+            let page = reg.test(options.page)? Number(options.page):1
+            let size = reg.test(options.size)? Number(options.size):8
             let total = example.length
             if(example.length>size){
                 example = example.slice( (page-1)*size , page*size)
             }
-            res.json({
-                success:true,
-                message:'ok',
-                result:{
-                    example:example,
-                    size:size,
-                    page:page,
-                    total:total
-                }
-            })
+            // 数据库无数据
+            if(options.name && example.length<1){
+
+                // 百度搜索
+                GrabWeb.https({url:'https://baike.baidu.com/item/'+encodeURI(options.name)}).then(data=>{
+                    return res.json({
+                        success:true,
+                        message:'ok',
+                        result:{
+                            example:data,
+                            baike:true
+                        }
+                    })
+                })
+            }else{
+                res.json({
+                    success:true,
+                    message:'ok',
+                    result:{
+                        example:example,
+                        size:size,
+                        page:page,
+                        total:total
+                    }
+                })
+            }
     }).catch(err=>{
+        console.log(err);
         logger.error(err);
         res.json({
             success:false,

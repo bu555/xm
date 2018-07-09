@@ -1,0 +1,36 @@
+[2018-07-09 09:56:24.035] [ERROR] logError - ReferenceError: options is not defined
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:54:13)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 09:56:53.299] [ERROR] logError - ReferenceError: options is not defined
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:54:13)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 11:05:10.429] [ERROR] logError - ReferenceError: name is not defined
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:59:78)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 13:16:32.252] [ERROR] logError - ReferenceError: pro is not defined
+    at Function.https (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\grabWeb.js:91:9)
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:59:25)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 13:20:04.753] [ERROR] logError - ReferenceError: options is not defined
+    at Function.https (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\grabWeb.js:39:30)
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:59:25)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 13:24:17.571] [ERROR] logError - ReferenceError: name is not defined
+    at Example.searchExample.then.example (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:59:78)
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-09 15:23:57.374] [ERROR] logError - Name already exists!
+[2018-07-09 15:24:11.322] [ERROR] logError - Name already exists!
+[2018-07-09 15:25:03.664] [ERROR] logError - Name already exists!
+[2018-07-09 15:25:15.081] [ERROR] logError - Name already exists!
+[2018-07-09 15:30:50.732] [ERROR] logError - example已存在
+[2018-07-09 15:36:24.325] [ERROR] logError - example已存在
+[2018-07-09 15:39:12.739] [ERROR] logError - 此名字已存在
+[2018-07-09 15:39:19.453] [ERROR] logError - 此名字已存在
+[2018-07-09 15:39:25.740] [ERROR] logError - 此名字已存在
+[2018-07-09 15:40:38.755] [ERROR] logError - exist

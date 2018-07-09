@@ -8,64 +8,69 @@ class Example{
     constructor(){
 
     }
-    // 创建名人例 {name:''}
+    // 创建名人例 {name:'',name1:'',url:'baikeURL',info:''}
     createExample(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.example.findOne({name:options.name}).then(example=>{
-                if(!example){
-                    GrabWeb.https(options.name).then(data=>{
-                        let vote = {
-                                entp:0,
-                                intp:0,
-                                entj:0,
-                                intj:0,
-                                enfp:0,
-                                infp:0,
-                                enfj:0,
-                                infj:0,
-                                estj:0,
-                                istj:0,
-                                esfj:0,
-                                isfj:0,
-                                estp:0,
-                                istp:0,
-                                esfp:0,
-                                isfp:0
-                            }
-                    
-                        let exampleAdd = new ExampleModel.example({
-                            name: options.name,
-                            type: "****",
-                            vote: vote,
-                            info: data.data.info || '',
-                            img_url: data.data.imgURL || '',
-                            total: 0, 
-                            tag: data.data.tag || '',
-                            birth: data.data.birth || '',
-                            conste: data.data.conste || '', //星座
-                            create_time: new Date(),
-                        })
-                        exampleAdd.save((err, example) => {
-                            if(err) {
-                                reject('Data save fail')
-                            } else {
-                                new ExampleModel.comment({
-                                    eid:example._id,
-                                    comment:[],
-                                    title:exampleAdd.name
-                                }).save((err,comment)=>{
-                                    if(err) return reject('save fail')
-                                    resolve(example)
-                                })
-                            }
-                        })
-                    },data=>{
-                        reject("数据抓取失败")
-                    })    
+            ExampleModel.example.find({name:options.name}).then(example=>{
+                if(example){
+                    // 查出所有比对
+                    example.forEach((v,i)=>{
+                        if(v.name1==options.name1 || v.info.substr(0,20)==options.info.substr(0,20)){
+                            return reject('exist')
+                        }
+                    })
 
-                }else{
-                    reject('Name already exists!')
                 }
+                // 保存图片到本地 -> 保存资料
+                GrabWeb.saveImage({url:options.imgURL}).then(imgURL=>{
+                    let vote = {
+                            entp:0,
+                            intp:0,
+                            entj:0,
+                            intj:0,
+                            enfp:0,
+                            infp:0,
+                            enfj:0,
+                            infj:0,
+                            estj:0,
+                            istj:0,
+                            esfj:0,
+                            isfj:0,
+                            estp:0,
+                            istp:0,
+                            esfp:0,
+                            isfp:0
+                        }
+                    let exampleAdd = new ExampleModel.example({
+                        name: options.name,
+                        name1: options.name1,
+                        type: "****",
+                        vote: vote,
+                        info: options.info || '',
+                        img_url: imgURL,
+                        total: 0, 
+                        tag: options.tag || '',
+                        birth: options.birth || '',
+                        conste: options.conste || '', //星座
+                        create_time: new Date(),
+                    })
+                    exampleAdd.save((err, example) => {
+                        if(err) {
+                            reject('Data save fail')
+                        } else {
+                            new ExampleModel.comment({
+                                eid:example._id,
+                                comment:[],
+                                title:exampleAdd.name
+                            }).save((err,comment)=>{
+                                if(err) return reject('save fail')
+                                resolve(example)
+                            })
+                        }
+                    })
+                })
+
+
             })
         })
     }

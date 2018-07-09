@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const exampleSchema = new mongoose.Schema({
     name: String,
+    name1: String, // 副名称 区分同名
     create_time: Date,
     info:String,
     img_url:String,
