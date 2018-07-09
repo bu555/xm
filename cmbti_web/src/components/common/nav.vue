@@ -251,11 +251,10 @@ export default {
     @media screen and (max-width:768px){
         .my-menu {
           .m-view {
-            // margin-bottom: 52px;
           }
           .my-menu-list {
               padding-left:0px;
-              padding-top:1px;
+              padding-top:53px;
               display:block;
               height:0px;
               overflow: hidden;
@@ -269,7 +268,7 @@ export default {
                 height:47px;
                 line-height: 47px;
                 padding:0 28px;
-                border-bottom:1px solid #6a7ec7;
+                border-top:1px solid #6a7ec7;
               }
               .items.active {
                 background-color: #495c70;
@@ -307,7 +306,7 @@ export default {
           }
           .my-menu-list.active{
               height:auto;
-              border-top:1px solid #c0c0c0;
+              // border-top:1px solid #c0c0c0;
           }
 
         }
