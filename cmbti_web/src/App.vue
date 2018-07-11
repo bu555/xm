@@ -1,6 +1,6 @@
 <template>
   <div class="root-app">
-      <myNav></myNav>
+      <myNav v-if="$route.path.indexOf('/user/')===-1"></myNav>
       <router-view class="router-view"></router-view>
       <myFooter></myFooter>
       <div v-if="$store.state.modalLogin">

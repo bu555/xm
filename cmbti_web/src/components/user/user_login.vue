@@ -1,15 +1,18 @@
 <template>
   <div class="login">
       <div class="box"  v-loading="isSubmit">
-            <div class="title">用户登录</div>
+            <!--<div class="title">用户登录</div>-->
+            <div style="text-align:center;padding-top:15px">
+                <i class="fa fa-user-circle" style="font-size:75px;color:#eee"></i>
+            </div>
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">账号</label></br>
+                    <!--<label for="exampleInputEmail1">账号</label></br>-->
                     <input v-model="name" type="email" class="form-control" id="exampleInputEmail1" placeholder="邮箱" @blur="nameVerify?verifyName():''"  @input="!nameVerify?verifyName():''"  @keyup.enter="login()" spellcheck="false">
                     <div v-if="!nameVerify" class="error-msg">请输入正确的邮箱</div>
                 </div>
                 <div class="form-group" style="margin-bottom:26px">
-                    <label for="exampleInputPassword1">密码</label>
+                    <!--<label for="exampleInputPassword1">密码</label>-->
                     <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''"  @keyup.enter="login()" spellcheck="false">
                     <div v-if="!passwordVerify" class="error-msg">请输入密码</div>
                 </div>
@@ -125,11 +128,11 @@ beforeRouteEnter (to, from, next) {
     max-width: 400px;
     .box {
         background-color: #fefefe;
-        border:1px solid #ddd;
+        // border:1px solid #ddd;
         border-radius:3px 3px 2px 2px;
         margin:30px 4px;
         form {
-            padding:16px 3% 32px;;
+            padding:15px 15% 32px;;
             background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
@@ -161,9 +164,9 @@ beforeRouteEnter (to, from, next) {
             }
         }
         input {
-            height: 30px;
+            height: 35px;
             padding-left: 5px;
-            width: 97%;
+            width: 100%;
             margin-top:3px;
             font-size:15px;
         }

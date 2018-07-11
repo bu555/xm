@@ -1,7 +1,7 @@
 <template>
   <div class="register">
       <div class="box" v-if="!success"  v-loading="isSubmit">
-        <div class="title">用户注册</div>
+        <!--<div class="title">用户注册</div>-->
         <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">邮箱</label>
@@ -175,10 +175,10 @@ export default {
         .box {
             background-color: #fefefe;
             margin:22px 4px;
-            border:1px solid #ddd;
+            // border:1px solid #ddd;
             border-radius:3px 3px 2px 2px;
             form {
-                padding:16px 3% 32px;;
+                padding:22px 15% 32px;;
                 background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
             }
@@ -215,9 +215,9 @@ export default {
                 }
             }
             input {
-                height: 30px;
+                height: 35px;
                 padding-left: 5px;
-                width: 97%;
+                width: 100%;
                 margin-top:3px;
                 font-size:15px;
             }

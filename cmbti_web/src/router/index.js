@@ -7,6 +7,7 @@ import user_login from '@/components/user/user_login'
 import user_register from '@/components/user/user_register'
 import user_reset_password from '@/components/user/user_reset_password'
 import user_verify from '@/components/user/user_verify'
+import user from '@/components/user/user'
 
 //home页面
 import home_index from '@/components/home/home_index' ;import home_index1 from '@/components/home/home_index.1'
@@ -132,10 +133,16 @@ const vueRouter = new Router({
     { path:'/info/:id',component:show},
     
     // 用户登陆、注册、找回密码
-    { path: '/user/login', component: user_login },
-    { path: '/user/register',component: user_register},
-    { path: '/user/verify',component: user_verify },
-    { path: '/user/reset',component: user_reset_password },
+    { 
+      path:'/user',
+      component:user,
+      children:[
+          { path: 'login', component: user_login },
+          { path: 'register',component: user_register},
+          { path: 'verify',component: user_verify },
+          { path: 'reset',component: user_reset_password },
+      ]
+    }
 
 
     // { path: '*',redirect:'/'}

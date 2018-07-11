@@ -36,16 +36,14 @@ export default {
         width:100%;
         height:100%;
         .main-box {
-            // background-color: #fcfcfc;
-            // background-color: rgba(255,255,255,.5);
-            // background-color: #e5e5e5;
+            background-color: #f5f5f5;
             max-width:370px;
-            margin:100px auto;
+            margin:100px auto 0;
             height:auto;
-            // padding-bottom:10px;
-            // padding-top:1px;
-            border-radius:5px;
+            padding-top:47px;
+            border-radius:2px;
             position:relative;
+            overflow: hidden;
             .demo-ruleForm.c-login {
                 max-width: 370px;
             }
@@ -56,16 +54,21 @@ export default {
                 position: absolute;
                 top: 9px;
                 right: 11px;
-                font-size: 20px;
+                font-size: 22px;
                 text-align: center;
                 line-height: 28px;
                 cursor: pointer;
-                color:#fff;
+                color:#999;
                 &:hover {
-                    color:#fff;
+                    color:#333;
                 }
             }
 
+        }
+        .login .box {
+            border-radius:0px;
+            border:none;
+            margin:0;
         }
 
     }

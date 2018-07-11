@@ -2,7 +2,7 @@
   <div class="reset">
         <!--重设密码视图-->
         <div class="reset-box" v-if="!resetSuccess"  v-loading="isSubmit">
-                <div class="title">设置新密码</div>
+                <!--<div class="title">设置新密码</div>-->
                 <form>
                     <div class="form-group">
                         <label for="exampleInputPassword">新密码</label>
@@ -113,11 +113,11 @@ export default {
     max-width: 400px;
     .email-box,.reset-box {
         background-color: #fefefe;
-        border:1px solid #ddd;
+        // border:1px solid #ddd;
         border-radius:3px 3px 2px 2px;
         margin:30px 4px;
         form {
-            padding:16px 3% 32px;;
+            padding:20px 15% 32px;;
             background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
@@ -152,9 +152,9 @@ export default {
             }
         }
         input {
-            height: 30px;
+            height: 35px;
             padding-left: 5px;
-            width: 97%;
+            width: 100%;
             margin-top:3px;
             font-size:15px;
         }

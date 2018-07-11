@@ -2,7 +2,7 @@
   <div class="send-mail">
       <!--邮件发送视图-->
         <div class="email-box" v-if="!emailSuccess" v-loading="isSubmit">
-                <div class="title">找回密码</div>
+                <!--<div class="title">找回密码</div>-->
                 <form>
                     <div class="form-group" style="margin-bottom:30px">
                         <label for="exampleInputEmail1">邮箱</label>
@@ -13,7 +13,7 @@
                         <label for="exampleInputPassword1">验证码</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="验证码">
                     </div>-->
-                    <button @click="sendEmail()" type="button" class="my-btn" style="width:100%">提 交</button>
+                    <button @click="sendEmail()" type="button" class="my-btn" style="width:100%">提交申请</button>
                     <div style="text-align:center;padding-top:16px">
                         <div>
                             <span style="color:#aaa">或</span>
@@ -90,11 +90,11 @@ export default {
     max-width: 400px;
     .email-box,.reset-box {
         background-color: #fefefe;
-        border:1px solid #ddd;
+        // border:1px solid #ddd;
         border-radius:3px 3px 2px 2px;
         margin:30px 4px;
         form {
-            padding:16px 3% 32px;;
+            padding:22px 15% 32px;;
             background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
@@ -129,9 +129,9 @@ export default {
             }
         }
         input {
-            height: 30px;
+            height: 35px;
             padding-left: 5px;
-            width: 97%;
+            width: 100%;
             margin-top:3px;
             font-size:15px;
         }
