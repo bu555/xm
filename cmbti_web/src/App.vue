@@ -92,13 +92,6 @@ export default {
   },
   created(){
     this.init()
-    let _this = this;
-    _this.setHtmlFontSize();
-    _this.setMinHeight();
-    $(window).resize(function(){  
-        _this.setHtmlFontSize() 
-    })
-    
     this.getMeta()
   }
 }
@@ -124,7 +117,9 @@ export default {
       @media screen and (max-width:768px){
          font-size:17px;
       }
+    }
 
-
+    * {
+      box-sizing: border-box;
     }
 </style>

@@ -1,3 +1,30 @@
+
+#前端缓存：
+1.localStorage 缺点：xss攻击 / 耦合性(增加手动判断) /不能独立于app之外(不能开发环境处理)
+2.service-worker 缺点：时间上比localStore稍长  依赖浏览器实现
+降级顺序：sw=> localStorage
+
+#PWA：
+缓存、icon启动、消息推送(notification)
+
+#SSR
+概念：服务端渲染，方便做搜索引擎优化
+本质：webpack配置，打包两套代码（server+client）
+
+#AMP
+概念：加速移动页面; cdn
+本质：禁用常规js、禁用开销大的标签&选择器、CDN缓存
+构成：
+    AMP HTML: a.使用AMP标签，amp-img... amp-iframe..  b.禁用低性能标签、选择器，tag:[]、!important、img、  
+    AMP JS: a.ampJS库 b.iframe沙盒化
+    AMP缓存：a.页面替换修改('-'=>'--')  b.AMP URL提交(秘钥)  c.AMP更新
+
+
+
+
+
+
+
 CMPool Github:
 https://github.com/Touch-Network/CMPool_Web.git
 buzhiguang@163.com  bu5...  帐户名：buzhiguang5

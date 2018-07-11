@@ -178,7 +178,7 @@ export default {
             border:1px solid #ddd;
             border-radius:3px 3px 2px 2px;
             form {
-                padding:20px 40px 32px;;
+                padding:16px 3% 32px;;
                 background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
             }

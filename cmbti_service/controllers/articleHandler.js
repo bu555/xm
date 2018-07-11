@@ -33,6 +33,7 @@ class Article {
                         likes:0,
                         update_time:_date,
                         edit_time:_date,
+                        com_count:0,
                         state:1
                     }).save((err,a)=>{
                         if(err) return reject('The article add failed')
@@ -154,21 +155,21 @@ class Article {
                 if(a){
                     let cid = myUtill.randomString(7)
                     let update_time = new Date()
-                    let c_count = a.comment.length
+                    let com_count = a.comment.length
                     ArticleModel.comment.update({aid:options.aid},{$push:{comment:{       //{multi : true }更新所有匹配项目
                         uid:options.uid,
                         content:options.content,
                         c_time:update_time,
                         zan:[],
                         zans:0,
-                        replay:options.cid?options.cid:'',
+                        replay:options.cid?options.cid:'',  //回复对象
                         cid:cid
                     }}},err=>{
                         if(err) return reject('Update faild')
                         resolve({
                             cid:cid,
                             update_time:update_time,  //回复时间
-                            c_count:c_count + 1
+                            com_count:com_count + 1,
                         }) 
                     })
                 }else{
@@ -280,7 +281,7 @@ class Article {
                 // “$lt”小于  “$lte”	小于等于   “$gt”大于   “$gte”	大于等于  “$ne”	不等于
                 pro = ArticleModel.article.find({"likes":{"$gte":Number(options.likes)}},"-like")
             }else if(options.good){
-                pro = ArticleModel.article.find({"good":options.good},"-like")
+                pro = ArticleModel.article.find({"good":true},"-like")
             }else{
                 // pro = ArticleModel.article.find({"likes":{"$gte":1}})
                 pro = ArticleModel.article.find({},"-like")
@@ -335,11 +336,12 @@ class Article {
                 }) 
             })
     }
-    // 更新最新回复 {aid:'必传',u_time:}
+    // 更新最新回复 {aid:'必传',uplate_time:}
     static setUpdateTime(options={}){
+        console.log('55',options);
         return new Promise((resolve,reject)=>{
-            ArticleModel.article.update({"aid":options.aid},{$set:{"u_time":options.u_time,"c_count":options.c_count}},err=>{
-                if(err) return reject('update u_time faild')
+            ArticleModel.article.update({"_id":options.aid},{$set:{"update_time":options.update_time,"com_count":options.com_count}},err=>{
+                if(err) return reject('update update_time faild')
                 resolve('success')
             })
         })

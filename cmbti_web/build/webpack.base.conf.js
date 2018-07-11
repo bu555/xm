@@ -5,6 +5,8 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require('webpack')
 // var PrerenderSpaPlugin = require('prerender-spa-plugin')
+var OfflinePlugin = require('offline-plugin');
+var SWPrecachePlugin = require('sw-precache-webpack-plugin');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -84,16 +86,35 @@ module.exports = {
 
   //使用jquery
   plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "windows.jQuery": "jquery"
-    }),
     // new PrerenderSpaPlugin(
     //   // 编译后的html需要存放的路径
     //   path.join(__dirname, '../dist'),
     //   // 列出哪些路由需要预渲染
     //   [ '/personalities/entj' ,'/']
     // )
+
+
+    new SWPrecachePlugin({
+      cacheId: 'xmbti',
+      filename: 'service-worker.js',
+      minify: true,
+      mergeStaticsConfig: true,
+      staticFileGlobs: [
+        path.join(__dirname, '../dist/static/*.*')
+      ],
+      stripPrefixMulti: {
+        [path.join(__dirname, '../dist/static')]: '/static'
+      },
+      dontCacheBustUrlsMatching: false, //增加hash,保证新文件能及时更新
+      staticFileGlobsIgnorePatterns: [
+        /index\.html$/,
+        /\.map$/,
+        /\.css$/,
+        /\.svg$/,
+        /\.eot$/
+      ]
+    })
+
+
   ]
 }

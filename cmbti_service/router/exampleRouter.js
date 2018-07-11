@@ -112,7 +112,7 @@ const goVote = (req,res,next)=>{
           logger.error(err);
             res.json({
                 success:false,
-                message:'error'
+                message:err
             })
       })
 

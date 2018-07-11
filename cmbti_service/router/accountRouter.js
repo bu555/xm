@@ -215,7 +215,7 @@ const getMyCommentExa = (req,res)=>{
 const getMyTest = (req,res)=>{
         let options = req.query || {}
         options.uid = req.session.user._id
-      if(!options.uid){
+      if(!options.uid  || !(/^[1-9]+\d*$/.test(options.size)) || !(/^[1-9]+\d*$/.test(options.page)) ){
           return res.json({
               success:false,
               message:'Params Error'
@@ -225,14 +225,59 @@ const getMyTest = (req,res)=>{
           try{
                 let account = await Account.getUserInfoById(options)
                 let proArr = []
-                account.test_record.forEach((v,i)=>{
+                let accountList = JSON.parse(JSON.stringify( account.test_record.slice( (options.page-1)*options.size,options.page*options.size ) ))
+                console.log(options.size,options.page);
+                accountList.forEach((v,i)=>{
                     proArr.push(Test.getTestById({tid:v}))
                 })
-                let itemList = await Promise.all(proArr)
+                let itemList = proArr.length>0? await Promise.all(proArr) : []
 
                 res.json({
                     success: true,
                     data:itemList
+                })
+
+            }catch(err){
+                logger.error(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取my测试结果(多条)
+const getMyVote = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id
+      if(!options.uid || !(/^[1-9]+\d*$/.test(options.size)) || !(/^[1-9]+\d*$/.test(options.page)) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let account = await Account.getUserInfoById(options)
+                let proArr = []
+                let accountList = JSON.parse(JSON.stringify( account.vote_example.slice( (options.page-1)*options.size,options.page*options.size ) ))
+                // let accountList = JSON.parse(JSON.stringify(account.vote_example))
+                accountList.forEach((v,i)=>{
+                    proArr.push(Example.getExampleById({eid:v.eid}))
+                })
+                let itemList = proArr.length>0? await Promise.all(proArr) : []
+                for(let i=0;i<accountList.length;i++){
+                    for(let j=0;j<itemList.length;j++){
+                        if(itemList[j]._id==accountList[i].eid){
+                            accountList[i].name = itemList[j].name
+                            accountList[i].name1 = itemList[j].name1?itemList[j].name1:''
+                        }
+                    }
+                }
+
+                res.json({
+                    success: true,
+                    data:accountList
                 })
 
             }catch(err){
@@ -292,6 +337,7 @@ router.post('/getMyCommentExa',checkLogin,getMyCommentExa);
 router.post('/followUser',checkLogin,followUser);
 router.get('/getUserInfoShow',getUserInfoShow);
 router.get('/getMyTest',checkLogin,getMyTest);
+router.get('/getMyVote',checkLogin,getMyVote);
 
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);

@@ -90,7 +90,6 @@ export default {
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                  console.log('kkk');
                     this.loading = true
                     this.$axios.deleteArticle({aid:aid}).then(res=>{
                         this.loading = false

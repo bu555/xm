@@ -498,6 +498,7 @@ export default {
             max-width:1180px;
             margin:15px auto;
             position: relative;
+            box-sizing: border-box;
             padding-right:332px;
         .main-box {
             margin-bottom:12px;
@@ -533,12 +534,18 @@ export default {
                     top:0px;
                     .photo {
                         width:100%;
-                        height:200px;
+                        height:210px;
                         overflow: hidden;
                         background-color: #777;
                     }
                     img {
+                        display:block;
                         width:100%;
+                        object-fit: cover; //居中
+                        // object-fit:fill; //占满 拉伸或压缩 ===img实际设定
+                        // object-fit:contain;   //最小方向占满(如果没设高度则按比例)
+                        // object-fit:scale-down; //最中间按实际高度 （有宽高则图片大的一侧向占满）
+                        height:100%;
                     }
                     .e-more {
                         padding:7px 0;

@@ -202,6 +202,10 @@ export default {
         return axios.post(pathAPI+'/account/followUser',data);
     },
     // 获取测试记录 多条
+    getMyVote(data){
+        return axios.get(pathAPI+'/account/getMyVote',{params:data});
+    },
+    // 获取测试记录 多条
     getMyTest(data){
         return axios.get(pathAPI+'/account/getMyTest',{params:data});
     },

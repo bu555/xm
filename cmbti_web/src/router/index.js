@@ -46,6 +46,7 @@ import my_publish from '@/components/my/my_publish'
 import my_followers from '@/components/my/my_followers'
 import my_following from '@/components/my/my_following'
 import my_comment from '@/components/my/my_comment'
+import my_vote from '@/components/my/my_vote'
 import my_test from '@/components/my/my_test'
 import my_test_report from '@/components/my/my_test_report'
 
@@ -121,6 +122,7 @@ const vueRouter = new Router({
         {path:'followers',component:my_followers},
         {path:'following',component:my_following},
         {path:'comment',component:my_comment},
+        {path:'vote',component:my_vote},
         {path:'test',component:my_test},
         {path:'test/:r',component:my_test_report},
       ]

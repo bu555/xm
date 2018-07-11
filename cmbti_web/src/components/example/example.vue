@@ -32,8 +32,8 @@
                         <div class="photo">
                             <img :src="v.imgURL" alt="">
                         </div>
-                        <div class="type overflow-row-1">{{v.name}}</div>
-                        <div class="type overflow-row-5" style="font-size:13px;height:99px  ">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div class="name overflow-row-1">{{v.name}}</div>
+                        <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
                         <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(v)" >添 加</el-button></div>
                     </div>
                     <!--</router-link>-->
@@ -49,7 +49,8 @@
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
-                        <div class="type overflow-row-5" style="font-size:13px;height:99px; ">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div style="height:1px"></div>
                     </div>
                     </router-link>
                 </div>
@@ -394,13 +395,12 @@ export default {
     .example-list {
         background-color: rgba(255,255,255,.72);
         margin:4px auto 0;
-        max-width:1055px;
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-        // justify-content: center;;
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
         padding:15px;
         padding-top:20px;
         text-align: center;
+        box-sizing: border-box;
         .item {
             flex:0 0 24.8%;
             margin-bottom:22px;
@@ -409,19 +409,11 @@ export default {
                 margin:0 auto;
                 padding:0 3px;
                 width:90%;
-                // border:1px solid #eee;
+                height:auto;
                 border-radius:3px;
                 cursor:pointer;
                 position: relative;
                 background-color: #f2f2f2;
-                .new-flag {
-                    position: absolute;
-                    top:0;
-                    left:0px;
-                    font-size:.11px;
-                    color:red;
-
-                }
             }
             .type {
                 font-size:18px;
@@ -430,10 +422,11 @@ export default {
             .name {
                 font-size:15px;
                 padding:6px 0 10px;
+                font-weight:600;
             }
             .photo {
-                height:210px;
-                width:160px;
+                height:200px;
+                width:150px;
                 margin:0 auto;
                 overflow: hidden;
                 // position: relative;
@@ -449,6 +442,14 @@ export default {
                     height:100%;
                 }
 
+            }
+            .info {
+                font-size:14px;
+                height:97px;
+                text-align:left; 
+                padding:0 2%; 
+                margin-bottom:15px;
+                font-size:#777;
             }
 
         }
@@ -469,7 +470,7 @@ export default {
         .example-list .item {
             flex:0 0 50%;
             .item-box {
-                width:95%;
+                width:94%;
             }
             .photo {
                 width:32vw;
@@ -485,46 +486,8 @@ export default {
             }
         }
     }
-    // @media screen and (max-width:620px){
-    //     .example-list .item {
-    //         flex:0 0 33.33%;
-    //     }
-    // }
-    // @media screen and (max-width:472px){
-    //     .input-with-select {
-    //         width:100% !important;
-    //     }
-    //     .types-box {
-    //         &>div {
-    //             flex:0 0 25% !important;
-    //         }
-    //     }
-    //     .example-list {
-    //         padding:7px;
-    //         .item {
-    //             flex:0 0 33.33%;
-    //             .item-box {
-    //                 width:30vw;
-    //                 .new-flag {
-    //                 }
-    //                 .type {
-    //                     font-size:4.7vw;
-    //                 }
-    //                 .name {
-    //                     font-size:3.75vw;
-    //                 }
-    //                 .photo {
-    //                     height:32vw;
-    //                 }
-    //             }
-
-    //         }
-    //     }
-
-    // } 
     // 分页
     .pagi{
-        max-width:1066px;
         background-color: rgba(255,255,255,.72);
     }
     a:hover {color: #1a1a1a;text-decoration:none} 

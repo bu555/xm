@@ -22,6 +22,9 @@
             <div><router-link to="/my/comment">
                     <i class="fa fa-edit"></i> 评论<span>(2)</span>
                 </router-link></div>
+            <div><router-link to="/my/vote">
+                    <i class="fa fa-hand-paper-o"></i> 投票<span>(2)</span>
+                </router-link></div>
             <div><router-link to="">
                     <i class="fa fa-envelope-o"></i> 消息<span>(2)</span>
                 </router-link></div>

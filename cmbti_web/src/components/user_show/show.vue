@@ -52,13 +52,17 @@ export default {
             uid:'',
             userInfo:{},
             typeActive:'info',
-            
         }
     },
     components:{
         Info,Publish
     },
     watch:{
+        'typeActive':function(){
+            if(this.typeActive){
+                this.$router.push({query:{tab:this.typeActive}})
+            }
+        }
     },
     methods:{
         getUserInfoShow(){
@@ -98,6 +102,9 @@ export default {
         this.uid = this.$route.path.split('/')[2]
         if(this.uid){
             this.getUserInfoShow()
+        }
+        if(this.$route.query.tab){
+            this.typeActive = this.$route.query.tab
         }
     },
     

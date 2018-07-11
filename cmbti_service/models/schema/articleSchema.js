@@ -38,7 +38,7 @@ const articleSchema = new mongoose.Schema({
     likes:Number,
     update_time:Date, //更新时间
     edit_time:Date, //编辑时间
-    c_count:Number,  //评论总数
+    com_count:Number,  //评论总数
     state:Number  // 文章状态，1:待审核，2：已审核
 })
 

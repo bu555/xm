@@ -5,8 +5,8 @@
             <router-link :to="{query:{category:'all',page:'1'}}">
                 <span :class="$route.query.category==='all'?'active':''">全部</span>
             </router-link>
-            <router-link :to="{query:{category:'good',page:'1'}}">
-                <span :class="$route.query.category==='good'?'active':''">精华</span>
+            <router-link :to="{query:{good:'good',page:'1'}}">
+                <span :class="$route.query.good==='good'?'active':''">精华</span>
             </router-link>
             <router-link :to="{query:{category:'share',page:'1'}}">
                 <span :class="$route.query.category==='share'?'active':''">分享</span>
@@ -99,8 +99,9 @@ export default {
     watch:{
         "$route.query":function(){
             this.getArticle({
-                category:this.$route.query.category || 'all',
-                page:this.$route.query.page || '1'
+                category:this.$route.query.category || '',
+                page:this.$route.query.page || '1',
+                good:this.$route.query.good || ''
             })
         }
     },

@@ -144,12 +144,14 @@ const addComment = (req,res)=>{
     }
     (async ()=>{
         try{
+            console.log(44,options);
             options.content = xss(options.content)
 
             let r = await Article.addComment(options)  //返回cid
-            options.cid = r.cid
+            // options = Object.assign(r,options)
+            options.cid = r.cid  //这是新回复的cid
             options.update_time = r.update_time
-            options.c_count = r.c_count
+            options.com_count = r.com_count
             // 加入到个人记录,更新Article最新时间
             await Promise.all([
                 Account.addCommentLog(options),

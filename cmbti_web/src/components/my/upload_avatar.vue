@@ -23,9 +23,12 @@
         </div> 
     </div>-->
     <div class="btns">
-        <button v-if="!readyUpload" type="button" class="btn" disabled style="margin-right:12px">头像保存</button> 
+        <!--<button v-if="!readyUpload" type="button" class="btn" disabled style="margin-right:12px">头像保存</button> 
         <button v-if="readyUpload" type="button" class="btn btn-primary" @click="save()" style="margin-right:12px">头像保存</button>
-        <button type="button" class="btn " @click="callClose()">取 消</button>
+        <button type="button" class="btn " @click="callClose()">取 消</button>-->
+        <el-button size="small" v-if="!readyUpload" type="primary"  disabled>头像保存</el-button>
+        <el-button size="small" v-if="readyUpload" type="primary" @click="save()">头像保存</el-button>
+        <el-button size="small" @click="callClose()">取 消</el-button>
     </div>
 
 </div>
@@ -117,6 +120,9 @@ export default {
     }
     .btns {
         text-align: center;
+    }
+    .vue-cropper {
+    background: #f7f7f7;
     }
 
 }

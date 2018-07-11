@@ -98,6 +98,8 @@ export default {
         padding:7px 0;
         font-size:15px;
         overflow: hidden;
+        position: relative;
+        z-index:1;
         span {
           width:100%;
           display:block;
@@ -129,10 +131,15 @@ export default {
   @media screen and (max-width:525px) {
     // padding:0px 0px 10px;
     .items {
+      flex-wrap:wrap;
         .time {
-          flex:0 0 68px;
+          font-size:13px;
+          padding-left:34px;
+          flex:0 0 100%;
           overflow:hidden;
           white-space:nowrap;
+          position: relative;
+          top:-5px;
           // margin:0 4px;
           // background-color: red;
         }

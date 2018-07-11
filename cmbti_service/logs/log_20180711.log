@@ -1,0 +1,24 @@
+[2018-07-11 11:27:07.705] [ERROR] logError - ReferenceError: aa is not defined
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\articleRouter.js:152:13
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-11 11:29:01.149] [ERROR] logError - ReferenceError: aa is not defined
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\articleRouter.js:153:13
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-11 11:29:03.990] [ERROR] logError - ReferenceError: aa is not defined
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\articleRouter.js:153:13
+    at <anonymous>
+    at process._tickCallback (internal/process/next_tick.js:188:7)
+[2018-07-11 12:50:07.368] [ERROR] logError - ReferenceError: example is not defined
+    at account.vote_example.forEach (E:\buzhiguang\product\x-mbti\cmbti_service\router\accountRouter.js:262:33)
+    at Array.forEach (<anonymous>)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\accountRouter.js:261:38
+    at <anonymous>
+[2018-07-11 12:51:13.879] [ERROR] logError - ReferenceError: example is not defined
+    at account.vote_example.forEach (E:\buzhiguang\product\x-mbti\cmbti_service\router\accountRouter.js:262:33)
+    at Array.forEach (<anonymous>)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\accountRouter.js:261:38
+    at <anonymous>
+[2018-07-11 13:56:22.019] [ERROR] logError - Unable to repeat the vote
+[2018-07-11 13:56:30.931] [ERROR] logError - Unable to repeat the vote
