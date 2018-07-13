@@ -41,3 +41,11 @@
     width: 80%;
   }
 }
+/*提示信息 样式*/
+.el-message {
+  top: 122px;
+  min-width: 290px;
+}
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.5);
+}

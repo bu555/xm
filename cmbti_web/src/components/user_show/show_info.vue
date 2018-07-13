@@ -10,6 +10,10 @@
          <span v-if="userInfo.sex=='0'">女</span>
       </div>
       <div class="item">
+         <span class="first">省份：</span>
+         <span>{{userInfo.province}}</span>
+      </div>
+      <div class="item">
          <span class="first">城市：</span>
          <span>{{userInfo.city}}</span>
       </div>

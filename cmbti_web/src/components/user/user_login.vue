@@ -15,6 +15,8 @@
                     <!--<label for="exampleInputPassword1">密码</label>-->
                     <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''"  @keyup.enter="login()" spellcheck="false">
                     <div v-if="!passwordVerify" class="error-msg">请输入密码</div>
+                    <div v-if="is429" class="error-msg" style="padding-top:15px"><i class="el-icon-warning"></i> 尝试登录次数过多，请稍后再试！</div>
+                    <div v-if="loginFaild" class="error-msg" style="padding-top:15px"><i class="el-icon-warning"></i> 账号或密码错误！</div>
                 </div>
                 <!--<div class="form-group">
                     <label for="exampleInputFile">File input</label>
@@ -26,7 +28,7 @@
                 <div style="text-align:center;padding-top:16px">
                     <div>
                         <router-link to="/user/register"><a>注册账号</a></router-link>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <router-link to="/user/verify"><a>找回密码</a></router-link>
+                        <router-link to="/user/forget"><a>找回密码</a></router-link>
                     </div>
                 </div>
             </form>
@@ -43,7 +45,9 @@ export default {
         isSubmit:false,
         nameVerify:true,
         passwordVerify:true,
-        fromPath:''
+        fromPath:'',
+        is429:false, //登录次数过多 
+        loginFaild:false, //账号或密码错误
       }
   },
   mounted() {
@@ -52,10 +56,14 @@ export default {
         //   验证账号
         verifyName(){
             this.nameVerify = verify.email(this.name)
+            this.loginFaild = false
+            this.is429 = false
         },
         //   验证密码
         verifyPassword(){
             this.passwordVerify = verify.password(this.password)
+            this.loginFaild = false
+            this.is429 = false
         },
         //点击登录
         login() {
@@ -84,12 +92,12 @@ export default {
                         this.$router.push({path: this.fromPath})
                     }
                 }else{
-                    this.$message.error('账号或密码错误！');
+                    this.loginFaild = true
                 }
-            },res=>{
-                this.isSubmit = false;
-                this.$message.error('登录失败！');
-            }).catch(res=>{ 
+            }).catch(err=>{ 
+                if(err.response.status==429){
+                    this.is429 = true
+                }
                 this.isSubmit = false;
             })
         }

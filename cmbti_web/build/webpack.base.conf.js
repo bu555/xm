@@ -99,13 +99,15 @@ module.exports = {
       filename: 'service-worker.js',
       minify: true,
       mergeStaticsConfig: true,
+      dontCacheBustUrlsMatching: false, //增加hash,保证新文件能及时更新
+
+      // Cache 配置
       staticFileGlobs: [
         path.join(__dirname, '../dist/static/*.*')
       ],
       stripPrefixMulti: {
         [path.join(__dirname, '../dist/static')]: '/static'
       },
-      dontCacheBustUrlsMatching: false, //增加hash,保证新文件能及时更新
       staticFileGlobsIgnorePatterns: [
         /index\.html$/,
         /\.map$/,

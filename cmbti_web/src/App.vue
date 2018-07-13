@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../static/css/my-element.less'; //引入全局less文件
+    // @import '../static/css/my-element.less'; //引入全局less文件
     .root-app {
       // background:url('/static/img/bg_1.png');
       background:#f7f7f7;
@@ -122,4 +122,19 @@ export default {
     * {
       box-sizing: border-box;
     }
+
+    // 重写elementUI样式
+    // 对话框
+      .el-message-box {
+          width:420px;
+          border-radius:3px;
+          @media screen and (max-width:500px) {
+                width:80%;
+          }
+      }
+      /*提示信息 样式*/
+      .el-message {
+          top: 122px;
+          min-width:290px;
+      }
 </style>

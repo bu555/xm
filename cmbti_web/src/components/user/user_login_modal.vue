@@ -36,8 +36,8 @@ export default {
         width:100%;
         height:100%;
         .main-box {
-            background-color: #f5f5f5;
-            max-width:370px;
+            background-color: #f0f0f0;
+            max-width:400px;
             margin:100px auto 0;
             height:auto;
             padding-top:47px;
@@ -53,7 +53,7 @@ export default {
                 background-color: transparent;
                 position: absolute;
                 top: 9px;
-                right: 11px;
+                right: 15px;
                 font-size: 22px;
                 text-align: center;
                 line-height: 28px;
@@ -69,6 +69,13 @@ export default {
             border-radius:0px;
             border:none;
             margin:0;
+        }
+        @media screen and (max-width:515px) {
+            .main-box {
+                background-color: #f5f5f5;
+                max-width:370px;
+                margin:100px auto 0;   
+            }
         }
 
     }

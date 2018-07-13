@@ -13,7 +13,7 @@
                         <label for="exampleInputPassword1">验证码</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="验证码">
                     </div>-->
-                    <button @click="sendEmail()" type="button" class="my-btn" style="width:100%">提交申请</button>
+                    <button @click="sendEmail()" type="button" class="my-btn" style="width:100%">提交验证</button>
                     <div style="text-align:center;padding-top:16px">
                         <div>
                             <span style="color:#aaa">或</span>
@@ -24,12 +24,16 @@
         </div>
         <!--发送邮件成功视图-->
         <div class="success-info" v-if="emailSuccess">
-            <i class="el-icon-success" style="font-size:55px;color:#67c23a;margin-top:22px"></i><br/>
+            <i class="fa fa-envelope-o" style="font-size:55px;color:#555;margin-top:22px"></i><br/>
             <div style="margin-top:25px;margin-bottom:12px">
-                邮件已发送至{{emailName}}，请登录邮箱进行密码设置操作。
+                邮件已发送至 {{emailName}}，请登录邮箱进行密码设置操作。
                 <span style="font-size:22px;font-family:STHupo;font-style: italic;color:#2c3e50;text-shadow:1px 0 4px #666">
                     <!--{{count}}-->
                 </span>
+                <br>
+                <br>
+                <a href="https://email.163.com/" v-if="emailName.indexOf('@163.com')>-1">前往登录</a>
+                <a href="https://mail.qq.com/" v-if="emailName.indexOf('@qq.com')>-1">前往登录</a>
             </div>
             <p></p>
         </div>
@@ -50,6 +54,9 @@ export default {
   mounted() {
   },
   methods: {
+        callParent(step){
+            this.$emit('geCurrentStep',step)
+        },
         //   验证账号
         verifyName(){
             this.nameVerify = verify.email(this.name)
@@ -67,6 +74,7 @@ export default {
                 if(res.data.success){
                     this.emailSuccess = true;
                     this.emailName = res.data.email;
+                    this.callParent(2)
                 }else if(res.data.code==='-1'){
                     this.$message.error('此邮箱未注册！');
                 }else{
@@ -79,8 +87,6 @@ export default {
     
   },
   created(){
-      //从模态登录进入，关闭模态框
-      this.$store.commit('setModalLogin',false); 
   }
 };
 </script>
@@ -115,6 +121,9 @@ export default {
     .success-info {
         text-align: center;
         padding-top:40px;
+        a {
+            color:#456ea5;
+        }
     }
     .form-group {
         position: relative;

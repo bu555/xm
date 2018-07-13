@@ -221,4 +221,14 @@ export default {
         return axios.post(pathAPI+'/test/getTestById',data);
     },
 
+// other --------------------
+    // 获取城市
+    getCities(data){
+        return axios.get(pathAPI+'/other/getCities',{params:data});
+    },
+    // 获取省份
+    getProvinces(data){
+        return axios.get(pathAPI+'/other/getProvinces',{params:data});
+    },
+
 }

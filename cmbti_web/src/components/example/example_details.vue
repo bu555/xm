@@ -200,7 +200,6 @@ export default {
     watch:{
         '$store.state.modalLoginSuccess':'initData',
         'commentActive':function(){
-            console.log('kkkkkkkkk');
             this.commentPage = 1
             this.commentList = []
             this.getComment()
@@ -266,7 +265,6 @@ export default {
                 eid:this.eid,
                 result:this.myComment
             }).then(res=>{
-                console.log('KKK',res);
                 if(res.data.success){
                     this.myComment=''
                     // this.commentPage = 1

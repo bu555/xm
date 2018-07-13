@@ -11,12 +11,28 @@
       <el-form-item label="名字">
         <el-input v-model="infoForm.r_name" :disabled="!infoForm.modify" spellcheck=false></el-input>
       </el-form-item>
-      <el-form-item label="城市">
-        <el-select v-model="infoForm.city" placeholder="请选择活动区域" style="width:100%">
-          <el-option label="上海" value="上海"></el-option>
-          <el-option label="廣州" value="廣州"></el-option>
-          <el-option label="北京" value="北京"></el-option>
+      <el-form-item label="省份">
+        <el-select v-model="infoForm.province"  placeholder="省份" style="width:100%" v-if="provinceList">
+            <el-option
+            v-for="(item,i) in provinceList"
+            :key="i"
+            :label="item.name"
+            :value="item.name">
+                <span style="float: left">{{item.name}}</span>
+            </el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="城市">
+        <el-select v-model="infoForm.city" filterable placeholder="城市" style="width:100%"  v-if="cityList">
+          <el-option
+          v-for="(item,i) in cityList"
+          :key="i"
+          :label="''"
+          :value="item.name">
+              <span style="float: left">{{item.name}}</span>
+          </el-option>
+        </el-select>
+
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="infoForm.sex" size="medium">
@@ -44,11 +60,15 @@ export default {
             city:'',
             birth:'',
             sex:'',
-            profile:''
+            profile:'',
+            province:''
         },
         loading:false,
         initData:'',
-        edited:false
+        edited:false,
+
+        cityList:'',
+        provinceList:''
       }
     },
     watch:{
@@ -64,6 +84,15 @@ export default {
               }
           },
           deep: true    //深度监听
+      },
+      "infoForm.province":function(){
+          if(this.infoForm.province){
+              this.provinceList.forEach((v,i)=>{
+                  if(v.name===this.infoForm.province){
+                      this.getCities(v.code)
+                  }
+              })
+          }
       }
     },
     methods:{
@@ -86,13 +115,37 @@ export default {
                 this.loading = false
             })
         },
+        getCities(provinceCode){
+            this.cityList = ''
+            this.$axios.getCities({provinceCode:provinceCode}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.cityList = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
+        getProvinces(){
+            this.$axios.getProvinces({}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.provinceList = res.data.data
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        },
         init(){
           this.infoForm = JSON.parse(localStorage.getItem('USER'))
+          console.log(this.infoForm);
           this.initData = JSON.parse(localStorage.getItem('USER'))
         }
     },
     created(){
       this.init()
+      // this.getCities()
+      this.getProvinces()
     }
 }
 </script>

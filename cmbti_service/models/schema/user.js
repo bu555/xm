@@ -18,6 +18,7 @@ const userSchema = mongoose.Schema({
     profile:String, //简介
     sex:{type:String,enum:['1','0','-1']},
     city:String,
+    province:String,
     birth:String, //
     grade:Number, //等级
     m_time:{ type: Date, default: Date.now },  //修改名字的时间

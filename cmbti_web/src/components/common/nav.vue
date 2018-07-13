@@ -5,11 +5,11 @@
          <div class="m-view">
            <!--网站logo-->
             <div class="logo-a">
-                <a href="/" target="_blank">
+                <a href="/">
                     <img src="../../../static/img/logo_a.png" alt="">
                 </a>
                 <div class="logo-b">
-                    <a href="/" target="_blank">
+                    <a href="/">
                         <img src="../../../static/img/logo_b.png" alt="" style="height:38px">
                     </a>
                 </div>

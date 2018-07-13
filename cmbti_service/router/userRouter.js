@@ -202,6 +202,7 @@ const getUserInfoById = (req, res) =>{
 const modifyUserInfo = (req, res) =>{  
     let options = req.body || {}
     options.uid = req.session.user?req.session.user._id:''
+    console.log(options);
     (async ()=>{
         try{
             if(options.new_r_name){

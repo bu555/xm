@@ -10,8 +10,8 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">密码</label>
-                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码由6-16个字母、数字和符号组成" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''">
-                <div v-if="!passwordVerify" class="error-msg">请输入正确密码</div>
+                <input v-model="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="密码" @blur="passwordVerify?verifyPassword():''" @input="!passwordVerify?verifyPassword():''">
+                <div v-if="!passwordVerify" class="error-msg">请输入正确密码（6-16位，包含字母、数字和半角符号至少2种）</div>
                 <!--<div v-if="!passwordVerify" class="error-msg">请输入正确密码 <span></span>规则(6位以上,包含大小写、数字、半角符号至少两种)</div>-->
             </div>
             <div class="form-group">
@@ -163,8 +163,6 @@ export default {
   mounted(){
   },
   created(){
-      //从模态登录进入，关闭模态框
-      this.$store.commit('setModalLogin',false);
   }
 };
 </script>
@@ -181,12 +179,6 @@ export default {
                 padding:22px 15% 32px;;
                 background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
-            }
-            @media screen and (max-width:525px){
-                form {
-                    padding:20px 10px 32px;;
-                    // background-color: rgba(89,142,210,.2);
-                }
             }
             .title {
                 text-align: center;
@@ -244,6 +236,11 @@ export default {
                 color:#f10d0e;
             }
 
+        }
+        @media screen and (max-width:525px){
+            .box form {
+                padding:22px 10% 32px;
+            }
         }
         
     }

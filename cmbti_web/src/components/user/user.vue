@@ -22,8 +22,8 @@
                 <div :class="$route.path.indexOf('/user/register')>-1?'active':''">
                     <router-link to="/user/register">注册</router-link>
                 </div>
-                <div :class="$route.path.indexOf('/user/verify')>-1||$route.path.indexOf('/user/reset')>-1?'active':''">
-                    <router-link to="/user/verify">找回密码</router-link>
+                <div :class="$route.path.indexOf('/user/forget')>-1?'active':''">
+                    <router-link to="/user/forget">找回密码</router-link>
                 </div>
             </div>
         </div>
@@ -41,7 +41,10 @@ export default {
   },
   mounted() {
   },
-
+  created() {
+      //从模态登录进入，关闭模态框
+      this.$store.commit('setModalLogin',false);
+  }
 };
 </script>
 <style lang="less">
@@ -92,7 +95,7 @@ export default {
             display:flex;
             border-bottom:2px solid #bd5c3c;
             &>div {
-                flex:0 0 18%;
+                flex:0 0 20%;
                 text-align:center;
                 a {
                     display:block;

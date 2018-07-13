@@ -47,7 +47,8 @@ class User {
                         sex:"-1",
                         city:'',
                         birth:'', //
-                        grade:0
+                        grade:0,
+                        province:''
                     })
                     userRegister.create_time = moment(objectIdToTimestamp(userRegister._id)).format('YYYY-MM-DD HH:mm:ss');
                     userRegister.save((err, user) => {
@@ -74,7 +75,7 @@ class User {
             name: options.email.toLowerCase()
           }) .then(user => {
             if (user) {
-                    let url = 'http://localhost:7075/user/reset?'+'uid='+user._id+'&pwd='+user.password;
+                    let url = 'http://localhost:7075/user/forget?step=3'+'&uid='+user._id+'&pwd='+user.password;
                     let body = `尊敬的用户：<br/>您通过邮箱方式提交了找回密码的请求，请点击下面的链接重置您的密码 。<br/><a href="${url}" target="_blank">${url}</a>`;
                     // 邮件激活
                     sendMail(options.email, "来自cmbti的邮件!", body ,function(){
@@ -151,6 +152,9 @@ class User {
             }
             if(options.city){
                 set.city = options.city
+            }
+            if(options.province){
+                set.province = options.province
             }
             if(options.birth){
                 set.birth = options.birth

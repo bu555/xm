@@ -5,8 +5,7 @@ Vue.use(Router)
 //用户
 import user_login from '@/components/user/user_login'
 import user_register from '@/components/user/user_register'
-import user_reset_password from '@/components/user/user_reset_password'
-import user_verify from '@/components/user/user_verify'
+import user_forget from '@/components/user/user_forget'
 import user from '@/components/user/user'
 
 //home页面
@@ -139,8 +138,7 @@ const vueRouter = new Router({
       children:[
           { path: 'login', component: user_login },
           { path: 'register',component: user_register},
-          { path: 'verify',component: user_verify },
-          { path: 'reset',component: user_reset_password },
+          { path: 'forget',component: user_forget },
       ]
     }
 

@@ -1,13 +1,13 @@
 <template>
   <div class="reset">
         <!--重设密码视图-->
-        <div class="reset-box" v-if="!resetSuccess"  v-loading="isSubmit">
+        <div class="reset-box" v-if="currentStep==3"  v-loading="loading">
                 <!--<div class="title">设置新密码</div>-->
                 <form>
                     <div class="form-group">
                         <label for="exampleInputPassword">新密码</label>
-                        <input v-model="password" type="password" class="form-control" id="exampleInputPassword" placeholder="密码由6-16个字母、数字和符号组成" @blur="verifyPassword()">
-                        <div v-if="!passwordVerify" class="error-msg">请输入正确密码</div>
+                        <input v-model="password" type="password" class="form-control" id="exampleInputPassword" placeholder="新密码" @blur="verifyPassword()">
+                        <div v-if="!passwordVerify" class="error-msg">请输入密码（6-16位，包含字母、数字和半角符号至少2种）</div>
                     </div>
                     <div class="form-group" style="margin-bottom:36px">
                         <label for="exampleInputPassword">密码确认</label>
@@ -19,10 +19,10 @@
 
         </div>
         <!--密码设置成功后提示视图-->
-        <div class="success-info" v-if="resetSuccess">
+        <div class="success-info" v-if="currentStep==4">
                 <i class="el-icon-success" style="font-size:50px;color:#67c23a;margin-top:22px"></i><br/>
                 <div style="margin-top:25px;margin-bottom:12px">
-                    您的密码已设置成功！
+                    密码重置成功！
                 </div>
                 <div style="color:#808080;font-size:14px"> 
                     <span @click="goLogin()" style="color:#8db4e2;text-decoration:underline;cursor:pointer">
@@ -42,14 +42,18 @@ export default {
         password_:'',
         uid:'',
         pwd:'',
-        resetSuccess:false,
         passwordVerify:true,
         password_Verify:true,
+        loading:false,
+        currentStep:''
       }
   },
   mounted() {
   },
   methods: {
+        callParent(step){
+            this.$emit('geCurrentStep',step)
+        },
         //   验证密码
         verifyPassword(){
             this.passwordVerify = verify.password(this.password)
@@ -64,29 +68,30 @@ export default {
         },
         //重设密码提交
         reset() {
-            if(this.isSubmit) return;
+            if(this.loading) return;
             this.verifyPassword()
             this.verifyPassword_()
             if(!this.passwordVerify || !this.password_Verify) return;
-            this.isSubmit = true;
+            this.loading = true;
             this.$axios.resetPwd({
                 password:this.password,
                 uid:this.uid,
                 pwd:this.pwd,
             }).then(res=>{
-                this.isSubmit = false;
+                this.loading = false;
                 if(res.data.success){
-                    this.resetSuccess = true;
                     this.$router.push({
                         query:{
-                            status:'success'
+                            step:'4'
                         }
                     })
+                    this.currentStep = 4
+                    this.callParent(4)
                 }else{
 
                 }
             }).catch(res=>{
-                this.isSubmit = false;
+                this.loading = false;
             })
         },
         goLogin(){
@@ -95,15 +100,14 @@ export default {
     
   },
   created(){
-      if(this.$route.query.uid && this.$route.query.pwd){
+      let q = this.$route.query
+      if(q.uid && q.pwd && q.step==3){
           this.uid = this.$route.query.uid;
           this.pwd = this.$route.query.pwd;
+          this.currentStep = 3
+      }else if(q.step==4){
+          this.currentStep = 4
       }
-      if(this.$route.query.status && this.$route.query.status==='success'){
-          this.resetSuccess = true;
-      }
-      //从模态登录进入，关闭模态框
-      this.$store.commit('setModalLogin',false); 
   }
 };
 </script>
@@ -169,6 +173,10 @@ export default {
     a:hover {
         color:#456ea5;
     }
+    // input::-webkit-input-placeholder {
+    //      font-size: 13px;
+    //  }
+
 }
 </style>
 

@@ -195,6 +195,7 @@ export default {
                     h2 {
                         position: relative;
                         font-size:23px;
+                        margin-bottom:15px;
                         &:after {
                             content:"";
                             display:block;
