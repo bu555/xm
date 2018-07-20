@@ -1,0 +1,5 @@
+[2018-07-20 09:36:06.732] [ERROR] logError - The find aid result is empty 
+[2018-07-20 09:38:14.553] [ERROR] logError - The find aid result is empty 
+[2018-07-20 10:51:57.603] [ERROR] logError - ReferenceError: aids is not defined
+    at E:\buzhiguang\product\x-mbti\cmbti_service\router\accountRouter.js:384:17
+    at <anonymous>

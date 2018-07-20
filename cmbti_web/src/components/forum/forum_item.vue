@@ -30,14 +30,19 @@
             <div class="a-body"  v-html="data.content">
             <!--<div class="a-body"  v-html="test">-->
             </div>
-            <div class="a-footer">
-                <div class="a-mark">
-                    <span v-if="data.articleLiked" class="a-like btns2" style="color:#598dd3" @click="clickLike"><i class="fa fa-star" style="font-size:19px"></i> 收藏 <em style="font-size:15px">({{data.likes}})</em></span>
-                    <span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"  style="font-size:19px"></i> 收藏 <em style="font-size:15px">({{data.likes}})</em></span>
+            <div class="main-ctrl">
+                <div>
+                    <span class="a-zan btns1" :style="data.articleZaned?'color:#4d9efc':''" @click="articleAZan"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.zans}})</em></span>
+                    <!--<el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
+                </div>
+                <div>
+                    <span  class="a-like btns2" :style="data.articleLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>收藏 <em>({{data.likes}})</em></span>
+                    <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                     
                 </div>
                 <div>
-                    <el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 写评论</el-button>
+                    <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="el-icon-edit-outline"></i><br/>写评论</span>
+                    <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                 </div>
             </div>
             <div class="a-publish-comment" v-if="showComment">
@@ -141,7 +146,7 @@
                 </div>
 
                 <div class="load-more" v-if="!loading2 && currentCommentList.length==size" @click="moreComment">
-                加载更多...
+                或许还有更多...
                 </div>
              </div>
          </div>
@@ -183,6 +188,19 @@ export default {
         }
     },
     methods:{
+        clickZanArticle(){
+
+        },
+        articleAZan(){
+            this.$axios.clickArticleZan({aid:this.aid}).then(res=>{
+                if(res.data.success){
+                    this.data.zans += res.data.result.count
+                    this.data.articleZaned = !this.data.articleZaned
+                }
+            }).catch(err=>{
+            })
+
+        },
         zan(e,cid,zans){
             if(this.zaning) return
             this.zaning = true
@@ -336,6 +354,7 @@ export default {
                 .a-type {
                     flex:0 0 33px;
                     margin-right:1%;
+                    padding-top: 6px;
                     // padding-top:2px;
                     &>div {
                         // flex:0 0 100%;
@@ -463,35 +482,37 @@ export default {
             border-top:1px solid #efefef;
             min-height:150px;
         }
-        .a-footer {
-            padding:2% 6% 2% 8%;
+        .main-ctrl {
+            padding:2% 8% 3% 8%;
             border-top:1px solid #eee;
             background-color: #fefefe;
             display:flex;
             justify-content: space-between;
             &>div {
                 height:36px;
-                line-height: 36px;
-                border-radius:18px;
+                // line-height: 36px;
+                text-align:center;
+                // border-radius:18px;
                 // border:1px solid #ccc;
+                em {
+                    font-size:14px;
+                }
+                i {
+                    font-size:19px;
+                }
+                span {
+                    color:#999;
+                    // line-height: 18px;
+                    border-radius:2px;
+                    cursor:pointer;
+                    display:inline-block;
+                    font-size:15px;
+                }
+                &>span.active {
+                    color:#4d9efc;
+                }
             }
             .a-like {
-            // line-height: 18px;
-            border-radius:2px;
-            cursor:pointer;
-            display:inline-block;
-            font-size:15px;
-            color:#888;
-            &:hover {
-                color:#4d9efc;
-            }
-            .a-like.btns2 {
-                color:#4d9efc;
-            }
-            .a-mark {
-                display:flex;
-                align-items: center;
-            }
 
         }
     }
@@ -607,7 +628,7 @@ export default {
                     }
                 }
                 .c-content {
-                    padding:2px 0 5px;
+                    padding:2px 0 2px;
                     font-size:14px;
                     word-break:break-all; //英文换行
                 }
@@ -616,7 +637,7 @@ export default {
                     position: relative;
                     padding-top:10px;
                     border-top:1px dotted #eee;
-                    background-color: #f5f5f5;
+                    // background-color: #f5f5f5;
                     .reply-btn {
                         position: absolute;
                         top:10px;
@@ -727,7 +748,7 @@ export default {
                 }
 
             }
-            .a-footer {
+            .main-ctrl {
                 padding:2% 2.5% 2% 4%;
             }
         }

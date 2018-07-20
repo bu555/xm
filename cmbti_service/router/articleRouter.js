@@ -175,6 +175,38 @@ const addComment = (req,res)=>{
 
     })()
 }
+// 文章点赞  input : {aid:'',uid:''}
+const clickArticleZan = (req,res)=>{
+    let options = req.body || {}
+    options.uid = req.session.user._id;
+    // 参数验证
+    if(!options.uid || !options.aid ){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+    (async ()=>{
+        try{
+            let r = await Article.clickArticleZan(options)  
+            
+            res.json({
+                success: true,
+                message: 'Success',
+                result: r,
+
+            })
+
+        }catch(err){
+            logger.error(err);
+            console.log(err);
+            return res.json({
+                success: false,
+                message: 'catch error' 
+            })
+        }
+    })()
+}
 // 对文章评论点赞  input : {aid:'',uid:'',cid:''}
 const clickCommentZan = (req,res)=>{
     let options = req.body || {}
@@ -278,10 +310,14 @@ const getArticleById = (req,res)=>{
             result.r_name = user.r_name
             result.avatar = user.avatar
             result.articleLiked = false 
+            result.articleZaned = false 
             if(options.uid){
                 let loginUser = await Account.getUserInfoById({uid:options.uid})
                 if(loginUser.likes_atricle.indexOf(options.aid)!==-1){
                     result.articleLiked = true
+                }
+                if(result.zan.indexOf(options.uid)!==-1){
+                    result.articleZaned = true
                 }
             }
             res.json({
@@ -385,44 +421,15 @@ const getCommentByAid = (req,res)=>{
             }
       })()
 }
-// 獲取多個文章信息(展示用) options:{aid:['','',...]}
-const getArticleInfoAll = (req,res)=>{
-        let options = req.body || {}
-        // options.eid = req.body.aid || ''
-        // options.page = req.body.page || ''
-      if( !options.aid || !(options.aid instanceof Array) || !(options.aid.length>0) ){
-          return res.json({
-              success:false,
-              message:'Params Error'
-          })
-      }
-      (async ()=>{
-          try{
-                let result = await Article.getArticleInfoAll(options)
-                res.json({
-                    success: true,
-                    message: 'Success',
-                    data: result
-                })
-            }catch(err){
-                logger.error(err);
-                return res.json({
-                    success: false,
-                    message: 'catch error' 
-                })
-            }
-      })()
-}
-
 
 
 router.post('/publish',checkLogin,publishArticle);
 router.post('/addComment',checkLogin,addComment);
 router.post('/clickArticleLike',checkLogin,clickArticleLike);
 router.post('/clickCommentZan',checkLogin,clickCommentZan);
+router.post('/clickArticleZan',checkLogin,clickArticleZan);
 router.post('/getArticle',getArticle);
 router.post('/getCommentByAid',getCommentByAid);
 router.post('/getArticleById',getArticleById);
-router.post('/getArticleInfoAll',getArticleInfoAll); //獲取多個文章信息(展示用) 
 router.post('/deleteArticle',checkLogin,deleteArticle);
 module.exports = router

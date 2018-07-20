@@ -31,6 +31,8 @@ class Article {
                         good:false,
                         like:[],
                         likes:0,
+                        zan:[],
+                        zans:0,
                         update_time:_date,
                         edit_time:_date,
                         com_count:0,
@@ -108,8 +110,8 @@ class Article {
             ArticleModel.article.findOne({_id:options.aid}).then(a=>{
                 if(a){
                     if(a.like.indexOf(options.uid)===-1){
-                        ArticleModel.article.update({"_id":options.aid},{"$push":{"like":options.uid},"$inc":{"likes":1}},(err,r)=>{
-                            if(err) return reject("The like array $push faild")
+                        ArticleModel.article.update({"_id":options.aid},{"$addToSet":{"like":options.uid},"$inc":{"likes":1}},(err,r)=>{
+                            if(err) return reject("The like array $addToSet faild")
                                 resolve({
                                     info:'Article喜欢+1',
                                     count:1,
@@ -193,14 +195,31 @@ class Article {
         })
 
     }
-    //获取文章 options:{page:1,size:5,keyword:{category:'share/ask',good:true}}
-    static getArticle123(){
+    //文章点赞 options :{aid:'',uid:''}
+    static clickArticleZan(options){
         return new Promise((resolve,reject)=>{
-            // ArticleModel.article.find
-            // ArticleModel.article.find({category: 'share'}).then(as=>{  //找share
-            // ArticleModel.article.find({good: true}).then(as=>{     //找加精
-            ArticleModel.article.find({likes: {$gt:2}}).then(as=>{     //likes大於2
-                console.log(as);
+            ArticleModel.article.findOne({"_id":options.aid}).then(a=>{
+                if(a){
+                    if(a.zan.indexOf(options.uid)===-1){
+                        ArticleModel.article.update({"_id":options.aid},{"$addToSet":{"zan":options.uid},$inc:{"zans":1}},(err,r)=>{
+                            if(err) return reject('Update error!')
+                            return resolve({
+                                info:'赞+1',
+                                count:1
+                            })
+                        })
+                    }else{
+                        ArticleModel.article.update({"_id":options.aid},{"$pull":{"zan":options.uid},$inc:{"zans":-1}},(err,r)=>{
+                            if(err) return reject('Update error!')
+                            return resolve({
+                                info:'赞-1',
+                                count:-1
+                            })
+                        })
+                    }
+                }else{
+                    reject('The find aid result is empty ')
+                }
             })
         })
     }
@@ -214,7 +233,7 @@ class Article {
                         if(a.comment[i].cid === options.cid){
                                 exist_cid = true
                                 if(a.comment[i].zan.indexOf(options.uid)===-1){
-                                    ArticleModel.comment.update({"aid":options.aid,"comment.cid":options.cid},{$push:{"comment.$.zan":options.uid},$inc:{"comment.$.zans":1}},(err,r)=>{
+                                    ArticleModel.comment.update({"aid":options.aid,"comment.cid":options.cid},{$addToSet:{"comment.$.zan":options.uid},$inc:{"comment.$.zans":1}},(err,r)=>{
                                         if(err) return reject('Update error!')
                                         return resolve({
                                             info:'Comment赞+1',
@@ -226,7 +245,7 @@ class Article {
                                         if(err) return reject('Update error!')
                                         return resolve({
                                             count:-1,
-                                            info:'Comment取消点赞'
+                                            info:'Comment赞-1'
                                         })
                                     })
                                 
@@ -338,7 +357,6 @@ class Article {
     }
     // 更新最新回复 {aid:'必传',uplate_time:}
     static setUpdateTime(options={}){
-        console.log('55',options);
         return new Promise((resolve,reject)=>{
             ArticleModel.article.update({"_id":options.aid},{$set:{"update_time":options.update_time,"com_count":options.com_count}},err=>{
                 if(err) return reject('update update_time faild')

@@ -7,10 +7,8 @@ const state = {
     //通知使用模态框登录
     modalLogin:false,
     modalLoginSuccess:false,
-    accountInfo:{},
     loginOut:false,
     refUser:false,
-    refAccount:false,
     refCurrent:false,
     meta:{}
 } 

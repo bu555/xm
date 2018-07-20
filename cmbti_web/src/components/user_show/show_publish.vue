@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
-      加载更多...
+      或许还有更多...
     </div>
   </div>
 </template>

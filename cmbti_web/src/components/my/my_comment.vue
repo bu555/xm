@@ -53,7 +53,7 @@
       <p v-if="empty" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
-      加载更多...
+      或许还有更多...
     </div>
   </div>
 </template>
@@ -89,7 +89,7 @@ export default {
     },
     methods:{
         showAll(e){
-            e.target.parentNode.style.maxHeight="9999px"
+            e.target.parentNode.style.maxHeight="99999px"
             e.target.style.display = 'none'
         },
         getMyCommentList(){

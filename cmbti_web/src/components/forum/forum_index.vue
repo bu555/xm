@@ -47,25 +47,6 @@
                         </div>-->
                         <div class="last-replay-date">{{$moment(v.update_time ? v.update_time:v.c_time).startOf().fromNow()}} 更新</div>
                 </li>
-                <!--<li v-for="(v,i) in 5">
-                        <div class="author u-photo">
-                            <img src="/static/img/logo_a.png" alt="">
-                            <div class="u-name">名字123</div>
-                        </div>
-                        <div class="title1">
-                            <span class="category-type">精</span>
-                            <router-link :to="'/forum/'+123">
-                            <span class="txt" style="">
-                                {{i%2===0?'文章标题U章标题文文章标题文文章章标题文文章标题文文章UUUUUUUU文文章标题文文章':'《Node.js 调试指南》开源书籍发布'}}
-                            </span>
-                            </router-link>
-                        </div>
-                        <div class="last-replay u-photo">
-                            <img src="/static/img/logo_a.png" alt="">
-                            <div class="u-name">名字123</div>
-                        </div>
-                        <div class="last-replay-date">14小时前</div>
-                </li>-->
  
             </ul>
 
@@ -213,6 +194,7 @@ export default {
                         border-bottom:1px solid #f2f6f6;
                         padding:0 5px 0 1.8%;
                         font-size:16px;
+                        position: relative;
                     &:hover {
                         // background:#f2f6f6;
                         background:#fcfcfc;
@@ -346,17 +328,23 @@ export default {
                 ul {
                     li {
                         // font-size:13px !important;
+                        padding-bottom:15px;
                         .u-photo {
                             width:32px;
                             height:32px;
+                            position: relative;
+                            top:8px;
                         }
                         .last-replay {
                             display:none;
                         }
                         .last-replay-date {
-                            font-size:12px;
-                            margin:0;
-                            flex:0 0 22%;
+                            // font-size:12px;
+                            // margin:0;
+                            // flex:0 0 22%;
+                            position: absolute;
+                            left:48px;
+                            bottom:3px;
                         }
                         .author {
                             // display:none;

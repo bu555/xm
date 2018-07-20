@@ -35,7 +35,7 @@
                         @change="onEditorChange($event)">
         </quill-editor>-->
 
-                    <vue-html5-editor :content="form.content" :height="200" width="100%" @change="updateData" ></vue-html5-editor>
+                    <vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>
                     <!--<editor :content="content" :height="500" :z-index="1000" :auto-height="true" :show-module-name="false"></editor>-->
                 
                     </div>
@@ -82,6 +82,8 @@ export default {
     },
     methods:{  
         submitArticle(){
+            console.log(this.form.content)
+            return
             if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
                 return  this.$message({
                             message: '内容输入不完整！',

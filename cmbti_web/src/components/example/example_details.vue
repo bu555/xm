@@ -20,7 +20,7 @@
                         <div class="e-show">
                             <!--人物详情-->
                             <div class="example-box">
-                                    <div class="e-info overflow-row-13">
+                                    <div class="e-info overflow-row-14">
                                         <div class="item">
                                             <!--<img :src="exampleItem.img_url" alt="">-->
                                             <div class="photo">
@@ -93,6 +93,44 @@
                                     <!--<el-button>取消</el-button>-->
                             </div>
                         </div>
+                        <div class="main-ctrl">
+                            <!--<div>
+                                <span class="a-zan btns1" @click="clickZanArticle"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.likes}})</em></span>
+                            </div>-->
+                            <div>
+                                <span  class="a-like btns2" :style="true?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>收藏 <em>({{55}})</em></span>
+                                <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
+                                
+                            </div>
+                            <div>
+                                <span  class="a-vote btns2" :style="true?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{55}})</em></span>
+                                <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
+                                
+                            </div>
+                            <div>
+                                <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="el-icon-edit-outline"></i><br/>写评论</span>
+                                <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
+                            </div>
+                        </div>
+                        <div class="a-vote-view">
+                            <p style="margin-bottom:5px">投票：</p>
+                            <div class="vote-16">
+                                <div class="v-item" v-for="(v,i) in $mbti.kTypes">
+                                    <p>{{v.t.toUpperCase()}}</p>
+                                    <div v-for="(v1,i1) in v.t4" @click="myVote=v1">{{v1.toUpperCase()}}</div>
+                                </div>
+                            </div>
+                            <div class="v-result"><span>{{myVote.toUpperCase() }}</span> 外倾+感觉+思维+感知</div>
+                            
+                        </div>
+                        <div class="a-publish-comment" v-if="showComment">
+                            <p style="margin-bottom:5px">评论：</p>
+                            <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input></br>
+                            <div style="text-align:right;padding-top:10px">
+                                <el-button size="small" type="default"  @click="showComment=false;myComment=''">取 消</el-button>
+                                <el-button size="small" type="primary" @click="comment()">发 表</el-button>
+                            </div>
+                        </div>
                         <!--评论区-->
                         <div class="comment" v-loading="loading2||zaning">
                             <div class="c-header" >
@@ -143,7 +181,7 @@
                                 </div>
 
                                 <div class="load-more" v-if="!loading2 && currentCommentList.length==size" @click="moreComment">
-                                加载更多...
+                                或许还有更多...
                                 </div>
                             </div>
 
@@ -193,7 +231,8 @@ export default {
             currentCommentList:[],
             commentActive:'hot',
             loading2:false,
-            zaning:false
+            zaning:false,
+            showComment:false
 
         }
     },
@@ -278,6 +317,9 @@ export default {
             }).catch(error=>{
                 console.log(error);
             })
+        },
+        clickLike(){
+
         },
 
         // 返回名人庫
@@ -516,7 +558,7 @@ export default {
                 word-break: break-all; //英文换行
                 margin-bottom:15px;
                 .e-info {
-                    height:262px;
+                    height:268px;
                     padding-right:180px;
                     position: relative;
                 }
@@ -752,7 +794,7 @@ export default {
                                 }
                             }
                             .c-content {
-                                padding:2px 0 5px;
+                                padding:2px 0 2px;
                                 font-size:14px;
                                 word-break:break-all; //英文换行
                             }
@@ -761,7 +803,7 @@ export default {
                                 position: relative;
                                 padding-top:10px;
                                 border-top:1px dotted #eee;
-                                background-color: #f5f5f5;
+                                // background-color: #f5f5f5;
                                 .reply-btn {
                                     position: absolute;
                                     top:10px;
@@ -787,7 +829,94 @@ export default {
                     }
             }
         } 
+        .main-ctrl {
+            padding:2% 8% 3% 8%;
+            border-top:1px solid #eee;
+            background-color: #fefefe;
+            display:flex;
+            justify-content: space-between;
+            &>div {
+                height:36px;
+                // line-height: 36px;
+                text-align:center;
+                // border-radius:18px;
+                // border:1px solid #ccc;
+                em {
+                    font-size:14px;
+                }
+                i {
+                    font-size:19px;
+                }
+                span {
+                    color:#999;
+                    // line-height: 18px;
+                    border-radius:2px;
+                    cursor:pointer;
+                    display:inline-block;
+                    font-size:15px;
+                }
+                &>span.active {
+                    color:#4d9efc;
+                }
+            }
+            .a-like {}
 
+        }
+        .a-vote-view {
+            background-color: #fefefe;
+            padding:3%;
+            border-top:1px solid #eee;
+            .vote-16 {
+                display:flex;
+                &>div {
+                    flex:0 0 25%;
+                }
+                .v-item {
+                    display:flex;
+                    flex-wrap:wrap;
+                    justify-content: space-between;
+                    background-color: #f5f5f5;
+                    padding:12px;
+                    border:1px solid #aaa;
+                    padding-top:37px;
+                    position: relative;
+                    margin-bottom:5px;
+                    &>p {
+                        position: absolute;
+                        top:5px;
+                        left:0;
+                        width:100%;
+                        text-align: center;
+                        font-weight:700;
+                        font-size:17px;
+                    }
+                    &>div {
+                        flex:0 0 45%;
+                        background-color: #888;
+                        margin-bottom:12px;
+                        text-align:center;
+                        cursor:pointer;
+                    }
+                }
+            }
+            .v-result {
+                background-color: #d1e9b8;
+                height:52px;
+                line-height: 52px;
+                text-align:center;
+                color:#fff;
+                font-size:16px;
+                span {
+                    font-weight:600;
+                    font-size:20px;
+                }
+            }
+        }
+        .a-publish-comment {
+            background-color: #fefefe;
+            padding:3%;
+            border-top:1px solid #eee;
+        }
         .aside-box {
             width:320px;
             position: absolute;

@@ -45,7 +45,6 @@ export default {
         isSubmit:false,
         nameVerify:true,
         passwordVerify:true,
-        fromPath:'',
         is429:false, //登录次数过多 
         loginFaild:false, //账号或密码错误
       }
@@ -89,7 +88,7 @@ export default {
                         this.$store.commit('setModalLogin',false); 
                         this.$store.commit('setModalLoginSuccess',true); 
                     }else{  //非模态登录
-                        this.$router.push({path: this.fromPath})
+                        this.$router.push({path: '/my'})
                     }
                 }else{
                     this.loginFaild = true
@@ -104,13 +103,6 @@ export default {
     
   },
   created(){
-      //从注册成功跳转的会带name
-      this.name = this.$route.query.name || '';
-
-        this.fromPath = localStorage.getItem('fromPath')
-        if(this.fromPath === '/' || this.fromPath.indexOf('/user')!==-1){
-            this.fromPath = '/'
-        }
   },
 beforeRouteEnter (to, from, next) {
     localStorage.setItem('fromPath',from.fullPath)
