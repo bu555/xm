@@ -103,7 +103,7 @@
                                 
                             </div>
                             <div>
-                                <span  class="a-vote btns2" :style="true?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{55}})</em></span>
+                                <span  class="a-vote btns2" :style="true?'color:#4d9efc':''" @click="showVote=!showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{55}})</em></span>
                                 <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                                 
                             </div>
@@ -112,7 +112,7 @@
                                 <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                             </div>
                         </div>
-                        <div class="a-vote-view">
+                        <div class="a-vote-view" v-if="showVote">
                             <p style="margin-bottom:5px">投票：</p>
                             <div class="vote-16">
                                 <div class="v-item" v-for="(v,i) in $mbti.kTypes">
@@ -232,7 +232,8 @@ export default {
             commentActive:'hot',
             loading2:false,
             zaning:false,
-            showComment:false
+            showComment:false,
+            showVote:false
 
         }
     },
@@ -337,7 +338,8 @@ export default {
         },
         exampleHandle(example){
                 this.exampleItem = example;
-                this.isRepeat = example.voted
+                this.isRepeat = example.isVoted
+                this.showVote = !example.isVoted
 
                 // 类型排序
                 let vote = []

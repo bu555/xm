@@ -60,7 +60,7 @@ const searchExample = (req,res,next)=>{
                         success:true,
                         message:'ok',
                         result:{
-                            example:data,
+                            example:(data instanceof Array)?data:[data],
                             baike:true
                         }
                     })

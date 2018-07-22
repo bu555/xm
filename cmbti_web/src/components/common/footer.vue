@@ -42,9 +42,8 @@
 </template>
 <style lang="less">
 .footer{
-    background-color: #456ea5;
-    // background-color: #598dd3;
-    // background-color: #ebf5fb;
+    // background-color: #456ea5;
+    background-color: #586a7a;
     text-align: center;
     min-height:70px;
     .f-body {
@@ -80,7 +79,7 @@
     }
     .f-copy {
         padding:10px 0 10px;
-        border-top:1px solid #457ea5;
+        border-top:1px solid #7d8992;
     }
 }
 </style>

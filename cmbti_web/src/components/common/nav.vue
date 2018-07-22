@@ -135,7 +135,8 @@ export default {
     .my-menu {
       margin-top:55px;
       // height:50px;
-      background-color: #456ea5;
+      // background-color: #456ea5;
+      background-color: #586a7a;
       position: relative;
       .m-view {
           max-width: 1180px;
@@ -163,7 +164,8 @@ export default {
             }
           }
           .items.active {
-              background-color: #265488;
+              // background-color: #265488;
+              background-color: #454f5a;
           }
           .user-ctrl.items {
             position: absolute;

@@ -31,11 +31,14 @@ export default {
     // 模态框登录成功后，刷新当前页
     "$store.state.modalLoginSuccess":function(){
         if(this.$store.state.modalLoginSuccess===true){
-            this.showPage = false
+            // this.showPage = false
+            // setTimeout(()=>{
+            //     this.showPage = true
+            // },1)
             setTimeout(()=>{
-                this.showPage = true
-            },1)
-            this.$store.commit('setModalLoginSuccess',false); 
+                this.$store.commit('setModalLoginSuccess',false); 
+            },222)
+            
         }
     }
   },
@@ -117,7 +120,9 @@ export default {
     .root-app {
       font-family:DINRegular;
       // background:url('/static/img/bg_1.png');
-      background:#f7f7f7;
+      // background:#f7f7f7;
+      background:url('/static/img/bg2.png') repeat ;
+          // background: #ececec url(../..//bbs_v4/images/bg.png) repeat fixed;
       a {text-decoration:none;color:#333 }
       a:focus {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
       a:active {color:#538dd5;text-decoration:none}  /*点击时状态 。*/

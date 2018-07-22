@@ -120,20 +120,14 @@ class Example{
             ExampleModel.example.findById(options.eid,(err,example)=>{
                 if(!err){
                     if(example){
+                        example = JSON.parse(JSON.stringify(example))
+                        example.isVoted = false
                         if(options.uid){  //已登录
                             // 判断是否透过票
-                             example.voted = false
-                             for(let i=0;i<example.vote_log.length;i++){
-                                if(example.vote_log[i].uid === options.uid){
-                                    example.voted = true
-                                    break;
-                                }
-                            }
-                            resolve(example)
-                        }else{ //未登录
-                            example.voted = false
-                            resolve(example)
+                            example.isVoted = example.vote_log.indexOf(options.uid)>-1?true:false
                         }
+                        delete example.vote_log
+                        resolve(example)
                     }
                 }else{
                     reject(err)

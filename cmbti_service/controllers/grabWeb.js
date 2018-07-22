@@ -62,53 +62,59 @@ class GrabWeb{
                                 pro.push(_this.https({url:url,polysemantList:true}))
                             }
                         }
+                        // 当前页数据
+                        let currentData = getData($)
                         Promise.all(pro).then(data=>{
                             // for(let i=0;i<data.length;i++){
                             //     if(data[i]){
                             //         data[i].url = urlArr[i]
                             //     }
                             // }
+                            data.unshift(currentData)
                             data = data.filter(function(val){ return val!==null });
                             resolve(data)
                         })
                     }else{
-                            let name = $('body .lemmaWgt-lemmaTitle-title').children('h1').text()
-                            let name1 = $('body .lemmaWgt-lemmaTitle-title').children('h2').text()
-                            let info = $('body .lemma-summary div').eq(0).text();
-                            if(info){
-                                if(info.length<150){
-                                    info += $('body .lemma-summary div').eq(1).text();
-                                    info = info.substr(0,180)+".....";
-                                }else{
-                                    info += "....."
-                                }
-                            }
-                            let imgURL = '';
-                            if($('body .summary-pic img').attr('src')){
-                                imgURL = $('body .summary-pic img').attr('src');
-                            }else if($('body .album-wrap img').attr('src')){
-                                imgURL = $('body .album-wrap img').attr('src');
-                            }
-                            let d = null
-                            if(imgURL && info && name){
-                                d = {
-                                        imgURL:imgURL,
-                                        info:info,
-                                        name:name,
-                                        name1:name1?name1:'', //名字标题
-                                        tag: '', 
-                                        birth: '',
-                                        conste: '', //星座
-                                }
-                            }
-                            // console.log(d);
-                            resolve(d);
+
+                            resolve(getData($));
                     }
                     
                 } 
             })
         })
         return pro;
+        function getData($){
+                let name = $('body .lemmaWgt-lemmaTitle-title').children('h1').text()
+                let name1 = $('body .lemmaWgt-lemmaTitle-title').children('h2').text()
+                let info = $('body .lemma-summary div').eq(0).text();
+                if(info){
+                    if(info.length<150){
+                        info += $('body .lemma-summary div').eq(1).text();
+                        info = info.substr(0,180)+".....";
+                    }else{
+                        info += "....."
+                    }
+                }
+                let imgURL = '';
+                if($('body .summary-pic img').attr('src')){
+                    imgURL = $('body .summary-pic img').attr('src');
+                }else if($('body .album-wrap img').attr('src')){
+                    imgURL = $('body .album-wrap img').attr('src');
+                }
+                let d = null
+                if(imgURL && info && name){
+                    d = {
+                            imgURL:imgURL,
+                            info:info,
+                            name:name,
+                            name1:name1?name1:'', //名字标题
+                            tag: '', 
+                            birth: '',
+                            conste: '', //星座
+                    }
+                }
+                return d
+        }
     }
     //爬取百度百科人物信息
     static https1(name,eid){

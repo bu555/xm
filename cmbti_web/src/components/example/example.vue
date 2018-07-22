@@ -1,18 +1,44 @@
 <template>
 <div class="example " v-loading="loading">
     <div class="my-tab">
+        <div class="my-tab-inner">
             <div class="search-bar">
-                <el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter.native="search()" clearable spellcheck=false >
-                    <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
-                </el-input>
+                <div class="btn-all">
+                    <router-link :to="'/example?type=all'">
+                    <div :class="$route.query.type==='all'?'type all t-active':'type all'" data-type="all">
+                        <div class="bg-l"></div>全 部
+                        <div class="bg-r"></div>
+                    </div>
+                    </router-link>
+                </div>
+                <div class="search-right">
+                    <!--<el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter.native="search()" clearable spellcheck=false >
+                        <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
+                    </el-input>-->
+                    <el-input
+                    placeholder="名字搜索"
+                    v-model="searchName"
+                    @focus="focusHandler($event)"
+                    @blur="blurHandler($event)"
+                    @keyup.enter.native="search()"
+                    >
+                    </el-input>
+                    <em class="el-icon-search" @click="search()"></em>
+                </div>
+            </div>
+            <div class="s-line">
             </div>
             <div class="types-box">
-                <div v-for="(v,i) in types" :key="i">
-                    <router-link :to="'/example?type='+v.type">
-                    <div class="type" :style="'background:'+color[v.type]" :data-type="v.type">{{v.type.toUpperCase()}}</div>
+                <div v-for="(v,i) in $mbti.types" :key="i">
+                    <router-link :to="'/example?type='+v">
+                    <div :class="$route.query.type===v?'type t-active':'type'" :data-type="v">
+                        <div class="bg-l"></div>{{v.toUpperCase()}}
+                        <div class="bg-r"></div>
+                    </div>
                     </router-link>
                 </div>
             </div>
+        </div>
     </div>
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
     <div class="bx">
@@ -54,7 +80,7 @@
                     </div>
                     </router-link>
                 </div>
-
+                <div class="item" v-if="(exampleList instanceof Array)&&exampleList.length>0&&$route.query.s">查看更多同名名人</div>
 
         </div>
         <!--分页-->
@@ -87,96 +113,28 @@ export default {
             showDetails:false,
             searchName:'',
             // tab导航条内容
-            color:{
-                'entp':'#2270d7',
-                'intp':'#2270d7',
-                'entj':'#2270d7',
-                'intj':'#2270d7',
+            // color:{
+            //     'entp':'#2270d7',
+            //     'intp':'#2270d7',
+            //     'entj':'#2270d7',
+            //     'intj':'#2270d7',
 
-                'enfp':'#b225d5',
-                'infp':'#b225d5',
-                'enfj':'#b225d5',
-                'infj':'#b225d5',
+            //     'enfp':'#b225d5',
+            //     'infp':'#b225d5',
+            //     'enfj':'#b225d5',
+            //     'infj':'#b225d5',
 
-                'estj':'#f33370',
-                'istj':'#f33370',
-                'esfj':'#f33370',
-                'isfj':'#f33370',
+            //     'estj':'#f33370',
+            //     'istj':'#f33370',
+            //     'esfj':'#f33370',
+            //     'isfj':'#f33370',
 
-                'estp':'#9ea2a2',
-                'istp':'#9ea2a2',
-                'esfp':'#9ea2a2',
-                'isfp':'#9ea2a2',
+            //     'estp':'#9ea2a2',
+            //     'istp':'#9ea2a2',
+            //     'esfp':'#9ea2a2',
+            //     'isfp':'#9ea2a2',
 
-            },
-            rgba:{},
-            types:[
-                {
-                    type:'entp',
-                    title:'ENTP'
-                },
-                {
-                    type:'intp',
-                    title:'INTP'
-                },
-                {
-                    type:'entj',
-                    title:'ENTJ'
-                },
-                {
-                    type:'intj',
-                    title:'INTJ'
-                },
-                {
-                    type:'enfp',
-                    title:'ENFP'
-                },
-                {
-                    type:'infp',
-                    title:'INFP'
-                },
-                {
-                    type:'enfj',
-                    title:'ENFJ'
-                },
-                {
-                    type:'infj',
-                    title:'INFJ'
-                },
-
-                {
-                    type:'estj',
-                    title:'ESTJ'
-                },
-                {
-                    type:'istj',
-                    title:'ISTJ'
-                },
-                {
-                    type:'esfj',
-                    title:'ESFJ'
-                },
-                {
-                    type:'isfj',
-                    title:'ISFJ'
-                },
-                {
-                    type:'estp',
-                    title:'ESTP'
-                },
-                {
-                    type:'istp',
-                    title:'ISTP'
-                },
-                {
-                    type:'esfp',
-                    title:'ESFP'
-                },
-                {
-                    type:'isfp',
-                    title:'ISFP'
-                }
-            ],
+            // },
             size:12, //每页条数
             count:0,//总页数
             total:0,//总条数
@@ -186,30 +144,30 @@ export default {
         }
     },
     methods:{
+        focusHandler(e){
+            e.target.style.borderColor = '#e4e8eb'
+        },
+        blurHandler(e){
+            e.target.style.borderColor = '#778b9d'
+            if(!this.searchName && !this.$route.query.type){
+                this.$router.push({query:{type:'all'}})
+            }
+        },
         search(){
             if(this.searchName){
+                let search = this.$route.query.s
                 this.$router.push({query:{s:this.searchName}})
+                if(search===this.searchName){
+                    this.getExamp({ name:search,page:1 })
+                }
+            }else{
+                this.$router.push({query:{type:'all'}})
             }
         },
         changePage(e){
             let query = JSON.parse(JSON.stringify(this.$route.query))
             query.page = e
             this.$router.push({query:query})
-        },
-        // 设置types激活样式
-        setTypesStyle(){
-                if(this.$route.query.type){
-                    let type = this.$route.query.type
-                    document.querySelectorAll('.types-box .type').forEach(v=>{
-                        if(v.getAttribute('data-type')===type){
-                            v.classList.add('t-active');
-                            // v.classList.remove('ech-big');
-                        }else{
-                            v.classList.remove('t-active');
-                            // v.classList.add('ech-big');
-                        }
-                    })
-                }
         },
         getExamp(option){ //name(模糊),id,type（模糊）
             // if(!option.name || !option.type || !option.id) return;
@@ -291,7 +249,6 @@ export default {
                 this.searchName = search
             }
             this.currentPage = Number(page)
-            this.setTypesStyle()
         }
     },
     watch:{
@@ -313,8 +270,6 @@ export default {
         }
     },
     mounted(){
-        // 加载完后，设置types激活样式
-        this.setTypesStyle()
     },
     components:{
     }
@@ -325,70 +280,85 @@ export default {
 .example {
     margin:0 auto;
     .my-tab {
-        background-color: rgba(0,0,100,.15);
+        // background-color: rgba(0,0,100,.15);
+        background: #778b9d;
         // padding:10px 0 15px;
-        .search-bar {
+        .my-tab-inner {
             max-width:1075px;
             margin:0 auto;
-            padding:8px 10px 0;
+            padding:0px 5px;
+
+        }
+        .search-bar {
+            padding:5px 0;
             position: relative;
-            .el-input__inner {
-                height:33px;
-                border-radius:33px 0 0 33px;
-                // border-radius:33px;
+            display: flex;
+            justify-content: space-between;
+            align-items:middle;
+            border-bottom:1px solid #708190;
+            .search-right {
+                position: relative;
+                input {
+                    display:block;
+                    height:31px;
+                    border-radius:31px;
+                    background-color: rgba(255,255,255,.8);
+                    padding-right:50px;
+                }
+                em {
+                    position: absolute;
+                    top:1px;
+                    right:2px;
+                    font-size:20px;
+                    font-weight:700;
+                    padding:5px;
+                    cursor: pointer;
+                    color:#728698;
+                    &:hover {
+                        text-shadow:0 0 1px #586a7a;
+                    }
+                }
             }
-            .el-input-group__append {
-                border-radius:0 33px 33px 0 !important;
-                margin-left:15px;
-            }
-            // .search-btn {
-            //     position: absolute;
-            //     left: 266px;
-            //     top:7px;
-            //     .el-button.is-circle {
-            //         padding: 10px;
-            //     }
-            // }
         }
         .types-box {
-            max-width:1075px;
-            margin:0 auto;
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
             flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
             width:100%;
-            padding:10px;
-            padding-top:8px;
+            padding:5px 0;
             // padding-right:270px;
             &>div {
                 flex:0 0 12.5%;
                 text-align: center;
-                .type {
-                    background:#eee;
-                    // border:1px solid #bbb;
-                    border-radius:3px;
-                    font-size:16px;
-                    margin:2px;
-                    height:32px;
-                    line-height: 32px;;
-                    color:#eee;
-                }
 
             }
         }
-        .types-box .type {
-                    // box-shadow: 0 0 18px #fff inset;
-                    // -moz-box-shadow: 0 0 18px #fff inset;
-                    // -webkit-box-shadow: 0 0 18px #fff inset;
+        .type {
+            font-size:16px;
+            margin:2px;
+            height:28px;
+            line-height: 28px;;
+            color:#eee;
+            padding:0 3px;
+            background:url('/static/img/btn-up.jpg') no-repeat;
+            position: relative;
+            text-align:center;
+            .bg-r {
+                width:3px;
+                height:28px;
+                background:url('/static/img/btn-up.jpg') no-repeat -165px 0px;
+                position: absolute;
+                right:0;
+                top:0;
+            }
         }
-        .types-box .type.t-active {
-            font-weight:700;
-            box-shadow: none;
-            text-decoration: underline;
-            color:#fff;
-            text-shadow: 1px -1px 2px #222;
-            -moz-text-shadow: 1px -1px 2px #222;
-            -webkit-text-shadow: 1px -1px 2px #222;
-            
+        .type:hover, .type.t-active{
+            background:url('/static/img/btn-down.jpg') no-repeat;
+            .bg-r {
+                background:url('/static/img/btn-down.jpg') no-repeat -165px 0px;
+            }
+        }
+        .type.all {
+            width:128px;
         }
     }
     //名人列表
