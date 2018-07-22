@@ -1,15 +1,26 @@
 <template>
 <div class="home-index">
     <div class="h-body" style="height:1500px">
-
+        <div v-for="(v,i) in myt">
+            <!--{{v + ($store.state.t?format(v):'')}}<i v-if="!$store.state.t" class="el-icon-warning"></i>-->
+        </div>
     </div>
 </div> 
 </template>
 <script>
 export default {
-
+    data(){
+        return{
+            myt:['a','b','c','d']
+        }
+    },
     components:{
         
+    },
+    methods:{
+        format(v){
+            return v+'###'
+        }
     },
     created(){
         // this.$layer.alert({
@@ -37,15 +48,12 @@ export default {
         //   });          
         // });
 
-        this.$alert('这是一段内容', '标题名称', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `action: ${ action }`
-            });
-          }
-        });
+ 
+    },
+    mounted(){
+        // setTimeout(()=>{
+        //     this.$store.state.t = '$'
+        // },6444)
     }
     
 };

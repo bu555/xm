@@ -49,24 +49,46 @@ export default {
 </script>
 <style lang="less">
 .user {
-    background-color: #e7e8eb;;
+    // background-color: #e7e8eb;;
+    background:url("/static/img/bg_1.png");
     padding-bottom:15px;
     margin-top:-15px;
     position: relative;
     top:15px;
     .user-header {
-        // border-bottom:2px solid #456ea5;
-        margin-bottom:12px;
+        // border-bottom:1px solid #456ea5;
+        border-bottom:2px solid #ced9e8;
+        margin-bottom:0px;
+        background:rgba(0,75,157,.03);
+        &:after,&:before {
+            content:"";
+            display:block;
+            position: absolute;
+            height:1px;
+            width:100%;
+            background-color: #ced9e8;
+        }
+        &:after {
+            background-color: #ced9e8;
+            top:74px;
+            left:0px;
+        }
+        &:before {
+            height:2px;
+            background-color: #ced9e8;
+            top:77px;
+        }
     }
     .user-header-main {
         max-width:992px;
-        height:80px;
+        height:90px;
         position: relative;
         margin:0 auto;
       .logo-a {
           position: absolute;
           top:2px;
           left:20px;
+          z-index:2;
           a>img {
             display:block;
             width:79px;

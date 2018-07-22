@@ -12,7 +12,7 @@ const state = {
     refUser:false,
     refAccount:false,
     refCurrent:false,
-    meta:{}
+    meta:{},
 } 
 const mutations = {
     //存储用户信息
