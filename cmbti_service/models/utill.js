@@ -77,11 +77,12 @@ module.exports =  {
                 return r_name && reg.test(r_name) ? true:false
         },
         // 去除空白 换行..
-        emptyHandler(str){
+        strTrim(str){
             if(str && typeof(str)==='string'){
                 return str.replace(/[\s\r\n]/g,'')
+            }else{
+                return str
             }
-            return false
         }
 
 }

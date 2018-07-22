@@ -3,6 +3,7 @@
     <div class="m-header">
         <div class="photo" @click="showUploadAvatar=true">
             <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+            <div class="a-cover">更改头像</div>
         </div>
         <div class="edit-photo">
             <!--<button>上传封面照片</button>-->
@@ -17,7 +18,7 @@
     </div>
     <div class="main-box">
         <div class="m-body">
-            <div class="m-content" v-if="showChild">
+            <div class="m-content">
                 <router-view></router-view>
             </div>
         </div>
@@ -45,14 +46,15 @@ export default {
             loading:false,
             showUploadAvatar:false,
             isLogin:false,
-            showChild:false,
+            accountInfo:''
         }
     },
     components:{
         uploadAvatar
     },
     watch:{
-        '$store.state.modalLoginSuccess':'getAccount',
+        // '$store.state.modalLoginSuccess':'getAccount',
+        // 刷新用户信息
         '$store.state.refUser':function(){
             if(this.$store.state.refUser){
                 // this.$store.commit('setUserInfo',{}) //改变avatar的值
@@ -61,12 +63,13 @@ export default {
                 this.$store.state.refUser=false
             }
         },
-        '$store.state.refAccount':function(){
-            if(this.$store.state.refAccount){
-                this.getAccount()
-                this.$store.state.refAccount=false
-            }
-        }
+        // 刷新用户账户信息
+        // '$store.state.refAccount':function(){
+        //     if(this.$store.state.refAccount){
+        //         this.getAccount()
+        //         this.$store.state.refAccount=false
+        //     }
+        // }
     },
     methods:{
         listenSon(success){
@@ -75,20 +78,6 @@ export default {
                 // 修改成功,通知刷新
                 this.$store.state.refUser = true  
             }
-        },
-        getAccount(){
-            // 获取账户信息
-            this.loading = true
-            this.$axios.getAccountInfo().then(res=>{
-                this.loading = false
-                if(res.data.success){
-                    localStorage.setItem('accountInfo',JSON.stringify(res.data.data));
-                    this.$store.commit('setAccountInfo',res.data.data)
-                    this.showChild = true
-                }
-            }).catch(err=>{
-                this.loading=false
-            })
         },
         getUser(){
             this.loading = true
@@ -106,7 +95,6 @@ export default {
         init(){
             if(localStorage.getItem('USER')){
                 this.isLogin = true;
-                this.getAccount()
             }else{
                 this.$store.state.modalLogin = true
             }
@@ -156,6 +144,25 @@ export default {
                 width:100%;
                 height:100%;
             }
+            .a-cover {
+                  font-size:15px;
+                  width:100%;
+                  padding:2px 0 2px;
+                  position: absolute;
+                  bottom:0;
+                  left:0;
+                  text-align: center;
+                  background-color: rgba(0,0,0,.5);
+                  color:#fff;
+                //   display:none;
+                  opacity: 0;
+                  transition:opacity 0.5s;
+              }
+              &:hover {
+                  .a-cover {
+                    opacity:1;
+                  }
+              }
         }
         .edit-info,.edit-photo {
             position: absolute;
@@ -240,8 +247,7 @@ export default {
         background-color: rgba(0,0,0,.5);
         .inner-box {
             width:320px;
-            margin:70px auto 0;
-            background-color: red;
+            margin:15vh auto 0;
             // top:100px;
             // left:50%;
             // transform:translate(-50%);

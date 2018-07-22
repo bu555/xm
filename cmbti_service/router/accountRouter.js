@@ -29,11 +29,17 @@ const getAccountInfoById = (req,res)=>{
       (async ()=>{
           try{
                 let r = await Account.getUserInfoById(options)
+                let result = {}
+                for(let key in r){
+                    if(r[key] instanceof Array){
+                        result[key] = r[key].length
+                    }
+                }
 
                 res.json({
                     success: true,
                     message: 'Success',
-                    data:r
+                    data:result
                 })
 
             }catch(err){
@@ -289,6 +295,165 @@ const getMyVote = (req,res)=>{
             }
       })()
 }
+// 獲取我的发表文章 options:{page:'',size:''}
+const getMyArticle = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id 
+      if( !options.uid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let page = Number(options.page)
+                let size = Number(options.size)
+                let acc = await Account.getUserInfoById(options)
+                let aids = acc.my_article.slice( (page-1)*size , size+(page-1)*page )
+                if(aids.length<1){
+                    return res.json({
+                        success: true,
+                        message: 'Success',
+                        data: []
+                    })
+                }
+                let result = await Article.getArticleInfoAll({aid:aids})
+                res.json({
+                    success: true,
+                    message: 'Success',
+                    data: result
+                })
+            }catch(err){
+                logger.error(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取我收藏（喜欢）的文章 options:{page:'',size:''}
+const getMyLikes = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id 
+      if( !options.uid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let page = Number(options.page)
+                let size = Number(options.size)
+                let acc = await Account.getUserInfoById(options)
+                let aids = acc.likes_atricle.slice( (page-1)*size , size+(page-1)*page )
+                if(aids.length<1){
+                    return res.json({
+                        success: true,
+                        message: 'Success',
+                        data: []
+                    })
+                }
+                let result = await Article.getArticleInfoAll({aid:aids})
+                res.json({
+                    success: true,
+                    message: 'Success',
+                    data: result
+                })
+            }catch(err){
+                logger.error(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取关注我的 options:{page:'',size:''}
+const getMyFollowing = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id 
+      if( !options.uid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let page = Number(options.page)
+                let size = Number(options.size)
+                let acc = await Account.getUserInfoById(options)
+                let uids = acc.following.slice( (page-1)*size , size+(page-1)*page )
+                if(uids.length<1){
+                    return res.json({
+                        success: true,
+                        message: 'Success',
+                        data: []
+                    })
+                }
+                let proArr = [] 
+                uids.forEach((v,i)=>{
+                    proArr.push(User.getUserById({uid:v}))
+                })
+                let list = await Promise.all(proArr)
+                res.json({
+                    success: true,
+                    data:list
+                })
+            }catch(err){
+                logger.error(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取我关注的 options:{page:'',size:''}
+const getMyFollowers = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id 
+      if( !options.uid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let page = Number(options.page)
+                let size = Number(options.size)
+                let acc = await Account.getUserInfoById(options)
+                let uids = acc.followers.slice( (page-1)*size , size+(page-1)*page )
+                if(uids.length<1){
+                    return res.json({
+                        success: true,
+                        message: 'Success',
+                        data: []
+                    })
+                }
+                let proArr = [] 
+                uids.forEach((v,i)=>{
+                    proArr.push(User.getUserById({uid:v}))
+                })
+                let list = await Promise.all(proArr)
+                res.json({
+                    success: true,
+                    data:list
+                })
+            }catch(err){
+                logger.error(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+
 
 // 查看用户的资料、发表文章
 const getUserInfoShow = (req, res) =>{  
@@ -338,6 +503,10 @@ router.post('/followUser',checkLogin,followUser);
 router.get('/getUserInfoShow',getUserInfoShow);
 router.get('/getMyTest',checkLogin,getMyTest);
 router.get('/getMyVote',checkLogin,getMyVote);
+router.get('/getMyArticle',checkLogin,getMyArticle);
+router.get('/getMyLikes',checkLogin,getMyLikes);
+router.get('/getMyFollowing',checkLogin,getMyFollowing);
+router.get('/getMyFollowers',checkLogin,getMyFollowers);
 
 // router.post('/goVote',checkLogin,goVote);
 // router.post('/addComment',checkLogin,addComment);

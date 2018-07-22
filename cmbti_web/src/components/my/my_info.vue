@@ -138,7 +138,6 @@ export default {
         },
         init(){
           this.infoForm = JSON.parse(localStorage.getItem('USER'))
-          console.log(this.infoForm);
           this.initData = JSON.parse(localStorage.getItem('USER'))
         }
     },

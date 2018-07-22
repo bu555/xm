@@ -31,10 +31,8 @@ axios.interceptors.response.use(data => {
     // loadinginstace.close()
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
-        Promise.reject(error)
-    }else{
-        return data
     }
+    return data
 }, error => {
     // loadinginstace.close()
     Message.error({
@@ -86,10 +84,6 @@ export default {
     //上传头像  
     uploadPhoto(data){
         return axios.post(pathAPI+'/user/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
-    },
-    //批量获取用户信息 展示
-    userInfoListShow(data){
-        return axios.post(pathAPI+'/user/userInfoListShow',data);
     },
     //检查email是否注册
     checkRegister(data){
@@ -162,6 +156,10 @@ export default {
     clickArticleLike(data){
         return axios.post(pathAPI+'/article/clickArticleLike',data);
     },
+    // 文章点赞  input : {aid:'',uid:''} 需登录
+    clickArticleZan(data){
+        return axios.post(pathAPI+'/article/clickArticleZan',data);
+    },
     // 对文章评论点赞  input : {aid:'',uid:'',cid:''} 需登录
     clickArticleCommentZan(data){
         return axios.post(pathAPI+'/article/clickCommentZan',data);
@@ -208,6 +206,22 @@ export default {
     // 获取测试记录 多条
     getMyTest(data){
         return axios.get(pathAPI+'/account/getMyTest',{params:data});
+    },
+    // 获取发表的文章 {page,size}
+    getMyArticle(data){
+        return axios.get(pathAPI+'/account/getMyArticle',{params:data});
+    },
+    // 获取收藏的文章 {page,size}
+    getMyLikes(data){
+        return axios.get(pathAPI+'/account/getMyLikes',{params:data});
+    },
+    // 获取关注我的 {page,size}
+    getMyFollowing(data){
+        return axios.get(pathAPI+'/account/getMyFollowing',{params:data});
+    },
+    // 获取我关注的 {page,size}
+    getMyFollowers(data){
+        return axios.get(pathAPI+'/account/getMyFollowers',{params:data});
     },
 
 

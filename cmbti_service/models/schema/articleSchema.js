@@ -39,7 +39,9 @@ const articleSchema = new mongoose.Schema({
     update_time:Date, //更新时间
     edit_time:Date, //编辑时间
     com_count:Number,  //评论总数
-    state:Number  // 文章状态，1:待审核，2：已审核
+    state:Number,  // 文章状态，1:待审核，2：已审核
+    zan:[String],
+    zans:Number
 })
 
 const article = mongoose.model('a_article', articleSchema) 

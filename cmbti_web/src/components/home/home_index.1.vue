@@ -1,9 +1,13 @@
 <template>
 <div class="home-index">
     <div class="h-body" style="height:1500px">
+<<<<<<< HEAD
         <div v-for="(v,i) in myt">
             <!--{{v + ($store.state.t?format(v):'')}}<i v-if="!$store.state.t" class="el-icon-warning"></i>-->
         </div>
+=======
+    
+>>>>>>> 92e139a44a9e1f73facdd74ce20dd77e087b1c0a
     </div>
 </div> 
 </template>
@@ -31,7 +35,10 @@ export default {
         // }).catch(()=>{
         //     console.log('取消');
         // })
+/*
 
+
+*/
         // this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         //   confirmButtonText: '确定',
         //   cancelButtonText: '取消',

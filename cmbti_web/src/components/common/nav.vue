@@ -105,7 +105,6 @@ export default {
       }
     },
     exit(){
-        localStorage.setItem('accountInfo','')
         this.$store.commit('setAccountInfo',{})
         localStorage.setItem('USER','')
         this.$store.commit('setUserInfo',{})
@@ -125,7 +124,7 @@ export default {
     
   },
   created(){
-     
+     console.log(this.$router);
   }
 }
 </script>

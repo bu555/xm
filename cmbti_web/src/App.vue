@@ -1,5 +1,5 @@
 <template>
-  <div class="root-app">
+  <div class="root-app" v-if="showPage">
       <myNav v-if="$route.path.indexOf('/user/')===-1"></myNav>
       <router-view class="router-view"></router-view>
       <myFooter></myFooter>
@@ -17,7 +17,8 @@ export default {
   name: 'App',
   data(){
       return {
-        routerHeight:400
+        routerHeight:400,
+        showPage:true
       }
   },
   components: {
@@ -26,7 +27,17 @@ export default {
     loginModal
   },
   watch: {
-    "$route.fullPath": "getMeta"
+    "$route.fullPath": "getMeta",
+    // 模态框登录成功后，刷新当前页
+    "$store.state.modalLoginSuccess":function(){
+        if(this.$store.state.modalLoginSuccess===true){
+            this.showPage = false
+            setTimeout(()=>{
+                this.showPage = true
+            },1)
+            this.$store.commit('setModalLoginSuccess',false); 
+        }
+    }
   },
   metaInfo() {
     return {
@@ -98,8 +109,13 @@ export default {
 </script>
 
 <style lang="less">
-    // @import '../static/css/my-element.less'; //引入全局less文件
+    @font-face {
+      font-family: 'DINRegular';
+      src: url('/static/fonts/DIN-Regular.ttf');
+    }
+    // @import '../static/css/my-element.less'; 
     .root-app {
+      font-family:DINRegular;
       // background:url('/static/img/bg_1.png');
       background:#f7f7f7;
       a {text-decoration:none;color:#333 }
@@ -138,3 +154,4 @@ export default {
           min-width:290px;
       }
 </style>
+

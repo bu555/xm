@@ -5,28 +5,28 @@
                     <i class="fa fa-user-o"></i> 个人档案
                 </router-link></div>
             <div><router-link to="/my/followers">
-                    <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注<span>(2)</span>
+                    <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注<span>({{accountInfo.followers}})</span>
                 </router-link></div>
             <div><router-link to="/my/following">
                     <i class="fa fa-plus-square-o "></i> 被关注<span>(2)</span>
                 </router-link></div>
             <div><router-link to="/my/mark">
-                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 收藏<span>(2)</span>
+                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 收藏<span>({{accountInfo.following}})</span>
                 </router-link></div>
             <div><router-link to="/my/test">
-                    <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试
+                    <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试<span>({{accountInfo.test_record}})</span>
                 </router-link></div>
             <div><router-link to="/my/publish">
-                    <i class="fa el-icon-edit"></i> 发表<span>(2)</span>
+                    <i class="fa el-icon-edit"></i> 发表<span>({{accountInfo.my_article}})</span>
                 </router-link></div>
             <div><router-link to="/my/comment">
-                    <i class="fa fa-edit"></i> 评论<span>(2)</span>
+                    <i class="fa fa-edit"></i> 评论<span>({{accountInfo.my_comment}})</span>
                 </router-link></div>
             <div><router-link to="/my/vote">
-                    <i class="fa fa-hand-paper-o"></i> 投票<span>(2)</span>
+                    <i class="fa fa-hand-paper-o"></i> 投票<span>({{accountInfo.vote_example}})</span>
                 </router-link></div>
             <div><router-link to="">
-                    <i class="fa fa-envelope-o"></i> 消息<span>(2)</span>
+                    <i class="fa fa-envelope-o"></i> 消息<span>({{accountInfo.my_message}})</span>
                 </router-link></div>
             <!--<div><router-link to="">
                     <i class="fa fa-group "></i> 好友<span>(2)</span>
@@ -38,12 +38,36 @@
 export default {
     data(){
       return {
+          accountInfo:{
+              atten_example:0,
+                followers:0,
+                following:0,
+                friends:0,
+                likes_atricle:0,
+                my_article:0,
+                my_comment:0,
+                my_message:0,
+                test_record:0,
+                vote_example:0,
+          }
       }
     },
     methods:{
-      onSubmit(){
-
-      }
+        getAccount(){
+            // 获取账户信息
+            this.loading = true
+            this.$axios.getAccountInfo().then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.accountInfo = res.data.data;
+                }
+            }).catch(err=>{
+                this.loading=false
+            })
+        },
+    },
+    created(){
+        this.getAccount()
     }
 }
 </script>

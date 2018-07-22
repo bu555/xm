@@ -25,8 +25,8 @@
           </div>
       </div>
     </div>
-    <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
-      加载更多...
+    <div class="load-more" @click="loadMore" v-if="currentData.length==size">
+      或许还有更多...
     </div>
   </div>
 </template>
@@ -36,35 +36,15 @@ export default {
       return {
         loading:false,
         data:[],
-        myList:'',
-        pageSize:4,
+        size:4,
         page:1,
         currentData:[]
       }
     },
     methods:{
         getArticle(){
-            if(this.myList.length<1) return
-            let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
-            if(aid.length<1) {
-              this.currentData = []  //觸發加載更多隱藏
-              return
-            }
             this.loading = true
-            this.$axios.getArticleInfoAll({aid:aid}).then(res=>{
-                this.loading = false
-                if(res.data.success){
-                    let d = JSON.parse(JSON.stringify(res.data.data))
-                    this.data = this.data.concat(d)   //  res.data.data
-                    this.currentData = res.data.data
-                }
-            }).catch(err=>{
-                this.loading = false
-            })
-        },
-        deleteArticle(){
-            this.loading = true
-            this.$axios.deleteArticle({aid:aid}).then(res=>{
+            this.$axios.getMyArticle({size:this.size,page:this.page}).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))
@@ -112,7 +92,6 @@ export default {
         }
     },
     created(){
-        this.myList = JSON.parse(localStorage.getItem('accountInfo')).my_article
         this.getArticle()
     }
 }
