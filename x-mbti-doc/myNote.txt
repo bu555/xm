@@ -19,10 +19,159 @@
     AMP JS: a.ampJS库 b.iframe沙盒化
     AMP缓存：a.页面替换修改('-'=>'--')  b.AMP URL提交(秘钥)  c.AMP更新
 
+#SSR 服务端渲染
+之前我对nuxt.js理解是有些错误的:Nuxt.js构建后的SPA代码其实不完全等同于目前项目的SPA。（它底层增加用vue-meta、vue-server-renderer，会检测并把预定义了要渲染的meta和页面内容，合并到index.html后再response给浏览器，剩下的UI交互和一些数据还是交给js在浏览器完成。整个应用MVVM本质是没变的，Nuxtjs从中只是完成了部分VM的事务）
+nuxt.js基于vue，我们目前所实现了的功能都是可以实现的，它本身也是极大简化了webpack配置、router配置和plugin扩展的。但其主要意义应该还是在于实现SEO。
+类似OopsDaily这样必须做SEO的项目，用Nuxtjs做全站SSR、或者SPA+部分SSR应该都是比较合适的。如果一开始兼顾SPA+SSR的需求去组织vue组件，SPA完成之后用Nuxt.js做SSR就是比较简单的（直接根据nuxt规则把组件拼接起来）。
+现有项目如果用nuxt.js做首页和内页的SSR，主要就是重写组件，估计会需要一星期左右的时间。
 
 
 
 
+
+
+
+
+
+
+
+#moment常用方法
+let timezone = moment.tz.guess();  //获取当前时区
+this.$moment(new Date).utc().format();  //当前时区转成utc
+this.$moment('2020-02-02T'+'18:08:08'+'Z').format("HH:mm:ss") //utc转成当地时间
+$moment(v.Date).format("YYYY/MM/DD")
+this.$moment(e+" 23:59:59").utc().format() //转utc
+moment(UTC_time).startOf().fromNow() //xx前
+
+#点控 工作笔记
+https://github.com/bu555/xm.git  xmbti
+
+IP：119.9.77.245
+帳號：WD0035
+密碼：B$2eiy
+
+介绍一款好用 mongodb 可视化工具  启动：npm start
+github地址：https://github.com/mrvautin/adminMongo 
+
+https://github.com/Selvin11/login.git
+一个很不错的前后端项目，Vue + Vue-router + Vuex 实现前端页面及逻辑，Express 实现注册登录登出的RestFul API 。
+
+http://www.tceic.com/k3h25ilg04g1h0717lj5jj67.html
+一个mbti文档网站
+
+http://personalitycafe.com/
+http://wiki.mbalib.com/wiki/MBTI%E4%BA%BA%E6%A0%BC%E7%90%86%E8%AE%BA
+https://www.idrlabs.com/tests.php
+https://www.douban.com/group/topic/63745621/
+
+https://blog.csdn.net/crackwei/article/details/78908024   Windows系统 门罗币CPU挖矿详细教程 
+https://blog.csdn.net/jiangjianjun716/article/details/79535232 精品！！
+http://www.freebuf.com/column/151316.html  前端挖矿
+http://www.freebuf.com/author/evil7    evil7专栏
+https://www.youbbs.org/t/2176
+https://wk588.com/list/wkjs/wkjc 挖币普及
+
+
+---mbti---
+www.16personalities.com
+
+/*
+flex-grow:
+    默认为0--有空间也不会铺开(可以设置flex-basis定宽)；
+    1--元素平均宽度铺开，占满一行；
+    2--某一元素设2，自身宽度则是其余2倍；
+flex-shrink:
+    默认为1--没有空间时，自身缩小满足其他元素宽度；
+    0--按自身宽度占住空间，不会缩小让出空间；（元素要定宽时使用）
+flex-basis:
+    默认为auto--即元素本身该占多少是多少；
+    设置宽，即元素实际宽度
+    */
+.parent{
+    display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
+    flex-direction: column ; //从上往下纵向
+    flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
+    justify-content:center; //元素水平居中
+    align-items:center; //元素垂直居中
+}
+justify-content: flex-start | flex-end | center | space-between | space-around;
+-----------------靠左排     | 靠右排    | 中心    | 紧靠两侧排    | 均匀排
+
+img {  //图片自动大小
+    display:block;
+    width:auto;
+    height:auto;
+
+    vertical-align:middle; //与文字水平对齐
+}
+.txt { //文本溢出显示省略号
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+
+}
+
+
+https://getmonero.org 参考
+
+---vue ui库---
+Vonic 移动端库
+star★：1.6k
+demo：https://wangdahoo.github.io/vonic/docs/#/
+docs：https://wangdahoo.github.io/vonic-documents/#/
+github：https://github.com/wangdahoo/vonic
+
+mintUi http://mint-ui.github.io/#!/zh-cn
+https://github.com/minirefresh/minirefresh   优雅的H5 下拉刷新。零依赖，高性能，多主题，易拓展
+
+
+---git---
+git config --global --list 查看配置的用户和名字
+git config --global --replace-all user.name "输入你的用户名"   修改用户名
+配置用户名
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+git init  初始化仓库,即在当前文件夹里创建.git隐藏文件,存放历史版本
+git add -A|* 表示将本工作目录下所有文件提交到暂存区
+git rm add2.txt 删除文件
+git commit -m '日志信息'  提交信息之后的日志信息,后续可查询
+git remote -v 查看远程仓库
+git reset --hard 版本号  回到之前的某个版本
+git status   查看当前文件状态
+        >>>>文件的四种状态 :
+	1)未追踪  untracked  表示原始状态,未提交过的 
+	2)暂存区  unstage 提交到暂存区的状态   (绿色显示)
+	3)已提交  committed 表示文件已提交到仓库存储区
+	4)已修改  modifield 表示做了修改,但未提交  (红色显示)
+git log      查看版本更改的历史信息
+git log --oneline 查看版本更改的历史信息(简洁版:版本号+版本说明信息)
+git reflog   查看所有历史版本信息及操作记录
+git branch   查看所有分支 (有星号标识为显示当前)
+git branch 分支名     创建某个分支----相当于主分支副本(在主分支下操作)
+git checkout 分支名称  切换到某个分支下面
+git checkout -b 分支名称  创建&切换一步完成
+git branch -D 分支名   删除本地分支(在主分支下操作)
+git merge   分支名称   合并分支(在主分支下操作)
+   --解决冲突:合并时有可能发生冲突,需要找到文件手动修改,重新添加/提交暂存区,再合并 (提示信息:merge conflict in...  failed(失败))
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+        modified:   cmbti_service/controllers/exampleController.js
+——修改后并add的提示，意思是取消上一步操作，回到与版本库一致的状态
+可以使用git checkout -- <文件名>取消修改
+
+?远程操作
+git remote add origin "服务器地址" //origin变量就是服务器地址
+git push -u origin master   // '-u'参数将origin和master连接一起
+git branch -r #查看远程分支
+git branch -a #查看所有分支，本地和远程
+git clone <远程主机> 检出仓库
+git checkout -b <本地分支> origin/<远程分支>  将远程分支clone到本地分支（master下操作）并关联
+git pull 更新本地分支
+分支推送到远程master：git push origin <本地分支名>：master
+ git merge [name] ----将名称为[name]的分支与当前分支合并
+$ git push origin test:master         // 提交本地test分支作为远程的master分支 //好像只写这一句，远程的github就会自动创建一个test分支
+$ git push origin <本地分支>:<远程分支名>   // 提交本地test分支作为远程的test分支
+$ git pull <远程主机名> <远程分支名>:<本地分支名> 
 
 
 CMPool Github:

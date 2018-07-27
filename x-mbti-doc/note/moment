@@ -1,6 +1,0 @@
-let timezone = moment.tz.guess();  //获取当前时区
-this.$moment(new Date).utc().format();  //当前时区转成utc
-this.$moment('2020-02-02T'+'18:08:08'+'Z').format("HH:mm:ss") //utc转成当地时间
-$moment(v.Date).format("YYYY/MM/DD")
-this.$moment(e+" 23:59:59").utc().format() //转utc
-moment(UTC_time).startOf().fromNow() //xx前

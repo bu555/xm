@@ -76,13 +76,32 @@ module.exports =  {
                 var reg = /^(\d|\w|[\x21-\x2f\x3a-\x40\x5b-\x60\x7B-\x7F]){1,20}$/
                 return r_name && reg.test(r_name) ? true:false
         },
-        // 去除空白 换行..
+        // 去除两端空白 中间空白合并..
         strTrim(str){
             if(str && typeof(str)==='string'){
-                return str.replace(/[\s\r\n]/g,'')
+                str = str.replace(/[\s\r\n]+/g,' ')
+                return str.trim()
             }else{
-                return str
+                return str + ''
             }
-        }
+        },
+        // 判断字节数(utf8)
+        strLength(s) { 
+            var totalLength = 0; 
+            var charCode; 
+            for (let i = 0; i < s.length; i++) { 
+                charCode = s.charCodeAt(i); 
+                if (charCode <= 127) { 
+                    totalLength = totalLength + 1; 
+                } else if ((charCode>127) && (charCode <= 2047)) { 
+                    totalLength += 2; 
+                } else if ((charCode>2047) && (charCode <= 65535)) { 
+                    totalLength += 3; 
+                } else if ((charCode>65535) && (charCode <= 2097152)) { 
+                    totalLength += 4; 
+                }  
+            } 
+            return totalLength; 
+        } 
 
 }

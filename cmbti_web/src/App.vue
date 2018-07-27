@@ -13,6 +13,7 @@
 import myNav from './components/common/nav'
 import myFooter from './components/common/footer'
 import loginModal from '../src/components/user/user_login_modal'
+import copyHandler from './assets/copyHandler'
 export default {
   name: 'App',
   data(){
@@ -102,6 +103,7 @@ export default {
     }
   },
   mounted(){
+    copyHandler()
     // $('.router-view').css('minHeight',this.routerHeight+'px');
   },
   created(){
