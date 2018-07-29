@@ -85,8 +85,7 @@ export default {
                         type: 'success'
                     });
                     if(this.$store.state.modalLogin){ //如果是模态框登录
-                        this.$store.commit('setModalLogin',false); 
-                        this.$store.commit('setModalLoginSuccess',true); 
+                        this.$store.state.modalLogin = false 
                     }else{  //非模态登录
                         this.$router.push({path: '/my'})
                     }
@@ -95,6 +94,7 @@ export default {
                 }
             }).catch(err=>{ 
                 if(err.response.status==429){
+                    // 频繁登录
                     this.is429 = true
                 }
                 this.isSubmit = false;

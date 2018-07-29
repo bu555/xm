@@ -89,8 +89,6 @@
                                     <el-button size="small" type="primary" @click="vote()">投票</el-button>
 
                                 </div>
-                                
-                                    <!--<el-button>取消</el-button>-->
                             </div>
                         </div>
                         <div class="main-ctrl">
@@ -238,11 +236,16 @@ export default {
         }
     },
     watch:{
-        '$store.state.modalLoginSuccess':'initData',
         'commentActive':function(){
             this.commentPage = 1
             this.commentList = []
             this.getComment()
+        },
+        // 监控登录成功
+        '$store.state.userInfo':function(){
+            if(this.$store.state.userInfo){
+                this.initData()
+            }
         }
     },
     methods:{
@@ -488,11 +491,7 @@ export default {
         voteResult,
         voteConsole,
         myComment
-    },
-    beforeRouteEnter (to, from, next) {
-        localStorage.setItem('fromPath',from.fullPath)
-        next()
-    },
+    }
     
 };
 </script>

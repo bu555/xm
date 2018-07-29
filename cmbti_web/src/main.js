@@ -26,10 +26,6 @@ Vue.use(Layer)
 // import VueMeta from 'vue-meta'
 // Vue.use(VueMeta)
 
-import VueHtml5Editor from 'vue-html5-editor'
-import editorConfig from './assets/editor.config'
-Vue.use(VueHtml5Editor, editorConfig)
-
 // 字体样式
 // import 'font-awesome/css/font-awesome.css'
 // element样式

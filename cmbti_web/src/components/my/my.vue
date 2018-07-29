@@ -80,6 +80,7 @@ export default {
             }
         },
         getUser(){
+            console.log('getttttttttttttt');
             this.loading = true
             // 获取用户信息
             this.$axios.getUserInfo().then(res=>{

@@ -13,11 +13,12 @@
                         <div class="h1">{{data.title}}</div>
                         <div class="t-info"> 
                             <div class="text">
+                                <Avatar :src="data.avatar?$pathAvatar+data.avatar:'/static/img/logo_a.png'" :to="'/info/'+data.uid"></Avatar>
+                                <!--<i class="fa fa-user-o"></i> -->
                                 <span>
-                                <router-link to="">
-                                        <i class="fa fa-user-o"></i> {{data.r_name}}
-                                        <!--作者阿凡达 -->
-                                </router-link>
+                                    {{data.r_name}}
+                                    <!--作者阿凡达 -->
+
                                 </span>
                                 <!--<span ><i class="el-icon-time"></i> 发布于2个月前</span>-->
                                 <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span>
@@ -157,6 +158,7 @@
 </div> 
 </template>
 <script>
+import Avatar from '../common/avatar'
 export default {
     data(){
         return {
@@ -177,7 +179,6 @@ export default {
             replyCid:'',
 
             accountCommentList:'', //我的评论，从个人中心跳转
-            test:`&lt;div&gt;&lt;font color&#x3d;&quot;&#x23;ff9900&quot;&gt;&#x9504;&#x5927;&#x5730;&#x5927;&#x4ea8;&lt;&#x2f;font&gt;&lt;&#x2f;div&gt;&lt;div&gt;&lt;font color&#x3d;&quot;&#x23;ff9900&quot;&gt;1&#x3001;34&lt;&#x2f;font&gt;&lt;&#x2f;div&gt;&lt;div&gt;&lt;font color&#x3d;&quot;&#x23;ff9900&quot;&gt;2.i&#x54e6;&lt;&#x2f;font&gt;&lt;&#x2f;div&gt;&lt;div&gt;`
         }
     },
     watch:{
@@ -186,6 +187,9 @@ export default {
             this.commentList = []
             this.getCommentByAid()
         }
+    },
+    components:{
+        Avatar
     },
     methods:{
         clickZanArticle(){
@@ -354,7 +358,7 @@ export default {
                 .a-type {
                     flex:0 0 33px;
                     margin-right:1%;
-                    padding-top: 6px;
+                    padding-top: 4px;
                     // padding-top:2px;
                     &>div {
                         // flex:0 0 100%;
