@@ -29,18 +29,18 @@ export default {
   },
   watch: {
     "$route.fullPath": "getMeta",
-    // 模态框登录成功后，刷新当前页
-    "$store.state.modalLoginSuccess":function(){
-        if(this.$store.state.modalLoginSuccess===true){
-            // this.showPage = false
-            // setTimeout(()=>{
-            //     this.showPage = true
-            // },1)
-            setTimeout(()=>{
-                this.$store.commit('setModalLoginSuccess',false); 
-            },222)
-            
+    // 通知退出
+    "$store.state.loginOut":function(){
+        if(this.$store.state.loginOut){
+            this.loginOut()
         }
+    },
+    //通知模态框登录
+    "$store.state.modalLogin":function(){
+      if(this.$store.state.modalLogin){
+          // 清除本地登录信息
+          this.$store.state.loginOut = true
+      }
     }
   },
   metaInfo() {
@@ -75,26 +75,21 @@ export default {
       }
       this.$store.commit("setMeta", meta);
     },
-
-    //设置html  font-size
-    setHtmlFontSize(){
-        var view_width = document.getElementsByTagName('html')[0].getBoundingClientRect().width;  
-        // 以iphone6宽360设计  1rem等于100px
-        if(view_width>1100){
-          view_width = 1100;
+    loginOut(){
+        localStorage.setItem('USER','')
+        this.$store.commit('setUserInfo','')
+        if(/^\/my/.test(this.$route.path)){
+           this.$router.push({
+             path:'/forum?category=all&page=1'
+           })
         }
-        document.getElementsByTagName('html')[0].style.fontSize = Math.round(view_width/3.6) +'px';
-    },
-    setMinHeight(){
-        var view_height = document.documentElement.clientHeight?document.documentElement.clientHeight : ''; 
-        if(view_height){
-            view_height = view_height - 175;
-            if(this.routerHeight < 400){
-              return;
-            }else{
-              this.routerHeight = view_height;
-            };
-        }
+        setTimeout(()=>{
+          this.$store.state.loginOut = false
+        },2000)
+        // this.$message({
+        //     message: '你已退出！',
+        //     type: 'info'
+        // });
     },
     init(){
        if(localStorage.getItem('USER')){
@@ -136,6 +131,9 @@ export default {
         overflow: hidden;
         min-height:420px
       }
+      .el-input__inner,.el-textarea__inner {
+        font-family:DINRegular;
+      }
       font-size:16px;
       @media screen and (max-width:768px){
          font-size:17px;
@@ -160,5 +158,6 @@ export default {
           top: 122px;
           min-width:290px;
       }
+
 </style>
 

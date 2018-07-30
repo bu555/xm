@@ -58,25 +58,19 @@ export default {
     .user-header {
         // border-bottom:1px solid #456ea5;
         border-bottom:2px solid #ced9e8;
-        margin-bottom:0px;
+        margin-bottom:10px;
         background:rgba(0,75,157,.03);
-        &:after,&:before {
+        &:after {
             content:"";
             display:block;
             position: absolute;
-            height:1px;
+            height:28px;
             width:100%;
-            background-color: #ced9e8;
+            background-color: #586a7a;
         }
         &:after {
-            background-color: #ced9e8;
-            top:74px;
+            top:65px;
             left:0px;
-        }
-        &:before {
-            height:2px;
-            background-color: #ced9e8;
-            top:77px;
         }
     }
     .user-header-main {

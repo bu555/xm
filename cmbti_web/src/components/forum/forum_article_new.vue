@@ -30,13 +30,8 @@
                     <!--<el-input v-model="form.title"></el-input>-->
                     <div class="html5-editor" stylel="width:600px" >
 
-        <!--<quill-editor :content="form.content"
-                        :options="editorOption"
-                        @change="onEditorChange($event)">
-        </quill-editor>-->
-
-                    <vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>
-                    <!--<editor :content="content" :height="500" :z-index="1000" :auto-height="true" :show-module-name="false"></editor>-->
+                    <!--<vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>-->
+                    <VueHtml5Editor @changeContent="getContent"></VueHtml5Editor>
                 
                     </div>
                 </div>
@@ -53,14 +48,7 @@
 </div> 
 </template>
 <script>
-// require styles
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
-// import { quillEditor } from 'vue-quill-editor'
-
-
-import VueHtml5Editor from 'vue-html5-editor'
+import VueHtml5Editor from './editor/editor'
 export default {
     data(){
         return {
@@ -75,6 +63,7 @@ export default {
         }
     },
     components: {
+        VueHtml5Editor
         // quillEditor,
         // 'editor1' : new VueHtml5Editor(this.options1)
     },
@@ -82,8 +71,8 @@ export default {
     },
     methods:{  
         submitArticle(){
-            console.log(this.form.content)
-            return
+            // console.log(this.form.content)
+            // return
             if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
                 return  this.$message({
                             message: '内容输入不完整！',
@@ -115,9 +104,7 @@ export default {
                 this.loading = false
             })
         },
-        updateData(html){
-            this.form.content = html
-        },
+
         getArticleById(){
             this.loading = true
             this.$axios.getArticleById({aid:this.aid}).then(res=>{
@@ -131,6 +118,9 @@ export default {
             }).catch(err=>{
                 this.loading = false
             })
+        },
+        getContent(c){
+            this.form.content = c
         }
 
     },

@@ -66,7 +66,7 @@
                 </div>
         </div>
         <!--数据库的数据-->
-        <div class="example-list" style="min-height:300px" v-if="exampleList"> 
+        <div class="example-list" style="min-height:300px" v-if="exampleList.length>0"> 
                 <div class="item" v-for="(v,i) in exampleList" :key="i">
                     <router-link :to="'/example/'+v._id">
                     <div class="item-box">
@@ -84,7 +84,7 @@
 
         </div>
         <!--分页-->
-        <div class="m-auto t-center pagi" style="padding:20px 0" v-if="exampleList">
+        <div class="m-auto t-center pagi" style="padding:20px 0" v-if="exampleList.length>0">
             <el-pagination
             background
             :page-size="size"
@@ -107,8 +107,8 @@
 export default {
     data(){
         return{
-            exampleList:null,
-            exampleList_bk:'',
+            exampleList:[],
+            exampleList_bk:[],
             detailsData:{}, //
             showDetails:false,
             searchName:'',
@@ -215,6 +215,7 @@ export default {
                     this.loading = false;
                     if(res.data.success){
                         this.exampleList = [res.data.example];
+                        this.exampleList_bk = []
 
                     }else{
                         console.log(res.data)
@@ -319,6 +320,11 @@ export default {
                     }
                 }
             }
+            .btn-all {
+                flex:0 0 12.5%;
+                margin-right:18px;
+                padding-right:3px;
+            }
         }
         .types-box {
             display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
@@ -358,7 +364,7 @@ export default {
             }
         }
         .type.all {
-            width:128px;
+            width:100%;
         }
     }
     //名人列表
@@ -454,6 +460,9 @@ export default {
             &>div {
                 flex:0 0 25% !important;
             }
+        }
+        .search-bar .btn-all {
+            flex:0 0 25% !important;
         }
     }
     // 分页

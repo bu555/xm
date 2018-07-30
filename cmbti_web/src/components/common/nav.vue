@@ -32,10 +32,10 @@
                     <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
                 </router-link>
                 <router-link to="/my">
-                    <div  v-if="$store.state.userInfo._id" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
+                    <div  v-if="$store.state.userInfo" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
                 </router-link>
                 <div class="items user-ctrl">
-                  <div v-if="$store.state.userInfo._id" class="not-login">
+                  <div v-if="$store.state.userInfo" class="not-login">
                       <router-link to="/my">
                         <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
                       </router-link>
@@ -86,37 +86,16 @@ export default {
   components: {
   },
   watch: {
-    "$store.state.loginOut":function(){
-        if(this.$store.state.loginOut){
-          this.exit()
-          this.$store.state.loginOut = false
-        }
-
-    }
   },
   methods: {
     handleCommand(command){
       if(command==='exit'){
-         this.exit()
+         this.$store.state.loginOut = true
       }else if(command==='account'){
         this.$router.push({
           path:'/my'
         })
       }
-    },
-    exit(){
-        this.$store.commit('setAccountInfo',{})
-        localStorage.setItem('USER','')
-        this.$store.commit('setUserInfo',{})
-        if(/^\/my/.test(this.$route.path)){
-           this.$router.push({
-             path:'/forum?category=all&page=1'
-           })
-        }
-        this.$message({
-            message: '你已退出！',
-            type: 'info'
-        });
     }
 
   },
@@ -124,7 +103,6 @@ export default {
     
   },
   created(){
-     console.log(this.$router);
   }
 }
 </script>

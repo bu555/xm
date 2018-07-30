@@ -7,13 +7,18 @@
         <div class="m-info">
             <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
             <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px">{{userInfo.profile?userInfo.profile:''}}</div>
-            <div style="padding-top:4px;">
-                <el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
+            <div class="follow-ctrl" style="padding-top:4px;">
+                <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
+                <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
+                    <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
+                </el-button>-->
+                <span class="c1" v-if="!userInfo.isFollow&&!loading1" @click="followUser('1')"><i class="el-icon-plus"></i> 关注Ta</span>
+                <span class="c2" v-if="userInfo.isFollow&&!loading1" @click="followUser('0')">已关注</span>
+                <span class="c3" v-if="loading1"><i class="el-icon-loading"></i></span>
+                <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
                 <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else> 
                     <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
-                    <!--<span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
-                    <span>取消关注</span> -->
-                </el-button>
+                </el-button>-->
                 
             </div>
         </div>
@@ -49,6 +54,7 @@ export default {
     data(){
         return {
             loading:false,
+            loading1:false,
             uid:'',
             userInfo:{},
             typeActive:'info',
@@ -78,12 +84,12 @@ export default {
             })
         },
         followUser(status){
-            this.loading = true
+            this.loading1 = true
             this.$axios.followUser({
                 uuid:this.uid,  //关注的用户id
                 status:status   // 1关注，0取消关注
             }).then(res=>{
-                this.loading = false
+                this.loading1 = false
                 if(res.data.success){
                     if(res.data.data==1){
                         this.userInfo.isFollow = true
@@ -92,7 +98,7 @@ export default {
                     }
                 }
             }).catch(err=>{
-                this.loading = false
+                this.loading1 = false
             })
         },
     },
@@ -171,6 +177,27 @@ export default {
             &>div:last-child {
             }
             &>div:first-child {
+            }
+            .follow-ctrl {
+                font-size:14px;
+                &>span {
+                    text-align:center;
+                    display:inline-block;
+                    width:78px;
+                    height:30px;
+                    line-height:30px;
+                    border-radius:3px;
+                    cursor: pointer;
+                    background-color: #eee;
+                }
+                &>span.c1 {
+                    background-color: #409eff;
+                    color:#fff;
+                }
+                &>span.c2 {
+                    background-color: #acacac;
+                    color:#fff;
+                }
             }
         }
     }

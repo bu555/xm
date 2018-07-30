@@ -32,6 +32,14 @@
               <span style="float: left">{{item.name}}</span>
           </el-option>
         </el-select>
+        <el-select filterable placeholder="城市" style="width:100%"  v-else>
+          <el-option
+          v-for="(item,i) in 1"
+          :key="i"
+          :label="''"
+          :value="'中国'">
+          </el-option>
+        </el-select>
 
       </el-form-item>
       <el-form-item label="性别">
@@ -87,11 +95,11 @@ export default {
       },
       "infoForm.province":function(){
           if(this.infoForm.province){
-              this.provinceList.forEach((v,i)=>{
-                  if(v.name===this.infoForm.province){
-                      this.getCities(v.code)
-                  }
-              })
+                this.provinceList.forEach((v,i)=>{
+                    if(v.name===this.infoForm.province){
+                        this.getCities(v.code)
+                    }
+                })
           }
       }
     },
@@ -121,16 +129,18 @@ export default {
                 this.loading = false
                 if(res.data.success){
                     this.cityList = res.data.data
+                    this.infoForm.city = this.cityList[0].name
                 }
             }).catch(err=>{
                 this.loading = false
             })
         },
-        getProvinces(){
+        getProvinces(callback){
             this.$axios.getProvinces({}).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     this.provinceList = res.data.data
+                    callback&&callback()
                 }
             }).catch(err=>{
                 this.loading = false
@@ -142,9 +152,10 @@ export default {
         }
     },
     created(){
-      this.init()
       // this.getCities()
-      this.getProvinces()
+      this.getProvinces(()=>{
+            this.init()
+      })
     }
 }
 </script>

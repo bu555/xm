@@ -3,12 +3,11 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const state = {
-    userInfo:{},
+    userInfo:null,
     //通知使用模态框登录
-    modalLogin:false,
-    modalLoginSuccess:false,
-    loginOut:false,
-    refUser:false,
+    modalLogin:false, //显示模态框登录
+    loginOut:false, //通知退出登录
+    refUser:false, //通知刷新用户信息
     refCurrent:false,
     meta:{},
 } 
@@ -19,12 +18,6 @@ const mutations = {
     },
     setModalLogin(state,value){
         state.modalLogin = value;
-    },
-    setModalLoginSuccess(state,value){
-        state.modalLoginSuccess = value;
-    },
-    setAccountInfo(state,obj){
-        state.accountInfo = obj;
     },
     setMeta(state,value){
         state.meta = value;
