@@ -84,8 +84,9 @@
                     </div>
                 </div>
                 <div class="f-chart">
-                    <div class="chart-tit">{{mbtiRes.type}} 功能</div>
-                    <div class="f-f txt-center">
+                    <!-- <div class="chart-tit">{{mbtiRes.type}} 功能</div> -->
+                    <funcChart type="entj"></funcChart>
+                    <!-- <div class="f-f txt-center">
                         <div class="f1">{{mbtiRes.f[0]}}
                             <div class="f2">{{mbtiRes.f[1]}}
                                 <div class="f3">{{mbtiRes.f[2]}}
@@ -101,7 +102,7 @@
                                 <p>劣等功能：{{mbtiRes.f[3].substr(0,2)}}（{{mbtiRes.f_ch[3]}} {{mbtiRes.f_en[3]}}）</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -133,6 +134,7 @@
 </template>
 <script>
 import mbtiRes from './r_mbti'
+import funcChart from '../common/func_chart'
 export default {
     data(){
         return {
@@ -140,6 +142,9 @@ export default {
             Res:'',
             type:''
         }
+    },
+    components:{
+        funcChart
     },
     methods:{
         getResult(){
@@ -151,9 +156,6 @@ export default {
                 }
             }).catch(err=>{ })
         }
-
-    },
-    components:{
 
     },
     created(){
