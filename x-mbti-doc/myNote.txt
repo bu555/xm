@@ -41,6 +41,8 @@ lastElementChild/firstElementChild 获取最后/第一子元素
 .appendChild(sDom) 在末尾添加元素 
 .insertBefore(newDom, sDom)/.insertAfter(newDom, sDom) 在子元素前/后插入元素
 .nextElementSibling/.priviousElementSibling 下一个/上一个兄弟元素
+window.pageYOffset
+window.pageXOffset
 网页可见区域宽： document.body.clientWidth
 网页可见区域高： document.body.clientHeight
 网页可见区域宽： document.body.offsetWidth (包括边线的宽)
@@ -49,13 +51,6 @@ lastElementChild/firstElementChild 获取最后/第一子元素
 网页正文全文高： document.body.scrollHeight
 网页被卷去的高： document.body.scrollTop
 网页被卷去的左： document.body.scrollLeft
-
-对应的dom元素的宽高有以下几个常用的：
-
-元素的实际高度：document.getElementById("div").offsetHeight
-元素的实际宽度：document.getElementById("div").offsetWidth
-元素的实际距离左边界的距离：document.getElementById("div").offsetLeft
-元素的实际距离上边界的距离：document.getElementById("div").offsetTop
 
 
 
