@@ -42,6 +42,7 @@ import my from '@/components/my/my'
 import my_home from '@/components/my/my_home'
 import my_info from '@/components/my/my_info'
 import my_mark from '@/components/my/my_mark'
+import my_mark_example from '@/components/my/my_mark_example'
 import my_publish from '@/components/my/my_publish'
 import my_followers from '@/components/my/my_followers'
 import my_following from '@/components/my/my_following'
@@ -118,6 +119,7 @@ const vueRouter = new Router({
         {path:'',component:my_home},
         {path:'info',component:my_info},
         {path:'mark',component:my_mark},
+        {path:'mark_example',component:my_mark_example},
         {path:'publish',component:my_publish},
         {path:'followers',component:my_followers},
         {path:'following',component:my_following},

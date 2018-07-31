@@ -6,8 +6,10 @@ const exampleSchema = new mongoose.Schema({
     info:String,
     img_url:String,
     type: String,
-    total: Number, //参与人数
-    tag: String,
+    total: Number, //参与人数    
+    like:[String],
+    likes:Number,
+    tag: String, //标签
     birth: String,
     conste: String, //星座
     vote: {

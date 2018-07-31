@@ -44,6 +44,9 @@ Vue.prototype.colorFormat = colorFormat;
 
 Vue.config.productionTip = false;
 
+import utill from './assets/utill'
+Vue.prototype.$utill =  utill
+
 Vue.prototype.vueExample = new Vue({
   el: '#app',
   router,

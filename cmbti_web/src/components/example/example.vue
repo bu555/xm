@@ -20,6 +20,7 @@
                     v-model="searchName"
                     @focus="focusHandler($event)"
                     @blur="blurHandler($event)"
+                    @input="inputHandler($event)"
                     @keyup.enter.native="search()"
                     >
                     </el-input>
@@ -45,28 +46,31 @@
         <!--在线数据-->
         <div class="example-list" style="min-height:300px" v-if="exampleList_bk"> 
                 <!--无数据--><!--无数据-->
-                <div v-if="exampleList_bk &&exampleList_bk.length===0" style="padding-top:20px;text-align:center;width:100%">
+                <div v-if="(exampleList_bk &&exampleList_bk.length===0)" style="padding-top:20px;text-align:center;width:100%">
                     <p>暂无数据哦("▔□▔)</p>
                 </div>
                 <!--有数据-->
 
 
 
-                <div v-else class="item" v-for="(v,i) in exampleList_bk" :key="i">
+                <div class="item" v-for="(v,i) in exampleList_bk" :key="i">
                     <!--<router-link :to="'/example/'+v._id">-->
-                    <div class="item-box">
+                    <div class="item-box" style="padding-top:18px">
                         <div class="photo">
                             <img :src="v.imgURL" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
-                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(v)" >添 加</el-button></div>
+                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >添 加</el-button></div>
                     </div>
                     <!--</router-link>-->
                 </div>
         </div>
         <!--数据库的数据-->
-        <div class="example-list" style="min-height:300px" v-if="exampleList.length>0"> 
+        <div class="example-list" style="min-height:300px" v-if="exampleList"> 
+                <div v-if="(exampleList &&exampleList.length===0)" style="padding-top:20px;text-align:center;width:100%">
+                    <p>暂无数据哦("▔□▔)</p>
+                </div>
                 <div class="item" v-for="(v,i) in exampleList" :key="i">
                     <router-link :to="'/example/'+v._id">
                     <div class="item-box">
@@ -80,7 +84,7 @@
                     </div>
                     </router-link>
                 </div>
-                <div class="item" v-if="(exampleList instanceof Array)&&exampleList.length>0&&$route.query.s">查看更多同名名人</div>
+                <!--<div class="item" v-if="(exampleList instanceof Array)&&exampleList.length>0&&$route.query.s">查看更多同名名人</div>-->
 
         </div>
         <!--分页-->
@@ -107,11 +111,12 @@
 export default {
     data(){
         return{
-            exampleList:[],
-            exampleList_bk:[],
+            exampleList:'',
+            exampleList_bk:'',
             detailsData:{}, //
             showDetails:false,
             searchName:'',
+            sName:'',
             // tab导航条内容
             // color:{
             //     'entp':'#2270d7',
@@ -153,6 +158,11 @@ export default {
                 this.$router.push({query:{type:'all'}})
             }
         },
+        inputHandler(){
+            if(!this.searchName){
+                this.$router.push({query:{type:'all'}})
+            }
+        },
         search(){
             if(this.searchName){
                 let search = this.$route.query.s
@@ -178,10 +188,12 @@ export default {
             }).then(res=>{
                 this.loading = false;
                 if(res.data.success){
-                    this.exampleList_bk = false
-                    this.exampleList = false
+                    this.exampleList_bk = ''
+                    this.exampleList = ''
+                    //返回百科数据
                     if(res.data.result.baike){
                         this.exampleList_bk = res.data.result.example
+                            this.sName = res.data.result.sName
                         if(!this.exampleList_bk){
                             this.exampleList_bk = []
                         }
@@ -208,21 +220,29 @@ export default {
 
         },
         //添加人物到名人库
-        addExample(example){
-                if(!example) return;
-                this.loading = true;
-                this.$axios.addExample(example).then(res=>{
-                    this.loading = false;
-                    if(res.data.success){
-                        this.exampleList = [res.data.example];
-                        this.exampleList_bk = []
+        addExample(index){
+                
+                if(this.exampleList_bk || this.exampleList_bk.length>0){
+                    this.loading = true;
+                    this.$axios.addExample({
+                        // 列表数据
+                        baikeList:this.exampleList_bk,
+                        // 当前点击的索引
+                        currentIndex:index,
+                        sName:this.sName
+                    }).then(res=>{
+                        this.loading = false;
+                        if(res.data.success){
+                            this.exampleList = [res.data.example];
+                            this.exampleList_bk = ''
 
-                    }else{
-                        console.log(res.data)
-                    }
-                }).catch(res=>{
-                    this.loading = false;
-                })
+                        }else{
+                            console.log(res.data)
+                        }
+                    }).catch(res=>{
+                        this.loading = false;
+                    })
+                }
 
         },
         //详情跳转

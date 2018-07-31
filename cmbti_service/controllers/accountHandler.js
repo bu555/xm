@@ -29,7 +29,7 @@ class Account {
                 my_article:[], //发表的文章
                 my_comment:[],
                 // 关注de人物
-                atten_example:[], //['eid','eid']
+                likes_example:[], //['eid','eid']
             }).save((err,i)=>{
                 if(!err){
                     resolve(i)
@@ -65,6 +65,24 @@ class Account {
                 }) 
             }else if(options.offset===-1){
                 AccountModel.info.update({uid:options.uid},{$pull:{likes_atricle:options.aid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else {
+                reject('Params "offset" error')
+            }
+        })
+    }
+    // 更新个人喜欢example记录 options:{eid:'',uid:'',offset:1/-1}
+    static clickLikeExampleLog(options={}){
+        return new Promise((resolve,reject)=>{
+            if(options.offset===1){
+                AccountModel.info.update({uid:options.uid},{$push:{likes_example:options.eid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else if(options.offset===-1){
+                AccountModel.info.update({uid:options.uid},{$pull:{likes_example:options.eid}},err=>{
                     if(err) return reject('Update error')
                     resolve('Update success!')
                 }) 

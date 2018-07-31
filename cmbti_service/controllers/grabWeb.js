@@ -74,6 +74,7 @@ class GrabWeb{
                             data = data.filter(function(val){ return val!==null });
                             resolve(data)
                         })
+                        // 不是多义词
                     }else{
 
                             resolve(getData($));
@@ -84,6 +85,14 @@ class GrabWeb{
         })
         return pro;
         function getData($){
+                let d = null
+                let basicInfoName = $('body .basicInfo-item.name').text().replace(/[\s\r\n]+/g,'') 
+                // 判断是否包含“国籍”，识别是否是人名  中文名国籍民族出生日期毕业院校参加工作时间籍贯学历/学位
+                // if(basicInfoName.indexOf('国籍')==-1 || basicInfoName.indexOf('国籍')==-1){
+                
+                if(!/国籍|谥号|民族/.test(basicInfoName) ){
+                    return d
+                }
                 let name = $('body .lemmaWgt-lemmaTitle-title').children('h1').text()
                 let name1 = $('body .lemmaWgt-lemmaTitle-title').children('h2').text()
                 let info = $('body .lemma-summary div').eq(0).text();
@@ -101,7 +110,6 @@ class GrabWeb{
                 }else if($('body .album-wrap img').attr('src')){
                     imgURL = $('body .album-wrap img').attr('src');
                 }
-                let d = null
                 if(imgURL && info && name){
                     d = {
                             imgURL:imgURL,
@@ -116,81 +124,9 @@ class GrabWeb{
                 return d
         }
     }
-    //爬取百度百科人物信息
-    static https1(name,eid){
-        let url = 'https://baike.baidu.com/item/'+encodeURI(name);
-        let pro = new Promise((resolve,reject)=>{
-            request.get({url:url,encoding:null},function(err,response,body){
-                if(!err&&response.statusCode == 200){
-                    // var buf =  iconv.decode(body, 'utf-8');  
-                    var $=cheerio.load(body);  
-                    // console.log($('body h1').text());  //名字
-                    // console.log($('body .summary-pic img').attr('src')); //图片路径
-                    // console.log($('body .lemma-summary div').eq(0).text()); //个人简介
-
-                    // 多义词
-                    if($('body .polysemantList-wrapper')){
-                        let lis = $('body .polysemantList-wrapper li')
-                        
-                        return resolve({
-                            data:{
-                                polysemantList:true,
-                                html:$('body .polysemantList-wrapper').html()
-                            }
-                        });
-                    }
-                    let info = $('body .lemma-summary div').eq(0).text();
-                    if(info){
-                        if(info.length<150){
-                            info += $('body .lemma-summary div').eq(1).text();
-                            info = info.substr(0,150)+".....";
-                        }else{
-                            info += "....."
-                        }
-                    }
-                    let imgURL = '';
-                    if($('body .summary-pic img').attr('src')){
-                        imgURL = $('body .summary-pic img').attr('src');
-                    }else if($('body .album-wrap img').attr('src')){
-                        imgURL = $('body .album-wrap img').attr('src');
-                    }
-                    // let imgURL = $('body .album-wrap img').attr('src');
-                    GrabWeb.saveImage({
-                        url:imgURL
-                    }).then(url=>{
-                        resolve({
-                            data:{
-                                imgURL:url,
-                                info:info,
-                                name:name,
-                                tag: '',
-                                birth: '',
-                                conste: '', //星座
-                            }
-                        });
-                    })
-                    // console.log(__dirname); //当前文件的目录名
-                    // console.log(path.join(__dirname,'../','public')); //当前文件的目录名
-                    // GrabWeb.saveImage($('body .summary-pic img').attr('src')); //存入本地
-
-                    // var str = $('body a').text();
-                    // var date =$('.item').eq(2).children().eq(3).children('a').text()+'\n';
-                    // var buff1=new Buffer(str+date+"\n"); 
-                    // //写入文件
-                    // fs.appendFile(path.join(__dirname,'./txt'),buff1,function(){  
-                    //     console.log('写入完毕2');  
-                    // }); 
-                }else{
-                    reject('爬取数据出错');
-                }
-            });  
-        })
-        return pro;
-    }
     //保存图片 {url:''}
     static saveImage(options){
         // request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
-
         // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
         return new Promise((resolve,reject)=>{
             var hash = myUtill.randomString(1);
@@ -213,10 +149,10 @@ class GrabWeb{
                     });
                 }
             })
-
+            
             function save(){
                 var writeStream=fs.createWriteStream(path.join(__dirname,'../localImgs/'+dirName+'/'+time+hash+'.jpg'),{autoClose:true})
-                request(options.url).pipe(writeStream);
+                request(options.imgURL).pipe(writeStream);
                 writeStream.on('finish',function(){
                     resolve('/'+dirName+'/'+time+hash+'.jpg')
                 })

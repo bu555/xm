@@ -16,15 +16,19 @@
             <el-form ref="form" :model="form">
                 <div class="f-items">
                     <label for="">标题：</label>
-                    <el-input v-model="form.title" spellcheck="false"></el-input>
+                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> </br>
+                    <!--<div class="err-message" >*文章標題要求為10~96字節</div>-->
                 </div>
+                <div class="err-message" v-if="ver.title==='empty'">*请输入标题</div>
+                <div class="err-message" v-if="ver.title==='notPass'">*标题字数需在2-120个之间</div>
                 <div class="f-items">
                     <label for="">分类：</label>
-                    <el-radio-group v-model="form.category">
+                    <el-radio-group v-model="form.category" @change="verify('category')">
                         <el-radio label="share">分享</el-radio>
                         <el-radio label="ask">问答</el-radio>
                     </el-radio-group>
                 </div>
+                <div class="err-message two" v-if="ver.category==='empty'">*请选择分类</div>
                 <div class="f-items ed">
                     <label for="" style="vertical-align: middle">内容：</label>
                     <!--<el-input v-model="form.title"></el-input>-->
@@ -35,6 +39,7 @@
                 
                     </div>
                 </div>
+                <div class="err-message" v-if="ver.content==='empty'">*请输入内容</div>
                 <div class="f-items" style="padding-top:20px">
                     <label for=""></label>
                     <el-form-item>
@@ -59,7 +64,14 @@ export default {
             },
             loading:false,
             aid:'',
-            editAid:''
+            editAid:'',
+            // 输入验证
+            ver:{
+                title:'',
+                category:'',
+                content:'',
+                all:''
+            },
         }
     },
     components: {
@@ -70,15 +82,54 @@ export default {
     mounted(){
     },
     methods:{  
+        verify(type){
+            if(type==='title' || type==='all'){
+                this.form.title = this.$utill.strTrim(this.form.title)
+                if(!this.form.title){
+                    this.ver.title = 'empty'
+                }else{
+                    let len = this.form.title.length
+                    if(len<2 || len>120){
+                        this.ver.title = 'notPass'
+                    }else{
+                        this.ver.title = 'pass'
+                    }
+                }
+            }
+            if(type==='category' || type==='all'){
+                if(!this.form.category){
+                    this.ver.category = 'empty'
+                }else{
+                    this.ver.category = 'pass'
+                }
+            }
+            if(type==='content' || type==='all'){
+                this.form.content = this.form.content.trim()
+                let len = this.form.content.length
+                if( !(this.form.content.replace(/<\/?.+?\/?>/g,'').trim()) ){
+                    this.ver.content = 'empty'
+                }else{
+                    this.ver.content = 'pass'
+                }
+            }
+            if(this.ver.title==='pass' && this.ver.content==='pass' && this.ver.category==='pass'){
+                this.ver.all='pass'
+            }else{
+                this.ver.all='notPass'
+            }
+
+        },
         submitArticle(){
             // console.log(this.form.content)
             // return
-            if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
-                return  this.$message({
-                            message: '内容输入不完整！',
-                            type: 'warning'
-                        });
-            }
+            this.verify('all')
+            if(!this.ver.all) return
+            // if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
+            //     return  this.$message({
+            //                 message: '内容输入不完整！',
+            //                 type: 'warning'
+            //             });
+            // }
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
@@ -121,6 +172,7 @@ export default {
         },
         getContent(c){
             this.form.content = c
+            this.verify('content')
         }
 
     },
@@ -208,6 +260,20 @@ export default {
     a:hover {
         text-decoration:none;
     }
+    .err-message {
+      display:block;
+      padding-top:4px;
+      color: red;
+      line-height: 14px;;
+      font-size: 13px;
+      margin-bottom:0px;
+      padding-left:65px;
+    }
+    .err-message.two {
+      position: relative;
+      top:-7px;
+      margin-bottom:5px;
+    }
     @media screen and (max-width:768px){
         flex-wrap:wrap;
         .main-box {
@@ -217,6 +283,7 @@ export default {
             flex:0 0 100%;
             margin-left:0;
         }
+
     }
     @media screen and (max-width:525px) {
         .main-box {
@@ -238,6 +305,13 @@ export default {
                     }
                 }
             }
+        }
+        .err-message {
+            padding-left:0px;
+        }
+        .err-message.two {
+        top:0px;
+        margin-bottom:0px;
         }
     }
 }

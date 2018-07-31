@@ -252,7 +252,7 @@ const getMyTest = (req,res)=>{
             }
       })()
 }
-// 獲取my测试结果(多条)
+// 獲取my投票记录
 const getMyVote = (req,res)=>{
         let options = req.query || {}
         options.uid = req.session.user._id
@@ -288,6 +288,56 @@ const getMyVote = (req,res)=>{
 
             }catch(err){
                 logger.error(err);
+                console.log(err);
+                return res.json({
+                    success: false,
+                    message: 'catch error' 
+                })
+            }
+      })()
+}
+// 獲取my关注人物
+const getMyMarkExample = (req,res)=>{
+        let options = req.query || {}
+        options.uid = req.session.user._id
+        console.log(options);
+      if(!options.uid || !(/^[1-9]+\d*$/.test(options.size)) || !(/^[1-9]+\d*$/.test(options.page)) ){
+          return res.json({
+              success:false,
+              message:'Params Error'
+          })
+      }
+      (async ()=>{
+          try{
+                let account = await Account.getUserInfoById(options)
+                let proArr = []
+                let accountList = JSON.parse(JSON.stringify( account.likes_example.slice( (options.page-1)*options.size,options.page*options.size ) ))
+                // let accountList = JSON.parse(JSON.stringify(account.vote_example))
+                accountList.forEach((v,i)=>{
+                    proArr.push(Example.getExampleById({eid:v}))
+                })
+                let itemList = proArr.length>0? await Promise.all(proArr) : []
+                for(let i=0;i<accountList.length;i++){
+                    for(let j=0;j<itemList.length;j++){
+                        if(itemList[j]._id==accountList[i]){
+                            accountList[i] = {
+                                eid:accountList[i]
+                            }
+                            accountList[i].name = itemList[j].name
+                            accountList[i].name1 = itemList[j].name1?itemList[j].name1:''
+                            accountList[i].type = itemList[j].type?itemList[j].type:''
+                        }
+                    }
+                }
+
+                res.json({
+                    success: true,
+                    data:accountList
+                })
+
+            }catch(err){
+                logger.error(err);
+                console.log(err);
                 return res.json({
                     success: false,
                     message: 'catch error' 
@@ -503,6 +553,7 @@ router.post('/followUser',checkLogin,followUser);
 router.get('/getUserInfoShow',getUserInfoShow);
 router.get('/getMyTest',checkLogin,getMyTest);
 router.get('/getMyVote',checkLogin,getMyVote);
+router.get('/getMyMarkExample',checkLogin,getMyMarkExample);
 router.get('/getMyArticle',checkLogin,getMyArticle);
 router.get('/getMyLikes',checkLogin,getMyLikes);
 router.get('/getMyFollowing',checkLogin,getMyFollowing);
