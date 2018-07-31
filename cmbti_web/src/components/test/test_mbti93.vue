@@ -33,7 +33,7 @@
                     <p>本次测试共 93 题`</p>
                 </div>
             </div> 
-            <div class="t-line">
+            <div class="t-line" ref="tLine">
                 <span>以下进入测试</span>
             </div>
             <div class="questions">
@@ -49,7 +49,7 @@
                 <el-button type="primary" round @click="submitTest()">提 交</el-button>
             </div>
 
-            <div class="m-progress" v-if="count>0" @click="submitTest(true)">
+            <div class="m-progress" v-if="count>0 && showProgress" @click="submitTest(true)">
                 <div class="p-inner" :style="'width:'+(count/total*100)+'%'"></div>
                 <div class="p-prop">{{count}}/{{total}}</div>
             </div>
@@ -66,7 +66,8 @@ export default {
                 e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0
             },
             count:0,
-            total:0
+            total:0,
+            showProgress:false
         }
     },
     methods:{
@@ -106,7 +107,6 @@ export default {
                 res:!b?this.res : {e:5,i:6,s:7,n:4,t:8,f:9,j:9,p:2}
             }).then(res=>{
                 if(res.data.success){
-                    console.log(res);
                     localStorage.setItem('testRes',JSON.stringify(res.data.data))
                     this.$router.push({
                         path:'/test/r/'+res.data.data.tid
@@ -114,9 +114,22 @@ export default {
                 }
             }).catch(err=>{ })
 
+        },
+        listenScroll(){
+            let _this = this
+            window.addEventListener('scroll',function(e){
+                if(window.pageYOffset>455){
+                    _this.showProgress = true
+                }else{
+                    _this.showProgress = false
+                }
+            })
         }
 
 
+    },
+    mounted(){
+        this.listenScroll()
     },
     created(){
 
@@ -125,8 +138,6 @@ export default {
         
 
     },
-    components:{
-    }
     
 };
 </script>
@@ -208,6 +219,7 @@ export default {
         border-radius:3px;
         overflow: hidden;
         background: #f2f2f2;
+        // border:1px solid #a2dc28;
         .p-inner {
             height:20px;
             width:1%;                
@@ -220,6 +232,9 @@ export default {
             transform:translateX(-50%);
             font-size:15px;
         }
+    }
+    .el-radio {
+        margin-bottom: 5px;
     }
     @media screen and (max-width:768px) {
         .m-progress {
