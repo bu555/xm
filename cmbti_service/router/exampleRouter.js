@@ -13,34 +13,78 @@ var xss = require('xss');
 var logger = require('log4js').getLogger('logError');
 const GrabWeb = require('../controllers/grabWeb')
 
+// 添加example {bakeList:[],currentIndex:'',sName:''}
 const addExample = (req,res)=>{
     let options = req.body || {};
-    if(!options.name || !options.imgURL || !options.info ){
-        return json({
+    console.log(options);
+    console.log(2,options.baikeList);
+    if(!options.baikeList || !(options.baikeList instanceof Array) || options.baikeList.length<1 || !options.sName || (!options.currentIndex && options.currentIndex!=0 ) ){
+        return res.json({
             success: false,
             message: '参数错误' 
         })
     }
-    // 创建example
-    Example.createExample(options).then(example=>{
-        res.json({
-            success:true,
-            message:'success',
-            example:example
-        })
-    }).catch(err=>{
-          logger.error(err);
+    // console.log(3,options.baikeList);
+    // (options.baikeList).forEach((v,i)=>{
+    //     console.log('vvv',v);
+    //     if(!v.name || !v.imgURL || !v.info ){
+    //         return res.json({
+    //             success: false,
+    //             message: '参数错误' 
+    //         })
+    //     }
+    // })
+
+    for(let i=0;i<options.baikeList.length;i++){
+        let v = options.baikeList[i]
+        if(!v.name || !v.imgURL || !v.info ){
+            return res.json({
+                success: false,
+                message: '参数错误' 
+            })
+        }
+    }
+
+    (async ()=>{
+
+        try{
+            let currentExample
+            for(let i=0;i<options.baikeList.length;i++){
+                let _option = JSON.parse(JSON.stringify(options.baikeList[i]))
+                _option.sName = options.sName
+                let e = await Example.createExample( _option )
+                if(options.currentIndex==i){
+                    currentExample = e
+                }
+                // .then(example=>{
+                //     res.json({
+                //         success:true,
+                //         message:'success',
+                //         example:example
+                //     })
+                // })
+            }
+            res.json({
+                success:true,
+                message:'success',
+                example:currentExample
+            })
+        }catch(err){
+            logger.error(err);
+            console.log(err);
             res.json({
                 success:false,
                 message:err.indexOf('exist')>0 ? err:'name is exist'
             })
-      })
+        }
+    })()
     
 }
 const searchExample = (req,res,next)=>{
     let options = req.body.params
     Example.searchExample(options).then(example=>{
             // 分页处理
+            options.name = myUtill.strTrim(options.name)
             if(!(example instanceof Array)){
                 example = [example]
             }
@@ -60,7 +104,8 @@ const searchExample = (req,res,next)=>{
                         success:true,
                         message:'ok',
                         result:{
-                            example:(data instanceof Array)?data:[data],
+                            sName:options.name, //搜索的名字
+                            example:(data instanceof Array)?data:(data?[data]:[]),
                             baike:true
                         }
                     })
@@ -105,7 +150,7 @@ const goVote = (req,res,next)=>{
                 res.json({
                     success:true,
                     message:'success',
-                    example:example
+                    // example:example
                 })
             })
       }).catch(err=>{
@@ -279,21 +324,66 @@ const getExampleById = (req,res,next)=>{
               message:'参数格式错误'
           })
     }
-    Example.getExampleById({eid:eid,uid:uid}).then(example=>{
-            if(example){
-                res.json({
-                    success:true,
-                    message:'ok',
-                    example:example,
-                })
-            }
-    }).catch(err=>{
+
+
+    (async ()=>{
+        try{
+            Example.getExampleById({eid:eid,uid:uid}).then(example=>{
+                    if(example){
+                        res.json({
+                            success:true,
+                            message:'ok',
+                            example:example,
+                        })
+                    }
+            })
+
+        }catch(err){
             logger.error(err);
             res.json({
                 success:false,
                 message:'error'
             })
-      })
+        }
+    })()
+
+
+
+}
+// 点击喜欢(收藏)的人物  input : {uid:'',eid:''}
+const clickExampleLike = (req,res)=>{
+    let options = req.body || {}
+    options.uid = req.session.user._id;
+    // 参数验证
+    if(!options.uid || !options.eid ){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+    (async ()=>{
+        try{
+            let r = await Example.clickExampleLike(options)
+            // 添加结果到账户记录
+            // offset===1  aid添加到account likes_atricle数组中 offset===-1 从account likes_atricle数组中移除aid
+            options.offset = r.count  //返回1 或-1
+            let updated = await Account.clickLikeExampleLog(options)
+            res.json({
+                success: true,
+                message: 'Success',
+                result:r
+            })
+
+        }catch(err){
+            logger.error(err);
+            return res.json({
+                success: false,
+                message: 'catch error' 
+            })
+        }
+
+
+    })()
 }
 
 router.post('/addExample',addExample);
@@ -303,5 +393,6 @@ router.post('/addComment',checkLogin,addComment);
 router.get('/getExampleById',getExampleById);
 router.post('/getComment',getComment);
 router.post('/clickCommentZan',checkLogin,clickCommentZan);
+router.post('/clickExampleLike',checkLogin,clickExampleLike);
 
 module.exports = router

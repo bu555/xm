@@ -9,7 +9,8 @@
             <h3 class="tit">{{mbtiRes.type}}<span> ({{mbtiRes.type_ch}})</span></h3>
             <p class="sub-tit">—— {{mbtiRes.subTitle}}</p>
             <div class="test-msg">
-                <span>报告接收者：user00mmm</br>测试日期：2002-2-2</span>
+                <!-- <span>报告接收者：user00mmm</br> -->
+                测试日期：{{$moment(time).format('YYYY-MM-DD')}}</span>
             </div>
         </div>
         <div class="line2"></div>
@@ -19,73 +20,11 @@
                 <h5>MBTI倾向与功能</h5>
             <div class="chart">
                 <div class="m-chart">
-                    <div class="chart-tit">MBTI 倾向图</div>
-                    <div class="mids">
-                        <div class="mid">
-                            <div class="type">E 外倾</div>
-                            <div class="prog l">
-                                <div class="e" :style="'width:'+ (Res.e>Res.i? Res.e/(Res.e+Res.i)*100+'%': '0%')">
-                                    <div class="val">{{Res.e>Res.i? (Res.e/(Res.e+Res.i)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="prog r">
-                                <div class="i" :style="'width:'+ (Res.e<Res.i? Res.i/(Res.e+Res.i)*100+'%': '0%')">
-                                    <div class="val">{{Res.i>Res.e? (Res.i/(Res.e+Res.i)*100).toString().substr(0,4)+'%':''}}</div>
-                                </div>
-                            </div>
-                            <div class="type">I 内倾</div>
-                        </div>
-                        <div class="mid">
-                            <div class="type">S 感觉</div>
-                            <div class="prog l">
-                                <div class="s" :style="'width:'+ (Res.s>Res.n? Res.s/(Res.s+Res.n)*100+'%': '0%')">
-                                    <div class="val">{{Res.s>Res.n? (Res.s/(Res.s+Res.n)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="prog r">
-                                <div class="n" :style="'width:'+ (Res.n>Res.s? Res.n/(Res.s+Res.n)*100+'%': '0%')">
-                                    <div class="val">{{Res.n>Res.s? (Res.n/(Res.s+Res.n)*100).toString().substr(0,4) +'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="type">N 直觉</div>
-                        </div>
-                        <div class="mid">
-                            <div class="type">T 思考</div>
-                            <div class="prog l">
-                                <div class="t" :style="'width:'+ (Res.t>Res.f? Res.t/(Res.t+Res.f)*100+'%': '0%')">
-                                    <div class="val">{{Res.t>Res.f? (Res.t/(Res.t+Res.f)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="prog r">
-                                <div class="f" :style="'width:'+ (Res.f>Res.t? Res.f/(Res.t+Res.f)*100+'%': '0%')">
-                                    <div class="val">{{Res.f>Res.t? (Res.f/(Res.t+Res.f)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="type">F 情感</div>
-                        </div>
-                        <div class="mid">
-                            <div class="type">J 判断</div>
-                            <div class="prog l">
-                                <div class="j" :style="'width:'+ (Res.j>Res.p? Res.j/(Res.j+Res.p)*100+'%': '0%')">
-                                    <div class="val">{{Res.j>Res.p? (Res.j/(Res.j+Res.p)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="prog r">
-                                <div class="p" :style="'width:'+ (Res.p>Res.j? Res.p/(Res.j+Res.p)*100+'%': '0%')">
-                                    <div class="val">{{Res.p>Res.j? (Res.p/(Res.j+Res.p)*100).toString().substr(0,4)+'%': ''}}</div>
-                                </div>
-                            </div>
-                            <div class="type">P 感知</div>
-                        </div>
-                        <div class="info">
-                            <span>类 型：{{mbtiRes.type}}</span></br>
-                            <span>倾向度：55%</span>
-                        </div>
-                    </div>
+                    <mbtiChart :Res="Res" :type="type"></mbtiChart>
                 </div>
                 <div class="f-chart">
                     <!-- <div class="chart-tit">{{mbtiRes.type}} 功能</div> -->
-                    <funcChart type="entj"></funcChart>
+                    <funcChart type="intj"></funcChart>
                     <!-- <div class="f-f txt-center">
                         <div class="f1">{{mbtiRes.f[0]}}
                             <div class="f2">{{mbtiRes.f[1]}}
@@ -135,24 +74,28 @@
 <script>
 import mbtiRes from './r_mbti'
 import funcChart from '../common/func_chart'
+import mbtiChart from '../common/mbti_chart'
 export default {
     data(){
         return {
             mbtiRes:'',
             Res:'',
-            type:''
+            type:'',
+            time:''
         }
     },
     components:{
-        funcChart
+        funcChart,mbtiChart
     },
     methods:{
         getResult(){
             this.$axios.getTestById({tid:this.tid}).then(res=>{
                 if(res.data.success){
-                    this.Res = res.data.data.res
-                    this.type = res.data.data.type
-                    this.mbtiRes = mbtiRes['intj']
+                    let d = res.data.data
+                    this.Res = d.res
+                    this.type = d.type
+                    this.time = d.c_time
+                    this.mbtiRes = mbtiRes['enfp']
                 }
             }).catch(err=>{ })
         }
@@ -160,16 +103,8 @@ export default {
     },
     created(){
         this.tid = this.$route.path.split('/')[3]
-        let r = localStorage.getItem('testRes')
-        if(r){
-            r = JSON.parse(r)
-            this.Res = r.res;
-            this.mbtiRes = mbtiRes['intj']
-            localStorage.setItem('testRes','')
-        }else{
-            // 请求数据
-            this.getResult()
-        }
+        // 请求数据
+        this.getResult()
     },
     
 };
@@ -204,21 +139,28 @@ export default {
             margin:5px 0 20px;
         }
         .header {
-            h3 {
-                height:25px;
-                line-height: 25px;;
+            h3.tit {
+                margin-bottom:3px;
+                font-size:24px;
+                font-weight:700;
+                color:#111;
                 span {
-                    height:25px;
-                    font-size:18px;
+                    font-weight:400;
+                    font-size:.8em;
+                    // height:25px;
+                    // font-size:18px;
                 }
+                
             }
             .sub-tit {
                 font-size:15px;
+                color:#444;
+                margin-bottom:18px;
             }
             .test-msg {
                 text-align:right;
                 color:#777;
-                font-size:12px;
+                font-size:14px;
                 span{
                     display: inline-block;
                     text-align:left;
@@ -231,8 +173,9 @@ export default {
                 // padding:5px;
                 padding-bottom:8px;
                 h5 {
-                    font-size:16px;
+                    font-size:17px;
                     font-weight:700;
+                    margin-bottom:8px;
                 }
                 p {
                     // padding-left:5px;
@@ -243,7 +186,7 @@ export default {
         }
         .chart {
             display:flex;
-            justify-content:center;
+            justify-content:space-between;
             .chart-tit {
                 font-size:15px;
                 text-align:center;
@@ -256,145 +199,13 @@ export default {
                 left:0;
             }
             .m-chart {
-                position: relative;
-                flex:0 0 50%;
-                padding:0px 5px;
-                margin-bottom:5px;
-                .mids {
-                    background-color: #fff;
-                    height:275px;
-                    margin:0 auto;
-                    // max-width:320px;
-                    padding-top:45px;
-                    border:1px solid #f0f5f5;
-                    border-radius:2px;
-                    // box-shadow:0 0 22px #eee inset;
-                    .info {
-                        width:158px;
-                        margin:0 auto;
-                        padding:7px 0 0 33px;
-                        font-weight:700;
-                    }
-                }
-                .mid {
-                    text-align:left;
-                    box-sizing: border-box;
-                    display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-                    justify-content: center;
-                    margin:12px 0;
-                    font-size:13px;
-                    .type {
-                        // flex-basis:0;
-                        width:50px;
-                        text-align: center;
-                        // background-color: pink;
-                    }
-                    .prog.l {
-                        border-right:none;
-                    }
-                    .prog {
-                        // flex-basis:0;
-                        width:80px;
-                        border:1px solid #80c342;
-                        padding:1px;
-                        &>div {
-                            height:15px;
-                            background-color: #80c342;
-                            // width:33%;
-                            .val {
-                                padding:0 1px;
-                                font-size:12px;
-                            }
-                        }
-                        .e,.s,.t,.j {
-                            float:right;
-                        }
-                        .i,.n,.f,.p {
-                            float:left;
-                            .val {
-                                float:right;
-                            }
-                        }
-                    }
-                }
-
+                flex:0 0 49%;
             }
+
             .f-chart {
                 // min-width:300px;
-                flex:0 0 50%;
-                padding:0px 5px;
-                position: relative;
-                .f-f{
-                margin:0 auto;
-                padding-top:41px;
-                // max-width:320px;
-                height:275px;
-                background: #fff;
-                // padding-top:12px;
-                border:1px solid #f0f5f5;
-                border-radius:2px;
-                // box-shadow:0 0 22px #eee inset;
-                    .f1 {
-                        color:#fff;
-                        border-radius:50%;
-                        height:59px;
-                        line-height:60px;
-                        width:155px;
-                        background-color:skyblue;
-                        margin:0 auto;
-                        font-size:15px;
-                        position: relative;;
-                            .f2 {
-                                border-radius:50%;
-                                height:47px;
-                                line-height:47px;
-                                width:118px;
-                                margin:-9px 0 0 -22px;
-                                background-color: #f77;
-                                font-size:14px;
-                            }
-                            .f3 {
-                                border-radius:50%;
-                                height:36px;
-                                line-height:36px;
-                                width:100px;
-                                margin:-13px 0 0 60%;
-                                background-color: blue;
-                                font-size:13px;
-                            }
-                            .f4 {
-                                border-radius:50%;
-                                height:23px;
-                                line-height: 23px;
-                                width:65px;
-                                margin:-6px 0 0 -12%;
-                                background-color: hotpink;
-                                font-size:12px;
-                                position: relative;
-                                span{
-                                    position: absolute;
-                                    left:2px;
-                                    top:1px;
-                                    width:100px;
-                                    color:#eee;
-                                }
+                flex:0 0 49%;
 
-                            }
-                        }
-                    .info{
-                        padding-top:90px;
-                        text-align:center;
-                        &>div {
-                            display:inline-block;
-                            text-align:left;
-                            p{
-                                font-size:14px;
-                                margin-bottom:-2px;
-                            }
-                        }
-                    }
-
-                }
             }
         }
         .details {

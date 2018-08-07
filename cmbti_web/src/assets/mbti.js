@@ -38,10 +38,10 @@ export default {
         "esfp":["Se", "Fi", "Te", "Ni"],
     },
     color:{
-        "N":"#fde428",
-        "S":"#13bc59",
-        "F":"#db0626",
-        "T":"#05cdff"
+        "N":"#fff07c",
+        "S":"#27cc6b",
+        "F":"#ea4c63",
+        "T":"#4dc9e8"
     }
     
 }

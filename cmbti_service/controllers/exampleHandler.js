@@ -8,7 +8,7 @@ class Example{
     constructor(){
 
     }
-    // 创建名人例 {name:'',name1:'',url:'baikeURL',info:''}
+    // 创建名人例 {name:'',name1:'',url:'baikeURL',info:'',sName:''}
     createExample(options){
         return new Promise((resolve,reject)=>{
             ExampleModel.example.find({name:options.name}).then(example=>{
@@ -22,7 +22,7 @@ class Example{
 
                 }
                 // 保存图片到本地 -> 保存资料
-                GrabWeb.saveImage({url:options.imgURL}).then(imgURL=>{
+                GrabWeb.saveImage({imgURL:options.imgURL}).then(imgURL=>{
                     let vote = {
                             entp:0,
                             intp:0,
@@ -42,7 +42,7 @@ class Example{
                             isfp:0
                         }
                     let exampleAdd = new ExampleModel.example({
-                        name: options.name,
+                        name: options.name + (options.name.indexOf(options.sName)==-1?'（'+options.sName+'）':''),
                         name1: options.name1,
                         type: "****",
                         vote: vote,
@@ -53,6 +53,8 @@ class Example{
                         birth: options.birth || '',
                         conste: options.conste || '', //星座
                         create_time: new Date(),
+                        like:[],
+                        likes:0
                     })
                     exampleAdd.save((err, example) => {
                         if(err) {
@@ -122,11 +124,15 @@ class Example{
                     if(example){
                         example = JSON.parse(JSON.stringify(example))
                         example.isVoted = false
+                        example.isLiked = false
                         if(options.uid){  //已登录
                             // 判断是否透过票
                             example.isVoted = example.vote_log.indexOf(options.uid)>-1?true:false
+                            // 判断是否喜欢
+                            example.isLiked = example.like.indexOf(options.uid)>-1?true:false
                         }
                         delete example.vote_log
+                        delete example.like
                         resolve(example)
                     }
                 }else{
@@ -153,7 +159,7 @@ class Example{
         }
 
     }
-    // params : {eid:string,uid:string,result:'intj'}
+    // 投票params : {eid:string,uid:string,result:'intj'}
     addVote(options){
         return new Promise((resolve,reject)=>{
             ExampleModel.example.findById(options.eid,(err,example)=>{
@@ -180,6 +186,7 @@ class Example{
                         }
                         example.vote[options.result] = example.vote[options.result]+1
                         example.vote_log.push(options.uid)
+                        example.total = example.vote_log.length
                         // type 、vote 、vote_log 验证 一致性（临时）
                         // let tempObj = {}
                         // example.vote_log.forEach((v,i)=>{
@@ -199,7 +206,7 @@ class Example{
             })
         })
     }
-    // params: {eid:'',uid:'',result:'',cid:'回复别人'}
+    // 评论params: {eid:'',uid:'',result:'',cid:'回复别人'}
     addComment(options){
         return new Promise((resolve,reject)=>{
             let cid = myUtill.randomString(7)
@@ -313,6 +320,36 @@ class Example{
                     }
                 }) 
             })
+    }
+    // 点击喜欢examole options:{eid:'',uid:''}
+    clickExampleLike(options){
+        return new Promise((resolve,reject)=>{
+            ExampleModel.example.findOne({_id:options.eid}).then(e=>{
+                if(e){
+                    if(e.like.indexOf(options.uid)===-1){
+                        ExampleModel.example.update({"_id":options.eid},{"$addToSet":{"like":options.uid},"$inc":{"likes":1}},(err,r)=>{
+                            if(err) return reject("The like array $addToSet faild")
+                                resolve({
+                                    info:'example喜欢+1',
+                                    count:1,
+                                })
+                        })
+                    }else{
+                        ExampleModel.example.update({"_id":options.eid},{"$pull":{"like":options.uid},"$inc":{"likes":-1}},(err,r)=>{
+                            if(err) return reject("The like array $pull faild")
+                                resolve({
+                                    info:'example喜欢-1（取消喜欢成功）',
+                                    count:-1,
+                                })
+                        })
+
+                    }
+                }else{
+                    reject('Find aid faild!')
+                }
+            })
+        })
+
     }
 }
 

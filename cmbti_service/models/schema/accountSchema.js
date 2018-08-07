@@ -13,7 +13,7 @@ const infoSchema = new mongoose.Schema({
     // 喜欢文章
     likes_atricle:[String], //['aid','aid']
     // 关注de人物
-    atten_example:[String], //['eid','eid']
+    likes_example:[String], //['eid','eid']
     // 投票记录
     vote_example:[
         {

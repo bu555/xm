@@ -25,10 +25,32 @@ nuxt.js基于vue，我们目前所实现了的功能都是可以实现的，它�
 类似OopsDaily这样必须做SEO的项目，用Nuxtjs做全站SSR、或者SPA+部分SSR应该都是比较合适的。如果一开始兼顾SPA+SSR的需求去组织vue组件，SPA完成之后用Nuxt.js做SSR就是比较简单的（直接根据nuxt规则把组件拼接起来）。
 现有项目如果用nuxt.js做首页和内页的SSR，主要就是重写组件，估计会需要一星期左右的时间。
 
+#base64 
+var reader = new FileReader();
+reader.onload = function (e) {
+    var data = this.result;
+    console.log(data);
+}
+reader.readAsDataURL( this.files[0] );
 
-
-
-
+#DOM常用api
+offsetWidth/offsetHeight 获取元素宽度/高度
+offsetTop/offsetLeft 获取元素至屏幕顶部/左侧距离 
+window.innerHeight 窗口高度
+lastElementChild/firstElementChild 获取最后/第一子元素
+.appendChild(sDom) 在末尾添加元素 
+.insertBefore(newDom, sDom)/.insertAfter(newDom, sDom) 在子元素前/后插入元素
+.nextElementSibling/.priviousElementSibling 下一个/上一个兄弟元素
+window.pageYOffset
+window.pageXOffset
+网页可见区域宽： document.body.clientWidth
+网页可见区域高： document.body.clientHeight
+网页可见区域宽： document.body.offsetWidth (包括边线的宽)
+网页可见区域高： document.body.offsetHeight (包括边线的高)
+网页正文全文宽： document.body.scrollWidth
+网页正文全文高： document.body.scrollHeight
+网页被卷去的高： document.body.scrollTop
+网页被卷去的左： document.body.scrollLeft
 
 
 

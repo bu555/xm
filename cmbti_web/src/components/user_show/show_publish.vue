@@ -24,22 +24,16 @@ export default {
         loading:false,
         data:[],
         myList:'',
-        pageSize:4,
+        size:4,
         page:1,
         currentData:[]
       }
     },
-    props:['userInfo'],
+    props:['userInfo','uid'],
     methods:{
         getArticle(){
-            if(this.myList.length<1) return
-            let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
-            if(aid.length<1) {
-              this.currentData = []  //觸發加載更多隱藏
-              return
-            }
             this.loading = true
-            this.$axios.getArticleInfoAll({aid:aid}).then(res=>{
+            this.$axios.getMyArticle({size:this.size,page:this.page,uid:this.uid}).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))
@@ -49,6 +43,25 @@ export default {
             }).catch(err=>{
                 this.loading = false
             })
+
+
+            // if(this.myList.length<1) return
+            // let aid = this.myList.slice( (this.page-1)*this.pageSize,this.pageSize+(this.page-1)*this.pageSize )
+            // if(aid.length<1) {
+            //   this.currentData = []  //觸發加載更多隱藏
+            //   return
+            // }
+            // this.loading = true
+            // this.$axios.getMyArticle({uid:this.userInfo._id}).then(res=>{
+            //     this.loading = false
+            //     if(res.data.success){
+            //         let d = JSON.parse(JSON.stringify(res.data.data))
+            //         this.data = this.data.concat(d)   //  res.data.data
+            //         this.currentData = res.data.data
+            //     }
+            // }).catch(err=>{
+            //     this.loading = false
+            // })
         },
         loadMore(){
            this.page = this.page+1
@@ -56,7 +69,6 @@ export default {
         }
     },
     created(){
-        this.myList = this.userInfo.my_article
         this.getArticle()
     }
 }

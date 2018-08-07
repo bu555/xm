@@ -29,7 +29,7 @@ class Account {
                 my_article:[], //发表的文章
                 my_comment:[],
                 // 关注de人物
-                atten_example:[], //['eid','eid']
+                likes_example:[], //['eid','eid']
             }).save((err,i)=>{
                 if(!err){
                     resolve(i)
@@ -65,6 +65,24 @@ class Account {
                 }) 
             }else if(options.offset===-1){
                 AccountModel.info.update({uid:options.uid},{$pull:{likes_atricle:options.aid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else {
+                reject('Params "offset" error')
+            }
+        })
+    }
+    // 更新个人喜欢example记录 options:{eid:'',uid:'',offset:1/-1}
+    static clickLikeExampleLog(options={}){
+        return new Promise((resolve,reject)=>{
+            if(options.offset===1){
+                AccountModel.info.update({uid:options.uid},{$push:{likes_example:options.eid}},err=>{
+                    if(err) return reject('Update error')
+                    resolve('Update success!')
+                }) 
+            }else if(options.offset===-1){
+                AccountModel.info.update({uid:options.uid},{$pull:{likes_example:options.eid}},err=>{
                     if(err) return reject('Update error')
                     resolve('Update success!')
                 }) 
@@ -113,29 +131,36 @@ class Account {
             })
         })
     }
-    // 关注/取消关注用户 options:{uid:'',uuid:'',status:'1'/'0'}
+    // 关注/取消关注用户 options:{uid:'',uuid:''}
     static followUser(options={}){
         return new Promise((resolve,reject)=>{
                 AccountModel.info.findOne({"uid":options.uuid}).then(user=>{
                     if(user){
-                        if(options.status=='1'){
+                        // 如果对方粉丝没有该用户
+                        if(user.following.indexOf(options.uid)===-1){
                             AccountModel.info.update({"uid":options.uid},{$addToSet:{followers:options.uuid}},err=>{
-                                if(err) reject('followers $push falid')
+                                if(err) return reject('followers $push falid')
                                 AccountModel.info.update({"uid":options.uuid},{$addToSet:{following:options.uid}},err=>{
-                                    if(err) reject('following $push falid')
-                                    resolve('success')
+                                    if(err) return reject('following $push falid')
+                                    resolve({
+                                        info:'关注成功！',
+                                        count:1
+                                    })
                                 })
                             })
-                        }else if(options.status=='0'){
+
+                        }else{  //已经关注
                             AccountModel.info.update({"uid":options.uid},{$pull:{followers:options.uuid}},err=>{
-                                if(err) reject('followers $pull falid')
+                                if(err) return reject('followers $pull falid')
                                 AccountModel.info.update({"uid":options.uuid},{$pull:{following:options.uid}},err=>{
-                                    if(err) reject('following $pull falid')
-                                    resolve('success')
+                                    if(err) return reject('following $pull falid')
+                                    resolve({
+                                        info:'已取消关注！',
+                                        count:-1
+                                    })
                                 })
                             })
-                        }else{
-                            reject('The status params error')
+
                         }
 
                     }else{

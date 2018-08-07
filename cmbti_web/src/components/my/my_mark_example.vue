@@ -5,32 +5,27 @@
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
       </router-link>
       <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试
+      <i class="fa el-icon-star-off" style="margin:0 2px 0 1px"></i> 人物关注
     </div>
     <div class="content">
         <div class="items i1">
-            <div class="">测试项目</div>
-            <div class="">测试结果</div>
-            <div class="">测试日期</div>
+            <div class="">名字</div>
+            <div class="">投票结果</div>
+            <!--<div class="">日期</div>-->
             <!--<div class="age">年龄</div>-->
             <div class=""></div>
         </div>
         <div class="items i2" v-for="(v,i) in data" :key="i">
-            <div class="overflow-row-1">{{v.category}}</div>
-            <div class="overflow-row-1">{{v.type&&v.type.toUpperCase()}}</div>
-            <div class="">
-              <span class="date-pc">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</span>
-              <span class="date-mob">{{$moment(v.c_time).format("YYYY-MM-DD")}}</span>
-              
-            </div>
-            <!--<div class="age">22</div>-->
-            <div class="show-link">
-              <router-link to="">
-                查看详情
-              </router-link>
-            </div>
+            <router-link :to="'/example/'+v.eid">
+                <div class="overflow-row-1">{{v.name+v.name1}}</div>
+                <div class="overflow-row-1">{{v.type&&v.type.toUpperCase()}}</div>
+                <!--<div class="">
+                  <span class="date-pc">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</span>
+                  <span class="date-mob">{{$moment(v.c_time).format("YYYY-MM-DD")}}</span>
+                </div>-->
+            </router-link>
         </div>
-        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px;padding-top:10px">暂无数据</p>
+        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       或许还有更多...
@@ -46,12 +41,13 @@ export default {
         currentData:'',
         pageSize:3,
         page:1,
+        
       }
     },
     methods:{
-      getMyTest(){
+      getMyMarkExample(){
             this.loading = true
-            this.$axios.getMyTest({size:this.pageSize,page:this.page}).then(res=>{
+            this.$axios.getMyMarkExample({size:this.pageSize,page:this.page}).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     this.data = this.data.concat(res.data.data) 
@@ -63,11 +59,11 @@ export default {
       },
       loadMore(){
           this.page = this.page+1
-          this.getMyTest()
+          this.getMyMarkExample()
       },
     },
     created(){
-       this.getMyTest()
+       this.getMyMarkExample()
     }
 }
 </script>
@@ -93,7 +89,7 @@ export default {
       padding-right:20px;
     }
   }
-  .items.i1,.items.i2 {
+  .items.i1,.items.i2>a {
       display:flex;
       align-items:center;
       border-bottom:1px solid #f8f8f8;
@@ -101,8 +97,8 @@ export default {
       color:#444;
       text-align:left;
       &>div {
-        flex:0 0 20%;
-        padding:5px 2px;
+        flex:0 0 30%;
+        padding:5px 5px;
         a {
           padding:3px 0;
           color:#598dd5;
@@ -116,17 +112,15 @@ export default {
         // }
       }
   }
-    .date-pc {
-        display:block;
-    }
-    .date-mob {
-        display:none;
-    }
-  .items.i2 {
-      &:hover {
-        background-color: #fafafa;
+      .date-pc {
+          display:block;
       }
-  }
+      .date-mob {
+          display:none;
+      }
+    .items.i2:hover {
+      background-color: #fafafa;
+    }
   .items.i1 {
     &>div {
       font-weight:700;
@@ -144,10 +138,10 @@ export default {
     }
   }
   
-  @media screen and (max-width:768px) {
-    .items.i1,.items.i2  {
+  @media screen and (max-width:525px) {
+    .items.i1,.items.i2>a {
       &>div {
-        flex:0 0 25%;
+        flex:0 0 33%;
       }
     }
     .content {
@@ -156,11 +150,9 @@ export default {
           display:none;
         }
         .date-pc {
-          font-size:13px;
            display:none;
         }
         .date-mob {
-           font-size:13px;
            display:block;
         }
         .show-link {

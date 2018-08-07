@@ -15,10 +15,8 @@
             </div>
             <div class="name overflow-row-1">{{v.r_name}}</div>
         </router-link>
-        <el-button type="primary" size="small" v-if="v.notFollow" @click="followUser('1',i,v._id)"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
-        <el-button type="default" plain size="small" v-else style="padding:7px 7px;font-size:13px" @click="followUser('0',i,v._id)"><i class="el-icon-remove-outline" style="font-size:15px"></i> 取消关注</el-button>
-          <!--<i class="el-icon-minus" style="font-weight:700"></i> 取消关注</el-button>-->
-        <!--<el-button type="primary" plain round size="small"><i class="el-icon-edit"></i> 创建</el-button>-->
+        <!-- 关注按钮 -->
+        <followBtn :isFollow="true" :uuid="v._id"></followBtn>
       </div>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==size">
@@ -28,6 +26,7 @@
   </div>
 </template>
 <script>
+import followBtn from '@/components/common/follow_btn'
 export default {
     data(){
       return {
@@ -37,6 +36,9 @@ export default {
         page:1,
         currentData:[]
       }
+    },
+    components:{
+      followBtn
     },
     methods:{
         getUserList(){
@@ -55,25 +57,6 @@ export default {
         loadMore(){
            this.page = this.page+1
            this.getUserList()
-        },
-        // 取消、关注用户
-        followUser(status,index,uuid){
-            this.loading = true
-            this.$axios.followUser({
-                uuid:uuid,  //关注的用户id
-                status:status   // 1关注，0取消关注
-            }).then(res=>{
-                this.loading = false
-                if(res.data.success){
-                    if(res.data.data==1){
-                        this.data[index].notFollow = false
-                    }else if(res.data.data==0){
-                        this.data[index].notFollow = true
-                    }
-                }
-            }).catch(err=>{
-                this.loading = false
-            })
         },
     },
     created(){
@@ -122,6 +105,25 @@ export default {
     a:visited {
         text-decoration: none;
     }
+      &>span {
+          font-size:14px;
+          text-align:center;
+          display:inline-block;
+          width:78px;
+          height:30px;
+          line-height:30px;
+          border-radius:3px;
+          cursor: pointer;
+          background-color: #eee;
+      }
+      &>span.c1 {
+          background-color: #409eff;
+          color:#fff;
+      }
+      &>span.c2 {
+          background-color: #acacac;
+          color:#fff;
+      }
   }
   .load-more {
     max-width:365px;

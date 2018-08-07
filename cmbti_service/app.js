@@ -39,10 +39,10 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 3600000 // 设置返回的cookie时效为30秒，测试用
-  }
-  // store: new MongoStore({
-  //   url: "mongodb://localhost:27017/usersession"
-  // })
+  },
+  store: new MongoStore({
+    url: "mongodb://localhost:27017/usersession"
+  })
 }))
 app.use('/', express.static('public'));
 app.use('/imgs', express.static('localImgs'));

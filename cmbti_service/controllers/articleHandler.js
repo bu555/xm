@@ -120,7 +120,6 @@ class Article {
                     }else{
                         ArticleModel.article.update({"_id":options.aid},{"$pull":{"like":options.uid},"$inc":{"likes":-1}},(err,r)=>{
                             if(err) return reject("The like array $pull faild")
-                                console.log(r);
                                 resolve({
                                     info:'Article喜欢-1（取消喜欢成功）',
                                     count:-1,

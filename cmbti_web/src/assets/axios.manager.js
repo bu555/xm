@@ -131,6 +131,10 @@ export default {
     getExampleById(data){
         return axios.get(pathAPI+'/example/getExampleById',data);
     },
+    //喜欢、取消喜欢example  {eid:''}
+    clickExampleLike(data){
+        return axios.post(pathAPI+'/example/clickExampleLike',data);
+    },
 // Article----------------------------------------------
     // 發表文章 
     articlePublish(data){
@@ -210,6 +214,10 @@ export default {
     // 获取发表的文章 {page,size}
     getMyArticle(data){
         return axios.get(pathAPI+'/account/getMyArticle',{params:data});
+    },
+    // 获取关注的人物 {page,size}
+    getMyMarkExample(data){
+        return axios.get(pathAPI+'/account/getMyMarkExample',{params:data});
     },
     // 获取收藏的文章 {page,size}
     getMyLikes(data){

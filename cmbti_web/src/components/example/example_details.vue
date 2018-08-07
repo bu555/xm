@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="view-1100px">
-        <div class="main-box ">
+        <div class="main-box "  v-loading="loading3">
                     <div class="vote">
                         <div class="e-show">
                             <!--人物详情-->
@@ -96,12 +96,12 @@
                                 <span class="a-zan btns1" @click="clickZanArticle"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.likes}})</em></span>
                             </div>-->
                             <div>
-                                <span  class="a-like btns2" :style="true?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>收藏 <em>({{55}})</em></span>
+                                <span  class="a-like btns2" :style="exampleItem.isLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
                                 <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                                 
                             </div>
                             <div>
-                                <span  class="a-vote btns2" :style="true?'color:#4d9efc':''" @click="showVote=!showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{55}})</em></span>
+                                <span  class="a-vote btns2" :style="exampleItem.isVoted?'color:#4d9efc':''" @click="showVote=!showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{exampleItem.total}})</em></span>
                                 <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                                 
                             </div>
@@ -229,9 +229,10 @@ export default {
             currentCommentList:[],
             commentActive:'hot',
             loading2:false,
+            loading3:false,
             zaning:false,
             showComment:false,
-            showVote:false
+            showVote:false,
 
         }
     },
@@ -264,7 +265,9 @@ export default {
                 result:this.myVote
             }).then(res=>{
                 if(res.data.success){
-                    this.exampleHandle(res.data.example)
+                    // this.exampleHandle(res.data.example)
+                    this.getExampleById()
+                    this.exampleItem.isVoted = true
                     this.$message({
                         showClose: true,
                         message: '操作成功！',
@@ -323,7 +326,20 @@ export default {
             })
         },
         clickLike(){
-
+                this.loading3 = true
+                this.$axios.clickExampleLike( {eid: this.eid }).then(res=>{
+                    this.loading3 = false
+                    if(res.data.success){
+                        this.exampleItem.likes = this.exampleItem.likes+res.data.result.count
+                        if(res.data.result.count>0){
+                            this.exampleItem.isLiked = true
+                        }else{
+                            this.exampleItem.isLiked = false
+                        }
+                    }
+                }).catch(err=>{
+                    this.loading3 = false
+                })
         },
 
         // 返回名人庫
@@ -472,11 +488,6 @@ export default {
     created(){
         this.eid = this.$route.path.split('/')[2]
         this.initData()
-        //设置返回位置
-        this.fromPath = localStorage.getItem('fromPath')
-        if(this.fromPath === '/' || this.fromPath.indexOf('/user/')!==-1 ){
-            this.fromPath = '/example'
-        }
 
         //处理typeList数据
         this.$mbti.types.forEach((v,i)=>{
