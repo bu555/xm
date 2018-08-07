@@ -1,0 +1,307 @@
+[2018-07-30 15:06:36.342] [ERROR] logError - exist
+[2018-07-30 15:07:39.014] [ERROR] logError - exist
+[2018-07-30 15:09:01.987] [ERROR] logError - exist
+[2018-07-30 15:20:34.484] [ERROR] logError - exist
+[2018-07-30 15:21:29.070] [ERROR] logError - exist
+[2018-07-30 15:27:09.563] [ERROR] logError - exist
+[2018-07-30 15:30:39.747] [ERROR] logError - exist
+[2018-07-30 16:53:24.214] [ERROR] logError - Unable to repeat the vote
+[2018-07-30 17:06:05.819] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:06:12.444] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:16:23.723] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:20:18.022] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:23:29.370] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:25:09.340] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:25:23.388] [ERROR] logError - { ValidationError: e_example validation failed: total: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at ValidationError.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\validation.js:56:24)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at Object.inspect (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:34:23)
+    at formatValue (util.js:430:38)
+    at inspect (util.js:324:10)
+    at Object.format (util.js:191:12)
+    at formatLogData (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:54:22)
+    at basicLayout (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\layouts.js:116:7)
+    at Logger.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\appenders\dateFile.js:35:19)
+    at emitOne (events.js:116:13)
+    at Logger.emit (events.js:211:7)
+    at Logger._log (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:96:8)
+    at Logger.(anonymous function) [as error] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_log4js@1.1.1@log4js\lib\logger.js:89:12)
+    at Example.addVote.then.catch.err (E:\buzhiguang\product\x-mbti\cmbti_service\router\exampleRouter.js:157:18)
+  errors: 
+   { total: 
+      { CastError: Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"
+    at new CastError (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\error\cast.js:27:11)
+    at model.$set (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:815:7)
+    at model.set [as total] (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\services\document\compile.js:124:26)
+    at ExampleModel.example.findById (E:\buzhiguang\product\x-mbti\cmbti_service\controllers\exampleHandler.js:189:39)
+    at E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\model.js:3930:16
+    at _init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:2007:5)
+    at model.Document.init (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\document.js:393:5)
+    at completeOne (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1993:12)
+    at Immediate.<anonymous> (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mongoose@5.0.10@mongoose\lib\query.js:1520:11)
+    at Immediate._onImmediate (E:\buzhiguang\product\x-mbti\cmbti_service\node_modules\_mquery@3.0.0@mquery\lib\utils.js:119:16)
+    at runCallback (timers.js:789:20)
+    at tryOnImmediate (timers.js:751:5)
+    at processImmediate [as _immediateCallback] (timers.js:722:5)
+        message: 'Cast to Number failed for value "5b3af34b693f70193cbf6e041" at path "total"',
+        name: 'CastError',
+        stringValue: '"5b3af34b693f70193cbf6e041"',
+        kind: 'Number',
+        value: '5b3af34b693f70193cbf6e041',
+        path: 'total',
+        reason: [Object] } },
+  _message: 'e_example validation failed',
+  name: 'ValidationError' }
+[2018-07-30 17:55:28.365] [ERROR] logError - The params error
+[2018-07-30 17:55:33.101] [ERROR] logError - The params error
+[2018-07-30 17:56:37.976] [ERROR] logError - The params error
+[2018-07-30 17:56:54.904] [ERROR] logError - The params error
+[2018-07-30 17:59:07.183] [ERROR] logError - The params error
