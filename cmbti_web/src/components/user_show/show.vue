@@ -12,13 +12,16 @@
                 <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
                     <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
                 </el-button>-->
-                <span class="c1" v-if="!userInfo.isFollow&&!loading1" @click="followUser('1')"><i class="el-icon-plus"></i> 关注Ta</span>
+                <!-- <span class="c1" v-if="!userInfo.isFollow&&!loading1" @click="followUser('1')"><i class="el-icon-plus"></i> 关注Ta</span>
                 <span class="c2" v-if="userInfo.isFollow&&!loading1" @click="followUser('0')">已关注</span>
-                <span class="c3" v-if="loading1"><i class="el-icon-loading"></i></span>
+                <span class="c3" v-if="loading1"><i class="el-icon-loading"></i></span> -->
                 <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
                 <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else> 
                     <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
                 </el-button>-->
+                        
+                <!-- 关注按钮 -->
+                <followBtn :isFollow="userInfo.isFollow" :uuid="this.uid" v-if="userInfo"></followBtn>
                 
             </div>
         </div>
@@ -32,8 +35,8 @@
                     <div style="flex:1"></div>
                 </div>
                 <!--子组件-->
-                <Info :userInfo="userInfo" v-if="typeActive==='info'"></Info>
-                <Publish :userInfo="userInfo" v-if="typeActive==='publish'"></Publish>
+                <Info :userInfo="userInfo" v-if="typeActive==='info'&&userInfo"></Info>
+                <Publish :userInfo="userInfo" :uid="uid" v-if="typeActive==='publish'&&userInfo"></Publish>
                 
             </div>
         </div>
@@ -50,18 +53,18 @@
 <script>
 import Info from './show_info'
 import Publish from './show_publish'
+import followBtn from '@/components/common/follow_btn'
 export default {
     data(){
         return {
             loading:false,
-            loading1:false,
             uid:'',
-            userInfo:{},
+            userInfo:'',
             typeActive:'info',
         }
     },
     components:{
-        Info,Publish
+        Info,Publish,followBtn
     },
     watch:{
         'typeActive':function(){
@@ -82,25 +85,7 @@ export default {
             }).catch(err=>{
                 this.loading = false
             })
-        },
-        followUser(status){
-            this.loading1 = true
-            this.$axios.followUser({
-                uuid:this.uid,  //关注的用户id
-                status:status   // 1关注，0取消关注
-            }).then(res=>{
-                this.loading1 = false
-                if(res.data.success){
-                    if(res.data.data==1){
-                        this.userInfo.isFollow = true
-                    }else if(res.data.data==0){
-                        this.userInfo.isFollow = false
-                    }
-                }
-            }).catch(err=>{
-                this.loading1 = false
-            })
-        },
+        }
     },
     mounted(){
     },

@@ -55,7 +55,7 @@ const getAccountInfoById = (req,res)=>{
 const followUser = (req,res)=>{
         let options = req.body || {}
         options.uid = req.session.user._id
-      if(!options.uid || !options.uuid || !options.status ){
+      if(!options.uid || !options.uuid ){
           return res.json({
               success:false,
               message:'Params Error'
@@ -67,8 +67,8 @@ const followUser = (req,res)=>{
 
                 res.json({
                     success: true,
-                    message: 'Success',
-                    data:options.status
+                    info: r.info,
+                    count:r.count //关注1，取消关注-1
                 })
 
             }catch(err){
@@ -348,7 +348,9 @@ const getMyMarkExample = (req,res)=>{
 // 獲取我的发表文章 options:{page:'',size:''}
 const getMyArticle = (req,res)=>{
         let options = req.query || {}
-        options.uid = req.session.user._id 
+        // if(!options.uid){
+        //     options.uid = req.session.user._id 
+        // }
       if( !options.uid || !myUtill.verifyNum(options.page) || !myUtill.verifyNum(options.size) ){
           return res.json({
               success:false,
@@ -554,7 +556,11 @@ router.get('/getUserInfoShow',getUserInfoShow);
 router.get('/getMyTest',checkLogin,getMyTest);
 router.get('/getMyVote',checkLogin,getMyVote);
 router.get('/getMyMarkExample',checkLogin,getMyMarkExample);
+<<<<<<< HEAD
+router.get('/getMyArticle',getMyArticle);
+=======
 router.get('/getMyArticle',checkLogin,getMyArticle);
+>>>>>>> f25764f5b4f5755cfeb25b281aa5cb53ec3ec593
 router.get('/getMyLikes',checkLogin,getMyLikes);
 router.get('/getMyFollowing',checkLogin,getMyFollowing);
 router.get('/getMyFollowers',checkLogin,getMyFollowers);

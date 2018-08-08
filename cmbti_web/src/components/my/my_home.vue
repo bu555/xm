@@ -23,7 +23,7 @@
                     <i class="fa el-icon-edit"></i> 发表<span>({{accountInfo.my_article}})</span>
                 </router-link></div>
             <div><router-link to="/my/comment">
-                    <i class="fa fa-edit"></i> 评论<span>({{accountInfo.my_comment}})</span>
+                    <i class="fa fa-edit"></i> 评论参与<span>({{accountInfo.my_comment}})</span>
                 </router-link></div>
             <div><router-link to="/my/vote">
                     <i class="fa fa-hand-paper-o"></i> 投票<span>({{accountInfo.vote_example}})</span>

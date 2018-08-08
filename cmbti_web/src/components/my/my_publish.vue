@@ -44,7 +44,7 @@ export default {
     methods:{
         getArticle(){
             this.loading = true
-            this.$axios.getMyArticle({size:this.size,page:this.page}).then(res=>{
+            this.$axios.getMyArticle({size:this.size,page:this.page,uid:this.$store.state.userInfo._id}).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))

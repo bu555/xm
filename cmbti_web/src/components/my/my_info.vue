@@ -8,8 +8,12 @@
       <i class="fa fa-user-o"></i> 个人档案
     </div>
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
-      <el-form-item label="名字">
-        <el-input v-model="infoForm.r_name" :disabled="!infoForm.modify" spellcheck=false></el-input>
+      <el-form-item label="昵称">
+        <el-input v-if="infoForm.modify" v-model="infoForm.r_name" spellcheck=false></el-input>
+        <div id="no-modify-name" v-else>{{infoForm.modify}}
+            <i @click="notModifyHandler()">?</i>
+            <div id="info-msg" v-if="showNotModify">昵称180天内只允许修改一次</div>
+        </div>
       </el-form-item>
       <el-form-item label="省份">
         <el-select v-model="infoForm.province"  placeholder="省份" style="width:100%" v-if="provinceList">
@@ -76,7 +80,9 @@ export default {
         edited:false,
 
         cityList:'',
-        provinceList:''
+        provinceList:'',
+        showNotModify:false,
+        timeID:''
       }
     },
     watch:{
@@ -146,6 +152,13 @@ export default {
                 this.loading = false
             })
         },
+        notModifyHandler(){
+            clearTimeout(this.timeID)
+            this.showNotModify = true
+            this.timeID = setTimeout(()=>{
+                this.showNotModify = false
+            },5555)
+        },
         init(){
           this.infoForm = JSON.parse(localStorage.getItem('USER'))
           this.initData = JSON.parse(localStorage.getItem('USER'))
@@ -165,6 +178,32 @@ export default {
   padding:4%;
   padding-top:12px;
   padding-bottom:22px;
+  #no-modify-name {
+        position:relative;
+        i {
+            position:absolute;
+            right:9px;
+            top:7px;
+            color:#fff;
+            cursor: pointer;
+            height:18px;
+            width:18px;
+            line-height: 18px;
+            text-align: center;
+            border-radius:50%;
+            background-color: #ddd;
+            &:hover {
+                background-color: #ffc55f;
+            }
+        }
+        #info-msg {
+            position:absolute;
+            left:0px;
+            bottom:-20px;
+            color:#efb44e;
+            font-size:13px;
+        }
+  }
   form {
     padding-top:15px;
     max-width:404px;

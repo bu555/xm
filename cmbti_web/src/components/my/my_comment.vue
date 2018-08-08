@@ -35,7 +35,7 @@
           <div class="eid-comment"   v-for="(v,i) in dataE" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
                 <router-link to="">
                 <div class="h5  overflow-row-1">
-                  <div class="h5-icon">名人</div><router-link to=""><span>{{v.title}}</span></router-link>
+                  <div class="h5-icon">名人</div><router-link :to="'/example/'+v.eid"><span>{{v.title}}</span></router-link>
                 </div>
                 </router-link>
                 <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
@@ -254,7 +254,7 @@ export default {
      }
      .p-more {
        position: absolute;
-       bottom:-8px;
+       bottom:2px;
        left:0;
        width:100%;
        font-size:14px;

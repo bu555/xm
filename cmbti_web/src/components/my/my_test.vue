@@ -30,7 +30,7 @@
               </router-link>
             </div>
         </div>
-        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
+        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px;padding-top:10px">暂无数据</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       或许还有更多...
