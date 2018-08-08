@@ -22,6 +22,7 @@
                     @blur="blurHandler($event)"
                     @input="inputHandler($event)"
                     @keyup.enter.native="search()"
+                    spellcheck="false"
                     >
                     </el-input>
                     <em class="el-icon-search" @click="search()"></em>

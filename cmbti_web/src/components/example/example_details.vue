@@ -96,12 +96,12 @@
                                 <span class="a-zan btns1" @click="clickZanArticle"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.likes}})</em></span>
                             </div>-->
                             <div>
-                                <span  class="a-like btns2" :style="exampleItem.isLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
+                                <span  :class="'a-like btns2 '+ (exampleItem.isLiked?'active':'')"  @click="clickLike"><i class="fa fa-star"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
                                 <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                                 
                             </div>
                             <div>
-                                <span  class="a-vote btns2" :style="exampleItem.isVoted?'color:#4d9efc':''" @click="showVote=!showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{exampleItem.total}})</em></span>
+                                <span  :class="'a-vote btns2 '+ (exampleItem.isVoted?'active':'')" :style="exampleItem.isVoted?'cursor:auto':''" @click="showVote=!showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{exampleItem.total}})</em></span>
                                 <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                                 
                             </div>
@@ -860,7 +860,7 @@ export default {
                     font-size:19px;
                 }
                 span {
-                    color:#999;
+                    color:#888;
                     // line-height: 18px;
                     border-radius:2px;
                     cursor:pointer;
@@ -872,6 +872,22 @@ export default {
                 }
             }
             .a-like {}
+            .a-vote.active {
+                position: relative;
+                &:after {
+                    content:'已参与';
+                    display: block;
+                    height: 17px;
+                    width: 42px;
+                    color: #fff;
+                    font-size: 11px;
+                    position: absolute;
+                    top: 0px;
+                    right: -38px;
+                    background-color: #7db3f6;
+                    border-radius: 6px 6px 6px 0;
+                }
+            }
 
         }
         .a-vote-view {

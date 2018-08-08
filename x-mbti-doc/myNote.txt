@@ -1,4 +1,4 @@
-
+﻿
 #前端缓存：
 1.localStorage 缺点：xss攻击 / 耦合性(增加手动判断) /不能独立于app之外(不能开发环境处理)
 2.service-worker 缺点：时间上比localStore稍长  依赖浏览器实现
@@ -51,7 +51,32 @@ window.pageXOffset
 网页正文全文高： document.body.scrollHeight
 网页被卷去的高： document.body.scrollTop
 网页被卷去的左： document.body.scrollLeft
-
+元素节点的 nodeName 是标签名称
+属性节点的 nodeName 是属性名称
+文本节点的 nodeName 永远是 #text
+文档节点的 nodeName 永远是 #document
+nodeType:
+元素element	1
+属性attr	2
+文本text	3
+注释comments	8
+文档document	9
+网页可见区域宽： document.body.clientWidth
+网页可见区域高： document.body.clientHeight
+网页可见区域宽： document.body.offsetWidth (包括边线的宽)
+网页可见区域高： document.body.offsetHeight (包括边线的高)
+网页正文全文宽： document.body.scrollWidth
+网页正文全文高： document.body.scrollHeight
+网页被卷去的高： document.body.scrollTop
+网页被卷去的左： document.body.scrollLeft
+网页正文部分上： window.screenTop
+网页正文部分左： window.screenLeft
+屏幕分辨率的高： window.screen.height
+屏幕分辨率的宽： window.screen.width
+屏幕可用工作区高度： window.screen.availHeight
+屏幕可用工作区宽度： window.screen.availWidth
+document.documentElement.clientWidth ==> 可见区域宽度  
+document.documentElement.clientHeight ==> 可见区域高度  
 
 
 
