@@ -2,12 +2,13 @@
 <div class="show" v-loading="loading">
     <div class="m-header">
         <div class="photo">
-            <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt="">
+            <!-- <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
+            <Avatar :src="userInfo.avatar" :uid="''"  round=""></Avatar>
         </div>
         <div class="m-info">
             <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
             <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px">{{userInfo.profile?userInfo.profile:''}}</div>
-            <div class="follow-ctrl" style="padding-top:4px;">
+            <div class="follow-ctrl" style="position:relative;top:-3px">
                 <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
                 <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
                     <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
@@ -121,20 +122,15 @@ export default {
         left:0px;
         width:100%;
         .photo {
-            width:100px;
-            height:100px;
+            // width:100px;
+            // height:100px;
             position: absolute;
             bottom:15px;
             left:25px;
             background-color: #ccc;
             border:1px solid #aaa;
             box-shadow: 0 0 12px #70a9e5 inset;
-            border-radius:2px;
-            // cursor:pointer;
-            img {
-                width:100%;
-                height:100%;
-            }
+            border-radius:4px;
         }
         .edit-info,.edit-photo {
             position: absolute;
@@ -278,12 +274,12 @@ export default {
     @media screen and (max-width:525px){
         .m-header {
             .photo {
-                width:85px;
-                height:85px;
-                left:15px;
-                bottom:10px;
-                img {
-                }
+                // width:85px;
+                // height:85px;
+                // left:15px;
+                // bottom:10px;
+                // img {
+                // }
             }
             .edit-info {
                 top:90px;
@@ -292,7 +288,7 @@ export default {
                 top:15px;
             }
             .m-info {
-                padding-left:112px ;
+                // padding-left:112px ;
                 span.r-name {
                 }
                 span.sex {

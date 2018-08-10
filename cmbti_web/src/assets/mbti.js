@@ -3,7 +3,7 @@ export default {
     kTypes:[
         {
             t:'nt',
-            t4:['entp','intp','entj','intj']
+            t4:['entp','intp','entj','intj'],
         },
         {
             t:'nf',
@@ -42,6 +42,19 @@ export default {
         "S":"#27cc6b",
         "F":"#ea4c63",
         "T":"#4dc9e8"
+    },
+    color_k:{
+        "nt":""
+    },
+    e2c:{
+        "e":"外倾",
+        "i":"内倾",
+        "s":"感觉",
+        "n":"直觉",
+        "t":"思维",
+        "f":"情感",
+        "j":"判断",
+        "p":"感知",
     }
     
 }

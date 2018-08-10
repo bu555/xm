@@ -114,6 +114,7 @@ export default {
       src: url('/static/fonts/DIN-Regular.ttf');
     }
     // @import '../static/css/my-element.less'; 
+    @import '../static/css/bu-button.css'; 
     .root-app {
       font-family:DINRegular;
       // background:url('/static/img/bg_1.png');
