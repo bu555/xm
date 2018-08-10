@@ -26,11 +26,12 @@
             <ul>
                 <li v-for="(v,i) in list" :key="i">
                         <div class="author u-photo">
-                            <router-link :to="'/info/'+v.uid">
+                            <!-- <router-link :to="'/info/'+v.uid">
                             <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                             <img v-else src="/static/img/logo_a.png" alt="">
                             <div class="u-name">{{v.r_name}}</div>
-                            </router-link>
+                            </router-link> -->
+                            <Avatar :src="v.avatar" :uid="v.uid" size="small" round=""></Avatar>
                         </div>
                         <div class="title1">
                             <span class="category-type" v-if="v.good">精</span>
@@ -192,7 +193,7 @@ export default {
                         justify-content:flex-start;
                         align-items:center;
                         border-bottom:1px solid #f2f6f6;
-                        padding:0 5px 0 1.8%;
+                        padding:5px 5px 5px 1.8%;
                         font-size:16px;
                         position: relative;
                     &:hover {
@@ -205,46 +206,6 @@ export default {
                         overflow: hidden;
                         text-overflow:ellipsis;
                         white-space: nowrap;
-                    }
-                    .u-photo {
-                        // flex:0 0 11%;
-                        margin:4px 3px;
-                        width:33px;
-                        height:33px;
-                        overflow:inherit;
-                        position: relative;
-                        box-sizing: border-box;
-                        cursor:pointer;
-                        overflow: hidden;
-                        &:hover {
-                        overflow:visible;
-                            .u-name {
-                                display:block;
-                                opacity:1;
-                            }
-                        }
-                        img {
-                            border:1px solid #ddd;
-                            border-radius:3px;
-                            width:100%;
-                            height:100%;
-                            // object-fit: cover;
-                        }
-                        .u-name {
-                            position: absolute;
-                            top: -0px;
-                            left: 36px;
-                            background: rgba(147, 202, 232, 0.5);
-                            background: #70a9e5;
-                            color: #fff;
-                            padding: 0 3px;
-                            border-radius: 3px;
-                            // display:none;
-                            opacity:0;
-                            font-size:13px;
-                            transition: opacity 1s;
-                        }
-
                     }
                     .title1 {
                         flex:1;
@@ -307,15 +268,6 @@ export default {
             .article-list{
                 ul {
                     li {
-                        // font-size:14px;
-                        .u-photo {
-                            width:32px;
-                            height:32px;
-                        }
-                        .title {
-                            // height:18px;
-                            // overflow: hidden;
-                        }
                     }
                 }
             }
@@ -330,8 +282,8 @@ export default {
                         // font-size:13px !important;
                         padding-bottom:15px;
                         .u-photo {
-                            width:32px;
-                            height:32px;
+                            // width:32px;
+                            // height:32px;
                             position: relative;
                             top:8px;
                         }
@@ -343,7 +295,7 @@ export default {
                             // margin:0;
                             // flex:0 0 22%;
                             position: absolute;
-                            left:48px;
+                            left:55px;
                             bottom:3px;
                         }
                         .author {

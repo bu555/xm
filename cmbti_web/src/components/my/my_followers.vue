@@ -10,10 +10,14 @@
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
         <router-link :to="'/info/'+v._id">
-            <div class="avatar">
+            <!-- <div class="avatar">
               <img :src="v.avatar?$pathAvatar+v.avatar:'/static/img/logo_a.png'" alt="">
+            </div> -->
+            <Avatar :src="v.avatar" :uid="''" size="small" round="true"></Avatar>&nbsp;
+            <div class="u-name overflow-row-1">
+              <span class="r-name">{{v.r_name}}</span> <br/>
+              <span class="profile">profile profile profile profifile profifile profifile profile profile profile</span>
             </div>
-            <div class="name overflow-row-1">{{v.r_name}}</div>
         </router-link>
         <!-- 关注按钮 -->
         <followBtn :isFollow="true" :uuid="v._id"></followBtn>
@@ -86,20 +90,13 @@ export default {
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
-      .avatar {
-        flex:0 0 38px;
-        width:38px;
-        height: 38px;
-        border-radius:3px;
-        overflow:hidden;
-        margin-right:8px;
-        img {
-          width:100%;
-          height:auto;
-        }
-      }
-      .name {
+      .u-name {
         font-size:15px;
+        // position: relative;
+        .profile {
+          font-size:13px;
+          color:#999;
+        }
       }
     }
     a:visited {

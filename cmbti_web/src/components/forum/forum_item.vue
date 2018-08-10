@@ -13,7 +13,7 @@
                         <div class="h1">{{data.title}}</div>
                         <div class="t-info"> 
                             <div class="text">
-                                <Avatar :src="data.avatar?$pathAvatar+data.avatar:'/static/img/logo_a.png'" :to="'/info/'+data.uid"></Avatar>
+                                <Avatar :src="data.avatar" :uid="data.uid" size="mini" round="true"></Avatar>
                                 <!--<i class="fa fa-user-o"></i> -->
                                 <span>
                                     {{data.r_name}}
@@ -35,11 +35,12 @@
                 <div>
                     <span class="a-zan btns1" :style="data.articleZaned?'color:#4d9efc':''" @click="articleAZan"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.zans}})</em></span>
                     <!--<el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
+                    <div class="m-loading" v-if="zanLoading"><i class="el-icon-loading" ></i></div>
                 </div>
                 <div>
                     <span  class="a-like btns2" :style="data.articleLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>收藏 <em>({{data.likes}})</em></span>
                     <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
-                    
+                    <div class="m-loading" v-if="likeLoading"><i class="el-icon-loading"></i></div>
                 </div>
                 <div>
                     <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="el-icon-edit-outline"></i><br/>写评论</span>
@@ -158,7 +159,6 @@
 </div> 
 </template>
 <script>
-import Avatar from '../common/avatar'
 export default {
     data(){
         return {
@@ -179,6 +179,8 @@ export default {
             replyCid:'',
 
             accountCommentList:'', //我的评论，从个人中心跳转
+            likeLoading:false,
+            zanLoading:false
         }
     },
     watch:{
@@ -188,20 +190,20 @@ export default {
             this.getCommentByAid()
         }
     },
-    components:{
-        Avatar
-    },
     methods:{
         clickZanArticle(){
 
         },
         articleAZan(){
+            this.zanLoading = true
             this.$axios.clickArticleZan({aid:this.aid}).then(res=>{
+                this.zanLoading = false
                 if(res.data.success){
                     this.data.zans += res.data.result.count
                     this.data.articleZaned = !this.data.articleZaned
                 }
             }).catch(err=>{
+                this.zanLoading = false
             })
 
         },
@@ -294,11 +296,15 @@ export default {
             })
         },
         clickLike(){
+            this.likeLoading = true
             this.$axios.clickArticleLike({aid:this.aid}).then(res=>{
+                this.likeLoading = false
                 if(res.data.success){
                     this.data.likes = this.data.likes+res.data.result.count
                     this.data.articleLiked = !this.data.articleLiked
                 }
+            }).catch(err=>{
+                this.likeLoading = false
             })
         },
         moreComment(){
@@ -498,6 +504,7 @@ export default {
                 text-align:center;
                 // border-radius:18px;
                 // border:1px solid #ccc;
+                position: relative;
                 em {
                     font-size:14px;
                 }
@@ -514,6 +521,15 @@ export default {
                 }
                 &>span.active {
                     color:#4d9efc;
+                }
+                .m-loading{
+                    position: absolute;
+                    width:100%;
+                    height:100%;
+                    line-height: 32px;
+                    left:0;
+                    top:0;
+                    background-color: #fff;
                 }
             }
             .a-like {
@@ -628,6 +644,7 @@ export default {
                         i.fa-comment {
                             font-size:17px;
                             margin-left:22px;
+                            margin-right: 3px;
                         }
                     }
                 }
@@ -736,7 +753,7 @@ export default {
                 }
             }
             .a-body {
-                padding:3% 2.5% 5% 4.5%;
+                padding:3% 2.5% 5% 3%;
                 font-size:17px;
             }
             .comment {

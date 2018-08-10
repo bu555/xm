@@ -269,6 +269,7 @@ const getArticle = (req,res)=>{
                 }else{
                     newList[i].r_name = '已注销'
                     newList[i].avatar = ''
+                    newList[i].uid = ''
                 }
             }
 
@@ -307,8 +308,9 @@ const getArticleById = (req,res)=>{
             // delete r[0].like 
             result.content = a[1].content
             let user = await User.getUserById({uid:a[0].uid})
-            result.r_name = user.r_name
-            result.avatar = user.avatar
+            result.r_name = user?user.r_name:'注销用户'
+            result.avatar = user?user.avatar:''
+            result.uid = user?result.uid:''
             result.articleLiked = false 
             result.articleZaned = false 
             if(options.uid){

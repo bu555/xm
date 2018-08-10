@@ -47,6 +47,9 @@ Vue.config.productionTip = false;
 import utill from './assets/utill'
 Vue.prototype.$utill =  utill
 
+import Avatar from '@/components/common/avatar'
+Vue.component('Avatar', Avatar)
+
 Vue.prototype.vueExample = new Vue({
   el: '#app',
   router,

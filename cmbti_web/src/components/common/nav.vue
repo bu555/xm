@@ -37,7 +37,8 @@
                 <div class="items user-ctrl">
                   <div v-if="$store.state.userInfo" class="not-login">
                       <router-link to="/my">
-                        <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+                        <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
+                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small" round="true"></Avatar>
                       </router-link>
                       <router-link to="/my">
                         <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
