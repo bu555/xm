@@ -46,10 +46,10 @@
                 </div>
             </div>
             <div class="btn-ctrl">
-                <el-button type="primary" round @click="submitTest()">提 交</el-button>
+                <el-button type="primary" round @click="submitTest(true)">提 交</el-button>
             </div>
 
-            <div class="m-progress" v-if="count>0 && showProgress" @click="submitTest(true)">
+            <div class="m-progress" v-if="count>0 && showProgress" @click="submitTest(false)">
                 <div class="p-inner" :style="'width:'+(count/total*100)+'%'"></div>
                 <div class="p-prop">{{count}}/{{total}}</div>
             </div>
@@ -82,7 +82,7 @@ export default {
             this.count = count
         },
         submitTest(b){
-            if(!b){
+            if(b){
                 // 判断是否回答完成
                 if(this.count!==this.total){
                     this.$message({
@@ -104,7 +104,8 @@ export default {
 
             this.$axios.addTest({
                 category:'mbti',
-                res:!b?this.res : {e:5,i:6,s:7,n:4,t:8,f:9,j:9,p:2}
+                count:93,
+                res:b?this.res : this.getRandomTest()
             }).then(res=>{
                 if(res.data.success){
                     localStorage.setItem('testRes',JSON.stringify(res.data.data))
@@ -124,6 +125,24 @@ export default {
                     _this.showProgress = false
                 }
             })
+        },
+        getRandomTest(){
+            let t = {e:5,i:6,s:7,n:4,t:8,f:9,j:9,p:2}
+            let r1 = Math.ceil(Math.random()*23)
+            t.e = r1
+            t.i = 23-r1
+            let r2 = Math.ceil(Math.random()*23)
+            t.s = r2
+            t.n = 23-r2
+            let r3 = Math.ceil(Math.random()*23)
+            t.t = r3
+            t.f = 23-r3
+            let r4 = Math.ceil(Math.random()*23)
+            t.j = r4
+            t.p = 23-r4
+            t.p = t.p+1
+            return t
+
         }
 
 
@@ -132,7 +151,6 @@ export default {
         this.listenScroll()
     },
     created(){
-
         this.mbti93 = mbti93
         this.total = this.mbti93.length
         

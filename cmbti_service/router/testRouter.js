@@ -9,6 +9,7 @@ const checkLogin = require('../middlewares/checkLogin').checkLogin
 const checkNotLogin = require('../middlewares/checkLogin').checkNotLogin 
 // const User = require('../controllers/user')
 const Test = require('../controllers/testHandler')
+const MBTI = require('../asset/r_mbti')
 const Account = require('../controllers/accountHandler')
 var logger = require('log4js').getLogger('logError');
 // 添加测试数据  {category:'',uip:'',res:'Object'}
@@ -23,19 +24,24 @@ const addTest = (req,res)=>{
             message: 'Params Error' 
         })
     }
-    let keys  = Object.keys(options.res)
-    for(let i=0;i<keys.length;i++){
-        if('iesntfjp'.indexOf(keys[i])<0 || !(/^\d+/.test(options.res[keys[i]]))){
-            return res.json({
-                success: false,
-                message: 'The res Params Error' 
-            })
-        }
-
-    }
     // options.uip = ''
     (async ()=>{
         try{
+            // 数据验证
+            let testResult
+            if(options.category.toLowerCase()==='mbti'){
+                testResult = {e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0}
+                for(let key in testResult){
+                    if(/^\d+$/.test(options.res[key])){
+                        testResult[key] = Number(options.res[key])
+                    }else{
+                        return res.json({
+                            success: false,
+                            message: 'Params options.res  Error' 
+                        })  
+                    }
+                }
+            }
             let test = await Test.addTest(options)
             if(options.uid){
                 //加入test_record
@@ -73,15 +79,22 @@ const getTestById = (req,res)=>{
     (async ()=>{
         try{
             let test = await Test.getTestById(options)
-            res.json({
-                success: true,
-                data:{
-                    c_time:test.c_time,
-                    category:test.category,
-                    type:test.type,
-                    res:test.res
-                }
-            })
+            if(MBTI[test.type]){
+                res.json({
+                    success: true,
+                    data:{
+                        c_time:test.c_time,
+                        category:test.category,
+                        type:test.type,
+                        res:test.res,
+                        doc:MBTI[test.type]
+                    }
+                })
+            }else{
+                return res.json({
+                    success: false 
+                })
+            }
 
         }catch(err){
             logger.error(err);

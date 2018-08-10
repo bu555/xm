@@ -6,10 +6,10 @@
                 <div>外在呈现</div>
             </div>
             <div class="f-chart">
-                <div class="f-1" :style="'background-color:'+$mbti.color[$mbti.func[type][0][0]]+';left:'+($mbti.func[type][0][1]==='i'?'-26px':'26px')" v-html="f4($mbti.func[type][0][0])"></div>
-                <div class="f-2" :style="'background-color:'+$mbti.color[$mbti.func[type][1][0]]+';left:'+($mbti.func[type][1][1]==='i'?'-27px':'27px')" v-html="f4($mbti.func[type][1][0])"></div>
-                <div class="f-3" :style="'background-color:'+$mbti.color[$mbti.func[type][2][0]]+';left:'+($mbti.func[type][2][1]==='i'?'-18px':'18px')" v-html="f4($mbti.func[type][2][0])"></div>
-                <div class="f-4" :style="'background-color:'+$mbti.color[$mbti.func[type][3][0]]+';left:'+($mbti.func[type][3][1]==='i'?'-5px':'5px')">{{$mbti.func[type][3][0]}}</div>
+                <div class="f-1" :style="'background-color:'+$mbti.color[$mbti.func[type][0][0]]+';left:'+($mbti.func[type][0][1]==='i'?'-26px;padding-right:.5em':'26px;padding-left:.5em')" v-html="f4($mbti.func[type][0][0])"></div>
+                <div class="f-2" :style="'background-color:'+$mbti.color[$mbti.func[type][1][0]]+';left:'+($mbti.func[type][1][1]==='i'?'-27px;padding-right:.5em':'27px;padding-left:.5em')" v-html="f4($mbti.func[type][1][0])"></div>
+                <div class="f-3" :style="'background-color:'+$mbti.color[$mbti.func[type][2][0]]+';left:'+($mbti.func[type][2][1]==='i'?'-18px;padding-right:.6em':'18px;padding-left:.8em')" v-html="f4($mbti.func[type][2][0])"></div>
+                <div class="f-4" :style="'background-color:'+$mbti.color[$mbti.func[type][3][0]]+';left:'+($mbti.func[type][3][1]==='i'?'-5px;padding-right:.2em':'5px;padding-left:.2em')">{{$mbti.func[type][3][0]}}</div>
             </div>
             <div class="f-info">
                 <div>
@@ -132,22 +132,24 @@ export default {
                 margin:0 auto;
                 position: relative;
                 font-weight:700;
+                font-size:15px;
             }
             .f-1 {
                 width:155px;
                 height:45px;
-                line-height:42px;
+                line-height:41px;
+                font-size:16px;
             }
             .f-2 {
                 width:98px;
                 height:40px;
-                line-height:37px;
+                line-height:36px;
                 top:-9px;
             }
             .f-3 {
                 width:80px;
                 height:33px;
-                line-height:30px;
+                line-height:27px;
                 top:-19px;
             }
             .f-4 {
@@ -155,6 +157,7 @@ export default {
                 height:28px;
                 line-height:25px;
                 top:-25px;
+                font-size:14px;
             }
             &:after {
                 content:"";

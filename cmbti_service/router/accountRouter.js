@@ -556,11 +556,7 @@ router.get('/getUserInfoShow',getUserInfoShow);
 router.get('/getMyTest',checkLogin,getMyTest);
 router.get('/getMyVote',checkLogin,getMyVote);
 router.get('/getMyMarkExample',checkLogin,getMyMarkExample);
-<<<<<<< HEAD
 router.get('/getMyArticle',getMyArticle);
-=======
-router.get('/getMyArticle',checkLogin,getMyArticle);
->>>>>>> f25764f5b4f5755cfeb25b281aa5cb53ec3ec593
 router.get('/getMyLikes',checkLogin,getMyLikes);
 router.get('/getMyFollowing',checkLogin,getMyFollowing);
 router.get('/getMyFollowers',checkLogin,getMyFollowers);
