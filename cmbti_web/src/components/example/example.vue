@@ -380,6 +380,7 @@ export default {
         }
         .type:hover, .type.t-active{
             background:url('/static/img/btn-down.jpg') no-repeat;
+            color:#fff;
             .bg-r {
                 background:url('/static/img/btn-down.jpg') no-repeat -165px 0px;
             }

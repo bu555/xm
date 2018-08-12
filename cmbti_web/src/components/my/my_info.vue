@@ -8,14 +8,14 @@
       <i class="fa fa-user-o"></i> 个人档案
     </div>
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
-      <el-form-item label="昵称">
-        <el-input v-if="infoForm.modify" v-model="infoForm.r_name" spellcheck=false></el-input>
-        <div id="no-modify-name" v-else>{{infoForm.modify}}
-            <i @click="notModifyHandler()">?</i>
-            <div id="info-msg" v-if="showNotModify">昵称180天内只允许修改一次</div>
+      <el-form-item label="昵称" class="name-form">
+        <el-input v-if="infoForm.modify" v-model="infoForm.r_name" @focus="notModifyHandler()" spellcheck=false></el-input>
+        <div id="no-modify-name" v-else>{{infoForm.r_name}}
         </div>
+        <i @click="notModifyHandler()">?</i>
+        <div id="info-msg" v-if="showNotModify">注：昵称180天内只允许修改一次</div>
       </el-form-item>
-      <el-form-item label="省份">
+      <!-- <el-form-item label="省份">
         <el-select v-model="infoForm.province"  placeholder="省份" style="width:100%" v-if="provinceList">
             <el-option
             v-for="(item,i) in provinceList"
@@ -36,16 +36,8 @@
               <span style="float: left">{{item.name}}</span>
           </el-option>
         </el-select>
-        <el-select filterable placeholder="城市" style="width:100%"  v-else>
-          <el-option
-          v-for="(item,i) in 1"
-          :key="i"
-          :label="''"
-          :value="'中国'">
-          </el-option>
-        </el-select>
 
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="性别">
         <el-radio-group v-model="infoForm.sex" size="medium">
           <el-radio label="1">男 <i class="fa fa-mars"></i> </el-radio>
@@ -78,19 +70,20 @@ export default {
         loading:false,
         initData:'',
         edited:false,
-
-        cityList:'',
-        provinceList:'',
+        china:'', //中国省城数据
+        hotCityList:'', //热门城市
+        cityAll:'', //所有城市
+        cityList:[{name:'未选择'}], //按省提取的城市
+        provinceList:'', //省份
         showNotModify:false,
-        timeID:''
+        timeID:'',
+
       }
     },
     watch:{
-      "$store.state.userInfo":function(){
-          this.init()
-      },
+      "$store.state.userInfo":"getUser",
       "infoForm" : {
-          handler:function() {   //特别注意，不能用箭头函数，箭头函数，this指向全局
+          handler:function() {   //注：箭头函数，this指向全局
               if(JSON.stringify(this.infoForm)!==JSON.stringify(this.initData)){
                     this.edited = true
               }else{
@@ -99,15 +92,10 @@ export default {
           },
           deep: true    //深度监听
       },
-      "infoForm.province":function(){
-          if(this.infoForm.province){
-                this.provinceList.forEach((v,i)=>{
-                    if(v.name===this.infoForm.province){
-                        this.getCities(v.code)
-                    }
-                })
-          }
-      }
+    //   "infoForm.province":function(){
+    //       this.infoForm.city = ''
+    //       this.getCityByProvince()
+    //   }
     },
     methods:{
         modifyUserInfo(){
@@ -123,29 +111,17 @@ export default {
                         message: '修改成功！',
                         type: 'success'
                     });
-                    this.$store.state.refUser = true
+                    this.$store.state.refUser += 1
                 }
             }).catch(err=>{
                 this.loading = false
             })
         },
-        getCities(provinceCode){
-            this.cityList = ''
-            this.$axios.getCities({provinceCode:provinceCode}).then(res=>{
+        getChina(callback){
+            this.$axios.getChina({}).then(res=>{
                 this.loading = false
                 if(res.data.success){
-                    this.cityList = res.data.data
-                    this.infoForm.city = this.cityList[0].name
-                }
-            }).catch(err=>{
-                this.loading = false
-            })
-        },
-        getProvinces(callback){
-            this.$axios.getProvinces({}).then(res=>{
-                this.loading = false
-                if(res.data.success){
-                    this.provinceList = res.data.data
+                    this.china = res.data.data
                     callback&&callback()
                 }
             }).catch(err=>{
@@ -157,18 +133,47 @@ export default {
             this.showNotModify = true
             this.timeID = setTimeout(()=>{
                 this.showNotModify = false
-            },5555)
+            },7555)
+        },
+        getCityByProvince(){
+            for(let i=0;i<this.provinceList.length;i++){
+                if(this.provinceList[i].name===this.infoForm.province){
+                    let provinceCode = this.provinceList[i].code
+                    let list = []
+                    this.china.cities.forEach((v,i)=>{
+                        if(v.provinceCode===provinceCode){
+                            list.push(v)
+                        }
+                    })
+
+                    this.cityList = list
+                    if(this.infoForm.city){
+
+                    }
+                    return
+                }
+            }
+        },
+        getUser(){
+            this.infoForm = JSON.parse(localStorage.getItem('USER'))
+            this.initData = JSON.parse(localStorage.getItem('USER'))
         },
         init(){
-          this.infoForm = JSON.parse(localStorage.getItem('USER'))
-          this.initData = JSON.parse(localStorage.getItem('USER'))
+            this.provinceList = this.china.provinces
+            this.getUser()
+            if(this.infoForm.province){
+                this.getCityByProvince()
+            }
         }
     },
     created(){
-      // this.getCities()
-      this.getProvinces(()=>{
-            this.init()
-      })
+        this.getUser()
+        // if(localStorage.getItem('CHINA')){
+        //     this.china = JSON.parse(localStorage.getItem('CHINA'))
+        // }else{
+        //     this.getChina(this.init)
+
+        // }
     }
 }
 </script>
@@ -178,12 +183,12 @@ export default {
   padding:4%;
   padding-top:12px;
   padding-bottom:22px;
-  #no-modify-name {
+  .name-form {
         position:relative;
         i {
             position:absolute;
             right:9px;
-            top:7px;
+            top:8px;
             color:#fff;
             cursor: pointer;
             height:18px;
@@ -199,8 +204,8 @@ export default {
         #info-msg {
             position:absolute;
             left:0px;
-            bottom:-20px;
-            color:#efb44e;
+            top:26px;
+            color:#ffaf4b;
             font-size:13px;
         }
   }

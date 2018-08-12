@@ -1,7 +1,7 @@
 <template>
 <div class="crop" v-loading="loading">
 
-    <div class="upload-view" style="max-width:320px;height:300px;margin:0 auto;">
+    <div class="upload-view" style="max-width:320px;height:300px;margin:0 auto;border-radius:5px;">
         <vueCropper
         ref="cropper"
         :img="baseImgURL"
@@ -9,8 +9,8 @@
         :outputType="'jpg'"
         :fixedBox="true"
         :autoCrop="true"
-        :autoCropWidth="255"
-        :autoCropHeight="255"
+        :autoCropWidth="196"
+        :autoCropHeight="196"
         @realTime="realTime"
         @canMove="false"
         ></vueCropper>
@@ -120,10 +120,11 @@ export default {
     margin:0 auto;
     background-color: #fff;
     margin-top:-5% auto;
-    // margin:-10% -20% -20%;
     position: relative;
     min-height:400px;
     max-width:320px;
+    border-radius:3px;
+    overflow: hidden;
     .show-preview {
         position: absolute;
         right:30px;
@@ -133,8 +134,9 @@ export default {
         text-align: center;
     }
     .vue-cropper {
-    background: #7a7a7a;
-    border:1px solid #999;
+        background: #7a7a7a;
+        border:1px solid #999;
+
     }
     .file-btn {
         position: relative;

@@ -244,13 +244,9 @@ export default {
     },
 
 // other --------------------
-    // 获取城市
-    getCities(data){
-        return axios.get(pathAPI+'/other/getCities',{params:data});
-    },
-    // 获取省份
-    getProvinces(data){
-        return axios.get(pathAPI+'/other/getProvinces',{params:data});
-    },
+    // 获取中国省市
+    getChina(data){
+        return axios.get(pathAPI+'/other/getChina',{params:data});
+    }
 
 }

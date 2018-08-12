@@ -115,7 +115,9 @@ export default {
       margin-top:55px;
       // height:50px;
       // background-color: #456ea5;
-      background-color: #586a7a;
+      // background-color: #586a7a;
+      // background-image: -webkit-linear-gradient(rgba(41, 41, 41, 0.75) 0%, rgba(54, 54, 54, 0.72) 50%, rgba(24, 23, 23, 0.94) 51%);
+      background: -webkit-gradient(linear, left top, left bottom, from(#617182), to(#323a42));
       position: relative;
       .m-view {
           max-width: 1180px;
@@ -143,8 +145,8 @@ export default {
             }
           }
           .items.active {
-              // background-color: #265488;
-              background-color: #454f5a;
+              // background-color: #454f5a;
+                  background: -webkit-gradient(linear, left top, left bottom, from(#4e5d6b), to(#1e2023));
           }
           .user-ctrl.items {
             position: absolute;
