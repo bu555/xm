@@ -155,7 +155,8 @@ export default {
         width:100%;
         .tabs {
             padding:15px 15px;
-            background-color: #fcfcfc;
+            // background-color: #fcfcfc;
+            background-color: #778b9d;
             position: relative;
             &>a>span {
                 display:inline-block;

@@ -73,7 +73,7 @@ export default {
   },
   methods:{
       clacDegree(res){
-          return ((clac(res.i,res.e)+clac(res.s,res.n)+clac(res.t,res.f)+clac(res.j,res.p))/4*100).toFixed(2) +'%'
+          return ((clac(res.i,res.e)+clac(res.s,res.n)+clac(res.t,res.f)+clac(res.j,res.p))/4*100).toFixed(1) +'%'
           
           function clac(a,b){
               return a>b?a/(a+b) : b/(a+b)
@@ -143,11 +143,11 @@ export default {
             .prog {
                 // flex-basis:0;
                 width:80px;
-                border:1px solid #80c342;
+                border:1px solid #bcc5bb;
                 padding:1px;
                 &>div {
                     height:17px;
-                    background-color: #80c342;
+                    background-color: #4ac555;
                     // width:33%;
                     .val {
                         padding:0 1px;

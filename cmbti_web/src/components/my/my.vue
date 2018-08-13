@@ -57,10 +57,8 @@ export default {
         // 刷新用户信息
         '$store.state.refUser':function(){
             if(this.$store.state.refUser){
-                // this.$store.commit('setUserInfo',{}) //改变avatar的值
                 this.$store.state.userInfo.avatar = ''
                 this.getUser()
-                this.$store.state.refUser=false
             }
         },
         // 刷新用户账户信息
@@ -76,7 +74,7 @@ export default {
             this.showUploadAvatar = false; //关闭模态框
             if(success){
                 // 修改成功,通知刷新
-                this.$store.state.refUser = true  
+                this.$store.state.refUser += 1  
             }
         },
         getUser(){
@@ -96,7 +94,10 @@ export default {
             if(localStorage.getItem('USER')){
                 this.isLogin = true;
             }else{
-                this.$store.state.modalLogin = true
+                // this.$store.state.modalLogin = true
+                this.$router.push({
+                    path:'/'
+                })
             }
         }
     },
@@ -104,8 +105,8 @@ export default {
     },
     created(){
         this.init()
+        this.getUser()
         // this.getAccount()
-        // this.getUser()
     },
     
 };
@@ -251,7 +252,7 @@ export default {
             // top:100px;
             // left:50%;
             // transform:translate(-50%);
-            border:1px solid #777;
+            // border:1px solid #777;
         }
 
         // margin:0 auto;

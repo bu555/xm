@@ -1,19 +1,15 @@
 <template>
 <div class="details">
-    <div class="tab-nav">
+    <!-- <div class="tab-nav">
         <div class="nav-view bx ">
             <div class="ctrl">
-                <!--<span style="cursor:pointer">首页</span>-->
-                
                 <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-menu-left"></i> 返回名人库</span>
-                <!--<i class="glyphicon glyphicon-menu-right"></i> 
-                <span style="">{{exampleItem.name}}</span>-->
             </div>
             <div class="search-box  hidden-xs">
 
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="view-1100px">
         <div class="main-box "  v-loading="loading3">
                     <div class="vote">
@@ -24,7 +20,7 @@
                                         <div class="item">
                                             <!--<img :src="exampleItem.img_url" alt="">-->
                                             <div class="photo">
-                                                <img :src="$pathImgs+exampleItem.img_url" alt="">
+                                                <img v-if="exampleItem" :src="$pathImgs+exampleItem.img_url" alt="">
                                             </div>
                                             <div class="e-more">
                                                 <a href="" target="_blank">[维基百科]</a>
@@ -107,24 +103,32 @@
                                 
                             </div>
                             <div>
-                                <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="el-icon-edit-outline"></i><br/>写评论</span>
+                                <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
                                 <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                             </div>
                         </div>
+                        
+                        <!-- <div class="a-vote-view" v-if="showVote && !exampleItem.isVoted"> -->
                         <div class="a-vote-view" v-if="showVote">
-                            <p style="margin-bottom:5px">请选择类型：</p>
-                            <div class="vote-16">
-                                <div class="v-item" v-for="(v,i) in $mbti.kTypes" :style="$mbti.color" :key="i">
-                                    <p>{{v.t.toUpperCase()}}</p>
-                                    <div v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active':''">{{v1.toUpperCase()}}</div>
-                                    <!-- <button  v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active bu-button bu-gblue':'bu-button bu-gblue'">{{v1.toUpperCase()}}</button> -->
+                            <div>
+                                <p style="margin-bottom:5px">请选择类型：</p>
+                                <div class="vote-16">
+                                    <div class="v-item" v-for="(v,i) in $mbti.kTypes" :style="$mbti.color" :key="i">
+                                        <p>{{v.t.toUpperCase()}}</p>
+                                        <div v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active':''">
+                                            <div class="icon-1"><i class="el-icon-success"></i></div>
+                                            <font>{{v1.toUpperCase()}}</font>
+                                        </div>
+                                        <!-- <button  v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active bu-button bu-gblue':'bu-button bu-gblue'">{{v1.toUpperCase()}}</button> -->
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="v-result" v-if="myVote">
-                                <div>
-                                    <span>{{myVote.toUpperCase() }}</span> {{myVote2chinese}}
+                                <div class="v-result" v-if="myVote">
+                                    <div>
+                                        <span>{{myVote.toUpperCase() }}</span> {{myVote2chinese}}
+                                    </div>
+                                    <button class="bu-button bu-gblue" @click="vote()">投 票</button>
                                 </div>
-                                <button class="bu-button bu-gblue" @click="vote()">投 票</button>
+                                <i class="close-btn el-icon-close " @click="showVote=false"></i>
                             </div>
                             
                         </div>
@@ -290,6 +294,7 @@ export default {
             }).then(res=>{
                 if(res.data.success){
                     // this.exampleHandle(res.data.example)
+                    this.showVote = false
                     this.getExampleById()
                     this.exampleItem.isVoted = true
                     this.$message({
@@ -382,7 +387,7 @@ export default {
         exampleHandle(example){
                 this.exampleItem = example;
                 this.isRepeat = example.isVoted
-                this.showVote = !example.isVoted
+                // this.showVote = !example.isVoted
 
                 // 类型排序
                 let vote = []
@@ -646,6 +651,7 @@ export default {
                             font-size:18px;
                             // font-weight: 500;
                             height:19px;
+                            margin-bottom:4px;
                             color:#555;
                         }
                         // font-weight:700;
@@ -673,6 +679,7 @@ export default {
                                 line-height: 25px;
                                 text-align:right;
                                 padding-right:5px;
+                                font-weight:600;
                                 // background-color: pink;
                             }
                             .prog{
@@ -913,24 +920,38 @@ export default {
         }
 
         .a-vote-view {
-            background-color: #fefefe;
-            padding:3%;
-            border-top:1px solid #eee;
+            position:fixed;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            z-index:5;
+            background-color: rgba(0,0,0,.5);
+            &>div {
+                max-width:500px;
+                background-color: #fefefe;
+                padding:25px 2%;
+                border-top:1px solid #eee;
+                margin:15vh auto;
+                border-radius:3px;
+                position: relative;
+            }
             .vote-16 {
                 display:flex;
                 &>div {
                     flex:0 0 25%;
                 }
                 .v-item {
-                    display:flex;
-                    flex-wrap:wrap;
-                    justify-content: space-between;
+                    // display:flex;
+                    // flex-wrap:wrap;
+                    // justify-content: space-between;
                     background-color: #fcfcfc;
-                    padding:12px;
+                        background: linear-gradient(to bottom, #eaeaea 0%, #f5ece0 100%);
+                    // padding:12px;
                     padding-bottom:2px;
                     border:1px solid #eaeaea;
                     border-right:none;
-                    padding-top:37px;
+                    padding-top:45px;
                     position: relative;
                     margin-bottom:3px;
                     &>p {
@@ -942,60 +963,92 @@ export default {
                         font-weight:700;
                         font-size:17px;
                         color:#746f6f;
+
+                        color: #fafafa;
+                        letter-spacing: 0;
+                        text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 ;
                     }
                     &>div {
-                        flex:0 0 45%;
+                        width:69px;
                         // border:1px solid #aaa;
-                        margin-bottom:12px;
-                        text-align:center;
+                        margin:0px auto 10px;
+                        text-align:left;
                         cursor:pointer;
-                        color:#464f59;
+                        color:#555;
                         padding:2px 0;
                         border-radius:3px;
                         text-shadow: 1px 1px 1px #fff;
-                        border: 1px solid #d0d0d0;
-                        background-image: -moz-linear-gradient(#e1e1e1, #ededed);
-                        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ededed), to(#e1e1e1));
-                        background-image: -webkit-linear-gradient(#e1e1e1, #ededed);
-                        background-image: -o-linear-gradient(#e1e1e1, #ededed);
-                        background-color: #ededed;
+                        position: relative;
+                        padding-left:1.5em;
+                        &>.icon-1 {
+                            position: absolute;
+                            top:2px;
+                            left:.3em;
+                            i {
+                                color:#bbb;
+                                opacity: 0;
+                                transition: all .5s;
+                            }
+                        }
                         &:hover {
-                            color: #444;
-                            border: 1px solid #d0d0d0;
-                            background-image: -moz-linear-gradient(#ededed, #e1e1e1);
-                            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e1e1e1), to(#ededed));
-                            background-image: -webkit-linear-gradient(#ededed, #e1e1e1);
-                            background-image: -o-linear-gradient(#ededed, #e1e1e1);
-                            text-shadow: 1px 1px 1px #fff;
-                            background-color: #e1e1e1;
+                            // font {
+                            //     font-weight:700;
+                            // }
+                            // &>.icon-1 i{
+                            //     color:#888;
+                            // }
+                            &>.icon-1 {
+                                i {
+                                    opacity:1;
+                                }
+                            }
                         }
                     }
                     &>div.active {
-                        background-color: #575d65;
-                        border-color:#575d65;
-                        color:#fff;
-                        // background-color:#d1e9b8 ;
+                        font-weight:700;
+                        color:#15a743;
+    color: #5d7f94;
+        text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+        font-weight: bold;
+        text-align: center;
+        // background: linear-gradient(to bottom, #ece4d9 0%,#e9dfd1 100%); 
+
+                        font {
+
+                            // text-shadow: 0 0 1px #0db542;
+                        }
+                        &>.icon-1 {
+                            i {
+                                opacity:1;
+                                color:#0db542;
+                                color:#8799a7;
+                            }
+                        }
                     }
                 }
-                .v-item:nth-last-child(1){
-                    border:1px solid #e1e1e1;
-                }
-                .v-item:nth-first-child(1){
+                .v-item:nth-of-type(1){
                     border-radius:3px 0 0 3px;
                 }
                 .v-item:nth-last-child(1){
+                    border:1px solid #e1e1e1;
                     border-radius:0 3px 3px 0;
                 }
                 
             }
             .v-result {
                 background-color: #fcfcfc;
+                background-color: #e9fbed;
                 border-radius:3px;
                 padding:6px 0 15px;
                 text-align:center;
                 color:#627887;
                 font-size:14px;
                 border:1px solid #eaeaea;
+    color: #5d7f94;
+        text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+        font-weight: bold;
+        text-align: center;
+        background: linear-gradient(to bottom, #ece4d9 0%,#e9dfd1 100%);                
                 &>div {
                     margin-bottom:10px;
                 }
@@ -1009,6 +1062,18 @@ export default {
                     margin:0 auto;
                     font-size:15px;
                     color:#464f59;
+                    font-weight:700;
+                }
+            }
+            .close-btn {
+                position:absolute;
+                top:12px;
+                right:22px;
+                font-size:18px;
+                cursor:pointer;
+                color:#586a7a;
+                &:hover {
+                    color:#454f5a;
                     font-weight:700;
                 }
             }
@@ -1031,7 +1096,7 @@ export default {
                 margin:0 0 10px;
             }
         }
-        @media screen and (max-width:768px){
+        @media screen and (max-width:992px){
             padding-right:0;
             .aside-box {
                 position: relative;
@@ -1042,6 +1107,9 @@ export default {
             }
         }
         @media screen and (max-width:525px){
+            .a-vote-view>div {
+                margin: 22vh 5px;
+            }
             .main-box {
                 .example-box {
                     padding-right:2%;

@@ -39,7 +39,8 @@ export default {
     "$store.state.modalLogin":function(){
       if(this.$store.state.modalLogin){
           // 清除本地登录信息
-          this.$store.state.loginOut = true
+          localStorage.setItem('USER','')
+          this.$store.commit('setUserInfo','')
       }
     }
   },
@@ -76,16 +77,23 @@ export default {
       this.$store.commit("setMeta", meta);
     },
     loginOut(){
-        localStorage.setItem('USER','')
-        this.$store.commit('setUserInfo','')
-        if(/^\/my/.test(this.$route.path)){
-           this.$router.push({
-             path:'/forum?category=all&page=1'
-           })
-        }
-        setTimeout(()=>{
-          this.$store.state.loginOut = false
-        },2000)
+      this.$axios.delSession().then(res=>{
+        
+      })
+      localStorage.setItem('USER','')
+      this.$store.commit('setUserInfo','')
+      this.$router.push({
+        path:'/'
+      })
+      setTimeout(()=>{
+        this.$store.state.loginOut = false
+      },2000)
+        // if(/^\/my/.test(this.$route.path)){
+        //    this.$router.push({
+        //      path:'/forum?category=all&page=1'
+        //    })
+        // }
+
         // this.$message({
         //     message: '你已退出！',
         //     type: 'info'

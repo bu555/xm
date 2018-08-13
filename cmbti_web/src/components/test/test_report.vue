@@ -2,7 +2,7 @@
 <div class="test-result">
     <div class="main"  v-if="mbtiRes">
         <!--<h4>MBTI 测试报告</h4>-->
-        <div class="line1"></div>
+        <div class="line1">REPORT</div>
         <!--头部-->
         <div class="header">
             <!--<h2>测试报告</h2>-->
@@ -24,7 +24,7 @@
                 </div>
                 <div class="f-chart">
                     <!-- <div class="chart-tit">{{mbtiRes.type}} 功能</div> -->
-                    <funcChart type="intj"></funcChart>
+                    <funcChart :type="type"></funcChart>
                     <!-- <div class="f-f txt-center">
                         <div class="f1">{{mbtiRes.f[0]}}
                             <div class="f2">{{mbtiRes.f[1]}}
@@ -72,7 +72,6 @@
 </div> 
 </template>
 <script>
-import mbtiRes from './r_mbti'
 import funcChart from '../common/func_chart'
 import mbtiChart from '../common/mbti_chart'
 export default {
@@ -95,7 +94,7 @@ export default {
                     this.Res = d.res
                     this.type = d.type
                     this.time = d.c_time
-                    this.mbtiRes = mbtiRes['enfp']
+                    this.mbtiRes = d.doc
                 }
             }).catch(err=>{ })
         }
@@ -105,6 +104,7 @@ export default {
         this.tid = this.$route.path.split('/')[3]
         // 请求数据
         this.getResult()
+        window.scrollTop = 0
     },
     
 };
@@ -117,7 +117,7 @@ export default {
     background-color: #fff;
     .main {
         text-align:center;
-        padding:4% 12%;
+        padding:4% 5%;
         &>h4 {
             // display:inline-block;
             background-color: #70a9e5;
@@ -129,16 +129,19 @@ export default {
             
         }
         .line1 {
-            border-top:1px solid rgba(69,110,165,.4);
-            // border-bottom:1px dotted #f5f5f5;
-            margin:-9px 0 26px;
-            // box-shadow:0 1px 1px #456ea5;
+            color:#fff;
+            font-style: italic;
+            margin:0px 0 5px;
+            height:20px;
+            background-color: #f8f8f8;
         }
         .line2 {
             border-bottom:1px dotted #f5f5f5;
             margin:5px 0 20px;
         }
         .header {
+            background-color: #fafafa;
+            padding:30px 5px 10px;
             h3.tit {
                 margin-bottom:3px;
                 font-size:24px;
@@ -169,6 +172,8 @@ export default {
             }
         }
         .list {
+            padding:3%;
+            border:1px solid #fafafa;
             .content {
                 // padding:5px;
                 padding-bottom:8px;
@@ -200,11 +205,13 @@ export default {
             }
             .m-chart {
                 flex:0 0 49%;
+                margin-bottom:10px;
             }
 
             .f-chart {
                 // min-width:300px;
                 flex:0 0 49%;
+                margin-bottom:10px;
 
             }
         }
@@ -215,7 +222,7 @@ export default {
     }
     @media screen and (max-width:768px){
         .main {
-            padding:5%;
+            padding:0.5%;
         }
         .chart {
             flex-wrap: wrap;

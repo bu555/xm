@@ -73,7 +73,8 @@ module.exports =  {
         },
         //处理r_name 去空白 特殊符号、大写、小写、数字
         roleName(r_name){
-                var reg = /^(\d|\w|[\x21-\x2f\x3a-\x40\x5b-\x60\x7B-\x7F]){1,20}$/
+                // var reg = /^[\w\u4e00-\u9fa5]{1,12}$/
+                var reg = /^[\u4e00-\u9fa5A-Za-z0-9-_]{1,12}$/
                 return r_name && reg.test(r_name) ? true:false
         },
         // 去除两端空白 中间空白合并..
