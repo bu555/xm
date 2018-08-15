@@ -16,11 +16,14 @@
             </div>
             <!--导航list-->
             <div :class="showDownMeun?'my-menu-list active':'my-menu-list'">
+                <router-link to="/">
+                    <div :class="/^\/$/.test($route.path)? 'items active':'items'">首 页</div>
+                </router-link>
                 <router-link to="/personalities">
                     <div :class="/^\/personalities/.test($route.path)? 'items active':'items'">人格类型</div>
                 </router-link>
                 <router-link :to="'/test'">
-                    <div :class="/^\/test/.test($route.path)? 'items active':'items'">测试</div>
+                    <div :class="/^\/test/.test($route.path)? 'items active':'items'">测 试</div>
                 </router-link>
                 <router-link to="/example?type=all&page=1">
                     <div :class="/^\/example/.test($route.path)? 'items active':'items'">名人库</div>
@@ -116,8 +119,8 @@ export default {
       // height:50px;
       // background-color: #456ea5;
       // background-color: #586a7a;
-      // background-image: -webkit-linear-gradient(rgba(41, 41, 41, 0.75) 0%, rgba(54, 54, 54, 0.72) 50%, rgba(24, 23, 23, 0.94) 51%);
       background: -webkit-gradient(linear, left top, left bottom, from(#617182), to(#323a42));
+      // background-image:-webkit-linear-gradient(rgba(20, 42, 55, 0.75) 0%, rgba(22, 31, 56, 0.72) 50%, rgba(15, 23, 41, 0.94) 51%);
       position: relative;
       .m-view {
           max-width: 1180px;
@@ -136,17 +139,22 @@ export default {
             height:52px;
             line-height: 52px;
             padding:0 20px;
-            color:#fff;
+            color:#bdb9b9;
             cursor:pointer;
             font-size:17px;
             &:hover {
               // background-color: #2d5e92;
-              text-shadow: 0 0 4px #f2f2f2;
+              // text-shadow: 0 0 4px #f2f2f2;
+              // background: -webkit-gradient(linear, left top, left bottom, from(#566979), to(#2a2b2f));
+              color:#ddd;
+              background:rgba(10,5,5,0.25);
             }
           }
           .items.active {
-              // background-color: #454f5a;
-                  background: -webkit-gradient(linear, left top, left bottom, from(#4e5d6b), to(#1e2023));
+              // text-shadow: 0 0 4px #f2f2f2;
+              // background: -webkit-gradient(linear, left top, left bottom, from(#4e5d6b), to(#1e2023));
+              color:#eee;
+              background:rgba(15, 13, 19, 0.35);
           }
           .user-ctrl.items {
             position: absolute;

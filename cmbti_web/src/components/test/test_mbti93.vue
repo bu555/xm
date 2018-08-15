@@ -117,14 +117,11 @@ export default {
 
         },
         listenScroll(){
-            let _this = this
-            window.addEventListener('scroll',function(e){
-                if(window.pageYOffset>455){
-                    _this.showProgress = true
-                }else{
-                    _this.showProgress = false
-                }
-            })
+            if(window.pageYOffset>455){ //window.scrollY
+                this.showProgress = true
+            }else{
+                this.showProgress = false
+            }
         },
         getRandomTest(){
             let t = {e:5,i:6,s:7,n:4,t:8,f:9,j:9,p:2}
@@ -148,7 +145,7 @@ export default {
 
     },
     mounted(){
-        this.listenScroll()
+        document.addEventListener('scroll',this.listenScroll,false)
     },
     created(){
         this.mbti93 = mbti93
@@ -156,6 +153,9 @@ export default {
         
 
     },
+    beforeDestroy(){
+        document.removeEventListener('scroll',this.listenScroll,false)
+    }
     
 };
 </script>

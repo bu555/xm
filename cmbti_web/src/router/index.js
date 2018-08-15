@@ -9,8 +9,7 @@ import user_forget from '@/components/user/user_forget'
 import user from '@/components/user/user'
 
 //home页面
-import home_index from '@/components/home/home_index' ;import home_index1 from '@/components/home/home_index.1'
-
+import home from '@/components/home/home' 
 //type页面
 import type from '@/components/personalities/type'
 import type_details from '@/components/personalities/type_details'
@@ -61,7 +60,7 @@ const vueRouter = new Router({
     {path:'/index',redirect:'/'},
     // redirect:'pool/systemStts',
     //Home
-    {path:'/',name:'1-1',component:home_index},{path:'/t',component:home_index1},
+    {path:'/',component:home},
 
     // type
     {

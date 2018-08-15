@@ -25,58 +25,11 @@ nuxt.js基于vue，我们目前所实现了的功能都是可以实现的，它�
 类似OopsDaily这样必须做SEO的项目，用Nuxtjs做全站SSR、或者SPA+部分SSR应该都是比较合适的。如果一开始兼顾SPA+SSR的需求去组织vue组件，SPA完成之后用Nuxt.js做SSR就是比较简单的（直接根据nuxt规则把组件拼接起来）。
 现有项目如果用nuxt.js做首页和内页的SSR，主要就是重写组件，估计会需要一星期左右的时间。
 
-#base64 
-var reader = new FileReader();
-reader.onload = function (e) {
-    var data = this.result;
-    console.log(data);
-}
-reader.readAsDataURL( this.files[0] );
 
-#DOM常用api
-offsetWidth/offsetHeight 获取元素宽度/高度
-offsetTop/offsetLeft 获取元素至屏幕顶部/左侧距离 
-window.innerHeight 窗口高度
-lastElementChild/firstElementChild 获取最后/第一子元素
-.appendChild(sDom) 在末尾添加元素 
-.insertBefore(newDom, sDom)/.insertAfter(newDom, sDom) 在子元素前/后插入元素
-.nextElementSibling/.priviousElementSibling 下一个/上一个兄弟元素
-window.pageYOffset
-window.pageXOffset
-网页可见区域宽： document.body.clientWidth
-网页可见区域高： document.body.clientHeight
-网页可见区域宽： document.body.offsetWidth (包括边线的宽)
-网页可见区域高： document.body.offsetHeight (包括边线的高)
-网页正文全文宽： document.body.scrollWidth
-网页正文全文高： document.body.scrollHeight
-网页被卷去的高： document.body.scrollTop
-网页被卷去的左： document.body.scrollLeft
-元素节点的 nodeName 是标签名称
-属性节点的 nodeName 是属性名称
-文本节点的 nodeName 永远是 #text
-文档节点的 nodeName 永远是 #document
-nodeType:
-元素element	1
-属性attr	2
-文本text	3
-注释comments	8
-文档document	9
-网页可见区域宽： document.body.clientWidth
-网页可见区域高： document.body.clientHeight
-网页可见区域宽： document.body.offsetWidth (包括边线的宽)
-网页可见区域高： document.body.offsetHeight (包括边线的高)
-网页正文全文宽： document.body.scrollWidth
-网页正文全文高： document.body.scrollHeight
-网页被卷去的高： document.body.scrollTop
-网页被卷去的左： document.body.scrollLeft
-网页正文部分上： window.screenTop
-网页正文部分左： window.screenLeft
-屏幕分辨率的高： window.screen.height
-屏幕分辨率的宽： window.screen.width
-屏幕可用工作区高度： window.screen.availHeight
-屏幕可用工作区宽度： window.screen.availWidth
-document.documentElement.clientWidth ==> 可见区域宽度  
-document.documentElement.clientHeight ==> 可见区域高度  
+
+
+
+
 
 
 
@@ -359,24 +312,6 @@ chrome://cache，打开缓存页面。
 F5刷新      无效 & 有效
 ctrl+F5	无效 & 无效
 
-【DOM操作】
-javascript中获取dom元素高度和宽度的方法如下：
-
-网页可见区域宽： document.body.clientWidth
-网页可见区域高： document.body.clientHeight
-网页可见区域宽： document.body.offsetWidth (包括边线的宽)
-网页可见区域高： document.body.offsetHeight (包括边线的高)
-网页正文全文宽： document.body.scrollWidth
-网页正文全文高： document.body.scrollHeight
-网页被卷去的高： document.body.scrollTop
-网页被卷去的左： document.body.scrollLeft
-
-对应的dom元素的宽高有以下几个常用的：
-
-元素的实际高度：document.getElementById("div").offsetHeight
-元素的实际宽度：document.getElementById("div").offsetWidth
-元素的实际距离左边界的距离：document.getElementById("div").offsetLeft
-元素的实际距离上边界的距离：document.getElementById("div").offsetTop
 		
 【HTTP】
  POST 提交数据的四种编码方式:

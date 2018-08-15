@@ -52,8 +52,8 @@ height: 62px;
 margin: 0px;
 overflow: hidden;
 line-height: 50px!important;
--webkit-transition:all .5s ease-out;
-transition: all .5s ease-out;
+-webkit-transition:all .1s ease-out;
+transition: all .1s ease-out;
 }
 
 /* hover statut */
@@ -73,10 +73,10 @@ border-right: none;
 text-align: center;
 box-shadow:0 2px 1px 0 #963004, 0 4px 1px -1px #852A03, 0 6px 1px -2px #812802, 0 8px 1px -3px #7D2803, 0 10px 1px -4px #661F01, 0 12px 1px -5px #521A02, 0 14px 1px -6px #401601, 0 16px 1px -7px #3C1501, 0 18px 1px -8px #2D1001, 0 20px 1px -9px #110500, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.75), 0 20px 4px -6px rgba(0, 0, 0, 0.9), 0 45px 5px -5px rgba(0, 0, 0, 0.05), 0 35px 10px -5px rgba(0, 0, 0, 0.1), 0 25px 55px 5px rgba(0, 0, 0, 0.15);
 z-index:0;
--webkit-transition:background border-radius 0.75s ease-in;
-transition: background border-radius 0.75s ease-in;
--webkit-transition:box-shadow 0.5s ease-in;
-transition: box-shadow 0.5s ease-in;
+-webkit-transition:background border-radius 0.25s ease-in;
+transition: background border-radius 0.25s ease-in;
+-webkit-transition:box-shadow 0.2s ease-in;
+transition: box-shadow 0.2s ease-in;
 }
 #menu li.active{background-color:#DADADA}
 .item:hover{
