@@ -32,7 +32,7 @@ import example_details from '@/components/example/example_details'
 
 // forum
 import forum from '@/components/forum/forum'
-import forum_index from '@/components/forum/forum_index'
+// import forum_index from '@/components/forum/forum_index'
 import forum_item from '@/components/forum/forum_item'
 import forum_article_new from '@/components/forum/forum_article_new'
 
@@ -97,18 +97,20 @@ const vueRouter = new Router({
 
     // document
     {path:'/document',component:document},
-
+    
     // forum 交流区
-    {
-      path:'/forum',
-      component:forum,
-      children:[
-        {path:'',component:forum_index},
-        {path:'article/new',component:forum_article_new},
-        {path:'article/edit/:id',component:forum_article_new},
-        {path:':articleID',component:forum_item},
-      ]
-    },
+    {path:'/forum',component:forum},
+    {path:'/forum/:id',component:forum_item},
+    // {
+    //   path:'/forum',
+    //   component:forum,
+    //   children:[
+    //     {path:'',component:forum_index},
+    //     {path:'article/new',component:forum_article_new},
+    //     {path:'article/edit/:id',component:forum_article_new},
+    //     {path:':articleID',component:forum_item},
+    //   ]
+    // },
     // {path:'/forum',component:forum,  meta:{requireAuth: true }},
     
     //个人中心

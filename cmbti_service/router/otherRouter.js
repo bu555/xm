@@ -14,13 +14,23 @@ const path = require('path')
 
 var logger = require('log4js').getLogger('logError');
 
-var china = require('../asset/china')      
+var china = require('../asset/city_data2016')      
 
 // 中国省市 { }
 const getChina = (req, res,next) => {
+    let data = []
+    china.forEach((v,i) => {
+        let temp = {}
+        temp.n = v.n
+        temp.s = []
+        v.s.forEach((v1,i1)=>{
+            temp.s.push({n:v1.n})
+        })
+        data.push(temp)
+    })
     res.json({
         success:true,
-        data:china
+        data:data
     })
 }
 

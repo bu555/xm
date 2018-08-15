@@ -1,5 +1,5 @@
-export default [
-		{
+module.exports =  [
+	{
         "n": "北京市",
         "s": [
             {

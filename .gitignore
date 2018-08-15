@@ -5,6 +5,7 @@ node_modules/
 node-http-proxy/public/
 cmbti_service/localImgs/
 cmbti_service/public/
+cmbti_service/logs/
 cmbti_service/upload/
 npm-debug.log*
 yarn-debug.log*

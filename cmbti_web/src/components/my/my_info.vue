@@ -13,10 +13,11 @@
         <div id="no-modify-name" v-else>{{infoForm.r_name}}
         </div>
         <i @click="notModifyHandler()">?</i>
-        <div id="info-msg" v-if="showNotModify">注：昵称180天内只允许修改一次</div>
+        <div class="info-msg" v-if="!nameVerify" style="color:red">要求为1~12位的中文、英文、数字、下划线</div>
+        <div class="info-msg" v-if="showNotModify && nameVerify">注：昵称180天内只允许修改一次</div>
       </el-form-item>
-      <!-- <el-form-item label="省份">
-        <el-select v-model="infoForm.province"  placeholder="省份" style="width:100%" v-if="provinceList">
+      <el-form-item label="城市" class="city">
+        <el-select v-model="infoForm.province"  placeholder="省份" style="margin-right:1%" v-if="provinceList">
             <el-option
             v-for="(item,i) in provinceList"
             :key="i"
@@ -25,19 +26,16 @@
                 <span style="float: left">{{item.name}}</span>
             </el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="城市">
-        <el-select v-model="infoForm.city" filterable placeholder="城市" style="width:100%"  v-if="cityList">
-          <el-option
-          v-for="(item,i) in cityList"
-          :key="i"
-          :label="''"
-          :value="item.name">
-              <span style="float: left">{{item.name}}</span>
-          </el-option>
+        <el-select v-model="infoForm.city" filterable placeholder="城市" style=""  v-if="cityList">
+            <el-option
+            v-for="(item,i) in cityList"
+            :key="i"
+            :label="''"
+            :value="item.n">
+                <span style="float: left">{{item.n}}</span>
+            </el-option>
         </el-select>
-
-      </el-form-item> -->
+      </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="infoForm.sex" size="medium">
           <el-radio label="1">男 <i class="fa fa-mars"></i> </el-radio>
@@ -46,6 +44,7 @@
       </el-form-item>
       <el-form-item label="简介">
         <el-input type="textarea" :rows="3" v-model="infoForm.profile" spellcheck=false></el-input>
+        <p style="height:25px;line-height:25px;text-align:right;color:#aaa">{{getProfileLen}}/50</p>
       </el-form-item>
       <el-form-item size="large">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>
@@ -73,10 +72,11 @@ export default {
         china:'', //中国省城数据
         hotCityList:'', //热门城市
         cityAll:'', //所有城市
-        cityList:[{name:'未选择'}], //按省提取的城市
-        provinceList:'', //省份
+        cityList:[], //按省提取的城市
+        provinceList:[], //省份
         showNotModify:false,
         timeID:'',
+        // profileLen:0
 
       }
     },
@@ -92,10 +92,26 @@ export default {
           },
           deep: true    //深度监听
       },
-    //   "infoForm.province":function(){
-    //       this.infoForm.city = ''
-    //       this.getCityByProvince()
-    //   }
+      "infoForm.province":function(){
+          this.infoForm.city = ''
+          this.getCityByProvince()
+      }
+    },
+    computed:{
+        getProfileLen(){
+            let len = this.infoForm.profile.length
+            console.log(len);
+            if(len > 50){
+                setTimeout(()=>{
+                    this.infoForm.profile = this.infoForm.profile.substr(0,50)
+                    len = 50
+                },20)
+            }
+            return len
+        },
+        nameVerify(){
+            return /^[\u4e00-\u9fa5A-Za-z0-9-_]{1,12}$/.test(this.infoForm.r_name)
+        },
     },
     methods:{
         modifyUserInfo(){
@@ -112,6 +128,10 @@ export default {
                         type: 'success'
                     });
                     this.$store.state.refUser += 1
+                }else if(res.data.message === '-1'){
+                    console.log('名字重复');
+                }else if(res.data.message === '-2'){
+                    console.log('格式不允许，要求为1~12位的中文、英文、数字、下划线');
                 }
             }).catch(err=>{
                 this.loading = false
@@ -136,20 +156,9 @@ export default {
             },7555)
         },
         getCityByProvince(){
-            for(let i=0;i<this.provinceList.length;i++){
-                if(this.provinceList[i].name===this.infoForm.province){
-                    let provinceCode = this.provinceList[i].code
-                    let list = []
-                    this.china.cities.forEach((v,i)=>{
-                        if(v.provinceCode===provinceCode){
-                            list.push(v)
-                        }
-                    })
-
-                    this.cityList = list
-                    if(this.infoForm.city){
-
-                    }
+            for(let i=0;i<this.china.length;i++){
+                if(this.china[i].n===this.infoForm.province){
+                    this.cityList = this.china[i].s
                     return
                 }
             }
@@ -159,21 +168,26 @@ export default {
             this.initData = JSON.parse(localStorage.getItem('USER'))
         },
         init(){
-            this.provinceList = this.china.provinces
+            // 获取省份
+            this.china.forEach((v,i)=>{
+                this.provinceList.push({name:v.n})
+            })
             this.getUser()
             if(this.infoForm.province){
                 this.getCityByProvince()
+            }else{
+                // this.cityList = this.china[0].s
             }
         }
     },
     created(){
         this.getUser()
-        // if(localStorage.getItem('CHINA')){
-        //     this.china = JSON.parse(localStorage.getItem('CHINA'))
-        // }else{
-        //     this.getChina(this.init)
+        if(localStorage.getItem('CHINA')){
+            this.china = JSON.parse(localStorage.getItem('CHINA'))
+        }else{
+            this.getChina(this.init)
 
-        // }
+        }
     }
 }
 </script>
@@ -188,26 +202,29 @@ export default {
         i {
             position:absolute;
             right:9px;
-            top:8px;
+            top:9px;
             color:#fff;
             cursor: pointer;
-            height:18px;
-            width:18px;
-            line-height: 18px;
+            height:16px;
+            width:16px;
+            line-height: 16px;
             text-align: center;
             border-radius:50%;
             background-color: #ddd;
             &:hover {
-                background-color: #ffc55f;
+                background-color: #57a3fb;
             }
         }
-        #info-msg {
+        .info-msg {
             position:absolute;
             left:0px;
             top:26px;
-            color:#ffaf4b;
-            font-size:13px;
+            color:#57a3fb;
+            font-size:12px;
         }
+  }
+  .city .el-form-item__content {
+      display:flex;
   }
   form {
     padding-top:15px;

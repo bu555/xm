@@ -142,8 +142,60 @@
                             </div>
                         </div>
                         <!--评论区-->
-                        <Comment v-if="eid" :eid="eid"></Comment>
+                        <div class="comment" v-loading="loading2||zaning">
+                            <div class="c-header" >
+                                <span class="icon iconfont icon-interactive" style="font-size:25px"></span> 
+                                <span> 评论</span>
+                            </div>
+                            <div class="c-tab">
+                                <span>按</span>
+                                <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
+                                <span style="color:#bbb">|</span>
+                                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span>
+                            </div>
+                            <div class="c-body">
+                                <div v-if="!loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                                <div class="c-list" v-for="(v,i) in commentList">
+                                    <div class="photo">
+                                        <router-link :to="'/info/'+v.uid">
+                                            <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
+                                            <img v-else src="/static/img/logo_a.png" alt="">
+                                        </router-link>
+                                    </div>
+                                    <div class="c-name">
+                                        <em class="overflow-row-1">{{v.r_name}}</em>
+                                        <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
+                                        <div class="zan c-c">
+                                            <i :class="v.isZaned?'fa fa-thumbs-up active':'fa fa-thumbs-up'"  @click="zan($event,v.cid,v.zans)"><em>{{v.zans>999?'999+':v.zans}}</em> </i> 
+                                            <i class="fa fa-comment" @click="v.zan=!v.zan;v.comment=''"></i> 
+                                        </div>
+                                    </div>
+                                    <!--回复用户-->
+                                    <div v-if="v.rep" class="c-content overflow-row-5" @click="showAllComment($event)" style="background:#eee;padding:3px;padding-left:5px">
+                                        <span style="color:#5e8dd0">{{v.rep.r_name}}：</span>
+                                        {{v.rep.content}}
+                                    </div>
+                                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
+                                    </div>
+                                    <div class="reply" v-if="v.zan">
+                                        <el-input
+                                        type="textarea"
+                                        autosize
+                                        placeholder="回复内容："
+                                        v-model="v.repContent">
+                                        </el-input>
+                                        <div class="reply-btn">
+                                            <el-button type="primary" size="mini" @click="reply(v.cid,v.repContent,()=>{v.zan=false;v.comment=''})">发送</el-button>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="load-more" v-if="!loading2 && currentCommentList.length==size" @click="moreComment">
+                                或许还有更多...
+                                </div>
+                            </div>
+
+                        </div>
 
             
                     </div>
@@ -162,7 +214,7 @@
 <script>
 import voteResult from "./vote_result"
 import voteConsole from "./vote_console"
-import Comment from '../common/comment'
+import myComment from './comment'
 export default {
     data(){
         return {
@@ -181,21 +233,32 @@ export default {
             myComment:'',
             myVote:'',
             typeList:[],
+            commentList:[],
             tabFixed:false, //tab定位
+            commentPage:1,
             eid:'',
+            size:4,
+            currentCommentList:[],
+            commentActive:'hot',
             loading2:false,
             loading3:false,
+            zaning:false,
+            showComment:false,
             showVote:false,
-            showComment:false
 
         }
     },
     components:{
         voteResult,
         voteConsole,
-        Comment
+        myComment
     },
     watch:{
+        'commentActive':function(){
+            this.commentPage = 1
+            this.commentList = []
+            this.getComment()
+        },
         // 监控登录成功
         '$store.state.userInfo':function(){
             if(this.$store.state.userInfo){
@@ -241,6 +304,26 @@ export default {
                     });
                 }
             }).catch(err=>{
+            })
+        },
+        reply(cid,repContent,callback){
+            repContent = repContent?repContent:''
+            if(!repContent.trim()){
+                this.$message.error('请输入回复内容！');
+                return 
+            }
+            this.loading = true
+            this.$axios.addComment({eid:this.eid,result:repContent,cid:cid}).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.$message({
+                        message: '回复成功！',
+                        type: 'success'
+                    });
+                    callback && callback()
+                }
+            }).catch(err=>{
+                this.loading = false
             })
         },
         // 提交评论
@@ -357,6 +440,58 @@ export default {
                 }).catch(res=>{})
 
         },
+        getComment(){
+            this.loading2 = true
+            this.$axios.getComment({
+                eid:this.eid,
+                page:this.commentPage,
+                size:this.size,
+                type:this.commentActive
+            }).then(res=>{
+                this.loading2 = false
+                if(res.data.success){
+                    this.currentCommentList = res.data.comment
+                    this.commentList = this.commentList.concat(res.data.comment)
+                }
+            }).catch(error=>{
+                this.loading2 = false
+                console.log(error);
+            })
+
+        },
+        zan(e,cid,zans){
+            if(this.zaning) return
+            this.zaning = true
+            let d = e.currentTarget.querySelector('em')
+            let iTag = e.currentTarget
+            let count = d.innerHTML
+            this.$axios.clickExampleCommentZan({eid:this.eid,cid:cid}).then(res=>{
+                this.zaning = false
+                if(res.data.success){
+                    if(/^\d+$/.test(count)){
+                        d.innerHTML = Number(count)+res.data.result.count
+                    }else{
+                        console.log('非数字');
+                    }
+                    if(res.data.result.count==1){
+                        iTag.classList.add('active')
+                    }else if(res.data.result.count==-1){
+                        iTag.classList.remove('active')
+                    }
+                }
+            }).catch(err=>{
+                this.zaning = false
+            })
+
+        },
+        moreComment(){
+            this.commentPage = this.commentPage-0+1  //页数加1
+            this.getComment()  //获取下一页评论
+        },
+        // 显示所有评论
+        showAllComment(e){
+            e.currentTarget.classList.toggle('overflow-row-5')
+        },
         handleScroll () {
             this.tabFixed = window.scrollY>102;
             // console.log(window.scrollY);
@@ -366,6 +501,7 @@ export default {
             this.commentPage=1
             this.currentCommentList = []
             this.getExampleById()
+            this.getComment()
         }
     },
     mounted(){
@@ -588,6 +724,149 @@ export default {
             }
             .u-comment {
                 max-width:555px;
+            }
+            .comment {
+                background-color: #fff;
+                min-height:150px;
+                padding-bottom:10px;
+                min-height:470px;
+                border-top:15px solid #f7f7f7;
+                .c-header {
+                    height:40px;
+                    line-height: 40px;
+                    border-bottom:1px solid #eee;
+                    background-color: #a4c8ed;
+                    padding-left:4%;
+                    color:#fff;
+                    font-size:16px;
+                    display:flex;
+                    align-items:center;
+                }
+                .c-tab {
+                        height:42px;
+                        line-height: 42px;
+                        border-bottom:1px solid #fafafa;
+                        background-color: #fafafa;
+                        padding-left:4%;
+                        font-size:16px;
+                        display:flex;
+                        color:#555;
+                        &>span {
+                            margin-right:7px;
+                        }
+                        .c-type {
+                            cursor:pointer;
+                        }
+                        &>.c-type.active {
+                            font-weight:700;
+                            color:#496ea3;
+                        }
+                    }
+                    .c-body {
+                        padding:1% 4.5% 3% 4%;
+                        .c-list {
+                            // background: pink;
+                            min-height:60px;
+                            padding:12px 0px 9px 50px;
+                            border-bottom:1px solid #f7f7f7;
+                            position: relative;
+                            color:#3c3c3c;
+                            .photo {
+                                width:39px;
+                                height:39px;
+                                border:1px solid #eee;
+                                position: absolute;
+                                top:15px;
+                                left:0px;
+                                border-radius:2px;
+                                img {
+                                    width:100%;
+                                    height:100%;
+                                }
+                            }
+                            .c-name {
+                                font-size:15px;
+                                display:flex;
+                                align-items:center;
+                                color:#7f7d7d;
+                                position: relative;
+                                margin-bottom: 2px;
+                                &>em {
+                                    display:inline-block;
+                                    max-width:97px;
+                                    color:#555;
+                                }
+                                &>span {
+                                    padding-left:10px;
+                                    font-weight:400;
+                                    font-size:14px;
+                                }
+                                .zan.c-c {
+                                    line-height: 20px;;
+                                    // vertical-align: middle;
+                                    display:flex;
+                                    align-items: center;
+                                    min-width:55px;
+                                    max-width:82px;
+                                    // margin-right:42px;
+                                    color:#cbcbcb;
+                                    position: absolute;
+                                    padding-right:1px;
+                                    right:0px;
+                                    top:-2px;
+                                    i {
+                                        cursor:pointer;
+                                        font-size:19px;
+                                    }
+                                    i.active {
+                                        color:#75a9e3;
+                                    }
+                                    em {
+                                        font-size:14px;
+                                        position: relative;
+                                        top:1px;
+                                    }
+                                    i.fa-comment {
+                                        font-size:17px;
+                                        margin-left:22px;
+                                        margin-right: 3px;
+                                    }
+                                }
+                            }
+                            .c-content {
+                                padding:2px 0 2px;
+                                font-size:14px;
+                                word-break:break-all; //英文换行
+                            }
+                            .reply {
+                                padding-right:58px;
+                                position: relative;
+                                padding-top:10px;
+                                border-top:1px dotted #eee;
+                                // background-color: #f5f5f5;
+                                .reply-btn {
+                                    position: absolute;
+                                    top:10px;
+                                    right:0px;
+                                }
+                                .el-button--mini, .el-button--mini.is-round {
+                                    padding: 9px 15px;
+                                    padding-bottom:10px;
+                                }
+                            }
+                        }
+                        .load-more {
+                            max-width:365px;
+                            margin:0 auto;
+                            text-align:center;
+                            padding:10px 0;
+                            cursor:pointer;
+                            color:#598dd3;
+                            &:hover {
+                                color:#456ea5;
+                            }
+                        }
+                    }
             }
         } 
         .main-ctrl {

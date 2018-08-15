@@ -270,7 +270,7 @@ const getComment = (req,res)=>{
                 res.json({
                     success: true,
                     message: 'Success',
-                    comment:newList,
+                    data:newList,
                 })
             }catch(err){
                 logger.error(err);

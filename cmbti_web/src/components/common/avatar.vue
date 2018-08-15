@@ -1,9 +1,9 @@
 <template>
     <div id="my-active">
-        <router-link :to="'/info/'+uid" v-if="uid" >
+        <router-link :to="'/info/'+UID" v-if="UID" >
         <img :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
         </router-link>
-        <img v-if="!uid" :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
+        <img v-else :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
     </div>
 </template>
 <script>
@@ -65,7 +65,7 @@ export default {
             display:inline-block;
             width:98px;
             height:98px;
-            border-radius:8%;
+            border-radius:3%;
             border:1px solid #eee;
         }
         img.round {
