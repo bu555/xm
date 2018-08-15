@@ -35,12 +35,18 @@ export default {
             this.loginOut()
         }
     },
-    //通知模态框登录
+    //通知模态框登录 或 退出模态框
     "$store.state.modalLogin":function(){
       if(this.$store.state.modalLogin){
           // 清除本地登录信息
           localStorage.setItem('USER','')
           this.$store.commit('setUserInfo','')
+      }else{
+          if(!this.$store.state.userInfo && /^\/my\//.test(this.$route.path) ){
+            this.$router.push({
+              path:'/'
+            })
+          }
       }
     }
   },
@@ -71,8 +77,6 @@ export default {
               href: "www.baidu.com"
             }
           ],
-          // <meta name="keywords" content="小火柴,蓝色理想,前端工程师,前端小站,HTML,CSS,JavaScript,HTTP,Vue,React,jQuery,Bootstrap">
-          // <meta name="description" content="小火柴的前端小站是小火柴开发的一个前端学习网站，以自学前端的学习总结为基础，尽量囊括了前端体系涉及的内容，希望可以对读者有所帮助">
       }
       this.$store.commit("setMeta", meta);
     },

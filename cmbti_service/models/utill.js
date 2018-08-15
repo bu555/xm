@@ -71,7 +71,7 @@ module.exports =  {
                 let reg = /^[ei][sn][tf][jp]$/
                 return vote && reg.test(vote) ? true:false
         },
-        //处理r_name 去空白 特殊符号、大写、小写、数字
+        //处理r_name 去空白 1~12位的中文、英文、数字、下划线
         roleName(r_name){
                 // var reg = /^[\w\u4e00-\u9fa5]{1,12}$/
                 var reg = /^[\u4e00-\u9fa5A-Za-z0-9-_]{1,12}$/

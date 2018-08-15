@@ -205,15 +205,19 @@ const modifyUserInfo = (req, res) =>{
     console.log(options);
     (async ()=>{
         try{
+            // 修改名字
             if(options.new_r_name){
+                // 验证名字合法性
                 if( myUtill.roleName(options.new_r_name) ){
                     let user = await User.getUserById(options)
+                    // 判断是否有修改权限
                     if(user.modify){
+                        // 验证是否重复
                         let exist= await User.checkRoleName(options)
                         if(exist){
                             return res.json({
                                 success: false,
-                                message: "The roleName is exist!"
+                                message: "-1",
                             })
                         }
                     }else{
@@ -227,7 +231,7 @@ const modifyUserInfo = (req, res) =>{
                 }else{
                     return res.json({
                         success: false,
-                        message: "参数格式错误"
+                        message: "-2"
                     })
                 }
 

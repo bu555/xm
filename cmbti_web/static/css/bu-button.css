@@ -243,3 +243,40 @@
 .bu-large {padding: 14px 28px;}
 
 /* https://www.html5tricks.com/demo/css3-buttons-download/index.html# 演示网址 */
+
+.bu-ios-button {
+	font-size:14px;
+	display:inline-block;
+	color:#fff;
+	padding:4px 12px;
+	border:1px solid #677988;
+	border-top-color:#8fa0ad;
+	border-bottom-color:#4e5f75;
+	border-radius:4px;
+	background: linear-gradient(#758899, #677988);
+	/* box-shadow:0 1px 1px  #44505e; */
+	
+}
+.bu-ios-button.active {
+	border:1px solid #3d5160;
+	border-bottom:1px solid #405464;
+	/* border-bottom:1px solid rgba(64,84,100,.2); */
+	background: #596879;
+	box-shadow: 0 2px 7px #3a4e5d inset;
+	border-radius:4px 4px 5px 5px;
+	padding-bottom:3px;
+	margin-bottom:1px;
+	position: relative;
+	top: 1px;
+}
+.bu-ios-button.active:after {
+	content:"";
+	display:block;
+	height:11px;
+	width:100%;
+	position: absolute;
+	bottom:-2px;
+	left:0;
+	border-radius:3px;
+	border-bottom:1px solid #90a0ad;
+}
