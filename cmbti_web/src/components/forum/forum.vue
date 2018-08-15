@@ -155,6 +155,7 @@ export default {
     margin:0px auto;
     position: relative;
     display:flex;
+    border-radius:6px 6px 0 0;
     .main-box {
         flex:1;
         background-color: #fff;
@@ -162,7 +163,6 @@ export default {
         width:100%;
         .tabs {
             padding:15px 15px;
-            // background-color: #fcfcfc;
             background-color: #778b9d;
             position: relative;
             &>a>span {
@@ -177,7 +177,6 @@ export default {
                 // line-height: 25px;
                 &:hover {
                     text-decoration: none;
-                    background: linear-gradient(#6a7987, #596772);
                 }
             }
             &>a>span.active {

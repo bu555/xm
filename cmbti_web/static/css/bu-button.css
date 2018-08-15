@@ -247,7 +247,7 @@
 .bu-ios-button {
 	font-size:14px;
 	display:inline-block;
-	color:#fff;
+	color:#f2f2f2;
 	padding:4px 12px;
 	border:1px solid #677988;
 	border-top-color:#8fa0ad;
@@ -257,7 +257,12 @@
 	/* box-shadow:0 1px 1px  #44505e; */
 	
 }
+.bu-ios-button:hover {
+	background: linear-gradient(#778da2, #596772);
+	color:#fff;
+}
 .bu-ios-button.active {
+	color:#fff;
 	border:1px solid #3d5160;
 	border-bottom:1px solid #405464;
 	/* border-bottom:1px solid rgba(64,84,100,.2); */
