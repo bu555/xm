@@ -17,7 +17,7 @@
 			</li>
  
 			<li> 
-				<router-link to="/css3">CSS3</router-link>
+				<router-link to="/css">CSS</router-link>
 			</li>
  
 			<li> 
@@ -25,11 +25,11 @@
 			</li>
  
 			<li> 
-				<router-link to="/">音乐</router-link>
+				<router-link to="/">网址</router-link>
 			</li>
  
 			<li> 
-				<router-link to="/">地图</router-link>
+				<router-link to="/node">Node</router-link>
 			</li>
  
 			<li> 

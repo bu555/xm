@@ -30,5 +30,12 @@ export default {
     }
  }
 </style>
+<style>
+    .vue-html5-editor>.toolbar>ul {
+        background-color: #f2f4f6;
+
+    }
+</style>
+
 
 

@@ -18,8 +18,19 @@
     </div>
     <div class="main-box">
         <div class="m-body">
-            <div class="m-content">
-                <router-view></router-view>
+            <div class="m-content" ref="mContent">
+                <div>
+                    <Home></Home>
+                </div>
+                <div>
+                    <div class="m-title" style="padding:18px 4% 12px;margin-bottom:0px;border-bottom:1px solid #cee1f5">
+                        <!-- <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="$delayPush('/my')"></i>  -->
+                        <i class="el-icon-back" style="font-size:17px;margin-left:0px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="delayPush()"></i> 
+                        <span style="padding:0 10px 0 2px;color:#ddd">|</span>
+                        {{$store.state.myTabName}} 
+                    </div>
+                    <router-view></router-view>
+                </div>
             </div>
         </div>
     </div>
@@ -39,6 +50,7 @@
 </div> 
 </template>
 <script>
+import Home from './my_home'
 import uploadAvatar from './upload_avatar'
 export default {
     data(){
@@ -46,11 +58,13 @@ export default {
             loading:false,
             showUploadAvatar:false,
             isLogin:false,
-            accountInfo:''
+            accountInfo:'',
+            delayTime:300, //滚动过度时间
         }
     },
     components:{
-        uploadAvatar
+        uploadAvatar,
+        Home
     },
     watch:{
         // '$store.state.modalLoginSuccess':'getAccount',
@@ -67,9 +81,22 @@ export default {
         //         this.getAccount()
         //         this.$store.state.refAccount=false
         //     }
-        // }
+        // },
+        '$route.path':function(){
+            if(/^\/my$/.test(this.$route.path)){
+                this.$refs.mContent.style.left = "0";
+            }else if(/^\/my\//.test(this.$route.path)){
+                this.$refs.mContent.style.left = "-100%"
+            }
+        }
     },
     methods:{
+        delayPush(){
+            this.$refs.mContent.style.left = "0";
+            setTimeout(()=>{
+                this.$router.push({path:'/my'})
+            },this.delayTime)
+        },
         listenSon(success){
             this.showUploadAvatar = false; //关闭模态框
             if(success){
@@ -102,6 +129,10 @@ export default {
         }
     },
     mounted(){
+        if(/^\/my\//.test(this.$route.path)){
+            this.$refs.mContent.style.left = "-100%"
+        }
+        this.$refs.mContent.style.transitionDuration = this.delayTime/1000 + 's'
     },
     created(){
         this.init()
@@ -200,6 +231,7 @@ export default {
         .m-body {
             min-height:300px;
             width:100%;
+            overflow: hidden;
             background-color: rgba(255,255,255,.8);
             .menu {
                 display:flex;
@@ -217,11 +249,18 @@ export default {
 
             .m-content {
                 // padding:12px;
-                width:100%;
+                width:200%;
                 border-top:5px solid #cee1f5;
                 border-radius:3px 3px 0 0 ;
                 min-height:420px;
                 background-color: #fdfdfd;
+                display:flex;
+                position: relative;
+                left:-0;
+                transition: all 0s;
+                &>div {
+                    flex:0 0 50%;
+                }
                 
             }
         }

@@ -69,11 +69,19 @@
         </div>
         <div style="padding:18px 18px 22px;text-align:center;background:#7e90a0">
             <div class="bu-ios-button active">按钮</div>
+            <br>
+            <br>
+            <Switch111></Switch111>
+        </div>
+
+        <div>单选： 
+            <input type="radio" id="radio-2-1" name="radio-2-set" class="regular-radio big-radio" />
         </div>
     </div>
 </div> 
 </template>
 <script>
+import Switch111 from  '../common/switch'
 export default {
     data(){
         return {
@@ -85,6 +93,7 @@ export default {
             loading:false
         }
     },
+    components:{Switch111},
     watch:{
         "$route.query":function(){
             this.getArticle({
@@ -155,14 +164,14 @@ export default {
     margin:0px auto;
     position: relative;
     display:flex;
-    border-radius:6px 6px 0 0;
+    border-radius:4px 4px 0 0;
     .main-box {
         flex:1;
         background-color: #fff;
         margin-bottom:12px;
         width:100%;
         .tabs {
-            padding:15px 15px;
+            padding:12px 15px;
             background-color: #778b9d;
             position: relative;
             &>a>span {
@@ -211,7 +220,7 @@ export default {
                     }
                     li>div,a{
                         margin:0px 0.7%;
-                        overflow: hidden;
+                        // overflow: hidden;
                         text-overflow:ellipsis;
                         white-space: nowrap;
                     }

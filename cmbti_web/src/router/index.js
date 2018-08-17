@@ -101,6 +101,7 @@ const vueRouter = new Router({
     // forum 交流区
     {path:'/forum',component:forum},
     {path:'/forum/:id',component:forum_item},
+    {path:'/forum/article/new',component:forum_article_new},
     // {
     //   path:'/forum',
     //   component:forum,
@@ -117,7 +118,7 @@ const vueRouter = new Router({
     { path:'/my',
       component:my,
       children:[
-        {path:'',component:my_home},
+        // {path:'',component:my_home},
         {path:'info',component:my_info},
         {path:'mark',component:my_mark},
         {path:'mark_example',component:my_mark_example},

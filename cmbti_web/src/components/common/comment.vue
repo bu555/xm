@@ -6,14 +6,15 @@
                   评论
              </div>
             <div class="c-tab">
-                <span>按</span>
+                <!-- <span>按</span>
                 <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
                 <span style="color:#bbb">|</span>
-                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span>
+                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span> -->
+                <SwitchComp @getKey="(key)=>commentActive=key " :active="tabList[0]" :list="tabList"></SwitchComp>
             </div>
-             <div class="c-body" v-if="commentList">
-                <div v-if="!loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
-                <div class="c-list" v-for="(v,i) in commentList" :key="i">
+             <div class="c-body">
+                <div v-if="commentList && !loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
+                <div v-if="commentList && commentList.length>1" class="c-list" v-for="(v,i) in commentList" :key="i">
                     <div class="photo">
                         <Avatar :src="v.avatar" :uid="v.uid" size="small"></Avatar>
                         <!-- <router-link :to="'/info/'+v.uid">
@@ -103,6 +104,7 @@
 </template>
 <script>
 import Avatar from './avatar'
+import SwitchComp from './switch'
 export default {
     data(){
         return {
@@ -126,15 +128,25 @@ export default {
             //         _id:"5b737cd9528891378c64056c"
             //     },
             // ],
-            currentCommentList:0,
+            currentCommentList:'',
             size:3,
             commentPage:1,
-            accountComment:''
-
+            accountComment:'',
+            tabList:[
+                {
+                    val:'热门',
+                    key:'hot'
+                },
+                {
+                    val:'时间',
+                    key:'time'
+                }
+            ]
         }
     },
     components:{
-        Avatar
+        Avatar,
+        SwitchComp
     },
     props:[
         'aid',
@@ -144,7 +156,6 @@ export default {
     watch:{
         'commentActive':function(){
             this.commentPage = 1
-            this.commentList = []
             this.getCommentByAid()
         }
     },
@@ -212,7 +223,7 @@ export default {
                 this.loading2 = false
                 if(res.data.success){
                     this.currentCommentList = res.data.data
-                    if(!this.commentList){
+                    if(this.commentPage===1){
                         this.commentList = []
                     }
                     this.commentList = this.commentList.concat(res.data.data)
@@ -262,21 +273,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .my-comment {
-    .overflow-row-1 {
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-    }
-    .overflow-row-5 {
-        display: -webkit-box;    
-        -webkit-box-orient: vertical;    
-        -webkit-line-clamp: 5;    
-        overflow: hidden;
-    }
     .comment {
-        background-color: #fff;
-        min-height:170px;
-        padding-bottom:10px;
+        box-shadow: 0 2px 3px #cacaca;
+        border-radius:4px 4px 0 0;
+        overflow: hidden;
         .c-header {
             height:50px;
             line-height: 50px;
@@ -288,14 +288,17 @@ export default {
             align-items:center;
         }
         .c-tab {
-                height:42px;
-                line-height: 42px;
+                height:52px;
+                // line-height: 52px;
                 box-shadow: 0 1px 2px #44505e inset;
                 padding-left:4%;
                 font-size:16px;
                 display:flex;
+                justify-content: left;
+                align-items:center;
                 color:#555;
-                background: #586978;
+                // background: #586978;
+                background: #96a3ae;
                 border-top: 1px solid #44505e;
                 &>span {
                     margin-right:7px;
@@ -309,10 +312,11 @@ export default {
                 }
             }
         .c-body {
-            padding:1% 4.5% 3% 4%;
+            padding:1% 4.5% 5% 4%;
+            min-height:420px;
+            background-color: #fff;
             .c-list {
                 // background: pink;
-                min-height:60px;
                 padding:12px 0px 9px 50px;
                 border-bottom:1px solid #f7f7f7;
                 position: relative;
@@ -413,6 +417,17 @@ export default {
                 }
             }
         }
+    }
+    .overflow-row-1 {
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+    .overflow-row-5 {
+        display: -webkit-box;    
+        -webkit-box-orient: vertical;    
+        -webkit-line-clamp: 5;    
+        overflow: hidden;
     }
     a:hover {
         text-decoration:none;

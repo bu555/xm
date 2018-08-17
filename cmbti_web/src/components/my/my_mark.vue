@@ -1,12 +1,5 @@
 <template>
   <div class="my-like" v-loading="loading">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
-      <router-link to="/my">
-      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
-      </router-link>
-      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i>收藏
-    </div>
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
         <div class="my-type">文档</div>
@@ -53,6 +46,7 @@ export default {
     },
     created(){
         this.getArticle()
+        this.$store.state.myTabName = '收藏'
     }
 }
 </script>

@@ -1,18 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
-import css3 from '@/components/css3/css3'
-import css3_font from '@/components/css3/css3_font'
-import css3_loading from '@/components/css3/css3_loading'
-import css3_ribbon from '@/components/css3/css3_ribbon'
-import css3_imgs from '@/components/css3/css3_imgs'
+import index from '@/components/index'
+
+import css from '@/components/css/css'
+import css_font from '@/components/css/css_font'
+import css_font_baiyu from '@/components/css/css_font_baiyu'
+import css_loading from '@/components/css/css_loading'
+import css_ribbon from '@/components/css/css_ribbon'
+import css_imgs from '@/components/css/css_imgs'
+import css_buttons from '@/components/css/css_buttons'
 
 import animation from '@/components/animation/animation'
 import animation_cluster from '@/components/animation/animation_cluster'
 
 import comp from '@/components/comp/comp'
 import comp_nav from '@/components/comp/comp_nav'
+
+import node from '@/components/node/node'
+import node_module from '@/components/node/node_module'
+import node_mongoose from '@/components/node/node_mongoose'
 
 
 
@@ -23,20 +30,25 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      component: index,
     },
 
-    {path: '/css3', component: css3},
-    {path: '/css3/font', component: css3_font},
-    {path: '/css3/loading', component: css3_loading},
-    {path: '/css3/ribbon', component: css3_ribbon},
-    {path: '/css3/imgs', component: css3_imgs},
+    {path: '/css', component: css},
+    {path: '/css/font', component: css_font},
+    {path: '/css/font_baiyu', component: css_font_baiyu},
+    {path: '/css/loading', component: css_loading},
+    {path: '/css/ribbon', component: css_ribbon},
+    {path: '/css/imgs', component: css_imgs},
+    {path: '/css/buttons', component: css_buttons},
 
     {path: '/animation', component: animation},
     {path: '/animation/cluster', component: animation_cluster},
 
     {path: '/comp', component: comp},
     {path: '/comp/nav', component: comp_nav},
+
+    {path: '/node', component: node},
+    {path: '/node/module', component: node_module},
+    {path: '/node/mongoose', component: node_mongoose},
   ]
 })

@@ -50,6 +50,12 @@ Vue.prototype.$utill =  utill
 import Avatar from '@/components/common/avatar'
 Vue.component('Avatar', Avatar)
 
+Vue.prototype.$delayPush =  function(path,time){
+  setTimeout(()=>{
+    this.$router.push({path:path})
+  },time?time:300)
+}
+
 Vue.prototype.vueExample = new Vue({
   el: '#app',
   router,

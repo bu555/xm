@@ -323,9 +323,10 @@ const getMyMarkExample = (req,res)=>{
                             accountList[i] = {
                                 eid:accountList[i]
                             }
-                            accountList[i].name = itemList[j].name
-                            accountList[i].name1 = itemList[j].name1?itemList[j].name1:''
-                            accountList[i].type = itemList[j].type?itemList[j].type:''
+                            // accountList[i].name = itemList[j].name
+                            // accountList[i].name1 = itemList[j].name1?itemList[j].name1:''
+                            // accountList[i].type = itemList[j].type?itemList[j].type:''
+                            accountList[i] = itemList[j]
                         }
                     }
                 }
@@ -546,6 +547,53 @@ const getUserInfoShow = (req, res) =>{
         }
     })()
 }
+// 回复评论  input : {aid:'',uid:'',content:'',cid:'回复别人id'}
+// const addComment = (req,res)=>{
+//     let options = req.body || {}
+//     options.uid = req.session.user._id;
+//     // 参数验证
+//     if(!options.uid ||!options.content || (!options.aid && !options.eid) ) {
+//         return res.json({
+//             success: false,
+//             message: 'Params Error' 
+//         })
+//     }
+//     (async ()=>{
+//         try{
+//             options.content = xss(options.content)
+
+//             if(options.aid){
+
+//             }
+
+//             let r = await Article.addComment(options)  //返回cid
+//             // options = Object.assign(r,options)
+//             options.cid = r.cid  //这是新回复的cid
+//             options.update_time = r.update_time
+//             options.com_count = r.com_count
+//             // 加入到个人记录,更新Article最新时间
+//             await Promise.all([
+//                 Account.addCommentLog(options),
+//                 Article.setUpdateTime(options)
+//             ])
+//             // let added = await Account.addCommentLog(options)
+//             // 记录加入account
+//             res.json({
+//                 success: true,
+//                 message: 'Success',
+//             })
+
+//         }catch(err){
+//             logger.error(err);
+//             return res.json({
+//                 success: false,
+//                 message: 'catch error' 
+//             })
+//         }
+
+
+//     })()
+// }
 
 router.get('/getAccountInfo',checkLogin,getAccountInfoById);
 router.get('/getCommentList',checkLogin,getCommentList);

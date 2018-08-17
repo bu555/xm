@@ -57,12 +57,12 @@
             <!--来自account的评论-->
             <div id="mycomment" ></div>
 
-            <!--来自account的评论 end-->
-            <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
-
-            <!-- 文章评论 -->
-            <CommentComp :aid="this.aid"></CommentComp>
          </div>
+        <!--来自account的评论 end-->
+        <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
+
+        <!-- 文章评论 -->
+        <CommentComp :aid="this.aid"></CommentComp>
 
 
 

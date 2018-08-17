@@ -1,5 +1,5 @@
 <template>
-    <div id="my-active">
+    <div class="my-avatar">
         <router-link :to="'/info/'+UID" v-if="UID" >
         <img :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
         </router-link>
@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    #my-active{
+    .my-avatar{
         display:inline-block;
         img {
             display:inline-block;

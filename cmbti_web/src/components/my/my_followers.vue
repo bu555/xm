@@ -1,12 +1,5 @@
 <template>
   <div class="my-follow" v-loading="loading">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
-      <router-link to="/my">
-      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
-      </router-link>
-      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注 <span>(2)</span>
-    </div>
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
         <router-link :to="'/info/'+v._id">
@@ -65,6 +58,7 @@ export default {
     },
     created(){
         this.getUserList()
+        this.$store.state.myTabName = '关注'
         
     }
 }

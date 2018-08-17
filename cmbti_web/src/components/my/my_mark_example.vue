@@ -1,30 +1,34 @@
 <template>
   <div class="my-test">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
-      <router-link to="/my">
-      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
-      </router-link>
-      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="fa el-icon-star-off" style="margin:0 2px 0 1px"></i> 人物关注
-    </div>
     <div class="content">
-        <div class="items i1">
+        <!-- <div class="items i1">
             <div class="">名字</div>
             <div class="">投票结果</div>
-            <!--<div class="">日期</div>-->
-            <!--<div class="age">年龄</div>-->
             <div class=""></div>
         </div>
         <div class="items i2" v-for="(v,i) in data" :key="i">
             <router-link :to="'/example/'+v.eid">
                 <div class="overflow-row-1">{{v.name+v.name1}}</div>
                 <div class="overflow-row-1">{{v.type&&v.type.toUpperCase()}}</div>
-                <!--<div class="">
-                  <span class="date-pc">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</span>
-                  <span class="date-mob">{{$moment(v.c_time).format("YYYY-MM-DD")}}</span>
-                </div>-->
             </router-link>
+        </div> -->
+
+        <div class="item" v-for="(v,i) in data" :key="i">
+           <div class="photo">
+              <router-link :to="'/example/'+v.eid">
+                  <img :src="$pathImgs+v.img_url" alt="">
+              </router-link>
+           </div>
+           <ul class="info">
+              <li class="overflow-row-1">名字：{{v.name+v.name1}}</li>
+              <li class="overflow-row-1">类型：{{v.type&&v.type.toUpperCase()}}</li>
+              <li class="overflow-row-1">人气：{{v.total}}</li>
+              <li class="overflow-row-2">简介：{{v.info}}</li>
+           </ul>
         </div>
+
+
+
         <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
@@ -64,6 +68,7 @@ export default {
     },
     created(){
        this.getMyMarkExample()
+       this.$store.state.myTabName = '人物关注'
     }
 }
 </script>
@@ -75,18 +80,47 @@ export default {
 
   .content {
     font-size:15px;
-    .age {
-      padding-left:22px;
-    }
-    &>div>div {
-      display:block;
-      overflow: hidden;
-      text-overflow:ellipsis;
-      white-space: nowrap; 
-    }
-    .show-link {
-      text-align:right;
-      padding-right:20px;
+    display:flex;
+    // .age {
+    //   padding-left:22px;
+    // }
+    // &>div>div {
+    //   display:block;
+    //   overflow: hidden;
+    //   text-overflow:ellipsis;
+    //   white-space: nowrap; 
+    // }
+    // .show-link {
+    //   text-align:right;
+    //   padding-right:20px;
+    // }
+    
+    .item {
+        display:flex;
+        margin:4px 5px;
+        background-color: #fafafa;
+        padding:7px;
+        border-radius:3px;
+        border:1px solid  #eaeaea;
+        .photo {
+          flex:0 0 68px;
+        }
+       .photo img {
+         display:block;
+         width:68px;
+         height:82px;
+         object-fit: cover;
+         border-radius:1px;
+       }
+       ul.info {
+         width:152px;
+         height:82px;
+         font-size:12px;
+         padding-left:7px;
+         li{
+
+         }
+       }
     }
   }
   .items.i1,.items.i2>a {
@@ -137,8 +171,17 @@ export default {
       color:#456ea5;
     }
   }
+  @media screen and (max-width:768px) {
+
+  }
   
   @media screen and (max-width:525px) {
+    .content {
+      flex-wrap:wrap;
+      .item ul.info {
+        width:100%;
+      }
+    }
     .items.i1,.items.i2>a {
       &>div {
         flex:0 0 33%;

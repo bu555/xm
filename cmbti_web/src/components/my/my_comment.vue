@@ -1,63 +1,67 @@
 <template>
   <div class="my-comment-a">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
+    <!-- <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
       </router-link>
       <span style="padding:0 10px 0 2px;color:#ddd">|</span>
       <i class="fa fa-edit"></i> 评论<span>(2)</span>
+    </div> -->
+    <div class="c-tabs">
+      <!--<div style="padding-right:0">分类：</div>-->
+      <!-- <div :class="typeActive==='aid'?'active':''" @click="typeActive='aid'">文档</div>
+      <div :class="typeActive==='eid'?'active':''" @click="typeActive='eid'">名人</div> -->
+      <SwitchComp @getKey="(key)=>typeActive=key " :active="tabList[0]" :list="tabList"></SwitchComp>
     </div>
-    <div class="content" v-if="listOk">
-      <div class="c-tabs">
-        <!--<div style="padding-right:0">分类：</div>-->
-        <div :class="typeActive==='aid'?'active':''" @click="typeActive='aid'">文档</div>
-        <div :class="typeActive==='eid'?'active':''" @click="typeActive='eid'">名人</div>
-      </div>
-      <div v-if="typeActive==='aid'">
-          <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
-                <div class="h5 overflow-row-1">
-                  <div class="h5-icon">文档</div><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'mycomment'}"><span>{{v.title}}</span></router-link>
-                </div>
-                
-                <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
-                <div class="items" v-for="(v,i) in v.comment" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
-                  <!--<div class="my-type share">分享</div>-->
-                  <!--<div class="my-type ask">问答</div>-->
-                  <!--<div class="my-type good">精华</div>-->
-                  <router-link to="">
-                        <span> <i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
-                  </router-link>
-                  <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
-                </div>
+    <div class="c-main">
+        <div class="content" v-if="listOk">
+          <div v-if="typeActive==='aid'">
+              <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
+                    <div class="h5 overflow-row-1">
+                      <div class="h5-icon">文档</div><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'mycomment'}"><span>{{v.title}}</span></router-link>
+                    </div>
+                    
+                    <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
+                    <div class="items" v-for="(v,i) in v.comment" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
+                      <!--<div class="my-type share">分享</div>-->
+                      <!--<div class="my-type ask">问答</div>-->
+                      <!--<div class="my-type good">精华</div>-->
+                      <router-link to="">
+                            <span> <i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
+                      </router-link>
+                      <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+                    </div>
+              </div>
           </div>
-      </div>
-      <div v-if="typeActive==='eid'">
-          <div class="eid-comment"   v-for="(v,i) in dataE" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
-                <router-link to="">
-                <div class="h5  overflow-row-1">
-                  <div class="h5-icon">名人</div><router-link :to="'/example/'+v.eid"><span>{{v.title}}</span></router-link>
-                </div>
-                </router-link>
-                <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
-                <div class="items" v-for="(v,i) in v.comment" :key="i">
-                  <!--<div class="my-type share">分享</div>-->
-                  <!--<div class="my-type ask">问答</div>-->
-                  <!--<div class="my-type good">精华</div>-->
-                  <router-link to="">
-                        <span><i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
-                  </router-link>
-                  <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
-                </div>
+          <div v-if="typeActive==='eid'">
+              <div class="eid-comment"   v-for="(v,i) in dataE" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
+                    <router-link to="">
+                    <div class="h5  overflow-row-1">
+                      <div class="h5-icon">名人</div><router-link :to="'/example/'+v.eid"><span>{{v.title}}</span></router-link>
+                    </div>
+                    </router-link>
+                    <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
+                    <div class="items" v-for="(v,i) in v.comment" :key="i">
+                      <!--<div class="my-type share">分享</div>-->
+                      <!--<div class="my-type ask">问答</div>-->
+                      <!--<div class="my-type good">精华</div>-->
+                      <router-link to="">
+                            <span><i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
+                      </router-link>
+                      <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+                    </div>
+              </div>
           </div>
-      </div>
-      <p v-if="empty" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
-    </div>
-    <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
-      或许还有更多...
+          <p v-if="empty" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
+        </div>
+        <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
+          或许还有更多...
+        </div>
     </div>
   </div>
 </template>
 <script>
+import SwitchComp from '../common/switch'
 export default {
     data(){
       return {
@@ -72,9 +76,21 @@ export default {
         aidCommentList:'',  //存放评论列表  
         empty:false,
         typeActive:'aid',
-        listOk:false
-
+        listOk:false,
+        tabList:[
+            {
+                val:'文档',
+                key:'aid'
+            },
+            {
+                val:'名人',
+                key:'eid'
+            }
+        ]
       }
+    },
+    components:{
+      SwitchComp
     },
     watch:{
         'typeActive':function(){
@@ -191,35 +207,39 @@ export default {
     },
     created(){
        this.getMyCommentList()
+       this.$store.state.myTabName = '评论'
     }
 }
 </script>
 <style lang="less">
 .my-comment-a {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
   .c-tabs {
     display:flex;
-    padding-left:12px;
+    padding:10px;
+    padding-left:4%;
     margin-bottom:4px;
-    background-color: #f7f7f7;
+    background: #96a3ae;
     &>div {
-      font-size:16px;
-      padding:10px 7px 0px;
-      color:#aaa;
-      font-weight:700;
-      margin-right:10px;
-      cursor:pointer;
-      &:hover {
-        color:#70a9e5;
-      }
+      // font-size:16px;
+      // padding:10px 7px 0px;
+      // color:#aaa;
+      // font-weight:700;
+      // margin-right:10px;
+      // cursor:pointer;
+      // &:hover {
+      //   color:#70a9e5;
+      // }
     }
     &>div.active {
       border-bottom:2px solid #70a9e5;
       color:#70a9e5;
     }
 
+  }
+  .c-main {
+    padding:4%;
+    padding-top:12px;
+    padding-bottom:22px;
   }
   .aid-comment,.eid-comment {
     padding-bottom:8px;

@@ -1,20 +1,13 @@
 <template>
   <div class="my-info" v-loading="loading">
-    <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
-      <router-link to="/my">
-      <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
-      </router-link>
-      <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-      <i class="fa fa-user-o"></i> 个人档案
-    </div>
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
       <el-form-item label="昵称" class="name-form">
         <el-input v-if="infoForm.modify" v-model="infoForm.r_name" @focus="notModifyHandler()" spellcheck=false></el-input>
         <div id="no-modify-name" v-else>{{infoForm.r_name}}
         </div>
-        <i @click="notModifyHandler()">?</i>
+        <i @click="notModifyHandler()" @mouseenter="notModifyHandler()">!</i>
         <div class="info-msg" v-if="!nameVerify" style="color:red">要求为1~12位的中文、英文、数字、下划线</div>
-        <div class="info-msg" v-if="showNotModify && nameVerify">注：昵称180天内只允许修改一次</div>
+        <div class="info-msg" v-if="showNotModify && nameVerify" :style="infoForm.modify?'':'top:20px'"><em class="el-icon-warning"></em> 昵称180天内只允许修改一次</div>
       </el-form-item>
       <el-form-item label="城市" class="city">
         <el-select v-model="infoForm.province"  placeholder="省份" style="margin-right:1%" v-if="provinceList">
@@ -188,6 +181,7 @@ export default {
             this.getChina(this.init)
 
         }
+        this.$store.state.myTabName = '个人资料'
     }
 }
 </script>
@@ -210,16 +204,16 @@ export default {
             line-height: 16px;
             text-align: center;
             border-radius:50%;
-            background-color: #ddd;
+            background-color: #f9d7a7;
             &:hover {
-                background-color: #57a3fb;
+                background-color: #edad55;
             }
         }
         .info-msg {
             position:absolute;
             left:0px;
             top:26px;
-            color:#57a3fb;
+            color:#ec9115;
             font-size:12px;
         }
   }

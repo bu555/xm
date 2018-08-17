@@ -188,11 +188,11 @@ export default {
 </script>
 <style lang="less">
 .forum-new {
-    max-width:1180px;
+    max-width:970px;
     margin:0px auto;
     position: relative;
     display:flex;
-    
+    border-radius:4px 4px 0 0;
     .main-box {
         flex:1;
         background-color: #fff;
@@ -200,15 +200,16 @@ export default {
         width:100%;
         .title {
             font-size:17px;
-            background-color: #fcfcfc;
-            padding:12px;
+            padding:15px;
             padding-left:4%;
             vertical-align: middle;
             display:flex;
             align-items:center;
+            background-color: #778b9d;   
+            color:#fff;   
         }
         .my-editor {
-            padding:3%;
+            padding:2%;
             // ul, ol ,li,ol { list-style:square; }
             ol {
                     // list-style-type: disc !important;

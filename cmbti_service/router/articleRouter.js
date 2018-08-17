@@ -401,7 +401,7 @@ const getCommentByAid = (req,res)=>{
                                 let u = await User.getUserById({uid:list[k].uid})
                                 newList[i].rep = {
                                     content:list[k].content,
-                                    r_name:u.r_name,
+                                    r_name:u?u.r_name:'已注销',
                                     uid:list[k].uid
                                 }
                             }
@@ -415,6 +415,7 @@ const getCommentByAid = (req,res)=>{
                     data: newList
                 })
             }catch(err){
+                console.log(err);
                 logger.error(err);
                 return res.json({
                     success: false,
