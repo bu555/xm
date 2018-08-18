@@ -114,7 +114,7 @@ export default {
 <style lang="less">
 .my-nav-v2 {
     padding-top:1px;
-    margin-bottom:10px;
+    // margin-bottom:10px;
     .my-menu {
       margin-top:55px;
       // height:50px;

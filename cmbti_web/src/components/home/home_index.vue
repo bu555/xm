@@ -1,6 +1,6 @@
 <template>
 <div class="home-index">
-    <div class="top-bg"></div>
+    <!-- <div class="top-bg"></div> -->
     <div class="h-body">
             <div class="item-t" style="">
                 <div class="h-title">M的初衷</div>
@@ -105,7 +105,7 @@ export default {
 <style lang="less">
 .home-index {
    .top-bg {
-       max-width:1180px;
+       max-width:997px;
        height:15vw;
        margin:0 auto;
     //    width:100%;
@@ -115,7 +115,7 @@ export default {
        background-size:cover;
    }
    .h-body {
-        max-width: 1180px;
+        max-width: 997px;
         margin:0 auto;
         .my-info {
             background-color: #fff;

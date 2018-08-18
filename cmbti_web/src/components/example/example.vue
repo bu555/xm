@@ -73,17 +73,17 @@
                     <p>暂无数据哦("▔□▔)</p>
                 </div>
                 <div class="item" v-for="(v,i) in exampleList" :key="i">
-                    <router-link :to="'/example/'+v._id">
                     <div class="item-box">
                         <div class="type">{{v.type.toUpperCase()}}</div>
+                    <router-link :to="'/example/'+v._id">
                         <div class="photo">
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
+                    </router-link>
                         <div class="name overflow-row-1">{{v.name}}</div>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
                         <div style="height:1px"></div>
                     </div>
-                    </router-link>
                 </div>
                 <!--<div class="item" v-if="(exampleList instanceof Array)&&exampleList.length>0&&$route.query.s">查看更多同名名人</div>-->
 
@@ -306,9 +306,9 @@ export default {
         background: #778b9d;
         // padding:10px 0 15px;
         .my-tab-inner {
-            max-width:1075px;
+            max-width:997px;
             margin:0 auto;
-            padding:0px 5px;
+            // padding:0px 5px;
 
         }
         .search-bar {
@@ -409,13 +409,15 @@ export default {
                 width:90%;
                 height:auto;
                 border-radius:3px;
-                cursor:pointer;
+                // cursor:pointer;
                 position: relative;
                 background-color: #f2f2f2;
             }
             .type {
                 font-size:18px;
-                padding:7px 0 4px;
+                height:42px;
+                line-height: 42px;
+                font-weight:600;
             }
             .name {
                 font-size:15px;

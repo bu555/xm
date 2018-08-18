@@ -42,7 +42,8 @@ export default {
           localStorage.setItem('USER','')
           this.$store.commit('setUserInfo','')
       }else{
-          if(!this.$store.state.userInfo && /^\/my\//.test(this.$route.path) ){
+        console.log('guan',this.$store.state.userInfo);
+          if(!this.$store.state.userInfo && /^\/my/.test(this.$route.path) ){
             this.$router.push({
               path:'/'
             })
