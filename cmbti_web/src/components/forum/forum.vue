@@ -64,19 +64,6 @@
             :total="total">
             </el-pagination>
         </div>
-        <div style="padding:18px 18px 5px;text-align:center;background:#7e90a0">
-            <div :class="'bu-ios-button'+(active?' active':'')" @click="active=!active">按钮</div> &nbsp;<div :class="'bu-ios-button'">按钮</div>
-        </div>
-        <div style="padding:18px 18px 22px;text-align:center;background:#7e90a0">
-            <div class="bu-ios-button active">按钮</div>
-            <br>
-            <br>
-            <Switch111></Switch111>
-        </div>
-
-        <div>单选： 
-            <input type="radio" id="radio-2-1" name="radio-2-set" class="regular-radio big-radio" />
-        </div>
     </div>
 </div> 
 </template>
@@ -161,7 +148,7 @@ export default {
 @bg:rgba(255,255,255,.75);
 .forum-index {
     max-width:997px;
-    margin:0px auto;
+    margin:12px auto;
     position: relative;
     display:flex;
     border-radius:4px 4px 0 0;

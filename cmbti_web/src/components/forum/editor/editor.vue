@@ -14,11 +14,24 @@ export default {
             content:''
         }
     },
+    props:[
+        'articleContent'
+    ],
+    watch:{
+        'articleContent':function(val){
+            this.content = val
+        }
+    },
     methods:{
         updateData(html){
             this.content = html
             this.$emit('changeContent',this.content)
         },
+    },
+    created(){
+        if(this.articleContent){
+            this.content = this.articleContent
+        }
     }
 }
 </script>

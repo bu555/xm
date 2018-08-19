@@ -17,7 +17,7 @@
             <!--导航list-->
             <div :class="showDownMeun?'my-menu-list active':'my-menu-list'">
                 <router-link to="/">
-                    <div :class="/^\/$/.test($route.path)? 'items active':'items'">首 页</div>
+                    <div :class="/^\/$/.test($route.path)? 'items active':'items'">MBTI</div>
                 </router-link>
                 <router-link to="/personalities">
                     <div :class="/^\/personalities/.test($route.path)? 'items active':'items'">人格类型</div>

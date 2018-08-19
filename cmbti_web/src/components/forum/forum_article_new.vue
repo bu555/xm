@@ -35,7 +35,7 @@
                     <div class="html5-editor" stylel="width:600px" >
 
                     <!--<vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>-->
-                    <VueHtml5Editor @changeContent="getContent"></VueHtml5Editor>
+                    <VueHtml5Editor @changeContent="getContent" :articleContent="editContent"></VueHtml5Editor>
                 
                     </div>
                 </div>
@@ -65,6 +65,7 @@ export default {
             loading:false,
             aid:'',
             editAid:'',
+            editContent:'',
             // 输入验证
             ver:{
                 title:'',
@@ -164,7 +165,10 @@ export default {
                     this.editAid = this.aid
                     this.form.title = res.data.data.title
                     this.form.category = res.data.data.category
-                    this.form.content = res.data.data.content
+                    this.editContent = this.form.content = res.data.data.content
+                    console.log('jjj',this.editContent);
+                    console.log('lll',this.form.content);
+                     
                 }
             }).catch(err=>{
                 this.loading = false
@@ -189,7 +193,7 @@ export default {
 <style lang="less">
 .forum-new {
     max-width:970px;
-    margin:0px auto;
+    margin:12px auto;
     position: relative;
     display:flex;
     border-radius:4px 4px 0 0;

@@ -10,6 +10,9 @@ import user from '@/components/user/user'
 
 //home页面
 import home from '@/components/home/home' 
+import home_mbti from '@/components/home/home_mbti' 
+import home_personalities from '@/components/home/home_personalities' 
+import home_functions from '@/components/home/home_functions' 
 //type页面
 import type from '@/components/personalities/type'
 import type_details from '@/components/personalities/type_details'
@@ -60,20 +63,34 @@ const vueRouter = new Router({
     {path:'/index',redirect:'/'},
     // redirect:'pool/systemStts',
     //Home
-    {path:'/',component:home},
-
-    // type
     {
-      path:'/personalities',
-      component:type,
-      redirect:'/personalities/entj',
+      path:'/',
+      component:home,
       children:[
-        {path:':type',component:type_details}
+         { path:'', component: home_mbti},
+         { path:'personalities',
+           component: home_personalities,
+           children:[
+              { path:':id',}
+           ]
+         },
+         { path:'functions',redirect: 'functions/fe'},
+         { path:'functions/:id',component: home_functions},
       ]
     },
 
+    // type
+    // {
+    //   path:'/personalities',
+    //   component:type,
+    //   redirect:'/personalities/entj',
+    //   children:[
+    //     {path:':type',component:type_details}
+    //   ]
+    // },
+
     // mbti
-    {path:'/mbti',component:mbti},
+    // {path:'/mbti',component:mbti},
 
     // test
     {
@@ -102,6 +119,7 @@ const vueRouter = new Router({
     {path:'/forum',component:forum},
     {path:'/forum/:id',component:forum_item},
     {path:'/forum/article/new',component:forum_article_new},
+    {path:'/forum/article/edit/:id',component:forum_article_new},
     // {
     //   path:'/forum',
     //   component:forum,

@@ -128,6 +128,7 @@ export default {
     }
     // @import '../static/css/my-element.less'; 
     @import '../static/css/bu-button.css'; 
+    @import '../static/css/bu-font.css'; 
     .root-app {
       font-family:DINRegular;
       // background:url('/static/img/bg_1.png');

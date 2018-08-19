@@ -1,5 +1,6 @@
 export default {
     types:['entp','intp','entj','intj','enfp','infp','enfj','infj','estj','istj','esfj','isfj','estp','istp','esfp','isfp'],
+    f8:['se','si','ne','ni','te','ti','fe','fi'],
     kTypes:[
         {
             t:'nt',
@@ -44,7 +45,10 @@ export default {
         "T":"#4dc9e8"
     },
     color_k:{
-        "nt":""
+        "nt":"#4c8bf5",
+        "nf":"#dd5044",
+        "sp":"#dd5044",
+        "sj":"#18a15f",
     },
     e2c:{
         "e":"外倾",
@@ -55,6 +59,6 @@ export default {
         "f":"情感",
         "j":"判断",
         "p":"感知",
-    }
+    },
     
 }
