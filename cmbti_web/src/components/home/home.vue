@@ -3,7 +3,7 @@
     <div class="h-main">
         <ul class="h-tab">
                 <li>
-                    <router-link to="/">MBTI人格理论</router-link></li>
+                    <router-link to="/">MBTI理论</router-link></li>
                 <li>
                     <router-link to="/personalities">人格类型</router-link></li>
                 <li>
@@ -29,23 +29,28 @@ export default {
         background-color: #eee;;
     }
     .h-main {
-        max-width:997px;
+        max-width:800px;
         margin:0 auto;
+        padding:3%;
         // background-color: #eee;
-        padding-right:290px;
+        // padding-right:290px;
         ul.h-tab {
             display:flex;
             padding:1em 0;
             li {
                 padding:0 1em;
                 border-right:1px solid #eee;
+                text-align: center;
             }
         }
     }
 
-    @media screen and (max-width:997px){
+    @media screen and (max-width:500px){
         .h-main {
-            padding:3%;
+            ul.h-tab li {
+                padding:0 ;
+                flex:1;
+            }
         }
     }
 

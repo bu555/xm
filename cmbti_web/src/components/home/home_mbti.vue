@@ -1,11 +1,11 @@
 <template>
 <div class="home-mbti">
     <section>
-        <h2 class='hsl'>MBTI<span> 是什么？</span></h2>
+        <h2 class=''>MBTI <span>是什么？</span></h2>
         <p>MBTI的全名是Myers-Briggs Type Indicator。它是一种迫选型、自我报告式的性格评估理论模型，用以衡量和描述人们在获取信息、作出决策、对待生活等方面的心理活动规律和性格类型。</p>
     </section>
     <section>
-        <h2 class='hsl'>MBTI<span> 发展历程</span></h2>
+        <h2 class=''>MBTI <span>发展历程</span></h2>
         <p>1913年，瑞士心理学家C. G. Jung在慕尼黑国际精神分析会议上提出了内向型性格与外向型性格，揭开了现代性格类型研究的序幕。</p>
         <p>1921年，Jung发表《心理类型学》（德文版）；1923年H. G. Baynes将其译为英文，并由纽约的Harcourt Brace Jovanovich Company出版。该书是公认的现代性格类型理论的奠基之作。</p>
         <p>1942年，美国的Katherine C Briggs和Isabel Briggs Myers母女在Jung理论的基础上，开发了MBTI的第一张量表——量表A。当时正值第二次世界大战，Isabel母女希望通过MBTI增进人与人之间的相互理解和欣赏，从而避免战争。</p>
@@ -34,14 +34,16 @@ export default {
     section {
         padding:2% 0;
         h2 {
-            font-size:28px;
+            font-size:27px;
             text-align: center;
             margin-bottom:8px;
             // margin: 50px auto 100px;
             // font-size: 100px;
-            background: -webkit-linear-gradient(top,#fc0,#f30 50%,#c00 51%,#600);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            // background: -webkit-linear-gradient(top,#fc0,#f30 50%,#c00 51%,#600);
+            // background: -webkit-linear-gradient(top, #403e35, #f30 50%, #1d4475 51%, #042335);
+            // -webkit-background-clip: text;
+            // -webkit-text-fill-color: transparent;
+            color:#3b434f;
             span {
                 font-size:25px;
                 position: relative;
@@ -50,11 +52,11 @@ export default {
         }
     }
 
-.hsl{color:hsl(184,86%,13%);text-shadow:0 0 1px currentColor,
+.hsl{color:hsl(183, 80%, 16%);text-shadow:0 0 1px currentColor,
 /*highlight*/
--1px -1px 1px hsl(184,80%,50%),
-0 -1px 1px hsl(184,80%,55%),
-1px -1px 1px hsl(184,80%,50%),
+-1px -1px 1px rgb(11, 64, 112),
+0 -1px 1px hsl(11, 64, 112),
+1px -1px 1px hsl(11, 64, 112),
 /*light shadow*/
 1px 1px 1px hsl(184,80%,10%),
 0 1px 1px hsl(184,80%,10%),

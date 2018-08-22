@@ -80,7 +80,7 @@
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
                     </router-link>
-                        <div class="name overflow-row-1">{{v.name}}</div>
+                        <div class="name overflow-row-1">{{v.name==='马拉多纳'?'马拉多纳马拉多纳马拉多纳马拉多纳马拉多纳':v.name}}</div>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
                         <div style="height:1px"></div>
                     </div>
@@ -401,7 +401,7 @@ export default {
         box-sizing: border-box;
         .item {
             flex:0 0 24.8%;
-            margin-bottom:22px;
+            margin-bottom:22px; overflow: hidden; text-overflow:ellipsis;
             // background-color: red;
             .item-box {
                 margin:0 auto;

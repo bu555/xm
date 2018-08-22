@@ -54,6 +54,7 @@
 </template>
 <script>
 import VueHtml5Editor from './editor/editor'
+import fEditor from 'froala-editor'
 export default {
     data(){
         return {

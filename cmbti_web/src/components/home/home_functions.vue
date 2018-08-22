@@ -50,25 +50,29 @@ export default {
             flex-wrap:wrap;
             justify-content:space-between;
             .item {
+                font-size:18px;
                 flex:0 0 11%;
                 height:38px;
                 line-height: 38px;
+                font-weight:700;
                 color:#3e4652;
                 border-color:#fff;
-                background-color: lime;
+                text-shadow:0px 0px 2px #fff;
+                box-shadow:1px 1px 5px #38414b;
                 margin:3px;
                 text-align: center;
-                a:hover {
-                    text-shadow:1px 1px 1px #4b647b
-                    // font-size:18px;
+                border-radius:2px;
+                &:hover {
+                    box-shadow:1px 3px 10px #38414b;
                 }
                 a {
                     display:block;
                     height:100%;
                 }
             }
-            .item.active a {
-                text-shadow:1px 1px 1px #4b647b;
+            .item.active {
+                // box-shadow:1px 4px 10px #222;
+                // text-shadow:1px 1px 1px #4b647b;
 
             }
     }
@@ -88,7 +92,7 @@ export default {
     @media screen and (max-width:500px){
         ul.types-menu {
                 .item {
-                    flex:0 0 20%;
+                    flex:0 0 22%;
                 }
         }
         .content {

@@ -19,9 +19,9 @@
                 <router-link to="/">
                     <div :class="/^\/$/.test($route.path)? 'items active':'items'">MBTI</div>
                 </router-link>
-                <router-link to="/personalities">
+                <!-- <router-link to="/personalities">
                     <div :class="/^\/personalities/.test($route.path)? 'items active':'items'">人格类型</div>
-                </router-link>
+                </router-link> -->
                 <router-link :to="'/test'">
                     <div :class="/^\/test/.test($route.path)? 'items active':'items'">测 试</div>
                 </router-link>
