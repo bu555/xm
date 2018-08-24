@@ -1,6 +1,6 @@
 <template>
   <div class="root-app" v-if="showPage">
-      <myNav v-if="$route.path.indexOf('/user/')===-1"></myNav>
+      <!-- <myNav v-if="$route.path.indexOf('/user/')===-1"></myNav> -->
       <router-view class="router-view"></router-view>
       <myFooter></myFooter>
       <div v-if="$store.state.modalLogin">
@@ -42,7 +42,8 @@ export default {
           localStorage.setItem('USER','')
           this.$store.commit('setUserInfo','')
       }else{
-          if(!this.$store.state.userInfo && /^\/my\//.test(this.$route.path) ){
+        console.log('guan',this.$store.state.userInfo);
+          if(!this.$store.state.userInfo && /^\/my/.test(this.$route.path) ){
             this.$router.push({
               path:'/'
             })
@@ -127,6 +128,7 @@ export default {
     }
     // @import '../static/css/my-element.less'; 
     @import '../static/css/bu-button.css'; 
+    @import '../static/css/bu-font.css'; 
     .root-app {
       font-family:DINRegular;
       // background:url('/static/img/bg_1.png');

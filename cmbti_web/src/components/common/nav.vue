@@ -1,90 +1,80 @@
 <template>
-  <div class="my-nav-v2">
-
-      <div class="my-menu">
-         <div class="m-view">
-           <!--网站logo-->
-            <div class="logo-a">
-                <a href="/">
-                    <img src="../../../static/img/logo_a.png" alt="">
-                </a>
-                <div class="logo-b">
-                    <a href="/">
-                        <img src="../../../static/img/logo_b.png" alt="" style="height:38px">
+    <div  :class="'x-nav ' + (showMore?'mobile':'')">
+        <div class="x-nav-inner">
+            <div class="logo">
+                <h2>x-MBTI</h2>
+            </div>
+            <div class="search">
+                <span class="close-btn" @click="showMore=false">关闭</span>
+                <div class="search-inner">
+                    <input type="text" spellcheck="false">
+                    <span class="search-btn" @click="showMore=false"><i class="el-icon-search"></i></span>
+                </div>
+            </div>
+            <ul class="menu">
+                <li>
+                    <router-link to="/">
+                        <em>MBTI</em>
+                        <p>影院热映</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="'/test'">
+                        测 试
+                        <p>正在热播</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/example?type=all&page=1">
+                        名人库
+                        <p>正在热播</p>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/forum?category=all&page=1">
+                        <em>M</em>论坛
+                        <p>正在热播</p>
+                    </router-link>
+                </li>
+                <!-- <li>
+                    <router-link to="/about">
+                        关于我们
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/my">
+                        个人中心
+                    </router-link>
+                </li> -->
+                <li class="mb-more">
+                    <a @click="showMore=true">
+                        <i class="el-icon-menu"></i>
                     </a>
-                </div>
+                </li>
+            </ul>
+            <!-- 移动 更多logo   -->
+            <div class="mb-logo">
+              logo
             </div>
-            <!--导航list-->
-            <div :class="showDownMeun?'my-menu-list active':'my-menu-list'">
-                <router-link to="/">
-                    <div :class="/^\/$/.test($route.path)? 'items active':'items'">首 页</div>
+            <!-- 移动 更多 登录或注册 -->
+            <div class="login-reg">
+                <router-link to="/user/login">
+                    登录XM
                 </router-link>
-                <router-link to="/personalities">
-                    <div :class="/^\/personalities/.test($route.path)? 'items active':'items'">人格类型</div>
+                <router-link to="/user/register">
+                    注册XM
                 </router-link>
-                <router-link :to="'/test'">
-                    <div :class="/^\/test/.test($route.path)? 'items active':'items'">测 试</div>
-                </router-link>
-                <router-link to="/example?type=all&page=1">
-                    <div :class="/^\/example/.test($route.path)? 'items active':'items'">名人库</div>
-                </router-link>
-                <router-link to="/forum?category=all&page=1">
-                    <div :class="/^\/forum/.test($route.path)? 'items active':'items'">M论坛</div>
-                </router-link>
-                <router-link to="/about">
-                    <div :class="/^\/about/.test($route.path)? 'items active':'items'">关于我们</div>
-                </router-link>
-                <router-link to="/my">
-                    <div  v-if="$store.state.userInfo" :class="/^\/my/.test($route.path)? 'items active':'items'">个人中心</div>
-                </router-link>
-                <div class="items user-ctrl">
-                  <div v-if="$store.state.userInfo" class="not-login">
-                      <router-link to="/my">
-                        <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
-                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small" round="true"></Avatar>
-                      </router-link>
-                      <router-link to="/my">
-                        <div class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</div>
-                      </router-link>
-                      <div class="user-login-out">
-                            <el-dropdown trigger="click" @command="handleCommand">
-                              <span class="el-dropdown-link">
-                                <i class="el-icon-arrow-down el-icon--right" style="margin:5px;"></i>
-                              </span>
-                              <el-dropdown-menu slot="dropdown" style="top:34px">
-                                <el-dropdown-item command="account"><i class="fa fa-user"></i> 个人中心</el-dropdown-item>
-                                <el-dropdown-item command="exit"><i class="fa fa-sign-out"></i> 退出</el-dropdown-item>
-                              </el-dropdown-menu>
-                            </el-dropdown>
-                        <div>
-                        </div>
-                      </div>
-                  </div>
-                  <div v-else @click="$store.state.modalLogin = true" class="login-register">登录 / 注册</div>
 
-
-                </div>
             </div>
-            <!--下拉按钮-->
-            <div class="down-btn" @click="showDownMeun=!showDownMeun"><i class="fa fa-navicon"></i></div>
-         </div>
-      </div>
-  </div>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
   data(){
       return {
-          //配置路由正则
-          routeObj:{
-            '0':/^\//,
-            '1':/^\/mbti/,
-            '2':/^\/test/,
-            '3':/^\/example/,
-            '4':/^\/forum/,
-          },
-          showDownMeun:false
+        showMore:false
       }
   },
   components: {
@@ -92,15 +82,6 @@ export default {
   watch: {
   },
   methods: {
-    handleCommand(command){
-      if(command==='exit'){
-         this.$store.state.loginOut = true
-      }else if(command==='account'){
-        this.$router.push({
-          path:'/my'
-        })
-      }
-    }
 
   },
   mounted() {
@@ -112,219 +93,214 @@ export default {
 </script>
 
 <style lang="less">
-.my-nav-v2 {
-    padding-top:1px;
-    margin-bottom:10px;
-    .my-menu {
-      margin-top:55px;
-      // height:50px;
-      // background-color: #456ea5;
-      // background-color: #586a7a;
-      // background-image:-webkit-linear-gradient(rgba(20, 42, 55, 0.75) 0%, rgba(22, 31, 56, 0.72) 50%, rgba(15, 23, 41, 0.94) 51%);
-      // background: -webkit-gradient(linear, left top, left bottom, from(#617182), to(#323a42));
-      background-color: #36495d;
-      position: relative;
-      .m-view {
-          max-width: 1180px;
+  .x-nav {
+      .x-nav-inner {
+          max-width:970px;
+          height:76px;
           margin:0 auto;
-          position: relative;
-          min-height:52px;
-      }
-      .my-menu-list {
-          padding-left:100px;
           display:flex;
-          // position: relative;  
-          a {
-            // flex:1;
+          justify-content:space-between;
+          align-items: center;
+          .logo {
+              flex: 0 0 150px;
+              // background-color: #eee;
           }
-          .items {
-            height:52px;
-            line-height: 52px;
-            padding:0 20px;
-            color:#bdb9b9;
-            cursor:pointer;
-            font-size:17px;
-            &:hover {
-              // background-color: #2d5e92;
-              // text-shadow: 0 0 4px #f2f2f2;
-              // background: -webkit-gradient(linear, left top, left bottom, from(#566979), to(#2a2b2f));
-              color:#ddd;
-              // background:rgba(10,5,5,0.25);
-            }
-          }
-          .items.active {
-              // text-shadow: 0 0 4px #f2f2f2;
-              // background: -webkit-gradient(linear, left top, left bottom, from(#4e5d6b), to(#1e2023));
-              // color:#eee;
-              // background:rgba(15, 13, 19, 0.35);
-              color:#30b195
-          }
-          .user-ctrl.items {
-            position: absolute;
-            right:0;
-            top:-52px;
-            padding-right:25px;
-            color: #555;
-            font-size:15px;
-          }
-          .not-login {
-            display:flex;
-            align-items:center;
-            img.avatar {
-              display: block;
-              width:35px;
-              height:35px;
-              border-radius:50%;
-              border:1px solid #ccc;
-            }
-            .role-name {
-              min-width:50px;
-              max-width:110px;
-              margin:0 0 0 5px;
-              &:hover {
-                color:#456ea5;
+          .search {
+              position: relative;
+              padding-left:42px;
+              flex:0 0 275px;;
+              .search-inner {
+                  height:30px;
+                  display:flex;
+                  align-items: center;
+                  border:1px solid #ddd;
+                  border-radius:3px;
+                  padding-left:2px;
+                  width:100%;
               }
-            }
-            .user-login-out {
-              color:#bbb;
-              &:hover {
-                color:#555;
+              .close-btn {
+                  display:none;
+                  font-size:16px;
+                  position:absolute;
+                  left:0px;
+                  top:2px;
+                  color:#36495d;
               }
-            }
-          }
-          .login-register {
-              color:#456ea5;
-              &:hover {
-                color:#6a7ec7;
+              input {
+                  flex:1;
+                  height:28px;
+                  border:0;outline:none; //去除蓝色框
+                  font-size:15px;
+                  padding-left:5px;
+                  color:#555;
+                  background-color: transparent;
               }
-          }
-      }
-      .logo-a {
-          position: absolute;
-          top:-50px;
-          left:20px;
-          a>img {
-            display:block;
-            width:79px;
-            // height:88px;
-            // height:100px;
-            // object-fit: cover; //居中
-            // object-fit:fill; //占满 拉伸或压缩 ===img实际设定
-            object-fit:contain;   //最小方向占满(如果没设高度则按比例)
-            // object-fit:scale-down; //最中间按实际高度 （有宽高则图片大的一侧向占满）
-          }
-          .logo-b {
-              position: absolute;
-              top:5px;
-              right:0px;
-              transform: translateX(100%);
-              a>img {
-                display:block;
-                width:140px;
-                object-fit:scale-down;
+              .search-btn {
+                padding:2px 5px;
+                cursor:pointer;
+                margin-right:3px;
+                color:#d5d5d5;
               }
-          }
-      }
-      .down-btn {
-        position: absolute;
-        right:22px;;
-        top:10px;
-        // background-color: lime;
-        width:32px;
-        height: 32px;
-        line-height: 32px;
-        text-align:center;
-        font-size:27px;
-        display:none;
-        color:#ddd;
-        // border:1px solid #ddd;
-      }
 
-    }
-    @media screen and (max-width:768px){
-        .my-menu {
-          .m-view {
           }
-          .my-menu-list {
-              padding-left:0px;
-              padding-top:53px;
-              display:block;
-              height:0px;
-              overflow: hidden;
-              // position: relative;
-              // top:52px;
-              // transition-property:all;
-              // transition-duration: 0.5s;
-              a {
-              }
-              .items {
-                height:47px;
-                line-height: 47px;
-                padding:0 28px;
-                border-top:1px solid #6a7ec7;
-              }
-              .items.active {
-                background-color: #495c70;
-              }
-              .user-ctrl.items {
-                position: relative;
-                right:0;
-                top:0px;
-                padding-right:15px;
-                color:#ddd;
-              }
-              .not-login {
-                display:flex;
-                align-items:center;
-                img.avatar {
-                }
-                .role-name {
-                  color:#ddd;
-                }
-                .user-login-out {
-                  .el-dropdown-link {
-                    color:#ddd;
+          ul.menu {
+              flex:0 0 50%;
+              display:flex;
+              justify-content:flex-end;
+              li {
+                  padding-left:18px;
+                  line-height: 27px;;
+                  a {
+                      font-size:20px;
+                      color:#ccc;
+                      p {
+                        display:none;
+                        line-height: 16px;;
+                      }
+                      em {
+                        font-size:21px; //英文大一号
+                      }
                   }
+              }
+              li.mb-more {
+                display:none
+              }
+          }
+          .login-reg {
+            display:none;
+          }
+          .mb-logo {
+            display:none;
+          }
+      }
+  }
+  @media screen and (max-width:992px){
+    .x-nav {
+        padding: 0 12px;
+        .x-nav-inner .search {
+            display:none;
+        }
+    }
+  }
+  @media screen and (max-width:768px){
+    .x-nav {
+        // padding: 0 12px;
+        border-bottom:1px solid #f3f3f3;
+        .x-nav-inner {
+            height:47px;
+            .logo {
+              flex: 0 0 65px;
+              h2{font-size:15px;}
+            }
+            .search {
+                display:none;
+            }
+            ul.menu {
+                flex:0 0 auto;
+                li {
+                padding-left:12px;
+                    a {
+                      font-size:15px;
+                      em {
+                        font-size:16px; //英文大一号
+                      }
+                    }
                 }
-              }
-              .login-register {
-                 color:#b7c5d5;
-                 width:90px;
-                 height:40px;
-              }
+                li.mb-more {
+                  display:block
+                }
+            }
+        }
 
-          }
-          .down-btn {
+    }
+    // 移动端 点击查看更多
+    .x-nav.mobile {
+        padding: 0;
+        .x-nav-inner {
+            position:fixed;
+            background-color: #fff;
+            height:100%;
+            width:100%;
+            z-index:9;
             display:block;
-          }
-          .my-menu-list.active{
-              height:auto;
-              // border-top:1px solid #c0c0c0;
-          }
-
+            .logo {
+              display:none;
+            }
+            .search {
+              display:block;
+              border-bottom:1px solid #eee;
+              width:100%;
+              padding:12px;
+              padding-right:15px;
+              padding-left:48px + 15px;
+              .search-inner {
+                  height:30px;
+                  display:flex;
+                  align-items: center;
+                  border:none;
+                  border-radius:3px;
+                  padding-left:2px;
+                  background-color: #f2f2f2;
+              }
+              .close-btn {
+                  display:block;
+                  top:14px;
+                  left:18px;
+              }
+              .search-btn {
+                    color:#aeaeae;
+              }
+            }
+            ul.menu {
+              display:flex;
+              flex-wrap:wrap;
+              justify-content:flex-start;
+              padding:25px 0;
+                li {
+                    flex:0 0 33%;
+                    padding-left:0;
+                    height:70px;
+                    text-align: center;
+                    a {
+                      font-size:19px;
+                      p {
+                        display:block;
+                        font-size:12px;
+                        margin-top:2px;
+                      }
+                      em {
+                        font-size:20px; //英文大一号
+                      }
+                    }
+                }
+                li.mb-more {
+                  display:none;
+                }
+            }
+              .mb-logo {
+                  display: block;
+                  height:40px;
+                  line-height: 40px;
+                  border-top:1px solid #f7f7f7;
+                  text-align:center;
+              }
+            .login-reg {
+              display:flex;
+              padding:12px 0;
+              border-bottom:1px solid #f7f7f7;
+              border-top:1px solid #f7f7f7;
+              text-align: center;
+              font-size:13px;
+              &>a {
+                flex:1;
+                color:#55c264;
+              }
+              &>a+a {
+                border-left:1px solid #f0f0f0;
+              }
+            }
         }
     }
-    @media screen and (max-width:360px){
-        .my-menu {
-          .my-menu-list {
-          }
-        }
-    }
 
-}
-</style>
-<style>
-    ul.el-dropdown-menu{
-      /*top:34px !important;*/
-      padding:1px;
-    }
-    ul.el-dropdown-menu>li {
-        line-height: 32px;
-    }
-    ul.el-dropdown-menu>li:first-child {
-        border-bottom:1px solid #eee;
-    }
-    el-dropdown-menu__item {
-        line-height: 25px !important;
-    }
+  }
 </style>
