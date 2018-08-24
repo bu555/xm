@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fb-comments</title>
+    <style>
+        html {overflow-y:hidden}
+    </style>
+</head>
+<body>
+    <div class="fb-comments" data-numposts="5"></div>
+    <script>
+        (function(d, s, id) {
+            var js,
+            fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+
+        window.onload=function(){
+            var height = ''
+            var search = window.location.search
+            var href = search.substr(5)
+            document.querySelector(".fb-comments").setAttribute("data-href", href);
+            setInterval(function(){
+                var currentHeight = document.body.offsetHeight
+                if(currentHeight!== height){
+                    localStorage.setItem('iframeHeight',currentHeight) //高度传递父页面（同域）
+                    height = currentHeight
+                }
+            },200)
+        }
+        
+    </script>
+</body>
+</html>

@@ -303,7 +303,7 @@ export default {
     margin:0 auto;
     .my-tab {
         // background-color: rgba(0,0,100,.15);
-        background: #778b9d;
+        // background: #778b9d;
         // padding:10px 0 15px;
         .my-tab-inner {
             max-width:1075px;
@@ -473,6 +473,9 @@ export default {
             .photo {
                 width:32vw;
                 height:42vw;
+            }
+            .name {
+                width:134px
             }
         }
         .input-with-select {

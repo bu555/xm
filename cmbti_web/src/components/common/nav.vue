@@ -120,8 +120,9 @@ export default {
       // height:50px;
       // background-color: #456ea5;
       // background-color: #586a7a;
-      background: -webkit-gradient(linear, left top, left bottom, from(#617182), to(#323a42));
       // background-image:-webkit-linear-gradient(rgba(20, 42, 55, 0.75) 0%, rgba(22, 31, 56, 0.72) 50%, rgba(15, 23, 41, 0.94) 51%);
+      // background: -webkit-gradient(linear, left top, left bottom, from(#617182), to(#323a42));
+      background-color: #36495d;
       position: relative;
       .m-view {
           max-width: 1180px;
@@ -148,14 +149,15 @@ export default {
               // text-shadow: 0 0 4px #f2f2f2;
               // background: -webkit-gradient(linear, left top, left bottom, from(#566979), to(#2a2b2f));
               color:#ddd;
-              background:rgba(10,5,5,0.25);
+              // background:rgba(10,5,5,0.25);
             }
           }
           .items.active {
               // text-shadow: 0 0 4px #f2f2f2;
               // background: -webkit-gradient(linear, left top, left bottom, from(#4e5d6b), to(#1e2023));
-              color:#eee;
-              background:rgba(15, 13, 19, 0.35);
+              // color:#eee;
+              // background:rgba(15, 13, 19, 0.35);
+              color:#30b195
           }
           .user-ctrl.items {
             position: absolute;

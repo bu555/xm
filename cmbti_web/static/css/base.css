@@ -11,7 +11,8 @@ img {border:0; vertical-align:middle; }  /*  去掉图片低测默认的3像素�
 table { border-collapse:collapse; }
 html{
     /*background:#f6f8f6;*/
-    background: url('../img/bg_1.png');
+    /* background: url('../img/bg_1.png'); */
+    background-color: #ffffff;
 }
 body {
     overflow-y: scroll;

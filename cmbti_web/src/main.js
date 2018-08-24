@@ -56,6 +56,7 @@ Vue.prototype.$delayPush =  function(path,time){
   },time?time:300)
 }
 
+
 Vue.prototype.vueExample = new Vue({
   el: '#app',
   router,
