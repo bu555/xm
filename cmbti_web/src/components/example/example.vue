@@ -1,48 +1,9 @@
 <template>
 <div class="example " v-loading="loading">
-    <div class="my-tab">
-        <div class="my-tab-inner">
-            <div class="search-bar">
-                <div class="btn-all">
-                    <router-link :to="'/example?type=all'">
-                    <div :class="$route.query.type==='all'?'type all t-active':'type all'" data-type="all">
-                        <div class="bg-l"></div>全 部
-                        <div class="bg-r"></div>
-                    </div>
-                    </router-link>
-                </div>
-                <div class="search-right">
-                    <!--<el-input placeholder="名字搜索" v-model="searchName" class="input-with-select" style="width:250px" @keyup.enter.native="search()" clearable spellcheck=false >
-                        <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
-                    </el-input>-->
-                    <el-input
-                    placeholder="名字搜索"
-                    v-model="searchName"
-                    @focus="focusHandler($event)"
-                    @blur="blurHandler($event)"
-                    @input="inputHandler($event)"
-                    @keyup.enter.native="search()"
-                    spellcheck="false"
-                    >
-                    </el-input>
-                    <em class="el-icon-search" @click="search()"></em>
-                </div>
-            </div>
-            <div class="s-line">
-            </div>
-            <div class="types-box">
-                <div v-for="(v,i) in $mbti.types" :key="i">
-                    <router-link :to="'/example?type='+v">
-                    <div :class="$route.query.type===v?'type t-active':'type'" :data-type="v">
-                        <div class="bg-l"></div>{{v.toUpperCase()}}
-                        <div class="bg-r"></div>
-                    </div>
-                    </router-link>
-                </div>
-            </div>
-        </div>
-    </div>
+    <NavMain></NavMain>
+
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
+    <NavSub :data="data" :search="setSearch" @searchVal="currentSearch" @submit="search()" placeholder="名字搜索"></NavSub>
     <div class="bx">
         <!--在线数据-->
         <div class="example-list" style="min-height:300px" v-if="exampleList_bk"> 
@@ -109,6 +70,8 @@
 </div> 
 </template>
 <script>
+import NavSub from '@/components/common/nav_sub'
+import NavMain from '@/components/common/nav_main'
 export default {
     data(){
         return{
@@ -117,48 +80,45 @@ export default {
             detailsData:{}, //
             showDetails:false,
             searchName:'',
+            setSearch:'',
             sName:'',
-            // tab导航条内容
-            // color:{
-            //     'entp':'#2270d7',
-            //     'intp':'#2270d7',
-            //     'entj':'#2270d7',
-            //     'intj':'#2270d7',
-
-            //     'enfp':'#b225d5',
-            //     'infp':'#b225d5',
-            //     'enfj':'#b225d5',
-            //     'infj':'#b225d5',
-
-            //     'estj':'#f33370',
-            //     'istj':'#f33370',
-            //     'esfj':'#f33370',
-            //     'isfj':'#f33370',
-
-            //     'estp':'#9ea2a2',
-            //     'istp':'#9ea2a2',
-            //     'esfp':'#9ea2a2',
-            //     'isfp':'#9ea2a2',
-
-            // },
             size:12, //每页条数
             count:0,//总页数
             total:0,//总条数
             currentPage:1,
             loading:false,
+            
+            data:{
+                title:'名人库',
+                list:[
+                    // {
+                    //     value:'全部',
+                    //     link:'/example?type=all'
+                    // }
+                ]
+
+            }
 
         }
     },
+    components:{
+        NavSub,
+        NavMain
+    },
     methods:{
-        focusHandler(e){
-            e.target.style.borderColor = '#e4e8eb'
-        },
-        blurHandler(e){
-            e.target.style.borderColor = '#778b9d'
+        // 当前搜索框内容
+        currentSearch(val){
+            this.searchName = val
             if(!this.searchName && !this.$route.query.type){
                 this.$router.push({query:{type:'all'}})
             }
         },
+        // blurHandler(e){
+        //     e.target.style.borderColor = '#778b9d'
+        //     if(!this.searchName && !this.$route.query.type){
+        //         this.$router.push({query:{type:'all'}})
+        //     }
+        // },
         inputHandler(){
             if(!this.searchName){
                 this.$router.push({query:{type:'all'}})
@@ -277,6 +237,12 @@ export default {
         '$route.query':'changeQuery',
     },
     created(){
+        this.$mbti.types.forEach((v,i)=>{
+            this.data.list.push({
+                link:'/example?type='+v,
+                value:v.toUpperCase()
+            })
+        })
 
         let search = this.$route.query.s?this.$route.query.s:''
         let type = this.$route.query.type?this.$route.query.type:'';
@@ -293,101 +259,18 @@ export default {
     },
     mounted(){
     },
-    components:{
-    }
     
 };
 </script>
 <style lang="less">
 .example {
     margin:0 auto;
-    .my-tab {
-        // background-color: rgba(0,0,100,.15);
-        // background: #778b9d;
-        // padding:10px 0 15px;
-        .my-tab-inner {
-            max-width:997px;
-            margin:0 auto;
-            // padding:0px 5px;
-
-        }
-        .search-bar {
-            padding:5px 0;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items:middle;
-            border-bottom:1px solid #708190;
-            .search-right {
-                position: relative;
-                input {
-                    display:block;
-                    height:31px;
-                    border-radius:31px;
-                    background-color: rgba(255,255,255,.8);
-                    padding-right:50px;
-                }
-                em {
-                    position: absolute;
-                    top:1px;
-                    right:2px;
-                    font-size:20px;
-                    font-weight:700;
-                    padding:5px;
-                    cursor: pointer;
-                    color:#728698;
-                    &:hover {
-                        text-shadow:0 0 1px #586a7a;
-                    }
-                }
-            }
-            .btn-all {
-                flex:0 0 12.5%;
-                margin-right:18px;
-                padding-right:3px;
-            }
-        }
-        .types-box {
-            display:flex;display: -webkit-flex;display: -ms-flex;display: -o-flex;
-            flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-            width:100%;
-            padding:5px 0;
-            // padding-right:270px;
-            &>div {
-                flex:0 0 12.5%;
-                text-align: center;
-
-            }
-        }
-        .type {
-            font-size:16px;
-            margin:2px;
-            height:28px;
-            line-height: 28px;;
-            color:#eee;
-            padding:0 3px;
-            background:url('/static/img/btn-up.jpg') no-repeat;
-            position: relative;
-            text-align:center;
-            .bg-r {
-                width:3px;
-                height:28px;
-                background:url('/static/img/btn-up.jpg') no-repeat -165px 0px;
-                position: absolute;
-                right:0;
-                top:0;
-            }
-        }
-        .type:hover, .type.t-active{
-            background:url('/static/img/btn-down.jpg') no-repeat;
-            color:#fff;
-            .bg-r {
-                background:url('/static/img/btn-down.jpg') no-repeat -165px 0px;
-            }
-        }
-        .type.all {
-            width:100%;
-        }
+    .x-nav-sub ul.nav-list.in-bottom li {
+        padding-left: 0px;
+        flex:1;
+    }
+    .bx {
+        max-width:970px;
     }
     //名人列表
     .example-list {
@@ -395,7 +278,7 @@ export default {
         margin:4px auto 0;
         display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
         flex-wrap:wrap; //让弹性盒元素在必要的时候拆行
-        padding:15px;
+        padding:15px 0;
         padding-top:20px;
         text-align: center;
         box-sizing: border-box;
@@ -455,6 +338,14 @@ export default {
         }
     }
     @media screen and (max-width:768px){
+        .x-nav-sub ul.nav-list.in-bottom {
+            flex-wrap:wrap;
+            padding-bottom:5px;
+            padding-top:5px;
+            li {
+                flex:0 0 12.2%;
+            }
+        }
         .example-list .item {
             flex:0 0 33.33%;
             .item-box {
@@ -467,6 +358,13 @@ export default {
         }
     }
     @media screen and (max-width:500px){
+        .x-nav-sub ul.nav-list.in-bottom {
+            li {
+                flex:0 0 25%;
+                // text-align:center;
+                padding-left:1.4em;
+            }
+        }
         .example-list .item {
             flex:0 0 50%;
             .item-box {

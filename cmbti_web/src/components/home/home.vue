@@ -1,14 +1,31 @@
 <template>
 <div class="home">
-    <Nav></Nav>
+    <NavDefault></NavDefault>
     <div class="h-news">
         <div class="h-news-inner">
             <div class="wrapper">
                 <img src="/static/img/si.jpg" alt="">
             </div>
             <div class="login">
-                <el-button type="success" >登录XM</el-button>
-                <el-button type="info" >注册账号</el-button>
+                <div v-if="!$store.state.userInfo" class="is-login">
+                        <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
+                        <router-link to="/my" class="a">
+                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="" round="true"></Avatar>
+                        </router-link>
+                        <div class="role-name overflow-row-1">
+                            <router-link to="/my" class="a">
+                                {{$store.state.userInfo.r_name}}
+                            </router-link>
+                        </div>
+                        <!-- <ul>
+                            <li>收藏(5)</li>
+                            <li>收藏(5)</li>
+                        </ul> -->
+                </div>
+                <div v-else style="padding-top:42px">
+                    <el-button type="success" >登录XM</el-button>
+                    <el-button type="info" >注册账号</el-button>
+                </div>
             </div>
         </div>
     </div>
@@ -41,10 +58,12 @@
 </div>
 </template>
 <script>
-import Nav from '@/components/common/nav'
+import NavDefault from '@/components/common/nav_main_default'
+import Avatar from '@/components/common/avatar'
 export default {
     components:{
-        Nav
+        NavDefault,
+        Avatar
     }
 }
 </script>
@@ -60,25 +79,36 @@ export default {
         overflow: hidden;
         max-width:970px;
         margin:0 auto;
-        padding-right:290px;
-        position: relative;
+        display:flex;
         .wrapper {
+            flex:0 0 60%;
             img {
                 display: block;
-                // width:100%;
-                height:100%;
-                width:auto;
-                object-fit: contain;
+                width:100%;
+                height:auto;
+                // object-fit: contain;
             }
         }
         .login {
-            width:280px;
-            position:absolute;
-            right:0px;
-            top:10px;
-            padding:28px 55px 0 0px;
+            flex:0 0 40%;
+            &>div {
+                display:flex;
+                flex-wrap:wrap;
+                justify-content:center;
+            }
+            .is-login {
+                width: 150px;
+                text-align: center;
+                margin:0 auto;
+                padding-top:22px;
+                .role-name {
+                    padding-top:7px;
+                }
+            }
             button {
                 width:100%;
+                height:40px;
+                max-width:232px;;
                 margin:5px 0 ;
             }
         }
@@ -139,14 +169,28 @@ export default {
     //     }
     // }
 
-    // @media screen and (max-width:500px){
-    //     .h-main {
-    //         ul.h-tab li {
-    //             padding:0 ;
-    //             flex:1;
-    //         }
-    //     }
-    // }
+    @media screen and (max-width:500px){
+        .h-news-inner {
+            flex-wrap:wrap;
+            .wrapper {
+                flex:0 0 100%;
+                img {
+                }
+            }
+            .login {
+                display:none
+                &>div {
+                }
+                .is-login {
+                }
+                .role-name {
+                }
+                button {
+                }
+            }
+
+        }
+    }
 
 }
 </style>

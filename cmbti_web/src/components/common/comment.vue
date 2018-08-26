@@ -1,11 +1,15 @@
 <template>
     <div class="my-comment">
          <div class="comment" v-if="!accountComment && (this.aid || this.eid)" v-loading="loading2||zaning">
-            <div class="c-header" >
-                 <span class="fa fa-comments" style="font-size:20px;margin-right:4px"></span> 
-                  评论
+            <div class="c-header" > 
+                  <h2>评论</h2>
+                  <ul>
+                      <li>热门</li>
+                      <li>时间顺序</li>
+                      <li>时间倒序</li>
+                  </ul>
              </div>
-            <div class="c-tab">
+            <div class="c-tab" v-if="0">
                 <!-- <span>按</span>
                 <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
                 <span style="color:#bbb">|</span>
@@ -274,45 +278,37 @@ export default {
 <style lang="less" scoped>
 .my-comment {
     .comment {
-        box-shadow: 0 2px 3px #cacaca;
-        border-radius:4px 4px 0 0;
+        // box-shadow: 0 2px 3px #cacaca;
+        // border-radius:4px 4px 0 0;
         overflow: hidden;
         .c-header {
-            height:50px;
-            line-height: 50px;
-            background: linear-gradient(#7d90a1, #6e8294);
-            padding-left:4%;
-            color:#fff;
-            font-size:16px;
             display:flex;
-            align-items:center;
-        }
-        .c-tab {
-                height:52px;
-                // line-height: 52px;
-                box-shadow: 0 1px 2px #44505e inset;
-                padding-left:4%;
-                font-size:16px;
+            justify-content: space-between;
+            align-items:flex-end;
+            padding:12px 0 5px;
+            border-bottom:1px solid #f0f0f0;
+            color:#0e959d;
+            h2 {
+                // background: linear-gradient(#7d90a1, #6e8294);
+                font-weight:700;
+                font-size:20px;
+            }
+            ul {
                 display:flex;
-                justify-content: left;
                 align-items:center;
-                color:#555;
-                // background: #586978;
-                background: #96a3ae;
-                border-top: 1px solid #44505e;
-                &>span {
-                    margin-right:7px;
-                }
-                .c-type {
+                li {
+                    color:#999999;
+                    margin-left:1em;
+                    font-size:14px;
                     cursor:pointer;
-                }
-                &>.c-type.active {
-                    font-weight:700;
-                    color:#496ea3;
+                    &:hover {
+                        color:#0e959d;
+                    }
                 }
             }
+        }
         .c-body {
-            padding:1% 4.5% 5% 4%;
+            // padding:1% 4.5% 5% 4%;
             min-height:420px;
             background-color: #fff;
             .c-list {

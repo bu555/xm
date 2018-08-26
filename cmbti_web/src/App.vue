@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import myNav from './components/common/nav'
+import navMain from './components/common/nav_main'
 import myFooter from './components/common/footer'
 import loginModal from '../src/components/user/user_login_modal'
 import copyHandler from './assets/copyHandler'
@@ -23,7 +23,7 @@ export default {
       }
   },
   components: {
-    myNav,
+    navMain,
     myFooter,
     loginModal
   },

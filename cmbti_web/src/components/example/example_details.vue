@@ -10,6 +10,8 @@
             </div>
         </div>
     </div> -->
+    <NavMain></NavMain>
+    <NavSub :data="data" ></NavSub>
     <div class="view-1100px">
         <div class="main-box "  v-loading="loading3">
                     <div class="vote">
@@ -147,14 +149,6 @@
 
             
                     </div>
-                    <!--右侧栏-->
-                    <div class="aside-box">
-                        <div class="aside-items" v-for="i in 3">
-                            <p>INTJ和INTP测试</p>
-                            <p>INTJ和INTP测试</p>
-                            <p>INTJ和INTP测试</p>
-                        </div>
-                    </div>
         </div>
     </div>
 </div> 
@@ -163,16 +157,12 @@
 import voteResult from "./vote_result"
 import voteConsole from "./vote_console"
 import Comment from '../common/comment'
+import NavMain from '@/components/common/nav_main'
+import NavSub from '@/components/common/nav_sub'
 export default {
     data(){
         return {
             exampleItem:'',
-            // exampleItem:{
-            //     type:'',
-            //     info:'',
-            //     vote:{e:0,i:0,s:0,n:0,t:0,f:0,j:0,p:0},
-            //     vote_log:[]
-            // },
             isVote:false,
             isGetDate:true,
             isRepeat:false,
@@ -186,14 +176,26 @@ export default {
             loading2:false,
             loading3:false,
             showVote:false,
-            showComment:false
+            showComment:false,            
+            data:{
+                title:'名人库',
+                list:[
+                    // {
+                    //     value:'全部',
+                    //     link:'/example?type=all'
+                    // }
+                ]
+
+            }
 
         }
     },
     components:{
         voteResult,
         voteConsole,
-        Comment
+        Comment,
+        NavMain,
+        NavSub,
     },
     watch:{
         // 监控登录成功
@@ -435,11 +437,10 @@ export default {
         }
     }
     .view-1100px {
-            max-width:1180px;
+            max-width:970px;
             margin:15px auto;
             position: relative;
             box-sizing: border-box;
-            padding-right:332px;
         .main-box {
             margin-bottom:12px;
             width:100%;
@@ -449,7 +450,7 @@ export default {
             // 人物详情
             .example-box {
                 position: relative;
-                padding:2%;
+                // padding:2%;
                 padding-right:50%;
                 // background-color: #f5f5f5;
                 overflow: hidden;
@@ -581,7 +582,7 @@ export default {
 
             }   
             .e-show {
-                padding:2%;
+                padding:2% 0;
             }
             .user-ctrl {
                 margin-bottom:25px;

@@ -40,7 +40,7 @@ body {
 .clearfix{
     *zoom:1;/*IE/7/6*/
 }
-a {text-decoration:none; }
+a {text-decoration:none;cursor:pointer }
 a:focus {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
 a:active {color:#538dd5;text-decoration:none}  /*点击时状态 。*/
 a:link {color: #1a1a1a;text-decoration:none}   /*未访问时的状态 。*/
@@ -50,6 +50,20 @@ a:hover {color: #1a1a1a;text-decoration:none}
 h1,h2,h3,h4,h5,h6 {text-decoration:none;font-weight:normal;margin:0;padding:0}  /*设置h标签的大小，设置跟父亲一样大的字体font-size:100%;*/
 s,i,em{font-style:normal;text-decoration:none;}
 .col-red{color: #C81623!important;}
+
+
+input::-webkit-input-placeholder{
+  color:#c0c4cc;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#c0c4cc;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#c0c4cc;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+  color:#c0c4cc;
+}
 
 /*自设样式*/
 .my-tit {
@@ -69,6 +83,15 @@ s,i,em{font-style:normal;text-decoration:none;}
     text-overflow:ellipsis;
     white-space: nowrap;
 }
+/* white-space:normal; word-break:break-all; flex 中文本强制换行 */
+/* 
+1  word-break:break-all;只对英文起作用，以字母作为换行依据
+2  word-wrap:break-word; 只对英文起作用，以单词作为换行依据
+3  white-space:pre-wrap; 只对中文起作用，强制换行
+4 white-space:nowrap; 强制不换行，都起作用
+4 white-space:normal;; 默认换行，都起作用
+5 white-space:nowrap; overflow:hidden; text-overflow:ellipsis;不换行，超出部分隐藏且以省略号形式出现 */
+
 .overflow-row-2,.overflow-row-3,.overflow-row-5,.overflow-row-8,.overflow-row-13,.overflow-row-14 {
     display: -webkit-box;    
     -webkit-box-orient: vertical;    

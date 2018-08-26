@@ -19,6 +19,7 @@ import type_details from '@/components/personalities/type_details'
 
 // mbti
 import mbti from '@/components/mbti/mbti'
+import mbti_theory from '@/components/mbti/mbti_theory'
 
 // test
 import test from '@/components/test/test'
@@ -90,15 +91,20 @@ const vueRouter = new Router({
     // },
 
     // mbti
-    // {path:'/mbti',component:mbti},
-
+    {
+      path:'/mbti',
+      component:mbti,
+      children:[
+        {path:'theory',component:mbti_theory},
+      ]
+      
+    },
     // test
     {
       path:'/test',
       component:test,
       children:[
-        {path:'',component:test_home},
-        {path:'mbti93',component:test_mbti93},
+        {path:'mbti',component:test_mbti93},
         {path:'r/:id',component:test_report},
       ]
     },

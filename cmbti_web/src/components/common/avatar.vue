@@ -31,29 +31,41 @@ export default {
     },
     watch:{
         'uid':function(uid){
-            this.UID = uid
+            // this.UID = uid
+            this.init()
         },
         'src':function(src){
-            this.imgSrc = src
-        }
+            // this.imgSrc = src
+            this.init()
+        },
+        'size':function(size){
+            this.init()
+        },
+        'round':function(round){
+            this.init()
+        },
     },
     methods:{
+        init(){
+            // switch(this.size){
+            //     case 'mini':
+            //     this.className = 'mini'
+            //     break
+            //     case 'small':
+            //     this.className = 'small'
+            //     break
+            //     default:
+            //     this.className = ''
+            //     break
+            // }
+            this.className = this.size?this.size:''
+            this.className = this.round?this.className+' round':this.className
+            this.UID = this.uid
+            this.imgSrc = this.src
+        }
     },
     created(){
-        switch(this.size){
-            case 'mini':
-            this.className = 'mini'
-            break
-            case 'small':
-            this.className = 'small'
-            break
-            default:
-            this.className = ''
-            break
-        }
-        this.className = this.round?this.className+' round':this.className
-        this.UID = this.uid
-        this.imgSrc = this.src
+        this.init()
     }
 }
 </script>
@@ -70,6 +82,18 @@ export default {
         }
         img.round {
             border-radius:50%;
+        }
+        img.small-xxx {
+            width:68px;
+            height:68px;
+        }
+        img.small-xx {
+            width:58px;
+            height:58px;
+        }
+        img.small-x {
+            width:48px;
+            height:48px;
         }
         img.small {
             width:38px;

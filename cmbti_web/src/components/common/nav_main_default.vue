@@ -13,13 +13,13 @@
             </div>
             <ul class="menu">
                 <li>
-                    <router-link to="/">
+                    <router-link to="/mbti">
                         <em>MBTI</em>
                         <p>影院热映</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="'/test'">
+                    <router-link :to="'/test/mbti'">
                         测 试
                         <p>正在热播</p>
                     </router-link>
@@ -53,24 +53,41 @@
                 </li>
             </ul>
             <!-- 移动 更多logo   -->
-            <div class="mb-logo">
+            <div class="mb-logo" v-if="!$store.state.userInfo">
               logo
             </div>
             <!-- 移动 更多 登录或注册 -->
             <div class="login-reg">
-                <router-link to="/user/login">
-                    登录XM
-                </router-link>
-                <router-link to="/user/register">
-                    注册XM
-                </router-link>
-
+                <div v-if="$store.state.userInfo" class="is-login">
+                        <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
+                        <router-link to="/my" class="a">
+                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small-xx" round="true"></Avatar>
+                        </router-link>
+                        <div class="role-name overflow-row-1">
+                            <router-link to="/my" class="a">
+                                {{$store.state.userInfo.r_name}}
+                            </router-link>
+                        </div>
+                        <!-- <ul>
+                            <li>收藏(5)</li>
+                            <li>收藏(5)</li>
+                        </ul> -->
+                </div>
+                <div class="not-login" v-else>
+                    <router-link to="/user/login">
+                        登录XM
+                    </router-link>
+                    <router-link to="/user/register">
+                        注册XM
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import Avatar from '@/components/common/avatar'
 export default {
   data(){
       return {
@@ -78,6 +95,7 @@ export default {
       }
   },
   components: {
+      Avatar
   },
   watch: {
   },
@@ -285,19 +303,33 @@ export default {
                   text-align:center;
               }
             .login-reg {
-              display:flex;
-              padding:12px 0;
-              border-bottom:1px solid #f7f7f7;
-              border-top:1px solid #f7f7f7;
-              text-align: center;
-              font-size:13px;
-              &>a {
-                flex:1;
-                color:#55c264;
-              }
-              &>a+a {
-                border-left:1px solid #f0f0f0;
-              }
+                  display: block;
+                .is-login {
+                    text-align: center;
+                    margin:0 auto;
+                    padding:12px 0;
+                    border:1px solid #f7f7f7;
+                    border-left:none;
+                    border-right:none;
+                    .role-name {
+                        padding-top:7px;
+                    }
+                }
+                .not-login {
+                    display:flex;
+                    padding:12px 0;
+                    border-bottom:1px solid #f7f7f7;
+                    border-top:1px solid #f7f7f7;
+                    text-align: center;
+                    font-size:13px;
+                    &>a {
+                      flex:1;
+                      color:#55c264;
+                    }
+                    &>a+a {
+                      border-left:1px solid #f0f0f0;
+                    }
+                }
             }
         }
     }
