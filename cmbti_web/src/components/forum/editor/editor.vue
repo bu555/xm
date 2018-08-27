@@ -35,6 +35,9 @@ export default {
         background-color: #f2f4f6;
 
     }
+    .vue-html5-editor {
+        font-size:15px;
+    }
 </style>
 
 

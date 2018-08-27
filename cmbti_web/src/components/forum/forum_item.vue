@@ -56,8 +56,6 @@
                         <el-button size="small" type="primary" @click="addComment">发 表</el-button>
                     </div>
                 </div>
-                <!--来自account的评论-->
-                <div id="mycomment" ></div>
 
             </div>
             <!-- 推荐的内容 -->
@@ -69,6 +67,8 @@
                     </li>
                 </ul>
             </div>
+            <!--来自account的评论-->
+            <div id="mycomment" ></div>
             <!--来自account的评论 end-->
             <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
 
@@ -199,7 +199,7 @@ export default {
 
         }
         //处理my 评论
-        if(this.$route.query.index || this.$route.query.index==0){
+        if(this.$route.query.index || this.$route.query.index===0){
             if(localStorage.getItem('dataA')){
                 let temp = JSON.parse(localStorage.getItem('dataA'))
                 if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档

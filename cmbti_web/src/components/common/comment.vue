@@ -1,12 +1,12 @@
 <template>
     <div class="my-comment">
-         <div class="comment" v-if="!accountComment && (this.aid || this.eid)" v-loading="loading2||zaning">
+         <div class="comment" v-if="!accountComment && (this.aid || this.eid)" v-loading="loading2">
             <div class="c-header" > 
                   <h2>评论</h2>
                   <ul>
-                      <li>热门</li>
-                      <li>时间顺序</li>
-                      <li>时间倒序</li>
+                      <li :class="commentActive==='hot'?'active':''" @click="commentActive='hot'">热门</li>
+                      <li :class="commentActive==='time'?'active':''" @click="commentActive='time'">时间顺序</li>
+                      <li :class="commentActive==='time-reverse'?'active':''" @click="commentActive='time-reverse'">时间倒序</li>
                   </ul>
              </div>
             <div class="c-tab" v-if="0">
@@ -17,8 +17,8 @@
                 <SwitchComp @getKey="(key)=>commentActive=key " :active="tabList[0]" :list="tabList"></SwitchComp>
             </div>
              <div class="c-body">
-                <div v-if="commentList && !loading2 && commentList.length<1" style="text-align:center;color:#bbb">暂无评论</div>
-                <div v-if="commentList && commentList.length>1" class="c-list" v-for="(v,i) in commentList" :key="i">
+                <div v-if="commentList && !loading2 && commentList.length<1" class="if-comment-empty">暂无评论</div>
+                <div v-if="commentList && commentList.length>0" class="c-list" v-for="(v,i) in commentList" :key="i">
                     <div class="photo">
                         <Avatar :src="v.avatar" :uid="v.uid" size="small"></Avatar>
                         <!-- <router-link :to="'/info/'+v.uid">
@@ -27,31 +27,48 @@
                         </router-link> -->
                     </div>
                     <div class="c-name">
-                        <em class="overflow-row-1">{{v.r_name}}</em>
+                        <em class="overflow-row-1">
+                            <router-link :to="'/info/'+v.uid">
+                                {{v.r_name}}
+                            </router-link>
+                        </em>
                         <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
-                        <div class="zan c-c">
-                            <i :class="'fa fa-thumbs-up'+ (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><em>{{v.zans>999?'999+':v.zans}}</em> </i> 
-                            <!-- 借用zan字段控制评论（服务端统一返回的是null） -->
-                            <i :class="'fa fa-comment'+ (v.zan?' active':'')" @click="v.zan=!v.zan;v.comment=''"></i> 
-                        </div>
                     </div>
-                    <!--回复用户-->
-                    <div v-if="v.rep" class="c-content overflow-row-5" @click="showAllComment($event)" style="background:#eee;padding:3px;padding-left:5px">
-                        <span style="color:#5e8dd0">{{v.rep.r_name}}：</span>
-                        {{v.rep.content}}
+                    <!-- 新回复的评论 -->
+                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}} </div>
+                    <!-- 点赞与回复 -->
+                    <div class="zan c-c">
+                        <i :class="'fa fa-thumbs-up' + (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
+                        <!-- 借用zan字段控制评论（服务端统一返回的是null） -->
+                        <i :class="'fa fa-comment'+ (v.zan?' active':'')" @click="v.zan=!v.zan;v.repContent=''"></i> 
                     </div>
-                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
-                    </div>
+
                     <div class="reply" v-if="v.zan">
                         <el-input
                         type="textarea"
                         autosize
                         placeholder="回复内容："
+                        :autosize="{ minRows: 2, maxRows: 4}"
+                        @keydown.enter.native="ctrlAndEnter(reply(v.cid,v.repContent,()=>{v.zan=false;v.comment=''}))"
                         v-model="v.repContent">
                         </el-input>
                         <div class="reply-btn">
-                            <el-button type="primary" size="mini" @click="reply(v.cid,v.repContent,()=>{v.zan=false;v.comment=''})">发送</el-button>
+                            <span>Ctrl+Enter 发表</span>
+                            <div>
+                                <button class="bu-button bu-default" size="mini" @click="v.zan=!v.zan;v.repContent=''">取消</button>
+                                <button class="bu-button bu-gblue" size="mini" @click="reply(v.cid,v.repContent,()=>{v.zan=false;v.comment=''})">发送</button>
+                                <!-- <div style="text-align: right; padding-top: 10px;"><button class="bu-button bu-default">取 消</button> <button class="bu-button bu-gblue">发 表</button></div> -->
+                            </div>
                         </div>
+                    </div>
+                       <!--回复用户的评论-->
+                    <div v-if=" (v.replay instanceof Array) && v.replay.length>0" v-for="(v1,i1) in v.replay" :key="i1" class="c-content c-replay overflow-row-5" @click="showAllComment($event)" >
+                        <span>
+                            <router-link :to="'/info/'+v.uid">
+                                {{v.r_name}}
+                            </router-link>
+                        <em style="color:#9a9a9a;font-size:14px;padding-top:9px"> {{$moment(v.c_time).format('YYYY.MM.DD HH:mm')}} 回复</em>：</span>
+                        {{v1.content}} 
                     </div>
                 </div>
 
@@ -62,11 +79,14 @@
          </div>
         <!-- 来自account的评论展示 -->
         <div class="comment" v-else-if="(accountComment instanceof Array) && accountComment.length>0 " style="margin-top:15px;min-height:100px">
-            <div style="height:15px;background:#f7f7f7"></div>
-            <div style="height:40px;line-height:40px;padding-left:4%;background:#a7c8ec;color:#fff">
-                <span class="fa fa-commenting" style="font-size:18px;margin-right:4px"></span> 
-                我的评论
-            </div>
+            <div class="c-header" > 
+                  <h2>我的评论</h2>
+                  <!-- <ul>
+                      <li>热门</li>
+                      <li>时间顺序</li>
+                      <li>时间倒序</li>
+                  </ul> -->
+             </div>
             <div class="c-body">
                 <div class="c-list" v-for="(v,i) in accountComment" :key="i">
                         <div class="photo">
@@ -78,18 +98,19 @@
                         <div class="c-name">
                             <em class="overflow-row-1">{{$store.state.userInfo.r_name}}</em>
                             <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
-                            <div class="zan c-c">
-                                <i :class="v.isZaned?'fa fa-thumbs-up active':'fa fa-thumbs-up'"  style="cursor:auto"><em>{{v.zans>999?'999+':v.zans}}</em> </i> 
-                                <i class="fa fa-comment" style="cursor:auto"></i> 
-                            </div>
                         </div>
-                        <div v-if="v.rep" class="c-content overflow-row-5" @click="showAllComment($event)" style="background:#eee;padding-left:5px">
+                        <!-- <div v-if="v.rep" class="c-content overflow-row-5" @click="showAllComment($event)" style="background:#eee;padding-left:5px">
                             <span style="color:#5e8dd0">{{v.rep.r_name}}：</span>
                             {{v.rep.content}}
-                        </div>
+                        </div> -->
                         <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
                         </div>
-                        <div class="reply" v-if="v.zan">
+                        <!-- 点赞与回复 -->
+                        <div class="zan c-c">
+                            <i :class="v.isZaned?'fa fa-thumbs-up active':'fa fa-thumbs-up'"  style="cursor:auto"><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
+                            <i class="fa fa-comment" style="cursor:auto"></i> 
+                        </div>
+                        <!-- <div class="reply" v-if="v.zan">
                             <el-input
                             type="textarea"
                             autosize
@@ -99,6 +120,15 @@
                             <div class="reply-btn">
                                 <el-button type="primary" size="mini" @click="reply(v.cid,v.repContent,()=>{v.zan=false;v.comment=''})">发送</el-button>
                             </div>
+                        </div> -->
+                        <!--回复用户的评论-->
+                        <div v-if=" (v.replay instanceof Array) && v.replay.length>0" v-for="(v1,i1) in v.replay" :key="i1" class="c-content c-replay overflow-row-5" @click="showAllComment($event)" >
+                            <span>
+                                <router-link :to="'/info/'+v1.uid">
+                                    {{v1.r_name}}
+                                </router-link>
+                            <em style="color:#9a9a9a;font-size:14px;padding-top:9px"> {{$moment(v1.c_time).format('YYYY.MM.DD HH:mm')}} 回复</em>：</span>
+                            {{v1.content}}
                         </div>
                 </div>
             </div>
@@ -109,6 +139,7 @@
 <script>
 import Avatar from './avatar'
 import SwitchComp from './switch'
+import { setTimeout } from 'timers';
 export default {
     data(){
         return {
@@ -145,7 +176,8 @@ export default {
                     val:'时间',
                     key:'time'
                 }
-            ]
+            ],
+            firstClick:false
         }
     },
     components:{
@@ -167,6 +199,11 @@ export default {
         
     },
     methods:{
+        ctrlAndEnter(callback){
+            if(window.event.ctrlKey){
+                callback&&callback()
+            }
+        },
         zan(e,cid,zans){
             let pro 
             let params = {
@@ -239,11 +276,23 @@ export default {
         reply(cid,repContent,callback){
             repContent = repContent?repContent:''
             if(!repContent.trim()){
-                this.$message.error('请输入回复内容！');
+                // this.$message.error('请输入回复内容！');
                 return 
             }
             this.loading = true
-            this.$axios.articleAddComment({aid:this.aid,content:repContent,cid:cid}).then(res=>{
+            let pro 
+            let params = {
+                cid:cid,
+                content:repContent
+            }
+            if(this.aid){
+                params.aid = this.aid
+                pro = this.$axios.articleAddComment( params )
+            }else if(this.eid){
+                params.eid = this.eid
+                pro = this.$axios.addComment( params )
+            }
+            pro.then(res=>{
                 this.loading = false
                 if(res.data.success){
                     this.$message({
@@ -262,9 +311,17 @@ export default {
         },
         // 显示所有评论
         showAllComment(e){
-            e.currentTarget.classList.toggle('overflow-row-5')
+            if(this.firstClick){
+                e.currentTarget.classList.toggle('overflow-row-5')
+            }
+            this.firstClick = true
+            setTimeout(()=>{
+                this.firstClick = false
+            },400)
         }
 
+    },
+    mounted(){
     },
     created(){
         if(this.accountCommentList){
@@ -287,7 +344,8 @@ export default {
             align-items:flex-end;
             padding:12px 0 5px;
             border-bottom:1px solid #f0f0f0;
-            color:#0e959d;
+            // color:#0e959d;
+            color:#555;
             h2 {
                 // background: linear-gradient(#7d90a1, #6e8294);
                 font-weight:700;
@@ -297,19 +355,31 @@ export default {
                 display:flex;
                 align-items:center;
                 li {
-                    color:#999999;
+                    color:#aaa;
                     margin-left:1em;
                     font-size:14px;
                     cursor:pointer;
                     &:hover {
-                        color:#0e959d;
+                        color:#3e73b2;
                     }
+                }
+                li.active {
+                    color:#3e73b2;
+                    // text-shadow: 1px 0px 1px blue;
+                    font-weight:600;
                 }
             }
         }
+        .if-comment-empty {
+            width:100%;
+            text-align:center;
+            height:100px;
+            line-height: 100px;
+            color:#ccc;
+        }
         .c-body {
             // padding:1% 4.5% 5% 4%;
-            min-height:420px;
+            min-height:220px;
             background-color: #fff;
             .c-list {
                 // background: pink;
@@ -337,6 +407,9 @@ export default {
                     color:#7f7d7d;
                     position: relative;
                     margin-bottom: 2px;
+                    a {
+                        //  color:#3d94ce
+                    }
                     &>em {
                         display:inline-block;
                         max-width:97px;
@@ -347,57 +420,100 @@ export default {
                         font-weight:400;
                         font-size:14px;
                     }
-                    .zan.c-c {
-                        line-height: 20px;;
-                        // vertical-align: middle;
-                        display:flex;
-                        align-items: center;
-                        min-width:55px;
-                        max-width:82px;
-                        // margin-right:42px;
-                        color:#cbcbcb;
-                        position: absolute;
-                        padding-right:1px;
-                        right:0px;
-                        top:-2px;
-                        i {
-                            cursor:pointer;
-                            font-size:19px;
-                        }
-                        i.active {
-                            color:#75a9e3;
-                        }
-                        em {
-                            font-size:14px;
-                            position: relative;
-                            top:1px;
-                        }
-                        i.fa-comment {
-                            font-size:17px;
-                            margin-left:22px;
-                            margin-right: 3px;
-                        }
-                    }
                 }
                 .c-content {
                     padding:2px 0 2px;
                     font-size:14px;
                     word-break:break-all; //英文换行
+                    margin-bottom:8px;
+                    cursor:default
                 }
-                .reply {
-                    padding-right:58px;
+                .c-content.c-replay {
+                    border-left:3px solid #d9d9d9;
+                    background:#fff;
+                    padding:6px;
+                    padding-left:15px;
+                    padding-bottom:10px;
+                    margin-bottom:0px;
+                    border-bottom:1px solid #f1f1f1;
                     position: relative;
-                    padding-top:10px;
-                    border-top:1px dotted #eee;
+                    a {
+                         color:#3d94ce
+                    }
+                    &:after {
+                        content:"";
+                        display:block;
+                        height:10px;
+                        width:100%;
+                        position:absolute;
+                        left:0 ;
+                        bottom:0;
+                        background-color: #fff;
+                    }
+                }
+                // 点赞与回复
+                .zan.c-c {
+                    line-height: 20px;;
+                    // vertical-align: middle;
+                    display:flex;
+                    align-items: center;
+                    min-width:55px;
+                    max-width:82px;
+                    // margin-right:42px;
+                    color:#cbcbcb;
+                    margin-bottom:12px;
+                    i {
+                        cursor:pointer;
+                        font-size:20px;
+                    }
+                    i.active {
+                        color:#75a9e3;
+                    }
+                    i.active:hover {
+                        color:#75a9e3;
+                    }
+                    i:hover {
+                        color:#aaa;
+                    }
+                    em {
+                        font-size:15px;
+                        position: relative;
+                        top:1px;
+                    }
+                    i.fa-comment {
+                        font-size:17px;
+                        margin-left:22px;
+                        margin-right: 3px;
+                    }
+                }
+                // 回复文本框
+                .reply {
+                    border-left:3px solid #d9d9d9;
+                    position: relative;
+                    padding:10px 0;
+                    // border-top:1px dotted #eee;
+                    padding-left:15px;
                     // background-color: #f5f5f5;
                     .reply-btn {
-                        position: absolute;
-                        top:10px;
-                        right:0px;
+                        // position: absolute;
+                        // top:10px;
+                        // right:0px;
+                        display:flex;
+                        justify-content:space-between;
+                        padding-top:2px;
+                        span {
+                            font-size:13px;
+                            color:#ccc;
+                        }
+                        button {
+                            // background-color: #2885cc;
+                        }
                     }
                     .el-button--mini, .el-button--mini.is-round {
-                        padding: 9px 15px;
-                        padding-bottom:10px;
+                        padding: 7px 15px;
+                    }
+                    .el-textarea  {
+                        min-height:56px;
                     }
                 }
             }

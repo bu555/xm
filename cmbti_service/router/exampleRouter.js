@@ -84,7 +84,9 @@ const searchExample = (req,res,next)=>{
     let options = req.body.params
     Example.searchExample(options).then(example=>{
             // 分页处理
-            options.name = myUtill.strTrim(options.name)
+            if(options.name){
+                options.name = myUtill.strTrim(options.name)
+            }
             if(!(example instanceof Array)){
                 example = [example]
             }
@@ -166,8 +168,8 @@ const goVote = (req,res,next)=>{
 const addComment = (req,res,next)=>{
       let uid = req.session.user._id;
       let eid = req.body.eid?req.body.eid:''
-      let result = req.body.result?req.body.result:'';
-      if(!eid || !result){
+      let content = req.body.content?req.body.content:'';
+      if(!eid || !content){
           return res.json({
               success:false,
               message:'参数格式错误'
@@ -176,19 +178,26 @@ const addComment = (req,res,next)=>{
       let options = {
           uid: uid,
           eid: eid,
-          result: xss(result),
+          content: xss(content),
           cid: req.body.cid ? req.body.cid :''
       }
       // 添加到vote list
-      Example.addComment(options).then(cid=>{
-          options.cid = cid
-            //添加个人记录
-            Account.addCommentLog(options).then(r=>{
-                res.json({
-                    success:true,
-                    message:'success',
-                })
+      Example.addComment(options).then(r=>{
+          if(r.status==='new'){
+              options.cid = r.cid
+              //添加个人记录
+              Account.addCommentLog(options).then(r=>{
+                  res.json({
+                      success:true,
+                      message:'success',
+                  })
+              })
+          }else{
+            res.json({
+                success:true,
+                message:'success',
             })
+          }
       }).catch(err=>{
            logger.error(err);
             res.json({
@@ -253,16 +262,21 @@ const getComment = (req,res)=>{
                     }
                     newList[i].zan = null
                     // 在回复别的情况下,根据cid获取对应信息
-                    if(newList[i].replay){
-                        for(let k=0;k<list.length;k++){
-                            if(list[k].cid===newList[i].replay){
-                                let u = await User.getUserById({uid:list[k].uid})
-                                newList[i].rep = {
-                                    content:list[k].content,
-                                    r_name:u.r_name,
-                                    uid:list[k].uid
-                                }
-                            }
+                    let replay = null
+                    if(newList[i].replay instanceof Array && newList[i].replay.length>0){
+
+                        for(let k=0;k<newList[i].replay.length;k++){
+                            let u = await User.getUserById({uid:newList[i].replay[k].uid})
+                            newList[i].replay[k].r_name = u?u.r_name:'已注销'
+                            delete newList[i].replay[k]._id
+                            // if(list[k].cid===newList[i].replay){
+                            //     let u = await User.getUserById({uid:list[k].uid})
+                            //     newList[i].rep = {
+                            //         content:list[k].content,
+                            //         r_name:u?u.r_name:'已注销',
+                            //         uid:list[k].uid
+                            //     }
+                            // }
                         }
                     }
                 }

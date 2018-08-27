@@ -7,7 +7,7 @@
                 <img src="/static/img/si.jpg" alt="">
             </div>
             <div class="login">
-                <div v-if="!$store.state.userInfo" class="is-login">
+                <div v-if="$store.state.userInfo" class="is-login">
                         <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
                         <router-link to="/my" class="a">
                         <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="" round="true"></Avatar>

@@ -9,7 +9,7 @@
 
             <ArticleItems v-for="(v,i) in list" :key="i" :data="v"></ArticleItems>
             <!-- 推荐的内容 -->
-            <div class="recommend">
+            <div class="recommend"  v-if=" (list instanceof Array) && list.length>0">
                 <h2>你可能喜欢</h2>
                 <ul>
                     <li v-for="(v,i) in list" :key="i">
@@ -17,8 +17,9 @@
                     </li>
                 </ul>
             </div>
+            <p v-if=" (list instanceof Array) && list.length===0" class="if-data-empty">暂无数据("▔□▔)</p>
             <!--分页-->
-            <div style="text-align:center;padding:15px 0 22px;">
+            <div style="text-align:center;padding:15px 0 22px;" v-else>
                 <el-pagination
                 background
                 :current-page="currentPage"
@@ -159,6 +160,7 @@ export default {
         background-color: #fff;
         margin-bottom:12px;
         width:100%;
+        min-height:370px;
         // 右侧推荐区
         .recommend {
             width:300px;

@@ -3,11 +3,11 @@
         <div class="article-preview">
             <router-link  :to="'/forum/'+items._id" class="title">{{items.title}}</router-link>
             <router-link  :to="'/forum/'+items._id" class="content">{{items.title}}</router-link>
-            <div class="info">
+            <div class="a-info">
                     <!-- <img src="/static/img/si.jpg" alt=""> -->
                     <span class="author">{{items.r_name}}</span>
-                    <span class="comments fa fa-comment">{{' '+ (items.comment || 'null')}}</span>
-                    <span class="replay-time fa fa-heart">{{' '+ items.likes}}</span>
+                    <span class="comments"><i class=" fa fa-comment" style="font-size:13px;position:relative;top:-1px"></i>{{' '+ (items.comment_count)}}</span>
+                    <span class="replay-time" ><i class="fa fa-heart" style="font-size:12px;position:relative;top:0px"></i> {{' '+ items.likes}}</span>
                 
             </div>
         </div>
@@ -25,7 +25,7 @@ export default {
         items(){
             return this.data || {}
         }
-    }
+    } 
 }
 </script>
 <style lang="less" scoped>
@@ -65,7 +65,7 @@ export default {
             white-space:normal; 
             word-break:break-all;
         }
-        div.info {
+        div.a-info {
             display:flex;
             justify-content: flex-start;
             align-items: center;
@@ -75,10 +75,12 @@ export default {
                 overflow: hidden;
                 text-overflow:ellipsis;
                 white-space: nowrap;
+                height:18px;
+                line-height: 18px;
+                display:block;
             }
             span+span {
                 margin-left:.8em;
-                font-size:12px;
             }
             span.author{
                 max-width:125px;
@@ -110,7 +112,7 @@ export default {
             }
             .content {
             }
-            div.info {
+            div.a-info {
                 span.author{
                     max-width:100px;
                 }

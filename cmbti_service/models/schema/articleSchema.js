@@ -11,7 +11,13 @@ const commentSchema = new mongoose.Schema({
             c_time:Date,
             zan:[String], //[uid,uid]
             zans:Number,
-            replay:String //回复的cid
+            replay:[
+                {
+                    uid:String,
+                    content:String,
+                    c_time:Date
+                }
+            ] //别人回复的评论
         }
     ]
 })
@@ -32,16 +38,17 @@ const articleSchema = new mongoose.Schema({
     title:String, //
     category:String,  //ask share
     // content:String,
-    c_time:Date,
+    tags:String, //标签
+    c_time:Date, //创建时间
     good:Boolean, //加精
     like:[String],
     likes:Number,
-    update_time:Date, //更新时间
     edit_time:Date, //编辑时间
-    com_count:Number,  //评论总数
     state:Number,  // 文章状态，1:待审核，2：已审核
     zan:[String],
-    zans:Number
+    zans:Number,
+    comment_count:Number, //评论总数
+    comment_time:Date, //最后评论时间
 })
 
 const article = mongoose.model('a_article', articleSchema) 

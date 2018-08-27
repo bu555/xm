@@ -21,13 +21,19 @@
                 </div>
                 <div class="err-message" v-if="ver.title==='empty'">*请输入标题</div>
                 <div class="err-message" v-if="ver.title==='notPass'">*标题字数需在2-120个之间</div>
-                <div class="f-items">
+                <!-- <div class="f-items">
                     <label for="">分类：</label>
                     <el-radio-group v-model="form.category" @change="verify('category')">
                         <el-radio label="share">分享</el-radio>
                         <el-radio label="ask">问答</el-radio>
                     </el-radio-group>
+                </div> -->
+                <div class="f-items">
+                    <label for="">标签：</label>
+                    <Tags @currentTags="changeCurrentTags"></Tags>
                 </div>
+                
+                <div class="err-message" v-if="ver.tagsList==='empty'">*请至少输入一个标签</div>
                 <div class="err-message two" v-if="ver.category==='empty'">*请选择分类</div>
                 <div class="f-items ed">
                     <label for="" style="vertical-align: middle">内容：</label>
@@ -40,6 +46,8 @@
                     </div>
                 </div>
                 <div class="err-message" v-if="ver.content==='empty'">*请输入内容</div>
+                <div class="err-message" v-if="ver.content==='isMin'">*内容不可小于140个字符</div>
+                <div class="err-message" v-if="ver.content==='isMax'">*内容已超长最大限度</div>
                 <div class="f-items" style="padding-top:20px">
                     <label for=""></label>
                     <el-form-item>
@@ -54,6 +62,7 @@
 </template>
 <script>
 import VueHtml5Editor from './editor/editor'
+import Tags from '@/components/common/tags.vue'
 // import fEditor from 'froala-editor'
 export default {
     data(){
@@ -61,7 +70,8 @@ export default {
             form:{
                 title:'',
                 category:'',
-                content:''
+                content:'',
+                tagsList:''
             },
             loading:false,
             aid:'',
@@ -72,18 +82,25 @@ export default {
                 title:'',
                 category:'',
                 content:'',
-                all:''
+                all:'',
+                tagsList:''
             },
+            tagErrMsg:''
         }
     },
     components: {
-        VueHtml5Editor
+        VueHtml5Editor,
+        Tags
         // quillEditor,
         // 'editor1' : new VueHtml5Editor(this.options1)
     },
     mounted(){
     },
     methods:{  
+        changeCurrentTags(tags){
+            this.form.tagsList = tags
+            this.verify('tagsList')
+        },
         verify(type){
             if(type==='title' || type==='all'){
                 this.form.title = this.$utill.strTrim(this.form.title)
@@ -98,23 +115,35 @@ export default {
                     }
                 }
             }
-            if(type==='category' || type==='all'){
-                if(!this.form.category){
-                    this.ver.category = 'empty'
-                }else{
-                    this.ver.category = 'pass'
-                }
-            }
+            // if(type==='category' || type==='all'){
+            //     if(!this.form.category){
+            //         this.ver.category = 'empty'
+            //     }else{
+            //         this.ver.category = 'pass'
+            //     }
+            // }
             if(type==='content' || type==='all'){
                 this.form.content = this.form.content.trim()
                 let len = this.form.content.length
-                if( !(this.form.content.replace(/<\/?.+?\/?>/g,'').trim()) ){
+                let text = this.form.content.replace(/<\/?.+?\/?>/g,'').trim()
+                if( !text ){
                     this.ver.content = 'empty'
+                }else if( text.length<140 ){
+                    this.ver.content = 'isMin'
+                }else  if( this.$utill.strLength(this.form.content)>16777215 ){
+                    this.ver.content = 'isMax'
                 }else{
                     this.ver.content = 'pass'
                 }
             }
-            if(this.ver.title==='pass' && this.ver.content==='pass' && this.ver.category==='pass'){
+            if(type==='tagsList' || type==='all'){
+                if(!this.form.tagsList || this.form.tagsList.length < 1){
+                    this.ver.tagsList = 'empty'
+                }else{
+                    this.ver.tagsList = 'pass'
+                }
+            }
+            if(this.ver.title==='pass' && this.ver.content==='pass' && this.ver.tagsList === 'pass'){
                 this.ver.all='pass'
             }else{
                 this.ver.all='notPass'
@@ -122,21 +151,14 @@ export default {
 
         },
         submitArticle(){
-            // console.log(this.form.content)
-            // return
             this.verify('all')
-            if(!this.ver.all) return
-            // if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
-            //     return  this.$message({
-            //                 message: '内容输入不完整！',
-            //                 type: 'warning'
-            //             });
-            // }
+            if(this.ver.all!=='pass') return
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
-                category:this.form.category.trim(),
+                // category:this.form.category.trim(),
                 content:this.form.content.trim(),
+                tags:this.form.tagsList.join(',')+',',
                 aid:this.editAid
             }).then(res=>{
                 this.loading = false
@@ -149,9 +171,17 @@ export default {
                         message: '操作成功！',
                         type: 'success'
                     });
-                    if(this.editAid){
-                        this.$router.go(-1)
-                    }
+                    // if(this.editAid){
+                    //     this.$router.go(-1)
+                    // }
+                    this.$router.push({
+                        path:'/forum?category=all&page=1'
+                    })
+                }else{
+                    this.$message({
+                        message: '操作失败！',
+                        type: 'error'
+                    });
                 }
             }).catch(err=>{
                 this.loading = false
@@ -167,8 +197,6 @@ export default {
                     this.form.title = res.data.data.title
                     this.form.category = res.data.data.category
                     this.editContent = this.form.content = res.data.data.content
-                    console.log('jjj',this.editContent);
-                    console.log('lll',this.form.content);
                      
                 }
             }).catch(err=>{
@@ -222,45 +250,22 @@ export default {
             }
             form {
                 .f-items {
-                    display:flex;
-                    align-items:center;
+                    flex-wrap:wrap;
                     &>label {
-                        color:#727478;
-                        font-weight:400;
-                        font-size:15px;
-                        flex:0 0 65px;
-                        text-align:right;
-                        padding-right:3px;
-                        
+                        flex:0 0 100%;
+                        text-align:left;
+                        padding-top:10px;
+                        margin-bottom:3px;
+                        display:block;
                     }
-                    .html5-editor {
-                        flex:1;
-                        .content {
-                            
-                        }
-                    }
-                }
-                .f-items.ed {
-                    align-items: flex-start;
                 }
                 .el-radio-group {
-                    padding:15px 0px 10px 0px;
+                    padding:2px 0px 0px 5px;
                 }
                 .el-input__inner {
                     height:36px;
                 }
             }
-        }
-    }
-    .aside-box {
-        flex:0 0 333px;
-        margin-left:12px;
-        .aside-items {
-            width:100%;
-            min-height:150;
-            background-color: #fff;
-            padding:15px;
-            margin:0 0 10px;
         }
     }
     a:hover {
@@ -273,7 +278,7 @@ export default {
       line-height: 14px;;
       font-size: 13px;
       margin-bottom:0px;
-      padding-left:65px;
+      padding-left:0px;
     }
     .err-message.two {
       position: relative;
@@ -284,10 +289,6 @@ export default {
         flex-wrap:wrap;
         .main-box {
 
-        }
-        .aside-box {
-            flex:0 0 100%;
-            margin-left:0;
         }
 
     }
