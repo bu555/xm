@@ -13,7 +13,7 @@
                 <ul>
                     <li>
                         <router-link to="/">
-                            关于我们
+                            关于XMBTI
                         </router-link>
                     </li>
                     <li>
@@ -28,7 +28,7 @@
                     </li>
                     <li>
                         <router-link to="/">
-                            服务条款
+                            合作伙伴
                         </router-link>
                     </li>
                     <li>

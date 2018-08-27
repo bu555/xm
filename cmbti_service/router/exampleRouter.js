@@ -84,8 +84,12 @@ const searchExample = (req,res,next)=>{
     let options = req.body.params
     Example.searchExample(options).then(example=>{
             // 分页处理
-            options.name = myUtill.strTrim(options.name)
-            if(!(example instanceof Array)){
+            if(options.name){
+                options.name = myUtill.strTrim(options.name)
+            }
+            if(!example){
+                example = []
+            }else if(!(example instanceof Array)){
                 example = [example]
             }
             let reg = /^[1-9]\d{0,}$/    // 非零非负整数

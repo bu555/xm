@@ -106,12 +106,10 @@ class Example{
             // })
             // pro.limit(size).skip((page-1)*size).then(example=>{
             pro.then(example=>{
-                if(example){
-                    resolve(example)
-                }else{
-                    reject('example not finded')
-                }
-
+                resolve(example)
+                
+            }).catch(err=>{
+                reject('error')
             })
         })
     }
