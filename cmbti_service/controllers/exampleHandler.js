@@ -207,19 +207,50 @@ class Example{
     // 评论params: {eid:'',uid:'',result:'',cid:'回复别人'}
     addComment(options){
         return new Promise((resolve,reject)=>{
-            let cid = myUtill.randomString(7)
-            ExampleModel.comment.update({"eid":options.eid},{$addToSet:{comment:{
-                    uid:options.uid,
-                    cid:cid,
-                    content:options.result,
-                    c_time:new Date(),
-                    zan:[], //[uid,uid]
-                    zans:0,
-                    replay:options.cid?options.cid:''
-            }}},err=>{
-                if(err) reject(err)
-                resolve(cid)
-            })
+
+            // 带有cid为回复用户
+            if(options.cid){
+                ExampleModel.comment.findOne({eid:options.eid}).then(e=>{
+                    if(e){
+                        let replay = {
+                            uid:options.uid,
+                            content:options.content,
+                            c_time:new Date()
+                        }
+                        ExampleModel.comment.update({"eid":options.eid,"comment.cid":options.cid},{$addToSet:{"comment.$.replay":replay} },(err,r)=>{
+                            if(err) return reject('Update error!')
+                            return resolve({
+                                status:'replay'
+                            })
+                        })
+
+                    }else{
+                        reject('The find eid result is empty ')
+                    }
+                })
+            }else{
+
+                ExampleModel.comment.findOne({eid:options.eid}).then(e=>{
+                    let cid = myUtill.randomString(7)
+                    ExampleModel.comment.update({"eid":options.eid},{$addToSet:{comment:{
+                            uid:options.uid,
+                            cid:cid,
+                            content:options.content,
+                            c_time:new Date(),
+                            zan:[], //[uid,uid]
+                            zans:0,
+                            replay:[]
+                    }}},err=>{
+                        if(err) reject(err)
+                        resolve({
+                            cid:cid,
+                            status:'new'
+                        })
+                    })
+                })
+            }
+
+
         })
     }
     // 获取文章的评论params: {eid:''}

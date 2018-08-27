@@ -56,12 +56,13 @@
                         <el-button size="small" type="primary" @click="addComment">发 表</el-button>
                     </div>
                 </div>
-                <!--来自account的评论-->
-                <div id="mycomment" ></div>
 
             </div>
             <!-- 推荐的内容 -->
             <div class="recommend">
+                <router-link to="/forum/article/new"  style="margin:11px 0;display:block">
+                    <button class="bu-button bu-black">发帖</button>
+                </router-link>
                 <h2>你可能喜欢</h2>
                 <ul>
                     <li v-for="(v,i) in 7" :key="i">
@@ -69,6 +70,8 @@
                     </li>
                 </ul>
             </div>
+            <!--来自account的评论-->
+            <div id="mycomment" ></div>
             <!--来自account的评论 end-->
             <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
 
@@ -199,7 +202,7 @@ export default {
 
         }
         //处理my 评论
-        if(this.$route.query.index || this.$route.query.index==0){
+        if(this.$route.query.index || this.$route.query.index===0){
             if(localStorage.getItem('dataA')){
                 let temp = JSON.parse(localStorage.getItem('dataA'))
                 if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档
@@ -215,6 +218,7 @@ export default {
 @bg:rgba(255,255,255,.75);
 .forum-item {
     position: relative;
+    
     // 隐藏最底部tab
     .x-nav-sub .bottom-nav {
         display:none; 
@@ -239,10 +243,10 @@ export default {
         margin:28px auto;
         position: relative;
         border-radius:4px 4px 0 0;
-        padding-right:355px;
+        padding-right:320px;
         // 右侧推荐区
         .recommend {
-            width:300px;
+            width:280px;
             // border:1px solid #f7f7f7;
             position:absolute;
             right:12px;

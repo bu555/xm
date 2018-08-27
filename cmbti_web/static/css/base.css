@@ -66,6 +66,13 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 
 /*自设样式*/
+.if-data-empty {
+   text-align:center;
+   line-height:200px;
+   font-size:15px;
+   color:#ccc;
+   width:100%;
+}
 .my-tit {
   font-size:15px;
   text-align: center;

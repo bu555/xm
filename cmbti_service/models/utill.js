@@ -83,7 +83,7 @@ module.exports =  {
                 str = str.replace(/[\s\r\n]+/g,' ')
                 return str.trim()
             }else{
-                return str + ''
+                return ''
             }
         },
         // 判断字节数(utf8)
@@ -103,6 +103,18 @@ module.exports =  {
                 }  
             } 
             return totalLength; 
-        } 
+        } ,
+        verifyTags(s){
+            var reg = /^[\u4e00-\u9fa5A-Za-z0-9]+$/
+            if( !s || typeof s!=='string' || s[s.length-1]!==',' || s[0]===',') return false
+            let tags = s.split(',')
+            if(tags.length>9) return false //最多可添加9个
+            for(let i=0;i<tags.length;i++){
+                if( this.strLength(tags[i])>24 || !(reg.test(tags[i])) ){   //最大24个字符
+                    return false
+                }
+            }
+            return true
+        }
 
 }

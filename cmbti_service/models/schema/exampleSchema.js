@@ -6,7 +6,7 @@ const exampleSchema = new mongoose.Schema({
     info:String,
     img_url:String,
     type: String,
-    total: Number, //参与人数    
+    total: Number, //参与投票人数    
     like:[String],
     likes:Number,
     tag: String, //标签
@@ -43,7 +43,13 @@ const commentSchema = new mongoose.Schema({
                 c_time:Date,
                 zan:[String], //[uid,uid]
                 zans:Number,
-                replay:String
+                replay:[
+                    {
+                        uid:String,
+                        content:String,
+                        c_time:Date
+                    }
+                ] 
             }
         ]
 })

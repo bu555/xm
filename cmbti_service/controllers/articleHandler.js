@@ -12,7 +12,7 @@ class Article {
                 ArticleModel.article.findOne({"_id":options.aid}).then(a=>{
                     if(!a) return reject("The aid find failed")
                     if(a.uid!==options.uid) return reject("The uid not match!")
-                    ArticleModel.article.update({"_id":options.aid},{$set:{"title":options.title,"category":options.category,"update_time":new Date(),"edit_time":new Date(),state:1}},err=>{
+                    ArticleModel.article.update({"_id":options.aid},{$set:{"title":options.title,"category":options.category,"edit_time":new Date(),"tags":options.tags ||'',state:1}},err=>{
                             if(err) return reject("The article $set faild")
                             ArticleModel.content.update({"aid":options.aid},{$set:{"content":options.content,"size":options.content.length}},err=>{
                                     if(err) return reject("The content $set faild")
@@ -29,14 +29,15 @@ class Article {
                         category:options.category,
                         c_time:_date,
                         good:false,
+                        tags:options.tags ||'',
                         like:[],
                         likes:0,
                         zan:[],
                         zans:0,
-                        update_time:_date,
                         edit_time:_date,
-                        com_count:0,
-                        state:1
+                        state:1,
+                        comment_count:0,
+                        comment_time:_date,
                     }).save((err,a)=>{
                         if(err) return reject('The article add failed')
                         options.aid = a._id
@@ -152,31 +153,55 @@ class Article {
     // 添加文章评论 options:{aid:'',uid:'',content:''}
     static addComment(options){
         return new Promise((resolve,reject)=>{
-            ArticleModel.comment.findOne({aid:options.aid}).then(a=>{
-                if(a){
-                    let cid = myUtill.randomString(7)
-                    let update_time = new Date()
-                    let com_count = a.comment.length
-                    ArticleModel.comment.update({aid:options.aid},{$push:{comment:{       //{multi : true }更新所有匹配项目
-                        uid:options.uid,
-                        content:options.content,
-                        c_time:update_time,
-                        zan:[],
-                        zans:0,
-                        replay:options.cid?options.cid:'',  //回复对象
-                        cid:cid
-                    }}},err=>{
-                        if(err) return reject('Update faild')
-                        resolve({
-                            cid:cid,
-                            update_time:update_time,  //回复时间
-                            com_count:com_count + 1,
-                        }) 
-                    })
-                }else{
-                    reject('The find aid result is empty ')
-                }
-            })
+            // 带有cid为回复用户
+            if(options.cid){
+                ArticleModel.comment.findOne({aid:options.aid}).then(a=>{
+                    if(a){
+                        let replay = {
+                            uid:options.uid,
+                            content:options.content,
+                            c_time:new Date()
+                        }
+                        ArticleModel.comment.update({"aid":options.aid,"comment.cid":options.cid},{$addToSet:{"comment.$.replay":replay} },(err,r)=>{
+                            if(err) return reject('Update error!')
+                            return resolve({
+                                status:'replay'
+                            })
+                        })
+
+                    }else{
+                        reject('The find aid result is empty ')
+                    }
+                })
+            // 新回复
+            }else{
+                ArticleModel.comment.findOne({aid:options.aid}).then(a=>{
+                    if(a){
+                        let cid = myUtill.randomString(7)
+                        let comment_time = new Date()
+                        let comment_count = a.comment.length
+                        ArticleModel.comment.update({aid:options.aid},{$push:{comment:{       //{multi : true }更新所有匹配项目
+                            uid:options.uid,
+                            content:options.content,
+                            c_time:comment_time,
+                            zan:[],
+                            zans:0,
+                            replay:[],
+                            cid:cid
+                        }}},err=>{
+                            if(err) return reject('Update faild')
+                            resolve({
+                                status:'new',
+                                cid:cid,
+                                comment_time:comment_time,  //回复时间
+                                comment_count:comment_count + 1,
+                            }) 
+                        })
+                    }else{
+                        reject('The find aid result is empty ')
+                    }
+                })
+            }
         })
     }
     // 加精 options:{aid:''}
@@ -331,7 +356,7 @@ class Article {
         return new Promise((resolve,reject)=>{
             let proArr =  []
             options.aid.forEach((v,i)=>{
-                proArr.push(ArticleModel.article.findOne({"_id":v}))
+                proArr.push(ArticleModel.article.findOne({"_id":v},"-like"))
             }) 
             Promise.all(proArr).then(result=>{
                 if(result){
@@ -355,9 +380,9 @@ class Article {
             })
     }
     // 更新最新回复 {aid:'必传',uplate_time:}
-    static setUpdateTime(options={}){
+    static updateComment(options={}){
         return new Promise((resolve,reject)=>{
-            ArticleModel.article.update({"_id":options.aid},{$set:{"update_time":options.update_time,"com_count":options.com_count}},err=>{
+            ArticleModel.article.update({"_id":options.aid},{$set:{"comment_time":options.comment_time,"comment_count":options.comment_count}},err=>{
                 if(err) return reject('update update_time faild')
                 resolve('success')
             })

@@ -13,7 +13,7 @@
             </div>
             <ul class="menu">
                 <li>
-                    <router-link to="/mbti">
+                    <router-link to="/mbti/theory">
                         <em>MBTI</em>
                         <p>影院热映</p>
                     </router-link>
@@ -68,10 +68,10 @@
                                 {{$store.state.userInfo.r_name}}
                             </router-link>
                         </div>
-                        <!-- <ul>
-                            <li>收藏(5)</li>
-                            <li>收藏(5)</li>
-                        </ul> -->
+                        <ul>
+                            <li @click="$router.push({path:'/my'})">个人主页</li>
+                            <li @click="$store.state.loginOut = true">退出</li>
+                        </ul>
                 </div>
                 <div class="not-login" v-else>
                     <router-link to="/user/login">
@@ -313,6 +313,16 @@ export default {
                     border-right:none;
                     .role-name {
                         padding-top:7px;
+                    }
+                    ul {
+                        width:60px;
+                        margin:0 auto;
+                        li {
+                            display:inline-block;
+                            color:#ccc;
+                            font-size:13px;
+                            margin:5px 0;
+                        }
                     }
                 }
                 .not-login {

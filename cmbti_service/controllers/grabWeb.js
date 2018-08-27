@@ -98,7 +98,7 @@ class GrabWeb{
                 let info = $('body .lemma-summary div').eq(0).text();
                 if(info){
                     if(info.length<150){
-                        info += $('body .lemma-summary div').eq(1).text();
+                        info += $('body .lemma-summary div').eq(1).text().trim();
                         info = info.substr(0,180)+".....";
                     }else{
                         info += "....."

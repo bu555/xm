@@ -226,7 +226,7 @@ export default {
             }
             this.$axios.addComment({
                 eid:this.eid,
-                result:this.myComment
+                content:this.myComment
             }).then(res=>{
                 if(res.data.success){
                     this.myComment=''

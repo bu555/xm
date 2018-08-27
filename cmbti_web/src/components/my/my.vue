@@ -1,5 +1,6 @@
 <template>
 <div class="my" v-if="isLogin" v-loading="loading">
+    <NavMain></NavMain>
     <div class="m-header">
         <div class="photo" @click="showUploadAvatar=true">
             <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
@@ -52,6 +53,7 @@
 <script>
 import Home from './my_home'
 import uploadAvatar from './upload_avatar'
+import NavMain from '@/components/common/nav_main'
 export default {
     data(){
         return {
@@ -64,7 +66,8 @@ export default {
     },
     components:{
         uploadAvatar,
-        Home
+        Home,
+        NavMain,
     },
     watch:{
         // '$store.state.modalLoginSuccess':'getAccount',

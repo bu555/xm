@@ -2,14 +2,14 @@
   <div class="user-publish" v-loading="loading">
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
-        <div class="my-type share" v-if="v.category==='share'">分享</div>
-        <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
+        <!-- <div class="my-type share" v-if="v.category==='share'">分享</div>
+        <div class="my-type ask"  v-if="v.category==='ask'">问答</div> -->
         <!--<div class="my-type good" v-if="v.good">精华</div>-->
         <router-link :to="'/forum/'+v._id">
               <!--简单的Restful API例子(Golang)-->
               <span>{{v.title}}</span>
         </router-link>
-        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm")}}</div>
       </div>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
@@ -83,10 +83,11 @@ export default {
 
   }
   .items {
-      display:flex;
-      align-items:center;
+      // display:flex;
+      // align-items:center;
       border-bottom:1px solid #f8f8f8;
       width:100%;
+      padding:5px 0;
       .my-type {
         font-size:12px;
         padding:1px 2px;
@@ -126,6 +127,7 @@ export default {
       .time {
         color:#c5c5c5;
         font-size:13px;
+        padding-top:4px;
       }
   }
   .load-more {
@@ -143,18 +145,18 @@ export default {
   @media screen and (max-width:525px) {
     // padding:0px 0px 10px;
     .items {
-      flex-wrap:wrap;
-        .time {
-          font-size:13px;
-          padding-left:34px;
-          flex:0 0 100%;
-          overflow:hidden;
-          white-space:nowrap;
-          position: relative;
-          top:-5px;
-          // margin:0 4px;
-          // background-color: red;
-        }
+      // // flex-wrap:wrap;
+      //   .time {
+      //     font-size:13px;
+      //     padding-left:34px;
+      //     // flex:0 0 100%;
+      //     overflow:hidden;
+      //     white-space:nowrap;
+      //     position: relative;
+      //     top:-5px;
+      //     // margin:0 4px;
+      //     // background-color: red;
+      //   }
     }
   }
 }

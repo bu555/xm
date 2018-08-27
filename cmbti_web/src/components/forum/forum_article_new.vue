@@ -1,33 +1,39 @@
 <template>
 <div class="forum-new">
-    <div class="main-box">
-        <div class="title">
-            <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
-            <div v-if="aid">
-                <i class="el-icon-edit-outline" style="font-size:20px;padding-right:3px;position:relative;top:2px"></i>
-                <font> 编辑文档</font>
-            </div>
-            <div v-else>
-                <i class="el-icon-edit" style="font-size:20px;padding-right:5px"></i>
-                <font> 创建文档</font>
-            </div>
+    <NavMain></NavMain>
+    <!-- <NavSub :data="navData" placeholder="输入内容搜索"></NavSub>  -->
+    <div class="title">
+        <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
+        <div>
+            <font class="nav-title">M论坛</font>
+            <font class="point">·</font>
+            <font  v-if="aid">编辑文档</font>
+            <font v-else>创建文档</font>
         </div>
+    </div>
+    <div class="main-box">
         <div class="my-editor">
             <el-form ref="form" :model="form">
                 <div class="f-items">
                     <label for="">标题：</label>
-                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> </br>
+                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> <br>
                     <!--<div class="err-message" >*文章標題要求為10~96字節</div>-->
                 </div>
                 <div class="err-message" v-if="ver.title==='empty'">*请输入标题</div>
                 <div class="err-message" v-if="ver.title==='notPass'">*标题字数需在2-120个之间</div>
-                <div class="f-items">
+                <!-- <div class="f-items">
                     <label for="">分类：</label>
                     <el-radio-group v-model="form.category" @change="verify('category')">
                         <el-radio label="share">分享</el-radio>
                         <el-radio label="ask">问答</el-radio>
                     </el-radio-group>
+                </div> -->
+                <div class="f-items">
+                    <label for="">标签：</label>
+                    <Tags @currentTags="changeCurrentTags"></Tags>
                 </div>
+                
+                <div class="err-message" v-if="ver.tagsList==='empty'">*请至少输入一个标签</div>
                 <div class="err-message two" v-if="ver.category==='empty'">*请选择分类</div>
                 <div class="f-items ed">
                     <label for="" style="vertical-align: middle">内容：</label>
@@ -40,6 +46,8 @@
                     </div>
                 </div>
                 <div class="err-message" v-if="ver.content==='empty'">*请输入内容</div>
+                <div class="err-message" v-if="ver.content==='isMin'">*内容不可小于140个字符</div>
+                <div class="err-message" v-if="ver.content==='isMax'">*内容已超长最大限度</div>
                 <div class="f-items" style="padding-top:20px">
                     <label for=""></label>
                     <el-form-item>
@@ -49,11 +57,17 @@
                 </div>
             </el-form>
         </div>
+        <div class="my-count">
+            <p>已发表</p>
+            <h2>50</h2>
+        </div>
     </div>
 </div> 
 </template>
 <script>
 import VueHtml5Editor from './editor/editor'
+import Tags from '@/components/common/tags.vue'
+import NavMain from '@/components/common/nav_main'
 // import fEditor from 'froala-editor'
 export default {
     data(){
@@ -61,7 +75,8 @@ export default {
             form:{
                 title:'',
                 category:'',
-                content:''
+                content:'',
+                tagsList:''
             },
             loading:false,
             aid:'',
@@ -72,18 +87,35 @@ export default {
                 title:'',
                 category:'',
                 content:'',
-                all:''
+                all:'',
+                tagsList:''
+            },
+            tagErrMsg:''    ,
+            navData:{
+                title:'M论坛',
+                list:[
+                    {
+                        value:'全部',
+                        link:'/forum?category=all&page=1'
+                    },
+                ]
             },
         }
     },
     components: {
-        VueHtml5Editor
+        VueHtml5Editor,
+        Tags,
+        NavMain
         // quillEditor,
         // 'editor1' : new VueHtml5Editor(this.options1)
     },
     mounted(){
     },
     methods:{  
+        changeCurrentTags(tags){
+            this.form.tagsList = tags
+            this.verify('tagsList')
+        },
         verify(type){
             if(type==='title' || type==='all'){
                 this.form.title = this.$utill.strTrim(this.form.title)
@@ -98,23 +130,35 @@ export default {
                     }
                 }
             }
-            if(type==='category' || type==='all'){
-                if(!this.form.category){
-                    this.ver.category = 'empty'
-                }else{
-                    this.ver.category = 'pass'
-                }
-            }
+            // if(type==='category' || type==='all'){
+            //     if(!this.form.category){
+            //         this.ver.category = 'empty'
+            //     }else{
+            //         this.ver.category = 'pass'
+            //     }
+            // }
             if(type==='content' || type==='all'){
                 this.form.content = this.form.content.trim()
                 let len = this.form.content.length
-                if( !(this.form.content.replace(/<\/?.+?\/?>/g,'').trim()) ){
+                let text = this.form.content.replace(/<\/?.+?\/?>/g,'').trim()
+                if( !text ){
                     this.ver.content = 'empty'
+                }else if( text.length<140 ){
+                    this.ver.content = 'isMin'
+                }else  if( this.$utill.strLength(this.form.content)>16777215 ){
+                    this.ver.content = 'isMax'
                 }else{
                     this.ver.content = 'pass'
                 }
             }
-            if(this.ver.title==='pass' && this.ver.content==='pass' && this.ver.category==='pass'){
+            if(type==='tagsList' || type==='all'){
+                if(!this.form.tagsList || this.form.tagsList.length < 1){
+                    this.ver.tagsList = 'empty'
+                }else{
+                    this.ver.tagsList = 'pass'
+                }
+            }
+            if(this.ver.title==='pass' && this.ver.content==='pass' && this.ver.tagsList === 'pass'){
                 this.ver.all='pass'
             }else{
                 this.ver.all='notPass'
@@ -122,21 +166,14 @@ export default {
 
         },
         submitArticle(){
-            // console.log(this.form.content)
-            // return
             this.verify('all')
-            if(!this.ver.all) return
-            // if( !(this.form.title.trim()) || !(this.form.category.trim()) || !(this.form.content.trim()) ){
-            //     return  this.$message({
-            //                 message: '内容输入不完整！',
-            //                 type: 'warning'
-            //             });
-            // }
+            if(this.ver.all!=='pass') return
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
-                category:this.form.category.trim(),
+                // category:this.form.category.trim(),
                 content:this.form.content.trim(),
+                tags:this.form.tagsList.join(',')+',',
                 aid:this.editAid
             }).then(res=>{
                 this.loading = false
@@ -149,9 +186,17 @@ export default {
                         message: '操作成功！',
                         type: 'success'
                     });
-                    if(this.editAid){
-                        this.$router.go(-1)
-                    }
+                    // if(this.editAid){
+                    //     this.$router.go(-1)
+                    // }
+                    this.$router.push({
+                        path:'/forum?category=all&page=1'
+                    })
+                }else{
+                    this.$message({
+                        message: '操作失败！',
+                        type: 'error'
+                    });
                 }
             }).catch(err=>{
                 this.loading = false
@@ -167,8 +212,6 @@ export default {
                     this.form.title = res.data.data.title
                     this.form.category = res.data.data.category
                     this.editContent = this.form.content = res.data.data.content
-                    console.log('jjj',this.editContent);
-                    console.log('lll',this.form.content);
                      
                 }
             }).catch(err=>{
@@ -193,28 +236,52 @@ export default {
 </script>
 <style lang="less">
 .forum-new {
-    max-width:970px;
-    margin:12px auto;
-    position: relative;
-    display:flex;
-    border-radius:4px 4px 0 0;
+    .title {
+        background-color: #f0f3ef;
+        &>div {
+            max-width:970px;
+            margin:0 auto;
+            height:42px;
+            font-size:17px;
+            display:flex;
+            align-items:center; 
+            .nav-title {
+                color:#0e959d;
+                position: relative;
+                // &:after {
+                //     content: "";
+                //     display: block;
+                //     width: 2px;
+                //     height: 14px;
+                //     background-color: #0e959d;
+                //     position: absolute;
+                //     top: 5px;
+                //     right: -1px;
+                // }
+            }
+            .point {
+                padding:0 4px;
+            }
+            font {            
+                font-size:16px;
+                white-space: nowrap;
+                position:relative;
+                color:#bdbdbd;
+                em {
+                    font-size:28px;
+                }
+            }
+        }
+    }
     .main-box {
-        flex:1;
+        max-width:970px;
+        margin:15px auto;
         background-color: #fff;
         margin-bottom:12px;
         width:100%;
-        .title {
-            font-size:17px;
-            padding:15px;
-            padding-left:4%;
-            vertical-align: middle;
-            display:flex;
-            align-items:center;
-            background-color: #778b9d;   
-            color:#fff;   
-        }
+        padding-right:200px;
+        position:relative;
         .my-editor {
-            padding:2%;
             // ul, ol ,li,ol { list-style:square; }
             ol {
                     // list-style-type: disc !important;
@@ -222,45 +289,37 @@ export default {
             }
             form {
                 .f-items {
-                    display:flex;
-                    align-items:center;
+                    flex-wrap:wrap;
                     &>label {
-                        color:#727478;
-                        font-weight:400;
-                        font-size:15px;
-                        flex:0 0 65px;
-                        text-align:right;
-                        padding-right:3px;
-                        
+                        flex:0 0 100%;
+                        text-align:left;
+                        padding-top:10px;
+                        margin-bottom:3px;
+                        display:block;
                     }
-                    .html5-editor {
-                        flex:1;
-                        .content {
-                            
-                        }
-                    }
-                }
-                .f-items.ed {
-                    align-items: flex-start;
                 }
                 .el-radio-group {
-                    padding:15px 0px 10px 0px;
+                    padding:2px 0px 0px 5px;
                 }
                 .el-input__inner {
                     height:36px;
                 }
             }
         }
-    }
-    .aside-box {
-        flex:0 0 333px;
-        margin-left:12px;
-        .aside-items {
-            width:100%;
-            min-height:150;
-            background-color: #fff;
-            padding:15px;
-            margin:0 0 10px;
+        .my-count {
+            width:140px;
+            height:150px;
+            position: absolute;;
+            top:30px;
+            right:12px;
+            background-color: #f0f3ef;
+            color:#fff;
+            border-radius:4px;
+            padding-top:22px;
+            text-align: center;
+            h2 {
+                font-size:44px;
+            }
         }
     }
     a:hover {
@@ -273,52 +332,57 @@ export default {
       line-height: 14px;;
       font-size: 13px;
       margin-bottom:0px;
-      padding-left:65px;
+      padding-left:0px;
     }
     .err-message.two {
       position: relative;
       top:-7px;
       margin-bottom:5px;
     }
-    @media screen and (max-width:768px){
-        flex-wrap:wrap;
-        .main-box {
+    @media screen and (max-width:992px){
+        .title>div,.main-box {
+            padding-left:12px;
+        }
 
+    }
+    @media screen and (max-width:768px){
+        .main-box {
+            padding:0 12px;
+            .my-count {
+                display:none;
+            }
         }
-        .aside-box {
-            flex:0 0 100%;
-            margin-left:0;
-        }
+
 
     }
     @media screen and (max-width:525px) {
         .main-box {
             .my-editor {
                 form {
-                    .f-items {
-                        flex-wrap:wrap;
-                        &>label {
-                            flex:0 0 100%;
-                            text-align:left;
-                            padding-top:10px;
-                        }
-                    }
-                    .el-radio-group {
-                        padding:2px 0px 0px 5px;
-                    }
-                    .el-input__inner {
-                        height:36px;
-                    }
+                    // .f-items {
+                    //     flex-wrap:wrap;
+                    //     &>label {
+                    //         flex:0 0 100%;
+                    //         text-align:left;
+                    //         padding-top:10px;
+                    //     }
+                    // }
+                    // .el-radio-group {
+                    //     padding:2px 0px 0px 5px;
+                    // }
+                    // .el-input__inner {
+                    //     height:36px;
+                    // }
                 }
             }
         }
-        .err-message {
-            padding-left:0px;
-        }
-        .err-message.two {
-        top:0px;
-        margin-bottom:0px;
-        }
+        // .err-message {
+        //     padding-left:0px;
+        // }
+        // .err-message.two {
+        // top:0px;
+        // margin-bottom:0px;
+        // }
     }
 }
 

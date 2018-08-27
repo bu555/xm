@@ -8,7 +8,7 @@
         <div class="m-info">
             <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
             <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px">{{userInfo.profile?userInfo.profile:''}}</div>
-            <div class="follow-ctrl" style="position:relative;top:-3px">
+            <div class="follow-ctrl" style="">
                 <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
                 <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
                     <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
@@ -161,6 +161,8 @@ export default {
             }
             .follow-ctrl {
                 font-size:14px;
+                position:relative;
+                top:-3px;
                 &>span {
                     text-align:center;
                     display:inline-block;
@@ -238,7 +240,7 @@ export default {
         top: 170px;
         .aside-items {
             width:100%;
-            min-height:150;
+            min-height:150px;
             background-color: #fff;
             padding:2.5%;
             margin:0 0 10px;
@@ -274,12 +276,14 @@ export default {
     @media screen and (max-width:525px){
         .m-header {
             .photo {
-                // width:85px;
-                // height:85px;
-                // left:15px;
-                // bottom:10px;
-                // img {
-                // }
+                width:85px;
+                height:85px;
+                left:15px;
+                bottom:10px;
+                img {
+                    width:100%;
+                    height:100%;
+                }
             }
             .edit-info {
                 top:90px;
@@ -288,7 +292,11 @@ export default {
                 top:15px;
             }
             .m-info {
-                // padding-left:112px ;
+                padding-left:115px ;
+
+                .follow-ctrl {
+                    top:5px;
+                }
                 span.r-name {
                 }
                 span.sex {

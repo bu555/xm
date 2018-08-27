@@ -12,29 +12,35 @@ const Account = require('../controllers/accountHandler')
 var xss = require('xss');
 var logger = require('log4js').getLogger('logError');
 
-// 发表或编辑文章  input : {uid:'',title:'',category:'share',content:'',aid:'可选，如有则为编辑'}
+// 发表或编辑文章  input : {uid:'',title:'',tags:'t1,t2,t3',content:'',aid:'可选，如有则为编辑'}
 const publishArticle = (req,res)=>{
     let options = req.body || {}
     options.uid = req.session.user._id;
     let isEdit = options.aid ? options.aid:''
     // 参数验证
-    if(!options.uid || !options.title || !options.category || !options.content){
+    if(!options.uid || !options.title || !options.tags || !options.content){
         return res.json({
             success: false,
             message: 'Params Error' 
         })
     }
+    if(options.title.length>120 || myUtill.verifyTags(options.tags) || myUtill.strLength(options.content)>16777215){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+
     (async ()=>{
         try{
 
-            { 
-                // 过滤xss 
-            }
+            options.content = xss(options.content)
+            options.title = xss(options.title)
 
             // let article = await Article.publishArticle(options)
             let aid = await Article.publishArticle(options)
             options.aid = aid
-            //article._id 添加到account "已发表文章数组"
+            //如果是新发表，article._id 添加到account "已发表文章数组"
             if(!isEdit){
                 let updated = await Account.addPublishLog(options)
             }
@@ -144,19 +150,22 @@ const addComment = (req,res)=>{
     }
     (async ()=>{
         try{
-            console.log(44,options);
             options.content = xss(options.content)
 
             let r = await Article.addComment(options)  //返回cid
-            // options = Object.assign(r,options)
-            options.cid = r.cid  //这是新回复的cid
-            options.update_time = r.update_time
-            options.com_count = r.com_count
-            // 加入到个人记录,更新Article最新时间
-            await Promise.all([
-                Account.addCommentLog(options),
-                Article.setUpdateTime(options)
-            ])
+            if(r.status==='new'){
+                // options = Object.assign(r,options)
+                options.cid = r.cid  //这是新回复的cid
+                options.comment_time = r.comment_time
+                options.comment_count = r.comment_count
+                // 加入到个人记录,更新Article最新时间
+                await Promise.all([
+                    Account.addCommentLog(options),
+                    Article.updateComment(options)
+                ])
+            }else{
+                // 回复用户成功
+            }
             // let added = await Account.addCommentLog(options)
             // 记录加入account
             res.json({
@@ -355,7 +364,7 @@ const getCommentByAid = (req,res)=>{
                 let page = myUtill.verifyNum(options.page) ? Number(options.page) : 1  //页数
                 let list = await Article.getComment(options)
                 // 排序
-                if(options.type && options.type==='hot'){
+                if(options.type && options.type==='hot'){  //按赞同数量
                     let temp
                     for(let i=0;i<list.length;i++){
                         let flag = 1
@@ -369,8 +378,10 @@ const getCommentByAid = (req,res)=>{
                         }
                         if(flag===1) break  //如果没发生交换，说明数组有序
                     }
-                }else if(options.type && options.type==='time'){
+                }else if(options.type && options.type==='time'){ //时间顺序 由近到远
                     list = list.reverse() //倒置
+                }else if(options.type && options.type==='time-reverse'){ //时间顺序，由远到近
+                    
                 }
                 let newList = JSON.parse(JSON.stringify(list.slice((options.page-1)*options.size, (options.page-1)*options.size + options.size)))
                 let proArr = []
@@ -395,16 +406,21 @@ const getCommentByAid = (req,res)=>{
                     }
                     newList[i].zan = null
                     // 在回复别的情况下,根据cid获取对应信息
-                    if(newList[i].replay){
-                        for(let k=0;k<list.length;k++){
-                            if(list[k].cid===newList[i].replay){
-                                let u = await User.getUserById({uid:list[k].uid})
-                                newList[i].rep = {
-                                    content:list[k].content,
-                                    r_name:u?u.r_name:'已注销',
-                                    uid:list[k].uid
-                                }
-                            }
+                    let replay = null
+                    if(newList[i].replay instanceof Array && newList[i].replay.length>0){
+
+                        for(let k=0;k<newList[i].replay.length;k++){
+                            let u = await User.getUserById({uid:newList[i].replay[k].uid})
+                            newList[i].replay[k].r_name = u?u.r_name:'已注销'
+                            delete newList[i].replay[k]._id
+                            // if(list[k].cid===newList[i].replay){
+                            //     let u = await User.getUserById({uid:list[k].uid})
+                            //     newList[i].rep = {
+                            //         content:list[k].content,
+                            //         r_name:u?u.r_name:'已注销',
+                            //         uid:list[k].uid
+                            //     }
+                            // }
                         }
                     }
                 }

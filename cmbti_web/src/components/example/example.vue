@@ -6,15 +6,10 @@
     <NavSub :data="data" :search="setSearch" @searchVal="currentSearch" @submit="search()" placeholder="名字搜索"></NavSub>
     <div class="bx">
         <!--在线数据-->
-        <div class="example-list" style="min-height:300px" v-if="exampleList_bk"> 
+        <div class="example-list"  v-if="exampleList_bk"> 
                 <!--无数据--><!--无数据-->
-                <div v-if="(exampleList_bk &&exampleList_bk.length===0)" style="padding-top:20px;text-align:center;width:100%">
-                    <p>暂无数据哦("▔□▔)</p>
-                </div>
+                <p v-if=" (exampleList_bk instanceof Array) && exampleList_bk.length===0"  class="if-data-empty">暂无数据("▔□▔)</p>
                 <!--有数据-->
-
-
-
                 <div class="item" v-for="(v,i) in exampleList_bk" :key="i">
                     <!--<router-link :to="'/example/'+v._id">-->
                     <div class="item-box" style="padding-top:18px">
@@ -23,16 +18,13 @@
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
-                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >添 加</el-button></div>
+                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >加入名人库</el-button></div>
                     </div>
                     <!--</router-link>-->
                 </div>
         </div>
         <!--数据库的数据-->
-        <div class="example-list" style="min-height:300px" v-if="exampleList"> 
-                <div v-if="(exampleList &&exampleList.length===0)" style="padding-top:20px;text-align:center;width:100%">
-                    <p>暂无数据哦("▔□▔)</p>
-                </div>
+        <div class="example-list"  v-if="exampleList"> 
                 <div class="item" v-for="(v,i) in exampleList" :key="i">
                     <div class="item-box">
                         <div class="type">{{v.type.toUpperCase()}}</div>
@@ -41,11 +33,12 @@
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
                     </router-link>
-                        <div class="name overflow-row-1">{{v.name==='马拉多纳'?'马拉多纳马拉多纳马拉多纳马拉多纳马拉多纳':v.name}}</div>
+                        <div class="name overflow-row-1">{{v.name}}</div>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
                         <div style="height:1px"></div>
                     </div>
                 </div>
+                 <p v-if=" (exampleList instanceof Array) && exampleList.length===0" class="if-data-empty">暂无数据("▔□▔)</p>
                 <!--<div class="item" v-if="(exampleList instanceof Array)&&exampleList.length>0&&$route.query.s">查看更多同名名人</div>-->
 
         </div>
@@ -282,6 +275,7 @@ export default {
         padding-top:20px;
         text-align: center;
         box-sizing: border-box;
+        min-height:370px;
         .item {
             flex:0 0 24.8%;
             margin-bottom:22px; overflow: hidden; text-overflow:ellipsis;
