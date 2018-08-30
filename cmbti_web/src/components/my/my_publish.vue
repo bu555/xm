@@ -2,13 +2,14 @@
   <div class="my-publish" v-loading="loading">
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
-          <div class="my-type share" v-if="v.category==='share'">分享</div>
+          <!-- <div class="my-type share" v-if="v.category==='share'">分享</div>
           <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
-          <div class="my-type good" v-if="v.good">精华</div>
-          <router-link :to="'/forum/'+v._id">
-                <!--简单的Restful API例子(Golang)-->
-                <span>{{v.title}}</span>
-          </router-link>
+          <div class="my-type good" v-if="v.good">精华</div> -->
+          <div class="overflow-row-2">
+              <router-link :to="'/forum/'+v._id">
+                    {{v.title}}
+              </router-link>
+          </div>
           <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
           <div class="i-ctrl">
               <!--编辑-->
@@ -100,65 +101,46 @@ export default {
 
   }
   .items {
-      display:flex;
+      // display:flex;
       align-items:center;
       border-bottom:1px solid #f8f8f8;
       width:100%;
-      padding-bottom:25px;
       position: relative;
-      padding-top:3px;
-      padding-right:55px;
-      .my-type {
-        font-size:12px;
-        padding:1px 2px;
-        text-align:center;
-        border-radius:3px;
-        margin-right:5px;
-        border:1px solid #c1c1c1;
-        color:#c1c1c1;
-        white-space: nowrap;
-      }
-      .my-type.share {
-        // background-color: #feae4b;
-      }
-      .my-type.good {
-        background-color: #feae4b;
-        color:#fff;
-        border:1px solid #feae4b;
-      }
-      &>a {
-        flex:1;
-        padding:0px 0;
-        font-size:15px;
-        overflow: hidden;
-        span {
-          width:100%;
-          display:block;
+      padding:7px 60px 25px 0;
+      &>div{
+        a {
+          padding:0px 0;
+          font-size:15px;
           overflow: hidden;
-          text-overflow:ellipsis;
-          white-space: nowrap;
-        }
-        &:hover {
-          color:#496ea3
+          span {
+            width:100%;
+            display:block;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
+          &:hover {
+            color:#496ea3
+          }
         }
       }
       .time {
         color:#c5c5c5;
         font-size:13px;
         position: absolute;
-        left:35px;
-        bottom:5px;
+        left:0px;
+        bottom:7px;
       }
       .i-ctrl {
         position: absolute;
         right:0px;
-        top:2px;
+        top:9px;
         display:flex;
         align-items: center;
         justify-content: space-between;
         width:58px;
         i {
-          color:#aaa;
+          color:#ccc;
           cursor: pointer;
           width:22px;
           height:22px;

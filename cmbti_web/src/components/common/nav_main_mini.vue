@@ -148,8 +148,8 @@ export default {
                         top:30px;
                         right:0px;
                         background-color: #fff;
-                        border:1px solid #e6e6e6;
                         overflow: hidden;
+                        z-index:2;
                         li {
                             height:28px;
                             line-height:28px;
@@ -163,6 +163,7 @@ export default {
                     &>ul.active {
                         height:68px;
                         padding:5px 0;
+                        border:1px solid #e6e6e6;
                     }
               }
               .not-login {

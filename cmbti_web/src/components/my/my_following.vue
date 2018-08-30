@@ -2,11 +2,21 @@
   <div class="my-following" v-loading="loading">
     <div class="content">
       <div class="items" v-for="(v,i) in data" :key="i">
-        <router-link :to="'/info/'+v._id">
+        <!-- <router-link :to="'/info/'+v._id">
             <div class="avatar">
               <img :src="v.avatar?$pathAvatar+v.avatar:'/static/img/logo_a.png'" alt="">
             </div>
             <div class="name overflow-row-1">{{v.r_name}}</div>
+        </router-link> -->
+        <router-link :to="'/info/'+v._id">
+            <!-- <div class="avatar">
+              <img :src="v.avatar?$pathAvatar+v.avatar:'/static/img/logo_a.png'" alt="">
+            </div> -->
+            <Avatar :src="v.avatar" :uid="''" size="small" round="true"></Avatar>&nbsp;
+            <div class="u-name overflow-row-1">
+              <span class="r-name">{{v.r_name}}</span> <br/>
+              <span class="profile overflow-row-2">profile profile profile profifile profifile profifile profile profile profile</span>
+            </div>
         </router-link>
         <!--<el-button type="default" plain size="small"  style="padding:7px 7px;font-size:13px" @click="followUser('0',i,v._id)"><i class="el-icon-remove icon-remove" style="font-size:14px;"></i> 移除TA</el-button>
         <el-button type="default" plain size="small"  style="padding:7px 7px;font-size:13px"></i> 移除TA</el-button>-->
@@ -50,7 +60,7 @@ export default {
     },
     created(){
         this.getUserList()
-        this.$store.state.myTabName = '被关注'
+        this.$store.state.myTabName = '关注我'
     }
 }
 </script>
@@ -65,34 +75,27 @@ export default {
   }
   .items {
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     border-bottom:1px solid #f8f8f8;
+    padding:2px 0 5px;
+    min-height:70px;
     &>a {
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       flex:1;
       padding:5px 0;
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
-      .avatar {
-        flex:0 0 38px;
-        width:38px;
-        height: 38px;
-        border-radius:3px;
-        overflow:hidden;
-        margin-right:8px;
-        img {
-          width:100%;
-          height:auto;
+      padding-right:3px;
+      .u-name {
+        font-size:15px;
+        // position: relative;
+        .profile {
+          font-size:13px;
+          color:#999;
         }
       }
-      .name {
-        font-size:15px;
-      }
-    }
-    a:visited {
-        text-decoration: none;
     }
   }
   .load-more {

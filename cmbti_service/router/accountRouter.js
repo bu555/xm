@@ -266,6 +266,7 @@ const getMyVote = (req,res)=>{
           try{
                 let account = await Account.getUserInfoById(options)
                 let proArr = []
+                // 投票的eid列表
                 let accountList = JSON.parse(JSON.stringify( account.vote_example.slice( (options.page-1)*options.size,options.page*options.size ) ))
                 // let accountList = JSON.parse(JSON.stringify(account.vote_example))
                 accountList.forEach((v,i)=>{
@@ -277,6 +278,9 @@ const getMyVote = (req,res)=>{
                         if(itemList[j]._id==accountList[i].eid){
                             accountList[i].name = itemList[j].name
                             accountList[i].name1 = itemList[j].name1?itemList[j].name1:''
+                            accountList[i].info = itemList[j].info
+                            accountList[i].img_url = itemList[j].img_url
+                            accountList[i].type = itemList[j].type
                         }
                     }
                 }

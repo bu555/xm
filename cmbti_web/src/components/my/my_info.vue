@@ -9,7 +9,7 @@
         <div class="info-msg" v-if="!nameVerify" style="color:red">要求为1~12位的中文、英文、数字、下划线</div>
         <div class="info-msg" v-if="showNotModify && nameVerify" :style="infoForm.modify?'':'top:20px'"><em class="el-icon-warning"></em> 昵称180天内只允许修改一次</div>
       </el-form-item>
-      <el-form-item label="城市" class="city">
+      <el-form-item label="来自" class="city">
         <el-select v-model="infoForm.province"  placeholder="省份" style="margin-right:1%" v-if="provinceList">
             <el-option
             v-for="(item,i) in provinceList"

@@ -5,10 +5,10 @@
                     <i class="fa fa-user-o"></i> 个人档案
                 </router-link></div>
             <div><router-link to="/my/followers">
-                    <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注<span>({{accountInfo.followers}})</span>
+                    <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 我关注<span>({{accountInfo.followers}})</span>
                 </router-link></div>
             <div><router-link to="/my/following">
-                    <i class="fa fa-plus-square-o "></i> 被关注<span>(2)</span>
+                    <i class="fa fa-plus-square-o "></i> 关注我<span>(2)</span>
                 </router-link></div>
             <div><router-link to="/my/mark">
                     <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 文章收藏<span>({{accountInfo.following}})</span>
@@ -26,7 +26,7 @@
                     <i class="fa fa-edit"></i> 评论参与<span>({{accountInfo.my_comment}})</span>
                 </router-link></div>
             <div><router-link to="/my/vote">
-                    <i class="fa fa-hand-paper-o"></i> 投票<span>({{accountInfo.vote_example}})</span>
+                    <i class="fa fa-hand-paper-o"></i> 投票参与<span>({{accountInfo.vote_example}})</span>
                 </router-link></div>
             <div><router-link to="">
                     <i class="fa fa-envelope-o"></i> 消息<span>({{accountInfo.my_message}})</span>
