@@ -87,7 +87,9 @@ const searchExample = (req,res,next)=>{
             if(options.name){
                 options.name = myUtill.strTrim(options.name)
             }
-            if(!(example instanceof Array)){
+            if(!example){
+                example = []
+            }else if(!(example instanceof Array)){
                 example = [example]
             }
             let reg = /^[1-9]\d{0,}$/    // 非零非负整数

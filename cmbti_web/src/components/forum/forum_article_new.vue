@@ -1,22 +1,22 @@
 <template>
 <div class="forum-new">
-    <div class="main-box">
-        <div class="title">
-            <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
-            <div v-if="aid">
-                <i class="el-icon-edit-outline" style="font-size:20px;padding-right:3px;position:relative;top:2px"></i>
-                <font> 编辑文档</font>
-            </div>
-            <div v-else>
-                <i class="el-icon-edit" style="font-size:20px;padding-right:5px"></i>
-                <font> 创建文档</font>
-            </div>
+    <NavMain></NavMain>
+    <!-- <NavSub :data="navData" placeholder="输入内容搜索"></NavSub>  -->
+    <div class="title">
+        <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
+        <div>
+            <font class="nav-title">M论坛</font>
+            <font class="point">·</font>
+            <font  v-if="aid">编辑文档</font>
+            <font v-else>创建文档</font>
         </div>
+    </div>
+    <div class="main-box">
         <div class="my-editor">
             <el-form ref="form" :model="form">
                 <div class="f-items">
                     <label for="">标题：</label>
-                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> </br>
+                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> <br>
                     <!--<div class="err-message" >*文章標題要求為10~96字節</div>-->
                 </div>
                 <div class="err-message" v-if="ver.title==='empty'">*请输入标题</div>
@@ -57,12 +57,17 @@
                 </div>
             </el-form>
         </div>
+        <div class="my-count">
+            <p>已发表</p>
+            <h2>50</h2>
+        </div>
     </div>
 </div> 
 </template>
 <script>
 import VueHtml5Editor from './editor/editor'
 import Tags from '@/components/common/tags.vue'
+import NavMain from '@/components/common/nav_main'
 // import fEditor from 'froala-editor'
 export default {
     data(){
@@ -85,12 +90,22 @@ export default {
                 all:'',
                 tagsList:''
             },
-            tagErrMsg:''
+            tagErrMsg:''    ,
+            navData:{
+                title:'M论坛',
+                list:[
+                    {
+                        value:'全部',
+                        link:'/forum?category=all&page=1'
+                    },
+                ]
+            },
         }
     },
     components: {
         VueHtml5Editor,
-        Tags
+        Tags,
+        NavMain
         // quillEditor,
         // 'editor1' : new VueHtml5Editor(this.options1)
     },
@@ -221,28 +236,52 @@ export default {
 </script>
 <style lang="less">
 .forum-new {
-    max-width:970px;
-    margin:12px auto;
-    position: relative;
-    display:flex;
-    border-radius:4px 4px 0 0;
+    .title {
+        background-color: #f0f3ef;
+        &>div {
+            max-width:970px;
+            margin:0 auto;
+            height:42px;
+            font-size:17px;
+            display:flex;
+            align-items:center; 
+            .nav-title {
+                color:#0e959d;
+                position: relative;
+                // &:after {
+                //     content: "";
+                //     display: block;
+                //     width: 2px;
+                //     height: 14px;
+                //     background-color: #0e959d;
+                //     position: absolute;
+                //     top: 5px;
+                //     right: -1px;
+                // }
+            }
+            .point {
+                padding:0 4px;
+            }
+            font {            
+                font-size:16px;
+                white-space: nowrap;
+                position:relative;
+                color:#bdbdbd;
+                em {
+                    font-size:28px;
+                }
+            }
+        }
+    }
     .main-box {
-        flex:1;
+        max-width:970px;
+        margin:15px auto;
         background-color: #fff;
         margin-bottom:12px;
         width:100%;
-        .title {
-            font-size:17px;
-            padding:15px;
-            padding-left:4%;
-            vertical-align: middle;
-            display:flex;
-            align-items:center;
-            background-color: #778b9d;   
-            color:#fff;   
-        }
+        padding-right:200px;
+        position:relative;
         .my-editor {
-            padding:2%;
             // ul, ol ,li,ol { list-style:square; }
             ol {
                     // list-style-type: disc !important;
@@ -267,6 +306,21 @@ export default {
                 }
             }
         }
+        .my-count {
+            width:140px;
+            height:150px;
+            position: absolute;;
+            top:30px;
+            right:12px;
+            background-color: #f0f3ef;
+            color:#fff;
+            border-radius:4px;
+            padding-top:22px;
+            text-align: center;
+            h2 {
+                font-size:44px;
+            }
+        }
     }
     a:hover {
         text-decoration:none;
@@ -285,41 +339,50 @@ export default {
       top:-7px;
       margin-bottom:5px;
     }
-    @media screen and (max-width:768px){
-        flex-wrap:wrap;
-        .main-box {
-
+    @media screen and (max-width:992px){
+        .title>div,.main-box {
+            padding-left:12px;
         }
+
+    }
+    @media screen and (max-width:768px){
+        .main-box {
+            padding:0 12px;
+            .my-count {
+                display:none;
+            }
+        }
+
 
     }
     @media screen and (max-width:525px) {
         .main-box {
             .my-editor {
                 form {
-                    .f-items {
-                        flex-wrap:wrap;
-                        &>label {
-                            flex:0 0 100%;
-                            text-align:left;
-                            padding-top:10px;
-                        }
-                    }
-                    .el-radio-group {
-                        padding:2px 0px 0px 5px;
-                    }
-                    .el-input__inner {
-                        height:36px;
-                    }
+                    // .f-items {
+                    //     flex-wrap:wrap;
+                    //     &>label {
+                    //         flex:0 0 100%;
+                    //         text-align:left;
+                    //         padding-top:10px;
+                    //     }
+                    // }
+                    // .el-radio-group {
+                    //     padding:2px 0px 0px 5px;
+                    // }
+                    // .el-input__inner {
+                    //     height:36px;
+                    // }
                 }
             }
         }
-        .err-message {
-            padding-left:0px;
-        }
-        .err-message.two {
-        top:0px;
-        margin-bottom:0px;
-        }
+        // .err-message {
+        //     padding-left:0px;
+        // }
+        // .err-message.two {
+        // top:0px;
+        // margin-bottom:0px;
+        // }
     }
 }
 

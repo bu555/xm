@@ -83,6 +83,10 @@ export default {
         img.round {
             border-radius:50%;
         }
+        img.big-x {
+            width:125px;
+            height:125px;
+        }
         img.small-xxx {
             width:68px;
             height:68px;

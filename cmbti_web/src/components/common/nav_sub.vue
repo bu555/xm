@@ -1,6 +1,6 @@
 <template>
     <div class="x-nav-sub">
-        <div class="sub-nav-inner">
+        <div class="sub-nav-inner" :style="'max-width:'+innerWidth+'px'">
             <div class="nav-title" v-html="format(navList.title)">
                 
             </div>
@@ -29,14 +29,16 @@ export default {
     data(){
         return {
             searchVal:null,
-            inputPlaceholder:''
+            inputPlaceholder:'',
+            innerWidth:null
 
         }
     },
     props:[
         'data',
         'search',
-        'placeholder'
+        'placeholder',
+        'maxWidth'
     ],
     watch: {
         'search':'init'
@@ -50,6 +52,7 @@ export default {
         init(){
             this.searchVal = this.search
             this.inputPlaceholder = this.placeholder || ''
+            this.innerWidth = this.maxWidth || 970
         },
         inputHandler(){
             this.$emit('searchVal',this.searchVal)

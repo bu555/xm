@@ -25,6 +25,14 @@ nuxt.js基于vue，我们目前所实现了的功能都是可以实现的，它�
 类似OopsDaily这样必须做SEO的项目，用Nuxtjs做全站SSR、或者SPA+部分SSR应该都是比较合适的。如果一开始兼顾SPA+SSR的需求去组织vue组件，SPA完成之后用Nuxt.js做SSR就是比较简单的（直接根据nuxt规则把组件拼接起来）。
 现有项目如果用nuxt.js做首页和内页的SSR，主要就是重写组件，估计会需要一星期左右的时间。
 
+#ES6
+Number.isSafeInteger(4.0) 判断安全整数 2^53
+Number.isInteger()(4.0) 判断整数
+Math.trunc(5.656) 返回整数部分
+Math.sign(4.5) 判断正数1 负数-1 零0 负零-0 其他NaN
+2**3 即2的3次方，指数运算符
+Array.of(3, 11, 8) // [3,11,8]
+
 
 
 

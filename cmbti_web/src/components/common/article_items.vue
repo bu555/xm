@@ -34,7 +34,7 @@ export default {
     display:flex;
     min-height:120px;
     overflow: hidden;
-    border-top:1px solid #f1f1f1;
+    border-bottom:1px solid #f1f1f1;
     padding: 8px 0;
     .article-preview {
         flex:1;

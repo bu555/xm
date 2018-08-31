@@ -3,7 +3,7 @@
         <div class="x-nav-inner">
             <ul class="menu">
                 <li>
-                    <router-link to="/mbti">
+                    <router-link to="/mbti/theory">
                         <em>MBTI</em>
                     </router-link>
                 </li>
@@ -31,10 +31,11 @@
                         <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="mini" round="true"></Avatar> 
                         <span class="role-name overflow-row-1">{{$store.state.userInfo.r_name}}</span>
                         </router-link>
-                        <!-- <ul>
-                            <li>收藏(5)</li>
-                            <li>收藏(5)</li>
-                        </ul> -->
+                        <i class="el-icon-caret-bottom" @click="dropDown=!dropDown"></i>
+                        <ul :class="(dropDown?'active':'')">
+                            <li @click="$router.push({path:'/my'});dropDown=false">个人主页</li>
+                            <li @click="$store.state.loginOut=true;dropDown=false">退出</li>
+                        </ul>
                 </div>
                 <div class="not-login" v-else>
                     <a @click="$store.state.modalLogin = true">
@@ -54,7 +55,8 @@ import Avatar from '@/components/common/avatar'
 export default {
   data(){
       return {
-        showMore:false
+        showMore:false,
+        dropDown:false
       }
   },
   components: {
@@ -66,7 +68,13 @@ export default {
 
   },
   mounted() {
-    
+      document.addEventListener('click',(e)=>{
+          if(e.target.tagName!=='I'){
+              if(this.dropDown){
+                  this.dropDown = false;
+              }
+          }
+      })
   },
   created(){
   }
@@ -105,23 +113,58 @@ export default {
           .login-reg {
               padding-right:14px;
               .is-login {
-                  height:30px;
-                  a.a {
+                    height:30px;
                     display:flex;
                     align-items: center;
-                  }
-                  .role-name {
-                      margin-left:7px;
-                      font-size:14px;
-                      color:#ccc;
-                      display:inline-block;
-                      max-width:120px;
-                      height: 30px;
-                      line-height: 30px;
-                      &:hover {
-                          text-shadow: 0 0 1px #fff;
-                      }
-                  }
+                    position: relative;
+                    a.a {
+                        display:flex;
+                        align-items: center;
+                    }
+                    .role-name {
+                        margin-left:7px;
+                        font-size:14px;
+                        color:#ccc;
+                        display:inline-block;
+                        max-width:120px;
+                        height: 30px;
+                        line-height: 30px;
+                        &:hover {
+                            text-shadow: 0 0 1px #fff;
+                        }
+                    }
+                    &>i {
+                        color:#ddd;
+                        font-size:12px;
+                        margin-left:5px;
+                        padding:4px;
+                        cursor:pointer;
+                    }
+                    &>ul {
+                        height:0px;
+                        transition: all .3s;
+                        font-size:14px;
+                        position:absolute;
+                        top:30px;
+                        right:0px;
+                        background-color: #fff;
+                        overflow: hidden;
+                        z-index:2;
+                        li {
+                            height:28px;
+                            line-height:28px;
+                            padding:0 8px;
+                            cursor:pointer;
+                            &:hover {
+                                background-color: #f6f6f6;
+                            }
+                        }
+                    }
+                    &>ul.active {
+                        height:68px;
+                        padding:5px 0;
+                        border:1px solid #e6e6e6;
+                    }
               }
               .not-login {
                   font-size:13px;

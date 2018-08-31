@@ -1,9 +1,10 @@
 <template>
   <div class="my-like" v-loading="loading">
     <div class="content">
-      <div class="items" v-for="(v,i) in data" :key="i">
-        <div class="my-type">文档</div>
-        <router-link :to="'/forum/'+v._id">
+      <div class="items overflow-row-2" v-for="(v,i) in data" :key="i">
+        <!-- <div class="my-type">文档</div> -->
+        <i class="fa fa-book"></i>
+        <router-link :to="'/forum/'+v._id" class="">
               {{v.title}}
         </router-link>
       </div>
@@ -46,37 +47,35 @@ export default {
     },
     created(){
         this.getArticle()
-        this.$store.state.myTabName = '收藏'
+        this.$store.state.myTabName = '文章收藏'
     }
 }
 </script>
 <style lang="less">
 .my-like {
-  padding:4%;
+  padding:15px;
   padding-top:12px;
   padding-bottom:22px;
   .content {
 
   }
   .items {
-    display:flex;
-    align-items:center;
-    border-bottom:1px solid #f8f8f8;
-    .my-type {
+    border-bottom:1px solid #fafafa;
+    margin-bottom:4px;
+    padding-bottom:2px;
+    padding-left:17px;
+    position: relative;
+    &>i {
       font-size:12px;
-      padding:1px 2px;
-      text-align:center;
-      border-radius:3px;
-      margin-right:5px;
-      border:1px solid #c1c1c1;
-      color:#c1c1c1;
+      color:#ccc;
+      position:absolute;
+      left:0px;
+      top:6px;
     }
     &>a {
-      flex:1;
-      padding:7px 0;
-      overflow: hidden;
-      text-overflow:ellipsis;
-      white-space: nowrap;
+      // height:20px;
+      padding:3px 0;
+      text-align:left;
       font-size:15px;
       &:hover {
         color:#496ea3

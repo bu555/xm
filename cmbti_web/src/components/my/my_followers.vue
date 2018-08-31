@@ -9,7 +9,7 @@
             <Avatar :src="v.avatar" :uid="''" size="small" round="true"></Avatar>&nbsp;
             <div class="u-name overflow-row-1">
               <span class="r-name">{{v.r_name}}</span> <br/>
-              <span class="profile">profile profile profile profifile profifile profifile profile profile profile</span>
+              <span class="profile overflow-row-2">profile profile profile profifile profifile profifile profile profile profile</span>
             </div>
         </router-link>
         <!-- 关注按钮 -->
@@ -58,7 +58,7 @@ export default {
     },
     created(){
         this.getUserList()
-        this.$store.state.myTabName = '关注'
+        this.$store.state.myTabName = '我关注'
         
     }
 }
@@ -74,16 +74,19 @@ export default {
   }
   .items {
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     border-bottom:1px solid #f8f8f8;
+    padding:2px 0 5px;
+    min-height:70px;
     &>a {
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       flex:1;
       padding:5px 0;
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
+      padding-right:3px;
       .u-name {
         font-size:15px;
         // position: relative;

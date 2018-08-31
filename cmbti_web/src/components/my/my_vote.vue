@@ -1,30 +1,24 @@
 <template>
   <div class="my-test">
     <div class="content">
-        <div class="items i1">
-            <div class="">名字</div>
-            <div class="">投票结果</div>
-            <div class="">日期</div>
-            <!--<div class="age">年龄</div>-->
-            <div class=""></div>
+
+        <div class="item" v-for="(v,i) in data" :key="i">
+           <div class="photo">
+              <router-link :to="'/example/'+v.eid">
+                  <img :src="$pathImgs+v.img_url" alt="">
+              </router-link>
+           </div>
+           <ul class="info">
+              <li class="overflow-row-1">投票类型：{{v.result&&v.result.toUpperCase()}}</li>
+              <li class="overflow-row-1">投票日期：{{$moment(v.c_time).format("YYYY-MM-DD HH:mm")}}</li>
+              <li class="overflow-row-1">名字：{{v.name+v.name1}}</li>
+              <li class="overflow-row-1">最高票类型：{{v.type.toUpperCase()}}</li>
+              <!-- <li class="overflow-row-2">简介：{{v.info}}</li> -->
+           </ul>
         </div>
-        <div class="items i2" v-for="(v,i) in data" :key="i">
-            <router-link :to="'/example/'+v.eid">
-                <div class="overflow-row-1">{{v.name+v.name1}}</div>
-                <div class="overflow-row-1">{{v.result&&v.result.toUpperCase()}}</div>
-                <div class="">
-                  <span class="date-pc">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</span>
-                  <span class="date-mob">{{$moment(v.c_time).format("YYYY-MM-DD")}}</span>
-                  
-                </div>
-                <!--<div class="age">22</div>-->
-                <!--<div class="show-link">
-                  <router-link to="">
-                    查看详情
-                  </router-link>
-                </div>-->
-            </router-link>
-        </div>
+
+
+
         <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
@@ -64,7 +58,7 @@ export default {
     },
     created(){
        this.getMyVote()
-       this.$store.state.myTabName = '投票'
+       this.$store.state.myTabName = '投票参与'
     }
 }
 </script>
@@ -76,57 +70,37 @@ export default {
 
   .content {
     font-size:15px;
-    .age {
-      padding-left:22px;
-    }
-    &>div>div {
-      display:block;
-      overflow: hidden;
-      text-overflow:ellipsis;
-      white-space: nowrap; 
-    }
-    .show-link {
-      text-align:right;
-      padding-right:20px;
-    }
-  }
-  .items.i1,.items.i2>a {
-      display:flex;
-      align-items:center;
-      border-bottom:1px solid #f8f8f8;
-      width:100%;
-      color:#444;
-      text-align:left;
-      &>div {
-        flex:0 0 30%;
-        padding:5px 5px;
-        a {
-          padding:3px 0;
-          color:#598dd5;
-          &:hover {
-            color:#456ea5;
-          }
+    .item {
+        display:flex;
+        margin:4px 5px;
+        background-color: #fafafa;
+        padding:7px;
+        border-radius:3px;
+        border:1px solid  #eaeaea;
+        .photo {
+          flex:0 0 68px;
         }
-        // &:last-child,&:nth-of-type(4) {
-        //   margin-right:2%;
-        //   flex:0 0 70px;
-        // }
-      }
-  }
-      .date-pc {
-          display:block;
-      }
-      .date-mob {
-          display:none;
-      }
-    .items.i2:hover {
-      background-color: #fafafa;
+       .photo img {
+         display:block;
+         width:68px;
+         height:82px;
+         object-fit: cover;
+         border-radius:1px;
+       }
+       ul.info {
+         width:210px;
+         height:82px;
+         font-size:12px;
+         padding-left:7px;
+         li{
+
+         }
+       }
     }
-  .items.i1 {
-    &>div {
-      font-weight:700;
-    }
+
+
   }
+
   .load-more {
     max-width:365px;
     margin:0 auto;
@@ -139,27 +113,15 @@ export default {
     }
   }
   
-  @media screen and (max-width:525px) {
-    .items.i1,.items.i2>a {
-      &>div {
-        flex:0 0 33%;
-      }
-    }
+  @media screen and (max-width:768px) {
     .content {
-      font-size:14px;
-        .age{
-          display:none;
+      flex-wrap:wrap;
+      .item  {
+        width:100%;
+        ul.info {
+          width:100%;
         }
-        .date-pc {
-           display:none;
-        }
-        .date-mob {
-           display:block;
-        }
-        .show-link {
-          padding-right:0;
-          flex:0 0 65px;
-        }
+      }
     }
   }
 }

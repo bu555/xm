@@ -10,6 +10,9 @@
             <ArticleItems v-for="(v,i) in list" :key="i" :data="v"></ArticleItems>
             <!-- 推荐的内容 -->
             <div class="recommend"  v-if=" (list instanceof Array) && list.length>0">
+                <router-link to="/forum/article/new"  style="margin:11px 0;display:block">
+                    <button class="bu-button bu-black">发帖</button>
+                </router-link>
                 <h2>你可能喜欢</h2>
                 <ul>
                     <li v-for="(v,i) in list" :key="i">
@@ -150,7 +153,7 @@ export default {
 @bg:rgba(255,255,255,.75);
 .forum-index {
     max-width:970px;
-    margin:12px auto;
+    margin:25px auto;
     position: relative;
     display:flex;
     border-radius:4px 4px 0 0;

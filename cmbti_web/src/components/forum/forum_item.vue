@@ -60,6 +60,9 @@
             </div>
             <!-- 推荐的内容 -->
             <div class="recommend">
+                <router-link to="/forum/article/new"  style="margin:11px 0;display:block">
+                    <button class="bu-button bu-black">发帖</button>
+                </router-link>
                 <h2>你可能喜欢</h2>
                 <ul>
                     <li v-for="(v,i) in 7" :key="i">
@@ -215,6 +218,7 @@ export default {
 @bg:rgba(255,255,255,.75);
 .forum-item {
     position: relative;
+    
     // 隐藏最底部tab
     .x-nav-sub .bottom-nav {
         display:none; 
@@ -239,10 +243,10 @@ export default {
         margin:28px auto;
         position: relative;
         border-radius:4px 4px 0 0;
-        padding-right:355px;
+        padding-right:320px;
         // 右侧推荐区
         .recommend {
-            width:300px;
+            width:280px;
             // border:1px solid #f7f7f7;
             position:absolute;
             right:12px;

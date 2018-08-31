@@ -1,29 +1,33 @@
 <template>
 <div class="show" v-loading="loading">
+    <NavMain></NavMain>
     <div class="m-header">
-        <div class="photo">
-            <!-- <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
-            <Avatar :src="userInfo.avatar" :uid="''"  round=""></Avatar>
-        </div>
-        <div class="m-info">
-            <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
-            <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px">{{userInfo.profile?userInfo.profile:''}}</div>
-            <div class="follow-ctrl" style="position:relative;top:-3px">
-                <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
-                <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
-                    <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
-                </el-button>-->
-                <!-- <span class="c1" v-if="!userInfo.isFollow&&!loading1" @click="followUser('1')"><i class="el-icon-plus"></i> 关注Ta</span>
-                <span class="c2" v-if="userInfo.isFollow&&!loading1" @click="followUser('0')">已关注</span>
-                <span class="c3" v-if="loading1"><i class="el-icon-loading"></i></span> -->
-                <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
-                <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else> 
-                    <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
-                </el-button>-->
-                        
-                <!-- 关注按钮 -->
-                <followBtn :isFollow="userInfo.isFollow" :uuid="this.uid" v-if="userInfo"></followBtn>
-                
+        <div class="m-header-inner">
+            <div class="photo">
+                <!-- <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
+                <Avatar :src="userInfo.avatar" :uid="''" size="big-x" round="" class="big-photo"></Avatar>
+                <Avatar :src="userInfo.avatar" :uid="''" size="" round="" class="small-photo"></Avatar>
+            </div>
+            <div class="m-info">
+                <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
+                <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px;max-width:370px;width:92%;">{{userInfo.profile?userInfo.profile:''}}</div>
+                <div class="follow-ctrl" style="">
+                    <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
+                    <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
+                        <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
+                    </el-button>-->
+                    <!-- <span class="c1" v-if="!userInfo.isFollow&&!loading1" @click="followUser('1')"><i class="el-icon-plus"></i> 关注Ta</span>
+                    <span class="c2" v-if="userInfo.isFollow&&!loading1" @click="followUser('0')">已关注</span>
+                    <span class="c3" v-if="loading1"><i class="el-icon-loading"></i></span> -->
+                    <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
+                    <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else> 
+                        <span><i class="el-icon-remove-outline" style="margin:0 -1px 0 -2px"></i> 已关注</span> 
+                    </el-button>-->
+                            
+                    <!-- 关注按钮 -->
+                    <followBtn :isFollow="userInfo.isFollow" :uuid="this.uid" v-if="userInfo"></followBtn>
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -31,7 +35,7 @@
         <div class="m-body">
             <div class="m-content" v-if="userInfo.r_name">
                 <div class="m-tabs">
-                    <div :class="typeActive==='info'?'active':''" @click="typeActive='info'">基本信息</div>
+                    <div :class="typeActive==='info'?'active':''" @click="typeActive='info'">个人信息</div>
                     <div :class="typeActive==='publish'?'active':''" @click="typeActive='publish'">Ta的发表</div>
                     <div style="flex:1"></div>
                 </div>
@@ -55,6 +59,7 @@
 import Info from './show_info'
 import Publish from './show_publish'
 import followBtn from '@/components/common/follow_btn'
+import NavMain from '@/components/common/nav_main'
 export default {
     data(){
         return {
@@ -65,7 +70,7 @@ export default {
         }
     },
     components:{
-        Info,Publish,followBtn
+        Info,Publish,followBtn,NavMain
     },
     watch:{
         'typeActive':function(){
@@ -104,51 +109,53 @@ export default {
 </script>
 <style lang="less">
 .show {
-    max-width:1100px;
-    margin:0px auto;
-    position: relative;
-    padding-right:332px;
-    padding-top:210px;
-    // display:flex;
     .m-header {
-        height:195px;
-        padding-top:85px;
+        padding-top:55px;
         background:url('/static/img/my_bg.jpg') no-repeat;
         background-size:cover;
         position: relative;
-        margin-bottom:8px;
-        position: absolute;
+        margin-bottom:5px;
         top:0px;
         left:0px;
         width:100%;
+        &:after {
+            content:"";
+            display:block;
+            position:absolute;
+            bottom:0px;
+            left:0px;
+            width:100%;
+            height:102px;
+            background-color: rgba(255,255,255,.8);
+        }
+        .m-header-inner {
+            max-width: 970px;
+            margin:0 auto;
+            position: relative;
+            display:flex;
+            align-items: flex-end;
+            padding-bottom:10px;
+            z-index: 1;
+        }
         .photo {
-            // width:100px;
-            // height:100px;
-            position: absolute;
-            bottom:15px;
-            left:25px;
             background-color: #ccc;
             border:1px solid #aaa;
             box-shadow: 0 0 12px #70a9e5 inset;
             border-radius:4px;
-        }
-        .edit-info,.edit-photo {
-            position: absolute;
-            right:2%;
-            top:98px;
-        }
-        .edit-photo {
-            top:20px;
+            .small-photo {
+                display:none
+            }
         }
         .m-info {
-            background: rgba(255,255,255,.8);
             height:100%;
-            padding-left:150px;
-            padding-top:12px;
+            padding-left:2.2vw;
+            width:100%;
+            white-space:normal; word-break:break-all;
+            min
             span.r-name {
-                // font-size:15px;
                 font-weight:700;
                 margin-bottom:7px;
+                font-size:16px;
             }
             span.sex {
                 color:#555;
@@ -161,6 +168,8 @@ export default {
             }
             .follow-ctrl {
                 font-size:14px;
+                position:relative;
+                top:0px;
                 &>span {
                     text-align:center;
                     display:inline-block;
@@ -183,7 +192,8 @@ export default {
         }
     }
     .main-box {
-        margin-bottom:12px;
+        margin:0 auto 12px;
+        max-width:970px;
         width:100%;
         .m-body {
             min-height:300px;
@@ -204,21 +214,26 @@ export default {
             }
 
             .m-content {
+                border:1px solid #f0f3ef;
                 .m-tabs {
                     display:flex;
                     // border-bottom:1px solid #eee;
                     &>div {
-                        padding:10px 15px;
+                        padding:15px 15px;
                         text-align: center;
-                        border:1px solid #eee;
+                        border-bottom:1px solid #eee;
                         border-right:1px solid transparent;
                         cursor:pointer;
                         background-color: #fbfbfb;
                     }
+                    &>div:last-child {
+                        cursor:default;
+                    }
                     &>div.active {
-                        border-bottom:1px solid transparent;
+                        cursor:default;
+                        // border-bottom:1px solid transparent;
                         color:#496ea3;
-                        background-color: transparent;
+                        // background-color: transparent;
                     }
                 }
                 // padding:12px;
@@ -238,7 +253,7 @@ export default {
         top: 170px;
         .aside-items {
             width:100%;
-            min-height:150;
+            min-height:150px;
             background-color: #fff;
             padding:2.5%;
             margin:0 0 10px;
@@ -263,6 +278,12 @@ export default {
 
         // margin:0 auto;
     }
+    @media screen and (max-width:992px){
+        .m-header .m-header-inner {
+            padding-left: 12px;
+            padding-right: 5px;
+        }
+    }
     @media screen and (max-width:768px){
         padding-right:0;
         .aside-box {
@@ -273,22 +294,29 @@ export default {
     }
     @media screen and (max-width:525px){
         .m-header {
+            padding-top:70px;
             .photo {
                 // width:85px;
                 // height:85px;
                 // left:15px;
                 // bottom:10px;
                 // img {
+                //     width:100%;
+                //     height:100%;
                 // }
-            }
-            .edit-info {
-                top:90px;
-            }
-            .edit-photo {
-                top:15px;
+                .big-photo {
+                    display:none
+                }
+                .small-photo {
+                    display:block;
+                }
             }
             .m-info {
-                // padding-left:112px ;
+                // padding-left:115px ;
+
+                .follow-ctrl {
+                    // top:5px;
+                }
                 span.r-name {
                 }
                 span.sex {

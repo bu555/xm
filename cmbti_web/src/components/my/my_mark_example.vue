@@ -1,17 +1,6 @@
 <template>
   <div class="my-test">
     <div class="content">
-        <!-- <div class="items i1">
-            <div class="">名字</div>
-            <div class="">投票结果</div>
-            <div class=""></div>
-        </div>
-        <div class="items i2" v-for="(v,i) in data" :key="i">
-            <router-link :to="'/example/'+v.eid">
-                <div class="overflow-row-1">{{v.name+v.name1}}</div>
-                <div class="overflow-row-1">{{v.type&&v.type.toUpperCase()}}</div>
-            </router-link>
-        </div> -->
 
         <div class="item" v-for="(v,i) in data" :key="i">
            <div class="photo">
@@ -113,7 +102,7 @@ export default {
          border-radius:1px;
        }
        ul.info {
-         width:152px;
+         width:210px;
          height:82px;
          font-size:12px;
          padding-left:7px;
@@ -121,43 +110,6 @@ export default {
 
          }
        }
-    }
-  }
-  .items.i1,.items.i2>a {
-      display:flex;
-      align-items:center;
-      border-bottom:1px solid #f8f8f8;
-      width:100%;
-      color:#444;
-      text-align:left;
-      &>div {
-        flex:0 0 30%;
-        padding:5px 5px;
-        a {
-          padding:3px 0;
-          color:#598dd5;
-          &:hover {
-            color:#456ea5;
-          }
-        }
-        // &:last-child,&:nth-of-type(4) {
-        //   margin-right:2%;
-        //   flex:0 0 70px;
-        // }
-      }
-  }
-      .date-pc {
-          display:block;
-      }
-      .date-mob {
-          display:none;
-      }
-    .items.i2:hover {
-      background-color: #fafafa;
-    }
-  .items.i1 {
-    &>div {
-      font-weight:700;
     }
   }
   .load-more {
@@ -173,35 +125,19 @@ export default {
   }
   @media screen and (max-width:768px) {
 
+    .content {
+      flex-wrap:wrap;
+      .item {
+        width:100%;
+        ul.info {
+          width:100%;
+        }
+      }
+    }
   }
   
   @media screen and (max-width:525px) {
     .content {
-      flex-wrap:wrap;
-      .item ul.info {
-        width:100%;
-      }
-    }
-    .items.i1,.items.i2>a {
-      &>div {
-        flex:0 0 33%;
-      }
-    }
-    .content {
-      font-size:14px;
-        .age{
-          display:none;
-        }
-        .date-pc {
-           display:none;
-        }
-        .date-mob {
-           display:block;
-        }
-        .show-link {
-          padding-right:0;
-          flex:0 0 65px;
-        }
     }
   }
 }

@@ -356,7 +356,7 @@ class Article {
         return new Promise((resolve,reject)=>{
             let proArr =  []
             options.aid.forEach((v,i)=>{
-                proArr.push(ArticleModel.article.findOne({"_id":v}))
+                proArr.push(ArticleModel.article.findOne({"_id":v},"-like"))
             }) 
             Promise.all(proArr).then(result=>{
                 if(result){

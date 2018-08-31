@@ -60,10 +60,13 @@ export default {
         &>span.c1 {
             background-color: #409eff;
             color:#fff;
+
+
         }
         &>span.c2 {
             background-color: #acacac;
             color:#fff;
+
         }
         @media screen and (max-width:768px){
                 font-size:14px;

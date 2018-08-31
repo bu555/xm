@@ -20,6 +20,7 @@ import type_details from '@/components/personalities/type_details'
 // mbti
 import mbti from '@/components/mbti/mbti'
 import mbti_theory from '@/components/mbti/mbti_theory'
+import mbti_function from '@/components/mbti/mbti_function'
 
 // test
 import test from '@/components/test/test'
@@ -96,6 +97,7 @@ const vueRouter = new Router({
       component:mbti,
       children:[
         {path:'theory',component:mbti_theory},
+        {path:'function/:id',component:mbti_function},
       ]
       
     },
@@ -211,17 +213,17 @@ vueRouter.beforeEach((to, from, next) => {
      next()
   }
 
-
-
-
-
-
   // next();
   // if (to.name === 'accountSet') {
     
   // }
   // next()
 })
+vueRouter.afterEach((to,from,next)=>{
+    window.scrollTo(0,0)
+})
+
+
 // 登录状态管理逻辑：
 // 1.session时间短（如：10分钟）：localStorage存储状态+时间，路由拦截时核对
 // 2.session时间长（如：一个月）：localStorage存储状态，路由拦截时核对
