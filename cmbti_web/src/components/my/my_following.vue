@@ -1,7 +1,7 @@
 <template>
   <div class="my-following" v-loading="loading">
     <div class="content">
-      <div class="items" v-for="(v,i) in data" :key="i">
+      <div  v-if="data&&(data instanceof Array)&&data.length>0"  class="items" v-for="(v,i) in data" :key="i">
         <!-- <router-link :to="'/info/'+v._id">
             <div class="avatar">
               <img :src="v.avatar?$pathAvatar+v.avatar:'/static/img/logo_a.png'" alt="">
@@ -21,6 +21,7 @@
         <!--<el-button type="default" plain size="small"  style="padding:7px 7px;font-size:13px" @click="followUser('0',i,v._id)"><i class="el-icon-remove icon-remove" style="font-size:14px;"></i> 移除TA</el-button>
         <el-button type="default" plain size="small"  style="padding:7px 7px;font-size:13px"></i> 移除TA</el-button>-->
       </div>
+      <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==size">
       或许还有更多...
@@ -33,7 +34,7 @@ export default {
     data(){
       return {
         loading:false,
-        data:[],
+        data:null,
         size:4,
         page:1,
         currentData:[]
@@ -46,6 +47,9 @@ export default {
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))
+                    if(!this.data){
+                      this.data = []
+                    }
                     this.data = this.data.concat(d)   //  res.data.data
                     this.currentData = res.data.data
                 }
@@ -66,10 +70,9 @@ export default {
 </script>
 <style lang="less">
 .my-following {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
-  min-height:250px;
+    margin-bottom:18px;
+    padding:0 15px;
+    min-height:250px;
   .content {
 
   }

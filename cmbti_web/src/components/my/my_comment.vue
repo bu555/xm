@@ -9,50 +9,44 @@
     </div> -->
     <div class="c-tabs">
       <!--<div style="padding-right:0">分类：</div>-->
-      <!-- <div :class="typeActive==='aid'?'active':''" @click="typeActive='aid'">文档</div>
-      <div :class="typeActive==='eid'?'active':''" @click="typeActive='eid'">名人</div> -->
-      <SwitchComp @getKey="(key)=>typeActive=key " :active="tabList[0]" :list="tabList"></SwitchComp>
+      <div :class="typeActive==='aid'?'active art':''" @click="typeActive='aid'">文档</div>
+      <div >/</div>
+      <div :class="typeActive==='eid'?'active exa':''" @click="typeActive='eid'">名人</div>
+      <!-- <SwitchComp @getKey="(key)=>typeActive=key " :active="tabList[0]" :list="tabList"></SwitchComp> -->
     </div>
     <div class="c-main">
         <div class="content" v-if="listOk">
           <div v-if="typeActive==='aid'">
               <div class="aid-comment"  v-for="(v,i) in dataA" :key="i">
                     <div class="h5 overflow-row-1">
-                      <div class="h5-icon">文档</div><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'mycomment'}"><span>{{v.title}}</span></router-link>
+                      <em class="art">文章</em><router-link :to="{path:'/forum/'+v.aid,query:{index:i},hash:'mycomment'}"><span>{{v.title}}</span></router-link>
                     </div>
-                    
-                    <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
-                    <div class="items" v-for="(v,i) in v.comment" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
-                      <!--<div class="my-type share">分享</div>-->
-                      <!--<div class="my-type ask">问答</div>-->
-                      <!--<div class="my-type good">精华</div>-->
+                    <div class="items"  v-if="i1<3" v-for="(v1,i1) in v.comment" :key="i1" >
                       <router-link to="">
-                            <span> <i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
+                            <span class="overflow-row-1-x"> <i class="art"></i> {{v1.content}}</span>
                       </router-link>
-                      <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+                      <div class="time">{{$moment(v1.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
                     </div>
+                    <div class="p-more" v-if="v.comment.length>=3" >.......</div>
               </div>
           </div>
           <div v-if="typeActive==='eid'">
               <div class="eid-comment"   v-for="(v,i) in dataE" :key="i" :style="i==0?'border-top:1px solid #f8f8f8':''">
                     <router-link to="">
                     <div class="h5  overflow-row-1">
-                      <div class="h5-icon">名人</div><router-link :to="'/example/'+v.eid"><span>{{v.title}}</span></router-link>
+                       <em class="exa">名人</em><router-link :to="'/example/'+v.eid"><span>{{v.title}}</span></router-link>
                     </div>
                     </router-link>
-                    <p class="p-more" v-if="(v.comment instanceof Array) && v.comment.length>3" @click="showAll($event)">更多.......</p>
-                    <div class="items" v-for="(v,i) in v.comment" :key="i">
-                      <!--<div class="my-type share">分享</div>-->
-                      <!--<div class="my-type ask">问答</div>-->
-                      <!--<div class="my-type good">精华</div>-->
-                      <router-link to="">
-                            <span><i class="fa fa-commenting" style="color:#ddd"></i> {{v.content}}</span>
-                      </router-link>
-                      <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+                    <div class="items"  v-if="i1<3" v-for="(v1,i1) in v.comment" :key="i1">
+                        <router-link to="">
+                                <span class="overflow-row-1-x"><i class="exa"></i> {{v1.content}}</span>
+                        </router-link>
+                        <div class="time">{{$moment(v1.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
                     </div>
+                    <div class="p-more" v-if="v.comment.length>=3" >.......</div>
               </div>
           </div>
-          <p v-if="empty" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
+        <p class="show-empty-data" v-if="empty" >暂无数据哦("▔□▔)</p>
         </div>
         <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
           或许还有更多...
@@ -61,7 +55,7 @@
   </div>
 </template>
 <script>
-import SwitchComp from '../common/switch'
+// import SwitchComp from '../common/switch'
 export default {
     data(){
       return {
@@ -90,7 +84,7 @@ export default {
       }
     },
     components:{
-      SwitchComp
+    //   SwitchComp
     },
     watch:{
         'typeActive':function(){
@@ -104,10 +98,6 @@ export default {
         }
     },
     methods:{
-        showAll(e){
-            e.target.parentNode.style.maxHeight="99999px"
-            e.target.style.display = 'none'
-        },
         getMyCommentList(){
             this.$axios.getCommentList({}).then(res=>{
                 this.loading = false
@@ -213,32 +203,30 @@ export default {
 </script>
 <style lang="less">
 .my-comment-a {
+    width:100%;
+    margin-bottom:18px;
+    padding:0 15px;
   .c-tabs {
     display:flex;
-    padding:10px;
-    padding-left:4%;
-    margin-bottom:4px;
-    background: #96a3ae;
+    padding:10px 0;
     &>div {
-      // font-size:16px;
-      // padding:10px 7px 0px;
-      // color:#aaa;
-      // font-weight:700;
-      // margin-right:10px;
-      // cursor:pointer;
-      // &:hover {
-      //   color:#70a9e5;
-      // }
+      font-size:15px;
+      padding:5px 0px 0px;
+      color:#aaa;
+      margin-right:10px;
+      cursor:pointer;
     }
-    &>div.active {
-      border-bottom:2px solid #70a9e5;
-      color:#70a9e5;
+    &>div.active.art {
+      color:#488842;
+      font-weight:600;
+    }
+    &>div.active.exa {
+      color:#4c9bd2;
+      font-weight:600;
     }
 
   }
   .c-main {
-    padding:4%;
-    padding-top:12px;
     padding-bottom:22px;
   }
   .aid-comment,.eid-comment {
@@ -248,86 +236,54 @@ export default {
     overflow: hidden;
     position: relative;
      .h5 {
-       font-size:15px;
-       line-height:25px;
-       height:25px;
+       font-size:14px;
        padding-top:2px;
-       margin:5px 0;
-       font-weight:700;
+       margin:2px 0;
+       em {
+           font-size:12px;
+           color:#fff;
+           padding:0px 2px;
+           border-radius:3px;
+           margin-right:3px;
+       }
+       em.art {
+           background-color: #488842;
+       }
+       em.exa {
+           background-color: #4c9bd2;
+       }
        &>a:hover {
          color:#496ea3
        }
-       .h5-icon {
-          height:18px;
-          line-height: 18px;
-          font-weight:400;
-          font-size:12px;
-          padding:0 3px;
-          text-align:center;
-          border-radius:3px;
-          display:inline-block;
-          margin-right:5px;
-          border:1px solid #ddd;
-          color:#ddd;
-          white-space: nowrap;
-       }
-     }
-     .p-more {
-       position: absolute;
-       bottom:2px;
-       left:0;
-       width:100%;
-       font-size:14px;
-       height: 25px;
-       line-height: 25px;
-       background-color: #fdfdfd;
-       padding-left:5%;
-       padding-top: 1px;
-       color:#c5c5d0;
-       cursor: pointer;
      }
   }
   .content {
 
   }
-  .items {
+  .items, {
       display:flex;
       align-items:center;
-      border-bottom:1px solid #fafafa;
+    //   border-bottom:1px solid #fafafa;
       width:100%;
-      .my-type {
-        font-size:12px;
-        padding:1px 2px;
-        text-align:center;
-        border-radius:3px;
-        margin-right:5px;
-        border:1px solid #c1c1c1;
-        color:#c1c1c1;
-        white-space: nowrap;
-      }
-      .my-type.share {
-        // background-color: #feae4b;
-      }
-      .my-type.good {
-        background-color: #feae4b;
-        color:#fff;
-        border:1px solid #feae4b;
-      }
       &>a {
         flex:1;
         padding:0 ;
-        height:24px;
-        line-height:24px;
-        padding-left:3%;
+        height:16px;
+        line-height:16px;
         font-size:14px;
         overflow: hidden;
-        color:#555;
+        color:#333;
         span {
-          width:100%;
-          display:block;
-          overflow: hidden;
-          text-overflow:ellipsis;
-          white-space: nowrap;
+            font-size:13px;
+            color:#ddd;
+            i {
+                display:inline-block;
+                border-radius:50%;
+                width:4px;
+                height:4px;
+                margin-left:2px;
+                background:#ddd;
+            }
         }
         // &:hover {
         //   color:#496ea3
@@ -335,8 +291,14 @@ export default {
       }
       .time {
         color:#c5c5c5;
-        font-size:13px;
+        font-size:12px;
+        margin-left:5px;
       }
+  }
+  .p-more {
+      color:#ccc;
+      line-height: 9px;
+      padding-left:10px;
   }
   .load-more {
     max-width:365px;
@@ -354,7 +316,7 @@ export default {
     // padding:0px 0px 10px;
     .items {
         .time {
-          flex:0 0 68px;
+          flex:0 0 63px;
           overflow:hidden;
           white-space:nowrap;
           // margin:0 4px;

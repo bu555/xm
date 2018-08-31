@@ -1,23 +1,24 @@
 <template>
   <div class="my-publish" v-loading="loading">
     <div class="content">
-      <div class="items" v-for="(v,i) in data" :key="i">
-          <!-- <div class="my-type share" v-if="v.category==='share'">分享</div>
-          <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
-          <div class="my-type good" v-if="v.good">精华</div> -->
-          <div class="overflow-row-2">
-              <router-link :to="'/forum/'+v._id">
-                    {{v.title}}
-              </router-link>
-          </div>
-          <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
-          <div class="i-ctrl">
-              <!--编辑-->
-              <i class="el-icon-edit-outline edit" @click="articleHandle('edit',v._id)"><em>编辑</em></i>
-              <!--删除-->
-              <i class="el-icon-delete del"  style="margin-left:5%" @click="articleHandle('del',v._id)"><em>删除</em></i>
-          </div>
-      </div>
+        <div  v-if="data&&(data instanceof Array)&&data.length>0" class="items" v-for="(v,i) in data" :key="i">
+            <!-- <div class="my-type share" v-if="v.category==='share'">分享</div>
+            <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
+            <div class="my-type good" v-if="v.good">精华</div> -->
+            <div class="overflow-row-2">
+                <router-link :to="'/forum/'+v._id">
+                      {{v.title}}
+                </router-link>
+            </div>
+            <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
+            <div class="i-ctrl">
+                <!--编辑-->
+                <i class="el-icon-edit-outline edit" @click="articleHandle('edit',v._id)"><em>编辑</em></i>
+                <!--删除-->
+                <i class="el-icon-delete del"  style="margin-left:5%" @click="articleHandle('del',v._id)"><em>删除</em></i>
+            </div>
+        </div>
+        <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==size">
       或许还有更多...
@@ -29,7 +30,7 @@ export default {
    data(){
       return {
         loading:false,
-        data:[],
+        data:null,
         size:4,
         page:1,
         currentData:[]
@@ -42,6 +43,9 @@ export default {
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))
+                    if(!this.data){
+                      this.data = []
+                    }
                     this.data = this.data.concat(d)   //  res.data.data
                     this.currentData = res.data.data
                 }
@@ -93,10 +97,8 @@ export default {
 </script>
 <style lang="less">
 .my-publish {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
-
+  margin-bottom:18px;
+  padding:0 15px;
   .content {
 
   }

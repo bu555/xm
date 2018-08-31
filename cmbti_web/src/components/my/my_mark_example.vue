@@ -1,24 +1,21 @@
 <template>
-  <div class="my-test">
+  <div class="my-mark-exa">
     <div class="content">
 
-        <div class="item" v-for="(v,i) in data" :key="i">
+        <div  v-if="data&&(data instanceof Array)&&data.length>0" class="item" v-for="(v,i) in data" :key="i">
            <div class="photo">
               <router-link :to="'/example/'+v.eid">
                   <img :src="$pathImgs+v.img_url" alt="">
               </router-link>
            </div>
            <ul class="info">
-              <li class="overflow-row-1">名字：{{v.name+v.name1}}</li>
-              <li class="overflow-row-1">类型：{{v.type&&v.type.toUpperCase()}}</li>
-              <li class="overflow-row-1">人气：{{v.total}}</li>
+              <li class="overflow-row-1-x">名字：{{v.name+v.name1}}</li>
+              <li class="overflow-row-1-x">类型：{{v.type&&v.type.toUpperCase()}}</li>
+              <li class="overflow-row-1-x">人气：{{v.total}}</li>
               <li class="overflow-row-2">简介：{{v.info}}</li>
            </ul>
         </div>
-
-
-
-        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
+        <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       或许还有更多...
@@ -29,7 +26,7 @@
 export default {
     data(){
       return {
-        data:[],
+        data:null,
         loading:false,
         currentData:'',
         pageSize:3,
@@ -43,6 +40,9 @@ export default {
             this.$axios.getMyMarkExample({size:this.pageSize,page:this.page}).then(res=>{
                 this.loading = false
                 if(res.data.success){
+                    if(!this.data){
+                      this.data = []
+                    }
                     this.data = this.data.concat(res.data.data) 
                     this.currentData = res.data.data
                 }
@@ -62,29 +62,17 @@ export default {
 }
 </script>
 <style lang="less">
-.my-test {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
+.my-mark-exa {
+  margin-bottom:18px;
+  padding:0 15px;
 
   .content {
     font-size:15px;
     display:flex;
-    // .age {
-    //   padding-left:22px;
-    // }
-    // &>div>div {
-    //   display:block;
-    //   overflow: hidden;
-    //   text-overflow:ellipsis;
-    //   white-space: nowrap; 
-    // }
-    // .show-link {
-    //   text-align:right;
-    //   padding-right:20px;
-    // }
-    
+    justify-content: space-between;
+    flex-wrap:wrap;
     .item {
+        flex:0 0 47.5%;
         display:flex;
         margin:4px 5px;
         background-color: #fafafa;
@@ -102,7 +90,7 @@ export default {
          border-radius:1px;
        }
        ul.info {
-         width:210px;
+        //  width:210px;
          height:82px;
          font-size:12px;
          padding-left:7px;
@@ -125,19 +113,13 @@ export default {
   }
   @media screen and (max-width:768px) {
 
-    .content {
-      flex-wrap:wrap;
-      .item {
-        width:100%;
-        ul.info {
-          width:100%;
-        }
-      }
-    }
   }
   
   @media screen and (max-width:525px) {
     .content {
+      .item {
+          flex:100%;
+      }
     }
   }
 }

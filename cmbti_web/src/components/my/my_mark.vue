@@ -1,13 +1,14 @@
 <template>
   <div class="my-like" v-loading="loading">
     <div class="content">
-      <div class="items overflow-row-2" v-for="(v,i) in data" :key="i">
+      <div v-if="data&&(data instanceof Array)&&data.length>0" class="items overflow-row-2" v-for="(v,i) in data" :key="i">
         <!-- <div class="my-type">文档</div> -->
         <i class="fa fa-book"></i>
         <router-link :to="'/forum/'+v._id" class="">
               {{v.title}}
         </router-link>
       </div>
+      <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==size">
       或许还有更多...
@@ -19,7 +20,7 @@ export default {
     data(){
       return {
         loading:false,
-        data:[],
+        data:null,
         myList:'',
         size:4,
         page:1,
@@ -33,6 +34,9 @@ export default {
                 this.loading = false
                 if(res.data.success){
                     let d = JSON.parse(JSON.stringify(res.data.data))
+                    if(!this.data){
+                      this.data = []
+                    }
                     this.data = this.data.concat(d)   //  res.data.data
                     this.currentData = res.data.data
                 }
@@ -53,16 +57,14 @@ export default {
 </script>
 <style lang="less">
 .my-like {
-  padding:15px;
-  padding-top:12px;
-  padding-bottom:22px;
+  margin-bottom:18px;
+  padding:0 15px;
   .content {
 
   }
   .items {
-    border-bottom:1px solid #fafafa;
-    margin-bottom:4px;
-    padding-bottom:2px;
+    // border-bottom:1px solid #fafafa;
+    padding: 5px 0;
     padding-left:17px;
     position: relative;
     &>i {
@@ -70,7 +72,7 @@ export default {
       color:#ccc;
       position:absolute;
       left:0px;
-      top:6px;
+      top:11px;
     }
     &>a {
       // height:20px;

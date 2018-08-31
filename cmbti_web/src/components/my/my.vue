@@ -19,14 +19,18 @@
             </div>
         </div>
     </div>
-    <div class="main-box">
+    <div class="main-box min-768">
+        <Home></Home>
+        <router-view></router-view>
+    </div>
+    <div class="main-box max-768">
         <div class="m-body">
             <div class="m-content" ref="mContent">
-                <div>
+                <div class="">
                     <Home></Home>
                 </div>
                 <div>
-                    <div class="m-title" style="padding:18px 4% 12px;margin-bottom:0px;border-bottom:1px solid #f0f3ef">
+                    <div class="m-title" style="padding:18px 4% 12px;margin-bottom:10px;border-bottom:1px solid #f0f3ef">
                         <!-- <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="$delayPush('/my')"></i>  -->
                         <i class="el-icon-back" style="font-size:17px;margin-left:0px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="delayPush()"></i> 
                         <span style="padding:0 10px 0 2px;color:#ddd">|</span>

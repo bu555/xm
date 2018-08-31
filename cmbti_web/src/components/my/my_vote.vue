@@ -1,5 +1,5 @@
 <template>
-  <div class="my-test">
+  <div class="my-vote">
     <div class="content">
 
         <div class="item" v-for="(v,i) in data" :key="i">
@@ -9,10 +9,10 @@
               </router-link>
            </div>
            <ul class="info">
-              <li class="overflow-row-1">投票类型：{{v.result&&v.result.toUpperCase()}}</li>
-              <li class="overflow-row-1">投票日期：{{$moment(v.c_time).format("YYYY-MM-DD HH:mm")}}</li>
-              <li class="overflow-row-1">名字：{{v.name+v.name1}}</li>
-              <li class="overflow-row-1">最高票类型：{{v.type.toUpperCase()}}</li>
+              <li class="overflow-row-1-x">投票类型：<em>{{v.result&&v.result.toUpperCase()}}</em></li>
+              <li class="overflow-row-1-x">投票日期：{{$moment(v.c_time).format("YYYY-MM-DD HH:mm")}}</li>
+              <li class="overflow-row-1-x">名字：{{v.name+v.name1}}</li>
+              <li class="overflow-row-1-x">最高票类型：<em>{{v.type.toUpperCase()}}</em></li>
               <!-- <li class="overflow-row-2">简介：{{v.info}}</li> -->
            </ul>
         </div>
@@ -63,14 +63,13 @@ export default {
 }
 </script>
 <style lang="less">
-.my-test {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
-
+.my-vote {
+  margin-bottom:18px;
+  padding:0 15px;
   .content {
     font-size:15px;
     .item {
+        width:100%;
         display:flex;
         margin:4px 5px;
         background-color: #fafafa;
@@ -82,18 +81,25 @@ export default {
         }
        .photo img {
          display:block;
-         width:68px;
-         height:82px;
+         width:63px;
+         height:74px;
          object-fit: cover;
          border-radius:1px;
        }
        ul.info {
-         width:210px;
-         height:82px;
+         flex:1;
+        //  width:350px;
+         height:74px;
          font-size:12px;
-         padding-left:7px;
+         padding-left:5px;
          li{
-
+           margin-bottom:3px;
+           em {
+             padding:0px 3px;
+             background-color: #c7e188;
+             border-radius:2px;
+             color:#fff;
+           }
          }
        }
     }
@@ -113,13 +119,13 @@ export default {
     }
   }
   
-  @media screen and (max-width:768px) {
+  @media screen and (max-width:500px) {
     .content {
       flex-wrap:wrap;
       .item  {
-        width:100%;
         ul.info {
-          width:100%;
+          // flex:0 0 197px;
+          // width:197px;
         }
       }
     }

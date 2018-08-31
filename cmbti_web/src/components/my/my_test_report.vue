@@ -27,10 +27,8 @@ export default {
 </script>
 <style lang="less">
 .my-test {
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
-
+  margin-bottom:18px;
+  padding:0 15px;
   .content {
     font-size:15px;
   }

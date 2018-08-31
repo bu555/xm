@@ -1,34 +1,34 @@
 <template>
   <div class="my-home">
         <div class="m-tab-b">
-            <div><router-link to="/my/info">
+            <div :class="path.indexOf('/my/info')>-1?'active':''"><router-link to="/my/info">
                     <i class="fa fa-user-o"></i> 个人档案
                 </router-link></div>
-            <div><router-link to="/my/followers">
+            <div :class="path.indexOf('/my/followers')>-1?'active':''"><router-link to="/my/followers">
                     <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 我关注<span>({{accountInfo.followers}})</span>
                 </router-link></div>
-            <div><router-link to="/my/following">
+            <div :class="path.indexOf('/my/following')>-1?'active':''"><router-link to="/my/following">
                     <i class="fa fa-plus-square-o "></i> 关注我<span>(2)</span>
                 </router-link></div>
-            <div><router-link to="/my/mark">
+            <div :class="path.indexOf('/my/mark')>-1?'active':''"><router-link to="/my/mark">
                     <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 文章收藏<span>({{accountInfo.following}})</span>
                 </router-link></div>
-            <div><router-link to="/my/mark_example">
+            <div :class="path.indexOf('/my/mark_example')>-1?'active':''"><router-link to="/my/mark_example">
                     <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 人物关注<span>({{accountInfo.following}})</span>
                 </router-link></div>
-            <div><router-link to="/my/test">
+            <div :class="path.indexOf('/my/test')>-1?'active':''"><router-link to="/my/test">
                     <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试<span>({{accountInfo.test_record}})</span>
                 </router-link></div>
-            <div><router-link to="/my/publish">
+            <div :class="path.indexOf('/my/publish')>-1?'active':''"><router-link to="/my/publish">
                     <i class="fa el-icon-edit"></i> 发表<span>({{accountInfo.my_article}})</span>
                 </router-link></div>
-            <div><router-link to="/my/comment">
+            <div :class="path.indexOf('/my/comment')>-1?'active':''"><router-link to="/my/comment">
                     <i class="fa fa-edit"></i> 评论参与<span>({{accountInfo.my_comment}})</span>
                 </router-link></div>
-            <div><router-link to="/my/vote">
+            <div :class="path.indexOf('/my/vote')>-1?'active':''"><router-link to="/my/vote">
                     <i class="fa fa-hand-paper-o"></i> 投票参与<span>({{accountInfo.vote_example}})</span>
                 </router-link></div>
-            <div><router-link to="">
+            <div :class="path.indexOf('/my/message')>-1?'active':''"><router-link to="/my/message">
                     <i class="fa fa-envelope-o"></i> 消息<span>({{accountInfo.my_message}})</span>
                 </router-link></div>
             <!--<div><router-link to="">
@@ -54,6 +54,11 @@ export default {
                 vote_example:0,
           }
       }
+    },
+    computed:{
+        path(){
+            return this.$route.path
+        }
     },
     methods:{
         getAccount(){
@@ -81,12 +86,13 @@ export default {
         padding:3px 0 70px;
         
         a {
+            color:#444;
             display:block;
             padding:10px 15px;
             padding-left:7%;
             border-bottom:1px solid #f7f7f7;
+            font-size:15px;
             &:hover {
-                background-color: #fafafa;
             }
             &:visited {
                 text-decoration: none;
@@ -102,10 +108,53 @@ export default {
         }
 
     }
-  
   @media screen and (max-width:525px) {
     padding:0px 0px 10px;
   }
+
+// 大于768适配
+  @media screen and (min-width:769px){
+    .m-tab-b {
+        max-width:970px;
+        margin:0 auto;
+        display:flex;
+        padding:3px 0 10px;
+        &>div {
+            // flex:1;
+            white-space:nowrap;
+        }
+        &>div.active a {
+                color:#25959c;
+        }
+        
+        a {
+            display:block;
+            padding:10px 15px;
+            padding-left:7%;
+            border-bottom:1px solid #f7f7f7;
+            &:hover {
+                color:#25959c;
+            }
+            &:visited {
+                text-decoration: none;
+            }
+            &:link {
+                text-decoration: none;
+            }
+            span {
+                display:none;
+            }
+            i {
+                display:none;
+            }
+        }
+
+    }
+  }
+
+
+
+
 }
 </style>
 

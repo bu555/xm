@@ -187,10 +187,9 @@ export default {
 </script>
 <style lang="less">
 .my-info {
-  // max-width:370px;
-  padding:4%;
-  padding-top:12px;
-  padding-bottom:22px;
+  padding-left:15px;
+  margin-bottom:18px;
+  padding:0 15px;
   .name-form {
         position:relative;
         i {
