@@ -13,9 +13,9 @@
             <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
             <div class="i-ctrl">
                 <!--编辑-->
-                <i class="el-icon-edit-outline edit" @click="articleHandle('edit',v._id)"><em>编辑</em></i>
+                <i class="fa fa-pencil-square-o  edit" @click="articleHandle('edit',v._id)"><em>编辑</em></i>
                 <!--删除-->
-                <i class="el-icon-delete del"  style="margin-left:5%" @click="articleHandle('del',v._id)"><em>删除</em></i>
+                <i class="fa fa-trash-o del"  style="margin-left:5%" @click="articleHandle('del',v._id)"><em>删除</em></i>
             </div>
         </div>
         <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
@@ -91,14 +91,15 @@ export default {
     },
     created(){
         this.getArticle()
-        this.$store.state.myTabName = '发表'
+        this.$store.state.myTabName = '文章发表'
     }
 }
 </script>
 <style lang="less">
 .my-publish {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
+    min-height:270px;
   .content {
 
   }

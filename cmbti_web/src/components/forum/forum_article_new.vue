@@ -5,7 +5,7 @@
     <div class="title">
         <!--<i class="icon iconfont icon-brush" style="font-size:22px"></i>-->
         <div>
-            <font class="nav-title">M论坛</font>
+            <font class="nav-title">论坛</font>
             <font class="point">·</font>
             <font  v-if="aid">编辑文档</font>
             <font v-else>创建文档</font>
@@ -347,7 +347,7 @@ export default {
     }
     @media screen and (max-width:768px){
         .main-box {
-            padding:0 12px;
+            padding:0 15px;
             .my-count {
                 display:none;
             }

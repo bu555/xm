@@ -1,22 +1,25 @@
 <template>
-    <div class="x-nav-sub">
-        <div class="sub-nav-inner" :style="'max-width:'+innerWidth+'px'">
-            <div class="nav-title" v-html="format(navList.title)">
+    <div class="x-nav-sub" v-if="data">
+        <div class="sub-nav-inner" :style="'max-width:'+(data.maxWidth||970)+'px'">
+            <div class="nav-title" v-html="format(data.title && data.title.value)" @click="clickTitle">
                 
             </div>
-            <div class="search" v-if="typeof searchVal==='string'">
-                <input type="text" spellcheck="false" v-model="searchVal" @input="inputHandler" @keyup.enter="submit" :placeholder="placeholder">
+            <!-- 搜索框 -->
+            <div class="search" v-if="data.search && Object.prototype.toString.call(data.search) === '[object Object]'">
+                <input type="text" spellcheck="false" v-model="searchVal" @input="inputHandler" @keyup.enter="submit" :placeholder="data.search.placeholder">
                 <span class="search-btn"><i class="el-icon-search"  @click="submit"></i></span>
             </div>
-            <ul class="nav-list in-top" v-else>
-                <li v-for="(v,i) in navList.list" :key="i">
+            <!-- 搜索框位置菜单 -->
+            <ul class="nav-list in-top" v-else-if="data.items && (data.items instanceof Array)">
+                <li v-for="(v,i) in data.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
                     <router-link :to="v.link" v-html="format(v.value)"></router-link>
+                    <div class="active-flag"></div>
                 </li>
             </ul>
         </div>
-        <div class="bottom-nav" v-if="typeof searchVal==='string'">
+        <div class="bottom-nav" v-if="data.search && data.items">
             <ul :class="'nav-list in-bottom '">
-                <li v-for="(v,i) in navList.list" :key="i" :class="$route.fullPath.indexOf(v.link)>-1?'active':''">
+                <li v-for="(v,i) in data.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
                     <router-link :to="v.link" v-html="format(v.value)"></router-link>
                 </li>
             </ul>
@@ -28,20 +31,14 @@
 export default {
     data(){
         return {
-            searchVal:null,
-            inputPlaceholder:'',
+            searchVal:'',
             innerWidth:null
 
         }
     },
-    props:[
-        'data',
-        'search',
-        'placeholder',
-        'maxWidth'
-    ],
+    props:['data'],
     watch: {
-        'search':'init'
+        
     },
     computed:{
         navList(){
@@ -49,27 +46,37 @@ export default {
         }
     },
     methods: {
-        init(){
-            this.searchVal = this.search
-            this.inputPlaceholder = this.placeholder || ''
-            this.innerWidth = this.maxWidth || 970
+        clickTitle(){
+            if(this.data.title && this.data.title.link){
+                this.$router.push({
+                    path:this.data.title.link
+                })
+            }else{
+                this.$router.go(-1)
+            }
         },
+        // 发送搜索值
         inputHandler(){
-            this.$emit('searchVal',this.searchVal)
+            this.$emit('inputSearch',this.searchVal)
         },
         format(str){
-            return str.replace(/\w+/g,function(s){
-                return `<em>${s}</em>`
-            })
+            if(typeof str ==='string'){
+                return str.replace(/\w+/g,function(s){
+                    return `<em>${s}</em>`
+                })
+            }else{
+                return ''
+            }
         },
         submit(){
             if(this.searchVal){
-                this.$emit('submit')
+                this.$emit('submitSearch',this.searchVal)
             }
         }
     },
     created(){
-        this.init()
+        
+         console.log('goLink:',this.data.title.link || 'go-1');
     }
 }
 </script>
@@ -92,12 +99,13 @@ export default {
             color:#0e959d;
             margin-right:1.8em;
             white-space: nowrap;
+            cursor:pointer;
             em {
                 font-size:28px;
             }
         }
         .search {
-                height:30px;
+                height:32px;
                 display:flex;
                 align-items: center;
                 border:1px solid #eee;
@@ -112,7 +120,7 @@ export default {
                 border:0;outline:none; //去除蓝色框
                 font-size:14px;
                 padding-left:5px;
-                color:#888;
+                color:#555;
                 background-color: transparent;
                 width:100%;
             }
@@ -133,28 +141,66 @@ export default {
     }
     
     ul.nav-list.in-top {
+        // 纵向排列list激活样式
+        li {
+            margin-right:1.5em;
+        }
+        li.active {
+            position: relative;
+        }
+        .active-flag {
+            width:3px;
+            height:3px;
+            // background-color: #0e959d;
+            border:1px solid #05696f;
+            position:absolute;
+            left:-6px;
+            top:10px;
+            border-radius:50%;
+            &:after,&:before {
+                content:"";
+                display:block;
+                position:absolute;
+                left:-3px;
+                top:-3px;
+                width:5px;
+                height:5px;
+                border-radius:50%;
+                border:1px solid #05696f;
+            }
+            // &:before {
+            //     left:-5px;
+            //     top:-5px;
+            //     width:9px;
+            //     height:9px;
+            // }
+        }
     }
     ul.nav-list {
         display:flex;
         justify-content: flex-start;
         align-items:center;
-        min-height:33px;
+        min-height:36px;
         padding-top:3px;
         li {
-            // padding-left:50px;
+            margin:3px 0;
+            // margin-right:1.5em;
             a {
-                font-size:15px;
-                color:#4d7b9e;
+                font-size:16px;
+                padding:0px 3px;;
+                color:#0e959d;
+                border-radius:3px;
                 em {
-                    font-size:16px;
+                    font-size:17px;
                 }
             }
         }    
         li.active a {
-            font-weight:700;
+            // font-weight:700;
+            color:#05696f;
         }
         li+li {
-            padding-left:32px;
+            // padding-left:1.5em;
         }    
     }
     ul.nav-list.in-bottom {
@@ -162,11 +208,24 @@ export default {
         max-width:970px;
         margin:0 auto;
         align-items:center;
+        padding-top:0px;        
+        li {
+            margin-right:1.2em;
+            a {
+                em {
+                }
+            }
+        } 
+        li.active a {
+            // text-shadow: 0 0 1px #333;
+            background-color: #1ca9b1;
+            color:#fff;
+        } 
     }
     @media screen and (max-width:992px) {
         .sub-nav-inner,.bottom-nav {
-            padding-left:12px;
-            padding-right:12px;
+            padding-left:16px;
+            padding-right:16px;
         }
     }
     @media screen and (max-width:500px) {
@@ -192,8 +251,8 @@ export default {
             align-items:center;
             min-height:33px;
             padding-top:3px;
-            li {
-                
+            li:first-child {
+                margin-top:0;
             }
         }
     }

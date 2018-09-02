@@ -1,7 +1,7 @@
 <template>
     <div class="forum-item">
         <NavMain></NavMain>
-        <NavSub :data="navData" :search="setSearch" @searchVal="currentSearch" @submit="searchSubmit()" placeholder="输入内容搜索"></NavSub>
+        <NavSub :data="subNavData"  @submitSearch="searchSubmit"></NavSub>
 
         <div class="main-box">
             <div class="article" v-loading="loading1">
@@ -17,10 +17,15 @@
                             <div class="t-info"> 
                                 <div class="text">
                                     <Avatar :src="data.avatar" :uid="data.uid" size="small" round="true"></Avatar>
-                                    <span class="overflow-row-1" style="padding-left:3px;max-width:120px">{{data.r_name+"GGGGGGGGGGGGGGGGGGGGGG"}}</span>
+                                    <span v-if="data.uid" class="overflow-row-1" style="padding-left:5px;max-width:120px">
+                                        <router-link :to="'/info/'+data.uid" style="color:#0e959d">
+                                            {{data.r_name}}
+                                        </router-link>
+                                    </span>
+                                    <span v-else class="overflow-row-1" style="padding-left:5px;max-width:120px">{{data.r_name}}</span>
                                     <!-- <followBtn :isFollow="true" :uuid="'9999'"></followBtn> -->
                                     <!-- <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span> -->
-                                    <span >{{$moment(data.c_time).format('YYYY.MM.DD HH:mm')}}</span>
+                                    <span >{{$moment(data.c_time).format('YYYY.MM.DD HH:mm:ss')}}</span>
                                     <!-- <span >喜欢 7</span>
                                     <span >评论 25</span> -->
                                 </div>
@@ -102,17 +107,24 @@ export default {
             accountCommentList:'', //我的评论，从个人中心跳转
             likeLoading:false,
             zanLoading:false,    
-            navData:{
-                title:'M论坛',
-                list:[
-                    {
-                        value:'全部',
-                        link:'/forum?category=all&page=1'
-                    },
-                ]
-            },
-            search:'',
-            setSearch:''
+         
+            subNavData:{
+                title:{
+                    value:'论坛',
+                    link:'/forum'
+                },
+                // items:[
+                //     {
+                //         value:'',
+                //         link:''
+                //     }
+                // ],
+                search:{
+                    placeholder:'搜索',
+                    value:''
+                },
+                // maxWidth:970,
+            }
         }
     },
     components:{
@@ -124,14 +136,8 @@ export default {
     watch:{
     },
     methods:{
-        searchSubmit(){
-            console.log('点击搜索');
-        },
-        currentSearch(val){
-            this.search = val
-            // if(!this.searchName && !this.$route.query.type){
-            //     this.$router.push({query:{type:'all'}})
-            // }
+        searchSubmit(value){
+            console.log('点击搜索:',value);
         },
         clickZanArticle(){
 
@@ -210,7 +216,16 @@ export default {
                 }
             }
         }
-    }
+
+        let fromPath = localStorage.getItem('fromPath')
+        if(fromPath && /^\/forum\/$/.test(fromPath) ){
+            this.data.title.link = ''
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        localStorage.setItem('fromPath',from.fullPath)
+        next()
+    },
     
 };
 </script>
@@ -413,12 +428,17 @@ export default {
         }
         .a-body {
             padding:15px 0 20px;
-            font-size:16px;
+            font-size:17px;
+            color:#444;
             // border-bottom:1px solid #efefef;
             border-top:1px solid #efefef;
             min-height:150px;
             word-wrap:break-word;
             overflow: hidden;
+            font-family:'Microsoft Yahei';
+            p {
+                // margin-bottom:6px;
+            }
         }
         .main-ctrl {
             padding:2% 8% 3% 8%;
@@ -474,14 +494,21 @@ export default {
     a:hover {
         text-decoration:none;
     }
+    @media screen and (min-width:993px){
+        .main-box .a-body {
+            font-size:16px;
+            line-height: 22px;;
+        }
+
+    }
     @media screen and (max-width:992px){
         .main-box {
-            padding-left:12px;
+            padding-left:15px;
         }
     }
     @media screen and (max-width:768px){
         .main-box {
-            padding:0px 12px;
+            padding:0 16px;
             // 右侧推荐区
             .recommend {
                 width:100%;

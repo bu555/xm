@@ -2,7 +2,7 @@
   <div class="my-home">
         <div class="m-tab-b">
             <div :class="path.indexOf('/my/info')>-1?'active':''"><router-link to="/my/info">
-                    <i class="fa fa-user-o"></i> 个人档案
+                    <i class="fa fa-user-o"></i> 个人资料
                 </router-link></div>
             <div :class="path.indexOf('/my/followers')>-1?'active':''"><router-link to="/my/followers">
                     <i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 我关注<span>({{accountInfo.followers}})</span>
@@ -10,17 +10,17 @@
             <div :class="path.indexOf('/my/following')>-1?'active':''"><router-link to="/my/following">
                     <i class="fa fa-plus-square-o "></i> 关注我<span>(2)</span>
                 </router-link></div>
-            <div :class="path.indexOf('/my/mark')>-1?'active':''"><router-link to="/my/mark">
+            <div :class="path.indexOf('/my/mark_article')>-1?'active':''"><router-link to="/my/mark_article">
                     <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 文章收藏<span>({{accountInfo.following}})</span>
                 </router-link></div>
             <div :class="path.indexOf('/my/mark_example')>-1?'active':''"><router-link to="/my/mark_example">
-                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 人物关注<span>({{accountInfo.following}})</span>
+                    <i class="el-icon-star-off" style="font-size:17px;margin-left:-2px"></i> 名人关注<span>({{accountInfo.following}})</span>
                 </router-link></div>
             <div :class="path.indexOf('/my/test')>-1?'active':''"><router-link to="/my/test">
                     <i class="fa fa-file-text-o" style="margin:0 2px 0 1px"></i> 测试<span>({{accountInfo.test_record}})</span>
                 </router-link></div>
             <div :class="path.indexOf('/my/publish')>-1?'active':''"><router-link to="/my/publish">
-                    <i class="fa el-icon-edit"></i> 发表<span>({{accountInfo.my_article}})</span>
+                    <i class="fa el-icon-edit"></i> 文章发表<span>({{accountInfo.my_article}})</span>
                 </router-link></div>
             <div :class="path.indexOf('/my/comment')>-1?'active':''"><router-link to="/my/comment">
                     <i class="fa fa-edit"></i> 评论参与<span>({{accountInfo.my_comment}})</span>
@@ -91,7 +91,7 @@ export default {
             padding:10px 15px;
             padding-left:7%;
             border-bottom:1px solid #f7f7f7;
-            font-size:15px;
+            font-size:16px;
             &:hover {
             }
             &:visited {
@@ -114,26 +114,38 @@ export default {
 
 // 大于768适配
   @media screen and (min-width:769px){
+    border-bottom:1px solid #f5f5f5;
+    margin-bottom:10px;
     .m-tab-b {
         max-width:970px;
         margin:0 auto;
         display:flex;
-        padding:3px 0 10px;
+        padding:3px 0 0px;
         &>div {
             // flex:1;
             white-space:nowrap;
         }
         &>div.active a {
                 color:#25959c;
+                position: relative;
+                // &:after {
+                //     content:"";
+                //     position:absolute;
+                //     bottom:4px;
+                //     left:0px;
+                //     height:2px;
+                //     width:100%;
+                //     background-color: #55adb5;;
+                // }
         }
         
         a {
             display:block;
-            padding:10px 15px;
-            padding-left:7%;
-            border-bottom:1px solid #f7f7f7;
+            padding:10px 12px;
+            // padding-left:7%;
+            border-bottom:1px solid transparent;
             &:hover {
-                color:#25959c;
+                // color:#25959c;
             }
             &:visited {
                 text-decoration: none;

@@ -58,14 +58,14 @@ export default {
             background-color: #eee;
         }
         &>span.c1 {
-            background-color: #409eff;
+            background-color: #70a9e5;
             color:#fff;
 
 
         }
         &>span.c2 {
-            background-color: #acacac;
-            color:#fff;
+            background-color: #bbb;
+            color:#e5e5e5;
 
         }
         @media screen and (max-width:768px){

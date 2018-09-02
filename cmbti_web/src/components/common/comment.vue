@@ -27,15 +27,20 @@
                         </router-link> -->
                     </div>
                     <div class="c-name">
-                        <em class="overflow-row-1">
+                        <em v-if="v.uid" class="overflow-row-1">
                             <router-link :to="'/info/'+v.uid">
                                 {{v.r_name}}
                             </router-link>
                         </em>
+                        <em v-else class="overflow-row-1">
+                                {{v.r_name}}
+                        </em>
                         <span>{{$moment(v.c_time).startOf().fromNow()}}</span> 
                     </div>
                     <!-- 新回复的评论 -->
-                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}} </div>
+                    <div class="c-content overflow-row-5" @click="showAllComment($event)" >
+                        <span class="details">{{v.content}}</span>
+                    </div>
                     <!-- 点赞与回复 -->
                     <div class="zan c-c">
                         <i :class="'fa fa-thumbs-up' + (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
@@ -64,11 +69,11 @@
                        <!--回复用户的评论-->
                     <div v-if=" (v.replay instanceof Array) && v.replay.length>0" v-for="(v1,i1) in v.replay" :key="i1" class="c-content c-replay overflow-row-5" @click="showAllComment($event)" >
                         <span>
-                            <router-link :to="'/info/'+v.uid">
-                                {{v.r_name}}
+                            <router-link :to="'/info/'+v1.uid">
+                                {{v1.r_name}}
                             </router-link>
-                        <em style="color:#9a9a9a;font-size:14px;padding-top:9px"> {{$moment(v.c_time).format('YYYY.MM.DD HH:mm')}} 回复</em>：</span>
-                        {{v1.content}} 
+                        <em style="color:#9a9a9a;font-size:14px;padding-top:9px"> {{$moment(v1.c_time).format('YYYY.MM.DD HH:mm')}} 回复</em>：</span>
+                        <span class="details">{{v1.content}} </span>
                     </div>
                 </div>
 
@@ -103,7 +108,8 @@
                             <span style="color:#5e8dd0">{{v.rep.r_name}}：</span>
                             {{v.rep.content}}
                         </div> -->
-                        <div class="c-content overflow-row-5" @click="showAllComment($event)" >{{v.content}}
+                        <div class="c-content overflow-row-5" @click="showAllComment($event)" >
+                            <span class="details">{{v.content}}</span>
                         </div>
                         <!-- 点赞与回复 -->
                         <div class="zan c-c">
@@ -128,7 +134,7 @@
                                     {{v1.r_name}}
                                 </router-link>
                             <em style="color:#9a9a9a;font-size:14px;padding-top:9px"> {{$moment(v1.c_time).format('YYYY.MM.DD HH:mm')}} 回复</em>：</span>
-                            {{v1.content}}
+                            <span class="details">{{v1.content}} </span>
                         </div>
                 </div>
             </div>
@@ -357,10 +363,10 @@ export default {
                 li {
                     color:#aaa;
                     margin-left:1em;
-                    font-size:14px;
+                    font-size:15px;
                     cursor:pointer;
                     &:hover {
-                        color:#3e73b2;
+                        // color:#3e73b2;
                     }
                 }
                 li.active {
@@ -383,7 +389,7 @@ export default {
             background-color: #fff;
             .c-list {
                 // background: pink;
-                padding:12px 0px 9px 50px;
+                padding:12px 0px 3px 50px;
                 border-bottom:1px solid #f7f7f7;
                 position: relative;
                 color:#3c3c3c;
@@ -408,12 +414,13 @@ export default {
                     position: relative;
                     margin-bottom: 2px;
                     a {
-                        //  color:#3d94ce
+                        color:#3e73b2;
                     }
                     &>em {
                         display:inline-block;
                         max-width:97px;
                         color:#555;
+                        // font-weight:700;
                     }
                     &>span {
                         padding-left:10px;
@@ -423,10 +430,16 @@ export default {
                 }
                 .c-content {
                     padding:2px 0 2px;
-                    font-size:14px;
+                    font-size:15px;
                     word-break:break-all; //英文换行
-                    margin-bottom:8px;
-                    cursor:default
+                    margin-bottom:6px;
+                    cursor:default;
+                    .details {
+                        font-family:'Microsoft Yahei';
+                    }
+                    em>a {
+                         
+                    }
                 }
                 .c-content.c-replay {
                     border-left:3px solid #d9d9d9;
@@ -438,7 +451,7 @@ export default {
                     border-bottom:1px solid #f1f1f1;
                     position: relative;
                     a {
-                         color:#3d94ce
+                         color:#3e73b2;
                     }
                     &:after {
                         content:"";
@@ -460,23 +473,24 @@ export default {
                     min-width:55px;
                     max-width:82px;
                     // margin-right:42px;
-                    color:#cbcbcb;
+                    // color:#8590a6;
+                    color:#999999;
                     margin-bottom:12px;
                     i {
                         cursor:pointer;
                         font-size:20px;
                     }
                     i.active {
-                        color:#75a9e3;
+                        color:#1b6eb2;
                     }
                     i.active:hover {
-                        color:#75a9e3;
+                        color:#1b6eb2;
                     }
                     i:hover {
-                        color:#aaa;
+                        // color:#aaa;
                     }
                     em {
-                        font-size:15px;
+                        font-size:14px;
                         position: relative;
                         top:1px;
                     }

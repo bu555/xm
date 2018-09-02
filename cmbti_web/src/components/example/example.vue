@@ -3,7 +3,7 @@
     <NavMain></NavMain>
 
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
-    <NavSub :data="data" :search="setSearch" @searchVal="currentSearch" @submit="search()" placeholder="名字搜索"></NavSub>
+    <NavSub :data="data" @inputSearch="currentSearch" @submitSearch="search"></NavSub>
     <div class="bx">
         <!--在线数据-->
         <div class="example-list"  v-if="exampleList_bk"> 
@@ -17,8 +17,8 @@
                             <img :src="v.imgURL" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
-                        <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
-                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >加入名人库</el-button></div>
+                        <div class="info overflow-row-4">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >加入名人汇</el-button></div>
                     </div>
                     <!--</router-link>-->
                 </div>
@@ -32,8 +32,8 @@
                         <div class="photo">
                             <img :src="$pathImgs+v.img_url" alt="">
                         </div>
-                    </router-link>
                         <div class="name overflow-row-1">{{v.name}}</div>
+                    </router-link>
                         <div class="info overflow-row-5">{{v.name1?v.name1:''}}{{v.info}}</div>
                         <div style="height:1px"></div>
                     </div>
@@ -82,14 +82,21 @@ export default {
             loading:false,
             
             data:{
-                title:'名人库',
-                list:[
+                title:{
+                    value:'名人汇',
+                    link:'/example?type=all'
+                },
+                items:[
                     // {
-                    //     value:'全部',
-                    //     link:'/example?type=all'
+                    //     value:'',
+                    //     link:''
                     // }
-                ]
-
+                ],
+                search:{
+                    placeholder:'输入名字搜索',
+                    value:''
+                },
+                // maxWidth:970,
             }
 
         }
@@ -112,11 +119,6 @@ export default {
         //         this.$router.push({query:{type:'all'}})
         //     }
         // },
-        inputHandler(){
-            if(!this.searchName){
-                this.$router.push({query:{type:'all'}})
-            }
-        },
         search(){
             if(this.searchName){
                 let search = this.$route.query.s
@@ -173,7 +175,7 @@ export default {
             })
 
         },
-        //添加人物到名人库
+        //添加人物到名人汇
         addExample(index){
                 
                 if(this.exampleList_bk || this.exampleList_bk.length>0){
@@ -198,11 +200,6 @@ export default {
                     })
                 }
 
-        },
-        //详情跳转
-        toDetails(value){
-            this.$router.push({path:'/example/details',query:{eid:value._id}})
-            // localStorage.setItem('exampleItemData',JSON.stringify(value));
         },
         //根据query，调用函数获取对应数据
         changeQuery(){
@@ -230,17 +227,19 @@ export default {
         '$route.query':'changeQuery',
     },
     created(){
+        // 设置菜单数据
         this.$mbti.types.forEach((v,i)=>{
-            this.data.list.push({
+            this.data.items.push({
                 link:'/example?type='+v,
-                value:v.toUpperCase()
+                value:v.toUpperCase(),
+                reg:new RegExp('type='+v)
             })
         })
 
-        let search = this.$route.query.s?this.$route.query.s:''
+        // let search = this.$route.query.s?this.$route.query.s:''
         let type = this.$route.query.type?this.$route.query.type:'';
-        if(!type && !search){ //赋予默认type
-            this.$router.push({query:{type:'all',page:1}})
+        if(!type){ //赋予默认type
+            this.$router.replace({query:{type:'all'}})
         }else{
             this.changeQuery()
         }
@@ -298,7 +297,7 @@ export default {
             }
             .name {
                 font-size:15px;
-                padding:6px 0 10px;
+                padding:6px 0 6px;
                 font-weight:600;
             }
             .photo {
@@ -326,7 +325,7 @@ export default {
                 text-align:left; 
                 padding:0 2%; 
                 margin-bottom:15px;
-                font-size:#777;
+                color:#777;
             }
 
         }
@@ -339,6 +338,10 @@ export default {
             li {
                 flex:0 0 12.2%;
             }
+        }
+        .example-list {
+            padding-left:5px;
+            padding-right:5px;
         }
         .example-list .item {
             flex:0 0 33.33%;
@@ -356,7 +359,7 @@ export default {
             li {
                 flex:0 0 25%;
                 // text-align:center;
-                padding-left:1.4em;
+                padding-left:1.05em;
             }
         }
         .example-list .item {
@@ -369,7 +372,7 @@ export default {
                 height:42vw;
             }
             .name {
-                width:134px
+                // width:134px
             }
         }
         .input-with-select {
@@ -395,4 +398,10 @@ export default {
 }
 
 </style>
+<style>
+.example .x-nav-sub ul.nav-list.in-bottom li {
+    margin-right: 0em;
+} 
+</style>
+
     

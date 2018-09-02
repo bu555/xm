@@ -15,7 +15,7 @@
             <Avatar :src="v.avatar" :uid="''" size="small" round="true"></Avatar>&nbsp;
             <div class="u-name overflow-row-1">
               <span class="r-name">{{v.r_name}}</span> <br/>
-              <span class="profile overflow-row-2">profile profile profile profifile profifile profifile profile profile profile</span>
+              <span class="profile overflow-row-2">{{v.profile}}</span>
             </div>
         </router-link>
         <!--<el-button type="default" plain size="small"  style="padding:7px 7px;font-size:13px" @click="followUser('0',i,v._id)"><i class="el-icon-remove icon-remove" style="font-size:14px;"></i> 移除TA</el-button>
@@ -71,8 +71,8 @@ export default {
 <style lang="less">
 .my-following {
     margin-bottom:18px;
-    padding:0 15px;
-    min-height:250px;
+    padding:0 16px;
+    min-height:270px;
   .content {
 
   }
@@ -81,7 +81,7 @@ export default {
     align-items:flex-start;
     border-bottom:1px solid #f8f8f8;
     padding:2px 0 5px;
-    min-height:70px;
+    min-height:66px;
     &>a {
       display:flex;
       align-items:flex-start;
@@ -93,10 +93,12 @@ export default {
       padding-right:3px;
       .u-name {
         font-size:15px;
+        margin-left:4px;
         // position: relative;
         .profile {
           font-size:13px;
           color:#999;
+          line-height: 16px;
         }
       }
     }

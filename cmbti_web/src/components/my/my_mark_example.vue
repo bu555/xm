@@ -1,5 +1,5 @@
 <template>
-  <div class="my-mark-exa">
+  <div class="my-mark-exa" v-loading="loading">
     <div class="content">
 
         <div  v-if="data&&(data instanceof Array)&&data.length>0" class="item" v-for="(v,i) in data" :key="i">
@@ -57,14 +57,15 @@ export default {
     },
     created(){
        this.getMyMarkExample()
-       this.$store.state.myTabName = '人物关注'
+       this.$store.state.myTabName = '名人关注'
     }
 }
 </script>
 <style lang="less">
 .my-mark-exa {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
+    min-height:270px;
 
   .content {
     font-size:15px;

@@ -2,7 +2,7 @@
     <div  :class="'x-nav ' + (showMore?'mobile':'')">
         <div class="x-nav-inner">
             <div class="logo">
-                <h2>x-MBTI</h2>
+                <Logo></Logo>
             </div>
             <div class="search">
                 <span class="close-btn" @click="showMore=false">关闭</span>
@@ -13,26 +13,27 @@
             </div>
             <ul class="menu">
                 <li>
-                    <router-link to="/mbti/theory">
+                    <router-link to="/mbti/theory" style="color:#2384e8">
                         <em>MBTI</em>
+                        <!-- MBTI -->
                         <p>影院热映</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="'/test/mbti'">
-                        测 试
+                    <router-link :to="'/test/mbti'" style="color:#f2901c">
+                        测试
                         <p>正在热播</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/example?type=all&page=1">
-                        名人库
+                    <router-link to="/example?type=all&page=1" style="color:#b7a278">
+                        名人汇
                         <p>正在热播</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/forum?category=all&page=1">
-                        <em>M</em>论坛
+                    <router-link to="/forum?category=all&page=1" style="color:#2AB8CC">
+                        论坛
                         <p>正在热播</p>
                     </router-link>
                 </li>
@@ -61,7 +62,7 @@
                 <div v-if="$store.state.userInfo" class="is-login">
                         <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
                         <router-link to="/my" class="a">
-                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small-xx" round="true"></Avatar>
+                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small-xxx" round="true"></Avatar>
                         </router-link>
                         <div class="role-name overflow-row-1">
                             <router-link to="/my" class="a">
@@ -69,7 +70,7 @@
                             </router-link>
                         </div>
                         <ul>
-                            <li @click="$router.push({path:'/my'})">个人主页</li>
+                            <!-- <li @click="$router.push({path:'/my'})">个人主页</li> -->
                             <li @click="$store.state.loginOut = true">退出</li>
                         </ul>
                 </div>
@@ -88,6 +89,7 @@
 
 <script>
 import Avatar from '@/components/common/avatar'
+import Logo from '@/components/common/logo'
 export default {
   data(){
       return {
@@ -95,7 +97,8 @@ export default {
       }
   },
   components: {
-      Avatar
+      Avatar,
+      Logo
   },
   watch: {
   },
@@ -161,12 +164,13 @@ export default {
               }
 
           }
+        //   菜单样式
           ul.menu {
               flex:0 0 50%;
               display:flex;
               justify-content:flex-end;
               li {
-                  padding-left:18px;
+                  padding-left:28px;
                   line-height: 27px;;
                   a {
                       font-size:20px;
@@ -194,7 +198,7 @@ export default {
   }
   @media screen and (max-width:992px){
     .x-nav {
-        padding: 0 12px;
+        padding: 0 14px;
         .x-nav-inner .search {
             display:none;
         }
@@ -208,7 +212,6 @@ export default {
             height:47px;
             .logo {
               flex: 0 0 65px;
-              h2{font-size:15px;}
             }
             .search {
                 display:none;
@@ -216,16 +219,24 @@ export default {
             ul.menu {
                 flex:0 0 auto;
                 li {
-                padding-left:12px;
+                padding-left:3.5vw;
                     a {
-                      font-size:15px;
+                      font-size:16px;
                       em {
-                        font-size:16px; //英文大一号
+                        font-size:17px; //英文大一号
                       }
                     }
                 }
                 li.mb-more {
-                  display:block
+                    display:flex;
+                //   display:block;
+                justify-content: center;
+                  a {
+                      font-size:20px;
+                      padding-right:2px;
+                      position:relative;
+                      top:1px;
+                  }
                 }
             }
         }
@@ -239,7 +250,7 @@ export default {
             background-color: #fff;
             height:100%;
             width:100%;
-            z-index:9;
+            z-index:1002;
             display:block;
             .logo {
               display:none;
@@ -343,6 +354,34 @@ export default {
             }
         }
     }
+    // 兼容5s
 
   }
+    @media screen and (max-width:350px) {
+        .x-nav {
+            .x-nav-inner {
+                .logo {
+                }
+                .search {
+                }
+                ul.menu {
+                    li {
+                        padding-left:8px;
+                        // a {
+                        // font-size:15px;
+                        // em {
+                        //     font-size:16px; //英文大一号
+                        // }
+                        // }
+                    }
+                    li.mb-more {
+                    a {
+                    }
+                    }
+                }
+            }
+
+        }       
+        
+    }
 </style>

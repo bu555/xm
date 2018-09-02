@@ -1,22 +1,34 @@
 <template>
 <div class="examp-details">
     <NavMain></NavMain>
-    <NavSub :data="data" ></NavSub>
+    <NavSub :data="data"  @submitSearch="search"></NavSub>
+    <!-- <div class="crumbs">
+        <ul>
+            <li>
+                <router-link to="/example">名人汇</router-link>
+            </li>
+            <li class="fa fa-angle-right"></li>
+            <li class="overflow-row-1-x">
+                <span v-if="exampleItem">{{exampleItem.name}}</span>
+            </li>
+        </ul>
+    </div> -->
         <div class="main-box "  v-loading="loading3">
             <!--人物详情-->
             <div class="example-box">
-                    <div class="e-info overflow-row-14">
+                    <div class="e-info">
+                        <div  class="font overflow-row-13">{{exampleItem.info}}
+                        </div>
                         <div class="item">
                             <!--<img :src="exampleItem.img_url" alt="">-->
                             <div class="photo">
                                 <img v-if="exampleItem" :src="$pathImgs+exampleItem.img_url" alt="">
                             </div>
-                            <div class="e-more">
+                            <div class="e-more" v-if="0">
                                 <a href="" target="_blank">[维基百科]</a>
                                 <a href="" target="_blank">[百度百科]</a>查看更多
                             </div>
                         </div>
-                        {{exampleItem.info}}
                     </div>
                     <!--投票-->
                     <div class="vote-box" v-if="!isVote">
@@ -39,7 +51,7 @@
                                     </div>
                                     
                                 </div>
-                                <div v-if="isRepeat">你已参与</div>
+                                <!-- <div v-if="isRepeat">你已参与</div> -->
                             </div>
                             <div style="padding-top:14px">
                                 <!--<el-button type="primary" @click="goVote()">投票</el-button>-->
@@ -147,14 +159,21 @@ export default {
             showVote:false,
             showComment:false,            
             data:{
-                title:'名人库',
-                list:[
-                    // {
-                    //     value:'全部',
-                    //     link:'/example?type=all'
-                    // }
-                ]
-
+                title:{
+                    value:'名人汇',
+                    link:'/example?type=all'
+                },
+                // items:[
+                //     {
+                //         value:'',
+                //         link:''
+                //     }
+                // ],
+                search:{
+                    placeholder:'输入名字搜索',
+                    value:''
+                },
+                // maxWidth:970,
             }
 
         }
@@ -186,6 +205,10 @@ export default {
         }
     },
     methods:{
+        search(value){
+            console.log('搜搜:',value);
+
+        },
         //投票
         vote(){
             if(!this.myVote){
@@ -361,33 +384,67 @@ export default {
             })
         })
 
-    }
-    
-};
+        let fromPath = localStorage.getItem('fromPath')
+        if(fromPath && /^\/example\/$/.test(fromPath) ){
+            this.data.title.link = ''
+        }
+
+    },
+    beforeRouteEnter (to, from, next) {
+        localStorage.setItem('fromPath',from.fullPath)
+        next()
+    },
+}
 </script>
 <style lang="less">
 .examp-details {
     width:100%;
+    // .crumbs {
+    //         background-color: #f0f3ef;
+    //     ul {
+    //         max-width:970px;
+    //         margin:0 auto;
+    //         display:flex;
+    //         align-items: center;
+    //         height:48px;
+    //         li {
+    //             margin-right:7px;
+    //             color:#aaa;
+    //             max-width:210px;
+    //             overflow: hidden;
+    //             a ,span{
+    //                 font-family:'Microsoft Yahei';
+    //                 font-size:15px;
+    //                 color:#666;
+    //             }
+    //         }
+    //     }
+    // }
         .main-box {
             max-width:970px;
             margin:25px auto;
             width:100%;
             background-color: rgba(255,255,255,.75);
-            padding-right:355px;
+            padding-right:280px;
             position: relative;
             // 人物详情
             .example-box {
                 position: relative;
                 padding-right:50%;
                 overflow: hidden;
-                font-size:14px;
                 color:#777;
                 word-break: break-all; //英文换行
                 margin-bottom:15px;
                 .e-info {
-                    height:268px;
+                    height:250px;
                     padding-right:180px;
                     position: relative;
+
+                    .font {
+                        height:236px;
+                        line-height: 18px;
+                        font-size:14px;
+                    }
                 }
                 a {
                     color:#70a9e5;
@@ -395,15 +452,16 @@ export default {
                 .item {
                     // flex:1 0 46%;
                     box-sizing: border-box;
-                    width:170px;
+                    width:165px;
                     position: absolute;
                     right:0px;
                     top:0px;
                     .photo {
                         width:100%;
-                        height:210px;
+                        height:220px;
                         overflow: hidden;
                         background-color: #777;
+                        border-radius:3px;
                     }
                     img {
                         display:block;
@@ -420,7 +478,7 @@ export default {
                 }
                 // 投票结果
                 .vote-box {
-                    height:290px;
+                    height:252px;
                     position: absolute;
                     top:0;
                     right:0px;
@@ -438,11 +496,11 @@ export default {
                             font-weight: 700;
                         }
                         p.tit {
-                            font-size:18px;
+                            font-size:17px;
                             // font-weight: 500;
                             height:19px;
                             margin-bottom:4px;
-                            color:#555;
+                            color:#666;
                         }
                         // font-weight:700;
                         margin:0 28px;
@@ -463,13 +521,14 @@ export default {
                             display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
                             max-width:270px;
                             padding-right:70px;
+                            font-size:15px;
                             .type{
                                 flex:0 0 55px;
                                 height:25px;
                                 line-height: 25px;
                                 text-align:right;
                                 padding-right:5px;
-                                font-weight:600;
+                                // font-weight:600;
                                 // background-color: pink;
                             }
                             .prog{
@@ -479,7 +538,7 @@ export default {
                                 display:flex;
                                 align-items:center;
                                 &>div {
-                                    height:16px;
+                                    height:13px;
                                     background-color: #6ac342;
                                     background-image: linear-gradient(to bottom, #aed5ed 0%, #7bbbe2 70%, #5aaadb 100%);
                                     width:100%;
@@ -507,7 +566,7 @@ export default {
 
             }   
             .main-ctrl {
-                padding:2% 8% 3% 8%;
+                padding:.5em .8em;
                 border-top:1px solid #eee;
                 border-bottom:1px solid #eee;
                 background-color: #fefefe;
@@ -524,19 +583,19 @@ export default {
                         font-size:19px;
                     }
                     span {
-                        color:#888;
+                        color:#8590a6;
                         // line-height: 18px;
                         border-radius:2px;
                         cursor:pointer;
                         display:inline-block;
-                        font-size:15px;
+                        font-size:14px;
                     }
                     &>span.active {
                         color:#1b6eb2;
                     }
                 }
                 .a-like {}
-                .a-vote.active {
+                .a-vote.active,.a-like.active {
                     position: relative;
                     &:after {
                         content:'已参与';
@@ -552,6 +611,12 @@ export default {
                         border-radius: 6px 6px 6px 0;
                     }
                 }
+                .a-like.active {
+                    &:after {
+                        content:'已关注';
+                    }
+                }
+
 
             }
 
@@ -721,7 +786,7 @@ export default {
             }
             // 右侧推荐区
             .recommend {
-                width:300px;
+                width:250px;
                 position:absolute;
                 right:12px;
                 top:0;
@@ -757,8 +822,13 @@ export default {
             }
         } 
         @media screen and (max-width:992px){
+            .crumbs {
+                ul {
+                    padding:0 16px;
+                }
+            }
             .main-box {
-                padding:0 12px;            // 右侧推荐区
+                padding:0 16px;            // 右侧推荐区
                 .recommend {
                     width:100%;
                     position:relative;
@@ -792,12 +862,15 @@ export default {
             .main-box {
                 .example-box {
                     padding-right:0;
+                    .e-info {
+                        
+                        border-bottom:1px solid #ccc;
+                    }
                     // 投票结果
                     .vote-box {
                         position: relative;
                         width:100%;
                         border-left:none;
-                        border-top:1px solid #ccc;
                         margin-top:15px;
                     }
                 }

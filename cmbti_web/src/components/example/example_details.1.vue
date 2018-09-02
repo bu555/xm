@@ -3,7 +3,7 @@
     <!-- <div class="tab-nav">
         <div class="nav-view bx ">
             <div class="ctrl">
-                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-menu-left"></i> 返回名人库</span>
+                <span @click="back()" style="cursor:pointer"><i class="glyphicon glyphicon-menu-left"></i> 返回名人汇</span>
             </div>
             <div class="search-box  hidden-xs">
 

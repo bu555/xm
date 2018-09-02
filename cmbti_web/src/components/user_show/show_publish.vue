@@ -9,7 +9,7 @@
               <!--简单的Restful API例子(Golang)-->
               <span>{{v.title}}</span>
         </router-link>
-        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm")}}</div>
+        <div class="time">{{$moment(v.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
       </div>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">

@@ -3,7 +3,7 @@
         <div class="m-step">
             <el-steps :align-center="true" :active="currentStep" finish-status="success">
                 <el-step title="申请提交"></el-step>
-                <el-step title="郵箱验证"></el-step>
+                <el-step title="邮箱验证"></el-step>
                 <el-step title="重置密码"></el-step>
                 <el-step title="完成"></el-step>
             </el-steps>

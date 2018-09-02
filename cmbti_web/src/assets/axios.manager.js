@@ -4,7 +4,7 @@ import router from '../router/index'
 import Vue from 'vue';
 import store from '../store/store'
 
-var path = "http://localhost:7000/"; // dev
+var path = "http://192.168.1.106:7000/"; // dev
 // var path = "/"; //prod
 var pathAPI = path+"api"; //代理服务器API路由
 var pathImgs = path+"imgs"; //代理服务器图片路由
@@ -13,7 +13,7 @@ Vue.prototype.$pathImgs = pathImgs
 Vue.prototype.$pathAvatar = pathAvatar  
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
-axios.defaults.timeout = 7000;
+// axios.defaults.timeout = 7000;
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {

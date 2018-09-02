@@ -1,5 +1,5 @@
 <template>
-  <div class="my-test">
+  <div class="my-test" v-loading="loading">
     <div class="content">
         <!-- <div class="items i1">
             <div class="">测试项目</div>
@@ -81,7 +81,8 @@ export default {
 <style lang="less">
 .my-test {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
+    min-height:270px;
   .content {
     font-size:15px;
     display:flex;

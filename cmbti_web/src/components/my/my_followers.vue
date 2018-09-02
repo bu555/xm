@@ -9,11 +9,11 @@
             <Avatar :src="v.avatar" :uid="''" size="small" round="true"></Avatar>&nbsp;
             <div class="u-name overflow-row-1">
               <span class="r-name">{{v.r_name}}</span> <br/>
-              <span class="profile overflow-row-2">profile profile profile profifile profifile profifile profile profile profile</span>
+              <p class="profile overflow-row-2">{{v.profile}}</p>
             </div>
         </router-link>
         <!-- 关注按钮 -->
-        <followBtn :isFollow="true" :uuid="v._id"></followBtn>
+        <followBtn :isFollow="true" :uuid="v._id" class="btn-comp"></followBtn>
       </div>
     </div>
     <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
@@ -69,9 +69,9 @@ export default {
 </script>
 <style lang="less">
 .my-follow {
-  min-height:250px;
+  min-height:270px;
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
   .content {
 
   }
@@ -79,25 +79,32 @@ export default {
     display:flex;
     align-items:flex-start;
     border-bottom:1px solid #f8f8f8;
-    padding:2px 0 5px;
-    min-height:70px;
+    padding:5px 0 2px;
+    min-height:66px;
     &>a {
       display:flex;
       align-items:flex-start;
       flex:1;
-      padding:5px 0;
+      padding:2px 0;
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
       padding-right:3px;
       .u-name {
         font-size:15px;
+        margin-left:4px;
         // position: relative;
         .profile {
           font-size:13px;
           color:#999;
+          padding-right:1em;
+          line-height: 16px;
         }
       }
+    }
+    .btn-comp {
+      position:relative;
+      top:2px;
     }
     a:visited {
         text-decoration: none;

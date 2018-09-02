@@ -10,7 +10,7 @@
          <span v-if="userInfo.sex=='0'">女</span>
       </div>
       <div class="item">
-         <span class="first">省份：</span>
+         <span class="first">来自：</span>
          <span>{{userInfo.province}}</span>
       </div>
       <div class="item">
@@ -49,7 +49,7 @@ export default {
   .item {
       font-size:15px;
       display:flex;
-      color:#777;
+      color:#484848;
       margin-bottom: 5px;
       .first {
          white-space: nowrap;

@@ -24,23 +24,36 @@ export default {
     data(){
         return {
             data:{
-                title:'MBTI',
-                list:[
+                title:{
+                    value:'MBTI',
+                    link:'/mbti/theory'
+                },
+                items:[
                     {
                         value:'MBTI理论',
-                        link:'/mbti/theory'
+                        link:'/mbti/theory',
+                        reg:/\/mbti\/theory/
                     },
                     {
                         value:'人格类型',
-                        link:'/mbti/function/si'
+                        link:'/mbti/function/si',
+                        reg:/\/mbti\/function\/si/
                     },
                     {
                         value:'认知功能',
-                        link:'/mbti/function/si'
+                        link:'/mbti/function/ni',
+                        reg:/\/ni/
                     },
-                ]
-
+                ],
+                // search:{
+                //     placeholder:'',
+                //     value:''
+                // },
+                // maxWidth:970,
             }
+
+
+
         }
     },
     components:{
@@ -98,7 +111,7 @@ export default {
     }
     @media screen and (max-width:992px){
         .main-box {
-            padding:0 12px;            // 右侧推荐区
+            padding:0 16px;            // 右侧推荐区
             .recommend {
                 width:100%;
                 position:relative;
@@ -109,20 +122,20 @@ export default {
         }
     }
     @media screen and (max-width:500px){
-        .x-nav-sub ul.nav-list.in-top li {
-            position: relative;
-            &:after {
-                content:"";
-                display:block;
-                height:3px;
-                width:3px;
-                background-color: #aaa;
-                position: absolute;
-                top:11px;
-                left:-10px;
-                border-radius:50%;
-            }
-        }
+        // .x-nav-sub ul.nav-list.in-top li {
+        //     position: relative;
+        //     &:after {
+        //         content:"";
+        //         display:block;
+        //         height:3px;
+        //         width:3px;
+        //         background-color: #aaa;
+        //         position: absolute;
+        //         top:11px;
+        //         left:-10px;
+        //         border-radius:50%;
+        //     }
+        // }
     }
 
 }

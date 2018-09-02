@@ -110,6 +110,9 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 .overflow-row-3 {    
     -webkit-line-clamp: 3;    
 }
+.overflow-row-4 {    
+    -webkit-line-clamp: 3;    
+}
 .overflow-row-5 {    
     -webkit-line-clamp: 5;    
 }

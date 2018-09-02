@@ -43,9 +43,8 @@ import forum_article_new from '@/components/forum/forum_article_new'
 
 // 个人中心
 import my from '@/components/my/my'
-import my_home from '@/components/my/my_home'
 import my_info from '@/components/my/my_info'
-import my_mark from '@/components/my/my_mark'
+import my_mark_article from '@/components/my/my_mark_article'
 import my_mark_example from '@/components/my/my_mark_example'
 import my_publish from '@/components/my/my_publish'
 import my_followers from '@/components/my/my_followers'
@@ -143,10 +142,11 @@ const vueRouter = new Router({
     //个人中心
     { path:'/my',
       component:my,
+      // redirect:'/my/info',
       children:[
         // {path:'',component:my_home},
         {path:'info',component:my_info},
-        {path:'mark',component:my_mark},
+        {path:'mark_article',component:my_mark_article},
         {path:'mark_example',component:my_mark_example},
         {path:'publish',component:my_publish},
         {path:'followers',component:my_followers},
@@ -220,7 +220,7 @@ vueRouter.beforeEach((to, from, next) => {
   // next()
 })
 vueRouter.afterEach((to,from,next)=>{
-    window.scrollTo(0,220)
+    // window.scrollTo(0,0)
 })
 
 

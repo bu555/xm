@@ -58,7 +58,8 @@ export default {
 <style lang="less">
 .my-like {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
+  min-height:270px;
   .content {
 
   }
@@ -71,7 +72,7 @@ export default {
       font-size:12px;
       color:#ccc;
       position:absolute;
-      left:0px;
+      left:2px;
       top:11px;
     }
     &>a {

@@ -3,7 +3,7 @@
     <NavMain></NavMain>
 
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
-    <NavSub :data="data" :search="setSearch" @searchVal="currentSearch" @submit="searchSubmit()" placeholder="输入内容搜索"></NavSub>
+    <NavSub :data="data"  @inputSearch="currentSearch" @submitSearch="searchSubmit()"></NavSub>
     <div class="forum-index" v-loading="loading">
         <div class="main-box">
 
@@ -48,31 +48,41 @@ export default {
             active:false,
             list:'',
             total:0,
-            size:12,
+            size:3,
             currentPage:0,
-            loading:false,    
-            setSearch:'', 
-            search:''  ,     
+            loading:false,        
             data:{
-                title:'M论坛',
-                list:[
+                title:{
+                    value:'论坛',
+                    link:'/forum'
+                },
+                items:[
                     {
                         value:'全部',
-                        link:'/forum?category=all&page=1'
+                        link:'/forum?category=all',
+                        reg:/category=all/
                     },
                     {
                         value:'精华',
-                        link:'/forum?good=good&page=1'
+                        link:'/forum?good=good&page=1',
+                        reg:/good=good/
                     },
                     {
                         value:'分享',
-                        link:'/forum?category=share&page=1'
+                        link:'/forum?category=share&page=1',
+                        reg:/category=share/
                     },
                     {
                         value:'问答',
-                        link:'/forum?category=ask&page=1'
+                        link:'/forum?category=ask&page=1',
+                        reg:/category=ask/
                     },
-                ]
+                ],
+                search:{
+                    placeholder:'搜索',
+                    value:''
+                },
+                // maxWidth:970,
             }
 
         }
@@ -85,11 +95,7 @@ export default {
     },
     watch:{
         "$route.query":function(){
-            this.getArticle({
-                category:this.$route.query.category || '',
-                page:this.$route.query.page || '1',
-                good:this.$route.query.good || ''
-            })
+            this.getArticle()
         }
     },
     methods:{
@@ -103,11 +109,14 @@ export default {
             // }
         },
         // 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean}
-        getArticle(options){
+        getArticle(){
             this.loading = true
-            this.$axios.getArticle(Object.assign({
+            this.$axios.getArticle({
+                category:this.$route.query.category || '', //''即获取全部
+                page:this.$route.query.page || '1',
+                good:this.$route.query.good || '',
                 size:this.size
-            },options)).then(res=>{
+            }).then(res=>{
                 this.loading = false
                 if(res.data.success){
                     this.list = res.data.data
@@ -125,26 +134,21 @@ export default {
             // console.log(val);
         },
         init(){
-            let query = this.$route.query;
-            if(!query.category || !query.page){
-                // this.$router.push({
-                //     query:{
-                //         category:'all',
-                //         page:'1'
-                //     }
-                // })
-            }
-            this.getArticle({
-                category:this.$route.query.category,
-                page:this.$route.query.page
-            })
-            this.currentPage = query.page?Number(query.page):1
+            this.getArticle()
+            this.currentPage = this.$route.query.page?Number(this.$route.query.page):1
         }
 
     },
     created(){
-
-            this.init()
+            let q = this.$route.query
+            if(!q.category||!q.good){
+                this.$router.replace({
+                    query:{category:'all'}
+                })
+                this.init()
+            }else{
+                this.init()
+            }
     }
     
 };
@@ -203,7 +207,7 @@ export default {
     }
     @media screen and (max-width:992px){
         .main-box {
-            padding:0 12px;
+            padding:0 16px;
         }
     }
     @media screen and (max-width:768px){

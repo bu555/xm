@@ -7,7 +7,7 @@
         </div>
         <i @click="notModifyHandler()" @mouseenter="notModifyHandler()">!</i>
         <div class="info-msg" v-if="!nameVerify" style="color:red">要求为1~12位的中文、英文、数字、下划线</div>
-        <div class="info-msg" v-if="showNotModify && nameVerify" :style="infoForm.modify?'':'top:20px'"><em class="el-icon-warning"></em> 昵称180天内只允许修改一次</div>
+        <div class="info-msg" v-if="showNotModify && nameVerify" :style="infoForm.modify?'':'top:21px'"><em class="el-icon-warning"></em> 提示：昵称180天内只允许修改一次</div>
       </el-form-item>
       <el-form-item label="来自" class="city">
         <el-select v-model="infoForm.province"  placeholder="省份" style="margin-right:1%" v-if="provinceList">
@@ -37,7 +37,7 @@
       </el-form-item>
       <el-form-item label="简介">
         <el-input type="textarea" :rows="3" v-model="infoForm.profile" spellcheck=false></el-input>
-        <p style="height:25px;line-height:25px;text-align:right;color:#aaa">{{getProfileLen}}/50</p>
+        <p style="height:25px;line-height:25px;text-align:right;color:#aaa">{{getProfileLen}}/70</p>
       </el-form-item>
       <el-form-item size="large">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>
@@ -94,10 +94,10 @@ export default {
         getProfileLen(){
             let len = this.infoForm.profile.length
             console.log(len);
-            if(len > 50){
+            if(len > 70){
                 setTimeout(()=>{
-                    this.infoForm.profile = this.infoForm.profile.substr(0,50)
-                    len = 50
+                    this.infoForm.profile = this.infoForm.profile.substr(0,70)
+                    len = 70
                 },20)
             }
             return len
@@ -187,9 +187,8 @@ export default {
 </script>
 <style lang="less">
 .my-info {
-  padding-left:15px;
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
   .name-form {
         position:relative;
         i {
@@ -211,7 +210,7 @@ export default {
         .info-msg {
             position:absolute;
             left:0px;
-            top:26px;
+            top:27px;
             color:#ec9115;
             font-size:12px;
         }

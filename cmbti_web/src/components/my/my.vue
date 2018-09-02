@@ -15,14 +15,18 @@
             </div>
             <div class="m-info">
                 <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{$store.state.userInfo.r_name}}</span> <span  class="sex"></span></div>
-                <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;max-width:500px;">{{$store.state.userInfo.profile?$store.state.userInfo.profile:'未設置'}}</div>
+                <div class="overflow-row-2" style="font-size:13px;line-height:15px;padding-right:5px;max-width:500px;color:#444">{{$store.state.userInfo.profile?$store.state.userInfo.profile:'未設置'}}</div>
             </div>
         </div>
     </div>
-    <div class="main-box min-768">
+    <!-- 大于786显示区 -->
+    <div class="min-768">
         <Home></Home>
-        <router-view></router-view>
+        <div class="main-box ">
+            <router-view></router-view>
+        </div>
     </div>
+    <!-- 小于768显示区 -->
     <div class="main-box max-768">
         <div class="m-body">
             <div class="m-content" ref="mContent">
@@ -30,11 +34,11 @@
                     <Home></Home>
                 </div>
                 <div>
-                    <div class="m-title" style="padding:18px 4% 12px;margin-bottom:10px;border-bottom:1px solid #f0f3ef">
+                    <div class="m-title" style="padding:12px 20px;margin-bottom:10px;border-bottom:1px solid #f0f3ef">
                         <!-- <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="$delayPush('/my')"></i>  -->
-                        <i class="el-icon-back" style="font-size:17px;margin-left:0px;padding:5px 10px 5px 5px;color:#777;cursor:pointer" @click="delayPush()"></i> 
-                        <span style="padding:0 10px 0 2px;color:#ddd">|</span>
-                        {{$store.state.myTabName}} 
+                        <i class="el-icon-arrow-left" style="font-size:22px;margin-left:0px;font-weight:700;padding:5px 18px 5px 7px;color:#555;cursor:pointer" @click="delayPush()"></i> 
+                        <span style="padding:0 10px 0 0px;border-left:1px solid #ddd;padding-left:.7em">{{$store.state.myTabName}} </span>
+                        
                     </div>
                     <router-view></router-view>
                 </div>
@@ -154,7 +158,7 @@ export default {
 <style lang="less">
 .my {
     .m-header {
-        padding-top:55px;
+        padding-top:15px;
         background:url('/static/img/my_bg.jpg') no-repeat;
         background-size:cover;
         position: relative;
@@ -169,7 +173,7 @@ export default {
             bottom:0px;
             left:0px;
             width:100%;
-            height:102px;
+            height:77px;
             background-color: rgba(255,255,255,.8);
         }
         .m-header-inner {
@@ -225,8 +229,8 @@ export default {
             top:20px;
         }
         .m-info {
-            padding-left:2.2vw;
-            height:72px;
+            padding-left:2.5vw;
+            height:55px;
             span.r-name {
                 // font-size:15px;
                 font-weight:700;
@@ -284,7 +288,8 @@ export default {
                     flex:0 0 50%;
                     // border:1px solid #f0f3ef;
                     .m-title {
-                        
+                        display:flex;
+                        align-items: center;
                     }
                 }
                 
@@ -306,6 +311,7 @@ export default {
     }
     .upload-avatar {
         position: fixed;
+        z-index:3;
         top:0;
         left:0;
         width:100%;
@@ -324,8 +330,9 @@ export default {
     }
     @media screen and (max-width:992px){
         .m-header .m-header-inner {
-            padding-left: 12px;
+            padding-left: 18px;
             padding-right: 5px;
+            padding-bottom:8px;
         }
     }
     @media screen and (max-width:768px){
@@ -342,12 +349,12 @@ export default {
     }
     @media screen and (max-width:525px){
         .m-header {
-            padding-top:32px;
+            padding-top:12px;
             &:after {
-                height:75px;
+                height:70px;
             }
             .m-info {
-                height:54px;
+                height:58px;
             }
         }
         .m-header {

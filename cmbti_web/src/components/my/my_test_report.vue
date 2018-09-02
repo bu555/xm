@@ -28,7 +28,7 @@ export default {
 <style lang="less">
 .my-test {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
   .content {
     font-size:15px;
   }

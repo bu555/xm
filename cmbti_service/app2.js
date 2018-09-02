@@ -42,7 +42,7 @@ db.once('open', function() {
 
 // app.use(cors());//跨域设置
 app.set('port',process.env.PORT || 7000)
-app.use(cors({credentials: true, origin: ['http://localhost:7075','http://localhost:8000']}));//跨域设置
+app.use(cors({credentials: true, origin: ['http://localhost:7075','http://localhost:8000','http://192.168.1.106:7075','http://192.168.1.102:7075']}));//跨域设置
 // app.use(cors({credentials: true, origin: 'http://localhost:8000'}));//跨域设置
 // app.use(cors());//跨域设置
 app.use(bodyParser.urlencoded({extended:false})); //解析请求主体(用于获取post传递的参数)

@@ -14,12 +14,12 @@
                 </li>
                 <li>
                     <router-link to="/example?type=all&page=1">
-                        名人库
+                        名人汇
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/forum?category=all&page=1">
-                        <em>M</em>论坛
+                        论坛
                     </router-link>
                 </li>
             </ul>
@@ -33,8 +33,8 @@
                         </router-link>
                         <i class="el-icon-caret-bottom" @click="dropDown=!dropDown"></i>
                         <ul :class="(dropDown?'active':'')">
-                            <li @click="$router.push({path:'/my'});dropDown=false">个人主页</li>
-                            <li @click="$store.state.loginOut=true;dropDown=false">退出</li>
+                            <li @click="$router.push({path:'/my'});dropDown=false"><i class="fa fa-user-circle"></i> 个人主页</li>
+                            <li @click="$store.state.loginOut=true;dropDown=false"><i class="fa fa-sign-out"></i> 退出</li>
                         </ul>
                 </div>
                 <div class="not-login" v-else>
@@ -86,7 +86,6 @@ export default {
       .x-nav-inner {
         //   max-width:970px;
         //   margin:0 auto;
-          height:30px;
           display:flex;
           justify-content:space-between;
           align-items: center;
@@ -96,7 +95,8 @@ export default {
               display:flex;
               justify-content:flex-start;
               li {
-                //   line-height: 27px;;
+                    height:30px;
+                    line-height:29px;
                   a {
                       font-size:14px;
                       padding:0 13px;
@@ -114,6 +114,7 @@ export default {
               padding-right:14px;
               .is-login {
                     height:30px;
+                    height:29px;
                     display:flex;
                     align-items: center;
                     position: relative;
@@ -142,10 +143,10 @@ export default {
                     }
                     &>ul {
                         height:0px;
-                        transition: all .3s;
+                        transition: all .2s;
                         font-size:14px;
                         position:absolute;
-                        top:30px;
+                        top:32px;
                         right:0px;
                         background-color: #fff;
                         overflow: hidden;
@@ -156,7 +157,9 @@ export default {
                             padding:0 8px;
                             cursor:pointer;
                             &:hover {
-                                background-color: #f6f6f6;
+                                // background-color: #f6f6f6;
+                                background-color: #575a55;
+                                color:#eee;
                             }
                         }
                     }
@@ -164,6 +167,7 @@ export default {
                         height:68px;
                         padding:5px 0;
                         border:1px solid #e6e6e6;
+                        box-shadow: 0 0 3px #545652;
                     }
               }
               .not-login {

@@ -4,11 +4,11 @@
         <div class="nav-view">
             <div class="ctrl">
                 <span @click="$router.go(-1)" style="cursor:pointer">
-                    <i class="el-icon-d-arrow-left"></i> 返回名人库
+                    <i class="el-icon-d-arrow-left"></i> 返回名人汇
                 </span>
             </div>
             <!--<div class="nav-list">
-                <span>名人库</span>
+                <span>名人汇</span>
                 <span>刘德华</span>
             </div>-->
                 <!--搜索框-->

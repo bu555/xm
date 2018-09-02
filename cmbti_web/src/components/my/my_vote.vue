@@ -1,5 +1,5 @@
 <template>
-  <div class="my-vote">
+  <div class="my-vote" v-loading="loading">
     <div class="content">
 
         <div class="item" v-for="(v,i) in data" :key="i">
@@ -16,10 +16,8 @@
               <!-- <li class="overflow-row-2">简介：{{v.info}}</li> -->
            </ul>
         </div>
-
-
-
-        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据</p>
+        <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
+        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据哦("▔□▔)</p>
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       或许还有更多...
@@ -30,7 +28,7 @@
 export default {
     data(){
       return {
-        data:[],
+        data:null,
         loading:false,
         currentData:'',
         pageSize:3,
@@ -44,6 +42,9 @@ export default {
             this.$axios.getMyVote({size:this.pageSize,page:this.page}).then(res=>{
                 this.loading = false
                 if(res.data.success){
+                    if(!this.data){
+                      this.data = []
+                    }
                     this.data = this.data.concat(res.data.data) 
                     this.currentData = res.data.data
                 }
@@ -65,7 +66,8 @@ export default {
 <style lang="less">
 .my-vote {
   margin-bottom:18px;
-  padding:0 15px;
+  padding:0 16px;
+    min-height:270px;
   .content {
     font-size:15px;
     .item {

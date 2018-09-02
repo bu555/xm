@@ -3,6 +3,7 @@
     <NavMain></NavMain>
     <div class="m-header">
         <div class="m-header-inner">
+            <p>{{userInfo.r_name}}的主页</p>
             <div class="photo">
                 <!-- <img :src="userInfo.avatar?$pathAvatar +userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
                 <Avatar :src="userInfo.avatar" :uid="''" size="big-x" round="" class="big-photo"></Avatar>
@@ -10,7 +11,7 @@
             </div>
             <div class="m-info">
                 <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{userInfo.r_name}}</span> <span class="sex"></span></div>
-                <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px;max-width:370px;width:92%;">{{userInfo.profile?userInfo.profile:''}}</div>
+                <div class="overflow-row-2" style="font-size:14px;line-height:15px;padding-right:5px;height:30px;max-width:370px;width:92%;color:#4c4c4c;">{{userInfo.profile?userInfo.profile:''}}</div>
                 <div class="follow-ctrl" style="">
                     <!--<el-button type="primary" size="mini" v-if="!userInfo.isFollow" @click="followUser('1')"><i class="el-icon-plus" style="margin:0 -1px 0 -2px"></i> 关注Ta</el-button>
                     <el-button type="primary" plain size="mini"  @click="followUser('0')" v-else style="background:#eee"> 
@@ -110,7 +111,7 @@ export default {
 <style lang="less">
 .show {
     .m-header {
-        padding-top:55px;
+        padding-top:52px;
         background:url('/static/img/my_bg.jpg') no-repeat;
         background-size:cover;
         position: relative;
@@ -136,6 +137,15 @@ export default {
             align-items: flex-end;
             padding-bottom:10px;
             z-index: 1;
+            &>p {
+                position:absolute;
+                top:-42px;
+                left:0px;
+                font-size:16px;
+                color:#bbb;
+                font-style:italic;
+                text-shadow: 0 0 2px #fff;
+            }
         }
         .photo {
             background-color: #ccc;
@@ -217,6 +227,7 @@ export default {
                 border:1px solid #f0f3ef;
                 .m-tabs {
                     display:flex;
+                    font-size:15px;
                     // border-bottom:1px solid #eee;
                     &>div {
                         padding:15px 15px;
@@ -282,6 +293,9 @@ export default {
         .m-header .m-header-inner {
             padding-left: 12px;
             padding-right: 5px;
+            &>p {
+                left:15px;
+            }
         }
     }
     @media screen and (max-width:768px){
@@ -294,7 +308,7 @@ export default {
     }
     @media screen and (max-width:525px){
         .m-header {
-            padding-top:70px;
+            padding-top:50px;
             .photo {
                 // width:85px;
                 // height:85px;

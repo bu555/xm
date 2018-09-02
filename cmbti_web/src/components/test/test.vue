@@ -16,12 +16,19 @@ export default {
     data(){
         return{
             data:{
-                title:'测试',
-                list:[
+                title:{
+                    value:'测试',
+                    link:'/test'
+                },
+                items:[
                     {
                         value:'MBTI职业性格测试',
                         link:'/test/mbti'
-                    }
+                    },
+                    {
+                        value:'八维功能测试',
+                        link:'/test/function'
+                    },
                 ]
 
             }

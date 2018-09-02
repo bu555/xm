@@ -1,5 +1,5 @@
 <template>
-  <div class="my-comment-a">
+  <div class="my-comment-a" v-loading="loading">
     <!-- <div class="m-title" style="padding:0px 5px 10px;margin-bottom:5px;border-bottom:1px solid #cee1f5">
       <router-link to="/my">
       <i class="fa fa-reply" style="font-size:17px;margin-left:-2px;padding:5px 10px 5px 5px;color:#777"></i> 
@@ -99,6 +99,7 @@ export default {
     },
     methods:{
         getMyCommentList(){
+            this.loading=true
             this.$axios.getCommentList({}).then(res=>{
                 this.loading = false
                 if(res.data.success){
@@ -135,6 +136,7 @@ export default {
                   this.currentData = []  //觸發加載更多隱藏
                   return
                 }
+                this.loading=true
                 this.empty = false
                 this.$axios.getMyCommentArt({aid:aid }).then(res=>{
                     this.loading = false
@@ -205,10 +207,11 @@ export default {
 .my-comment-a {
     width:100%;
     margin-bottom:18px;
-    padding:0 15px;
+    padding:0 16px;
+    min-height:270px;
   .c-tabs {
     display:flex;
-    padding:10px 0;
+    padding-bottom:10px;
     &>div {
       font-size:15px;
       padding:5px 0px 0px;
@@ -231,7 +234,7 @@ export default {
   }
   .aid-comment,.eid-comment {
     padding-bottom:8px;
-    border-bottom:1px solid #f0f0f0;
+    border-bottom:1px solid #f8f8f8;
     max-height:136px;
     overflow: hidden;
     position: relative;
@@ -241,17 +244,19 @@ export default {
        margin:2px 0;
        em {
            font-size:12px;
-           color:#fff;
+           color:#c1c1c1;
            padding:0px 2px;
            border-radius:3px;
            margin-right:3px;
+        //    background-color: #c8c8c8;;
+            border:1px solid #c7c7c7;
        }
-       em.art {
-           background-color: #488842;
-       }
-       em.exa {
-           background-color: #4c9bd2;
-       }
+    //    em.art {
+    //        background-color: #488842;
+    //    }
+    //    em.exa {
+    //        background-color: #4c9bd2;
+    //    }
        &>a:hover {
          color:#496ea3
        }
@@ -275,12 +280,12 @@ export default {
         color:#333;
         span {
             font-size:13px;
-            color:#ddd;
+            color:#b4b4b4;
             i {
                 display:inline-block;
                 border-radius:50%;
                 width:4px;
-                height:4px;
+                height:9px;
                 margin-left:2px;
                 background:#ddd;
             }

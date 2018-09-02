@@ -32,7 +32,7 @@
     <div class="h-main">
         <div class="section" v-for="(v,i) in 3">
             <div class="title">
-                <h2>名人库</h2>
+                <h2>名人汇</h2>
             </div>
             <ul class="content">
                 <li   v-for="(v,i) in 8">
