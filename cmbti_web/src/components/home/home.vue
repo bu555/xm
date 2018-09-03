@@ -30,29 +30,71 @@
         </div>
     </div>
     <div class="h-main">
-        <div class="section" v-for="(v,i) in 3">
+        <div class="section s-mbti">
+            <div class="title">
+                <h2><em>MBTI</em></h2>
+            </div>
+            <ul class="content">
+                <li>什么是MBTI？</li>
+                <li>有什么意义？</li>
+                <li>MBTI的历史</li>
+                <li>MBTI的发展</li>
+            </ul>
+        </div>
+        <div class="section s-examp">
             <div class="title">
                 <h2>名人汇</h2>
             </div>
             <ul class="content">
-                <li   v-for="(v,i) in 8">
-                    <div class="examp">
-                        <div class="photo"></div>
-                        <div class="name">Elon musk</div>
-                        <div class="type">INTJ</div>
-                    </div>
+                    <li   v-for="(v,i) in exampleList" :key="i">
+                        <router-link :to="'/example/'+v._id">
+                            <img :src="$pathImgs+v.img_url" alt="">
+                            <div class="name overflow-row-1-x" >{{v.name}}</div>
+                            <div class="type">{{v.type.toUpperCase()}}</div>
+                        </router-link>
+                    </li>
+            </ul>
+        </div>
+        <div class="section s-test">
+            <div class="title">
+                <h2>测试</h2>
+            </div>
+            <ul class="content">
+                <li>
+                    <router-link to="/">
+                        人格类型测试
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/">
+                        八维功能测试
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/">
+                        人格类型测试
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/">
+                        八维功能测试
+                    </router-link>
                 </li>
             </ul>
         </div>
-        <!-- <ul class="h-tab">
-                <li>
-                    <router-link to="/">MBTI理论</router-link></li>
-                <li>
-                    <router-link to="/personalities">人格类型</router-link></li>
-                <li>
-                    <router-link to="/functions">认知功能</router-link></li>
-        </ul>
-        <router-view></router-view> -->
+        <div class="section s-forum">
+            <div class="title">
+                <h2>论坛</h2>
+            </div>
+            <ul class="content">
+                <li   v-for="(v,i) in articleList" :key="i">
+                    <ArticleItems :data="v"></ArticleItems>
+                </li>
+            </ul>
+        </div>
+        <div class="recommend">
+            <Aside></Aside>
+        </div>
         
     </div>
 </div>
@@ -60,16 +102,63 @@
 <script>
 import NavDefault from '@/components/common/nav_main_default'
 import Avatar from '@/components/common/avatar'
+import Aside from '@/components/common/aside/aside'
+import ArticleItems from '@/components/common/article_items'
 export default {
+    data(){
+        return {
+            loading:false,
+            exampleList:[],
+            articleList:[],
+        }
+    },
     components:{
         NavDefault,
-        Avatar
+        Avatar,
+        Aside,
+        ArticleItems,
+    },
+    methods:{
+        getHotExample(){
+            this.loading = true;
+            this.$axios.searchExample({params:{size:8,page:1}}).then(res=>{
+                this.loading = false;
+                if(res.data.success){
+                        this.exampleList = res.data.result.example;
+                        this.exampleList = this.exampleList.concat(this.exampleList)
+                }else{
+                }
+            }).catch(res=>{
+                this.loading = false;
+            })
+        },
+        getHotArticle(){
+            this.loading1 = true
+            this.$axios.getArticle({
+                category:'', //''即获取全部
+                page:'1',
+                good:'',
+                size:4
+            }).then(res=>{
+                this.loading1 = false
+                if(res.data.success){
+                    this.articleList = res.data.data
+                }
+            }).catch(err=>{
+                this.loading1 = false
+            })
+        },
+    },
+    created(){
+        this.getHotExample()
+        this.getHotArticle()
     }
 }
 </script>
 <style lang="less">
 .home {
     background-color: #fff;
+    box-sizing: border-box;
     .h-news {
         background-color: #d1deec;
     }
@@ -78,7 +167,7 @@ export default {
         height:202px;
         overflow: hidden;
         max-width:970px;
-        margin:0 auto;
+        margin:0 auto 16px;
         display:flex;
         .wrapper {
             flex:0 0 60%;
@@ -118,37 +207,128 @@ export default {
 
     }
     .h-main {
+        padding-right:305px;
+        max-width:970px;
+        margin:0 auto;
+        position: relative;
         .section {
-            max-width:970px;
             margin:0 auto;
-            padding:1.5em 0;
-            padding-left:155px;
             position: relative;
-            .title {
-                position: absolute;
-                left:0px;
-                top:1.5em;
+            >.title {
+                border-bottom:2px solid #c5e4de;
+                height:32px;
+                line-height:32px;
+                h2 {
+                    font-size:17px;
+                    em {
+                        font-size:18px
+                    }
+                }
             }
             ul.content {
                 display:flex;
+                justify-content: space-between;
                 flex-wrap:wrap;
+                padding-top:12px;
+                li {
+                    margin-bottom:12px;
+                }
+            }
+        }
+        .recommend {
+            border:1px solid pink;
+            position:absolute;
+            right:0px;
+            top:10px;
+        }
+
+        .section.s-mbti {
+            ul {
+                li {
+                    flex:0 0 48%;
+                    background-color: #eee;
+                    height:86px;
+                    color:#fff;
+                    text-align: center;
+                }
+            }
+        }
+        .section.s-examp {
+            ul.content {
                 li {
                     flex:0 0 24.5%;
-                    min-height:120px;
-                    padding:1em;
-                }
-                .examp {
-                    margin:0 auto;
-                    max-width:140px;
-                    text-align: center;
-                    background-color: #eee;
-                    
-                    .photo {
-                        width:100%;
-                        max-width:140px;
-                        height:120px;
-                        background-color: #f6f6f6;;
+                    // background-color: #eee;
+                    padding:5px 3px;
+                    // max-width:150px;
+                    &>a>div,&>a>img {
                         margin:0 auto;
+                        text-align: center;
+                    }
+                    img {
+                        display:block;
+                        width:120px;
+                        height:152px;
+                        object-fit: cover;
+                        margin-bottom:5px;
+                    }
+                    .name {
+                        font-size:14px;
+                    }
+                }
+                @media screen and (max-width:520px){
+                    li {
+                        flex:0 0 49%;
+                    }
+                }
+            }
+        }
+        .section.s-test {
+            ul.content {
+                li {
+                    flex:0 0 49%;
+                    a {
+                        display:block;
+                        height:44px;
+                        line-height:44px;
+                        border-radius:5px;
+                        padding-left:1.2em;
+                    }
+
+
+                }
+                li:nth-of-type(1)>a{
+                    background-color: #f39483;
+                    color:#fff;
+                }
+                li:nth-of-type(2)>a{
+                    background-color: #f3e0bf;
+                    color:#bd9041;
+                }
+                li:nth-of-type(3)>a{
+                    background-color: #c3e4de;
+                    color:#5f968e;
+                }
+                li:nth-of-type(4)>a{
+                    background-color: #b9d6eb;
+                    color:#4e86a7;
+                }
+                @media screen and (max-width:350px){
+                    li {
+                        flex:0 0 100%;
+                    }
+                }
+            }
+        }
+        .section.s-forum {
+            ul.content {
+                li {
+                    flex:0 0 100%;
+                    margin:0;
+
+                }
+                @media screen and (max-width:520px){
+                    li {
+                        // flex:0 0 49%;
                     }
                 }
             }
@@ -172,7 +352,17 @@ export default {
     //     }
     // }
 
-    @media screen and (max-width:500px){
+    @media screen and (max-width:992px){
+        .h-main {
+            padding:0 16px;
+            .recommend {
+                position: relative;
+                right:0px;
+                top:0px;
+            }
+        }
+    }
+    @media screen and (max-width:520px){
         .h-news-inner {
             flex-wrap:wrap;
             .wrapper {
@@ -192,6 +382,15 @@ export default {
                 }
             }
 
+        }
+        .h-main {
+            .section {
+                ul.content {
+                    li {
+                        // flex:0 0 100%;
+                    }
+                }
+            }
         }
     }
 

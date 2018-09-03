@@ -6,12 +6,7 @@
         <router-view></router-view>
         <!-- 推荐的内容 -->
         <div class="recommend">
-            <h2>推荐</h2>
-            <ul>
-                <li v-for="(v,i) in 7" :key="i">
-                    <router-link :to="'/forum/'+i"><i class="el-icon-document"></i> {{'INTP人格类型：思想者与追求者INTP人格类型：思想者与追求者INTP人格类型：思想者与追求者'}}</router-link>
-                </li>
-            </ul>
+            <Aside></Aside>
         </div>
         
     </div>
@@ -20,6 +15,7 @@
 <script>
 import NavMain from '@/components/common/nav_main'
 import NavSub from '@/components/common/nav_sub'
+import Aside from '@/components/common/aside/aside'
 export default {
     data(){
         return {
@@ -58,7 +54,8 @@ export default {
     },
     components:{
         NavMain,
-        NavSub
+        NavSub,
+        Aside
     }
     
 };
@@ -72,40 +69,10 @@ export default {
         position: relative;   
         // 右侧推荐区
         .recommend {
-            width:275px;
-            // border:1px solid #f7f7f7;
+            border:1px solid pink;
             position:absolute;
-            right:12px;
+            right:0px;
             top:10px;
-            padding:0 12px 12px;
-            margin-bottom:12px;
-            h2 {
-                font-size:15px;
-                margin-bottom:6px;
-                padding-bottom:4px;
-                color:#0e959d;
-                // font-weight:600;
-                border-bottom:1px solid #f1f1f1;
-            }
-            ul{
-                li {
-                    text-overflow:ellipsis;
-                    white-space: nowrap;
-                    overflow:hidden;
-                    margin-bottom:3px;
-                    a {
-                        color:#b4b4b4;
-                        font-size:14px;
-                        &:hover {
-                            color:#0e959d;
-                        }
-                        i {
-                            color:#0e959d;
-
-                        }
-                    }
-                }
-            }
         }
 
     }

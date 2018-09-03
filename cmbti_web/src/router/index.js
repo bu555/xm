@@ -37,7 +37,6 @@ import example_details from '@/components/example/example_details'
 
 // forum
 import forum from '@/components/forum/forum'
-// import forum_index from '@/components/forum/forum_index'
 import forum_item from '@/components/forum/forum_item'
 import forum_article_new from '@/components/forum/forum_article_new'
 
@@ -56,6 +55,13 @@ import my_test_report from '@/components/my/my_test_report'
 
 //用户资料展示
 import show from '@/components/user_show/show'
+
+//关于
+import about from '@/components/about/about'
+import about_about from '@/components/about/about_about'
+import about_contactus from '@/components/about/about_contactus'
+import about_disclaimer from '@/components/about/about_disclaimer'
+import about_help from '@/components/about/about_help'
 
 
 const vueRouter = new Router({
@@ -79,17 +85,6 @@ const vueRouter = new Router({
          { path:'functions/:id',component: home_functions},
       ]
     },
-
-    // type
-    // {
-    //   path:'/personalities',
-    //   component:type,
-    //   redirect:'/personalities/entj',
-    //   children:[
-    //     {path:':type',component:type_details}
-    //   ]
-    // },
-
     // mbti
     {
       path:'/mbti',
@@ -109,12 +104,6 @@ const vueRouter = new Router({
         {path:'r/:id',component:test_report},
       ]
     },
-    // {path:'/test/mbti93',component:test_mbti93},
-    // {path:'/test/mbti93/report',component:mbti93_report},
-    // {path:'/test/personality',component:test_personality},
-    // {path:'/test/personality/report',component:personality_report},
-    // {path:'/test/function',component:test_function},
-
     // example
     {path:'/example',component:example},
     {path:'/example/:id',component:example_details},
@@ -127,18 +116,6 @@ const vueRouter = new Router({
     {path:'/forum/:id',component:forum_item},
     {path:'/forum/article/new',component:forum_article_new},
     {path:'/forum/article/edit/:id',component:forum_article_new},
-    // {
-    //   path:'/forum',
-    //   component:forum,
-    //   children:[
-    //     {path:'',component:forum_index},
-    //     {path:'article/new',component:forum_article_new},
-    //     {path:'article/edit/:id',component:forum_article_new},
-    //     {path:':articleID',component:forum_item},
-    //   ]
-    // },
-    // {path:'/forum',component:forum,  meta:{requireAuth: true }},
-    
     //个人中心
     { path:'/my',
       component:my,
@@ -160,6 +137,18 @@ const vueRouter = new Router({
     },
     //用户资料展示
     { path:'/info/:id',component:show},
+
+    //关于
+    { 
+      path:'/about',
+      component:about,
+      children:[
+        {path:'',component:about_about},
+        {path:'contactus',component:about_contactus},
+        {path:'disclaimer',component:about_disclaimer},
+        {path:'help',component:about_help},
+      ]
+    },
     
     // 用户登陆、注册、找回密码
     { 
