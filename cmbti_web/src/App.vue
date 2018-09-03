@@ -159,7 +159,7 @@ export default {
       box-sizing: border-box;
     }
 
-    // 重写elementUI样式
+  // 重写elementUI样式
     // 对话框
       .el-message-box {
           width:420px;
@@ -167,12 +167,72 @@ export default {
           @media screen and (max-width:500px) {
                 width:80%;
           }
+          .el-message-box__title span {
+              display:none;
+          }
+
+      }
+      //btn
+      .el-button.el-button--default {
+          color: #329ea5;
+          border-color: #329ea5;
+      }
+      .el-button.el-button--default:active {
+          color: #187d83;
+          border-color: #187d83;
+      }
+      .el-button.el-button--default:hover {
+          color: #25959c;
+          border-color:#25959c;
+      }
+      .el-button.el-button--default:focus {
+          color: #43afb6;
+          border-color: #43afb6;
+      }
+      .el-button.el-button--primary,.el-button.el-button--primary.el-button--default{
+          background: #329ea5;
+          border-color: #329ea5;
+          color:#fff;
+          &:hover {
+              background: #227e84;
+              border-color: #227e84;
+          }
+      }
+      .el-button.el-button--primary:active {  //按下时
+          background-color: #187d83;
+      }
+      .el-button.el-button--primary:focus {  //按下之后
+          background: #409da3;
+          border-color: #409da3;
       }
       /*提示信息 样式*/
       .el-message {
           top: 122px;
-          min-width:290px;
+          max-width:280px;
+          min-height:100px;
+          min-width:250px;
+          display:flex;
+          flex-wrap:wrap;
+          i,p {
+            flex:0 0 100%;
+            margin:0 auto;
+            text-align: center;
+          }
+          .el-message__closeBtn {
+              position: absolute;
+              top: 18px;
+              right: 15px;
+              cursor: pointer;
+              font-size: 16px;
+          }
+          .el-message__icon {
+              margin: 0 auto 12px;
+              text-align:center;
+              font-size:44px;
+          }
+
       }
+
 
 </style>
 

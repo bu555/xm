@@ -190,6 +190,7 @@ export default {
                 padding:0px 3px;;
                 color:#0e959d;
                 border-radius:3px;
+                white-space:nowrap;
                 em {
                     font-size:17px;
                 }
