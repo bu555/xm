@@ -13,7 +13,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="'/test/mbti'">
+                    <router-link :to="'/test'">
                         测试
                     </router-link>
                 </li>

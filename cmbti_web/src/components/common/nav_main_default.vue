@@ -22,7 +22,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="'/test/mbti'" style="color:#f2901c">
+                    <router-link :to="'/test'" style="color:#f2901c">
                         测试
                         <p>正在热播</p>
                     </router-link>
@@ -125,7 +125,7 @@ export default {
   .x-nav {
       .x-nav-inner {
           max-width:970px;
-          height:76px;
+          height:68px;
           margin:0 auto;
           display:flex;
           justify-content:space-between;
