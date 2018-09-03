@@ -2,7 +2,9 @@
     <div  :class="'x-nav ' + (showMore?'mobile':'')">
         <div class="x-nav-inner">
             <div class="logo">
-                <Logo></Logo>
+                <router-link to="/">
+                    <img src="/static/img/logo.png" alt="">
+                </router-link>
             </div>
             <div class="search">
                 <span class="close-btn" @click="showMore=false">关闭</span>
@@ -37,6 +39,12 @@
                         <p>正在热播</p>
                     </router-link>
                 </li>
+                <!-- <li class="mb-768-show">
+                    <router-link to="/forum?category=all&page=1" style="color:#2AB8CC">
+                        帮助中心
+                        <p>正在热播</p>
+                    </router-link>
+                </li> -->
                 <!-- <li>
                     <router-link to="/about">
                         关于我们
@@ -125,6 +133,11 @@ export default {
           .logo {
               flex: 0 0 150px;
               // background-color: #eee;
+              img {
+                  display:inline-block;
+                  width:130px;
+                  height:auto;
+              }
           }
           .search {
               position: relative;
@@ -170,7 +183,7 @@ export default {
               display:flex;
               justify-content:flex-end;
               li {
-                  padding-left:28px;
+                  padding-left:20px;
                   line-height: 27px;;
                   a {
                       font-size:20px;
@@ -183,6 +196,9 @@ export default {
                         font-size:21px; //英文大一号
                       }
                   }
+              }
+              li.mb-768-show {
+                  display:none;
               }
               li.mb-more {
                 display:none
@@ -198,7 +214,7 @@ export default {
   }
   @media screen and (max-width:992px){
     .x-nav {
-        padding: 0 14px;
+        padding: 0 14px 0 10px;
         .x-nav-inner .search {
             display:none;
         }
@@ -211,7 +227,10 @@ export default {
         .x-nav-inner {
             height:47px;
             .logo {
-              flex: 0 0 65px;
+              flex: 1;
+              img {
+                  width:88px;
+              }
             }
             .search {
                 display:none;
@@ -301,6 +320,9 @@ export default {
                         font-size:20px; //英文大一号
                       }
                     }
+                }
+                li.mb-768-show {
+                    display:block;
                 }
                 li.mb-more {
                   display:none;

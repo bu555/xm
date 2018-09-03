@@ -158,7 +158,7 @@ export default {
         }
         .m-info {
             height:100%;
-            padding-left:2.2vw;
+            padding-left:1.2em;
             width:100%;
             white-space:normal; word-break:break-all;
             min

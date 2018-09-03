@@ -3,6 +3,11 @@
         <div class="x-nav-inner">
             <ul class="menu">
                 <li>
+                    <router-link to="/">
+                        <img src="/static/img/logo.png" alt="">
+                    </router-link>
+                </li>
+                <li>
                     <router-link to="/mbti/theory">
                         <em>MBTI</em>
                     </router-link>
@@ -52,6 +57,7 @@
 
 <script>
 import Avatar from '@/components/common/avatar'
+import Logo from '@/components/common/logo'
 export default {
   data(){
       return {
@@ -60,7 +66,8 @@ export default {
       }
   },
   components: {
-      Avatar
+      Avatar,
+      Logo
   },
   watch: {
   },
@@ -101,12 +108,20 @@ export default {
                       font-size:14px;
                       padding:0 13px;
                       color:#ccc;
+                      white-space:normal;
                       em {
                         font-size:15px; //英文大一号
                       }
                       &:hover {
                           text-shadow: 0 0 1px #fff;
                       }
+                  }
+                  img {
+                      display:inline-block;
+                      width:57px;
+                      height:auto;
+                      position:relative;
+                      top:-2px;
                   }
               }
           }
@@ -124,7 +139,7 @@ export default {
                     }
                     .role-name {
                         margin-left:7px;
-                        font-size:14px;
+                        font-size:13px;
                         color:#ccc;
                         display:inline-block;
                         max-width:120px;
@@ -155,6 +170,7 @@ export default {
                             height:28px;
                             line-height:28px;
                             padding:0 8px;
+                            white-space: nowrap;
                             cursor:pointer;
                             &:hover {
                                 // background-color: #f6f6f6;
