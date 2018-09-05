@@ -6,6 +6,7 @@
 			<router-link to="/css/imgs">六边形图片网格布局</router-link><br>
 			<router-link to="/css/font_baiyu">汉白玉浮雕文字</router-link><br>
 			<router-link to="/css/buttons">按钮</router-link><br>
+			<router-link to="/css/biantiezhi">便贴纸</router-link><br>
 
     </div>
 </template>
