@@ -100,7 +100,9 @@ const vueRouter = new Router({
       path:'/test',
       component:test,
       children:[
+        {path:'',component:test_home},
         {path:'mbti',component:test_mbti93},
+        {path:'function',component:test_function},
         {path:'r/:id',component:test_report},
       ]
     },

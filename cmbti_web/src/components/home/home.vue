@@ -190,6 +190,9 @@ export default {
                 text-align: center;
                 margin:0 auto;
                 padding-top:22px;
+                a,div {
+                    width:100%;
+                }
                 .role-name {
                     padding-top:7px;
                 }
