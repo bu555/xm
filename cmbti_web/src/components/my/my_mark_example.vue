@@ -9,9 +9,9 @@
               </router-link>
            </div>
            <ul class="info">
-              <li class="overflow-row-1-x">名字：{{v.name+v.name1}}</li>
-              <li class="overflow-row-1-x">类型：{{v.type&&v.type.toUpperCase()}}</li>
-              <li class="overflow-row-1-x">人气：{{v.total}}</li>
+              <li class="overflow-row-1">名字：{{v.name+v.name1}}</li>
+              <li class="overflow-row-1">类型：{{v.type&&v.type.toUpperCase()}}</li>
+              <li class="overflow-row-1">人气：{{v.total}}</li>
               <li class="overflow-row-2">简介：{{v.info}}</li>
            </ul>
         </div>

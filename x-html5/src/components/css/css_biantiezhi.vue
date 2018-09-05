@@ -16,7 +16,7 @@
               Then add the following
             </div>
         </div>
-        <iframe src="/static/page/cropper/html.html" frameborder="0"></iframe>
+        <iframe src="/static/page/cropper/html.html" frameborder="0" ></iframe>
     </div>
 </template>
 <script>
