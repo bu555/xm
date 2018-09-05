@@ -23,7 +23,7 @@
                     </div>
                     <div class="items"  v-if="i1<3" v-for="(v1,i1) in v.comment" :key="i1" >
                       <router-link to="">
-                            <span class="overflow-row-1-x"> <i class="art"></i> {{v1.content}}</span>
+                            <span class="overflow-row-1 max-set"> <i class="art"></i> {{v1.content}}</span>
                       </router-link>
                       <div class="time">{{$moment(v1.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
                     </div>
@@ -39,7 +39,7 @@
                     </router-link>
                     <div class="items"  v-if="i1<3" v-for="(v1,i1) in v.comment" :key="i1">
                         <router-link to="">
-                                <span class="overflow-row-1-x"><i class="exa"></i> {{v1.content}}</span>
+                                <span class="overflow-row-1 max-set"><i class="exa"></i> {{v1.content}}</span>
                         </router-link>
                         <div class="time">{{$moment(v1.c_time).format("YYYY-MM-DD HH:mm:ss")}}</div>
                     </div>
@@ -263,7 +263,10 @@ export default {
      }
   }
   .content {
-
+      .max-set {
+          display:block;
+          max-width:420px;
+      }
   }
   .items, {
       display:flex;
@@ -317,6 +320,14 @@ export default {
     }
   }
   
+  @media screen and (max-width:768px) {
+    .content {
+        .max-set {
+            display:block;
+            max-width:51vw;
+        }
+    }
+  }
   @media screen and (max-width:525px) {
     // padding:0px 0px 10px;
     .items {

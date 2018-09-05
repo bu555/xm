@@ -85,10 +85,20 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
   text-align: center;
 }
 
-.overflow-row-1 {
+.overflow-row-1 {   
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+}
+@media screen and (max-width:768px) {
+  .overflow-row-1 {   
+      display: -webkit-box;    
+      -webkit-box-orient: vertical;    
+      -webkit-line-clamp: 1;    
+      overflow: hidden;
+      word-break:break-all;
+      white-space:normal;
+  }
 }
 /* white-space:normal; word-break:break-all; flex 中文本强制换行 */
 /* 

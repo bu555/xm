@@ -10,6 +10,7 @@ import css_loading from '@/components/css/css_loading'
 import css_ribbon from '@/components/css/css_ribbon'
 import css_imgs from '@/components/css/css_imgs'
 import css_buttons from '@/components/css/css_buttons'
+import css_biantiezhi from '@/components/css/css_biantiezhi'
 
 import animation from '@/components/animation/animation'
 import animation_cluster from '@/components/animation/animation_cluster'
@@ -40,6 +41,7 @@ export default new Router({
     {path: '/css/ribbon', component: css_ribbon},
     {path: '/css/imgs', component: css_imgs},
     {path: '/css/buttons', component: css_buttons},
+    {path: '/css/biantiezhi', component: css_biantiezhi},
 
     {path: '/animation', component: animation},
     {path: '/animation/cluster', component: animation_cluster},

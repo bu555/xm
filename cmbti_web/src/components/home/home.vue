@@ -4,7 +4,17 @@
     <div class="h-news">
         <div class="h-news-inner">
             <div class="wrapper">
-                <img src="/static/img/si.jpg" alt="">
+                <!-- <img src="/static/img/si.jpg" alt=""> -->
+
+
+                <!-- <el-carousel trigger="click" height="202px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                    <img src="/static/img/si.jpg" alt="">
+                </el-carousel-item>
+                </el-carousel> -->
+
+
+            <Wrapper></Wrapper>
             </div>
             <div class="login">
                 <div v-if="$store.state.userInfo" class="is-login">
@@ -17,10 +27,7 @@
                                 {{$store.state.userInfo.r_name}}
                             </router-link>
                         </div>
-                        <!-- <ul>
-                            <li>收藏(5)</li>
-                            <li>收藏(5)</li>
-                        </ul> -->
+                        <div class="logout">退出登录</div>
                 </div>
                 <div v-else style="padding-top:42px">
                     <el-button type="success" >登录XM</el-button>
@@ -49,7 +56,7 @@
                     <li   v-for="(v,i) in exampleList" :key="i">
                         <router-link :to="'/example/'+v._id">
                             <img :src="$pathImgs+v.img_url" alt="">
-                            <div class="name overflow-row-1-x" >{{v.name}}</div>
+                            <div class="name overflow-row-1" style="max-width:126px">{{v.name}}</div>
                             <div class="type">{{v.type.toUpperCase()}}</div>
                         </router-link>
                     </li>
@@ -104,6 +111,7 @@ import NavDefault from '@/components/common/nav_main_default'
 import Avatar from '@/components/common/avatar'
 import Aside from '@/components/common/aside/aside'
 import ArticleItems from '@/components/common/article_items'
+import Wrapper from '@/components/common/wrapper'
 export default {
     data(){
         return {
@@ -117,6 +125,7 @@ export default {
         Avatar,
         Aside,
         ArticleItems,
+        Wrapper
     },
     methods:{
         getHotExample(){
@@ -160,10 +169,11 @@ export default {
     background-color: #fff;
     box-sizing: border-box;
     .h-news {
-        background-color: #d1deec;
+        // background-color: #d1deec;
+        background-color: #f2f7fa;
     }
     .h-news-inner {
-        background-color: #ddd;
+        // background-color: #ddd;
         height:202px;
         overflow: hidden;
         max-width:970px;
@@ -171,12 +181,6 @@ export default {
         display:flex;
         .wrapper {
             flex:0 0 60%;
-            img {
-                display: block;
-                width:100%;
-                height:auto;
-                // object-fit: contain;
-            }
         }
         .login {
             flex:0 0 40%;
@@ -189,12 +193,33 @@ export default {
                 width: 150px;
                 text-align: center;
                 margin:0 auto;
-                padding-top:22px;
+                padding-top:25px;
                 a,div {
                     width:100%;
                 }
                 .role-name {
                     padding-top:7px;
+                    
+                    a { color:#555}
+                    a:hover {
+                        color:#111;
+                    }
+                }
+                .logout {
+                    border:1px solid #ddd;
+                    color:#ccc;
+                    font-size:14px;
+                    margin-top:8px;
+                    display:inline-block;
+                    width:75px;
+                    padding:1px 0;
+                    border-radius:3px;
+                    &:hover {
+                        color:#aaa;
+                        border:1px solid #ccc;
+                        cursor:pointer;
+                        background-color: #f8f8f8;
+                    }
                 }
             }
             button {
@@ -362,8 +387,9 @@ export default {
             }
         }
     }
-    @media screen and (max-width:520px){
+    @media screen and (max-width:768px){
         .h-news-inner {
+            height:29vw;
             flex-wrap:wrap;
             .wrapper {
                 flex:0 0 100%;
@@ -371,7 +397,7 @@ export default {
                 }
             }
             .login {
-                display:none
+                display:none;
                 &>div {
                 }
                 .is-login {
