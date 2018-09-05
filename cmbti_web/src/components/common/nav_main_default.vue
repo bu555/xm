@@ -15,26 +15,26 @@
             </div>
             <ul class="menu">
                 <li>
-                    <router-link to="/mbti/theory" style="color:#2384e8">
+                    <router-link to="/mbti/theory" style="color:#34a853">
                         <em>MBTI</em>
                         <!-- MBTI -->
                         <p>影院热映</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link :to="'/test'" style="color:#f2901c">
+                    <router-link :to="'/test'" style="color:#ff9f09">
                         测试
                         <p>正在热播</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/example?type=all&page=1" style="color:#b7a278">
+                    <router-link to="/example?type=all&page=1" style="color:#9f7860">
                         名人汇
                         <p>正在热播</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/forum?category=all&page=1" style="color:#2AB8CC">
+                    <router-link to="/forum?category=all&page=1" style="color:#4285f4">
                         论坛
                         <p>正在热播</p>
                     </router-link>
@@ -193,7 +193,7 @@ export default {
                         line-height: 16px;;
                       }
                       em {
-                        font-size:21px; //英文大一号
+                        font-size:22px; //英文大一号
                       }
                   }
               }
@@ -317,7 +317,7 @@ export default {
                         margin-top:2px;
                       }
                       em {
-                        font-size:20px; //英文大一号
+                        font-size:21px; //英文大一号
                       }
                     }
                 }

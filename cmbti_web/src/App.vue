@@ -232,6 +232,9 @@ export default {
           }
 
       }
+      .el-textarea__inner {
+        font-size:15px;
+      }
 
 
 </style>

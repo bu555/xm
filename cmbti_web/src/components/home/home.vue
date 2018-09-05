@@ -212,12 +212,12 @@ export default {
         margin:0 auto;
         position: relative;
         .section {
-            margin:0 auto;
+            margin:0 auto 18px;
             position: relative;
             >.title {
                 border-bottom:2px solid #c5e4de;
-                height:32px;
-                line-height:32px;
+                height:34px;
+                line-height:34px;
                 h2 {
                     font-size:17px;
                     em {

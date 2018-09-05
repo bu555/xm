@@ -9,18 +9,11 @@
                       <li :class="commentActive==='time-reverse'?'active':''" @click="commentActive='time-reverse'">时间倒序</li>
                   </ul>
              </div>
-            <div class="c-tab" v-if="0">
-                <!-- <span>按</span>
-                <span :class="commentActive==='hot'?'c-type active':'c-type'" @click="commentActive='hot'">热门</span>
-                <span style="color:#bbb">|</span>
-                <span :class="commentActive==='time'?'c-type active':'c-type'" @click="commentActive='time'">时间</span> -->
-                <SwitchComp @getKey="(key)=>commentActive=key " :active="tabList[0]" :list="tabList"></SwitchComp>
-            </div>
              <div class="c-body">
                 <div v-if="commentList && !loading2 && commentList.length<1" class="if-comment-empty">暂无评论</div>
                 <div v-if="commentList && commentList.length>0" class="c-list" v-for="(v,i) in commentList" :key="i">
                     <div class="photo">
-                        <Avatar :src="v.avatar" :uid="v.uid" size="small"></Avatar>
+                        <Avatar :src="v.avatar" :uid="v.uid" size="small-x"></Avatar>
                         <!-- <router-link :to="'/info/'+v.uid">
                             <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
                             <img v-else src="/static/img/logo_a.png" alt="">
@@ -50,6 +43,7 @@
 
                     <div class="reply" v-if="v.zan">
                         <el-input
+                        spellcheck="false"
                         type="textarea"
                         autosize
                         placeholder="回复内容："
@@ -144,7 +138,6 @@
 </template>
 <script>
 import Avatar from './avatar'
-import SwitchComp from './switch'
 import { setTimeout } from 'timers';
 export default {
     data(){
@@ -188,7 +181,6 @@ export default {
     },
     components:{
         Avatar,
-        SwitchComp
     },
     props:[
         'aid',
@@ -389,7 +381,7 @@ export default {
             background-color: #fff;
             .c-list {
                 // background: pink;
-                padding:12px 0px 3px 50px;
+                padding:12px 0px 3px 68px;
                 border-bottom:1px solid #f7f7f7;
                 position: relative;
                 color:#3c3c3c;
@@ -476,6 +468,7 @@ export default {
                     // color:#8590a6;
                     color:#999999;
                     margin-bottom:12px;
+                    padding-left:3px;
                     i {
                         cursor:pointer;
                         font-size:20px;

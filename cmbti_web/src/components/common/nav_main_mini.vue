@@ -98,7 +98,7 @@ export default {
           align-items: center;
           background-color: #545652;
           ul.menu {
-              flex:0 0 50%;
+              flex:0 0 60%;
               display:flex;
               justify-content:flex-start;
               li {
