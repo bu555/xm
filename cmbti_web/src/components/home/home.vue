@@ -20,18 +20,22 @@
                 <div v-if="$store.state.userInfo" class="is-login">
                         <!-- <img class="avatar" :src="$store.state.userInfo.avatar?$pathAvatar+$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt=""> -->
                         <router-link to="/my" class="a">
-                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="" round="true"></Avatar>
+                        <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small-xxx" round="true"></Avatar>
                         </router-link>
                         <div class="role-name overflow-row-1">
                             <router-link to="/my" class="a">
                                 {{$store.state.userInfo.r_name}}
                             </router-link>
                         </div>
-                        <div class="logout">退出登录</div>
+                        <div class="profiles overflow-row-1">{{$store.state.userInfo.profile}}</div>
+                        <ul>
+                            <li class="logout" @click="$router.push({path:'/my'})">主页</li>
+                            <li class="logout" @click="$store.state.loginOut = true">退出</li>
+                        </ul>
                 </div>
-                <div v-else style="padding-top:42px">
-                    <el-button type="success" >登录XM</el-button>
-                    <el-button type="info" >注册账号</el-button>
+                <div v-else  class="not-login">
+                    <el-button type="default" plain @click="$store.state.modalLogin=true"><i class="fa fa-user-o"></i> 登 录</el-button>
+                    <el-button type="default" plain @click="$router.push({path:'/user/register'})"><i class="el-icon-plus"></i> 注 册</el-button>
                 </div>
             </div>
         </div>
@@ -183,50 +187,79 @@ export default {
             flex:0 0 60%;
         }
         .login {
-            flex:0 0 40%;
+            flex:0 0 33%;
+            background-color: #c5e082;
+            background-color: rgba(197,214,133,.2);
+            // background-color: rgba(233,197,228,.3);
             &>div {
                 display:flex;
                 flex-wrap:wrap;
                 justify-content:center;
             }
             .is-login {
-                width: 150px;
+                width: 180px;
                 text-align: center;
-                margin:0 auto;
-                padding-top:25px;
+                margin:24px auto 0;
+                padding-bottom:12px;
+                border-radius:6px;
                 a,div {
                     width:100%;
                 }
                 .role-name {
-                    padding-top:7px;
+                    padding-top:4px;
+                    margin-bottom:2px;
                     
-                    a { color:#555}
+                    a { color:#35961e}
                     a:hover {
-                        color:#111;
+                        // color:#111;
                     }
                 }
-                .logout {
-                    border:1px solid #ddd;
-                    color:#ccc;
-                    font-size:14px;
-                    margin-top:8px;
-                    display:inline-block;
-                    width:75px;
-                    padding:1px 0;
-                    border-radius:3px;
-                    &:hover {
-                        color:#aaa;
-                        border:1px solid #ccc;
+                .profiles {
+                    font-size:12px;
+                    max-height:33px;
+                    overflow: hidden;
+                    color:#8fbb7c;
+                    text-align: center;
+                }
+                ul {
+                    display:none;
+                    justify-content: space-around;
+                    li {
+                        flex:0 0 48px;
+                        color:#afd533;
+                        font-size:13px;
+                        margin-top:5px;
+                        display:inline-block;
+                        width:75px;
+                        padding:1px 0;
+                        border-radius:3px;
+                        font-weight:600;
                         cursor:pointer;
-                        background-color: #f8f8f8;
+                        &:hover {
+                            color:#6da853;
+                        }
+                    }
+                }
+                &:hover {
+                    ul {
+                        display: flex;
                     }
                 }
             }
-            button {
-                width:100%;
-                height:40px;
-                max-width:232px;;
-                margin:5px 0 ;
+            .not-login {
+                margin-top:90px;
+                button {
+                    padding:6px 12px;
+                    font-size:13px;
+                    background: rgba(50,158,165,.01);
+                    border-color: rgba(50,158,165,.3);
+                    color: rgba(50,158,165,.6);
+                    &:hover {
+                        border-color: rgba(50,158,165,.5);
+                        color: rgba(50,158,165,.8);
+                        background: rgba(50,158,165,.05);
+                    }
+                }
             }
         }
 

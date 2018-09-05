@@ -20,7 +20,7 @@
         </div>
     </div>
     <!-- 大于786显示区 -->
-    <div class="min-768">
+    <div class="min-768" ref="min768">
         <Home></Home>
         <div class="main-box ">
             <router-view></router-view>
@@ -151,6 +151,9 @@ export default {
         this.init()
         this.getUser()
         // this.getAccount()
+        if(document.body.clientWidth>768 && this.$route.path==='/my'){
+            this.$router.replace({path:'/my/info'})
+        }
     },
     
 };
