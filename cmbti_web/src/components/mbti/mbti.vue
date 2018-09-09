@@ -26,19 +26,19 @@ export default {
                 },
                 items:[
                     {
-                        value:'MBTI理论',
+                        value:'人格理论',
                         link:'/mbti/theory',
                         reg:/\/mbti\/theory/
                     },
                     {
                         value:'人格类型',
-                        link:'/mbti/function/si',
-                        reg:/\/mbti\/function\/si/
+                        link:'/mbti/personality/enfp',
+                        reg:/\/mbti\/personality/
                     },
                     {
                         value:'认知功能',
                         link:'/mbti/function/ni',
-                        reg:/\/ni/
+                        reg:/\/mbti\/function/
                     },
                 ],
                 // search:{
@@ -64,12 +64,12 @@ export default {
 .mbti {
     .main-box {   
         max-width:970px;
-        margin:12px auto;
+        margin:15px auto;
         padding-right:300px;
         position: relative;   
         // 右侧推荐区
         .recommend {
-            border:1px solid pink;
+            // border:1px solid pink;
             position:absolute;
             right:0px;
             top:10px;

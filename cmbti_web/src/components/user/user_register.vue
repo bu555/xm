@@ -25,11 +25,12 @@
                 <p class="help-block">Example block-level help text here.</p>
             </div>-->
             <div class="check-box">
-                <label>
+                <div class="authority">点击 “注册” 即表示您同意并愿意遵守<router-link to="/about/agreement" target="_blank">用户协议</router-link>和<router-link to="/about/privacy" target="_blank">隐私政策 </router-link> 。</div>
+                <!-- <label>
                 <input type="checkbox" v-model="isVoted"> <span style="cursor:pointer">我同意</span>
                 </label>&nbsp;&nbsp;
                 <router-link to="" style=""> xmbti协议</router-link> 
-                <div class="agree-msg" v-if="!agreeVerify" @change="verifyAgree()">请阅读并同意协议！</div>
+                <div class="agree-msg" v-if="!agreeVerify" @change="verifyAgree()">请阅读并同意协议！</div> -->
             </div>
             <button type="button" class="my-btn" style="width:100%"  @click="register()">注 册</button>
             <div style="text-align:center;padding-top:16px">
@@ -177,7 +178,6 @@ export default {
             border-radius:3px 3px 2px 2px;
             form {
                 padding:22px 15% 32px;;
-                background-color: #fdfdfd;
                 // background-color: rgba(89,142,210,.2);
             }
             .title {
@@ -201,7 +201,7 @@ export default {
                 color:#f10d0e;
                 line-height:15px;
                 font-size:13px;
-                padding-top:1px;
+                padding-top:4px;
                 i {
                     color:#d62921;
                 }
@@ -234,6 +234,13 @@ export default {
                 font-size:13px;
                 line-height:15px;
                 color:#f10d0e;
+            }
+            .authority {
+                font-size:14px;
+                color:#969696;
+                a {
+                    color:#70a9e5;
+                }
             }
 
         }

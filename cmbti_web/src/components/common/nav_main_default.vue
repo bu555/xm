@@ -123,6 +123,7 @@ export default {
 
 <style lang="less">
   .x-nav {
+      background-color: #fff;
       .x-nav-inner {
           max-width:970px;
           height:68px;

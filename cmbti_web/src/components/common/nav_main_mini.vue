@@ -38,7 +38,7 @@
                         </router-link>
                         <i class="el-icon-caret-bottom" @click="dropDown=!dropDown"></i>
                         <ul :class="(dropDown?'active':'')">
-                            <li @click="$router.push({path:'/my'});dropDown=false"><i class="fa fa-user-circle"></i> 个人主页</li>
+                            <li @click="$router.push({path:'/my'});dropDown=false"><i class="fa fa-paper-plane"></i> 个人中心</li>
                             <li @click="$store.state.loginOut=true;dropDown=false"><i class="fa fa-sign-out"></i> 退出</li>
                         </ul>
                 </div>

@@ -507,7 +507,7 @@ export default {
                         // right:0px;
                         display:flex;
                         justify-content:space-between;
-                        padding-top:2px;
+                        padding-top:5px;
                         span {
                             font-size:13px;
                             color:#ccc;

@@ -54,11 +54,12 @@
     border-top:1px dotted #eee;
     text-align: center;
     min-height:70px;
+    margin-top:32px;
     .f-body {
         max-width:970px;
         margin:0 auto;
         font-size:13px;
-        padding-top:15px;
+        padding-top:22px;
         .f-links {
             padding-left:0em;
             margin-bottom:6px;

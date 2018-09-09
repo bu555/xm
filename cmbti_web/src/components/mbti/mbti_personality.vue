@@ -1,9 +1,9 @@
 <template>
 <div class="func-8">
         <ul class="types-menu">
-                <li v-for="(v,i) in $mbti.f8" :key="i" :class="'item '+($route.path.split('/')[2]===v?'active':'')" :style="'background-image:url(/static/img/'+v+'_btn.jpg)'">
-                    <router-link :to="'/mbti/function/'+v">
-                        {{v[0].toUpperCase()+v[1] }}
+                <li v-for="(v,i) in $mbti.types" :key="i" :class="'item '+($route.path.split('/')[3]===v?'active':'')">
+                    <router-link :to="'/mbti/personality/'+v">
+                        {{v.toUpperCase() }}
                     </router-link>
                 </li>
 
@@ -50,10 +50,10 @@ export default {
             flex-wrap:wrap;
             justify-content:space-between;
             .item {
-                font-size:18px;
+                font-size:17px;
                 flex:0 0 11%;
-                height:38px;
-                line-height: 38px;
+                height:33px;
+                line-height: 33px;
                 font-weight:700;
                 color:#3e4652;
                 border-color:#fff;
@@ -71,8 +71,9 @@ export default {
                 }
             }
             .item.active {
-                // box-shadow:1px 4px 10px #222;
-                // text-shadow:1px 1px 1px #4b647b;
+                background-color: #70a9e5;
+                box-shadow:1px 4px 10px #222;
+                text-shadow:1px 1px 1px #4b647b;
 
             }
     }

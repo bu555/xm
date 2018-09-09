@@ -29,8 +29,8 @@
                         </div>
                         <div class="profiles overflow-row-1">{{$store.state.userInfo.profile}}</div>
                         <ul>
-                            <li class="logout" @click="$router.push({path:'/my'})">主页</li>
-                            <li class="logout" @click="$store.state.loginOut = true">退出</li>
+                            <li class="logout" @click="$router.push({path:'/my'})">个人中心 <i class="fa fa-paper-plane "></i></li>
+                            <li class="logout" @click="$store.state.loginOut = true">退出 <i class="fa fa-sign-out"></i></li>
                         </ul>
                 </div>
                 <div v-else  class="not-login">
@@ -224,8 +224,9 @@ export default {
                 ul {
                     display:none;
                     justify-content: space-around;
+                    flex-wrap:wrap;
                     li {
-                        flex:0 0 48px;
+                        flex:0 0 100%;;
                         color:#afd533;
                         font-size:13px;
                         margin-top:5px;
