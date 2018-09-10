@@ -100,8 +100,7 @@ export default {
         border-radius:3px 3px 2px 2px;
         margin:30px 4px;
         form {
-            padding:22px 15% 32px;;
-            background-color: #fdfdfd;
+            padding:22px 15% 32px;
             // background-color: rgba(89,142,210,.2);
         }
         .title {
@@ -132,7 +131,7 @@ export default {
             color:#f10d0e;
             line-height:15px;
             font-size:13px;
-            padding-top:1px;
+            padding-top:4px;
             i {
                 color:#d62921;
             }

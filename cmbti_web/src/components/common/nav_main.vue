@@ -11,6 +11,8 @@ export default {
     components:{
         NavMini,
         NavDefault
+    },
+    mounted(){
     }
 }
 </script>
@@ -22,7 +24,7 @@ export default {
     .nav-default {
         display:none
     }
-    @media screen and (max-width:500px) {
+    @media screen and (max-width:768px) {
         .nav-mini {
             display:none;
         }

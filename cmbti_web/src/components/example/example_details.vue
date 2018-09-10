@@ -63,22 +63,16 @@
                     </div>
             </div>
             <div class="main-ctrl">
-                <!--<div>
-                    <span class="a-zan btns1" @click="clickZanArticle"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.likes}})</em></span>
-                </div>-->
                 <div>
                     <span  :class="'a-like btns2 '+ (exampleItem.isLiked?'active':'')"  @click="clickLike"><i class="fa fa-star"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
-                    <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                     
                 </div>
                 <div>
                     <span  :class="'a-vote btns2 '+ (exampleItem.isVoted?'active':'')" :style="exampleItem.isVoted?'cursor:auto':''" @click="!exampleItem.isVoted?showVote=!showVote:showVote=showVote"><i class="fa fa-bar-chart"></i><br/>投票 <em>({{exampleItem.total}})</em></span>
-                    <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                     
                 </div>
                 <div>
                     <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
-                    <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                 </div>
             </div>
             
@@ -106,13 +100,14 @@
                 </div>
                 
             </div>
-            <div class="a-publish-comment" v-if="showComment">
-                <p style="margin-bottom:5px">评论：</p>
-                <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input><br>
+            <div class="a-publish-comment" >
+                <p style="margin-bottom:5px">发表评论：</p>
+                <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
+                        spellcheck="false"></el-input><br>
                 <div style="text-align:right;padding-top:10px">
                     <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
                     <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
-                    <button class="bu-button bu-gblue" @click="comment()">发 表</button>
+                    <button class="bu-button bu-gblue" style="margin-left:7px;" @click="comment()">发 表</button>
                 </div>
             </div>
             
@@ -566,13 +561,18 @@ export default {
 
             }   
             .main-ctrl {
-                padding:.5em .8em;
+                padding:.5em 16px;
                 border-top:1px solid #eee;
                 border-bottom:1px solid #eee;
                 background-color: #fefefe;
                 display:flex;
                 justify-content: space-between;
-                margin-bottom:22px;
+                position:fixed;
+                bottom:0;
+                left:0;
+                width:100%;
+                z-index:2;
+                display:none;
                 &>div {
                     height:36px;
                     text-align:center;
@@ -781,8 +781,8 @@ export default {
             }
             .a-publish-comment {
                 background-color: #fefefe;
-                padding:3%;
                 border-top:1px solid #eee;
+                padding:26px 0;
             }
             // 右侧推荐区
             .recommend {
@@ -855,6 +855,11 @@ export default {
                 flex:0 0 100%;
             }
         }
+        @media screen and (max-width:768px){
+            .main-box .main-ctrl {
+                display:flex;
+            }
+        }   
         @media screen and (max-width:525px){
             .a-vote-view>div {
                 margin: 22vh 5px;

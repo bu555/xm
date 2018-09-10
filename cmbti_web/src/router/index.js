@@ -21,6 +21,7 @@ import type_details from '@/components/personalities/type_details'
 import mbti from '@/components/mbti/mbti'
 import mbti_theory from '@/components/mbti/mbti_theory'
 import mbti_function from '@/components/mbti/mbti_function'
+import mbti_personality from '@/components/mbti/mbti_personality'
 
 // test
 import test from '@/components/test/test'
@@ -62,6 +63,8 @@ import about_about from '@/components/about/about_about'
 import about_contactus from '@/components/about/about_contactus'
 import about_disclaimer from '@/components/about/about_disclaimer'
 import about_help from '@/components/about/about_help'
+import about_agreement from '@/components/about/about_agreement'
+import about_privacy from '@/components/about/about_privacy'
 
 
 const vueRouter = new Router({
@@ -92,6 +95,7 @@ const vueRouter = new Router({
       children:[
         {path:'theory',component:mbti_theory},
         {path:'function/:id',component:mbti_function},
+        {path:'personality/:id',component:mbti_personality},
       ]
       
     },
@@ -149,6 +153,8 @@ const vueRouter = new Router({
         {path:'contactus',component:about_contactus},
         {path:'disclaimer',component:about_disclaimer},
         {path:'help',component:about_help},
+        {path:'agreement',component:about_agreement},
+        {path:'privacy',component:about_privacy},
       ]
     },
     

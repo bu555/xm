@@ -28,14 +28,24 @@ export default {
                         reg:/^\/about$/
                     },
                     {
-                        value:'联系我们',
-                        link:'/about/contactus',
-                        reg:/contactus/
+                        value:'用户协议',
+                        link:'/about/agreement',
+                        reg:/agreement/
+                    },
+                    {
+                        value:'隐私政策',
+                        link:'/about/privacy',
+                        reg:/privacy/
                     },
                     {
                         value:'免责声明',
                         link:'/about/disclaimer',
                         reg:/disclaimer/
+                    },
+                    {
+                        value:'联系我们',
+                        link:'/about/contactus',
+                        reg:/contactus/
                     },
                     {
                         value:'帮助中心',
@@ -71,23 +81,6 @@ export default {
         // });
 
 
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });          
-        });
-
-
 
 
     },
@@ -105,7 +98,7 @@ export default {
 .about {
     position: relative;
     .main-box {
-        padding-right:305px;
+        padding-right:255px;
         max-width:970px;
         margin:0 auto;
         position: relative;
@@ -134,14 +127,27 @@ export default {
     }
     .about-comp {
         padding:15px 0;
-            color:#eee;
+            // color:#eee;
+        h1 {
+            margin-bottom:15px;
+            font-size:30px;
+            font-weight:600;
+        }
         &>h3 {
             font-size:19px;
             font-weight:600;
             margin-bottom:4px;
+            margin-top:15px;
         }
         &>p {
-            font-size:15px;
+            font-size:16px;
+        }
+        em {
+            display:block;
+            font-size:16px;
+            padding-left:16px;
+            font-style:italic;
+            color:#555;
         }
         @media screen and (max-width:992px){
 
@@ -164,13 +170,10 @@ export default {
         .about .x-nav-sub ul.nav-list.in-bottom li {
             margin-right: 2vw;
         }
-  }
-  @media screen and (max-width:350px) {
-        .about .x-nav-sub ul.nav-list.in-bottom li a {
-            font-size:15px;
-        }
-        .about .x-nav-sub ul.nav-list.in-bottom li a em {
-            font-size:16px;
+        .about .x-nav-sub ul.nav-list.in-bottom {
+            flex-wrap: wrap;
+            padding-top: 6px;
+            padding-bottom: 6px;
         }
   }
 </style>

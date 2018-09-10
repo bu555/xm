@@ -17,8 +17,11 @@
                             <img :src="v.imgURL" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
-                        <div class="info overflow-row-4">{{v.name1?v.name1:''}}{{v.info}}</div>
-                        <div class=""  style="padding-top:5px;padding-bottom:12px"><el-button type="success" size="small" @click="addExample(i)" >加入名人汇</el-button></div>
+                        <div class="info overflow-row-5" style="margin-bottom:8px">{{v.name1?v.name1:''}}{{v.info}}</div>
+                        <div class=""  style="padding-top:5px;padding-bottom:18px">
+                            <!-- <el-button type="success" size="small" @click="addExample(i)" >加入名人汇</el-button> -->
+                        <button class="bu-button bu-green">加入名人汇</button>
+                        </div>
                     </div>
                     <!--</router-link>-->
                 </div>

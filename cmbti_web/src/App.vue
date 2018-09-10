@@ -2,7 +2,11 @@
   <div class="root-app" v-if="showPage">
       <!-- <myNav v-if="$route.path.indexOf('/user/')===-1"></myNav> -->
       <router-view class="router-view"></router-view>
-      <myFooter></myFooter>
+      <myFooter 
+      v-if=" !( 
+        /^\/user/.test($route.path) 
+        )"
+      ></myFooter>
       <div v-if="$store.state.modalLogin">
         <loginModal></loginModal>
       </div>
@@ -142,9 +146,8 @@ export default {
       a:visited {color: #1a1a1a;text-decoration:none} /* 已访问过的状态 。*/
       a:hover {color: #1a1a1a;text-decoration:none} 
       .router-view {
-        margin-bottom:12px;
         overflow: hidden;
-        min-height:420px
+        min-height:515px
       }
       .el-input__inner,.el-textarea__inner {
         font-family:DINRegular;
@@ -231,6 +234,9 @@ export default {
               font-size:44px;
           }
 
+      }
+      .el-textarea__inner {
+        font-size:15px;
       }
 
 

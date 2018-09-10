@@ -133,7 +133,6 @@ beforeRouteEnter (to, from, next) {
         margin:30px 4px;
         form {
             padding:15px 15% 32px;;
-            background-color: #fdfdfd;
             // background-color: rgba(89,142,210,.2);
         }
         .title {
@@ -158,7 +157,7 @@ beforeRouteEnter (to, from, next) {
             color:#f10d0e;
             line-height:15px;
             font-size:13px;
-            padding-top:1px;
+            padding-top:4px;
             i {
                 color:#d62921;
             }

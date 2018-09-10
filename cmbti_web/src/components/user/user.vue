@@ -1,43 +1,42 @@
 <template>
   <div class="user">
-        <div class="user-header">
-            <div class="user-header-main">
-                <div class="logo-a">
-                    <a href="/">
-                        <img src="../../../static/img/logo_a.png" alt="">
-                    </a>
-                    <div class="logo-b">
-                        <a href="/">
-                            <img src="../../../static/img/logo_b.png" alt="" style="height:38px">
-                        </a>
+        <!-- <NavDefault></NavDefault> -->
+        <!-- <section></section> -->
+        <section>
+                <div class="logo">
+                    <router-link to="/">
+                        <img src="/static/img/logo.png" alt="">
+                    </router-link>
+                </div>
+                <div class="user-tabs"> 
+                    <div class="tab-list">
+                        <div :class="$route.path.indexOf('/user/login')>-1?'active':''">
+                            <router-link to="/user/login">登录</router-link>
+                        </div>
+                        <div :class="$route.path.indexOf('/user/register')>-1?'active':''">
+                            <router-link to="/user/register">注册</router-link>
+                        </div>
+                        <div :class="$route.path.indexOf('/user/forget')>-1?'active':''" v-if="$route.path==='/user/forget'">
+                            <router-link to="/user/forget">找回密码</router-link>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="user-tabs"> 
-            <div class="tab-list">
-                <div :class="$route.path.indexOf('/user/login')>-1?'active':''">
-                    <router-link to="/user/login">登录</router-link>
+                <div class="user-view">
+                    <router-view></router-view>
                 </div>
-                <div :class="$route.path.indexOf('/user/register')>-1?'active':''">
-                    <router-link to="/user/register">注册</router-link>
-                </div>
-                <div :class="$route.path.indexOf('/user/forget')>-1?'active':''">
-                    <router-link to="/user/forget">找回密码</router-link>
-                </div>
-            </div>
-        </div>
-        <div class="user-view">
-            <router-view></router-view>
-        </div>
+        </section>
   </div>
 </template>
 <script>
+import NavDefault from '@/components/common/nav_main_default'
 import verify from "../../assets/verify"
 export default {
   data() {
       return {
       }
+  },
+  components:{
+    NavDefault
   },
   mounted() {
   },
@@ -50,96 +49,102 @@ export default {
 <style lang="less">
 .user {
     // background-color: #e7e8eb;;
-    background:url("/static/img/bg_1.png");
-    padding-bottom:15px;
-    margin-top:-15px;
+    // background:url("/static/img/bg_1.png");
     position: relative;
-    top:15px;
-    .user-header {
-        // border-bottom:1px solid #456ea5;
-        border-bottom:2px solid #ced9e8;
-        margin-bottom:10px;
-        background:rgba(0,75,157,.03);
-        &:after {
-            content:"";
-            display:block;
-            position: absolute;
-            height:28px;
-            width:100%;
-            background-color: #586a7a;
-        }
-        &:after {
-            top:65px;
-            left:0px;
-        }
-    }
-    .user-header-main {
-        max-width:992px;
-        height:90px;
-        position: relative;
+    min-height:100%;
+    // background-color: #f1f1f1;
+    section {
+        // height:34px;
+        // background-color: #586a7a;
+        // margin-bottom:12px;
+        max-width:768px;
         margin:0 auto;
-      .logo-a {
-          position: absolute;
-          top:2px;
-          left:20px;
-          z-index:2;
-          a>img {
-            display:block;
-            width:79px;
-            object-fit:contain;   //最小方向占满(如果没设高度则按比例)
-          }
-          .logo-b {
-              position: absolute;
-              top:5px;
-              right:0px;
-              transform: translateX(100%);
-              a>img {
+        padding-left:250px;
+        padding-top:40px;
+        margin-bottom:70px;
+        position: relative;
+        .logo {
+            position:absolute;
+            left:15px;
+            top:45px;
+            img {
                 display:block;
-                width:140px;
-                object-fit:scale-down;
-              }
-          }
-      }
+                height:42px;
+            }
+        }
+
     }
     .user-tabs {
         max-width:992px;
         margin:0 auto;
-        padding:1%;
         padding-bottom:0;
         background: #fefefe;
+        border-radius:5px 5px 0 0 ;
+        overflow: hidden;
+        border:1px solid #eee;
+        border-bottom-color:transparent;
         .tab-list {
             display:flex;
-            border-bottom:2px solid #bd5c3c;
             &>div {
-                flex:0 0 20%;
+                flex:1;
                 text-align:center;
+                border-bottom:1px solid #eee;
+                background-color: #fcfcfc;;
                 a {
                     display:block;
-                    padding:10px 2px;
+                    cursor:pointer;
+                    padding:17px 2px;
+                    font-weight:600;
+                    color:#e2e2e2;
+                    font-size:18px;
                 }
             }
+            &>div+div {
+                border-left:1px solid #eee;
+            }
             &>div.active {
-                background-color: #bd5c3c;
+                border-bottom-color:transparent;
+                background-color: #fefefe;;
                 a {
-                    color:#fff;
+                    color:#70a9e5;
                 }
             }
         }
     }
     .user-view {
         max-width:992px;
-        min-height:500px;
+        min-height:400px;
         background-color: #fefefe;
         margin:0 auto;
         overflow: hidden;
+        border:1px solid #eee;
+        border-top:none;
     }
     @media screen and (max-width:768px) {
+        section {
+            margin-bottom:0;
+            padding-left:0;
+            padding-top:88px;
+            .logo {
+                top:25px;
+                left:15px;
+            }
+        }
         .user-tabs {
+                border:none;
+                border-radius:0 ;
+                border-top:1px solid #eee;
                 .tab-list {
                     &>div {
-                        flex:0 0 33.3%
+                        // flex:0 0 33.3%
+                        a {
+                            padding:14px 2px;
+                        }
                     }
                 }
+        }
+        .user-view {
+            border:none;
         }
     }
 
