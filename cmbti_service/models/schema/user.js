@@ -21,8 +21,7 @@ const userSchema = mongoose.Schema({
     province:String,
     birth:String, //
     grade:Number, //等级
-    m_time:{ type: Date, default: Date.now },  //修改名字的时间
-    modify:{ type: Boolean, default: true }  //是否可修改昵称
+    m_time:{ type: Number, default: 0 },  //修改名字的时间
 })
 
 // Model模型，是经过Schema构造来的，除了Schema定义的数据库骨架以外，还具有数据库行为模型，他相当于管理数据库属性、行为的类

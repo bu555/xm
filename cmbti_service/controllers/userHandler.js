@@ -123,7 +123,7 @@ class User {
     static getUserById(options={}){
         return new Promise((resolve,reject)=>{
             // UserModel.findOne({"_id":options.uid},"-password","avatar r_name").then(user=>{
-            UserModel.findOne({"_id":options.uid},"-id -password -create_time -name -m_time").then(user=>{
+            UserModel.findOne({"_id":options.uid},"-id -password -create_time -name ").then(user=>{
                 if(user){
                     resolve(user)
                 }else{
@@ -142,7 +142,7 @@ class User {
             if(options.new_r_name){
                 set.r_name = options.new_r_name
                 set.modify = false
-                set.m_time = new Date()
+                set.m_time = Date.now()
             }
             if(options.profile){
                 set.profile = options.profile

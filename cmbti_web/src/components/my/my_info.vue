@@ -1,13 +1,13 @@
 <template>
-  <div class="my-info" v-loading="loading">
+  <div class="my-info" v-loading="loading" v-if="infoForm">
     <el-form ref="form" :model="infoForm" label-width="80px" size="small">
       <el-form-item label="昵称" class="name-form">
-        <el-input v-if="infoForm.modify" v-model="infoForm.r_name" @focus="notModifyHandler()" spellcheck=false></el-input>
-        <div id="no-modify-name" v-else>{{infoForm.r_name}}
+        <el-input v-if="canModify" v-model="infoForm.r_name" @focus="notModifyHandler()" spellcheck=false></el-input>
+        <div id="no-modify-name" v-else style="padding-left:14px">{{infoForm.r_name}}
         </div>
         <i @click="notModifyHandler()" @mouseenter="notModifyHandler()">!</i>
         <div class="info-msg" v-if="!nameVerify" style="color:red">要求为1~12位的中文、英文、数字、下划线</div>
-        <div class="info-msg" v-if="showNotModify && nameVerify" :style="infoForm.modify?'':'top:21px'"><em class="el-icon-warning"></em> 提示：昵称180天内只允许修改一次</div>
+        <div class="info-msg" v-if="showNotModify && nameVerify" :style="canModify?'':'top:21px'"><em class="el-icon-warning"></em> 提示：昵称180天内只允许修改一次</div>
       </el-form-item>
       <el-form-item label="来自" class="city">
         <el-select v-model="infoForm.province"  placeholder="省份" style="margin-right:1%" v-if="provinceList">
@@ -41,7 +41,7 @@
       </el-form-item>
       <el-form-item size="large">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>
-        <el-button v-else type="primary" disabled>保 存</el-button>
+        <el-button v-else type="" disabled>保 存</el-button>
         <!--<el-button>取消</el-button>-->
       </el-form-item>
     </el-form>
@@ -51,14 +51,15 @@
 export default {
     data(){
       return {
-        infoForm:{
-            r_name:'',
-            city:'',
-            birth:'',
-            sex:'',
-            profile:'',
-            province:''
-        },
+        infoForm:null,
+        // infoForm:{
+        //     r_name:'',
+        //     city:'',
+        //     birth:'',
+        //     sex:'',
+        //     profile:'',
+        //     province:''
+        // },
         loading:false,
         initData:'',
         edited:false,
@@ -69,7 +70,8 @@ export default {
         provinceList:[], //省份
         showNotModify:false,
         timeID:'',
-        // profileLen:0
+        // profileLen:0,
+        canModify:false, //是否能修改名字 >180天
 
       }
     },
@@ -93,7 +95,6 @@ export default {
     computed:{
         getProfileLen(){
             let len = this.infoForm.profile.length
-            console.log(len);
             if(len > 70){
                 setTimeout(()=>{
                     this.infoForm.profile = this.infoForm.profile.substr(0,70)
@@ -120,11 +121,19 @@ export default {
                         message: '修改成功！',
                         type: 'success'
                     });
-                    this.$store.state.refUser += 1
+                    this.$store.state.refUser ++
                 }else if(res.data.message === '-1'){
-                    console.log('名字重复');
+                    this.$message({
+                        message: '名字已重复',
+                        type: 'warning',
+                        showClose: true,
+                    });
                 }else if(res.data.message === '-2'){
-                    console.log('格式不允许，要求为1~12位的中文、英文、数字、下划线');
+                    this.$message({
+                        message: '格式不允许，要求为1~12位的中文、英文、数字、下划线',
+                        type: 'warning',
+                        showClose: true,
+                    });
                 }
             }).catch(err=>{
                 this.loading = false
@@ -159,6 +168,15 @@ export default {
         getUser(){
             this.infoForm = JSON.parse(localStorage.getItem('USER'))
             this.initData = JSON.parse(localStorage.getItem('USER'))
+            this.canModify = false
+            // 判断是否可以修改名字
+            if(this.infoForm.m_time){
+                if((Date.now()-this.infoForm.m_time)>1000*3600*24*180){
+                    this.canModify = true
+                }
+            }else{ 
+                this.canModify = true
+            }
         },
         init(){
             // 获取省份
@@ -174,9 +192,9 @@ export default {
         }
     },
     created(){
-        this.getUser()
         if(localStorage.getItem('CHINA')){
             this.china = JSON.parse(localStorage.getItem('CHINA'))
+            this.getUser()
         }else{
             this.getChina(this.init)
 
@@ -210,7 +228,7 @@ export default {
         .info-msg {
             position:absolute;
             left:0px;
-            top:27px;
+            top:28px;
             color:#ec9115;
             font-size:12px;
         }

@@ -85,16 +85,16 @@ export default {
         }
        .photo img {
          display:block;
-         width:68px;
-         height:82px;
+         width:75px;
+         height:95px;
          object-fit: cover;
          border-radius:1px;
        }
        ul.info {
         //  width:210px;
-         height:82px;
-         font-size:12px;
-         padding-left:7px;
+         height:95px;
+         font-size:14px;
+         padding-left:9px;
          li{
 
          }

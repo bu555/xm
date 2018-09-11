@@ -101,9 +101,9 @@ export default {
         }
        .photo h5 {
          display:block;
-         width:86px;
-         height:50px;
-         line-height: 50px;
+         width:82px;
+         height:57px;
+         line-height: 55px;
          object-fit: cover;
          border-radius:1px;
          background-color: #bdc3c7;
@@ -113,9 +113,9 @@ export default {
        }
        ul.info {
         //  width:210px;
-         height:50px;
-         font-size:12px;
-         padding-left:7px;
+         height:57px;
+         font-size:14px;
+         padding-left:8px;
          li{
 
          }

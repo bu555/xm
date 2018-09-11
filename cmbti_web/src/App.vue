@@ -293,8 +293,29 @@ export default {
           }
 
       }
-      .el-textarea__inner {
+      .el-radio__label,
+      .el-textarea__inner,
+      .el-input__inner {
         font-size:15px;
+      }
+      .el-radio__input.is-checked .el-radio__inner {
+          border-color: #54bbdf;
+          background: #54bbdf;
+      }
+      .el-select .el-input.is-focus .el-input__inner {
+          border-color: #54bbdf;
+      }
+      .el-select-dropdown__item.selected {
+          color: #54bbdf;
+      }
+      .el-radio__input.is-checked+.el-radio__label {
+          color: #54bbdf;
+      }
+      .el-form-item__label {
+          font-size: 15px;
+      }
+      .el-form-item__content {
+        font-size: 15px;
       }
 
 

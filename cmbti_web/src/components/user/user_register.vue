@@ -70,7 +70,7 @@ export default {
         password:'',
         password_:'',
         isSubmit:false,
-        isVoted:'',
+        isVoted:true,//同意协议
         count:0,
         nameVerify:true,
         passwordVerify:true,

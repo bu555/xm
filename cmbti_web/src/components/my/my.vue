@@ -14,7 +14,7 @@
                 <!--<button>编辑个人资料</button>-->
             </div>
             <div class="m-info">
-                <div class="overflow-row-1" style="padding-bottom:1px;"><span  class="r-name">{{$store.state.userInfo.r_name}}</span> <span  class="sex"></span></div>
+                <div class="overflow-row-1" style="padding-bottom:5px;"><span  class="r-name">{{$store.state.userInfo.r_name}}</span> <span  class="sex"></span></div>
                 <div class="overflow-row-2" style="font-size:13px;line-height:15px;padding-right:5px;max-width:500px;color:#444">{{$store.state.userInfo.profile?$store.state.userInfo.profile:'未設置'}}</div>
             </div>
         </div>
@@ -114,7 +114,7 @@ export default {
             this.showUploadAvatar = false; //关闭模态框
             if(success){
                 // 修改成功,通知刷新
-                this.$store.state.refUser += 1  
+                this.$store.state.refUser ++ 
             }
         },
         getUser(){
@@ -233,12 +233,12 @@ export default {
             top:20px;
         }
         .m-info {
-            padding-left:2.5vw;
-            height:55px;
+            padding-left:20px;
+            height:57px;
             span.r-name {
                 // font-size:15px;
                 font-weight:700;
-                margin-bottom:7px;
+                margin-bottom:9px;
             }
             span.sex {
                 color:#555;
@@ -359,6 +359,7 @@ export default {
             }
             .m-info {
                 height:58px;
+                padding-left:2.5vw;
             }
         }
         .m-header {
