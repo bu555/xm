@@ -2,7 +2,7 @@
   <div class="article-items">
         <div class="article-preview">
             <router-link  :to="'/forum/'+items._id" class="title">{{items.title}}</router-link>
-            <router-link  :to="'/forum/'+items._id" class="content">{{items.title}}</router-link>
+            <router-link  :to="'/forum/'+items._id" class="content">{{items.profile}}</router-link>
             <div class="a-info">
                     <!-- <img src="/static/img/si.jpg" alt=""> -->
                     <span class="author">{{items.r_name}}</span>
@@ -69,6 +69,7 @@ export default {
             display:flex;
             justify-content: flex-start;
             align-items: center;
+            padding-top:4px;
             span {
                 font-size:13px;
                 color:#ccc;

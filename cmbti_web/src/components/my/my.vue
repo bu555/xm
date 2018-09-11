@@ -151,6 +151,7 @@ export default {
         this.init()
         this.getUser()
         // this.getAccount()
+        // 在PC端，转到个人信息页
         if(document.body.clientWidth>768 && this.$route.path==='/my'){
             this.$router.replace({path:'/my/info'})
         }

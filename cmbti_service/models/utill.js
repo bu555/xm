@@ -104,6 +104,7 @@ module.exports =  {
             } 
             return totalLength; 
         } ,
+        // 验证标签合法性
         verifyTags(s){
             var reg = /^[\u4e00-\u9fa5A-Za-z0-9]+$/
             if( !s || typeof s!=='string' || s[s.length-1]!==',' || s[0]===',') return false
@@ -115,6 +116,29 @@ module.exports =  {
                 }
             }
             return true
+        },
+        // 切割指定字节长度的字符串
+        splitStr(s,bytes=365){
+            if(typeof s !=='string') return
+            var totalLength = 0; 
+            var charCode; 
+            for (let i = 0; i < s.length; i++) { 
+                charCode = s.charCodeAt(i); 
+                if (charCode <= 127) { 
+                    totalLength = totalLength + 1; 
+                } else if ((charCode>127) && (charCode <= 2047)) { 
+                    totalLength += 2; 
+                } else if ((charCode>2047) && (charCode <= 65535)) { 
+                    totalLength += 3; 
+                } else if ((charCode>65535) && (charCode <= 2097152)) { 
+                    totalLength += 4; 
+                }  
+                if(totalLength>bytes){
+                    return s.substr(0,i)+'...'
+                }
+            } 
+            return s; 
+
         }
 
 }

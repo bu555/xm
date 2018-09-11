@@ -128,7 +128,7 @@ export default {
         position: relative;
         margin-bottom:8px;
         .error-msg {
-            color:#f10d0e;
+            color:#f43232;
             line-height:15px;
             font-size:13px;
             padding-top:4px;

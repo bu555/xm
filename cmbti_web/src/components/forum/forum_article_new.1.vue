@@ -16,10 +16,7 @@
             <el-form ref="form" :model="form">
                 <div class="f-items">
                     <label for="">标题：</label>
-                    <!-- <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> <br> -->
-                    <div :class="'t-input '+(tFocus?'focus':'')" >
-                        <input v-model="form.title" spellcheck="false" @blur="verify('title');tFocus=false" @focus="tFocus=true">
-                    </div>
+                    <el-input v-model="form.title" spellcheck="false" @blur="verify('title')"></el-input> <br>
                     <!--<div class="err-message" >*文章標題要求為10~96字節</div>-->
                 </div>
                 <div class="err-message" v-if="ver.title==='empty'">*请输入标题</div>
@@ -42,9 +39,9 @@
                     <label for="" style="vertical-align: middle">内容：</label>
                     <!--<el-input v-model="form.title"></el-input>-->
                     <div class="html5-editor" stylel="width:600px" >
-                    
-                        <!--<vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>-->
-                        <wangEditor @changeContent="getContent" :articleContent="editContent"></wangEditor>
+
+                    <!--<vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>-->
+                    <VueHtml5Editor @changeContent="getContent" :articleContent="editContent"></VueHtml5Editor>
                 
                     </div>
                 </div>
@@ -54,14 +51,11 @@
                 <div class="f-items" style="padding-top:20px">
                     <label for=""></label>
                     <el-form-item>
-                        <el-button type="primary" @click="submitArticle()">提 交</el-button>
-                        <el-button @click="$router.go(-1)">取 消</el-button>
+                        <el-button type="primary" @click="submitArticle()">提交</el-button>
+                        <el-button @click="$router.go(-1)">取消</el-button>
                     </el-form-item>
                 </div>
             </el-form>
-        </div>
-        <div class="editor-base-style" v-html="this.form.content">
-
         </div>
         <div class="my-count">
             <p>已发表</p>
@@ -71,7 +65,7 @@
 </div> 
 </template>
 <script>
-import wangEditor from './editor/wEditor'
+import VueHtml5Editor from './editor/editor'
 import Tags from '@/components/common/tags.vue'
 import NavMain from '@/components/common/nav_main'
 // import fEditor from 'froala-editor'
@@ -106,11 +100,10 @@ export default {
                     },
                 ]
             },
-            tFocus:false
         }
     },
     components: {
-        wangEditor,
+        VueHtml5Editor,
         Tags,
         NavMain
         // quillEditor,
@@ -236,32 +229,6 @@ export default {
             this.aid = this.$route.path.split('/')[4]
             this.getArticleById()
         }
-        // 切割指定字节长度的字符串
-        function splitStr(s,bytes=1000){
-            if(typeof s !=='string') return
-            var totalLength = 0; 
-            var charCode; 
-            for (let i = 0; i < s.length; i++) { 
-                charCode = s.charCodeAt(i); 
-                if (charCode <= 127) { 
-                    totalLength = totalLength + 1; 
-                } else if ((charCode>127) && (charCode <= 2047)) { 
-                    totalLength += 2; 
-                } else if ((charCode>2047) && (charCode <= 65535)) { 
-                    totalLength += 3; 
-                } else if ((charCode>65535) && (charCode <= 2097152)) { 
-                    totalLength += 4; 
-                }  
-                if(totalLength>bytes){
-                    return s.substr(0,i) + '.....'
-                }
-            } 
-            return s; 
-
-        }
-
-    console.log(splitStr('在我的朋友圈里，有一个这样的女孩子，收入一般，但很喜欢购物，有一次听她说为了买一个戒指，足足吃了三个月的泡面，我想象不到，她过着一种什么样的生活，看到自己喜欢的东西，连眼睛都不眨一下就买了，当时的她一定很爽快吧，但到了还款的时候，又会愁眉不展。',365));
-
         
     }
     
@@ -327,9 +294,8 @@ export default {
                         flex:0 0 100%;
                         text-align:left;
                         padding-top:10px;
-                        margin-bottom:4px;
+                        margin-bottom:3px;
                         display:block;
-                        color:rgba(33, 32, 36, 0.66);
                     }
                 }
                 .el-radio-group {
@@ -337,27 +303,6 @@ export default {
                 }
                 .el-input__inner {
                     height:36px;
-                    
-                }
-                div.t-input {
-                    border-radius:4px;
-                    border:1px solid #dcdfe6;
-                    overflow: hidden;
-                    input {
-                        color:rgba(33, 32, 36, 0.9);
-                        font-size:15px;
-                        height:36px;
-                        width:100%;
-                        border:0;outline:none; //去除蓝色框
-                        padding-left:10px;
-                        &:focus {
-                            border-color:red;
-                            box-shadow: none;
-                        }
-                    }
-                }
-                div.t-input.focus {
-                    border-color:#9ebeca;
                 }
             }
         }
@@ -383,7 +328,7 @@ export default {
     .err-message {
       display:block;
       padding-top:4px;
-      color: #f43232;
+      color: red;
       line-height: 14px;;
       font-size: 13px;
       margin-bottom:0px;

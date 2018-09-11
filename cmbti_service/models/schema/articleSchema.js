@@ -47,6 +47,7 @@ const articleSchema = new mongoose.Schema({
     state:Number,  // 文章状态，1:待审核，2：已审核
     zan:[String],
     zans:Number,
+    profile:String, 
     comment_count:Number, //评论总数
     comment_time:Date, //最后评论时间
 })
