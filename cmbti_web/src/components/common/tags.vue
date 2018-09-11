@@ -1,6 +1,6 @@
 <template>
   <div class="article-tags">
-        <div id="tags-container"  ref="tagsContainer" autocomplete="off">
+        <div id="tags-container"  :class="tFocus?'focus':''" ref="tagsContainer" autocomplete="off">
             <div class="tag-item" ref="tagItem" contenteditable="false" v-for="(v,i) in article.tagsList" :key="i">
                 <span>{{v}}</span>
                 <i class="el-icon-error" @click="delTags(i)"></i>
@@ -8,10 +8,11 @@
             <div  class="tag-input" ref="tagInput" style="display:inline-block;width:100%">
                 <div class="tag-err-msg" v-if="tagErrMsg"><i class="el-icon-warning" style="color:#e94242"></i> {{tagErrMsg}}</div>
                 <input
+                @focus="tFocus=true"
                 placeholder="输入标签"
                 v-model="inputTag"
                 @input="querySearch"
-                @blur="inputBlur()"
+                @blur="inputBlur();tFocus=false"
                 @keydown.delete="deleteTagsByBtn"
                 @keydown.down="downBtnHandler"
                 @keydown.up="upBtnHandler"
@@ -56,7 +57,8 @@ export default {
             article:{
                 tagsList:[]
             },
-            defineTagsList:[]
+            defineTagsList:[],
+            tFocus:false,
         }
     },
     props:[
@@ -290,10 +292,13 @@ export default {
     // border-top:1px solid #f1f1f1;
     // padding: 8px 0;
 
+    #tags-container.focus {
+        border-color:#9ebeca;
+    }
     #tags-container {
         min-height:34px;
         width:100%;
-        border:1px solid #ccc;
+        border:1px solid #dcdfe6;
         display:flex;
         flex-wrap:wrap;
         border-radius:4px;
@@ -391,8 +396,9 @@ export default {
             display: inline-block;
             width:100%;
             border:0;outline:none; //去除蓝色框
-            font-size:13px;
+            font-size:15px;
             border-radius:5px;
+            color:rgba(33, 32, 36, 0.9);
         }
         .search-items-box {
             li.active {

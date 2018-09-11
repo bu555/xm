@@ -153,14 +153,72 @@ export default {
         font-family:DINRegular;
       }
       font-size:16px;
+      // 编辑器、文章容器样式重写
+      .editor-base-style {
+          font-family: 'Microsoft YaHei';
+          font-size:15px;
+          color:rgba(33, 32, 36, 0.86);
+          img {
+            display:block;
+            max-width:768px;
+            margin:0 auto;
+            border-radius:3px;
+          }
+          blockquote {
+              display: block;
+              border-left: 8px solid #d0e5f2;
+              padding: 5px 10px;
+              margin: 10px 0;
+              line-height: 1.4;
+              font-size: 100%;
+              background-color: #f1f1f1;
+          }
+          p {
+              margin:0 0 .6em;
+              line-height: 1.4;
+          }
+          li{ display:list-item }
+          ol{list-style-type: decimal }
+          ol, ul{ margin-left: 40px }
+          ul {
+            li {
+              position: relative;
+              &:after {
+                content:"";
+                display:block;
+                height:3px;
+                width:3px;
+                border-radius:50%;
+                border:1px solid rgba(33, 32, 36, 0.86);
+                // background-color: #888;
+                position:absolute;
+                top:.5em;
+                left:-1em;
+              }
+            }
+          }
+          a {
+            color:#4477cf;
+            &:hover {
+              color:#0e959d;
+            }
+          }
+          span {
+            font-size:.9em;
+          }
+
+      }
       @media screen and (max-width:768px){
          font-size:17px;
+         .editor-base-style {
+           font-size:17px;
+         }
       }
-    }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
+  }
 
   // 重写elementUI样式
     // 对话框

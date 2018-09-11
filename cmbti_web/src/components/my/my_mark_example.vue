@@ -4,7 +4,7 @@
 
         <div  v-if="data&&(data instanceof Array)&&data.length>0" class="item" v-for="(v,i) in data" :key="i">
            <div class="photo">
-              <router-link :to="'/example/'+v.eid">
+              <router-link :to="'/example/'+v._id">
                   <img :src="$pathImgs+v.img_url" alt="">
               </router-link>
            </div>
@@ -73,7 +73,7 @@ export default {
     justify-content: space-between;
     flex-wrap:wrap;
     .item {
-        flex:0 0 47.5%;
+        // flex:0 0 47.5%;
         display:flex;
         margin:4px 5px;
         background-color: #fafafa;

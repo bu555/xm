@@ -98,6 +98,13 @@ export default {
     },
     created(){
         this.uid = this.$route.path.split('/')[2]
+        // 如果是当前登录用户，转到个人中心
+        if(this.$store.state.userInfo){
+            if(this.uid===this.$store.state.userInfo._id){
+                this.$router.replace({path:'/my'})
+                return;
+            }
+        }
         if(this.uid){
             this.getUserInfoShow()
         }

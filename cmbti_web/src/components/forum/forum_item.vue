@@ -35,17 +35,16 @@
                     </div>
                 </div>
 
-                <div class="a-body"  v-html="data.content">
+                <div class="a-body editor-base-style"  v-html="data.content">
                 <!--<div class="a-body"  v-html="test">-->
                 </div>
                 <div class="main-ctrl">
-                    <div>
+                    <!-- <div>
                         <span class="a-zan btns1" :style="data.articleZaned?'color:#4d9efc':''" @click="articleAZan"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.zans}})</em></span>
-                        <!--<el-button plain size="small"  style="font-size:15px" @click="showComment=true"><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                         <div class="m-loading" v-if="zanLoading"><i class="el-icon-loading" ></i></div>
-                    </div>
+                    </div> -->
                     <div>
-                        <span  class="a-like btns2" :style="data.articleLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-star"></i><br/>收藏 <em>({{data.likes}})</em></span>
+                        <span  class="a-like btns2" :style="data.articleLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-heart"></i><br/>喜欢 <em>({{data.likes}})</em></span>
                         <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                         <div class="m-loading" v-if="likeLoading"><i class="el-icon-loading"></i></div>
                     </div>
@@ -439,6 +438,14 @@ export default {
             font-family:'Microsoft Yahei';
             p {
                 // margin-bottom:6px;
+            }
+
+            // 编辑器内容样式重写：
+            img {
+                display:block;
+                max-width:768px;
+                margin:0 auto;
+                border-radius:3px;
             }
         }
         .main-ctrl {
