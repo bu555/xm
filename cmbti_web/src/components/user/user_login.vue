@@ -27,8 +27,8 @@
                 <!--<el-button type="primary" @click="login()" style="width:100%;font-size:16px">登 录</el-button>-->
                 <div style="text-align:center;padding-top:16px">
                     <div>
-                        <router-link to="/user/register"><a>注册账号</a></router-link>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <router-link to="/user/forget"><a>找回密码</a></router-link>
+                        <router-link to="/user/register">注册账号</router-link>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <router-link to="/user/forget">找回密码</router-link>
                     </div>
                 </div>
             </form>
@@ -177,8 +177,11 @@ beforeRouteEnter (to, from, next) {
         font-family: 'Microsoft YaHei';
         font-weight:700;
     }
-    a:hover {
+    a,a:visited {
         color:#456ea5;
+    }
+    a:hover {
+        color:#70a9e5;
     }
 
 }

@@ -169,12 +169,6 @@ export default {
         font-family: 'Microsoft YaHei';
         font-weight:700;
     }
-    a:hover {
-        color:#456ea5;
-    }
-    // input::-webkit-input-placeholder {
-    //      font-size: 13px;
-    //  }
 
 }
 </style>

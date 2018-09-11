@@ -120,9 +120,6 @@ export default {
     .success-info {
         text-align: center;
         padding-top:40px;
-        a {
-            color:#456ea5;
-        }
     }
     .form-group {
         position: relative;
@@ -150,9 +147,6 @@ export default {
         cursor:pointer;
         font-family: 'Microsoft YaHei';
         font-weight:700;
-    }
-    a:hover {
-        color:#456ea5;
     }
 }
 </style>

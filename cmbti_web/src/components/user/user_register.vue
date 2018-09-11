@@ -33,9 +33,9 @@
                 <div class="agree-msg" v-if="!agreeVerify" @change="verifyAgree()">请阅读并同意协议！</div> -->
             </div>
             <button type="button" class="my-btn" style="width:100%"  @click="register()">注 册</button>
-            <div style="text-align:center;padding-top:16px">
+            <div class="other-link" style="text-align:center;padding-top:16px">
                 <span style="color:#aaa">已经注册了账户？</span>
-                <span><router-link to="/user/login"><a>这里登录</a></router-link></span>
+                <span><router-link to="/user/login">这里登录</router-link></span>
             </div>
             
         </form>
@@ -212,6 +212,15 @@ export default {
                 width: 100%;
                 margin-top:3px;
                 font-size:15px;
+            }
+        }
+        .other-link {
+
+            a,a:visited {
+                color:#456ea5;
+            }
+            a:hover {
+                color:#70a9e5;
             }
         }
         button.my-btn {
