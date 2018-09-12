@@ -101,6 +101,13 @@ export default {
             }else if(/^\/my\//.test(this.$route.path)){
                 this.$refs.mContent.style.left = "-100%"
             }
+            
+            if(this.$route.path==='/my'){
+                // 在PC端，转到个人信息页
+                if(document.body.clientWidth>768 && this.$route.path==='/my'){
+                    this.$router.replace({path:'/my/info'})
+                }
+            }
         }
     },
     methods:{
