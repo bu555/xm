@@ -17,7 +17,7 @@
            </ul>
         </div>
         <p class="show-empty-data" v-if="data&&(data instanceof Array)&&data.length===0" >暂无数据哦("▔□▔)</p>
-        <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据哦("▔□▔)</p>
+        <!-- <p v-if="data&&data.length===0" style="color:#ccc;text-align:center;font-size:15px">暂无数据哦("▔□▔)</p> -->
     </div>
     <div class="load-more" @click="loadMore" v-if="currentData.length==pageSize">
       或许还有更多...

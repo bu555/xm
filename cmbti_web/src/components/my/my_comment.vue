@@ -239,11 +239,11 @@ export default {
     overflow: hidden;
     position: relative;
      .h5 {
-       font-size:14px;
+       font-size:15px;
        padding-top:2px;
-       margin:2px 0;
+       margin:4px 0;
        em {
-           font-size:12px;
+           font-size:13px;
            color:#c1c1c1;
            padding:0px 2px;
            border-radius:3px;
@@ -277,8 +277,8 @@ export default {
         flex:1;
         padding:0 ;
         height:16px;
-        line-height:16px;
-        font-size:14px;
+        line-height:17px;
+        font-size:15px;
         overflow: hidden;
         color:#333;
         span {

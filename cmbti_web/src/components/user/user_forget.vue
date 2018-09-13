@@ -65,6 +65,12 @@ export default {
             border-color: #c4c7cf;
         }
     }
+    a,a:visited {
+        color:#456ea5;
+    }
+    a:hover {
+        color:#70a9e5;
+    }
 }
 </style>
 

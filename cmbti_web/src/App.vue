@@ -149,9 +149,6 @@ export default {
         overflow: hidden;
         min-height:515px
       }
-      .el-input__inner,.el-textarea__inner {
-        font-family:DINRegular;
-      }
       font-size:16px;
       // 编辑器、文章容器样式重写
       .editor-base-style {
@@ -221,9 +218,9 @@ export default {
   }
 
   // 重写elementUI样式
-    // 对话框
+      // 重写对话框
       .el-message-box {
-          width:420px;
+          width:310px;
           border-radius:3px;
           @media screen and (max-width:500px) {
                 width:80%;
@@ -231,9 +228,24 @@ export default {
           .el-message-box__title span {
               display:none;
           }
-
       }
-      //btn
+      .el-message-box__btns {
+          text-align: center;
+      }
+      .el-button--small, .el-button--small.is-round {
+          padding: 10px 25px;
+          margin: 0 12px 4px;
+      }
+      .el-message-box__status {
+          font-size: 18px!important;
+          left: 24px;
+          top:22px;
+      }
+      .el-message-box__message p {
+          margin: 0;
+          line-height: 19px;
+      }
+      //重写btn
       .el-button.el-button--default {
           color: #329ea5;
           border-color: #329ea5;
@@ -293,10 +305,33 @@ export default {
           }
 
       }
-      .el-textarea__inner {
+      .el-radio__label,
+      .el-textarea__inner,
+      .el-input__inner {
         font-size:15px;
       }
+      .el-radio__input.is-checked .el-radio__inner {
+          border-color: #54bbdf;
+          background: #54bbdf;
+      }
+      .el-select .el-input.is-focus .el-input__inner {
+          border-color: #54bbdf;
+      }
+      .el-select-dropdown__item.selected {
+          color: #54bbdf;
+      }
+      .el-radio__input.is-checked+.el-radio__label {
+          color: #54bbdf;
+      }
+      .el-form-item__label {
+          font-size: 15px;
+      }
+      .el-form-item__content {
+        font-size: 15px;
+      }
 
-
+      .el-input__inner,.el-textarea__inner,.el-select-dropdown__item span {
+         font-family:DINRegular;
+      }
 </style>
 

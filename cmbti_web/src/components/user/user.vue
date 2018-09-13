@@ -79,7 +79,7 @@ export default {
         margin:0 auto;
         padding-bottom:0;
         background: #fefefe;
-        border-radius:5px 5px 0 0 ;
+        border-radius:18px 18px 0 0 ;
         overflow: hidden;
         border:1px solid #eee;
         border-bottom-color:transparent;
@@ -88,8 +88,9 @@ export default {
             &>div {
                 flex:1;
                 text-align:center;
-                border-bottom:1px solid #eee;
                 background-color: #fcfcfc;;
+                // border-radius:0 0 18px 18px;
+                // border-bottom:1px solid #eee;
                 a {
                     display:block;
                     cursor:pointer;
@@ -97,16 +98,35 @@ export default {
                     font-weight:600;
                     color:#e2e2e2;
                     font-size:18px;
+                    border:1px solid #eee;
+                    margin-left:-1px;
+                    margin-top:-1px;
+                    border-left:none;
+                    border-right:none;
                 }
             }
             &>div+div {
-                border-left:1px solid #eee;
+                // border-left:1px solid #eee;
+                a {
+                    margin-left:-1px;
+                }
+            }
+            &>div:last-child {
+                // border-left:1px solid #eee;
+                a {
+                    margin-right:-1px;
+                }
             }
             &>div.active {
+                // background-color: #fefefe;;
                 border-bottom-color:transparent;
-                background-color: #fefefe;;
                 a {
+                    background-color: #fefefe;
+                    border:1px solid #eee;
+                    border-bottom-color:transparent;
                     color:#70a9e5;
+                    border-radius:18px 18px 0 0 ;
+                    
                 }
             }
         }
@@ -119,8 +139,12 @@ export default {
         overflow: hidden;
         border:1px solid #eee;
         border-top:none;
+        border-radius:0 0 10px 10px;
     }
     @media screen and (max-width:768px) {
+        margin-left:15px;
+        margin-right:15px;
+        margin-bottom:22px;
         section {
             margin-bottom:0;
             padding-left:0;
@@ -131,8 +155,6 @@ export default {
             }
         }
         .user-tabs {
-                border:none;
-                border-radius:0 ;
                 border-top:1px solid #eee;
                 .tab-list {
                     &>div {
@@ -144,7 +166,6 @@ export default {
                 }
         }
         .user-view {
-            border:none;
         }
     }
 

@@ -72,35 +72,38 @@
                     
                 </div>
                 <div>
-                    <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
+                    <span  @click="showComment=true"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
                 </div>
             </div>
             
             <!-- <div class="a-vote-view" v-if="showVote && !exampleItem.isVoted"> -->
             <div class="a-vote-view" v-if="showVote">
                 <div>
-                    <p style="margin-bottom:5px">请选择类型：</p>
-                    <div class="vote-16">
-                        <div class="v-item" v-for="(v,i) in $mbti.kTypes" :style="$mbti.color" :key="i">
-                            <p>{{v.t.toUpperCase()}}</p>
-                            <div v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active':''">
-                                <div class="icon-1"><i class="el-icon-success"></i></div>
-                                <font>{{v1.toUpperCase()}}</font>
-                            </div>
-                            <!-- <button  v-for="(v1,i1) in v.t4" @click="myVote=v1" :key="i1" :class="myVote===v1?'active bu-button bu-gblue':'bu-button bu-gblue'">{{v1.toUpperCase()}}</button> -->
-                        </div>
+                    <h2><i class="fa fa-bar-chart"></i> 投 票</h2>
+
+                    <div style="text-align:right;" class="v-bar">
+                        <el-select v-model="myVote" filterable placeholder="请输入或选择类型">
+                            <el-option
+                            v-for="(item,i) in $mbti.types"
+                            :key="i"
+                            :label="item.toUpperCase()"
+                            :value="item">
+                            </el-option>
+                        </el-select>
+                        <button class="bu-button bu-green" @click="vote()">投 票</button>
+                        <button class="bu-button bu-default" style="margin-left:7px;" @click="showVote=false;myVote=''">取 消</button>
+                        <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
                     </div>
-                    <div class="v-result" v-if="myVote">
-                        <div>
-                            <span>{{myVote.toUpperCase() }}</span> {{myVote2chinese}}
-                        </div>
-                        <button class="bu-button bu-gblue" @click="vote()">投 票</button>
-                    </div>
-                    <i class="close-btn el-icon-close " @click="showVote=false"></i>
+                    <ul>
+                        <li>投票须知：</li>
+                        <li>1、投票须知投票须知投票须知投票须知：</li>
+                        <li>2、投票须知投票须知投票须知投票须知：</li>
+                        <li>3、投票须知投票须知投票须知投票须知：</li>
+                    </ul>
                 </div>
                 
             </div>
-            <div class="a-publish-comment" >
+            <div :class="'a-publish-comment '+(showComment?'mobile-show':'')">
                 <p style="margin-bottom:5px">发表评论：</p>
                 <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
                         spellcheck="false"></el-input><br>
@@ -189,17 +192,17 @@ export default {
         }
     },
     computed:{
-        myVote2chinese(){
-            if(this.myVote){
+    },
+    methods:{
+        myVote2chinese(type){
+            if(type){
                 let str = ''
-                for(let i=0;i<this.myVote.length;i++){
-                    str += this.$mbti.e2c[this.myVote[i].toLowerCase()]
+                for(let i=0;i<type.length;i++){
+                    str += this.$mbti.e2c[type[i].toLowerCase()]
                 }
                 return str+"型"
             }
-        }
-    },
-    methods:{
+        },
         search(value){
             console.log('搜搜:',value);
 
@@ -214,23 +217,32 @@ export default {
                 });
                 return;
             }
-            this.$axios.goVote({
-                eid:this.eid,
-                result:this.myVote
-            }).then(res=>{
-                if(res.data.success){
-                    // this.exampleHandle(res.data.example)
-                    this.showVote = false
-                    this.getExampleById()
-                    this.exampleItem.isVoted = true
-                    this.$message({
-                        showClose: true,
-                        message: '操作成功！',
-                        type: 'success'
-                    });
-                }
-            }).catch(err=>{
-            })
+            this.$confirm('确定选择<span style="font-weight:600;color:#0e959d"> '+this.myVote.toUpperCase() +' '+this.myVote2chinese(this.myVote)+' </span>?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            dangerouslyUseHTMLString: true,
+            type: 'warning'
+            }).then(() => {
+                this.$axios.goVote({
+                    eid:this.eid,
+                    result:this.myVote
+                }).then(res=>{
+                    if(res.data.success){
+                        // this.exampleHandle(res.data.example)
+                        this.showVote = false
+                        this.$message({
+                            showClose: true,
+                            message: '操作成功！',
+                            type: 'success'
+                        });
+                        this.getExampleById()
+                        this.exampleItem.isVoted = true
+                    }
+                }).catch(err=>{
+                })
+            }).catch(() => {
+        
+            });
         },
         // 提交评论
         comment(){
@@ -394,27 +406,6 @@ export default {
 <style lang="less">
 .examp-details {
     width:100%;
-    // .crumbs {
-    //         background-color: #f0f3ef;
-    //     ul {
-    //         max-width:970px;
-    //         margin:0 auto;
-    //         display:flex;
-    //         align-items: center;
-    //         height:48px;
-    //         li {
-    //             margin-right:7px;
-    //             color:#aaa;
-    //             max-width:210px;
-    //             overflow: hidden;
-    //             a ,span{
-    //                 font-family:'Microsoft Yahei';
-    //                 font-size:15px;
-    //                 color:#666;
-    //             }
-    //         }
-    //     }
-    // }
         .main-box {
             max-width:970px;
             margin:25px auto;
@@ -449,7 +440,7 @@ export default {
                     box-sizing: border-box;
                     width:165px;
                     position: absolute;
-                    right:0px;
+                    right:4px;
                     top:0px;
                     .photo {
                         width:100%;
@@ -502,7 +493,7 @@ export default {
                         // border-bottom:1px solid #f8f8f8;
                     }
                     .figure {
-                        margin:4px auto;
+                        margin:4px auto 10px;
                         height:18px;
                         width:255px;
                         background:url('/static/img/figure.png');
@@ -517,12 +508,14 @@ export default {
                             max-width:270px;
                             padding-right:70px;
                             font-size:15px;
+                            position: relative;
+                            left:22px;
                             .type{
                                 flex:0 0 55px;
                                 height:25px;
                                 line-height: 25px;
-                                text-align:right;
-                                padding-right:5px;
+                                text-align:left;
+                                padding-left:10px;
                                 // font-weight:600;
                                 // background-color: pink;
                             }
@@ -535,14 +528,16 @@ export default {
                                 &>div {
                                     height:13px;
                                     background-color: #6ac342;
-                                    background-image: linear-gradient(to bottom, #aed5ed 0%, #7bbbe2 70%, #5aaadb 100%);
+                                    // background-image: linear-gradient(to bottom, #aed5ed 0%, #7bbbe2 70%, #5aaadb 100%);
+                                    background:#2ecc71;
+                                    box-shadow: 0 0 2px #2ecc71;
                                     width:100%;
                                     border-radius:0px 8px 8px 0px;
                                     position: relative;
                                     .count{
                                         position: absolute;
                                         right:0;
-                                        top:0;
+                                        top:-3px;
                                         transform:translateX(100%);
                                         height:16px;
                                         line-height: 16px;
@@ -572,7 +567,7 @@ export default {
                 left:0;
                 width:100%;
                 z-index:2;
-                display:none;
+                display:none; //pc端隐藏
                 &>div {
                     height:36px;
                     text-align:center;
@@ -627,162 +622,76 @@ export default {
                 width:100%;
                 height:100%;
                 z-index:5;
-                background-color: rgba(0,0,0,.5);
+                background-color: rgba(0,0,0,.8);
                 &>div {
                     max-width:500px;
                     background-color: #fefefe;
-                    padding:25px 2%;
+                    padding:16px;
                     border-top:1px solid #eee;
                     margin:15vh auto;
                     border-radius:3px;
                     position: relative;
-                }
-                .vote-16 {
-                    display:flex;
-                    &>div {
-                        flex:0 0 25%;
+                    min-height:370px;
+                    h2 {
+                        display:block;
+                        text-align: left;
+                        font-size:20px;
+                        color:#444;
+                        margin-bottom:22px;
+                        height:38px;
+                        border-bottom:1px solid #eee;
+                        margin-left:-16px;
+                        margin-right:-16px;
+                        padding-left:16px;
                     }
-                    .v-item {
-                        // display:flex;
-                        // flex-wrap:wrap;
-                        // justify-content: space-between;
-                        background-color: #fcfcfc;
-                            background: linear-gradient(to bottom, #eaeaea 0%, #f5ece0 100%);
-                        // padding:12px;
-                        padding-bottom:2px;
-                        border:1px solid #eaeaea;
-                        border-right:none;
-                        padding-top:45px;
+                    .v-bar {
+                        padding-right:165px;
                         position: relative;
-                        margin-bottom:3px;
-                        &>p {
-                            position: absolute;
-                            top:7px;
-                            left:0;
+                        padding-top:0;
+                        .el-select {
                             width:100%;
-                            text-align: center;
-                            font-weight:700;
-                            font-size:17px;
-                            color:#746f6f;
-
-                            color: #fafafa;
-                            letter-spacing: 0;
-                            text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 ;
                         }
-                        &>div {
-                            width:69px;
-                            // border:1px solid #aaa;
-                            margin:0px auto 10px;
-                            text-align:left;
-                            cursor:pointer;
-                            color:#555;
-                            padding:2px 0;
-                            border-radius:3px;
-                            text-shadow: 1px 1px 1px #fff;
-                            position: relative;
-                            padding-left:1.5em;
-                            &>.icon-1 {
-                                position: absolute;
-                                top:2px;
-                                left:.3em;
-                                i {
-                                    color:#bbb;
-                                    opacity: 0;
-                                    transition: all .5s;
-                                }
-                            }
-                            &:hover {
-                                // font {
-                                //     font-weight:700;
-                                // }
-                                // &>.icon-1 i{
-                                //     color:#888;
-                                // }
-                                &>.icon-1 {
-                                    i {
-                                        opacity:1;
-                                    }
-                                }
-                            }
+                        .bu-button {
+                            position:absolute;
+                            right:0px;
+                            top:0px;
+                            padding:9px 20px;
                         }
-                        &>div.active {
-                            font-weight:700;
-                            color:#15a743;
-                            color: #5d7f94;
-                            text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
-                            font-weight: bold;
-                            text-align: center;
-                            // background: linear-gradient(to bottom, #ece4d9 0%,#e9dfd1 100%); 
-
-                            font {
-
-                                // text-shadow: 0 0 1px #0db542;
+                        .bu-button.bu-green{
+                            right:82px;
+                        }
+                        @media screen and (max-width:400px) {
+                            padding-right:135px;
+                            // margin-bottom:30px;
+                            .bu-button {
+                                // top:50px;
+                                padding:9px 14px;
                             }
-                            &>.icon-1 {
-                                i {
-                                    opacity:1;
-                                    color:#0db542;
-                                    color:#8799a7;
-                                }
+                            .bu-button.bu-green{
+                                right:67px;
                             }
                         }
                     }
-                    .v-item:nth-of-type(1){
-                        border-radius:3px 0 0 3px;
-                    }
-                    .v-item:nth-last-child(1){
-                        border:1px solid #e1e1e1;
-                        border-radius:0 3px 3px 0;
-                    }
-                    
-                }
-                .v-result {
-                    background-color: #fcfcfc;
-                    background-color: #e9fbed;
-                    border-radius:3px;
-                    padding:6px 0 15px;
-                    text-align:center;
-                    color:#627887;
-                    font-size:14px;
-                    border:1px solid #eaeaea;
-                    color: #5d7f94;
-                    text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
-                    font-weight: bold;
-                    text-align: center;
-                    background: linear-gradient(to bottom, #ece4d9 0%,#e9dfd1 100%);                
-                    &>div {
-                        margin-bottom:10px;
-                    }
-                    span {
-                        font-weight:600;
-                        font-size:19px;
-                    }
-                    button {
-                        width:100%;
-                        max-width:180px;
-                        margin:0 auto;
-                        font-size:15px;
-                        color:#464f59;
-                        font-weight:700;
+                    ul {
+                        padding-top:32px;
+                        li {
+                            font-size:14px;
+                            color:#c8c8c8;
+                            font-weight:400;
+                        }
+                        li:first-child {
+                            font-size:15px;
+                            color:#bbb;
+                        }
+                        
                     }
                 }
-                .close-btn {
-                    position:absolute;
-                    top:12px;
-                    right:22px;
-                    font-size:18px;
-                    cursor:pointer;
-                    color:#586a7a;
-                    &:hover {
-                        color:#454f5a;
-                        font-weight:700;
-                    }
-                }
+        
             }
             .a-publish-comment {
-                background-color: #fefefe;
+                // background-color: #fefefe;
                 border-top:1px solid #eee;
-                padding:26px 0;
+                padding:29px 0;
             }
             // 右侧推荐区
             .recommend {
@@ -856,15 +765,27 @@ export default {
             }
         }
         @media screen and (max-width:768px){
+            .main-box .a-publish-comment.mobile-show {
+                position:fixed;
+                width:100%;
+                height:100%;
+                left:0;
+                top:0;
+                background-color: #fff;
+                padding-left:16px;
+                padding-right:16px;
+                z-index:1;
+            }
             .main-box .main-ctrl {
                 display:flex;
             }
         }   
         @media screen and (max-width:525px){
-            .a-vote-view>div {
-                margin: 22vh 5px;
-            }
             .main-box {
+                .a-vote-view>div {
+                    margin-left: 6px;
+                    margin-right: 6px;
+                }
                 .example-box {
                     padding-right:0;
                     .e-info {
@@ -877,6 +798,9 @@ export default {
                         width:100%;
                         border-left:none;
                         margin-top:15px;
+                    }
+                    .item {
+                        right:0;
                     }
                 }
 

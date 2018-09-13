@@ -211,24 +211,28 @@ const modifyUserInfo = (req, res) =>{
                 if( myUtill.roleName(options.new_r_name) ){
                     let user = await User.getUserById(options)
                     // 判断是否有修改权限
-                    if(user.modify){
-                        // 验证是否重复
-                        let exist= await User.checkRoleName(options)
-                        if(exist){
+                    if(user.m_time){  //如果修改时间不为0
+                        // 验证是否满足180天
+                        if( (Date.now()-user.m_time) > 1000*3600*24*180 ){
+                            // 验证是否重复
+                            let exist= await User.checkRoleName(options)
+                            if(exist){
+                                return res.json({
+                                    success: false,
+                                    message: "-1",
+                                })
+                            }
+                        }else{
                             return res.json({
                                 success: false,
-                                message: "-1",
+                                message: "cannot modify"
                             })
+    
                         }
-                    }else{
-                        return res.json({
-                            success: false,
-                            message: "cannot modify"
-                        })
-
                     }
 
                 }else{
+                    // 名字不合法
                     return res.json({
                         success: false,
                         message: "-2"
