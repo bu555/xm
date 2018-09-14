@@ -21,6 +21,7 @@ const Limiter = require('../middlewares/limiter')
 var fm = require('formidable');
 const fs = require('fs')
 const path = require('path')
+const GrabWeb = require('../controllers/grabWeb')
 
 var logger = require('log4js').getLogger('logError');
       
@@ -262,39 +263,57 @@ const modifyUserInfo = (req, res) =>{
 }
 
 
-// 上傳用戶頭像
-const uploadPhoto = (req,res)=>{
+// 上傳用戶頭像   请求头： return axios.post(pathAPI+'/user/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
+const uploadPhoto = async (req,res)=>{
     let uid = req.session.user._id
-    let avatarPath = '/'+uid+'.jpg'
-    // 5.1创建formidable文件解析上传数据
-    // 注:下载安装formidable，引入formidable再创建formidable
-    var form = new fm.IncomingForm();
-    // 5.2设置路径
-    // 注：把路径设置为静态路径下的uploads，需在public下创建uploads
-    form.uploadDir=path.join(__dirname,'../avatar')
-    // uploadDir设置文件的上传的路径
-    // 5.3解析上传内容
-    form.parse(req);
-    form.on('end',function(){
-        User.modifyUser({avatar:avatarPath,uid:uid}).then(r=>{
-            res.json({
-                success:true
-            })
-        }).catch(err=>{
-            logger.error(err);
-            res.json({
-                success:false
-            })
+
+    try {
+        // saveUploadFile {fileName:'8.jpg',req:req,type:'example/avatar/article'}
+        let url = await GrabWeb.saveUploadFile({fileName:uid+'.jpg',req:req,type:'avatar'})
+    
+        let r = await User.modifyUser({avatar:url,uid:uid})
+        res.json({
+            success:true
         })
-    })
-    // 5.5监听file事件(在服务器的路径下，有上传的文件)，处理上传内容
-    form.on('file',function(field,file){//file是上传的文件
-        // 5.5.1 更改上传文件的名字
-        // 更改
-        fs.renameSync(file.path,path.join(form.uploadDir,avatarPath))
-        // 第一个参数file.path表示上传的文件所在的路径
-        // 5.5.2发送给浏览器端(客户端)
-    })
+    }catch(err){
+        logger.error(err)
+        console.log(err);
+        res.json({
+            success:false
+        })
+    }
+
+
+    // let avatarPath = '/'+uid+'.jpg'
+    // // 5.1创建formidable文件解析上传数据
+    // // 注:下载安装formidable，引入formidable再创建formidable
+    // var form = new fm.IncomingForm();
+    // // 5.2设置路径
+    // // 注：把路径设置为静态路径下的uploads，需在public下创建uploads
+    // form.uploadDir=path.join( process.cwd(),'/upload/avatar')
+    // // uploadDir设置文件的上传的路径
+    // // 5.3解析上传内容
+    // form.parse(req);
+    // form.on('end',function(){
+    //     User.modifyUser({avatar:avatarPath,uid:uid}).then(r=>{
+    //         res.json({
+    //             success:true
+    //         })
+    //     }).catch(err=>{
+    //         logger.error(err);
+    //         res.json({
+    //             success:false
+    //         })
+    //     })
+    // })
+    // // 5.5监听file事件(在服务器的路径下，有上传的文件)，处理上传内容
+    // form.on('file',function(field,file){//file是上传的文件
+    //     // 5.5.1 更改上传文件的名字
+    //     // 更改
+    //     fs.renameSync(file.path,path.join(form.uploadDir,avatarPath))
+    //     // 第一个参数file.path表示上传的文件所在的路径
+    //     // 5.5.2发送给浏览器端(客户端)
+    // })
 }
 
 // 获取多个用户 展示 {uid:[id1,id2 ...]}

@@ -31,6 +31,7 @@ const exampleSchema = new mongoose.Schema({
         isfp:Number  
     },
     vote_log:[String],
+    create_by:String,
 })
 const commentSchema = new mongoose.Schema({
         eid:String,

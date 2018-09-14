@@ -11,18 +11,18 @@ class Example{
     // 创建名人例 {name:'',name1:'',url:'baikeURL',info:'',sName:''}
     createExample(options){
         return new Promise((resolve,reject)=>{
-            ExampleModel.example.find({name:options.name}).then(example=>{
-                if(example){
-                    // 查出所有比对
-                    example.forEach((v,i)=>{
-                        if(v.name1==options.name1 || v.info.substr(0,20)==options.info.substr(0,20)){
-                            return reject('exist')
-                        }
-                    })
+            // ExampleModel.example.find({name:options.name}).then(example=>{
+            //     if(example){
+            //         // 查出所有比对
+            //         example.forEach((v,i)=>{
+            //             if(v.name1==options.name1 || v.info.substr(0,20)==options.info.substr(0,20)){
+            //                 return resolve(null)
+            //             }
+            //         })
 
-                }
-                // 保存图片到本地 -> 保存资料
-                GrabWeb.saveImage({imgURL:options.imgURL}).then(imgURL=>{
+            //     }
+                // 下载图片到本地 -> 保存资料
+                GrabWeb.downloadNetworkImage({imgURL:options.imgURL,type:'example'}).then(imgURL=>{
                     let vote = {
                             entp:0,
                             intp:0,
@@ -42,7 +42,7 @@ class Example{
                             isfp:0
                         }
                     let exampleAdd = new ExampleModel.example({
-                        name: options.name + (options.name.indexOf(options.sName)==-1?'（'+options.sName+'）':''),
+                        name: options.name,
                         name1: options.name1,
                         type: "****",
                         vote: vote,
@@ -54,18 +54,19 @@ class Example{
                         conste: options.conste || '', //星座
                         create_time: new Date(),
                         like:[],
-                        likes:0
+                        likes:0,
+                        create_by:options.uid || ''
                     })
                     exampleAdd.save((err, example) => {
                         if(err) {
-                            reject('Data save fail')
+                            resolve(null)
                         } else {
                             new ExampleModel.comment({
                                 eid:example._id,
                                 comment:[],
                                 title:exampleAdd.name
                             }).save((err,comment)=>{
-                                if(err) return reject('save fail')
+                                if(err) return resolve(null)
                                 resolve(example)
                             })
                         }
@@ -74,7 +75,7 @@ class Example{
 
 
             })
-        })
+        // })
     }
     // params : {name:'',type:'',page:'',size:''}
     searchExample(options={}){
@@ -84,7 +85,11 @@ class Example{
             let pro;
             // 1.按name 模糊查询
             if(options.name){
-                pro = ExampleModel.example.find({ name:new RegExp(options.name,'i') });
+                if(options.strict){ //严格搜索
+                    pro = ExampleModel.example.findOne({ name:new RegExp('^'+options.name+'$','') });
+                }else{
+                    pro = ExampleModel.example.find({ name:new RegExp(options.name,'i') });
+                }
             // 2.按type 模糊查询
             }else if(options.type){
                 pro = ExampleModel.example.find({ type:new RegExp(options.type,'i') });
@@ -106,7 +111,14 @@ class Example{
             // })
             // pro.limit(size).skip((page-1)*size).then(example=>{
             pro.then(example=>{
-                resolve(example)
+                if(example){
+                    if( !(example instanceof Array) ){  //严格搜索结果：返对象
+                        example = [example]
+                    }
+                    resolve(example)
+                }else{
+                    resolve([])
+                }
                 
             }).catch(err=>{
                 reject('error')
