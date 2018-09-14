@@ -16,9 +16,9 @@ const GrabWeb = require('../controllers/grabWeb')
 // 添加example {bakeList:[],currentIndex:'',sName:''}
 const addExample = (req,res)=>{
     let options = req.body || {};
-    console.log(options);
-    console.log(2,options.baikeList);
-    if(!options.baikeList || !(options.baikeList instanceof Array) || options.baikeList.length<1 || !options.sName || (!options.currentIndex && options.currentIndex!=0 ) ){
+    options.uid = req.session.user._id;
+    console.log(options.uid, 'uid');
+    if(!options.baikeList || !(options.baikeList instanceof Array) || options.baikeList.length<1 || !options.sName || (!options.currentIndex && options.currentIndex!==0 ) ){
         return res.json({
             success: false,
             message: '参数错误' 
@@ -48,27 +48,30 @@ const addExample = (req,res)=>{
     (async ()=>{
 
         try{
-            let currentExample
+            // 查找name是否存在(返回数组)
+            let searchRes = await Example.searchExample({name:options.sName,strict:true})
+            if(searchRes.length>1) throw '此名字已存在'
+            let currentExample //变量记录用户点击的名人
+            let pro = []
             for(let i=0;i<options.baikeList.length;i++){
                 let _option = JSON.parse(JSON.stringify(options.baikeList[i]))
                 _option.sName = options.sName
-                let e = await Example.createExample( _option )
-                if(options.currentIndex==i){
-                    currentExample = e
-                }
-                // .then(example=>{
-                //     res.json({
-                //         success:true,
-                //         message:'success',
-                //         example:example
-                //     })
-                // })
+                _option.uid = options.uid
+                pro.push(Example.createExample( _option ))
             }
-            res.json({
-                success:true,
-                message:'success',
-                example:currentExample
-            })
+            let list = await  Promise.all(pro)
+            // 获取用户点击的名人
+            currentExample = list[options.currentIndex]
+            if(currentExample){
+                res.json({
+                    success:true,
+                    message:'success',
+                    example:currentExample
+                })
+            }else{
+                throw '当前名人createExample存取失败'
+            }
+
         }catch(err){
             logger.error(err);
             console.log(err);
@@ -101,20 +104,20 @@ const searchExample = (req,res,next)=>{
             }
             // 数据库无数据
             if(options.name && example.length<1){
-
                 // 百度搜索
-                GrabWeb.https({url:'https://baike.baidu.com/item/'+encodeURI(options.name)}).then(data=>{
+                GrabWeb.https({name:options.name}).then(data=>{
                     return res.json({
                         success:true,
                         message:'ok',
                         result:{
                             sName:options.name, //搜索的名字
-                            example:(data instanceof Array)?data:(data?[data]:[]),
+                            example:(data instanceof Array)?data:(data?[data]:[]), //返回搜索结果列表
                             baike:true
                         }
                     })
                 })
             }else{
+                // 返回数据库结果
                 res.json({
                     success:true,
                     message:'ok',
@@ -402,7 +405,7 @@ const clickExampleLike = (req,res)=>{
     })()
 }
 
-router.post('/addExample',addExample);
+router.post('/addExample',checkLogin,addExample);
 router.post('/searchExample',searchExample);
 router.post('/goVote',checkLogin,goVote);
 router.post('/addComment',checkLogin,addComment);

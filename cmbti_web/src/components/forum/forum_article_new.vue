@@ -119,6 +119,7 @@ export default {
     mounted(){
     },
     methods:{  
+        // 获取最新的标签
         changeCurrentTags(tags){
             this.form.tagsList = tags
             this.verify('tagsList')

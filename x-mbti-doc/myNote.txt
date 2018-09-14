@@ -290,6 +290,59 @@ amazeui：移动端HTML5的UI框架；
 1.margin和padding各种浏览器有差异； //*{margin:0;padding:0;}
 2.img标签排列间隔差异； //设置float排列
 3.min-height设置ie无效//{min-height:200px; height:auto!important; height:200px; overflow:visible;}
+
+【DOM操作】#base64 
+var reader = new FileReader();
+reader.onload = function (e) {
+    var data = this.result;
+    console.log(data);
+}
+reader.readAsDataURL( this.files[0] );
+
+ #DOM常用api
+offsetWidth/offsetHeight 获取元素宽度/高度
+offsetTop/offsetLeft 获取元素至屏幕顶部/左侧距离 
+window.innerHeight 窗口高度
+lastElementChild/firstElementChild 获取最后/第一子元素
+.appendChild(sDom) 在末尾添加元素 
+.insertBefore(newDom, sDom)/.insertAfter(newDom, sDom) 在子元素前/后插入元素
+.nextElementSibling/.priviousElementSibling 下一个/上一个兄弟元素
+window.pageYOffset
+window.pageXOffset
+元素节点的 nodeName 是标签名称
+属性节点的 nodeName 是属性名称
+文本节点的 nodeName 永远是 #text
+文档节点的 nodeName 永远是 #document
+nodeType:
+元素element	1
+属性attr	2
+文本text	3
+注释comments	8
+文档document	9
+网页正文部分上： window.screenTop
+网页正文部分左： window.screenLeft
+屏幕分辨率的高： window.screen.height
+屏幕分辨率的宽： window.screen.width
+屏幕可用工作区高度： window.screen.availHeight
+屏幕可用工作区宽度： window.screen.availWidth
+document.documentElement.clientWidth ==> 可见区域宽度  
+document.documentElement.clientHeight ==> 可见区域高度  
+
+javascript中获取dom元素高度和宽度的方法如下：
+ 网页可见区域宽： document.body.clientWidth
+网页可见区域高： document.body.clientHeight
+网页可见区域宽： document.body.offsetWidth (包括边线的宽)
+网页可见区域高： document.body.offsetHeight (包括边线的高)
+网页正文全文宽： document.body.scrollWidth
+网页正文全文高： document.body.scrollHeight
+网页被卷去的高： document.body.scrollTop
+网页被卷去的左： document.body.scrollLeft
+ 对应的dom元素的宽高有以下几个常用的：
+ 元素的实际高度：document.getElementById("div").offsetHeight
+元素的实际宽度：document.getElementById("div").offsetWidth
+元素的实际距离左边界的距离：document.getElementById("div").offsetLeft
+元素的实际距离上边界的距离：document.getElementById("div").offsetTop
+
 【浏览器缓存】
 缓存文件在chrome://version/ 中"个人资料路径"
 chrome://chrome-urls/,打开所有URL列表页面。
