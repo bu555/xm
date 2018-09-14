@@ -64,7 +64,7 @@
             </div>
             <div class="main-ctrl">
                 <div>
-                    <span  :class="'a-like btns2 '+ (exampleItem.isLiked?'active':'')"  @click="clickLike"><i class="fa fa-star"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
+                    <span  :class="'a-like btns2 '+ (exampleItem.isLiked?'active':'')"  @click="clickLike"><i :class="exampleItem.isLiked?'fa fa-star':'fa fa-star-o'"></i><br/>关注 <em>({{exampleItem.likes}})</em></span>
                     
                 </div>
                 <div>
@@ -558,7 +558,6 @@ export default {
             .main-ctrl {
                 padding:.5em 16px;
                 border-top:1px solid #eee;
-                border-bottom:1px solid #eee;
                 background-color: #fefefe;
                 display:flex;
                 justify-content: space-between;
@@ -609,6 +608,20 @@ export default {
                 .a-like.active {
                     &:after {
                         content:'已关注';
+                    }
+                }
+                @media screen and (min-width:769px){
+                    display:flex;
+                    position:relative;
+                    justify-content: space-around;
+                    padding:1.2em 16px;
+                    &>div:last-child {
+                        display:none;
+                    }
+                    .a-like {   
+                        i {
+                            font-size:22px;
+                        }
                     }
                 }
 
@@ -689,7 +702,6 @@ export default {
         
             }
             .a-publish-comment {
-                // background-color: #fefefe;
                 border-top:1px solid #eee;
                 padding:29px 0;
             }

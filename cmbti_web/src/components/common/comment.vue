@@ -36,9 +36,10 @@
                     </div>
                     <!-- 点赞与回复 -->
                     <div class="zan c-c">
-                        <i :class="'fa fa-thumbs-up' + (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
+                        <i :class="'fa fa-thumbs-up' + (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><span>赞</span><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
                         <!-- 借用zan字段控制评论（服务端统一返回的是null） -->
-                        <i :class="'fa fa-comment'+ (v.zan?' active':'')" @click="v.zan=!v.zan;v.repContent=''"></i> 
+                        <i :class="'comment fa '+ (v.zan?' active fa-comment':'fa-comment-o')" @click="v.zan=!v.zan;v.repContent=''"><span>评论</span><em style="padding-left:2px">{{v.replay.length}}</em></i> 
+                        <i><span>更多</span><span class="fa fa-angle-down" style="font-size:16px"></span></i>
                     </div>
 
                     <div class="reply" v-if="v.zan">
@@ -265,7 +266,12 @@ export default {
                     if(this.commentPage===1){
                         this.commentList = []
                     }
-                    this.commentList = this.commentList.concat(res.data.data)
+                    let list = res.data.data.map((v,i)=>{
+                        v.showMore = false
+                        v.showComment = false
+                        return v
+                    })
+                    this.commentList = this.commentList.concat(list)
                 }
             }).catch(err=>{
                 this.loading2 = false
@@ -410,7 +416,7 @@ export default {
                     }
                     &>em {
                         display:inline-block;
-                        max-width:97px;
+                        max-width:120px;
                         color:#555;
                         // font-weight:700;
                     }
@@ -463,7 +469,7 @@ export default {
                     display:flex;
                     align-items: center;
                     min-width:55px;
-                    max-width:82px;
+                    // max-width:82px;
                     // margin-right:42px;
                     // color:#8590a6;
                     color:#999999;
@@ -473,24 +479,28 @@ export default {
                         cursor:pointer;
                         font-size:20px;
                     }
+                    i+i {
+                        margin-left:1em;
+                    }
                     i.active {
-                        color:#1b6eb2;
+                        color:#409eff;
                     }
                     i.active:hover {
-                        color:#1b6eb2;
+                        color:#409eff;
                     }
                     i:hover {
                         // color:#aaa;
                     }
-                    em {
-                        font-size:14px;
+                    span {
+                        margin-left:3px;
+                    }
+                    em,span {
+                        font-size:13px;
                         position: relative;
                         top:1px;
                     }
-                    i.fa-comment {
-                        font-size:17px;
-                        margin-left:22px;
-                        margin-right: 3px;
+                    i.comment {
+                        font-size:18px;
                     }
                 }
                 // 回复文本框

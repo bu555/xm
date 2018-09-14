@@ -44,21 +44,25 @@
                         <div class="m-loading" v-if="zanLoading"><i class="el-icon-loading" ></i></div>
                     </div> -->
                     <div>
-                        <span  class="a-like btns2" :style="data.articleLiked?'color:#4d9efc':''" @click="clickLike"><i class="fa fa-heart"></i><br/>喜欢 <em>({{data.likes}})</em></span>
+                        <span  class="a-like btns2" :style="data.articleLiked?'color:#409eff':''" @click="clickLike"><i :class="data.articleLiked?'fa fa-heart':'fa fa-heart-o'"></i><br/>喜欢 <em>({{data.likes}})</em></span>
                         <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
                         <div class="m-loading" v-if="likeLoading"><i class="el-icon-loading"></i></div>
                     </div>
                     <div>
-                        <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="el-icon-edit-outline"></i><br/>写评论</span>
+                        <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
                         <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                     </div>
                 </div>
-                <div class="a-publish-comment" v-if="showComment">
-                    <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4" 
+                <div :class="'a-publish-comment '+(showComment?'mobile-show':'')">
+                    <p style="margin-bottom:5px">发表评论：</p>
+                    <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
                         spellcheck="false"></el-input><br>
                     <div style="text-align:right;padding-top:10px">
-                        <el-button size="small" type="default"  @click="showComment=false;myComment=''">取 消</el-button>
-                        <el-button size="small" type="primary" @click="addComment">发 表</el-button>
+                        <!-- <el-button size="small" type="default"  @click="showComment=false;myComment=''">取 消</el-button>
+                        <el-button size="small" type="primary" @click="addComment">发 表</el-button> -->
+                        <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
+                        <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
+                        <button class="bu-button bu-gblue" style="margin-left:7px;"  @click="addComment">发 表</button>
                     </div>
                 </div>
 
@@ -296,8 +300,6 @@ export default {
                 }
             }
         }
-        .article {
-        }
         .a-header {
             margin-bottom:12px;
             .title {
@@ -449,13 +451,16 @@ export default {
             }
         }
         .main-ctrl {
-            padding:2% 8% 3% 8%;
+            padding:.5em 16px;
             border-top:1px solid #eee;
-            border-bottom:1px solid #eee;
             background-color: #fefefe;
-            display:flex;
             justify-content: space-between;
-            margin-bottom:22px;
+            position:fixed;
+            bottom:0;
+            left:0;
+            width:100%;
+            z-index:2;
+            display:none; //pc端隐藏
             &>div {
                 height:36px;
                 // line-height: 36px;
@@ -490,47 +495,69 @@ export default {
                     background-color: #fff;
                 }
             }
-            .a-like {
-
-        }
-    }
-    .a-publish-comment {
-        background-color: #fefefe;
-        padding:3%;
-        border-top:1px solid #eee;
-    }
-    a:hover {
-        text-decoration:none;
-    }
-    @media screen and (min-width:993px){
-        .main-box .a-body {
-            font-size:16px;
-            line-height: 22px;;
-        }
-
-    }
-    @media screen and (max-width:992px){
-        .main-box {
-            padding-left:15px;
-        }
-    }
-    @media screen and (max-width:768px){
-        .main-box {
-            padding:0 16px;
-            // 右侧推荐区
-            .recommend {
-                width:100%;
-                // border:1px solid #f7f7f7;
-                position: relative;;
-                right:0px;
-                top:0;
-                padding:0;
+            @media screen and (min-width:769px){
+                display:flex;
+                position:relative;
+                justify-content: center;
+                padding:1.2em 16px;
+                &>div:last-child {
+                    display:none;
+                }
+                .a-like {   
+                    i {
+                        font-size:22px;
+                    }
+                }
             }
         }
-    }
-    @media screen and (max-width:525px) {
+        .a-publish-comment {
+                border-top:1px solid #eee;
+                padding:29px 0;
+        }
+        a:hover {
+            text-decoration:none;
+        }
+        @media screen and (min-width:993px){
+            .main-box .a-body {
+                font-size:16px;
+                line-height: 22px;;
+            }
 
-    }
+        }
+        @media screen and (max-width:992px){
+            .main-box {
+                padding-left:15px;
+            }
+        }
+        @media screen and (max-width:768px){
+            .a-publish-comment.mobile-show {
+                position:fixed;
+                width:100%;
+                height:100%;
+                left:0;
+                top:0;
+                background-color: #fff;
+                padding-left:16px;
+                padding-right:16px;
+                z-index:1;
+            }
+            .main-box {
+                padding:0 16px;
+                .main-ctrl {
+                    display:flex;
+                    position:fixed;
+                }
+                // 右侧推荐区
+                .recommend {
+                    width:100%;
+                    // border:1px solid #f7f7f7;
+                    position: relative;;
+                    right:0px;
+                    top:0;
+                    padding:0;
+                }
+            }
+        }
 }
 
 </style>
