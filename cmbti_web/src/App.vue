@@ -4,7 +4,8 @@
       <router-view class="router-view"></router-view>
       <myFooter 
       v-if=" !( 
-        /^\/user/.test($route.path) 
+        /^\/user/.test($route.path)  ||
+        /^\/admin/.test($route.path)  
         )"
       ></myFooter>
       <div v-if="$store.state.modalLogin">
@@ -151,10 +152,11 @@ export default {
       }
       font-size:16px;
       // 编辑器、文章容器样式重写
-      .editor-base-style {
+      .editor-base-style, .w-e-toolbar li.w-e-item {
           font-family: 'Microsoft YaHei';
           font-size:15px;
           color:rgba(33, 32, 36, 0.86);
+          text-align: left;
           img {
             display:block;
             max-width:768px;
@@ -172,7 +174,7 @@ export default {
           }
           p {
               margin:0 0 .6em;
-              line-height: 1.4;
+              line-height: 1.5;
           }
           li{ display:list-item }
           ol{list-style-type: decimal }
@@ -202,6 +204,23 @@ export default {
           }
           span {
             font-size:.9em;
+          }
+          h1,h2,h3 {
+            font-weight:600;
+            line-height: 1.8;
+            margin:0 0 .3em;
+          }
+          h1 {
+            font-size:24px;
+          }
+          h2 {
+            font-size:21px;
+          }
+          h3 {
+            font-size:18px;
+          }
+          h4 {
+            font-size:15px;
           }
 
       }
@@ -280,7 +299,7 @@ export default {
       }
       /*提示信息 样式*/
       .el-message {
-          top: 122px;
+          top: 82px;
           max-width:280px;
           min-height:100px;
           min-width:250px;

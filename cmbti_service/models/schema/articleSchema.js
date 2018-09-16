@@ -38,7 +38,7 @@ const articleSchema = new mongoose.Schema({
     title:String, //
     category:String,  //ask share
     // content:String,
-    tags:String, //标签
+    tags:String, //标签 格式：'tag1,tag2...'
     c_time:Date, //创建时间
     good:Boolean, //加精
     like:[String],

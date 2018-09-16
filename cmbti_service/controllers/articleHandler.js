@@ -9,6 +9,10 @@ class Article {
     static publishArticle(options){
         return new Promise((resolve,reject)=>{
             if(options.aid){  //编辑
+                if(options.tags &&typeof options.tags==="string"){
+                    // 去重
+                    options.tags = Array.from( new Set(options.tags.split(',')) )
+                }
                 ArticleModel.article.findOne({"_id":options.aid}).then(a=>{
                     if(!a) return reject("The aid find failed")
                     if(a.uid!==options.uid) return reject("The uid not match!")

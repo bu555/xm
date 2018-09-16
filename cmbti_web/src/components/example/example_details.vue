@@ -46,9 +46,9 @@
                                     <div class="type">{{v.type?v.type.toUpperCase():''}}</div>
                                     <div class="prog">
                                         <div :style="'width:'+v.perce">
-                                            <div class="count">{{v.count}}</div>
                                         </div>
                                     </div>
+                                    <div class="count">{{v.count}}</div>
                                     
                                 </div>
                                 <!-- <div v-if="isRepeat">你已参与</div> -->
@@ -469,7 +469,7 @@ export default {
                     top:0;
                     right:0px;
                     width:48%;
-                    border-left:1px solid #ccc;
+                    border-left:1px solid #eee;
                     padding-bottom:15px;
                     text-align: center;
                     color:#777;
@@ -505,47 +505,45 @@ export default {
                         &>.r-item {
                             margin:0 auto;
                             display: flex; display: -webkit-flex;display: -ms-flex;display: -o-flex;
-                            max-width:270px;
-                            padding-right:70px;
-                            font-size:15px;
+                            max-width:232px;
                             position: relative;
-                            left:22px;
+                            left:6px;
+                            &>div {
+                                height:16px;
+                                line-height: 16px;
+                                margin:5px 0;
+                                color:#9b9b9b;
+                            }
                             .type{
-                                flex:0 0 55px;
-                                height:25px;
-                                line-height: 25px;
-                                text-align:left;
-                                padding-left:10px;
+                                font-size:15px;
                                 // font-weight:600;
-                                // background-color: pink;
+                                flex:0 0 44px;
+                                text-align:left;
                             }
                             .prog{
                                 flex:1;
-                                height:25px;
-                                border-left:1px solid #7ea1b7;
+                                border-radius:8px;
                                 display:flex;
                                 align-items:center;
+                                background-color: #f2f2f2;
                                 &>div {
-                                    height:13px;
+                                    height:16px;
                                     background-color: #6ac342;
                                     // background-image: linear-gradient(to bottom, #aed5ed 0%, #7bbbe2 70%, #5aaadb 100%);
                                     background:#2ecc71;
                                     box-shadow: 0 0 2px #2ecc71;
                                     width:100%;
-                                    border-radius:0px 8px 8px 0px;
+                                    // border-radius:0px 8px 8px 0px;
+                                    border-radius:8px;
                                     position: relative;
-                                    .count{
-                                        position: absolute;
-                                        right:0;
-                                        top:-3px;
-                                        transform:translateX(100%);
-                                        height:16px;
-                                        line-height: 16px;
-                                        text-align:left;
-                                        padding-left:4px;
-
-                                    }
                                 }
+                            }
+                            .count{
+                                text-align:left;
+                                padding-left:4px;
+                                font-size:14px;
+                                flex:0 0 34px;
+
                             }
                         }
                         
@@ -576,40 +574,43 @@ export default {
                     i {
                         font-size:19px;
                     }
-                    span {
+                    >span {
                         color:#8590a6;
                         // line-height: 18px;
                         border-radius:2px;
                         cursor:pointer;
                         display:inline-block;
                         font-size:14px;
+                        &:hover {
+                            color:#409eff;
+                        }
                     }
                     &>span.active {
-                        color:#1b6eb2;
+                        color:#409eff;
                     }
                 }
                 .a-like {}
-                .a-vote.active,.a-like.active {
-                    position: relative;
-                    &:after {
-                        content:'已参与';
-                        display: block;
-                        height: 17px;
-                        width: 42px;
-                        color: #fff;
-                        font-size: 11px;
-                        position: absolute;
-                        top: 0px;
-                        right: -38px;
-                        background-color: #7db3f6;
-                        border-radius: 6px 6px 6px 0;
-                    }
-                }
-                .a-like.active {
-                    &:after {
-                        content:'已关注';
-                    }
-                }
+                // .a-vote.active,.a-like.active {
+                //     position: relative;
+                //     &:after {
+                //         content:'已参与';
+                //         display: block;
+                //         height: 17px;
+                //         width: 42px;
+                //         color: #fff;
+                //         font-size: 11px;
+                //         position: absolute;
+                //         top: 0px;
+                //         right: -38px;
+                //         background-color: #7db3f6;
+                //         border-radius: 6px 6px 6px 0;
+                //     }
+                // }
+                // .a-like.active {
+                //     &:after {
+                //         content:'已关注';
+                //     }
+                // }
                 @media screen and (min-width:769px){
                     display:flex;
                     position:relative;

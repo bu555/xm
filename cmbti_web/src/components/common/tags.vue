@@ -69,6 +69,11 @@ export default {
         // this.verify('tagsList')
         this.setInputWidth()
         this.$emit('currentTags',this.article.tagsList)
+    },
+    "tags":function(){
+        if(this.tags){
+            this.article.tagsList = this.tags
+        }
     }
     },
     methods:{

@@ -1,7 +1,7 @@
 <template>
   <div class="my-publish" v-loading="loading">
     <div class="content">
-        <div  v-if="data&&(data instanceof Array)&&data.length>0" class="items" v-for="(v,i) in data" :key="i">
+        <div  v-if="data&&(data instanceof Array)&&data.length>0&&v" class="items" v-for="(v,i) in data" :key="i">
             <!-- <div class="my-type share" v-if="v.category==='share'">分享</div>
             <div class="my-type ask"  v-if="v.category==='ask'">问答</div>
             <div class="my-type good" v-if="v.good">精华</div> -->
@@ -31,7 +31,7 @@ export default {
       return {
         loading:false,
         data:null,
-        size:4,
+        size:8,
         page:1,
         currentData:[]
       }

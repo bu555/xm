@@ -248,6 +248,15 @@ export default {
     // 获取中国省市
     getChina(data){
         return axios.get(pathAPI+'/other/getChina',{params:data});
-    }
+    },
+// admin --------------------
+    // 设置、存储文档
+    setDocument(data){
+        return axios.post(pathAPI+'/admin/setDocument',data);
+    },
+    // 查询文档
+    getDocument(data){
+        return axios.post(pathAPI+'/admin/getDocument',data);
+    },
 
 }

@@ -1,5 +1,5 @@
 <template>
-<div class="func-8">
+<div class="personality">
         <ul class="types-menu">
                 <li v-for="(v,i) in $mbti.types" :key="i" :class="'item '+($route.path.split('/')[3]===v?'active':'')">
                     <router-link :to="'/mbti/personality/'+v">
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 <style lang="less">
-.func-8 {
+.personality {
     position: relative;
     ul.types-menu {
             display:flex;
@@ -52,28 +52,31 @@ export default {
             .item {
                 font-size:17px;
                 flex:0 0 11%;
-                height:33px;
-                line-height: 33px;
-                font-weight:700;
-                color:#3e4652;
-                border-color:#fff;
-                text-shadow:0px 0px 2px #fff;
-                box-shadow:1px 1px 5px #38414b;
+                height:30px;
+                line-height: 28px;
+                border-radius:15px;
+                border:1px solid rgba(14, 149, 157,0.6);
                 margin:3px;
                 text-align: center;
-                border-radius:2px;
                 &:hover {
-                    box-shadow:1px 3px 10px #38414b;
+                    box-shadow:0px 0px 2px #0e959d;
+                    a {
+                        // color:#05696f;
+                    }
                 }
                 a {
+                    color: rgba(14, 149, 157,0.86);
                     display:block;
                     height:100%;
                 }
             }
             .item.active {
-                background-color: #70a9e5;
-                box-shadow:1px 4px 10px #222;
-                text-shadow:1px 1px 1px #4b647b;
+                background-color: rgba(14, 149, 157,0.99);
+                box-shadow:0px 0px 2px #0e959d;
+                a {
+                    color:#fff;
+                    font-weight:600;
+                }
 
             }
     }
@@ -92,6 +95,7 @@ export default {
         }
     @media screen and (max-width:500px){
         ul.types-menu {
+                margin:-3px;
                 .item {
                     flex:0 0 22%;
                 }

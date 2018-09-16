@@ -24,7 +24,7 @@ const publishArticle = (req,res)=>{
             message: 'Params Error' 
         })
     }
-    if(options.title.length>120 || myUtill.verifyTags(options.tags) || myUtill.strLength(options.content)>16777215){
+    if(options.title.length>120 || !myUtill.verifyTags(options.tags) || myUtill.strLength(options.content)>16777215){
         return res.json({
             success: false,
             message: 'Params Error' 

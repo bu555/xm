@@ -36,7 +36,7 @@
                     </div>
                     <!-- 点赞与回复 -->
                     <div class="zan c-c">
-                        <i :class="'fa fa-thumbs-up' + (v.isZaned?' active':'')"  @click="zan($event,v.cid,v.zans)"><span>赞</span><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
+                        <i :class="'zan-zan fa ' + (v.isZaned?'fa-thumbs-up active':'fa-thumbs-o-up')"  @click="zan($event,v.cid,v.zans)" style="min-width:45px;"><span>赞</span><em style="padding-left:2px">{{v.zans>999?'999+':v.zans}}</em> </i> 
                         <!-- 借用zan字段控制评论（服务端统一返回的是null） -->
                         <i :class="'comment fa '+ (v.zan?' active fa-comment':'fa-comment-o')" @click="v.zan=!v.zan;v.repContent=''"><span>评论</span><em style="padding-left:2px">{{v.replay.length}}</em></i> 
                         <i><span>更多</span><span class="fa fa-angle-down" style="font-size:16px"></span></i>
@@ -232,8 +232,12 @@ export default {
                     }
                     if(res.data.result.count==1){
                         iTag.classList.add('active')
+                        iTag.classList.add('fa-thumbs-up')
+                        iTag.classList.remove('fa-thumbs-o-up')
                     }else if(res.data.result.count==-1){
                         iTag.classList.remove('active')
+                        iTag.classList.remove('fa-thumbs-up')
+                        iTag.classList.add('fa-thumbs-o-up')
                     }
                 }
             }).catch(err=>{
@@ -501,6 +505,14 @@ export default {
                     }
                     i.comment {
                         font-size:18px;
+                    }
+                    i.zan-zan {
+                        position:relative;
+                        top:1px;
+                        span,em {
+                            position:relative;
+                            top:-1px;
+                        }
                     }
                 }
                 // 回复文本框

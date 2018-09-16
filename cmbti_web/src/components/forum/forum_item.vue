@@ -18,7 +18,7 @@
                                 <div class="text">
                                     <Avatar :src="data.avatar" :uid="data.uid" size="small" round="true"></Avatar>
                                     <span v-if="data.uid" class="overflow-row-1" style="padding-left:5px;max-width:120px">
-                                        <router-link :to="'/info/'+data.uid" style="color:#0e959d">
+                                        <router-link :to="'/info/'+data.uid">
                                             {{data.r_name}}
                                         </router-link>
                                     </span>
@@ -351,10 +351,15 @@ export default {
                         position:relative;
                         display:flex;
                         align-items:center;
-                        &>span {
-                            white-space:nowrap; 
-                            margin:0px 15px 0px 0;
-                        }
+                            &>span {
+                                white-space:nowrap; 
+                                margin:0px 15px 0px 0;
+                            }
+                            a {
+                                &:hover {
+                                    color:#0e959d;
+                                }
+                            }
 
 
                         }

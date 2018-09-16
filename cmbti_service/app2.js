@@ -16,6 +16,7 @@ var userRouter = require('./router/userRouter');
 var exampleRouter = require('./router/exampleRouter');
 var testRouter = require('./router/testRouter');
 var otherRouter = require('./router/otherRouter');
+var adminRouter = require('./router/adminRouter');
 
 
 // 流量過濾
@@ -76,6 +77,7 @@ app.use('/api/article',articleRouter);
 app.use('/api/account',accountRouter);
 app.use('/api/test',testRouter);
 app.use('/api/other',otherRouter);
+app.use('/api/admin',adminRouter);
 
 
 http.createServer(app).listen(app.get('port'),function(){

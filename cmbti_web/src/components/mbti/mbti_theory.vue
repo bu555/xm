@@ -312,6 +312,7 @@ export default {
 <style lang="less">
 .mbti-comp {
     position:relative;
+    // 目录
     ul.catalog {
         position:absolute;
         right:-240px;
@@ -320,7 +321,7 @@ export default {
         background-color: #eee;
         padding:1em .4em 1em 1em;
         li:first-child {
-            color:#6c3fcf;
+            color:#0e959d;
             font-weight:600;
             border-bottom:1px solid #0e959d;
             margin-bottom:6px;
@@ -329,7 +330,7 @@ export default {
             padding-bottom:6px;
         }
         a {
-            color:#2e68b9;
+            color:#0e959d;
             font-size:.95em;
             margin-bottom:3em;
             &:hover {

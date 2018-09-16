@@ -4,7 +4,7 @@ var RateLimit = require('express-rate-limit');
 const limiter = {
     login: new RateLimit({
         windowMs: 15*60*1000, // 15 minutes
-        max: 5,
+        max: 7,
         delayMs: 0, 
         // 超出限度時的處理
         // handler:function (req, res, /*next*/) {

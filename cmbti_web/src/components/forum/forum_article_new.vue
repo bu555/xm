@@ -33,7 +33,7 @@
                 </div> -->
                 <div class="f-items">
                     <label for="">标签：</label>
-                    <Tags @currentTags="changeCurrentTags"></Tags>
+                    <Tags @currentTags="changeCurrentTags" :tags="initData.tagsList"></Tags>
                 </div>
                 
                 <div class="err-message" v-if="ver.tagsList==='empty'">*请至少输入一个标签</div>
@@ -44,7 +44,7 @@
                     <div class="html5-editor" stylel="width:600px" >
                     
                         <!--<vue-html5-editor :content="form.content" :height="200" width="100%" spellcheck="false" @change="updateData" ></vue-html5-editor>-->
-                        <wangEditor @changeContent="getContent" :articleContent="editContent"></wangEditor>
+                        <wangEditor @changeContent="getContent" :articleContent="initData.content"></wangEditor>
                 
                     </div>
                 </div>
@@ -79,6 +79,12 @@ export default {
     data(){
         return {
             form:{
+                title:'',
+                category:'',
+                content:'',
+                tagsList:''
+            },
+            initData:{
                 title:'',
                 category:'',
                 content:'',
@@ -175,13 +181,14 @@ export default {
         },
         submitArticle(){
             this.verify('all')
+            console.log('submit',this.ver.all);
             if(this.ver.all!=='pass') return
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
                 // category:this.form.category.trim(),
                 content:this.form.content.trim(),
-                tags:this.form.tagsList.join(',')+',',
+                tags:this.form.tagsList.join(','),
                 aid:this.editAid
             }).then(res=>{
                 this.loading = false
@@ -219,7 +226,10 @@ export default {
                     this.editAid = this.aid
                     this.form.title = res.data.data.title
                     this.form.category = res.data.data.category
-                    this.editContent = this.form.content = res.data.data.content
+                    this.form.tagsList = res.data.data.tags.split(',')
+                    this.form.content = res.data.data.content
+                    // this.editContent = this.form.content = res.data.data.content
+                    this.initData  = JSON.parse(JSON.stringify(this.form))
                      
                 }
             }).catch(err=>{
@@ -261,7 +271,6 @@ export default {
 
         }
 
-    console.log(splitStr('在我的朋友圈里，有一个这样的女孩子，收入一般，但很喜欢购物，有一次听她说为了买一个戒指，足足吃了三个月的泡面，我想象不到，她过着一种什么样的生活，看到自己喜欢的东西，连眼睛都不眨一下就买了，当时的她一定很爽快吧，但到了还款的时候，又会愁眉不展。',365));
 
         
     }

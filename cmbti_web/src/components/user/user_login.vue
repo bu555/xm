@@ -82,7 +82,8 @@ export default {
                     this.$store.commit('setUserInfo',res.data.user);
                     this.$message({
                         message: '登录成功！',
-                        type: 'success'
+                        type: 'success',
+                        duration:1500
                     });
                     if(this.$store.state.modalLogin){ //如果是模态框登录
                         this.$store.state.modalLogin = false 

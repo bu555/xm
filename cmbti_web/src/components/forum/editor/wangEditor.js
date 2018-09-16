@@ -551,7 +551,7 @@ export default function(){
         // 默认菜单配置
         // menus: ['head',  'fontSize', 'fontName', 'italic','bold', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo'],
         menus: [
-            // 'head',  
+            'head',  
             // 'fontSize', 
             // 'fontName', 
             'italic',
@@ -666,7 +666,7 @@ export default function(){
             var div = document.createElement('div')
             div.innerHTML = content
             content = div.innerText
-            content = content.replace(/%%br%%/g,'<br>').replace(/%%p1%%/g,'<p>').replace(/%%p2%%/g,'</p>')
+            content = content.replace(/%%br%%/g,'<br>').replace(/%%p1%%/g,'<p>').replace(/%%p2%%/g,'</p>').trim()
             return content;
         },
     
@@ -1042,9 +1042,10 @@ export default function(){
         // 初始化 droplist
         this.droplist = new DropList(this, {
             width: 100,
-            $title: $('<p>設置標題</p>'),
+            $title: $('<p>设置标题</p>'),
             type: 'list', // droplist 以列表形式展示
-            list: [{ $elem: $('<h1>H1</h1>'), value: '<h1>' }, { $elem: $('<h2>H2</h2>'), value: '<h2>' }, { $elem: $('<h3>H3</h3>'), value: '<h3>' }, { $elem: $('<h4>H4</h4>'), value: '<h4>' }, { $elem: $('<h5>H5</h5>'), value: '<h5>' }, { $elem: $('<p>正文</p>'), value: '<p>' }],
+            list: [{ $elem: $('<h1>标题H1</h1>'), value: '<h1>' }, { $elem: $('<h2>标题H2</h2>'), value: '<h2>' }, { $elem: $('<h3>标题H3</h3>'), value: '<h3>' }],
+            // list: [{ $elem: $('<h1>H1</h1>'), value: '<h1>' }, { $elem: $('<h2>H2</h2>'), value: '<h2>' }, { $elem: $('<h3>H3</h3>'), value: '<h3>' }, { $elem: $('<h4>H4</h4>'), value: '<h4>' }, { $elem: $('<h5>H5</h5>'), value: '<h5>' }, { $elem: $('<p>正文</p>'), value: '<p>' }],
             onClick: function onClick(value) {
                 // 注意 this 是指向当前的 Head 对象
                 _this._command(value);

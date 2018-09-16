@@ -280,9 +280,10 @@ export default {
         min-height:370px;
         .item {
             flex:0 0 24.8%;
-            margin-bottom:22px; overflow: hidden; text-overflow:ellipsis;
+            margin-bottom:22px; 
             // background-color: red;
             .item-box {
+                overflow: hidden; text-overflow:ellipsis;
                 margin:0 auto;
                 padding:0 3px;
                 width:90%;
@@ -291,6 +292,9 @@ export default {
                 // cursor:pointer;
                 position: relative;
                 background-color: #f2f2f2;
+                &:hover {
+                    box-shadow: 0 0 5px #ccc;
+                }
             }
             .type {
                 font-size:18px;

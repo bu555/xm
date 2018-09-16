@@ -66,6 +66,11 @@ import about_help from '@/components/about/about_help'
 import about_agreement from '@/components/about/about_agreement'
 import about_privacy from '@/components/about/about_privacy'
 
+// admin
+import admin from '@/components/admin/admin'
+import admin_doc_list from '@/components/admin/admin_doc_list'
+import admin_doc_new from '@/components/admin/admin_doc_new'
+
 
 const vueRouter = new Router({
   mode:'history',
@@ -166,6 +171,15 @@ const vueRouter = new Router({
           { path: 'login', component: user_login },
           { path: 'register',component: user_register},
           { path: 'forget',component: user_forget },
+      ]
+    },
+    // admin
+    { 
+      path:'/admin',
+      component:admin,
+      children:[
+          { path: 'doc', component: admin_doc_list },
+          { path: 'doc/new', component: admin_doc_new },
       ]
     }
 

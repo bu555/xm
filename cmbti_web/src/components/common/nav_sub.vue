@@ -76,7 +76,7 @@ export default {
     },
     created(){
         
-         console.log('goLink:',this.data.title.link || 'go-1');
+        //  console.log('goLink:',this.data.title.link || 'go-1');
     }
 }
 </script>
@@ -204,6 +204,7 @@ export default {
             // padding-left:1.5em;
         }    
     }
+    // 当在底部显示
     ul.nav-list.in-bottom {
         // min-height:38px;
         max-width:970px;
@@ -214,6 +215,12 @@ export default {
             margin-right:1.2em;
             a {
                 em {
+                }
+            }
+            &:hover {
+                a {
+                    background-color: rgba(5,105,110,.15);
+                    color:#0a8e96;
                 }
             }
         } 

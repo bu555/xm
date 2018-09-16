@@ -22,20 +22,24 @@
                         <router-link to="/my" class="a">
                         <Avatar :src="$store.state.userInfo.avatar" :uid="''" size="small-xxx" round="true"></Avatar>
                         </router-link>
-                        <div class="role-name overflow-row-1">
+                        <div class="role-name ">
                             <router-link to="/my" class="a">
                                 {{$store.state.userInfo.r_name}}
                             </router-link>
+                            <i :class="'i-btn '+(showUserCtrl?'fa fa-angle-up':'fa fa-angle-down')" @click="showUserCtrl=!showUserCtrl"></i>
+                            <ul v-if="showUserCtrl">
+                                <li class="logout" @click="$router.push({path:'/my'})"><i class="fa fa-paper-plane "></i> 个人中心 </li>
+                                <li class="logout" @click="$store.state.loginOut = true;showUserCtrl=false"><i class="fa fa-sign-out"></i> 退出</li>
+                            </ul>
                         </div>
                         <div class="profiles overflow-row-1">{{$store.state.userInfo.profile}}</div>
-                        <ul>
-                            <li class="logout" @click="$router.push({path:'/my'})">个人中心 <i class="fa fa-paper-plane "></i></li>
-                            <li class="logout" @click="$store.state.loginOut = true">退出 <i class="fa fa-sign-out"></i></li>
-                        </ul>
                 </div>
                 <div v-else  class="not-login">
-                    <el-button type="default" plain @click="$store.state.modalLogin=true"><i class="fa fa-user-o"></i> 登 录</el-button>
-                    <el-button type="default" plain @click="$router.push({path:'/user/register'})"><i class="el-icon-plus"></i> 注 册</el-button>
+                    <div></div>
+                    <div>
+                        <el-button type="default" plain @click="$store.state.modalLogin=true"><i class="fa fa-user-o"></i> 登 录</el-button>
+                        <el-button type="default" plain @click="$router.push({path:'/user/register'})"><i class="el-icon-plus"></i> 注 册</el-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,6 +123,7 @@ import Wrapper from '@/components/common/wrapper'
 export default {
     data(){
         return {
+            showUserCtrl:false,
             loading:false,
             exampleList:[],
             articleList:[],
@@ -162,6 +167,13 @@ export default {
             })
         },
     },
+    mounted(){
+        document.addEventListener('click',(e)=>{
+            if(e.target.className.indexOf('i-btn')===-1){
+                this.showUserCtrl = false
+            }
+        })
+    },
     created(){
         this.getHotExample()
         this.getHotArticle()
@@ -189,7 +201,7 @@ export default {
         .login {
             flex:0 0 33%;
             background-color: #c5e082;
-            background-color: rgba(197,214,133,.2);
+            background-color: rgba(197,214,133,.05);
             // background-color: rgba(233,197,228,.3);
             &>div {
                 display:flex;
@@ -199,66 +211,104 @@ export default {
             .is-login {
                 width: 180px;
                 text-align: center;
-                margin:24px auto 0;
-                padding-bottom:12px;
+                margin:38px auto;
+                // padding:38px 0 32px;
                 border-radius:6px;
-                a,div {
+                div {
                     width:100%;
                 }
                 .role-name {
                     padding-top:4px;
                     margin-bottom:2px;
-                    
-                    a { color:#35961e}
+                    padding-left:18px;
+                    position: relative;
+                    font-weight:600;
+                    font-size:14px;
+                    a { color:#0e959d}
                     a:hover {
                         // color:#111;
+                    }
+                    i.i-btn {
+                        color:#afd533;
+                        padding:0 5px;
+                        cursor:pointer;
+                        font-size:16px;
+                        &:hover {
+                            color:#4285f4;
+                        }
+                    }
+                    ul {
+                        position:absolute;
+                        right:-90px;
+                        top:9px;
+                        background-color: #f2f7fa;
+                        border-radius:1px;
+                        display:flex;
+                        flex-wrap:wrap;
+                        width:90px;
+                        padding:3px 0;
+                        box-shadow: 0px 0px 2px #97cfd2;
+                        li {
+                            flex:0 0 100%;
+                            color:#0e959d;
+                            font-size:13px;
+                            display:inline-block;
+                            text-align: left;
+                            // width:75px;
+                            padding:4px 2px 4px 10px;
+                            font-weight:600;
+                            cursor:pointer;
+                            &:hover {
+                                background-color: #0e959d;
+                                color:#fff;
+                                a {
+                                    color:#fff;
+                                }
+                            }
+                        }
                     }
                 }
                 .profiles {
                     font-size:12px;
                     max-height:33px;
                     overflow: hidden;
-                    color:#8fbb7c;
+                    color:#34aeb5;
                     text-align: center;
-                }
-                ul {
-                    display:none;
-                    justify-content: space-around;
-                    flex-wrap:wrap;
-                    li {
-                        flex:0 0 100%;;
-                        color:#afd533;
-                        font-size:13px;
-                        margin-top:5px;
-                        display:inline-block;
-                        width:75px;
-                        padding:1px 0;
-                        border-radius:3px;
-                        font-weight:600;
-                        cursor:pointer;
-                        &:hover {
-                            color:#6da853;
-                        }
-                    }
-                }
-                &:hover {
-                    ul {
-                        display: flex;
-                    }
                 }
             }
             .not-login {
-                margin-top:90px;
+                // padding:90px 0 80px;
+                height:202px;
+                position: relative;
+                &>div {
+                    position:absolute;
+                    left:0;
+                    top:0;
+                    width:100%;
+                    height:100%;
+                }
+                &>div:first-child {
+                    background: url(/static/img/anchor_1.png) 80px 5px no-repeat;
+                    background-size:contain;
+                    opacity:0.04;
+
+                }
+                &>div:last-child {
+                    padding:90px 0 80px;
+                    text-align: center;
+                }
                 button {
-                    padding:6px 12px;
+                    margin:0 18px;
+                    opacity: 1;
+                    padding:8px 18px;
                     font-size:13px;
-                    background: rgba(50,158,165,.01);
-                    border-color: rgba(50,158,165,.3);
-                    color: rgba(50,158,165,.6);
+                    background: rgba(70,155,162,.05);
+                    border-color: rgba(70,155,162,.5);
+                    color: #469aa2;
                     &:hover {
-                        border-color: rgba(50,158,165,.5);
-                        color: rgba(50,158,165,.8);
+                        color: #eee;
                         background: rgba(50,158,165,.05);
+                        background: #469aa2;
                     }
                 }
             }

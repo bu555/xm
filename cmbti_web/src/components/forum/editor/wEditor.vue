@@ -13,10 +13,15 @@ export default{
         }
     },
     props:[
+        // 所需编辑内容
         'articleContent'
     ],
     watch:{
-        
+        'articleContent':function(){
+            if(this.articleContent){
+                this.editor.txt.html(this.articleContent)
+            }
+        }
     },
     methods:{
         initEditor(){
@@ -108,7 +113,6 @@ export default{
                 document.querySelector('.w-e-text-container').classList.add('focus')
             })
             weText.addEventListener('input',()=>{
-                console.log(this.editor.txt.html());
                 this.$emit('changeContent',this.editor.txt.html())
             })
             // 如父组件有内容（即编辑）
@@ -148,6 +152,7 @@ export default{
     #editor {
         // border:1px solid #dcdfe6;
         // border-radius:4px;
+        text-align:left;
     }
 </style>
 <style>
@@ -157,6 +162,7 @@ export default{
         min-height:300px;
         max-height:620px;
         border-radius:0 0 3px 3px;
+        overflow: hidden;
         border:1px solid #dcdfe6 !important;
     }
     .w-e-text-container.focus {
@@ -168,10 +174,12 @@ export default{
         padding:10px;
         height:auto;
         overflow-y: auto;
+        background-color: #fff;
     }
     .w-e-toolbar .w-e-menu {
         z-index:1 !important;
         margin-right: 2px;
+        line-height: 30px;
         /* font-size:14px; */
     }
     .w-e-droplist {
@@ -210,5 +218,11 @@ export default{
         height:24px;
     }
     .w-e-toolbar .w-e-droplist ul.w-e-block li.w-e-item:hover {
+    }
+    .w-e-toolbar h1,.w-e-toolbar h2,.w-e-toolbar h3 {
+        line-height: 0.8 !important;
+        text-align:left;
+        padding-left:.3em;
+        color:#333;
     }
 </style>

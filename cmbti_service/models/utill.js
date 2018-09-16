@@ -104,10 +104,12 @@ module.exports =  {
             } 
             return totalLength; 
         } ,
-        // 验证标签合法性
+        // 验证标签合法性  法定格式：'tag,tag'
         verifyTags(s){
             var reg = /^[\u4e00-\u9fa5A-Za-z0-9]+$/
-            if( !s || typeof s!=='string' || s[s.length-1]!==',' || s[0]===',') return false
+            if(!s || typeof s!=='string') return false
+            s = s.trim()
+            if(  s[s.length-1]===',' || s[0]===',') return false
             let tags = s.split(',')
             if(tags.length>9) return false //最多可添加9个
             for(let i=0;i<tags.length;i++){
