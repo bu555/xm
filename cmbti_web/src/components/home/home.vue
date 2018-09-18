@@ -63,7 +63,7 @@
             <ul class="content">
                     <li   v-for="(v,i) in exampleList" :key="i">
                         <router-link :to="'/example/'+v._id">
-                            <img :src="$pathImgs+v.img_url" alt="">
+                            <img :src="v.img_url" alt="">
                             <div class="name overflow-row-1" style="max-width:126px">{{v.name}}</div>
                             <div class="type">{{v.type.toUpperCase()}}</div>
                         </router-link>

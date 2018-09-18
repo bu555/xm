@@ -361,7 +361,6 @@ export default {
                         border:0;outline:none; //去除蓝色框
                         padding-left:10px;
                         &:focus {
-                            border-color:red;
                             box-shadow: none;
                         }
                     }

@@ -4,10 +4,7 @@
         <el-header>Header</el-header>
         <el-container style="max-width:1190px;margin:0 auto;width:100%;">
             <el-aside width="200px">
-                <el-menu default-active="''" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse" 
-                background-color="#545c64"
-                text-color="#fff"
-                active-text-color="#ffd04b">
+                <el-menu default-active="''" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="!isCollapse" >
                 <el-submenu index="1">
                     <template slot="title">
                         <i class="fa fa-pencil-square" style="padding:0 5px;font-size:1.2em"></i>
@@ -20,7 +17,7 @@
                             <router-link to="/admin/doc">文案列表</router-link>
                         </li>
                         <li :class="/^\/admin\/doc\//.test($route.path)?'active':''">
-                            <router-link to="/admin/doc/new">新建文案</router-link>
+                            <router-link to="/admin/doc/new">文案编辑</router-link>
                         </li>
                     </ul>
                     <!-- <el-menu-item index="1-2">编辑器</el-menu-item> -->
@@ -48,7 +45,7 @@
 
             </el-aside>
             <el-main>
-                <div >
+                <div style="padding:0 15px">
                     <router-view/>
                 </div>
             </el-main>
@@ -84,29 +81,32 @@ export default {
             height:50px;
             line-height:50px;
             &:hover {
-                background: #434a50;
+                background: #edf5ff;
             }
             a {
                 display:block;
                 height:50px;
-                color:#fff;
+                color:#333;
             }
         }
         li.active a {
             color:#ffd04b;
+            color:#25a1bf;
         }
     }
 }
   .el-header, .el-footer {
     background-color: #545c64;
+    background-color: #fff;
     color: #333;
     text-align: center;
     line-height: 60px;
     margin-bottom:12px;
+    border-bottom:1px solid #e6e6e6;
   }
   
   .el-aside {
-    background-color: #D3DCE6;
+    // background-color: #D3DCE6;
     color: #333;
     text-align: center;
     line-height: 200px;

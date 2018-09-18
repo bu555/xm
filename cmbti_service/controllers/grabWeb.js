@@ -5,7 +5,8 @@ var request=require('request');  //针对https页面
 var fs = require('fs');  
 var path=require('path'); 
 var myUtill = require('../models/utill')
-var fm = require('formidable');
+var formidable = require('formidable');
+var multer = require("multer");
 // var url = 'https://baike.baidu.com/item/%E6%AF%9B%E6%B3%BD%E4%B8%9C/113835' ;
 // var url = 'https://baike.baidu.com/item/%E5%88%98%E5%BE%B7%E5%8D%8E/114923' ;
 
@@ -132,109 +133,68 @@ class GrabWeb{
     static downloadNetworkImage(options){
         // request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
         // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
-        return new Promise((resolve,reject)=>{
+        return new Promise(async (resolve,reject)=>{
             // var hash = myUtill.randomString(1);
             // 构造文件夹名称
             var date = new Date()
             var year = date.getFullYear().toString().substr(2)
             var month = date.getMonth()+1
             month = month<10 ? '0'+String(month) : String(month)
-            let type = 'other/'
+            let type = ''
             switch(options.type){
                 case 'avatar':
-                type = 'avatar/'
-                break
-                case 'example':
-                type = 'example/'
-                break
-                case 'article':
-                type = 'article/'
+                type = 'avatar/'  //头像增加avatar目录
                 break
                 default:
                 break
             }
-            let dirName = '/upload/'+ type + year + month+'/'  // 目录名 /upload/type/1809/
-            let fileName = Date.now().toString().substr(1)+'.jpg'  //文件名 539043200000.jpg
-            fs.exists(path.join( process.cwd() , dirName ),function(exists){
-                if(exists){
-                    save()
-                }
-                if(!exists){
-                    // 创建目录
-                    fs.mkdir( path.join( process.cwd() , dirName ),function(err){
-                        if (!err) {
-                            save()
-                        }else{
-                            reject('创建文件目录失败')
-                        }
-                    });
-                }
-            })
+            let dirName = '/upload/'+ type + year + month  // 目录名 /upload/type/1809/
+            let fileName = '/'+Date.now().toString().substr(1)+'.jpg'  //文件名 539043200000.jpg
+
+            await GrabWeb.mkd( path.join( process.cwd() , uploadDir) )   
             
-            function save(){
-                var writeStream = fs.createWriteStream(path.join( process.cwd() , dirName+fileName ),{autoClose:true})
-                request(options.imgURL).pipe(writeStream);
-                writeStream.on('finish',function(){
-                    resolve(dirName+fileName) //返回图片路径
-                })
-            }
+            // 下载、保存图片
+            var writeStream = fs.createWriteStream(path.join( process.cwd() , dirName+fileName ),{autoClose:true})
+            request(options.imgURL).pipe(writeStream);
+            writeStream.on('finish',function(){
+                resolve(dirName+fileName) //返回图片路径
+            })
+
         })
     }
-    //保存上传的文件\图片  {fileName:'8.jpg',req:req,type:'example/avatar/article'}
-    static saveUploadFile({options}){
-        return new Promise((resolve,reject)=>{
+    //保存上传的文件\图片  {fileName:'8.jpg',req:req, type:'example/avatar/article'}
+    static saveUploadFile(options){
+        return new Promise(async (resolve,reject)=>{
             let req = options.req
-            let uploadDir = ''
+            let type = ''
             if(options.type==='avatar'){ //图片文件
-                uploadDir = '/upload/avatar/' 
-            }else{
-                var date = new Date()
-                var year = date.getFullYear().toString().substr(2)
-                var month = date.getMonth()+1
-                month = month<10 ? '0'+String(month) : String(month)
-                let type = '/other'
-                switch(options.type){
-                    case 'example':
-                    type = '/example'
-                    break
-                    case 'article':
-                    type = '/article'
-                    break
-                    default:
-                    break
-                }
-                uploadDir = '/upload'+ type + '/'+year + month  // 目录名 /upload/type/1809
-            }            
-            fs.exists(path.join( process.cwd() , uploadDir ),function(exists){
-                if(exists){
-                    save()
-                }
-                if(!exists){
-                    // 创建目录
-                    fs.mkdir( path.join( process.cwd() , uploadDir ),function(err){
-                        if (!err) {
-                            save()
-                        }else{
-                            reject('创建文件目录失败')
-                        }
-                    });
-                }
-            })
-            function save(){
-                var form = new fm.IncomingForm();
-                form.uploadDir = uploadDir
-                form.fileName = options.fileName
-                form.parse(req);
-                form.on('end',function(){
-                    resolve(form.uploadDir+form.fileName) //返回路径
-                })
-                form.on('error',function(){
-                    reject('处理失败！')
-                })
-                form.on('file',function(field,file){//file是上传的文件
-                    fs.renameSync(file.path,path.join( process.cwd(),form.uploadDir,form.fileName))
-                })
+                type = 'avatar/' 
             }
+            var date = new Date()
+            var year = date.getFullYear().toString().substr(2)
+            var month = date.getMonth()+1
+            month = month<10 ? '0'+String(month) : String(month)
+            let uploadDir = '/upload/'+  type + year + month  // 目录名 /upload/type/1809
+                
+            await GrabWeb.mkd( path.join( process.cwd() , uploadDir) )   
+
+            // 保存图片
+            var form = new formidable.IncomingForm();
+            form.uploadDir = path.join( process.cwd(), uploadDir) //上传文件的保存路径
+            form.fileName = options.fileName || Date.now().toString().substr(1)+'.jpg'
+            form.parse(req);
+            form.on('end',function(){
+                resolve(uploadDir+'/'+form.fileName) //返回路径
+            })
+            form.on('error',function(){
+                reject('处理失败！')
+            })
+            form.on('file',function(field,file){//file是上传的文件
+                // console.log('file.path',file);
+                fs.renameSync(file.path , path.join( form.uploadDir,form.fileName))
+            })
+
+            
         })
     }
     //上传文件
@@ -261,6 +221,26 @@ class GrabWeb{
             }
         })
         return pro;
+    }
+    //创建目录
+    static mkd(dirpath){
+        return new Promise((resolve,reject)=>{
+            mkdirs(dirpath,()=>{
+                resolve()
+            })
+            function mkdirs(dirpath, callback) {
+                fs.exists(dirpath, function(exists) {
+                    if(exists) {
+                        callback();
+                    } else {
+                        //尝试创建父目录，然后再创建当前目录
+                        mkdirs(path.dirname(dirpath), function(){
+                                fs.mkdir(dirpath,callback);
+                            });
+                    }
+                })
+            };
+        })
     }
 }
 module.exports = GrabWeb;

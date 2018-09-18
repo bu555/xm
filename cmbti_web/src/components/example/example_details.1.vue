@@ -20,7 +20,7 @@
                                         <div class="item">
                                             <!--<img :src="exampleItem.img_url" alt="">-->
                                             <div class="photo">
-                                                <img v-if="exampleItem" :src="$pathImgs+exampleItem.img_url" alt="">
+                                                <img v-if="exampleItem" :src="exampleItem.img_url" alt="">
                                             </div>
                                             <div class="e-more">
                                                 <a href="" target="_blank">[维基百科]</a>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="a-publish-comment" v-if="showComment">
                             <p style="margin-bottom:5px">评论：</p>
-                            <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input></br>
+                            <el-input type="textarea" v-model="myComment" placeholder="发表评论" :rows="4"></el-input><br>
                             <div style="text-align:right;padding-top:10px">
                                 <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
                                 <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
@@ -158,7 +158,7 @@
                                 <div class="c-list" v-for="(v,i) in commentList">
                                     <div class="photo">
                                         <router-link :to="'/info/'+v.uid">
-                                            <img v-if="v.avatar" :src="$pathAvatar+v.avatar" alt="">
+                                            <img v-if="v.avatar" :src="v.avatar" alt="">
                                             <img v-else src="/static/img/logo_a.png" alt="">
                                         </router-link>
                                     </div>

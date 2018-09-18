@@ -27,13 +27,56 @@ export default{
         initEditor(){
             let e = E()
             this.editor = new e('#editor') 
+
             this.editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
             // 配置服务器端地址
             // this.editor.customConfig.uploadImgServer = accountAxios.path  +'api/Upload/Imges'
-            this.editor.customConfig.uploadImgServer = '/upload/img'
+            this.editor.customConfig.uploadImgServer = ''
             this.editor.customConfig.withCredentials = true
+
+            this.editor.customConfig.customUploadImg = (files, insert)=> {
+                // files 是 input 中选中的文件列表
+                // insert 是获取图片 url 后，插入到编辑器的方法
+
+                console.log(files[0]);
+                    let uploadData = new FormData();
+                    uploadData.append('file', files[0],files[0].name);
+                    uploadData.append('type', 'article');
+                    console.log(uploadData);
+                    this.$axios.uploadImage(uploadData).then(res=>{
+                        if(res.data.success){
+                            
+                            console.log('1',process.env.NODE_ENV);
+                        if(process.env.NODE_ENV === "development"){
+                            
+                        }
+                            insert('/apis'+res.data.url)
+                        }
+                    }).catch(err=>{
+
+                    })
+
+                    // if(files[0].size/1000/1024>100){    //不大於100M
+                    //     return {
+                    //         prevent: true,
+                    //         msg: '圖片大小不可超過100M'
+                    //     }
+                    // }
+
+
+
+                // 上传代码返回结果之后，将图片插入到编辑器中
+                // insert('/static/img/ni.jpg')
+            }
+
+
             let _this = this
             //  this.editor.create()
+            console.log('this.config',this.editor.config);
+
+
+
+
             this.editor.customConfig.uploadImgHooks = {
                 before: function (xhr, editor, files) {
                     var reader = new FileReader();
@@ -42,6 +85,11 @@ export default{
                         _this.coverImg.tempBase64 = this.result
                         console.log(files[0]);
                     }
+                    console.log(files);
+
+
+
+
                     reader.readAsDataURL( files[0] );
                     // 图片上传之前触发
                     // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
@@ -82,7 +130,7 @@ export default{
                     _this.uploadingBase64 = ''
                     let imgURL = result.data[0]
                     if(process.env.NODE_ENV === "development"){
-                        imgURL = process.env.API_HOST + imgURL
+                        // imgURL = process.env.API_HOST + imgURL
                     }
                     // _this.editor.txt.append('<img src="'+imgURL+'">')
                     _this.coverImg.list.push({

@@ -9,7 +9,7 @@
             <div class="type">{{v.type.toUpperCase()}}</div>
         <router-link :to="'/example/'+v._id">
             <div class="photo">
-                <img :src="$pathImgs+v.img_url" alt="">
+                <img :src="v.img_url" alt="">
             </div>
         </router-link>
             <div class="name overflow-row-1">{{v.name==='马拉多纳'?'马拉多纳马拉多纳马拉多纳马拉多纳马拉多纳':v.name}}</div>

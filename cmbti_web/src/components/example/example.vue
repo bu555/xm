@@ -33,7 +33,7 @@
                         <div class="type">{{v.type.toUpperCase()}}</div>
                     <router-link :to="'/example/'+v._id">
                         <div class="photo">
-                            <img :src="$pathImgs+v.img_url" alt="">
+                            <img :src="v.img_url" alt="">
                         </div>
                         <div class="name overflow-row-1">{{v.name}}</div>
                     </router-link>

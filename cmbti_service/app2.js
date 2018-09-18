@@ -4,7 +4,7 @@ var path = require('path');
 var http = require('http');
 var mongoose = require('mongoose');
 const session = require('express-session');
-// var MongoDBStore = require('connect-mongodb-session')(session);
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
@@ -20,8 +20,8 @@ var adminRouter = require('./router/adminRouter');
 
 
 // 流量過濾
-var RateLimit = require('express-rate-limit');
-app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时
+// var RateLimit = require('express-rate-limit');
+// app.enable('trust proxy'); // 只有当你使用反向代理（Heroku，Bluemix，AWS，如果你使用ELB，自定义Nginx设置等）时
 
 // 日誌
 var log4js = require('./log4js-config');
@@ -32,13 +32,12 @@ app.use(log4js.connectLogger(logger));
 
 // 连接数据库
 var db_uri = 'mongodb://localhost:27017/test' 
-mongoose.connect(db_uri, { });
+mongoose.connect(db_uri, {useNewUrlParser: true }); //mongoose.connect('mongodb://user:password@sample.com:port/dbname', { useNewUrlParser: true })
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, '连接失败！connection error:'));
 db.once('open', function() {
   console.log('连接成功！MongoDB connect success')
 });
-
 
 
 // app.use(cors());//跨域设置
@@ -60,17 +59,17 @@ app.use(session({
     cookie: {
       maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时
     },
-    // store: new MongoDBStore({
-    //           uri: db_uri,
-    //           collection: 'mySessions'
-    //         })
+    store: new MongoDBStore({
+              uri: db_uri,
+              collection: 'mySessions'
+            })
 }))
 
 
 
 app.use('/', express.static(path.join(__dirname,'public')));
-app.use('/imgs', express.static(path.join(__dirname,'localImgs')));
-app.use('/avatar', express.static(path.join(__dirname,'avatar')));
+app.use('/upload', express.static(path.join(__dirname,'upload')));
+// app.use('/avatar', express.static(path.join(__dirname,'avatar')));
 app.use('/api/user',userRouter);
 app.use('/api/example',exampleRouter);
 app.use('/api/article',articleRouter);

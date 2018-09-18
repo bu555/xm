@@ -4,7 +4,7 @@
     <div class="m-header">
         <div class="m-header-inner">
             <div class="photo" @click="showUploadAvatar=true">
-                <img :src="$store.state.userInfo.avatar?$pathAvatar +$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
+                <img :src="$store.state.userInfo.avatar?$store.state.userInfo.avatar:'/static/img/logo_a.png'" alt="">
                 <div class="a-cover">更改头像</div>
             </div>
             <div class="edit-photo">

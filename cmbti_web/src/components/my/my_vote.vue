@@ -5,7 +5,7 @@
         <div class="item" v-for="(v,i) in data" :key="i">
            <div class="photo">
               <router-link :to="'/example/'+v.eid">
-                  <img :src="$pathImgs+v.img_url" alt="">
+                  <img :src="v.img_url" alt="">
               </router-link>
            </div>
            <ul class="info">

@@ -5,13 +5,10 @@ import Vue from 'vue';
 import store from '../store/store'
 
 // var path = "http://192.168.1.106:7000/"; // dev
-var path = "http://localhost:7000/"; // dev
+
+let path = process.env.NODE_ENV === "development" ? "/apis/" : '/'
 // var path = "/"; //prod
-var pathAPI = path+"api"; //代理服务器API路由
-var pathImgs = path+"imgs"; //代理服务器图片路由
-var pathAvatar = path+"avatar"; //代理服务器头像路由
-Vue.prototype.$pathImgs = pathImgs  
-Vue.prototype.$pathAvatar = pathAvatar  
+var pathAPI = path+"api"; 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
 // axios.defaults.timeout = 7000;
@@ -33,6 +30,32 @@ axios.interceptors.response.use(data => {
     if(data.data.message==='noLogin' && data.data.code==='-5'){
         store.state.modalLogin = true
     }
+    if (process.env.NODE_ENV === "development") {
+        if (data.data) {
+          data.data = dataHandler(JSON.parse(JSON.stringify(data.data)))
+    
+          function dataHandler(d) {
+            if (Object.prototype.toString.call(d) === '[object Object]') {
+              for (let key in d) {
+                if (typeof d[key] === "string") {
+                  if (/\/upload\//.test(d[key])) {
+                    d[key] = d[key].replace(/\/upload\//g, '/apis/upload/')
+                  }
+                } else {
+                  dataHandler(d[key])
+                }
+              }
+            } else if (Object.prototype.toString.call(d) === '[object Array]') {
+              d.forEach((v, i) => {
+                  dataHandler(v)
+              })
+            }
+            return d
+          }
+        }
+    }
+
+
     return data
 }, error => {
     // loadinginstace.close()
@@ -248,6 +271,10 @@ export default {
     // 获取中国省市
     getChina(data){
         return axios.get(pathAPI+'/other/getChina',{params:data});
+    },
+    // 上傳圖片
+    uploadImage(data){
+        return axios.post(pathAPI+'/other/uploadImage',data,{headers: {'Content-Type': 'multipart/form-data'}});
     },
 // admin --------------------
     // 设置、存储文档

@@ -180,6 +180,7 @@ const vueRouter = new Router({
       children:[
           { path: 'doc', component: admin_doc_list },
           { path: 'doc/new', component: admin_doc_new },
+          { path: 'doc/edit', component: admin_doc_new },
       ]
     }
 

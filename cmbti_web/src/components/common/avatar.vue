@@ -1,9 +1,9 @@
 <template>
     <div class="my-avatar">
         <router-link :to="'/info/'+UID" v-if="UID" >
-        <img :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
+        <img :src="src?src:'/static/img/logo_a.png'" alt="" :class="className">
         </router-link>
-        <img v-else :src="src?$pathAvatar+src:'/static/img/logo_a.png'" alt="" :class="className">
+        <img v-else :src="src?src:'/static/img/logo_a.png'" alt="" :class="className">
     </div>
 </template>
 <script>

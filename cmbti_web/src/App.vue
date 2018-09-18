@@ -135,7 +135,7 @@ export default {
     @import '../static/css/bu-button.css'; 
     @import '../static/css/bu-font.css'; 
     .root-app {
-      font-family:DINRegular;
+      // font-family:DINRegular;
       // background:url('/static/img/bg_1.png');
       // background:#f7f7f7;
       background:url('/static/img/bg2.png') repeat ;
@@ -159,7 +159,7 @@ export default {
           text-align: left;
           img {
             display:block;
-            max-width:768px;
+            max-width:750px;
             margin:0 auto;
             border-radius:3px;
           }
@@ -297,6 +297,9 @@ export default {
           background: #409da3;
           border-color: #409da3;
       }
+      .el-input__inner:focus,.el-select .el-input__inner:focus {
+          border:1px solid #9ebeca;
+      }
       /*提示信息 样式*/
       .el-message {
           top: 82px;
@@ -350,7 +353,7 @@ export default {
       }
 
       .el-input__inner,.el-textarea__inner,.el-select-dropdown__item span {
-         font-family:DINRegular;
+        //  font-family:DINRegular;
       }
 </style>
 

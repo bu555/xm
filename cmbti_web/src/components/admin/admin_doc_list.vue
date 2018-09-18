@@ -7,34 +7,43 @@
         label="Date"
         width="180">
         <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.c_time }}</span>
+          <span style="font-size:13px;">{{ $moment(scope.row.c_time).format('YYYY/MM/DD HH:mm:ss') }}</span><br>
+          <!-- <span style="font-size:12px;line-height:15px">{{ $moment(scope.row.e_time).format('YYYY/MM/DD HH:mm:ss') }}</span> -->
         </template>
       </el-table-column>
+      <!-- <el-table-column
+        label="Modify Date"
+        width="180">
+        <template slot-scope="scope">
+          <span style="">{{ $moment(scope.row.e_time).format('YYYY/MM/DD HH:mm:ss') }}</span>
+        </template>
+      </el-table-column> -->
       <el-table-column
         prop="category"
         label="Category"
-        width="180">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="key"
         label="Key"
-        width="180">
+        width="120">
       </el-table-column>
       <el-table-column
         prop="title"
         label="Title"
-        width="180">
+        width="220">
       </el-table-column>
       <el-table-column
         label="Ctrl">
         <template slot-scope="scope">
-            <el-button type="primary" size="mini">编辑</el-button>
+            <!-- <router-link :to="'/admin/doc/edit/'+scope.row.id+'?category='+scope.row.category" style="display:inline-block;margin-right:5px"> -->
+            <router-link :to="{ path:'/admin/doc/edit',query:{category:scope.row.category,id:scope.row.id} }" style="display:inline-block;margin-right:5px">
+                <el-button type="primary" size="mini">修改</el-button>
+            </router-link>
             <el-button type="danger" size="mini">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <div class="editor-base-style" v-html="doc&&doc.content"></div>
 </div>
 </template>
 <script>
@@ -54,6 +63,11 @@ export default {
     }
   },
   methods:{
+      edit(row){
+         console.log(row);
+         window.docItem = row
+         this.$router.push({path:'/admin/doc/edit'})
+      },
       getDocument(){
             this.loading = true
             this.$axios.getDocument({
@@ -61,17 +75,7 @@ export default {
             }).then(res=>{
                 this.loading = false
                 if(res.data.success){
-                    let d = JSON.parse(res.data.data);
-                    let temp = []
-                    for(let key in d){
-                        // 转换日期
-                        d[key].c_time = this.$moment(d[key].c_time).format('YYYY-MM-DD HH:mm:ss')
-                        // 添加Category
-                        d[key].category = res.data.category
-                        d[key].ctrl = '<p>99</p>'
-                        temp.push(d[key])
-                    }
-                    this.tableData = temp
+                    this.tableData = res.data.data;
                 }
             }).catch(err=>{
                 this.loading = false

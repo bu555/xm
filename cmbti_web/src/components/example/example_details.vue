@@ -22,7 +22,7 @@
                         <div class="item">
                             <!--<img :src="exampleItem.img_url" alt="">-->
                             <div class="photo">
-                                <img v-if="exampleItem" :src="$pathImgs+exampleItem.img_url" alt="">
+                                <img v-if="exampleItem" :src="exampleItem.img_url" alt="">
                             </div>
                             <div class="e-more" v-if="0">
                                 <a href="" target="_blank">[维基百科]</a>

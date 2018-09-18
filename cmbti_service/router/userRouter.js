@@ -266,7 +266,6 @@ const modifyUserInfo = (req, res) =>{
 // 上傳用戶頭像   请求头： return axios.post(pathAPI+'/user/uploadPhoto',data,{headers: {'Content-Type': 'multipart/form-data'}});
 const uploadPhoto = async (req,res)=>{
     let uid = req.session.user._id
-
     try {
         // saveUploadFile {fileName:'8.jpg',req:req,type:'example/avatar/article'}
         let url = await GrabWeb.saveUploadFile({fileName:uid+'.jpg',req:req,type:'avatar'})

@@ -19,7 +19,7 @@ const Category = ['personality','func']
 // 类型：
 const Types = ['entp','intp','entj','intj','enfp','infp','enfj','infj','estj','istj','esfj','isfj','estp','istp','esfp','isfp']
 
-// {title:'',content:'',category:'personality',key:'intj/ni'}
+// {title:'',content:'',category:'personality',key:'intj/ni',id:'有即为编辑'}
 const setDocument = async (req, res,next) => {
     let options = req.body
     if(!options.title || !options.content ||
@@ -31,11 +31,12 @@ const setDocument = async (req, res,next) => {
             message:'params error!'
         })
     }
+    // 新建一条文档
     let doc = {
+        category:options.category,
         title:options.title,
         content:options.content,
         key:options.key,
-        c_time:moment(new Date()).utc().format()
     }
     let flieName = path.join( process.cwd(),'doc',options.category+'.json')
     try {
@@ -43,7 +44,26 @@ const setDocument = async (req, res,next) => {
         fs.readFile(flieName, 'utf8', function(err, data){ 
             if(!err){   
                 data = JSON.parse(data)
-                data[options.key] = doc  
+                let time = moment(new Date()).utc().format()
+                if(options.id){
+                    let id_exists = false
+                    for(let i=0;i<data.length;i++){
+                        if(data[i].id===options.id){
+                            doc.e_time = time
+                            data[i] = Object.assign(data[i],doc)
+                            id_exists = true
+                            break
+                        }
+                    }
+                    if(!id_exists){
+                        throw '查无id'
+                    }
+                }else{
+                    doc.c_time = time,
+                    doc.e_time = time,
+                    doc.id = myUtill.randomLowercaseString(9)
+                    data.push(doc)
+                }
                 fs.writeFile(flieName, JSON.stringify(data) ,function(err){
                     if(!err){       
                         res.json({
@@ -81,7 +101,7 @@ const setDocument = async (req, res,next) => {
                     resolve()
                 }
                 if(!exists){
-                    fs.writeFile(fileName, '{}' ,function(err){
+                    fs.writeFile(fileName, '[]' ,function(err){
                         if(!err){
                             resolve()
                         }else{
@@ -93,7 +113,8 @@ const setDocument = async (req, res,next) => {
         })
     }
 }
-const getDocument = (req, res,next) => {
+// params:{category:'必须',id:'可选'}
+const getDocument = async (req, res,next) => {
     let options = req.body    
     if( (!options.category || Category.indexOf(options.category)===-1) ){
         return res.json({
@@ -101,24 +122,48 @@ const getDocument = (req, res,next) => {
             message:'params error!'
         })
     }
-    let flieName = path.join( process.cwd(),'doc',options.category+'.json')
-    fs.readFile(flieName, 'utf8', function(err, data){ 
-        if(!err){  
-            let d = {}  
-            d[options.category]  = data 
-            res.json({
-                success:true,
-                data:data,
-                category:options.category
-            })
-        }else{
-            res.json({
-                success:false,
-                data:null,
-                message:'读取失败'
-            })
-        }
-    });
+    try {
+        let flieName = path.join( process.cwd(),'doc',options.category+'.json')
+        fs.readFile(flieName, 'utf8', function(err, data){ 
+            if(!err){  
+                data = JSON.parse(data)
+                if(options.id){
+                    let id_exists = false
+                    for(let i=0;i<data.length;i++){
+                        if(data[i].id===options.id){
+                            data = [ data[i] ]
+                            id_exists = true
+                            break
+                        }
+                    }
+                    if(!id_exists){
+                        throw '查无id'
+                    }
+                }else{
+                    for(let i=0;i<data.length;i++){
+                        data[i].content = ''
+                    }
+                }  
+                res.json({
+                    success:true,
+                    data:data
+                })
+            }else{
+                res.json({
+                    success:false,
+                    data:null,
+                    message:'查询失败'
+                })
+            }
+        });
+    }catch(err){
+        res.json({
+            success:false,
+            data:null,
+            message:err
+        })
+
+    }
 }
 
 

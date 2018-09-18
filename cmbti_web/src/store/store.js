@@ -9,7 +9,8 @@ const state = {
     loginOut:false, //通知退出登录
     refUser:0, //通知刷新用户信息,递加1
     meta:{},
-    myTabName:''
+    myTabName:'', //个人中心tab名字
+
 } 
 const mutations = {
     //存储用户信息
