@@ -23,7 +23,7 @@
             <el-option
             v-for="(item,i) in cityList"
             :key="i"
-            :label="''"
+            :label="item.n"
             :value="item.n">
                 <span style="float: left">{{item.n}}</span>
             </el-option>
@@ -39,7 +39,7 @@
         <el-input type="textarea" :rows="3" v-model="infoForm.profile" spellcheck=false></el-input>
         <p style="height:25px;line-height:25px;text-align:right;color:#aaa">{{getProfileLen}}/70</p>
       </el-form-item>
-      <el-form-item size="large">
+      <el-form-item size="large" style="margin-top:-20px">
         <el-button v-if="edited" type="primary" @click="modifyUserInfo">保 存</el-button>
         <el-button v-else type="" disabled>保 存</el-button>
         <!--<el-button>取消</el-button>-->
@@ -88,8 +88,14 @@ export default {
           deep: true    //深度监听
       },
       "infoForm.province":function(){
-          this.infoForm.city = ''
-          this.getCityByProvince()
+          if(this.infoForm.province!==this.initData.province){
+              this.getCityByProvince()
+              this.infoForm.city = this.cityList[0]?this.cityList[0].n :''
+          }else if(this.infoForm.province===this.initData.province){
+              this.getCityByProvince()
+              this.infoForm.city = this.initData.city
+
+          }
       }
     },
     computed:{
@@ -112,8 +118,9 @@ export default {
             this.loading = true
             // 修改账户信息
             if(this.infoForm.r_name !=this.initData.r_name){
-              this.infoForm.new_r_name = this.infoForm.r_name
+                this.infoForm.new_r_name = this.infoForm.r_name
             }
+            delete this.infoForm.avatar
             this.$axios.modifyUserInfo(this.infoForm).then(res=>{
                 this.loading = false
                 if(res.data.success){
@@ -167,6 +174,7 @@ export default {
         },
         getUser(){
             this.infoForm = JSON.parse(localStorage.getItem('USER'))
+            console.log(this.infoForm);
             this.initData = JSON.parse(localStorage.getItem('USER'))
             this.canModify = false
             // 判断是否可以修改名字

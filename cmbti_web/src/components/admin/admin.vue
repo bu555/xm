@@ -67,6 +67,14 @@ export default {
         handleClose(key, keyPath) {
         console.log(key, keyPath);
         }
+    },
+    created(){
+        if('管理员权限'){
+
+        }
+        if(this.$route.path === '/admin'){
+            this.$router.replace('/admin/doc')
+        }
     }  
 }
 </script>

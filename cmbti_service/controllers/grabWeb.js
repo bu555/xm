@@ -129,7 +129,7 @@ class GrabWeb{
                 return d
         }
     }
-    //保存网络图片 {url:''，type:'avatar/example/article'}
+    //保存网络图片 {url:''，type:'avatar'}
     static downloadNetworkImage(options){
         // request(url).pipe(fs.createWriteStream(path.join(__dirname,'../','public','mzd.jpg')));
         // var writeStream=fs.createWriteStream('./mo/'+'error.jpg',{autoClose:true})
@@ -149,12 +149,13 @@ class GrabWeb{
                 break
             }
             let dirName = '/upload/'+ type + year + month  // 目录名 /upload/type/1809/
-            let fileName = '/'+Date.now().toString().substr(1)+'.jpg'  //文件名 539043200000.jpg
+            let fileName = '/'+Date.now().toString().substr(1)+myUtill.randomString(5)+'.jpg'  //文件名 539043200000.jpg
 
-            await GrabWeb.mkd( path.join( process.cwd() , uploadDir) )   
+            await GrabWeb.mkd( path.join( process.cwd() , dirName) )   
             
             // 下载、保存图片
             var writeStream = fs.createWriteStream(path.join( process.cwd() , dirName+fileName ),{autoClose:true})
+            console.log(options.imgURL);
             request(options.imgURL).pipe(writeStream);
             writeStream.on('finish',function(){
                 resolve(dirName+fileName) //返回图片路径
@@ -179,19 +180,28 @@ class GrabWeb{
             await GrabWeb.mkd( path.join( process.cwd() , uploadDir) )   
 
             // 保存图片
-            var form = new formidable.IncomingForm();
+            var form = new formidable.IncomingForm(); //https://www.npmjs.com/package/formidable
+            form.maxFieldsSize = 1 * 1024 * 1024; //最大文件 1M
+            form.on('fileBegin', function(name, file) {
+                let reg = /.(jpg|jpeg|webp|gif|bmp|png)$/ //验证文件名
+                if( reg.test(file.name) && /image/.test(file.type) ){
+
+                }else{
+                    reject('只支持jpg|jpeg|webp|gif|bmp|png格式图片文件')
+                    throw 'err'
+                }
+            });
             form.uploadDir = path.join( process.cwd(), uploadDir) //上传文件的保存路径
-            form.fileName = options.fileName || Date.now().toString().substr(1)+'.jpg'
+            form.fileName = options.fileName || Date.now().toString().substr(1)+myUtill.randomString(5)+'.jpg'
             form.parse(req);
-            form.on('end',function(){
-                resolve(uploadDir+'/'+form.fileName) //返回路径
-            })
-            form.on('error',function(){
-                reject('处理失败！')
+            form.on('error',function(err){
+                reject(err)
             })
             form.on('file',function(field,file){//file是上传的文件
-                // console.log('file.path',file);
-                fs.renameSync(file.path , path.join( form.uploadDir,form.fileName))
+                fs.renameSync( file.path , path.join(form.uploadDir,form.fileName) )
+            })
+            form.on('end',function(){
+                resolve(uploadDir+'/'+form.fileName) //返回路径
             })
 
             

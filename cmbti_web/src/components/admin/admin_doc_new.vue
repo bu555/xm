@@ -67,10 +67,14 @@ export default {
             this.form.content = c
         },
         submit(){
+            let content = this.form.content
+            if(process.env.NODE_ENV === "development"){
+                content = content.replace(/\/apis\/upload\//g,'/upload/')
+            }
             this.loading = true
             this.$axios.setDocument({
                 title:this.form.title.trim(),
-                content:this.form.content.trim(),
+                content:content,
                 key:this.form.key,
                 category:this.form.category,
                 id:this.id

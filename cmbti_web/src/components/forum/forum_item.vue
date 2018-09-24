@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <div class="a-body editor-base-style"  v-html="data.content">
+                <div class="a-body editor-base-style"  v-html="content" id="article-content">
                 <!--<div class="a-body"  v-html="test">-->
                 </div>
                 <div class="main-ctrl">
@@ -138,6 +138,30 @@ export default {
         followBtn
     },
     watch:{
+    },
+    computed:{
+        content(){
+            if(this.data.content){
+                let w = 0
+                let container = document.querySelector('#article-content')
+                if(container){
+                    w = container.offsetWidth-16*2
+                }else{
+                    return 'null'
+                }
+
+               let content =  this.data.content.replace(/<img[^>]*>/,function(str){
+                    return str.replace(/data-width="\d+"/,function(str){
+                        if( str.split('"')[1]>w ){
+                            return str+' '+ 'class="img-width-overflow"' //添加个类名
+                        }else{
+                            return str
+                        }
+                    })
+                })
+                return content
+            }
+        }
     },
     methods:{
         searchSubmit(value){
@@ -262,10 +286,10 @@ export default {
         margin:28px auto;
         position: relative;
         border-radius:4px 4px 0 0;
-        padding-right:320px;
+        padding-right:275px;
         // 右侧推荐区
         .recommend {
-            width:280px;
+            width:250px;
             // border:1px solid #f7f7f7;
             position:absolute;
             right:12px;
@@ -340,6 +364,7 @@ export default {
                     font-weight:600;
                     margin:0;padding:0;
                     // padding-right:152px;
+                    white-space:normal; word-break:break-all;
                 }
                 .t-info {
                     font-size:14px;
@@ -435,25 +460,24 @@ export default {
         }
         .a-body {
             padding:15px 0 20px;
-            font-size:17px;
-            color:#444;
-            // border-bottom:1px solid #efefef;
-            border-top:1px solid #efefef;
-            min-height:150px;
-            word-wrap:break-word;
             overflow: hidden;
             font-family:'Microsoft Yahei';
-            p {
-                // margin-bottom:6px;
-            }
+            min-height:350px;
+            // font-size:17px;
+            // color:#444;
+            // // border-bottom:1px solid #efefef;
+            // border-top:1px solid #efefef;
+            // p {
+            //     // margin-bottom:6px;
+            // }
 
-            // 编辑器内容样式重写：
-            img {
-                display:block;
-                max-width:768px;
-                margin:0 auto;
-                border-radius:3px;
-            }
+            // // 编辑器内容样式重写：
+            // img {
+            //     display:block;
+            //     max-width:768px;
+            //     margin:0 auto;
+            //     border-radius:3px;
+            // }
         }
         .main-ctrl {
             padding:.5em 16px;
@@ -493,7 +517,7 @@ export default {
                 .m-loading{
                     position: absolute;
                     width:100%;
-                    height:100%;
+                    height:115%;
                     line-height: 32px;
                     left:0;
                     top:0;

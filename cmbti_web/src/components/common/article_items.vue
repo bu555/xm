@@ -11,8 +11,8 @@
                 
             </div>
         </div>
-        <router-link  :to="'/forum/'+items._id" class="img-preview">
-            <img src="/static/img/si.jpg" alt="">
+        <router-link  :to="'/forum/'+items._id" class="img-preview" v-if="items.coverImage">
+            <img :src="items.coverImage" alt="">
         </router-link>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
         flex:0 0 132px;
         height:92px;
         border-radius:2px;
-        margin:2px 0 0 8px;
+        margin:5px 0 0 8px;
         overflow: hidden;
         img {
             width:100%;

@@ -661,12 +661,12 @@ export default function(){
         // IE 暂时不支持
         pasteTextHandle: function pasteTextHandle(content) {
             // content 即粘贴过来的内容（html 或 纯文本），可进行自定义处理然后返回
-            content = content.replace(/<br>|<br\/>/g,'%%br%%')
-            content = content.replace(/<p>/g,'%%p1%%').replace(/<p\/>/g,'%%p2%%')
+            content = content.replace(/<br>|<br\/>/g,'%%%br%%%')
+            content = content.replace(/<p>|<div>/g,'%%%p1%%%').replace(/<\/p>|<\/div>/g,'%%%p2%%%')
             var div = document.createElement('div')
             div.innerHTML = content
             content = div.innerText
-            content = content.replace(/%%br%%/g,'<br>').replace(/%%p1%%/g,'<p>').replace(/%%p2%%/g,'</p>').trim()
+            content = content.replace(/%%%br%%%/g,'<br>').replace(/%%%p1%%%/g,'<p>').replace(/%%%p2%%%/g,'</p>').trim()
             return content;
         },
     
@@ -4103,9 +4103,15 @@ export default function(){
                     return;
                 }
             }
+            if (config.networkImgHandler && typeof config.networkImgHandler === 'function'){
+                link = config.networkImgHandler(link,editor.cmd) 
+                return
+            }else{
+                link = '<img src="' + link + '">'
+            }
     
-            editor.cmd.do('insertHTML', '<img src="' + link + '">');
-    
+            editor.cmd.do('insertHTML',link );
+            return //终止验证
             // 验证图片 url 是否有效，无效的话给出提示
             var img = document.createElement('img');
             img.onload = function () {

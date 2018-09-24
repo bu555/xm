@@ -590,22 +590,22 @@ export default {
                     }
                 }
                 .a-like {}
-                // .a-vote.active,.a-like.active {
-                //     position: relative;
-                //     &:after {
-                //         content:'已参与';
-                //         display: block;
-                //         height: 17px;
-                //         width: 42px;
-                //         color: #fff;
-                //         font-size: 11px;
-                //         position: absolute;
-                //         top: 0px;
-                //         right: -38px;
-                //         background-color: #7db3f6;
-                //         border-radius: 6px 6px 6px 0;
-                //     }
-                // }
+                .a-vote.active {
+                    position: relative;
+                    &:after {
+                        content:'已参与';
+                        display: block;
+                        height: 17px;
+                        width: 42px;
+                        color: #fff;
+                        font-size: 11px;
+                        position: absolute;
+                        top: 0px;
+                        right: -38px;
+                        background-color: #7db3f6;
+                        border-radius: 6px 6px 6px 0;
+                    }
+                }
                 // .a-like.active {
                 //     &:after {
                 //         content:'已关注';

@@ -53,7 +53,34 @@ const uploadImage = async (req,res)=>{
         })
     }
 }
+// 上传网络图片 {url:''});
+const uploadNetworkImage = async (req,res)=>{ 
+    let options = req.body || {}   
+    // 参数验证
+    if( !options.url ){
+        return res.json({
+            success: false,
+            message: 'Params Error' 
+        })
+    }
+
+    try {
+        // saveUploadFile {fileName:'8.jpg',req:req,type:'example/avatar/article'}
+        let url = await GrabWeb.downloadNetworkImage({imgURL:options.url})
+        res.json({
+            success:true,
+            url:url
+        })
+    }catch(err){
+        logger.error(err)
+        console.log(err);
+        res.json({
+            success:false
+        })
+    }
+}
 
 router.get('/getChina',getChina);
 router.post('/uploadImage',uploadImage);
+router.post('/uploadNetworkImage',uploadNetworkImage);
 module.exports = router

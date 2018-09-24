@@ -6,9 +6,9 @@ import store from '../store/store'
 
 // var path = "http://192.168.1.106:7000/"; // dev
 
-let path = process.env.NODE_ENV === "development" ? "/apis/" : '/'
+let path = process.env.NODE_ENV === "development" ? "/apis" : ''
 // var path = "/"; //prod
-var pathAPI = path+"api"; 
+var pathAPI = path+"/api"; 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = true;
 // axios.defaults.timeout = 7000;
@@ -16,6 +16,33 @@ axios.defaults.withCredentials = true;
 var loadinginstace
 axios.interceptors.request.use(config => {
     // loadinginstace = Loading.service({ fullscreen: true })
+    if (process.env.NODE_ENV === "development") {
+        if (config.data) {
+            if(config.data.entries) { //排除formdata
+                return config
+            } 
+            config.data = dataHandler(JSON.parse(JSON.stringify(config.data)))
+    
+          function dataHandler(d) {
+            if (Object.prototype.toString.call(d) === '[object Object]') {
+              for (let key in d) {
+                if (typeof d[key] === "string") {
+                  if (/\/apis\/upload\//.test(d[key])) {
+                    d[key] = d[key].replace(/\/apis\/upload\//g, '/upload/')
+                  }
+                } else {
+                  dataHandler(d[key])
+                }
+              }
+            } else if (Object.prototype.toString.call(d) === '[object Array]') {
+              d.forEach((v, i) => {
+                  dataHandler(v)
+              })
+            }
+            return d
+          }
+        }
+    }
     return config
 }, error => {
     // loadinginstace.close()
@@ -275,6 +302,10 @@ export default {
     // 上傳圖片
     uploadImage(data){
         return axios.post(pathAPI+'/other/uploadImage',data,{headers: {'Content-Type': 'multipart/form-data'}});
+    },
+    // 获取中国省市
+    uploadNetworkImage(data){
+        return axios.post(pathAPI+'/other/uploadNetworkImage',data);
     },
 // admin --------------------
     // 设置、存储文档

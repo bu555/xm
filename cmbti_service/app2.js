@@ -4,7 +4,8 @@ var path = require('path');
 var http = require('http');
 var mongoose = require('mongoose');
 const session = require('express-session');
-var MongoDBStore = require('connect-mongodb-session')(session);
+// var MongoDBStore = require('connect-mongodb-session')(session);
+const MongoStore = require('connect-mongo')(session);
 
 var bodyParser = require('body-parser'); 
 var cors = require('cors')
@@ -59,10 +60,14 @@ app.use(session({
     cookie: {
       maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时
     },
-    store: new MongoDBStore({
-              uri: db_uri,
-              collection: 'mySessions'
-            })
+    store: new MongoStore({
+        url: db_uri,
+        mongoOptions: 'mySessions' // See below for details
+    })
+    // store: new MongoDBStore({
+    //           uri: db_uri,
+    //           collection: 'mySessions'
+    //         })
 }))
 
 

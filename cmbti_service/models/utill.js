@@ -5,7 +5,8 @@ module.exports =  {
         },
         // 随机字符串
         randomString : function(num) {
-            var possibleCode = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+            // var possibleCode = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+            var possibleCode = "abcdeimnorstuvwxz1234567890";
             var randStr = "";
             for( var i = 0; i < num; i++ )  randStr += possibleCode.charAt(Math.floor(Math.random() * possibleCode.length));
             

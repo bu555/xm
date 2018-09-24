@@ -24,44 +24,76 @@ export default{
         }
     },
     methods:{
+        verifyImage(link){
+            return new Promise((resolve,reject)=>{
+                var img = new Image();  
+                img.onload=function(){
+                    resolve('onload')
+                    
+                };  
+                img.onerror=function(){
+                    console.log('error')
+                    reject('无效的图片路径')
+                };  
+                img.src=link  
+            })
+        },
         initEditor(){
             let e = E()
             this.editor = new e('#editor') 
-
-            this.editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
-            // 配置服务器端地址
-            // this.editor.customConfig.uploadImgServer = accountAxios.path  +'api/Upload/Imges'
-            this.editor.customConfig.uploadImgServer = ''
-            this.editor.customConfig.withCredentials = true
-
+            this.editor.customConfig.networkImgHandler = (link,cmd) =>{
+                // 服务器下载返回
+                if( /^(\/upload\/)|(\/apis\/upload\/)/.test(link) ){
+                    cmd.do('insertHTML','<img src="' + link + '">')
+                }else{
+                    this.verifyImage(link).then(res=>{
+                        // 通知服务器下载
+                        this.$axios.uploadNetworkImage({url:link}).then(res=>{
+                            if(res.data.success){
+                                // 插入页面
+                                cmd.do('insertHTML','<img src="' + res.data.url + '">')
+                            }
+                        }).catch(err=>{
+                            this.$message({
+                                showClose: true,
+                                message: '服务端下载错误！',
+                                type: 'error'
+                            });
+                        })
+                    }).catch(err=>{
+                        this.$message({
+                            showClose: true,
+                            message: err,
+                            type: 'error'
+                        });
+                    })
+                }
+                // return 
+            }
             this.editor.customConfig.customUploadImg = (files, insert)=> {
-                // files 是 input 中选中的文件列表
-                // insert 是获取图片 url 后，插入到编辑器的方法
-
-                console.log(files[0]);
+                    // if(files[0].size/1000/1024>0.8){    //不大於0.8M
+                    if(files[0].size/1000>500){    //不大於500kb
+                        return this.$message({
+                            showClose: true,
+                            message: '图片不可大于500KB',
+                            type: 'warning'
+                        });
+                    }
+                    console.log(files[0]);
+                    // return;
+                    // insert 是获取图片 url 后，插入到编辑器的方法
                     let uploadData = new FormData();
                     uploadData.append('file', files[0],files[0].name);
                     uploadData.append('type', 'article');
                     console.log(uploadData);
                     this.$axios.uploadImage(uploadData).then(res=>{
                         if(res.data.success){
-                            
-                            console.log('1',process.env.NODE_ENV);
-                        if(process.env.NODE_ENV === "development"){
-                            
-                        }
-                            insert('/apis'+res.data.url)
+                            insert(res.data.url)
                         }
                     }).catch(err=>{
 
                     })
 
-                    // if(files[0].size/1000/1024>100){    //不大於100M
-                    //     return {
-                    //         prevent: true,
-                    //         msg: '圖片大小不可超過100M'
-                    //     }
-                    // }
 
 
 
@@ -70,86 +102,6 @@ export default{
             }
 
 
-            let _this = this
-            //  this.editor.create()
-            console.log('this.config',this.editor.config);
-
-
-
-
-            this.editor.customConfig.uploadImgHooks = {
-                before: function (xhr, editor, files) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        _this.uploadingBase64 = this.result;
-                        _this.coverImg.tempBase64 = this.result
-                        console.log(files[0]);
-                    }
-                    console.log(files);
-
-
-
-
-                    reader.readAsDataURL( files[0] );
-                    // 图片上传之前触发
-                    // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
-                    
-                    // 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
-                    if(files[0].size/1000/1024>100){    //不大於100M
-                        return {
-                            prevent: true,
-                            msg: '圖片大小不可超過100M'
-                        }
-                    }
-                },
-                success: function (xhr, editor, result) {
-                    _this.uploadingBase64 = ''
-
-                    // 图片上传并返回结果，图片插入成功之后触发
-                    // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-                },
-                fail: function (xhr, editor, result) {
-                    _this.uploadingBase64 = ''
-                    // 图片上传并返回结果，但图片插入错误时触发
-                    // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-                },
-                error: function (xhr, editor) {
-                    _this.uploadingBase64 = ''
-                    // 图片上传出错时触发
-                    // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-                },
-                timeout: function (xhr, editor) {
-                    _this.uploadingBase64 = ''
-                    // 图片上传超时时触发
-                    // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-                },
-
-                // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-                // （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
-                customInsert: function (insertImg, result, editor) {
-                    _this.uploadingBase64 = ''
-                    let imgURL = result.data[0]
-                    if(process.env.NODE_ENV === "development"){
-                        // imgURL = process.env.API_HOST + imgURL
-                    }
-                    // _this.editor.txt.append('<img src="'+imgURL+'">')
-                    _this.coverImg.list.push({
-                        url:imgURL,
-                        base64: _this.coverImg.tempBase64
-                    })
-                    insertImg(imgURL)
-                    // 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
-                    // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
-
-                    // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-                    // var url = result.url
-                    // insertImg(url)
-                    // console.log('配置',result);
-
-                    // result 必须是一个 JSON 格式字符串！！！否则报错 
-                }
-
-            }
             this.editor.create()
             let weText = document.querySelector('.w-e-text')
             weText.classList.add('editor-base-style')
@@ -161,7 +113,8 @@ export default{
                 document.querySelector('.w-e-text-container').classList.add('focus')
             })
             weText.addEventListener('input',()=>{
-                this.$emit('changeContent',this.editor.txt.html())
+                let content = this.editor.txt.html()
+                this.$emit('changeContent',content)
             })
             // 如父组件有内容（即编辑）
             if(this.articleContent){

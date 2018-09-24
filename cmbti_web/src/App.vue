@@ -157,11 +157,13 @@ export default {
           font-size:15px;
           color:rgba(33, 32, 36, 0.86);
           text-align: left;
+          word-wrap:break-word;
           img {
             display:block;
-            max-width:750px;
-            margin:0 auto;
-            border-radius:3px;
+            // width:100%;
+            max-width:100%;
+            margin:12px auto;
+            border-radius:2px;
           }
           blockquote {
               display: block;
@@ -174,7 +176,7 @@ export default {
           }
           p {
               margin:0 0 .6em;
-              line-height: 1.5;
+              line-height: 1.6;
           }
           li{ display:list-item }
           ol{list-style-type: decimal }
@@ -354,6 +356,7 @@ export default {
 
       .el-input__inner,.el-textarea__inner,.el-select-dropdown__item span {
         //  font-family:DINRegular;
+         font-family:'Microsoft YaHei';
       }
 </style>
 

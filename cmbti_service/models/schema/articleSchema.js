@@ -50,6 +50,7 @@ const articleSchema = new mongoose.Schema({
     profile:String, 
     comment_count:Number, //评论总数
     comment_time:Date, //最后评论时间
+    coverImage:String
 })
 
 const article = mongoose.model('a_article', articleSchema) 

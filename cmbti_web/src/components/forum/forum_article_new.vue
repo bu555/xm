@@ -181,13 +181,16 @@ export default {
         },
         submitArticle(){
             this.verify('all')
-            console.log('submit',this.ver.all);
             if(this.ver.all!=='pass') return
+            let content = this.form.content
+            // if(process.env.NODE_ENV === "development"){
+            //     content = content.replace(/\/apis\/upload\//g,'/upload/')
+            // }
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
                 // category:this.form.category.trim(),
-                content:this.form.content.trim(),
+                content:content,
                 tags:this.form.tagsList.join(','),
                 aid:this.editAid
             }).then(res=>{

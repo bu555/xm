@@ -27,8 +27,15 @@ class Article {
             }else{  //新增
                     // 创建文章主要信息
                     let _date = new Date()
-                    let profile = options.content.replace(/<[^>]+>/g,"") //去除标签
+                    let profile = options.content.replace(/<[^>]+>/g,"").replace(/[\s\r\n]|&nbsp;|&nbsp/g,"") //去除标签
                     profile = myUtill.splitStr(profile,365) //截取
+                    
+                    let coverImage
+                    options.content.replace(/<img[^>]*>/,function(str){
+                        str.replace(/src="[^"]*"/,function(str){
+                            coverImage =  str.split('"')[1]
+                        })
+                    })
                     new ArticleModel.article({
                         uid:options.uid,
                         title:options.title, //ask share
@@ -45,6 +52,7 @@ class Article {
                         comment_count:0,
                         comment_time:_date,
                         profile: profile,
+                        coverImage:coverImage||''
                     }).save((err,a)=>{
                         if(err) return reject('The article add failed')
                         options.aid = a._id
