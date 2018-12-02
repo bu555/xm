@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="err-message" v-if="ver.content==='empty'">*请输入内容</div>
-                <div class="err-message" v-if="ver.content==='isMin'">*内容不可小于140个字符</div>
+                <div class="err-message" v-if="ver.content==='isMin'">*内容不可小于15个字符</div>
                 <div class="err-message" v-if="ver.content==='isMax'">*内容已超长最大限度</div>
                 <div class="f-items" style="padding-top:20px">
                     <label for=""></label>
@@ -63,9 +63,9 @@
         <div class="editor-base-style" v-html="this.form.content">
 
         </div>
-        <div class="my-count">
-            <p>已发表</p>
-            <h2>50</h2>
+        <div class="my-count" v-if="$store.state.userInfo">
+            <!-- <p>已发表</p> -->
+            <h2>{{$store.state.account.my_article}}</h2>
         </div>
     </div>
 </div> 
@@ -108,7 +108,7 @@ export default {
                 list:[
                     {
                         value:'全部',
-                        link:'/forum?category=all&page=1'
+                        link:'/forum'
                     },
                 ]
             },
@@ -157,7 +157,7 @@ export default {
                 let text = this.form.content.replace(/<\/?.+?\/?>/g,'').trim()
                 if( !text ){
                     this.ver.content = 'empty'
-                }else if( text.length<140 ){
+                }else if( text.length<15 ){
                     this.ver.content = 'isMin'
                 }else  if( this.$utill.strLength(this.form.content)>16777215 ){
                     this.ver.content = 'isMax'
@@ -183,9 +183,10 @@ export default {
             this.verify('all')
             if(this.ver.all!=='pass') return
             let content = this.form.content
-            // if(process.env.NODE_ENV === "development"){
-            //     content = content.replace(/\/apis\/upload\//g,'/upload/')
-            // }
+            if(process.env.NODE_ENV === "development"){
+                // content = content.replace(new RegExp('^'+process.env.API_HOST+'/upload','g'),'/upload')
+                content = content.replace(new RegExp(process.env.API_HOST,'g'),'')
+            }
             this.loading = true
             this.$axios.articlePublish({
                 title:this.form.title.trim(),
@@ -202,18 +203,22 @@ export default {
                     this.aid = ''
                     this.$message({
                         message: '操作成功！',
-                        type: 'success'
+                        type: 'success',
+                        // showClose:true,
+                        duration:2000
                     });
                     // if(this.editAid){
                     //     this.$router.go(-1)
                     // }
                     this.$router.push({
-                        path:'/forum?category=all&page=1'
+                        path:'/forum'
                     })
                 }else{
                     this.$message({
                         message: '操作失败！',
-                        type: 'error'
+                        type: 'error',
+                        showClose:true,
+                        duration:2500
                     });
                 }
             }).catch(err=>{
@@ -273,6 +278,11 @@ export default {
             return s; 
 
         }
+
+        
+        this.$getAccount().then(data=>{
+            
+        })
 
 
         
@@ -374,18 +384,25 @@ export default {
             }
         }
         .my-count {
-            width:140px;
+            width:160px;
             height:150px;
             position: absolute;;
             top:30px;
             right:12px;
-            background-color: #f0f3ef;
-            color:#fff;
+            background-color: #eef3fa;
+            background-image: url(/static/img/my_count.jpg);
+            background-size: cover;
+            color:#657797;
             border-radius:4px;
             padding-top:22px;
             text-align: center;
             h2 {
-                font-size:44px;
+                font-size:38px;
+                font-weight: 700;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
             }
         }
     }

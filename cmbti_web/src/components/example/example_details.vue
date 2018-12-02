@@ -80,8 +80,13 @@
             <div class="a-vote-view" v-if="showVote">
                 <div>
                     <h2><i class="fa fa-bar-chart"></i> 投 票</h2>
-
                     <div style="text-align:right;" class="v-bar">
+                        <div class="vote-info">
+                            <div class="photo">
+                                <img :src="exampleItem?exampleItem.img_url:''" alt="">
+                            </div>
+                            <p class="overflow-row-1">{{exampleItem?exampleItem.name:''}}</p>
+                        </div>
                         <el-select v-model="myVote" filterable placeholder="请输入或选择类型">
                             <el-option
                             v-for="(item,i) in $mbti.types"
@@ -91,38 +96,47 @@
                             </el-option>
                         </el-select>
                         <button class="bu-button bu-green" @click="vote()">投 票</button>
-                        <button class="bu-button bu-default" style="margin-left:7px;" @click="showVote=false;myVote=''">取 消</button>
                         <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
                     </div>
                     <ul>
                         <li>投票须知：</li>
-                        <li>1、投票须知投票须知投票须知投票须知：</li>
-                        <li>2、投票须知投票须知投票须知投票须知：</li>
-                        <li>3、投票须知投票须知投票须知投票须知：</li>
+                        <li>1、投票结果不允许二次修改</li>
+                        <li>2、此投票旨在为用户提供一个最接近真实的参考数据，因此我们希望您的投票行为是建立在对该人物有所了解基础之上的</li>
+                        <li>3、请遵从您最真实的看法（勿受到高票结果的影响）</li>
+                        <li>4、您可以在评论区中发起讨论，有必要也可进行更多的补充说明</li>
                     </ul>
+                    <span class="close-btn"  @click="showVote=false;myVote=''">关闭</span>
                 </div>
                 
             </div>
             <div :class="'a-publish-comment '+(showComment?'mobile-show':'')">
                 <p style="margin-bottom:5px">发表评论：</p>
-                <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
+                <el-input type="textarea" v-model="myComment" placeholder="写下你的想法....." :rows="3" 
                         spellcheck="false"></el-input><br>
                 <div style="text-align:right;padding-top:10px">
-                    <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
-                    <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
-                    <button class="bu-button bu-gblue" style="margin-left:7px;" @click="comment()">发 表</button>
+                    <el-button style="padding: 10px 19px"  @click="showComment=false;myComment=''">取 消</el-button>
+                    <el-button type="primary" style="padding: 10px 19px" @click="comment()">发 表</el-button>
                 </div>
             </div>
             
             <!-- 推荐的内容 -->
-            <div class="recommend">
-                <h2>你可能喜欢</h2>
-                <ul>
-                    <li v-for="(v,i) in 5" :key="i">
-                        <router-link :to="'/forum/'+i"><i class="el-icon-document"></i> {{i+".推荐123"}}</router-link>
-                    </li>
-                </ul>
-            </div>
+
+            <div class="recommend" >
+                <section class="relation" >
+                    <h2>更多</h2>
+                    <ul>
+
+                        <li v-for="(v,i) in relationList" :key="i">
+                            <router-link :to="'/example/'+v._id">
+                                <div class="photo">
+                                    <img :src="v.img_url" alt="">
+                                </div>
+                                <span>{{v.name}}</span>
+                            </router-link>
+                        </li>
+                    </ul>
+                </section>
+            </div> 
 
             <!--评论区-->
             <Comment v-if="eid" :eid="eid"></Comment>
@@ -133,8 +147,6 @@
 </div> 
 </template>
 <script>
-import voteResult from "./vote_result"
-import voteConsole from "./vote_console"
 import Comment from '../common/comment'
 import NavMain from '@/components/common/nav_main'
 import NavSub from '@/components/common/nav_sub'
@@ -172,13 +184,12 @@ export default {
                     value:''
                 },
                 // maxWidth:970,
-            }
+            },
+            relationList:[]
 
         }
     },
     components:{
-        voteResult,
-        voteConsole,
         Comment,
         NavMain,
         NavSub,
@@ -189,6 +200,9 @@ export default {
             if(this.$store.state.userInfo){
                 this.initData()
             }
+        },
+        '$route.path':function(){
+            this.initData()
         }
     },
     computed:{
@@ -204,7 +218,13 @@ export default {
             }
         },
         search(value){
-            console.log('搜搜:',value);
+            if(!value) return //清空 不处理
+            this.$router.push({
+                path:'/example',
+                query:{
+                    s:value
+                }
+            })
 
         },
         //投票
@@ -363,24 +383,39 @@ export default {
             // console.log(window.scrollY);
         },
         initData(){
+            this.eid = this.$route.path.split('/')[2]
             this.commentList=[]
             this.commentPage=1
             this.currentCommentList = []
             this.getExampleById()
-        }
+        },
+        getRelationExamp(option){ //name(模糊),id,type（模糊）
+            this.$axios.searchExample({
+                params:{
+                    size:9,
+                }
+            }).then(res=>{
+                if(res.data.success){
+                        this.relationList = res.data.result.example;
+                        console.log('rela:',this.relationList);
+                }else{
+                }
+            }).catch(res=>{
+            })
+
+        },
     },
     mounted(){
         // window.addEventListener('scroll', this.handleScroll);
 
-        navigator.serviceWorker.addEventListener('message', function (event) {
-            if (e.data === 'sw.update') {
-                console.log('接收到',e.data);
-                // 此处可以操作页面的 DOM 元素啦
-            }
-        });
+        // navigator.serviceWorker.addEventListener('message', function (event) {
+        //     if (e.data === 'sw.update') {
+        //         console.log('接收到',e.data);
+        //         // 此处可以操作页面的 DOM 元素啦
+        //     }
+        // });
     },
     created(){
-        this.eid = this.$route.path.split('/')[2]
         this.initData()
 
         //处理typeList数据
@@ -395,6 +430,8 @@ export default {
         if(fromPath && /^\/example\/$/.test(fromPath) ){
             this.data.title.link = ''
         }
+
+        this.getRelationExamp()
 
     },
     beforeRouteEnter (to, from, next) {
@@ -411,7 +448,7 @@ export default {
             margin:25px auto;
             width:100%;
             background-color: rgba(255,255,255,.75);
-            padding-right:280px;
+            padding-right:306px;
             position: relative;
             // 人物详情
             .example-box {
@@ -429,7 +466,7 @@ export default {
                     .font {
                         height:236px;
                         line-height: 18px;
-                        font-size:14px;
+                        font-size:15px;
                     }
                 }
                 a {
@@ -446,7 +483,7 @@ export default {
                         width:100%;
                         height:220px;
                         overflow: hidden;
-                        background-color: #777;
+                        background-color: #aaa;
                         border-radius:3px;
                     }
                     img {
@@ -476,13 +513,13 @@ export default {
                     .vote-title {
                         padding:5px 0 8px;
                         p {
-                            font-size:15px;
+                            font-size:16px;
                             line-height: 18px;
                             margin:0;
                             font-weight: 700;
                         }
                         p.tit {
-                            font-size:17px;
+                            font-size:18px;
                             // font-weight: 500;
                             height:19px;
                             margin-bottom:4px;
@@ -493,10 +530,10 @@ export default {
                         // border-bottom:1px solid #f8f8f8;
                     }
                     .figure {
-                        margin:4px auto 10px;
+                        // margin:4px auto 10px;
                         height:18px;
                         width:255px;
-                        background:url('/static/img/figure.png');
+                        // background:url('/static/img/figure.png');
                         background-size:cover;
                         opacity:0.2;
                     }
@@ -512,10 +549,10 @@ export default {
                                 height:16px;
                                 line-height: 16px;
                                 margin:5px 0;
-                                color:#9b9b9b;
+                                color:#797676;
                             }
                             .type{
-                                font-size:15px;
+                                font-size:16px;
                                 // font-weight:600;
                                 flex:0 0 44px;
                                 text-align:left;
@@ -541,7 +578,7 @@ export default {
                             .count{
                                 text-align:left;
                                 padding-left:4px;
-                                font-size:14px;
+                                font-size:15px;
                                 flex:0 0 34px;
 
                             }
@@ -555,7 +592,7 @@ export default {
             }   
             .main-ctrl {
                 padding:.5em 16px;
-                border-top:1px solid #eee;
+                border-top:1px solid #f2f2f2;
                 background-color: #fefefe;
                 display:flex;
                 justify-content: space-between;
@@ -637,12 +674,13 @@ export default {
                 height:100%;
                 z-index:5;
                 background-color: rgba(0,0,0,.8);
+                
                 &>div {
-                    max-width:500px;
+                    max-width:370px;
                     background-color: #fefefe;
                     padding:16px;
                     border-top:1px solid #eee;
-                    margin:15vh auto;
+                    margin:30px auto;
                     border-radius:3px;
                     position: relative;
                     min-height:370px;
@@ -651,7 +689,7 @@ export default {
                         text-align: left;
                         font-size:20px;
                         color:#444;
-                        margin-bottom:22px;
+                        margin-bottom:16px;
                         height:38px;
                         border-bottom:1px solid #eee;
                         margin-left:-16px;
@@ -659,23 +697,25 @@ export default {
                         padding-left:16px;
                     }
                     .v-bar {
-                        padding-right:165px;
+                        padding-right:16px;
                         position: relative;
                         padding-top:0;
+                        height:155px;
+                        padding-left:120px;
                         .el-select {
                             width:100%;
                         }
                         .bu-button {
-                            position:absolute;
-                            right:0px;
-                            top:0px;
                             padding:9px 20px;
+                            margin:25px auto 0;
+                            display:block;
+                            width:100%;
                         }
                         .bu-button.bu-green{
                             right:82px;
                         }
                         @media screen and (max-width:400px) {
-                            padding-right:135px;
+                            // padding-right:135px;
                             // margin-bottom:30px;
                             .bu-button {
                                 // top:50px;
@@ -685,19 +725,57 @@ export default {
                                 right:67px;
                             }
                         }
+                        div.vote-info {
+                            text-align: center;
+                            position:absolute;
+                            left:0px;
+                            top:0px;
+                            width:118px;
+                            .photo {
+                                height:118px;
+                                width:92px;
+                                overflow: hidden;
+                                margin:0 auto;
+                                img {
+                                    display:block;
+                                    width:100%;
+                                    object-fit: cover;
+                                }
+                            }
+                            p {
+                                font-size:14px;
+                                padding-left:8px;
+                            }
+    
+                        }
                     }
                     ul {
-                        padding-top:32px;
+                        border-top:1px dotted #eee;
+                        padding-top:5px;
+                        padding-bottom:12px;
                         li {
-                            font-size:14px;
-                            color:#c8c8c8;
+                            font-size:13px;
+                            color:#999;
                             font-weight:400;
                         }
                         li:first-child {
                             font-size:15px;
-                            color:#bbb;
+                            color:#888;
+                            font-weight:600;
+                            margin-bottom:5px;
                         }
                         
+                    }
+                }
+                span.close-btn{
+                    color:#bbb;
+                    position:absolute;
+                    right:16px;
+                    top:13px;
+                    cursor:pointer;
+                    padding:2px 3px;
+                    &:hover {
+                        color:#999;
                     }
                 }
         
@@ -708,38 +786,52 @@ export default {
             }
             // 右侧推荐区
             .recommend {
-                width:250px;
+                width:266px;
+                // border:1px solid #f7f7f7;
                 position:absolute;
-                right:12px;
+                right:0px;
                 top:0;
-                padding:0 12px 12px;
-                margin-bottom:22px;
-                h2 {
-                    font-size:15px;
-                    margin-bottom:6px;
-                    padding-bottom:4px;
-                    color:#0e959d;
-                    // font-weight:600;
-                    border-bottom:1px solid #f1f1f1;
-                }
-                ul{
-                    li {
-                        text-overflow:ellipsis;
-                        white-space: nowrap;
-                        overflow:hidden;
-                        margin-bottom:3px;
-                        a {
-                            color:#b4b4b4;
-                            font-size:14px;
-                            &:hover {
-                                color:#0e959d;
+                // padding:0 12px 12px;
+                section {
+                    margin-bottom:22px;
+                    >ul {
+                        display:flex;
+                        justify-content: space-between;
+                        flex-wrap:wrap;
+                        li {
+                            flex: 0 0 30%;
+                            overflow: hidden;
+                            margin-bottom:12px;
+                            text-align: center;
+                            .photo {
+                                height:105px;
+                                overflow: hidden;
+                                img {
+                                    display:block;
+                                    width:100%;
+                                    height:100%;;
+                                    object-fit: cover;
+                                }
                             }
-                            i {
-                                color:#0e959d;
-
+                            span {
+                                font-size:14px;
+                                text-align: center;
+                                color:#117d84;
+                                &:hover {
+                                    color:#117d84;
+                                }
                             }
                         }
                     }
+                }
+                h2 {
+                    font-size:16px;
+                    font-weight:600;
+                    margin-bottom:12px;
+                    padding-bottom:4px;
+                    color:#72a4a9;
+                    // font-weight:600;
+                    border-bottom:1px solid #f1f1f1;
                 }
             }
         } 
@@ -750,23 +842,31 @@ export default {
                 }
             }
             .main-box {
-                padding:0 16px;            // 右侧推荐区
+                padding:0 16px;  
+                
+// 右侧推荐区
                 .recommend {
                     width:100%;
                     position:relative;
                     right:0px;
                     top:0;
                     padding:0;
-                    h2 {
-                    }
-                    ul{
-                        li {
-                            a {
-                                &:hover {
-                                    
+                    section {
+                        >ul {
+                            overflow-x: scroll;
+                            width:auto;
+                            flex-wrap: nowrap;
+                            li {
+                                flex: 0 0 78px;
+                                margin-right:12px;
+                                margin-bottom:12px;
+                                .photo {
+                                    height:95px;
+                                    overflow: hidden;
+                                    img {
+                                    }
                                 }
-                                i {
-
+                                span {
                                 }
                             }
                         }
@@ -796,8 +896,8 @@ export default {
         @media screen and (max-width:525px){
             .main-box {
                 .a-vote-view>div {
-                    margin-left: 6px;
-                    margin-right: 6px;
+                    // margin-left: 6px;
+                    // margin-right: 6px;
                 }
                 .example-box {
                     padding-right:0;
@@ -815,6 +915,15 @@ export default {
                     .item {
                         right:0;
                     }
+                }
+
+            }
+        }   
+        @media screen and (max-width:380px){
+            .main-box {
+                .a-vote-view>div {
+                    margin-left: 6px;
+                    margin-right: 6px;
                 }
 
             }

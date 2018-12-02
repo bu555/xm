@@ -40,8 +40,9 @@ export default {
         flex:1;
         a.title {
             font-size:16px;
+            font-weight:600;
             line-height: 18px;
-            margin-bottom:4px;
+            margin-bottom:5px;
             display: -webkit-box;    
             -webkit-box-orient: vertical;    
             -webkit-line-clamp: 2;    
@@ -53,9 +54,9 @@ export default {
         }
         .content {
             display:block;
-            height:50px;
+            height:56px;
             margin-bottom:5px;
-            font-size:13px;
+            font-size:14px;
             color:#b4b4b4;
             display: -webkit-box;    
             -webkit-box-orient: vertical;    
@@ -71,7 +72,7 @@ export default {
             align-items: center;
             padding-top:4px;
             span {
-                font-size:13px;
+                font-size:14px;
                 color:#ccc;
                 overflow: hidden;
                 text-overflow:ellipsis;
@@ -91,8 +92,8 @@ export default {
     .img-preview {
         flex:0 0 132px;
         height:92px;
-        border-radius:2px;
-        margin:5px 0 0 8px;
+        border-radius:4px;
+        margin:5px 0 0 9px;
         overflow: hidden;
         img {
             width:100%;

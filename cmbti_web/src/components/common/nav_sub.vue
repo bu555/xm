@@ -1,25 +1,25 @@
 <template>
     <div class="x-nav-sub" v-if="data">
-        <div class="sub-nav-inner" :style="'max-width:'+(data.maxWidth||970)+'px'">
-            <div class="nav-title" v-html="format(data.title && data.title.value)" @click="clickTitle">
+        <div class="sub-nav-inner" :style="'max-width:'+(navList.maxWidth||970)+'px'">
+            <router-link class="nav-title" v-html="format(navList.title && navList.title.value)" :to="navList.title && navList.title.link">
                 
-            </div>
+            </router-link>
             <!-- 搜索框 -->
-            <div class="search" v-if="data.search && Object.prototype.toString.call(data.search) === '[object Object]'">
-                <input type="text" spellcheck="false" v-model="searchVal" @input="inputHandler" @keyup.enter="submit" :placeholder="data.search.placeholder">
+            <div class="search" v-if="navList.search && Object.prototype.toString.call(navList.search) === '[object Object]'">
+                <input type="text" spellcheck="false" v-model="searchVal" @input="inputHandler" @keyup.enter="submit" :placeholder="navList.search.placeholder">
                 <span class="search-btn"><i class="el-icon-search"  @click="submit"></i></span>
             </div>
             <!-- 搜索框位置菜单 -->
-            <ul class="nav-list in-top" v-else-if="data.items && (data.items instanceof Array)">
-                <li v-for="(v,i) in data.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
+            <ul class="nav-list in-top" v-else-if="navList.items && (navList.items instanceof Array)">
+                <li v-for="(v,i) in navList.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
                     <router-link :to="v.link" v-html="format(v.value)"></router-link>
-                    <div class="active-flag"></div>
+                    <!-- <div class="active-flag"></div> -->
                 </li>
             </ul>
         </div>
-        <div class="bottom-nav" v-if="data.search && data.items">
+        <div class="bottom-nav" v-if="navList.search && navList.items">
             <ul :class="'nav-list in-bottom '">
-                <li v-for="(v,i) in data.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
+                <li v-for="(v,i) in navList.items" :key="i" :class="v.reg.test($route.fullPath)?'active':''">
                     <router-link :to="v.link" v-html="format(v.value)"></router-link>
                 </li>
             </ul>
@@ -32,13 +32,26 @@ export default {
     data(){
         return {
             searchVal:'',
-            innerWidth:null
+            innerWidth:null,
+            prevKeyword:'',
+            timer:null
 
         }
     },
     props:['data'],
     watch: {
-        
+        '$route.fullPath':function(){
+            this.prevKeyword = '' //清空关键字记录
+        },
+        'searchVal':function(){
+            clearTimeout(this.timer)
+            if(!this.searchVal){
+                this.timer = setTimeout(()=>{
+                    console.log('清空输入框')
+                    this.$emit('submitSearch',this.searchVal) //传空值
+                },2500)
+            }
+        }
     },
     computed:{
         navList(){
@@ -47,17 +60,21 @@ export default {
     },
     methods: {
         clickTitle(){
-            if(this.data.title && this.data.title.link){
-                this.$router.push({
-                    path:this.data.title.link
-                })
-            }else{
-                this.$router.go(-1)
-            }
+            // if(this.data.title && this.data.title.link){
+            //     this.$router.push({
+            //         path:this.data.title.link
+            //     })
+            // }else{
+            //     this.$router.go(-1)
+            // }
         },
         // 发送搜索值
         inputHandler(){
             this.$emit('inputSearch',this.searchVal)
+            if(!this.searchVal){
+                // console.log('清空输入框');
+                // this.$emit('submitSearch',this.searchVal)
+            }
         },
         format(str){
             if(typeof str ==='string'){
@@ -69,8 +86,11 @@ export default {
             }
         },
         submit(){
+            this.searchVal = this.searchVal.trim()
             if(this.searchVal){
+                if(this.searchVal===this.prevKeyword) return
                 this.$emit('submitSearch',this.searchVal)
+                this.prevKeyword = this.searchVal
             }
         }
     },
@@ -144,9 +164,17 @@ export default {
         // 纵向排列list激活样式
         li {
             margin-right:1.5em;
+            a {
+                padding-bottom:2px;
+            }
         }
         li.active {
             position: relative;
+            a {
+                // text-shadow: 0 0 1px #333;
+                background-color: #1ca9b1;
+                color:#fff;
+            }
         }
         .active-flag {
             width:3px;
@@ -187,7 +215,7 @@ export default {
             // margin-right:1.5em;
             a {
                 font-size:16px;
-                padding:0px 3px;;
+                padding:0px 4px;;
                 color:#0e959d;
                 border-radius:3px;
                 white-space:nowrap;

@@ -3,55 +3,47 @@
     <NavMain></NavMain>
 
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
-    <NavSub :data="data"  @inputSearch="currentSearch" @submitSearch="searchSubmit()"></NavSub>
+    <!-- <NavSub :data="data"  @inputSearch="currentSearch" @submitSearch="searchSubmit()"></NavSub> -->
+    <NavSub :data="navSubData" @submitSearch="searchSubmit"></NavSub>
     <div class="forum-index" v-loading="loading">
         <div class="main-box">
-
-            <ArticleItems v-for="(v,i) in list" :key="i" :data="v"></ArticleItems>
-            <!-- 推荐的内容 -->
-            <div class="recommend"  v-if=" (list instanceof Array) && list.length>0">
-                <router-link to="/forum/article/new"  style="margin:11px 0;display:block">
-                    <button class="bu-button bu-black">发帖</button>
-                </router-link>
-                <h2>你可能喜欢</h2>
-                <ul>
-                    <li v-for="(v,i) in list" :key="i">
-                        <router-link :to="'/forum/'+v._id"><i class="el-icon-document"></i> {{v.title}}</router-link>
-                    </li>
-                </ul>
-            </div>
-            <p v-if=" (list instanceof Array) && list.length===0" class="if-data-empty">暂无数据("▔□▔)</p>
-            <!--分页-->
-            <div style="text-align:center;padding:15px 0 22px;" v-else>
-                <el-pagination
-                background
-                :current-page="currentPage"
-                :page-size ="size"
-                :pager-count="5"
-                @current-change="changePage"
-                layout="prev, pager, next"
-                :total="total">
-                </el-pagination>
-            </div>
+            <router-view></router-view>
+            <div class="recommend"  v-if=" (articleList instanceof Array) && articleList.length>0">
+                <div class="ctrl-board">
+                    <router-link to="/forum/article/new"  style="">
+                        <!-- <button class="bu-button bu-black">发帖</button> -->
+                        发文章
+                    </router-link>
+                </div>
+                <section class="relation" v-if="$route.path.split('/').length===3">
+                    <h2>关联阅读</h2>
+                    <ul>
+                        <li v-for="(v,i) in articleList" :key="i">
+                            <router-link :to="'/forum/'+v._id"><i class="">{{i+1}}</i> {{v.title}}</router-link>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>推荐点阅</h2>
+                    <ul>
+                        <li v-for="(v,i) in articleList" :key="i">
+                            <router-link :to="'/forum/'+v._id"><i class="">{{i+1}}</i> {{v.title}}</router-link>
+                        </li>
+                    </ul>
+                </section>
+            </div>    
         </div>
     </div>     
 </div>
 </template>
 <script>
-import Switch111 from  '../common/switch'
 import NavSub from '@/components/common/nav_sub'
 import NavMain from '@/components/common/nav_main'
-import ArticleItems from '@/components/common/article_items'
 export default {
     data(){
-        return {
-            active:false,
-            list:'',
-            total:0,
-            size:3,
-            currentPage:0,
-            loading:false,        
-            data:{
+        return {  
+            // list页面导航      
+            data1:{
                 title:{
                     value:'论坛',
                     link:'/forum'
@@ -59,97 +51,124 @@ export default {
                 items:[
                     {
                         value:'全部',
-                        link:'/forum?category=all',
-                        reg:/category=all/
+                        link:'/forum',
+                        reg:/^(\/forum$)|(\/forum\?page)/
                     },
                     {
                         value:'精华',
-                        link:'/forum?good=good&page=1',
+                        link:'/forum?good=good',
                         reg:/good=good/
                     },
-                    {
-                        value:'分享',
-                        link:'/forum?category=share&page=1',
-                        reg:/category=share/
-                    },
-                    {
-                        value:'问答',
-                        link:'/forum?category=ask&page=1',
-                        reg:/category=ask/
-                    },
+                    // {
+                    //     value:'分享',
+                    //     link:'/forum?category=share',
+                    //     reg:/category=share/
+                    // },
+                    // {
+                    //     value:'问答',
+                    //     link:'/forum?category=ask',
+                    //     reg:/category=ask/
+                    // },
                 ],
                 search:{
                     placeholder:'搜索',
                     value:''
                 },
                 // maxWidth:970,
-            }
+            },
+            // item页面导航
+            data2:{
+                title:{
+                    value:'论坛',
+                    link:'/forum'
+                },
+                search:{
+                    placeholder:'搜索',
+                    value:''
+                },
+                // maxWidth:970,
+            },
+            articleList:[],
+            loading:false,
+            navSubData:null,//当前navsubdata
+            prevFullPath:''
 
         }
     },
     components:{
-        Switch111,
         NavMain,
         NavSub,
-        ArticleItems
     },
     watch:{
-        "$route.query":function(){
-            this.getArticle()
-        }
+        '$route.fullPath':'setSubNavData'
     },
     methods:{
-        searchSubmit(){
-            console.log('点击搜索');
+        searchSubmit(keyword){
+            console.log('点击搜索',keyword);
+            if(keyword){
+                this.$router.push({
+                    path:'/forum',
+                    query:{
+                        s:keyword
+                    }
+                })
+            }else{
+                // 用户清空input
+                if(this.$route.path.split('/').length===2){
+                    console.log('sss');
+                    this.$router.push({
+                        path:'/forum'
+                    })
+                }
+            }
         },
         currentSearch(val){
             this.search = val
-            // if(!this.searchName && !this.$route.query.type){
-            //     this.$router.push({query:{type:'all'}})
-            // }
+        },
+        setSubNavData(){
+            // forum 主页
+            if(this.$route.path.split('/').length===2){
+                this.navSubData = this.data1
+                this.prevFullPath = this.$route.fullPath
+            // 详情页
+            }else{     
+                if(this.prevFullPath ){
+                    this.data2.title.link = this.prevFullPath
+                }
+                this.navSubData = this.data2
+                this.prevFullPath = ''
+            }
         },
         // 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean}
-        getArticle(){
+        getArticleTop(){
             this.loading = true
             this.$axios.getArticle({
-                category:this.$route.query.category || '', //''即获取全部
-                page:this.$route.query.page || '1',
-                good:this.$route.query.good || '',
-                size:this.size
+                category:'', //''即获取全部
+                page:'1',
+                good: '',
+                size:8
             }).then(res=>{
                 this.loading = false
                 if(res.data.success){
-                    this.list = res.data.data
-                    this.total = res.data.total
+                    this.articleList = res.data.data
                 }
             }).catch(err=>{
                 this.loading = false
             })
         },
-        changePage(p){
-            this.currentPage = p
-            let q = JSON.parse(JSON.stringify(this.$route.query))
-            q.page = p
-            this.$router.push({query:q} )
-            // console.log(val);
-        },
-        init(){
-            this.getArticle()
-            this.currentPage = this.$route.query.page?Number(this.$route.query.page):1
-        }
 
     },
+    beforeMount(){
+        this.setSubNavData()
+    },
     created(){
-            let q = this.$route.query
-            if(!q.category||!q.good){
-                this.$router.replace({
-                    query:{category:'all'}
-                })
-                this.init()
-            }else{
-                this.init()
-            }
-    }
+        this.getArticleTop()
+        console.log(this.$router);
+    },
+    beforeRouteEnter (to, from, next) {
+        // localStorage.setItem('fromPath',from.fullPath)
+        next()
+    },
     
 };
 </script>
@@ -161,7 +180,7 @@ export default {
     position: relative;
     display:flex;
     border-radius:4px 4px 0 0;
-    padding-right:355px;
+    padding-right:338px;
     .main-box {
         flex:1;
         background-color: #fff;
@@ -170,17 +189,38 @@ export default {
         min-height:370px;
         // 右侧推荐区
         .recommend {
-            width:300px;
+            width:272px;
             // border:1px solid #f7f7f7;
             position:absolute;
-            right:12px;
+            right:0px;
             top:0;
-            padding:0 12px 12px;
+            // padding:0 12px 12px;
+            div.ctrl-board {
+                background-color: #f2f7f2;
+                padding:25px 12px;
+                border-radius:3px;
+                margin-bottom:15px;
+                a {
+                    background-color: #42adac;
+                    padding:7px 15px;
+                    border-radius:4px;
+                    color:#fff;
+                    font-weight:600;
+                    &:hover {
+                        background-color: #0e959d;
+                        text-shadow:0 0 3px #fff;
+                    }
+                }
+            }
+            section {
+                margin-bottom:22px;
+            }
             h2 {
-                font-size:15px;
-                margin-bottom:6px;
+                font-size:16px;
+                font-weight:600;
+                margin-bottom:7px;
                 padding-bottom:4px;
-                color:#0e959d;
+                color:#72a4a9;
                 // font-weight:600;
                 border-bottom:1px solid #f1f1f1;
             }
@@ -189,16 +229,39 @@ export default {
                     text-overflow:ellipsis;
                     white-space: nowrap;
                     overflow:hidden;
-                    margin-bottom:3px;
+                    margin-bottom:5px;
                     a {
-                        color:#b4b4b4;
-                        font-size:14px;
+                        color:#3aa7a2;
+                        font-size:15px;
                         &:hover {
-                            color:#0e959d;
+                            color:#117d84;
                         }
                         i {
-                            color:#0e959d;
-
+                            color:#fff;
+                            background-color: #48c4cc;
+                            font-size:.8em;
+                            border-radius:3px;
+                            padding:0px 4px;
+                        }
+                    }
+                }
+                li:nth-of-type(1) a i{
+                    background-color: #f54545;
+                }
+                li:nth-of-type(2) a i{
+                    background-color: #ff8547;
+                }
+                li:nth-of-type(3) a i{
+                    background-color: #ffac38;
+                }
+            }
+            section.relation ul{
+                li {
+                    a {
+                        &:hover {
+                        }
+                        i {
+                            background-color: #79d0d6;
                         }
                     }
                 }
@@ -211,10 +274,14 @@ export default {
         }
     }
     @media screen and (max-width:768px){
-        padding-right:250px;
+        padding-right:0vw;
         .main-box {
             .recommend {
-                width:235px;
+                width:100%;
+                position: relative;;
+                div.ctrl-board {
+                    display:none;
+                }
                 h2 {
                 }
                 ul{
@@ -235,11 +302,19 @@ export default {
         padding-right:0px;
         .main-box {
             .recommend {
-                display:none;
+                position: relative;;
             }
         }
     }
 }
 
 </style>
+<style>
+    .forum .x-nav-sub ul.nav-list li a {
+        font-size: 16px;
+        padding: 0px 7px 2px !important;
+    }
+
+</style>
+
     

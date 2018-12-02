@@ -38,6 +38,7 @@ import example_details from '@/components/example/example_details'
 
 // forum
 import forum from '@/components/forum/forum'
+import forum_list from '@/components/forum/forum_list'
 import forum_item from '@/components/forum/forum_item'
 import forum_article_new from '@/components/forum/forum_article_new'
 
@@ -123,8 +124,14 @@ const vueRouter = new Router({
     {path:'/document',component:document},
     
     // forum 交流区
-    {path:'/forum',component:forum},
-    {path:'/forum/:id',component:forum_item},
+    {
+      path:'/forum',
+      component:forum,
+      children:[
+        {path:'',component:forum_list},
+        {path:':id',component:forum_item},
+      ]
+    },
     {path:'/forum/article/new',component:forum_article_new},
     {path:'/forum/article/edit/:id',component:forum_article_new},
     //个人中心
@@ -232,7 +239,7 @@ vueRouter.beforeEach((to, from, next) => {
   // next()
 })
 vueRouter.afterEach((to,from,next)=>{
-    // window.scrollTo(0,0)
+    window.scrollTo(0,0)
 })
 
 

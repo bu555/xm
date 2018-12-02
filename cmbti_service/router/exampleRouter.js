@@ -85,15 +85,41 @@ const addExample = (req,res)=>{
 }
 const searchExample = (req,res,next)=>{
     let options = req.body.params
+    if(options.name){
+        options.name = myUtill.strTrim(options.name)
+    }
     Example.searchExample(options).then(example=>{
             // 分页处理
-            if(options.name){
-                options.name = myUtill.strTrim(options.name)
-            }
             if(!example){
                 example = []
             }else if(!(example instanceof Array)){
                 example = [example]
+            }
+            // 设置排序 ：有投票>无投票 + 有投票（时间优先）
+            if(example.length>1){
+                let notVoteList = []
+                let list = []
+                example.forEach((v,i)=>{
+                    if(v.type==='****') {
+                        notVoteList.push(v)
+                    }else{
+                        list.push(v)
+                    }
+                })
+                let temp
+                for(let i=0;i<list.length-1;i++){
+                    let flag = 1
+                    for(let j=0;j<list.length-i-1;j++){
+                        if(list[j].total<list[j+1].total){
+                            temp = list[j]
+                            list[j] = list[j+1]
+                            list[j+1] = temp
+                            flag = 0
+                        }
+                    }
+                    if(flag===1) break  //如果没发生交换，说明数组有序
+                }
+                example = list.concat(notVoteList)
             }
             let reg = /^[1-9]\d{0,}$/    // 非零非负整数
             let page = reg.test(options.page)? Number(options.page):1
@@ -232,7 +258,7 @@ const getComment = (req,res)=>{
                 // 排序
                 if(options.type && options.type==='hot'){
                     let temp
-                    for(let i=0;i<list.length;i++){
+                    for(let i=0;i<list.length-1;i++){
                         let flag = 1
                         for(let j=0;j<list.length-i-1;j++){
                             if(list[j].zans<list[j+1].zans){

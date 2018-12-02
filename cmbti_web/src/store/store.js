@@ -10,6 +10,8 @@ const state = {
     refUser:0, //通知刷新用户信息,递加1
     meta:{},
     myTabName:'', //个人中心tab名字
+    fromPath:'', //记录来自路由
+    account:{},
 
 } 
 const mutations = {
@@ -23,6 +25,12 @@ const mutations = {
     setMeta(state,value){
         state.meta = value;
     },
+    setFromPath(state,value){
+        state.fromPath = value;
+    },
+    setAccount(state,account){
+        state.account = Object.assign({},state.account,account);
+    }
 }
 export default new Vuex.Store({
     state,

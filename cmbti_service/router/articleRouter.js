@@ -247,7 +247,7 @@ const clickCommentZan = (req,res)=>{
         }
     })()
 }
-// 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean,size:'',page}
+// 获取文章 options {keyword:'',category:'ask',likes:'Number',good:boolean,size:'',page:''}
 const getArticle = (req,res)=>{
     let options = req.body || {}
     // 参数验证
@@ -366,7 +366,7 @@ const getCommentByAid = (req,res)=>{
                 // 排序
                 if(options.type && options.type==='hot'){  //按赞同数量
                     let temp
-                    for(let i=0;i<list.length;i++){
+                    for(let i=0;i<list.length-1;i++){
                         let flag = 1
                         for(let j=0;j<list.length-i-1;j++){
                             if(list[j].zans<list[j+1].zans){

@@ -13,23 +13,36 @@
             </el-select>
       </el-form-item>
   </el-form>
+  <el-form ref="form" label-width="82px">
+      <el-form-item label="Key">
+        <!-- <el-input v-model="form.category" spellcheck="false"></el-input> -->
+            <el-select v-model="form.key" filterable placeholder="请选择" style="width:100%">
+                <el-option
+                v-for="(item,index) in keyList"
+                :key="index"
+                :label="item"
+                :value="item">
+                </el-option>
+            </el-select>
+      </el-form-item>
+  </el-form>
   <!-- <el-form ref="form" label-width="82px">
       <el-form-item label="Category">
         <el-input v-model="form.category" spellcheck="false"></el-input>
       </el-form-item>
   </el-form> -->
-  <el-form ref="form" label-width="82px">
+  <!-- <el-form ref="form" label-width="82px">
       <el-form-item label="Key">
         <el-input v-model="form.key" spellcheck="false"></el-input>
       </el-form-item>
-  </el-form>
+  </el-form> -->
   <el-form ref="form" label-width="82px">
       <el-form-item label="标题">
         <el-input v-model="form.title" spellcheck="false"></el-input>
       </el-form-item>
   </el-form>
   <el-form ref="form" label-width="82px">
-      <el-form-item label="标题">
+      <el-form-item label="內容">
         <wangEditor @changeContent="getContent" :articleContent="initData.content"></wangEditor>
       </el-form-item>
   </el-form>
@@ -46,7 +59,7 @@ export default {
           content:'',
           title:'',
           key:'',
-          category:''
+          category:'personality'
         },
         initData:{
           content:''
@@ -54,6 +67,7 @@ export default {
         loading:false,
         categoryList:[
             'personality',
+            'func'
         ],
         id:''
 
@@ -62,6 +76,17 @@ export default {
     components:{
         wangEditor,
     },
+    computed:{
+        keyList(){
+            if(this.form.category==='personality'){
+                return this.$mbti.types
+            }else if(this.form.category==='func'){
+                return this.$mbti.f8
+            }else{
+                return []
+            }
+        }
+    },
     methods:{
         getContent(c){
             this.form.content = c
@@ -69,7 +94,8 @@ export default {
         submit(){
             let content = this.form.content
             if(process.env.NODE_ENV === "development"){
-                content = content.replace(/\/apis\/upload\//g,'/upload/')
+                // content = content.replace(new RegExp('^'+process.env.API_HOST+'/upload','g'),'/upload')
+                content = content.replace(new RegExp(process.env.API_HOST,'g'),'')
             }
             this.loading = true
             this.$axios.setDocument({
@@ -84,7 +110,11 @@ export default {
                     this.$message({
                         message: '操作成功！',
                         type: 'success',
+                        duration:1000
                     });
+                    this.$router.push({
+                        path:'/admin/doc'
+                    })
                 }else{
                     this.$message({
                         message: res.data.message || '操作失败！',

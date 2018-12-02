@@ -13,10 +13,11 @@ class Article {
                     // 去重
                     options.tags = Array.from( new Set(options.tags.split(',')) )
                 }
+                let coverImage = getCoverImage(options.content)
                 ArticleModel.article.findOne({"_id":options.aid}).then(a=>{
                     if(!a) return reject("The aid find failed")
                     if(a.uid!==options.uid) return reject("The uid not match!")
-                    ArticleModel.article.update({"_id":options.aid},{$set:{"title":options.title,"category":options.category,"edit_time":new Date(),"tags":options.tags ||'',state:1}},err=>{
+                    ArticleModel.article.update({"_id":options.aid},{$set:{"title":options.title,"coverImage":coverImage,"category":options.category,"edit_time":new Date(),"tags":options.tags ||'',state:1}},err=>{
                             if(err) return reject("The article $set faild")
                             ArticleModel.content.update({"aid":options.aid},{$set:{"content":options.content,"size":options.content.length}},err=>{
                                     if(err) return reject("The content $set faild")
@@ -30,12 +31,7 @@ class Article {
                     let profile = options.content.replace(/<[^>]+>/g,"").replace(/[\s\r\n]|&nbsp;|&nbsp/g,"") //去除标签
                     profile = myUtill.splitStr(profile,365) //截取
                     
-                    let coverImage
-                    options.content.replace(/<img[^>]*>/,function(str){
-                        str.replace(/src="[^"]*"/,function(str){
-                            coverImage =  str.split('"')[1]
-                        })
-                    })
+                    let coverImage = getCoverImage(options.content)
                     new ArticleModel.article({
                         uid:options.uid,
                         title:options.title, //ask share
@@ -76,6 +72,16 @@ class Article {
                     })
             }
         })
+        function getCoverImage(content){
+            let coverImage = ""
+            content.replace(/<img[^>]*>/,function(str){
+                str.replace(/src="[^"]*"/,function(str){
+                    coverImage =  str.split('"')[1]
+                })
+            })
+            return coverImage ? coverImage : ""
+
+        }
     }
     // 删除文章(用户) options:{aid:''，uid:''}
     static deleteArticle(options){
@@ -329,11 +335,7 @@ class Article {
             if(options.keyword){
                 pro = ArticleModel.article.find({"title":new RegExp(options.keyword,'i')},"-like")
             }else if(options.category){
-                if(options.category==='all'){
-                    pro = ArticleModel.article.find({},"-like")
-                }else{
-                    pro = ArticleModel.article.find({"category":options.category},"-like")
-                }
+                pro = ArticleModel.article.find({"category":options.category},"-like")
             }else if(options.likes){
                 // Model.find({“age”:{ “$get”:18 , “$lte”:30 } } ); 查询 age 大于等于18并小于等于30的文档
                 // “$lt”小于  “$lte”	小于等于   “$gt”大于   “$gte”	大于等于  “$ne”	不等于

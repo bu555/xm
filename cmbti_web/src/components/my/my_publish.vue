@@ -161,7 +161,7 @@ export default {
             display:none;
             position: absolute;
             top:22px;
-            left:-3px;
+            left:-6px;
             font-size:12px;
             width:32px;
           }

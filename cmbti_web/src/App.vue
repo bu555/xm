@@ -18,13 +18,15 @@
 import navMain from './components/common/nav_main'
 import myFooter from './components/common/footer'
 import loginModal from '../src/components/user/user_login_modal'
+import Vue from 'vue'
 // import copyHandler from './assets/copyHandler'
 export default {
   name: 'App',
   data(){
       return {
         routerHeight:400,
-        showPage:true
+        showPage:true,
+        loading: false
       }
   },
   components: {
@@ -113,7 +115,27 @@ export default {
        if(localStorage.getItem('USER')){
           this.$store.commit('setUserInfo',JSON.parse(localStorage.getItem('USER')))
        }
-    }
+    },
+    getAccount(){
+      return new Promise((resolve,reject)=>{
+          // 获取账户信息
+          if(this.$store.state.userInfo){
+              this.loading = true
+              this.$axios.getAccountInfo().then(res=>{
+                  this.loading = false
+                  if(res.data.success){
+                      this.$store.commit('setAccount',res.data.data)
+                      resolve(res.data.data)
+                  }
+              }).catch(err=>{
+                  this.loading=false
+              })
+          }else{
+            reject('未登录')
+          }
+
+      })
+    },
   },
   mounted(){
     // copyHandler()
@@ -122,6 +144,7 @@ export default {
   created(){
     this.init()
     this.getMeta()
+    Vue.prototype.$getAccount = this.getAccount
   }
 }
 </script>
@@ -149,6 +172,9 @@ export default {
       .router-view {
         overflow: hidden;
         min-height:515px
+      }
+      input,button {
+        font-family: 'Microsoft YaHei','Arial','Verdana'
       }
       font-size:16px;
       // 编辑器、文章容器样式重写

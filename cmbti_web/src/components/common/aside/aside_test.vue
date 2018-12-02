@@ -3,13 +3,13 @@
         <h3>特色测试</h3>
         <ul class="item">
             <li>
-                <router-link to="/">INTP/INTJ测试</router-link>
+                <router-link to="/">· INTP/INTJ测试</router-link>
             </li>
             <li>
-                <router-link to="/">ENTP/ENFP测试</router-link>
+                <router-link to="/">· ENTP/ENFP测试</router-link>
             </li>
             <li>
-                <router-link to="/">ESTP/ENTJ测试</router-link>
+                <router-link to="/">· ESTP/ENTJ测试</router-link>
             </li>
         </ul>
     </div>
@@ -28,9 +28,11 @@ export default {
 <style lang="less">
 .sub-comp{
     background-color: #f9fbf8;
+    padding: 8px 6px;
     h3 {
         font-size:16px;
         margin-bottom:5px;
+        font-weight: 600;
     }
     ul.item {
         li {

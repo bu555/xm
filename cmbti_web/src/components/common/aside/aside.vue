@@ -2,12 +2,14 @@
     <div class="aside-comp">
         <mbtiComp v-if="current==='mbti'"></mbtiComp>
         <testComp v-if="current==='test'"></testComp>
+        <!-- <indexComp v-if="current==='index'"></indexComp> -->
 
     </div>
 </template>
 <script>
 import mbtiComp from '@/components/common/aside/aside_mbti'
 import testComp from '@/components/common/aside/aside_test'
+// import indexComp from '@/components/common/aside/aside_index'
 export default {
     data(){
         return {
@@ -17,6 +19,7 @@ export default {
     components:{
         mbtiComp,
         testComp,
+        // indexComp,
     },
     methods:{
         init(){
@@ -29,6 +32,8 @@ export default {
                 console.log('forum');
             }else if(/^\/test/.test(path)){
                 this.current = 'test'
+            }else if(/^\/test/.test(path)){
+                this.current = 'index'
             }
         }
     },
@@ -42,7 +47,7 @@ export default {
     width:280px;
     margin:0 auto;
     @media screen and (max-width:992px){
-        width:280px;
+        width:100%;
 
     }
 }

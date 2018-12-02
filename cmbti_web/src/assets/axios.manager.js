@@ -6,7 +6,8 @@ import store from '../store/store'
 
 // var path = "http://192.168.1.106:7000/"; // dev
 
-let path = process.env.NODE_ENV === "development" ? "/apis" : ''
+// let path = process.env.NODE_ENV === "development" ? "/apis" : ''
+let path = process.env.NODE_ENV === "development" ? process.env.API_HOST : ''
 // var path = "/"; //prod
 var pathAPI = path+"/api"; 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -17,31 +18,31 @@ var loadinginstace
 axios.interceptors.request.use(config => {
     // loadinginstace = Loading.service({ fullscreen: true })
     if (process.env.NODE_ENV === "development") {
-        if (config.data) {
-            if(config.data.entries) { //排除formdata
-                return config
-            } 
-            config.data = dataHandler(JSON.parse(JSON.stringify(config.data)))
+        // if (config.data) {
+        //     if(config.data.entries) { //排除formdata
+        //         return config
+        //     } 
+        //     config.data = dataHandler(JSON.parse(JSON.stringify(config.data)))
     
-          function dataHandler(d) {
-            if (Object.prototype.toString.call(d) === '[object Object]') {
-              for (let key in d) {
-                if (typeof d[key] === "string") {
-                  if (/\/apis\/upload\//.test(d[key])) {
-                    d[key] = d[key].replace(/\/apis\/upload\//g, '/upload/')
-                  }
-                } else {
-                  dataHandler(d[key])
-                }
-              }
-            } else if (Object.prototype.toString.call(d) === '[object Array]') {
-              d.forEach((v, i) => {
-                  dataHandler(v)
-              })
-            }
-            return d
-          }
-        }
+        //   function dataHandler(d) {
+        //     if (Object.prototype.toString.call(d) === '[object Object]') {
+        //       for (let key in d) {
+        //         if (typeof d[key] === "string") {
+        //           if (/\/apis\/upload\//.test(d[key])) {
+        //             d[key] = d[key].replace(/\/upload\//g, process.env.NODE+'/upload/')
+        //           }
+        //         } else {
+        //           dataHandler(d[key])
+        //         }
+        //       }
+        //     } else if (Object.prototype.toString.call(d) === '[object Array]') {
+        //       d.forEach((v, i) => {
+        //           dataHandler(v)
+        //       })
+        //     }
+        //     return d
+        //   }
+        // }
     }
     return config
 }, error => {
@@ -66,7 +67,7 @@ axios.interceptors.response.use(data => {
               for (let key in d) {
                 if (typeof d[key] === "string") {
                   if (/\/upload\//.test(d[key])) {
-                    d[key] = d[key].replace(/\/upload\//g, '/apis/upload/')
+                    d[key] = d[key].replace(/\/upload\//g, process.env.API_HOST+'/upload/')
                   }
                 } else {
                   dataHandler(d[key])

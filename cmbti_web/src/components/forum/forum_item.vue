@@ -1,101 +1,79 @@
 <template>
     <div class="forum-item">
-        <NavMain></NavMain>
-        <NavSub :data="subNavData"  @submitSearch="searchSubmit"></NavSub>
-
-        <div class="main-box">
-            <div class="article" v-loading="loading1">
-                <div class="a-header">
-                    <div class="title">
-                        <!-- <div  class="a-type">
-                            <div class="good"  v-if="data.good">精华</div>
-                            <div class="share" v-if="data.category==='share'">分享</div>
-                            <div class="ask"  v-if="data.category==='ask'">问答</div>
-                        </div> -->
-                        <div class="" style="position:relative;width:100%;min-height:55px">
-                            <h1 class="h1">{{data.title}}</h1>
-                            <div class="t-info"> 
-                                <div class="text">
-                                    <Avatar :src="data.avatar" :uid="data.uid" size="small" round="true"></Avatar>
-                                    <span v-if="data.uid" class="overflow-row-1" style="padding-left:5px;max-width:120px">
-                                        <router-link :to="'/info/'+data.uid">
-                                            {{data.r_name}}
-                                        </router-link>
-                                    </span>
-                                    <span v-else class="overflow-row-1" style="padding-left:5px;max-width:120px">{{data.r_name}}</span>
-                                    <!-- <followBtn :isFollow="true" :uuid="'9999'"></followBtn> -->
-                                    <!-- <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span> -->
-                                    <span >{{$moment(data.c_time).format('YYYY.MM.DD HH:mm:ss')}}</span>
-                                    <!-- <span >喜欢 7</span>
-                                    <span >评论 25</span> -->
-                                </div>
+        <div class="article" v-loading="loading1">
+            <div class="a-header">
+                <div class="title">
+                    <div class="" style="position:relative;width:100%;min-height:55px">
+                        <h1 class="h1">{{data.title}}</h1>
+                        <div class="t-info"> 
+                            <div class="text">
+                                <Avatar :src="data.avatar" :uid="data.uid" size="small" round="true"></Avatar>
+                                <span v-if="data.uid" class="overflow-row-1" style="padding-left:5px;max-width:120px">
+                                    <router-link :to="'/info/'+data.uid">
+                                        {{data.r_name}}
+                                    </router-link>
+                                </span>
+                                <span v-else class="overflow-row-1" style="padding-left:5px;max-width:120px">{{data.r_name}}</span>
+                                <!-- <followBtn :isFollow="true" :uuid="'9999'"></followBtn> -->
+                                <!-- <span ><i class="el-icon-time"></i> 发布于 {{$moment(data.c_time).startOf().fromNow()}}</span> -->
+                                <span >{{$moment(data.c_time).format('YYYY.MM.DD HH:mm:ss')}}</span>
+                                <!-- <span >喜欢 7</span>
+                                <span >评论 25</span> -->
                             </div>
-
                         </div>
-                    </div>
-                </div>
 
-                <div class="a-body editor-base-style"  v-html="content" id="article-content">
-                <!--<div class="a-body"  v-html="test">-->
-                </div>
-                <div class="main-ctrl">
-                    <!-- <div>
-                        <span class="a-zan btns1" :style="data.articleZaned?'color:#4d9efc':''" @click="articleAZan"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.zans}})</em></span>
-                        <div class="m-loading" v-if="zanLoading"><i class="el-icon-loading" ></i></div>
-                    </div> -->
-                    <div>
-                        <span  class="a-like btns2" :style="data.articleLiked?'color:#409eff':''" @click="clickLike"><i :class="data.articleLiked?'fa fa-heart':'fa fa-heart-o'"></i><br/>喜欢 <em>({{data.likes}})</em></span>
-                        <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
-                        <div class="m-loading" v-if="likeLoading"><i class="el-icon-loading"></i></div>
-                    </div>
-                    <div>
-                        <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>写评论</span>
-                        <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
                     </div>
                 </div>
-                <div :class="'a-publish-comment '+(showComment?'mobile-show':'')">
-                    <p style="margin-bottom:5px">发表评论：</p>
-                    <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
-                        spellcheck="false"></el-input><br>
-                    <div style="text-align:right;padding-top:10px">
-                        <!-- <el-button size="small" type="default"  @click="showComment=false;myComment=''">取 消</el-button>
-                        <el-button size="small" type="primary" @click="addComment">发 表</el-button> -->
-                        <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
-                        <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
-                        <button class="bu-button bu-gblue" style="margin-left:7px;"  @click="addComment">发 表</button>
-                    </div>
-                </div>
-
             </div>
-            <!-- 推荐的内容 -->
-            <div class="recommend">
-                <router-link to="/forum/article/new"  style="margin:11px 0;display:block">
-                    <button class="bu-button bu-black">发帖</button>
-                </router-link>
-                <h2>你可能喜欢</h2>
-                <ul>
-                    <li v-for="(v,i) in 7" :key="i">
-                        <router-link :to="'/forum/'+i"><i class="el-icon-document"></i> {{'INTP人格类型：思想者与追求者INTP人格类型：思想者与追求者INTP人格类型：思想者与追求者'}}</router-link>
-                    </li>
-                </ul>
+
+            <div class="a-body editor-base-style"  v-html="content" id="article-content">
+            <!--<div class="a-body"  v-html="test">-->
             </div>
-            <!--来自account的评论-->
-            <div id="mycomment" ></div>
-            <!--来自account的评论 end-->
-            <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
-
-            <!-- 文章评论 -->
-            <CommentComp :aid="this.aid"></CommentComp>
-
-
+            <div class="main-ctrl">
+                <!-- <div>
+                    <span class="a-zan btns1" :style="data.articleZaned?'color:#4d9efc':''" @click="articleAZan"><i class="fa fa-thumbs-up"></i><br/>赞 <em>({{data.zans}})</em></span>
+                    <div class="m-loading" v-if="zanLoading"><i class="el-icon-loading" ></i></div>
+                </div> -->
+                <div>
+                    <span  class="a-like btns2" :style="data.articleLiked?'color:#409eff':''" @click="clickLike"><i :class="data.articleLiked?'fa fa-heart':'fa fa-heart-o'"></i><br/>喜欢 <em>({{data.likes}})</em></span>
+                    <!--<span  v-else class="a-like btns1" style="margin-right:15px" @click="clickLike"><i class="fa fa-star-o"></i> 收藏 <em>({{data.likes}})</em></span>-->
+                    <div class="m-loading" v-if="likeLoading"><i class="el-icon-loading"></i></div>
+                </div>
+                <!-- <div>
+                    <span ><i class="fa fa-pencil-square-o"></i><br/>发表</span>
+                </div> -->
+                <div>
+                    <span :class="showComment?'a-comm active':'a-comm'" @click="showComment=!showComment"><i class="fa fa-pencil-square-o"></i><br/>评论</span>
+                    <!--<el-button plain size="small"  style="font-size:15px" @click=""><i class="el-icon-edit-outline"  style="font-size:16px"></i> 评论</el-button>-->
+                </div>
+            </div>
+            <div :class="'a-publish-comment '+(showComment?'mobile-show':'')">
+                <p style="margin-bottom:5px">发表评论：</p>
+                <el-input type="textarea" v-model="myComment" placeholder="写下你的观点....." :rows="4" 
+                    spellcheck="false"></el-input><br>
+                <div style="text-align:right;padding-top:10px">
+                    <!-- <el-button size="small" type="default"  @click="showComment=false;myComment=''">取 消</el-button>
+                    <el-button size="small" type="primary" @click="addComment">发 表</el-button> -->
+                    <button class="bu-button bu-default" @click="showComment=false;myComment=''">取 消</button>
+                    <!-- <el-button size="small" type="primary" @click="comment()">发 表</el-button> -->
+                    <button class="bu-button bu-gblue" style="margin-left:7px;"  @click="addComment">发 表</button>
+                </div>
+            </div>
 
         </div>
+        <!--来自account的评论-->
+        <div id="mycomment" ></div>
+        <!--来自account的评论 end-->
+        <CommentComp :accountCommentList="this.accountCommentList"></CommentComp>
+
+        <!-- 文章评论 -->
+        <CommentComp :aid="this.aid"></CommentComp>
+
+
     </div>
 </template>
 <script>
 import CommentComp from '../common/comment'
-import NavSub from '@/components/common/nav_sub'
-import NavMain from '@/components/common/nav_main'
 import followBtn from '@/components/common/follow_btn'
 export default {
     data(){
@@ -111,33 +89,15 @@ export default {
             accountCommentList:'', //我的评论，从个人中心跳转
             likeLoading:false,
             zanLoading:false,    
-         
-            subNavData:{
-                title:{
-                    value:'论坛',
-                    link:'/forum'
-                },
-                // items:[
-                //     {
-                //         value:'',
-                //         link:''
-                //     }
-                // ],
-                search:{
-                    placeholder:'搜索',
-                    value:''
-                },
-                // maxWidth:970,
-            }
+
         }
     },
     components:{
         CommentComp,
-        NavMain,
-        NavSub,
         followBtn
     },
     watch:{
+        '$route.path':'init'
     },
     computed:{
         content(){
@@ -164,9 +124,6 @@ export default {
         }
     },
     methods:{
-        searchSubmit(value){
-            console.log('点击搜索:',value);
-        },
         clickZanArticle(){
 
         },
@@ -226,32 +183,30 @@ export default {
                 this.likeLoading = false
             })
         },
+        init(){
+            this.aid = this.$route.path.split('/')[2]
+            if(this.aid){
+                this.getArticleInfo()
+
+            }
+            //处理my 评论
+            if(this.$route.query.index || this.$route.query.index===0){
+                if(localStorage.getItem('dataA')){
+                    let temp = JSON.parse(localStorage.getItem('dataA'))
+                    if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档
+                        this.accountCommentList = temp[this.$route.query.index-0].comment
+                    }
+                }
+            }
+        }
     },
     mounted(){
     },
     created(){
-        this.aid = this.$route.path.split('/')[2]
-        if(this.aid){
-            this.getArticleInfo()
+        this.init()
 
-        }
-        //处理my 评论
-        if(this.$route.query.index || this.$route.query.index===0){
-            if(localStorage.getItem('dataA')){
-                let temp = JSON.parse(localStorage.getItem('dataA'))
-                if(temp[this.$route.query.index-0].aid === this.aid){  //保证是同一篇文档
-                    this.accountCommentList = temp[this.$route.query.index-0].comment
-                }
-            }
-        }
-
-        let fromPath = localStorage.getItem('fromPath')
-        if(fromPath && /^\/forum\/$/.test(fromPath) ){
-            this.data.title.link = ''
-        }
     },
     beforeRouteEnter (to, from, next) {
-        localStorage.setItem('fromPath',from.fullPath)
         next()
     },
     
@@ -262,10 +217,6 @@ export default {
 .forum-item {
     position: relative;
     
-    // 隐藏最底部tab
-    .x-nav-sub .bottom-nav {
-        display:none; 
-    }
     // 重写关注按钮
     .follow-ctrl-btn {
         padding:0;
@@ -281,49 +232,7 @@ export default {
         background-color: #eee;
         }
     }
-    .main-box {
-        max-width:970px;
-        margin:28px auto;
-        position: relative;
-        border-radius:4px 4px 0 0;
-        padding-right:275px;
-        // 右侧推荐区
-        .recommend {
-            width:250px;
-            // border:1px solid #f7f7f7;
-            position:absolute;
-            right:12px;
-            top:0;
-            padding:0 12px 12px;
-            margin-bottom:12px;
-            h2 {
-                font-size:15px;
-                margin-bottom:6px;
-                padding-bottom:4px;
-                color:#0e959d;
-                // font-weight:600;
-                border-bottom:1px solid #f1f1f1;
-            }
-            ul{
-                li {
-                    text-overflow:ellipsis;
-                    white-space: nowrap;
-                    overflow:hidden;
-                    margin-bottom:3px;
-                    a {
-                        color:#b4b4b4;
-                        font-size:14px;
-                        &:hover {
-                            color:#0e959d;
-                        }
-                        i {
-                            color:#0e959d;
-
-                        }
-                    }
-                }
-            }
-        }
+    .article{
         .a-header {
             margin-bottom:12px;
             .title {
@@ -481,7 +390,7 @@ export default {
         }
         .main-ctrl {
             padding:.5em 16px;
-            border-top:1px solid #eee;
+            border-top:1px solid #f8f8f8;
             background-color: #fefefe;
             justify-content: space-between;
             position:fixed;
@@ -529,7 +438,7 @@ export default {
                 position:relative;
                 justify-content: center;
                 padding:1.2em 16px;
-                &>div:last-child {
+                &>div:nth-of-type(2),&>div:nth-of-type(3) {
                     display:none;
                 }
                 .a-like {   
@@ -547,16 +456,14 @@ export default {
             text-decoration:none;
         }
         @media screen and (min-width:993px){
-            .main-box .a-body {
+            .a-body {
                 font-size:16px;
                 line-height: 22px;;
             }
 
         }
         @media screen and (max-width:992px){
-            .main-box {
-                padding-left:15px;
-            }
+
         }
         @media screen and (max-width:768px){
             .a-publish-comment.mobile-show {
@@ -570,8 +477,6 @@ export default {
                 padding-right:16px;
                 z-index:1;
             }
-            .main-box {
-                padding:0 16px;
                 .main-ctrl {
                     display:flex;
                     position:fixed;
@@ -585,9 +490,9 @@ export default {
                     top:0;
                     padding:0;
                 }
-            }
         }
-}
+    
+    }
 
 </style>
     

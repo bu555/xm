@@ -1,5 +1,5 @@
 <template>
-<div class="admin-content">
+<div class="admin-doc">
     <el-table
       :data="tableData"
       style="width: 100%">
@@ -68,30 +68,42 @@ export default {
          window.docItem = row
          this.$router.push({path:'/admin/doc/edit'})
       },
-      getDocument(){
+      getDocument(category){
+        return new Promise((resolve,reject)=>{
             this.loading = true
             this.$axios.getDocument({
-                category:'personality'
+                category:category
             }).then(res=>{
                 this.loading = false
                 if(res.data.success){
-                    this.tableData = res.data.data;
+                    this.tableData = this.tableData.concat(res.data.data);
+                    resolve()
                 }
             }).catch(err=>{
                 this.loading = false
             })
+        })
       }
   },
   created(){
-    this.getDocument()
+    this.getDocument('personality').then(res=>{
+      this.getDocument('func')
+    })
     // console.log('moment:',this.$moment(this.$moment(new Date()).utc().format()).format('YYYY-MM-DD HH:mm:ss')  );
   }
 }
 </script>
 <style lang="less">
-.admin-content {
+.admin-doc {
 
 }
 </style>
+<style>
+.admin-doc .el-table td, .admin-doc .el-table th {
+    padding: 7px 0;
+}
+
+</style>
+
 
 

@@ -74,9 +74,9 @@ export default {
     },
     mounted(){
         // this.$message({
-        //   showClose: true,
-        //   message: '恭喜你，这是一条成功',
+            //   message: '恭喜你，这是一条成功',
         //   type: 'warning',
+        //   showClose: true,
         //   duration:9922222
         // });
 

@@ -61,21 +61,13 @@ export default {
         }
     },
     methods:{
-        getAccount(){
-            // 获取账户信息
-            this.loading = true
-            this.$axios.getAccountInfo().then(res=>{
-                this.loading = false
-                if(res.data.success){
-                    this.accountInfo = res.data.data;
-                }
-            }).catch(err=>{
-                this.loading=false
-            })
-        },
     },
     created(){
-        this.getAccount()
+        this.loading = true
+        this.$getAccount().then(data=>{
+            this.loading = false
+            this.accountInfo = data
+        })
     }
 }
 </script>

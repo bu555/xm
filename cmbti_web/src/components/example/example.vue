@@ -3,7 +3,7 @@
     <NavMain></NavMain>
 
     <!--<div style="width:2rem;height:2rem;background:#ccc">rem测试</div>-->
-    <NavSub :data="data" @inputSearch="currentSearch" @submitSearch="search"></NavSub>
+    <NavSub :data="data"  @submitSearch="search"></NavSub>
     <div class="bx">
         <!--在线数据-->
         <div class="example-list"  v-if="exampleList_bk"> 
@@ -104,31 +104,25 @@ export default {
 
         }
     },
+    watch:{
+        '$route.query':'getExamp',
+    },
     components:{
         NavSub,
         NavMain
     },
     methods:{
-        // 当前搜索框内容
-        currentSearch(val){
-            this.searchName = val
-            if(!this.searchName && !this.$route.query.type){
-                this.$router.push({query:{type:'all'}})
-            }
-        },
-        // blurHandler(e){
-        //     e.target.style.borderColor = '#778b9d'
-        //     if(!this.searchName && !this.$route.query.type){
-        //         this.$router.push({query:{type:'all'}})
-        //     }
-        // },
-        search(){
+        search(value){
+            console.log('value:',value);
+            this.searchName = value
             if(this.searchName){
-                let search = this.$route.query.s
                 this.$router.push({query:{s:this.searchName}})
-                if(search===this.searchName){
-                    this.getExamp({ name:search,page:1 })
-                }
+                // let search = this.$route.query.s
+                // this.$router.push({query:{s:this.searchName}})
+                // if(search===this.searchName){
+                //     this.getExamp({ name:search,page:1 })
+                // }
+            //  清空输入框
             }else{
                 this.$router.push({query:{type:'all'}})
             }
@@ -138,12 +132,22 @@ export default {
             query.page = e
             this.$router.push({query:query})
         },
-        getExamp(option){ //name(模糊),id,type（模糊）
+        getExamp(){ //name(模糊),id,type（模糊）
             // if(!option.name || !option.type || !option.id) return;
-            option.size = this.size;
+
+            let type = this.$route.query.type || ''
+            type = type==='all'?'':type
+            let page = this.$route.query.page || '1'
+            this.currentPage = Number(page)
             this.loading = true;
             this.$axios.searchExample({
-                params:option
+                params:{
+                    name:this.$route.query.s || '',
+                    type:type,
+                    page:page,
+                    size:this.size,
+                    strict:false, //非严格搜索
+                }
             }).then(res=>{
                 this.loading = false;
                 if(res.data.success){
@@ -204,30 +208,6 @@ export default {
                 }
 
         },
-        //根据query，调用函数获取对应数据
-        changeQuery(){
-            let query = this.$route.query
-            let type = query.type?query.type:'';
-            let search = query.s?query.s:'';
-            let page = query.page?query.page:1;
-            if(type){
-                if(type=='all'){
-                    // 获取全部
-                    this.getExamp({page:page})
-                }else{
-                    //根据type获取
-                    this.getExamp({ type:type,page:page })
-                }
-            }else if(search){
-                // 按name模糊搜索
-                this.getExamp({ name:search,page:page })
-                this.searchName = search
-            }
-            this.currentPage = Number(page)
-        }
-    },
-    watch:{
-        '$route.query':'changeQuery',
     },
     created(){
         // 设置菜单数据
@@ -240,12 +220,13 @@ export default {
         })
 
         // let search = this.$route.query.s?this.$route.query.s:''
-        let type = this.$route.query.type?this.$route.query.type:'';
-        if(!type){ //赋予默认type
-            this.$router.replace({query:{type:'all'}})
-        }else{
-            this.changeQuery()
-        }
+        // let type = this.$route.query.type?this.$route.query.type:'';
+        // if(!type){ //赋予默认type
+        //     this.$router.replace({query:{type:'all'}})
+        // }else{
+        //     this.getExamp()
+        // }
+        this.getExamp()
 
         // hex转rgba
         for(var key in this.color){
@@ -286,7 +267,7 @@ export default {
                 overflow: hidden; text-overflow:ellipsis;
                 margin:0 auto;
                 padding:0 3px;
-                width:90%;
+                width:80%;
                 height:auto;
                 border-radius:3px;
                 // cursor:pointer;
@@ -301,15 +282,17 @@ export default {
                 height:42px;
                 line-height: 42px;
                 font-weight:600;
+                color: #555;
             }
             .name {
                 font-size:15px;
                 padding:6px 0 6px;
                 font-weight:600;
+                color: #444;
             }
             .photo {
-                height:200px;
-                width:150px;
+                height:175px;
+                width:134px;
                 margin:0 auto;
                 overflow: hidden;
                 // position: relative;
@@ -366,7 +349,7 @@ export default {
             li {
                 flex:0 0 25%;
                 // text-align:center;
-                padding-left:1.05em;
+                padding-left:0.95em;
             }
         }
         .example-list .item {

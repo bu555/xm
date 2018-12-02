@@ -9,7 +9,7 @@
                     <template slot="title">
                         <i class="fa fa-pencil-square" style="padding:0 5px;font-size:1.2em"></i>
                         <span slot="title">
-                            文案编辑
+                            文案
                         </span>
                     </template>
                     <ul class="drop-list">

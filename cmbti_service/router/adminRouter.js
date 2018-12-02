@@ -23,7 +23,7 @@ const Types = ['entp','intp','entj','intj','enfp','infp','enfj','infj','estj','i
 const setDocument = async (req, res,next) => {
     let options = req.body
     if(!options.title || !options.content ||
-        (!options.key||Types.indexOf(options.key)===-1) ||
+        // (!options.key||Types.indexOf(options.key)===-1) ||
         (!options.category || Category.indexOf(options.category)===-1)  
     ){
         return res.json({
@@ -45,6 +45,7 @@ const setDocument = async (req, res,next) => {
             if(!err){   
                 data = JSON.parse(data)
                 let time = moment(new Date()).utc().format()
+                // 编辑
                 if(options.id){
                     let id_exists = false
                     for(let i=0;i<data.length;i++){
@@ -56,13 +57,26 @@ const setDocument = async (req, res,next) => {
                         }
                     }
                     if(!id_exists){
-                        throw '查无id'
+                        return res.json({
+                            success:false,
+                            data:null,
+                            message:'查无id'
+                        })
                     }
                 }else{
                     doc.c_time = time,
                     doc.e_time = time,
                     doc.id = myUtill.randomLowercaseString(9)
                     data.push(doc)
+                    for(let i=0;i<data.length;i++){
+                        if(data[i].key===options.key){
+                            return res.json({
+                                success:false,
+                                data:null,
+                                message:'key重复'
+                            })
+                        }
+                    }
                 }
                 fs.writeFile(flieName, JSON.stringify(data) ,function(err){
                     if(!err){       
@@ -127,32 +141,41 @@ const getDocument = async (req, res,next) => {
         fs.readFile(flieName, 'utf8', function(err, data){ 
             if(!err){  
                 data = JSON.parse(data)
+                let exists = false //是否存在
+                // id查找
                 if(options.id){
-                    let id_exists = false
                     for(let i=0;i<data.length;i++){
                         if(data[i].id===options.id){
                             data = [ data[i] ]
-                            id_exists = true
+                            exists = true
                             break
                         }
                     }
-                    if(!id_exists){
-                        throw '查无id'
+                // key查找
+                }else if(options.key){
+                    for(let i=0;i<data.length;i++){
+                        if(data[i].key===options.key){
+                            data = [ data[i] ]
+                            exists = true
+                            break
+                        }
                     }
                 }else{
+                    exists = true
                     for(let i=0;i<data.length;i++){
                         data[i].content = ''
                     }
-                }  
+                }
                 res.json({
-                    success:true,
-                    data:data
+                    success:exists ? true : false,
+                    data:exists ? data : null
                 })
+                
             }else{
                 res.json({
                     success:false,
                     data:null,
-                    message:'查询失败'
+                    message:'查询失败!'
                 })
             }
         });

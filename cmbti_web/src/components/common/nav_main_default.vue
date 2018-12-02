@@ -24,17 +24,17 @@
                 <li>
                     <router-link :to="'/test'" style="color:#ff9f09">
                         测试
-                        <p>正在热播</p>
+                        <p>人格测试</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/example?type=all&page=1" style="color:#9f7860">
+                    <router-link to="/example" style="color:#9f7860">
                         名人汇
                         <p>正在热播</p>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/forum?category=all&page=1" style="color:#4285f4">
+                    <router-link to="/forum" style="color:#4285f4">
                         论坛
                         <p>正在热播</p>
                     </router-link>
@@ -63,7 +63,9 @@
             </ul>
             <!-- 移动 更多logo   -->
             <div class="mb-logo" v-if="!$store.state.userInfo">
-              logo
+                <router-link to="/">
+                    <img src="/static/img/logo.png" alt="" style="display:inline-block;width:92px">
+                </router-link>
             </div>
             <!-- 移动 更多 登录或注册 -->
             <div class="login-reg">
@@ -84,10 +86,10 @@
                 </div>
                 <div class="not-login" v-else>
                     <router-link to="/user/login">
-                        登录XM
+                        登录
                     </router-link>
                     <router-link to="/user/register">
-                        注册XM
+                        注册
                     </router-link>
                 </div>
             </div>
@@ -331,10 +333,9 @@ export default {
             }
               .mb-logo {
                   display: block;
-                  height:40px;
-                  line-height: 40px;
                   border-top:1px solid #f7f7f7;
                   text-align:center;
+                  padding:12px 0;
               }
             .login-reg {
                   display: block;

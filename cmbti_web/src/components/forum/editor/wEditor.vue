@@ -43,7 +43,9 @@ export default{
             this.editor = new e('#editor') 
             this.editor.customConfig.networkImgHandler = (link,cmd) =>{
                 // 服务器下载返回
-                if( /^(\/upload\/)|(\/apis\/upload\/)/.test(link) ){
+                if( /^\/upload\//.test(link) || new RegExp('^'+process.env.API_HOST+'/upload').test(link) ){
+                    cmd.do('insertHTML','<img src="' + link + '">')
+                }else if(/^\/static\/img/.test(link)){
                     cmd.do('insertHTML','<img src="' + link + '">')
                 }else{
                     this.verifyImage(link).then(res=>{
@@ -56,7 +58,7 @@ export default{
                         }).catch(err=>{
                             this.$message({
                                 showClose: true,
-                                message: '服务端下载错误！',
+                                message: '图片上传错误！',
                                 type: 'error'
                             });
                         })
@@ -114,6 +116,7 @@ export default{
             })
             weText.addEventListener('input',()=>{
                 let content = this.editor.txt.html()
+                // content = content.replace(new RegExp(process.env.API_HOST,'g'),'')
                 this.$emit('changeContent',content)
             })
             // 如父组件有内容（即编辑）
@@ -225,5 +228,8 @@ export default{
         text-align:left;
         padding-left:.3em;
         color:#333;
+    }
+    .w-e-toolbar .w-e-droplist ul.w-e-list li.w-e-item {
+        padding-left:12px !important;
     }
 </style>

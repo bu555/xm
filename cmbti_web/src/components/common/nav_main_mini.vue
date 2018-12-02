@@ -18,12 +18,12 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/example?type=all&page=1">
+                    <router-link to="/example">
                         名人汇
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/forum?category=all&page=1">
+                    <router-link to="/forum">
                         论坛
                     </router-link>
                 </li>

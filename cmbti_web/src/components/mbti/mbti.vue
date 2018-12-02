@@ -32,7 +32,7 @@ export default {
                     },
                     {
                         value:'人格类型',
-                        link:'/mbti/personality/enfp',
+                        link:'/mbti/personality/entp',
                         reg:/\/mbti\/personality/
                     },
                     {

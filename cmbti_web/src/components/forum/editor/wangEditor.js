@@ -566,7 +566,7 @@ export default function(){
             'quote', 
             'emoticon', 
             'image', 
-            // 'table', 
+            'table', 
             // 'video', 
             // 'code', 
             'undo', 

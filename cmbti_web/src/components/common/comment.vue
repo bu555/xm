@@ -192,7 +192,10 @@ export default {
         'commentActive':function(){
             this.commentPage = 1
             this.getCommentByAid()
-        }
+        },
+        'aid':'getCommentByAid',
+        'eid':'getCommentByAid',
+        'accountCommentList':'getCommentByAid'
     },
     computed:{
         
@@ -326,17 +329,20 @@ export default {
             setTimeout(()=>{
                 this.firstClick = false
             },400)
+        },
+        init(){
+            if(this.accountCommentList){
+                this.accountComment = this.accountCommentList
+            }else if(this.aid || this.eid){
+                this.getCommentByAid()
+            }
         }
 
     },
     mounted(){
     },
     created(){
-        if(this.accountCommentList){
-            this.accountComment = this.accountCommentList
-        }else if(this.aid || this.eid){
-            this.getCommentByAid()
-        }
+        this.init()
     }
 }
 </script>
@@ -391,7 +397,7 @@ export default {
             background-color: #fff;
             .c-list {
                 // background: pink;
-                padding:12px 0px 3px 68px;
+                padding:12px 0px 3px 64px;
                 border-bottom:1px solid #f7f7f7;
                 position: relative;
                 color:#3c3c3c;
@@ -580,86 +586,18 @@ export default {
         }
     }
     @media screen and (max-width:525px) {
-        .main-box {
-            .a-header {
-                .title {
-                    padding:4% 2.5%;
-                    .h1 {
-                        padding-right:0;
-                        font-size:20px;
-                    }
-                    .t-info {
-                        .text {
-                            // padding-right:82px;
-                            background: #fcfcfc;
-                            .btns {
-                                // position: absolute;
-                                // right:0px;
-                                // top:5px;
-                            }
-                        }
-                        .author {
-                            position:relative;
-                            display:flex;
-                            justify-content:space-between;
-                            align-items:center;
-                            width:100%;
-                            top:0px;
-                            right:0px;
-                            background-color: #fcfcfc;
-                            padding:5px 5px;
-                            border-radius:3px;
-                            margin-top:4px;
-                            img {
-                                flex:0 0 auto;
-                                width:35px;
-                                height:35px;
-                                // border-radius:50%;
-                                border-radius:4px;
-                                border:1px solid #f5f5f5;
-                                display:block;
-                                margin:0;
-                            }
-                            &>span {
-                                display:block;
-                                margin:0;
-                                text-align:center;
-                            }
-                            .a-name {
-                                flex:1;
-                                text-align:left;
-                                font-size:14px;
-                                padding-left:5px;
-                            }
-                            .btns {
-                            }
-                        }
-
-                    }
-                    
-                }
-            }
-            .a-body {
-                padding:3% 2.5% 5% 3%;
-                font-size:17px;
-            }
             .comment {
                 // padding:2% 2.5% 2% 3%;
                 padding:0;
                 .c-body {
-                    padding:2% 2.5% 2% 3%;
                     .c-list {
-                        padding-left:45px;
+                        padding-left:58px;
                         .c-content {
                         }
                     }
                 }
 
             }
-            .main-ctrl {
-                padding:2% 2.5% 2% 4%;
-            }
-        }
     }
 }
 </style>

@@ -4,17 +4,21 @@
     <div class="h-news">
         <div class="h-news-inner">
             <div class="wrapper">
-                <!-- <img src="/static/img/si.jpg" alt=""> -->
-
-
-                <!-- <el-carousel trigger="click" height="202px">
-                <el-carousel-item v-for="item in 4" :key="item">
-                    <img src="/static/img/si.jpg" alt="">
-                </el-carousel-item>
-                </el-carousel> -->
-
-
-            <Wrapper></Wrapper>
+                    <!-- <Wrapper></Wrapper> -->
+                <el-carousel trigger="click" height="202px" :interval="5000">
+                    <el-carousel-item>
+                        <Wrapper></Wrapper>
+                    </el-carousel-item>
+                    <!-- <el-carousel-item>
+                        <img src="/static/img/banner_1.png" alt="">
+                    </el-carousel-item> -->
+                    <el-carousel-item>
+                        <img class="carousel-img" src="/static/img/banner_2.jpg" alt="">
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <img class="carousel-img" src="/static/img/banner_3.jpg" alt="">
+                    </el-carousel-item>
+                </el-carousel>
             </div>
             <div class="login">
                 <div v-if="$store.state.userInfo" class="is-login">
@@ -45,9 +49,10 @@
         </div>
     </div>
     <div class="h-main">
-        <div class="section s-mbti">
+        <!-- <div class="section s-mbti">
             <div class="title">
                 <h2><em>MBTI</em></h2>
+                <router-link to="/">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <ul class="content">
                 <li>什么是MBTI？</li>
@@ -55,10 +60,11 @@
                 <li>MBTI的历史</li>
                 <li>MBTI的发展</li>
             </ul>
-        </div>
+        </div> -->
         <div class="section s-examp">
             <div class="title">
                 <h2>名人汇</h2>
+                <router-link to="/example">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <ul class="content">
                     <li   v-for="(v,i) in exampleList" :key="i">
@@ -73,9 +79,20 @@
         <div class="section s-test">
             <div class="title">
                 <h2>测试</h2>
+                <router-link to="/test">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <ul class="content">
                 <li>
+                    <router-link to="/test/mbti">
+                        人格类型测试
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/test/function">
+                        八维功能测试
+                    </router-link>
+                </li>
+                <!-- <li>
                     <router-link to="/">
                         人格类型测试
                     </router-link>
@@ -84,22 +101,13 @@
                     <router-link to="/">
                         八维功能测试
                     </router-link>
-                </li>
-                <li>
-                    <router-link to="/">
-                        人格类型测试
-                    </router-link>
-                </li>
-                <li>
-                    <router-link to="/">
-                        八维功能测试
-                    </router-link>
-                </li>
+                </li> -->
             </ul>
         </div>
         <div class="section s-forum">
             <div class="title">
                 <h2>论坛</h2>
+                <router-link to="/forum">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <ul class="content">
                 <li   v-for="(v,i) in articleList" :key="i">
@@ -108,7 +116,7 @@
             </ul>
         </div>
         <div class="recommend">
-            <Aside></Aside>
+            <!-- <Aside></Aside> -->
         </div>
         
     </div>
@@ -143,7 +151,6 @@ export default {
                 this.loading = false;
                 if(res.data.success){
                         this.exampleList = res.data.result.example;
-                        this.exampleList = this.exampleList.concat(this.exampleList)
                 }else{
                 }
             }).catch(res=>{
@@ -197,6 +204,12 @@ export default {
         display:flex;
         .wrapper {
             flex:0 0 60%;
+            .carousel-img {
+                display:block;
+                width:100%;
+                height:100%;
+                object-fit: cover;
+            }
         }
         .login {
             flex:0 0 33%;
@@ -327,10 +340,22 @@ export default {
                 border-bottom:2px solid #c5e4de;
                 height:34px;
                 line-height:34px;
+                position: relative;
                 h2 {
                     font-size:17px;
                     em {
                         font-size:18px
+                    }
+                }
+                a {
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translate(0,-50%);
+                    font-size: 0.9em;
+                    color: #ccc;
+                    &:hover {
+                        color: #70a9e5;
                     }
                 }
             }
@@ -401,6 +426,9 @@ export default {
                         line-height:44px;
                         border-radius:5px;
                         padding-left:1.2em;
+                    }
+                    &:hover {
+                      text-shadow: 0 0 3px #fff;  
                     }
 
 

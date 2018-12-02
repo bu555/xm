@@ -4,6 +4,9 @@ const CommentModel = require('../models/schema/commentSchema')
 const moment = require('moment')
 const myUtill = require('../models/utill')
 const GrabWeb = require('../controllers/grabWeb')
+let cache = {
+    maxAge:1000
+}
 class Example{
     constructor(){
 
@@ -53,6 +56,7 @@ class Example{
                         birth: options.birth || '',
                         conste: options.conste || '', //星座
                         create_time: new Date(),
+                        update_time: new Date(),
                         like:[],
                         likes:0,
                         create_by:options.uid || ''
@@ -86,17 +90,18 @@ class Example{
             // 1.按name 模糊查询
             if(options.name){
                 if(options.strict){ //严格搜索
-                    pro = ExampleModel.example.findOne({ name:new RegExp('^'+options.name+'$','') });
+                    pro = ExampleModel.example.findOne({ name:new RegExp('^'+options.name+'$','') },"-like");
                 }else{
-                    pro = ExampleModel.example.find({ name:new RegExp(options.name,'i') });
+                    pro = ExampleModel.example.find({ name:new RegExp(options.name,'i') },"-like");
                 }
             // 2.按type 模糊查询
             }else if(options.type){
-                pro = ExampleModel.example.find({ type:new RegExp(options.type,'i') });
+                pro = ExampleModel.example.find({ type:new RegExp(options.type,'i') },"-like");
             // 3.查找所有
             }else{
-                pro = ExampleModel.example.find();
+                pro = ExampleModel.example.find({},"-like");
                 // return reject('params error')
+
             }
 
             // query.where({age:30});
@@ -197,6 +202,7 @@ class Example{
                         example.vote[options.result] = example.vote[options.result]+1
                         example.vote_log.push(options.uid)
                         example.total = example.vote_log.length
+                        example.update_time = new Date()
                         // type 、vote 、vote_log 验证 一致性（临时）
                         // let tempObj = {}
                         // example.vote_log.forEach((v,i)=>{

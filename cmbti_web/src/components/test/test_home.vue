@@ -58,6 +58,7 @@ export default {
         min-height:230px;
         justify-content: space-between;
         flex-wrap:wrap;
+        padding-top: 50px;
         li {
             flex:0 0 48%;
             height:82px;

@@ -535,6 +535,7 @@ const getUserInfoShow = (req, res) =>{
                 data:{
                     avatar:userInfo[0].avatar,
                     birth:userInfo[0].birth,
+                    province:userInfo[0].province,
                     city:userInfo[0].city,
                     r_name:userInfo[0].r_name,
                     profile:userInfo[0].profile,

@@ -60,10 +60,10 @@ app.use(session({
     cookie: {
       maxAge: 1000*60*60*72 // 设置返回的cookie时效  72小时
     },
-    store: new MongoStore({
-        url: db_uri,
-        mongoOptions: 'mySessions' // See below for details
-    })
+    // store: new MongoStore({
+    //     url: db_uri,
+    //     mongoOptions: 'mySessions' // See below for details
+    // })
     // store: new MongoDBStore({
     //           uri: db_uri,
     //           collection: 'mySessions'

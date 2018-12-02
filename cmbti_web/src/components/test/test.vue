@@ -64,7 +64,7 @@ export default {
             // border:1px solid pink;
             position:absolute;
             right:0px;
-            top:10px;
+            top:58px;
         }
 
     }

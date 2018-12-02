@@ -8,9 +8,7 @@
                 </li>
 
         </ul>
-        <div class="content">
-            <img class="func-img" :src="'/static/img/'+id+'.jpg'" alt="">
-            <div v-html="f8[id]"></div>
+        <div class="content editor-base-style" v-html="data.content">
         </div>
 </div> 
 </template>
@@ -19,25 +17,44 @@ import f8 from './f8'
 export default {
     data(){
         return {
-            id:'',
-            f8:f8
+            type:'',
+            loading:false,
+            data:{}
         }
     },
     components:{
     },
     watch:{
-        '$route.path':'getId'
+        '$route.path':'getData'
     },
     methods:{
-        getId(){
-            this.id = this.$route.path.split('/')[3]
+        getData(){
+            this.type = this.$route.path.split('/')[3]
+            // this.data.content = f8[this.type]
+            // return 
+            if(!this.type) return console.log('this type not default')
+            // 获取数据
+            this.loading = true
+            this.$axios.getDocument({
+                category:'func',
+                key:this.type
+            }).then(res=>{
+                this.loading = false
+                if(res.data.success){
+                    this.data = res.data.data[0]
+                }else{
+                    this.data = {content:'null'}
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
         }
     },
     mounted(){
 
     },
     created(){
-        this.getId()
+        this.getData()
     },
     
 };
